@@ -78,7 +78,7 @@ class SAWishListViewController: UIViewController {
         }
 
        // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
-        
+        cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
@@ -89,11 +89,13 @@ class SAWishListViewController: UIViewController {
 
     func navigateToSetUpSavingPlan(sender:UIButton) {
         print("Clicked on Wishlist button")
+
         let dict = ["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+        objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

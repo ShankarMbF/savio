@@ -212,7 +212,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             reEnterFourDigitPIN.hidden = true
             backButton.hidden = true
             confirmPIN .setTitle("Got It", forState: UIControlState.Normal)
-                backgroundScrollView.contentOffset = CGPointMake(0, 0)
+            backgroundScrollView.contentOffset = CGPointMake(0, 0)
             
         }
         
@@ -236,8 +236,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         else
         {
             //Navigate user to HurrayViewController to start Saving plan
-            let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-            self.navigationController?.pushViewController(objHurrrayView, animated: true)
+            let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
+            self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
         }
         
         

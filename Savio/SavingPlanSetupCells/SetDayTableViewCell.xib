@@ -70,10 +70,19 @@
                             <constraint firstAttribute="width" constant="105" id="aLy-Xs-j0W"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown.png" translatesAutoresizingMaskIntoConstraints="NO" id="LrU-of-bI0">
+                        <rect key="frame" x="270" y="36" width="16" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="ovA-Ub-ke0"/>
+                            <constraint firstAttribute="height" constant="18" id="rtm-L0-bpe"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="LrU-of-bI0" secondAttribute="bottom" constant="10" id="CyM-bX-jvo"/>
                     <constraint firstItem="zoB-ec-eUM" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="55" id="JyC-Ws-jZN"/>
                     <constraint firstItem="yeh-6F-lio" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Lo6-xE-cuk"/>
+                    <constraint firstItem="LrU-of-bI0" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="40" id="RxO-St-uhB"/>
                     <constraint firstItem="kC2-NW-yLo" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="SG7-tH-wgY"/>
                     <constraint firstItem="6PP-vq-H1I" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="TvS-jX-Cdu"/>
                     <constraint firstItem="6PP-vq-H1I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UDj-I9-T9F"/>
@@ -82,6 +91,7 @@
                     <constraint firstItem="zoB-ec-eUM" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="fS4-8b-G72"/>
                     <constraint firstAttribute="trailingMargin" secondItem="zoB-ec-eUM" secondAttribute="trailing" constant="-5" id="fZg-C5-dEH"/>
                     <constraint firstItem="VWM-ZP-KLb" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="3" id="h8J-69-IzP"/>
+                    <constraint firstItem="LrU-of-bI0" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="8" id="j9u-dP-BJB"/>
                     <constraint firstItem="VWM-ZP-KLb" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="8" id="rW6-i7-eSx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="VWM-ZP-KLb" secondAttribute="trailing" constant="26" id="wdx-ib-AxH"/>
                     <constraint firstAttribute="trailingMargin" secondItem="yeh-6F-lio" secondAttribute="trailing" id="x3M-eo-xpe"/>
@@ -93,7 +103,10 @@
                 <outlet property="segmentBar" destination="6PP-vq-H1I" id="bHB-lU-TEN"/>
                 <outlet property="setDayDateButton" destination="VWM-ZP-KLb" id="hkT-17-Is9"/>
             </connections>
-            <point key="canvasLocation" x="69" y="459.5"/>
+            <point key="canvasLocation" x="310" y="254.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="dropdown.png" width="15" height="18"/>
+    </resources>
 </document>

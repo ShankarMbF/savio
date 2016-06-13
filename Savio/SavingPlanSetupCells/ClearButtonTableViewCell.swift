@@ -10,6 +10,7 @@ import UIKit
 
 class ClearButtonTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var clearButton: UIButton!
        weak var tblView : UITableView?
     override func awakeFromNib() {
         super.awakeFromNib()

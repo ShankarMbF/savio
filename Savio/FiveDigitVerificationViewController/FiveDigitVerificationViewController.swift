@@ -66,7 +66,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             resentCodeButton.hidden = false
             backButton.hidden = false
             yourCodeSentLabel.hidden = true
-            
         }
         else
         {

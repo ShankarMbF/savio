@@ -65,6 +65,10 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
 
     func setUpDropDown(){
+//        if tf?.placeholder == "Select your Address"{
+//            arr.sortInPlace { sortTwoString($0, value2: $1) }
+//        }
+        arr.sortInPlace { sortTwoString($0, value2: $1) }
         dropDown.dataSource = arr
         print("\(arr)")
         
@@ -79,6 +83,13 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
     @IBAction func clickeOnDropDownArrow(sender:UIButton){
          self.setUpDropDown()
         self.showOrDismiss()
+    }
+    
+    
+    func sortTwoString(value1: String, value2: String) -> Bool {
+        // One string is alphabetically first.
+        // ... True means value1 precedes value2.
+        return value1 < value2;
     }
     
 }

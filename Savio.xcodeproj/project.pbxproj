@@ -286,6 +286,10 @@
 		C95CD61A1CF2C92100013200 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD6141CF2C92100013200 /* DropDown.swift */; };
 		C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD6151CF2C92100013200 /* DropDownCell.swift */; };
 		C95CD61C1CF2C92100013200 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95CD6161CF2C92100013200 /* DropDownCell.xib */; };
+		C96D5E511D0EAE8A00CE248D /* NumericTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D5E4F1D0EAE8A00CE248D /* NumericTextTableViewCell.swift */; };
+		C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96D5E501D0EAE8A00CE248D /* NumericTextTableViewCell.xib */; };
+		C96D5E551D0ED7B100CE248D /* EmailTxtTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96D5E531D0ED7B100CE248D /* EmailTxtTableViewCell.swift */; };
+		C96D5E561D0ED7B100CE248D /* EmailTxtTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96D5E541D0ED7B100CE248D /* EmailTxtTableViewCell.xib */; };
 		C975A90B1D01564E00184C8C /* divider-pound.png in Resources */ = {isa = PBXBuildFile; fileRef = C975A9081D01564D00184C8C /* divider-pound.png */; };
 		C975A90C1D01564E00184C8C /* divider-pound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C975A9091D01564D00184C8C /* divider-pound@2x.png */; };
 		C975A90D1D01564E00184C8C /* divider-pound@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C975A90A1D01564D00184C8C /* divider-pound@3x.png */; };
@@ -678,6 +682,10 @@
 		C95CD6141CF2C92100013200 /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
 		C95CD6151CF2C92100013200 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		C95CD6161CF2C92100013200 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		C96D5E4F1D0EAE8A00CE248D /* NumericTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericTextTableViewCell.swift; sourceTree = "<group>"; };
+		C96D5E501D0EAE8A00CE248D /* NumericTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumericTextTableViewCell.xib; sourceTree = "<group>"; };
+		C96D5E531D0ED7B100CE248D /* EmailTxtTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailTxtTableViewCell.swift; sourceTree = "<group>"; };
+		C96D5E541D0ED7B100CE248D /* EmailTxtTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmailTxtTableViewCell.xib; sourceTree = "<group>"; };
 		C975A9081D01564D00184C8C /* divider-pound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-pound.png"; sourceTree = "<group>"; };
 		C975A9091D01564D00184C8C /* divider-pound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-pound@2x.png"; sourceTree = "<group>"; };
 		C975A90A1D01564D00184C8C /* divider-pound@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-pound@3x.png"; sourceTree = "<group>"; };
@@ -1325,6 +1333,10 @@
 				C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */,
 				A850454A1CF823D8002E8B47 /* SwitchTableViewCell.swift */,
 				A850454B1CF823D8002E8B47 /* SwitchTableViewCell.xib */,
+				C96D5E4F1D0EAE8A00CE248D /* NumericTextTableViewCell.swift */,
+				C96D5E501D0EAE8A00CE248D /* NumericTextTableViewCell.xib */,
+				C96D5E531D0ED7B100CE248D /* EmailTxtTableViewCell.swift */,
+				C96D5E541D0ED7B100CE248D /* EmailTxtTableViewCell.xib */,
 			);
 			path = RegistrationCell;
 			sourceTree = "<group>";
@@ -1637,6 +1649,7 @@
 				C905719B1CFF020200ECC4FC /* SavingCategoryTableViewCell.xib in Resources */,
 				A8095C431CEDC616006366F7 /* pre-loader@2x3.png in Resources */,
 				C95CD60F1CF2C7EE00013200 /* PickerTextfildTableViewCell.xib in Resources */,
+				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
 				C975A93D1D01952900184C8C /* wedding-category-icon@2x.png in Resources */,
 				A8BDCBF61D05557500D4C47B /* ride-setup-bg@3x.png in Resources */,
 				A8095C6C1CEDC617006366F7 /* pre-loader@3x35.png in Resources */,
@@ -1692,6 +1705,7 @@
 				C9854A9A1CED9A5000D09AB3 /* SAWelcomViewController.xib in Resources */,
 				C9905FA71CED9EF700E63471 /* TxtFieldTableViewCell.xib in Resources */,
 				C9905FAD1CEDCD1A00E63471 /* Registration.json in Resources */,
+				C96D5E561D0ED7B100CE248D /* EmailTxtTableViewCell.xib in Resources */,
 				C9E854EF1CF43B25006213BF /* arrow_30x30.png in Resources */,
 				A8BDCBF01D05557500D4C47B /* home-calendar@3x.png in Resources */,
 				A858A5F21D08127C0097546F /* gadget-circle@3x.png in Resources */,
@@ -1871,6 +1885,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C96D5E511D0EAE8A00CE248D /* NumericTextTableViewCell.swift in Sources */,
 				A86681FF1CFF02010014DB59 /* SavingPlanDatePickerTableViewCell.swift in Sources */,
 				C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */,
 				A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */,
@@ -1897,6 +1912,7 @@
 				A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */,
 				A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */,
 				A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */,
+				C96D5E551D0ED7B100CE248D /* EmailTxtTableViewCell.swift in Sources */,
 				C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */,
 				C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */,
 				C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */,

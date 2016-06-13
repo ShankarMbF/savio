@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -19,8 +19,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var dateString = ""
     var popOverSelectedStr = ""
     var imageDataDict : Dictionary<String,AnyObject> = [:]
-    var offerCount = 0
     
+    var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
+    
+    var offerCount = 0
+    var userInfoDict  = Dictionary<String,AnyObject>()
     
     var isPopoverValueChanged = false
     override func viewDidLoad() {
@@ -46,6 +49,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView!.registerNib(UINib(nibName: "NextButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "NextButtonCellIdentifier")
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         
+        let objAPI = API()
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         self.setUpView()
         
@@ -54,6 +59,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setUpView(){
         
+        print(itemDetailsDataDict)
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -179,6 +185,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
             cell1.view = self.view
+            if(itemDetailsDataDict["title"] != nil)
+            {
+                cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+            }
             return cell1
         }
         else if(indexPath.section == 1){
@@ -186,6 +196,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.delegate = self
             cell1.view = self.view
+            if(itemDetailsDataDict["amount"] != nil)
+            {
+                if(itemDetailsDataDict["amount"] is String)
+                {
+                    cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
+                }
+                else
+                {
+                    cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                }
+                
+                cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+            }
             return cell1
         }
         else if(indexPath.section == 2){
@@ -227,19 +250,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
+            cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else if(indexPath.section == offerCount+6)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
+            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
-            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         
@@ -250,6 +275,73 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         dateDiff = date
     }
     
+    func clearButtonPressed()
+    {
+        let cell1 = tblView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier") as! SavingPlanTitleTableViewCell
+        cell1.titleTextField.text = ""
+        
+        let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
+        cell2.costTextField.text = " 0"
+        
+        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SavingPlanDatePickerTableViewCell
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+        cell3.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+    }
+    
+    func getParameters() -> Dictionary<String,AnyObject>
+    {
+        var parameterDict : Dictionary<String,AnyObject> = [:]
+        
+        
+        if(itemDetailsDataDict["title"] != nil)
+        {
+            parameterDict["title"] = itemDetailsDataDict["title"]
+        }
+        else{
+            let cell1 = tblView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier") as! SavingPlanTitleTableViewCell
+            parameterDict["title"] = cell1.titleTextField.text
+        }
+        
+        if(itemDetailsDataDict["amount"] != nil)
+        {
+            if(itemDetailsDataDict["amount"] is String)
+            {
+                parameterDict["price"] = itemDetailsDataDict["amount"]
+            }
+            else
+            {
+                parameterDict["price"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+            }
+        }
+        else{
+            
+            let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
+            parameterDict["price"] = cell2.costTextField.text
+        }
+        
+        
+        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SavingPlanDatePickerTableViewCell
+        parameterDict["payDate"] = cell3.datePickerTextField.text
+        
+        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+        
+        parameterDict["user_ID"] = userInfoDict["partyId"]
+        
+        parameterDict["payType"] = userInfoDict["cxvxc"]
+        
+        parameterDict["sav_id"] = "1"
+        
+        return parameterDict
+        
+    }
+    
+    func nextButtonPressed(sender:UIButton)
+    {
+        let objAPI = API()
+        objAPI.partySavingPlanDelegate = self
+        objAPI .createPartySavingPlan(self.getParameters())
+    }
     
     func closeOfferButtonPressed(sender:UIButton)
     {
@@ -373,5 +465,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     
+    //MARK: PartySavingplan methods
     
+    func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+    }
+    
+    func errorResponseForPartySavingPlanAPI(error: String) {
+        print(error)
+    }
 }

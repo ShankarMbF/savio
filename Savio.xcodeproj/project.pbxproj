@@ -193,6 +193,9 @@
 		A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */; };
 		A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B74C3A1CEDD13E003A5D9A /* DataProtectionPolicy.swift */; };
 		A8B74C3D1CEDD152003A5D9A /* DataProtectionPolicy.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B74C3C1CEDD152003A5D9A /* DataProtectionPolicy.xib */; };
+		A8BC96D61D0EB8B800535447 /* dropdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BC96D31D0EB8B800535447 /* dropdown@3x.png */; };
+		A8BC96D71D0EB8B800535447 /* dropdown.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BC96D41D0EB8B800535447 /* dropdown.png */; };
+		A8BC96D81D0EB8B800535447 /* dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BC96D51D0EB8B800535447 /* dropdown@2x.png */; };
 		A8BDCB851D053A0400D4C47B /* SAPopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */; };
 		A8BDCBD31D05557500D4C47B /* baby-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBA91D05557500D4C47B /* baby-calendar.png */; };
 		A8BDCBD41D05557500D4C47B /* baby-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBAA1D05557500D4C47B /* baby-calendar@2x.png */; };
@@ -586,6 +589,9 @@
 		A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClearButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A8B74C3A1CEDD13E003A5D9A /* DataProtectionPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProtectionPolicy.swift; sourceTree = "<group>"; };
 		A8B74C3C1CEDD152003A5D9A /* DataProtectionPolicy.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataProtectionPolicy.xib; sourceTree = "<group>"; };
+		A8BC96D31D0EB8B800535447 /* dropdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown@3x.png"; sourceTree = "<group>"; };
+		A8BC96D41D0EB8B800535447 /* dropdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdown.png; sourceTree = "<group>"; };
+		A8BC96D51D0EB8B800535447 /* dropdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown@2x.png"; sourceTree = "<group>"; };
 		A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAPopOverViewController.xib; sourceTree = "<group>"; };
 		A8BDCBA91D05557500D4C47B /* baby-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-calendar.png"; sourceTree = "<group>"; };
 		A8BDCBAA1D05557500D4C47B /* baby-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-calendar@2x.png"; sourceTree = "<group>"; };
@@ -1073,6 +1079,9 @@
 		A8BDCBA81D05557500D4C47B /* setupSavingPlan */ = {
 			isa = PBXGroup;
 			children = (
+				A8BC96D31D0EB8B800535447 /* dropdown@3x.png */,
+				A8BC96D41D0EB8B800535447 /* dropdown.png */,
+				A8BC96D51D0EB8B800535447 /* dropdown@2x.png */,
 				A858A5D51D08127B0097546F /* baby-circle@2x.png */,
 				A858A5D61D08127B0097546F /* baby-circle@3x.png */,
 				A858A5D71D08127B0097546F /* baby-circle.png */,
@@ -1623,6 +1632,7 @@
 				C91E23F91D02D0D700DC6D29 /* nav-heart-fill@2x.png in Resources */,
 				C91E23FE1D02D0D700DC6D29 /* nav-heart@3x.png in Resources */,
 				C91E23F21D02C84F00DC6D29 /* nav-menu@3x.png in Resources */,
+				A8BC96D71D0EB8B800535447 /* dropdown.png in Resources */,
 				A8095C6E1CEDC617006366F7 /* pre-loader@3x5.png in Resources */,
 				A8BDCBD81D05557500D4C47B /* gadget-calendar@3x.png in Resources */,
 				C975A92D1D01952900184C8C /* generic-category-icon.png in Resources */,
@@ -1819,9 +1829,11 @@
 				A8095C391CEDC616006366F7 /* pre-loader@2x20.png in Resources */,
 				C90D39D61D06CACA00F285BB /* detail-arrow-up@2x.png in Resources */,
 				A8BDCBE51D05557500D4C47B /* groupsave-setup-bg.png in Resources */,
+				A8BC96D61D0EB8B800535447 /* dropdown@3x.png in Resources */,
 				A8BDCBFC1D05557500D4C47B /* wedding-setup-bg@2x.png in Resources */,
 				C975A9361D01952900184C8C /* home-category-icon.png in Resources */,
 				A8392A411CEEE0C200C7EE48 /* gotham-rounded-book-2.otf in Resources */,
+				A8BC96D81D0EB8B800535447 /* dropdown@2x.png in Resources */,
 				A8BDCBE71D05557500D4C47B /* groupsave-setup-bg@3x.png in Resources */,
 				C975A9371D01952900184C8C /* home-category-icon@2x.png in Resources */,
 				A8392A431CEEE0C200C7EE48 /* GothamRounded-Medium.otf in Resources */,

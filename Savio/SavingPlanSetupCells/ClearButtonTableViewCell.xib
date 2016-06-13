@@ -39,6 +39,9 @@
                     <constraint firstItem="oj0-gm-vUx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ctY-8n-eoF"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="clearButton" destination="oj0-gm-vUx" id="W8O-Wr-Lfn"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

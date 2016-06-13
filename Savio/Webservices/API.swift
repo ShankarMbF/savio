@@ -62,6 +62,12 @@ protocol GetWishlistDelegate{
     func successResponseForGetWishlistAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetWishlistAPI(error:String)
 }
+
+protocol PartySavingPlanDelegate{
+    
+    func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForPartySavingPlanAPI(error:String)
+}
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -71,6 +77,7 @@ class API: UIView {
     var resetPasscodeDelegate : ResetPasscodeDelegate?
     var shareExtensionDelegate : ShareExtensionDelegate?
     var getWishlistDelegate : GetWishlistDelegate?
+    var partySavingPlanDelegate : PartySavingPlanDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -483,6 +490,58 @@ class API: UIView {
         
     }
     
+    
+    func createPartySavingPlan(dict:Dictionary<String,AnyObject>)
+    {
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        print(dict)
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
+            request.HTTPMethod = "POST"
+            
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
+                        }
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else{
+            self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+        }
+    }
     
     func getWishListForUser(userId : String)
     {

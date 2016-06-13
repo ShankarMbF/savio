@@ -24,6 +24,9 @@
                         <rect key="frame" x="30" y="3" width="260" height="44"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="ZoE-yk-WfP"/>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>
@@ -33,7 +36,31 @@
                     <constraint firstItem="sBW-yu-7wk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="22" id="srw-tm-OPh"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="tf" destination="sBW-yu-7wk" id="vlG-1S-wk9"/>
+                <outlet property="tlBar" destination="2fl-HP-Z8L" id="FwF-s1-79m"/>
+            </connections>
             <point key="canvasLocation" x="433" y="303"/>
         </tableViewCell>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="2fl-HP-Z8L">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem title="Cancel" id="Jbs-2u-tYS">
+                    <color key="tintColor" red="1" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="clickOnCancelBtn" destination="KGk-i7-Jjw" id="2la-RJ-7gf"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem style="plain" systemItem="flexibleSpace" id="Iva-Ml-5Au"/>
+                <barButtonItem title="Done" id="Zol-yP-Ske">
+                    <color key="tintColor" red="1" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="clickOnDoneBtn" destination="KGk-i7-Jjw" id="kRA-tD-jdt"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <point key="canvasLocation" x="429" y="455"/>
+        </toolbar>
     </objects>
 </document>

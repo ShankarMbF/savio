@@ -8,7 +8,7 @@
 
 import UIKit
 //Extend all delegates which are required
-class SARegistrationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,linkButtonTableViewCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,OTPSentDelegate{
+class SARegistrationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,linkButtonTableViewCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NumericTxtTableViewCellDelegate{
     
     @IBOutlet weak var tblView: UITableView!
     var arrRegistration  = [Dictionary <String, AnyObject>]()     //Array for hold json file data to create UI
@@ -270,6 +270,20 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 arrRegistrationFields.append(cell)
             }
             
+            if dict["classType"]!.isEqualToString("NumericTextTableViewCell"){
+                let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
+                let cell = bundleArr[0] as! NumericTextTableViewCell
+                cell.delegate = self
+                cell.tblView = tblView
+                cell.tf?.textColor = UIColor.blackColor()
+                cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
+                
+                let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
+                cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+
+                 arrRegistrationFields.append(cell)
+            }
+            
             if dict["classType"]!.isEqualToString("DropDownTxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! DropDownTxtFieldTableViewCell
@@ -460,6 +474,9 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
     }
     
+    func numericCellText(txtFldCell: NumericTextTableViewCell) {
+         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+    }
     
     func buttonClicked(sender:UIButton){
         
@@ -479,8 +496,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell){
                     }
                 }
-
-                
                 
                 //Webservice call
                 if(firstName == dict["first_name"] as! String || lastName == dict["second_name"] as! String || dateOfBirth == dict["date_of_birth"] as! String)
@@ -921,6 +936,49 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 dict = arrRegistration[6]as Dictionary<String,AnyObject>
                 idx = 6
             }
+            
+            if arrRegistrationFields[i].isKindOfClass(NumericTextTableViewCell){
+                let cell = arrRegistrationFields[i] as! NumericTextTableViewCell
+                let str = cell.tf?.text
+                
+                    if str==""{
+                        errorFLag = true
+                        errorMsg = "Don't forget your mobile number"
+                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                        //                        dictForTextFieldValue["errorTxt"] = errorMsg
+                        
+                    }
+                        
+                        //                    else{
+                        //                        dictForTextFieldValue.removeValueForKey("errorMobile")
+                        //                    }
+                        
+                    else  if(self.checkTextFieldContentCharacters(str!) == true || self.phoneNumberValidation(str!)==false){
+                        errorFLag = true
+                        errorMsg = "That mobile number doesn’t look right"
+                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                    }
+                    else if(str?.characters.count < 10)
+                    {
+                        errorFLag = true
+                        errorMsg = "That mobile number should be greater than 10 digits"
+                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                    }
+                    else if(str?.characters.count > 16)
+                    {
+                        errorFLag = true
+                        errorMsg = "That mobile number should be of 15 digits"
+                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                    }
+                    else{
+                        dictForTextFieldValue.removeValueForKey("errorMobileValidation")
+                    }
+                    
+                    dict = arrRegistration[18]as Dictionary<String,AnyObject>
+                    idx = 18
+                
+        }
+
             
             if arrRegistrationFields[i].isKindOfClass(PickerTextfildTableViewCell){
                 let cell = arrRegistrationFields[i] as! PickerTextfildTableViewCell

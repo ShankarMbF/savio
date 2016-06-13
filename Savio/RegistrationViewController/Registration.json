@@ -221,7 +221,7 @@
 		"Height": 35
 	},
 	{
-		"classType":"TxtFieldTableViewCell",
+		"classType":"NumericTextTableViewCell",
 		"metaData":{
 						"textField1":{
 							"placeholder":"Mobile number",

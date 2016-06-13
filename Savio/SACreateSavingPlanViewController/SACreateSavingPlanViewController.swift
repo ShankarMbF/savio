@@ -19,6 +19,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var suggestedTop: NSLayoutConstraint!
     @IBOutlet weak var suggestedY: NSLayoutConstraint!
     @IBOutlet weak var suggestedHt: NSLayoutConstraint!
+    
+    var objAnimView = ImageViewAnimation()
+
+    
+    var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
     var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal betweenfriends and family"],["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos"],["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival"],["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!"],["image":"ride-category-icon","header":"Ride","detail":"There's always room for another bike."],["image":"home-category-icon","header":"Home","detail":"Time to make that project a reality."],["image":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines."],["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
@@ -30,10 +35,15 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         self.setUpView()
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
         
+        self.view.addSubview(objAnimView)
         let objAPI = API()
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
+        
         if(userDict["partyId"] is String)
         {
             objAPI.getWishListForUser(userDict["partyId"] as! String)
@@ -83,23 +93,27 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.title = "Create a saving plan"
         //set Navigation right button nav-heart
         
-        let btnName = UIButton()
-        //        btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        heartBtn.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+        heartBtn.frame = CGRectMake(0, 0, 30, 30)
+        heartBtn.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        let heartCount:String = String(format: "%d",colors.count)
+        heartBtn.setTitle(heartCount, forState: UIControlState.Normal)
+        heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+        heartBtn.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         let rightBarButton = UIBarButtonItem()
-        rightBarButton.customView = btnName
+        rightBarButton.customView = heartBtn
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.configureScrollView()
-        
     }
     
     func configureScrollView() {
+        if self.scrlView!.subviews.count > 0 {
+            for subview in self.scrlView!.subviews{
+                subview.removeFromSuperview()
+            }
+        }
+        
         // Enable paging.
         scrlView!.pagingEnabled = true
         // Set the following flag values.
@@ -112,6 +126,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         // Load the PageView view from the TestView.xib file and configure it properly.
         if colors.count > 0{
             for i in 0 ..< colors.count {
+                 heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+
+
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
                 // Set its frame and data to pageview
@@ -139,8 +157,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 {
                     lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                 }
-                
-
                
                 lblCost.hidden = false
                 
@@ -169,7 +185,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview
-            testView.frame = CGRectMake(0, -64, testView.frame.size.width, scrlView!.frame.size.height)
+            testView.frame = CGRectMake(scrlView!.bounds.origin.x, -64, testView.frame.size.width, scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
             vw.layer.borderWidth = 1
             vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -222,8 +238,18 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func heartBtnClicked(){
-        let objSAWishListViewController = SAWishListViewController()
-        self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        if colors.count>0{
+            let objSAWishListViewController = SAWishListViewController()
+            objSAWishListViewController.wishListArray = colors
+            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+        
+        //        let objSAWishListViewController = SAWishListViewController()
+        //        self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
     }
     
     // MARK: IBAction method implementation
@@ -284,10 +310,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
        
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
         self.setUpView()
+        objAnimView.removeFromSuperview()
     }
     
     func errorResponseForGetWishlistAPI(error: String) {
         print(error)
+        objAnimView.removeFromSuperview()
     }
     
     

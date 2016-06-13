@@ -23,7 +23,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ex9-nW-iG7">
                         <rect key="frame" x="30" y="3" width="260" height="44"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="wkX-CZ-qEj"/>
                         </connections>

@@ -698,14 +698,9 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             return false
         }
     }
-
-    
-    
     
     func acceptPolicy(obj:ImportantInformationView){
         var dict = self.getAllValuesFromTxtFild()
-        
-        
         let objAPI = API()
         print("DictPara:\(dict)")
        // objAPI.storeValueInKeychainForKey("myUserInfo", value: dict)
@@ -716,12 +711,9 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             objAnimView!.frame = self.view.frame
             objAnimView?.animate()
             self.view.addSubview(objAnimView!)
-            
-            
             objAPI.delegate = self
             objAPI.registerTheUserWithTitle(dict,apiName: "Customers")
             return
-            
         }
         else{
             if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
@@ -730,11 +722,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 objAnimView!.frame = self.view.frame
                 objAnimView?.animate()
                 self.view.addSubview(objAnimView!)
-                
-                
                 objAPI.delegate = self
                 objAPI.registerTheUserWithTitle(dict,apiName: "Customers")
-                
             }
             else
             {
@@ -743,8 +732,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
-        
-        
     }
     
     //Function checking textfield content only number or not
@@ -767,7 +754,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             return false
         }
     }
-    
     
     func checkTextFiledValidation()->Bool{
         var returnFlag = false

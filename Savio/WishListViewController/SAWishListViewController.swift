@@ -88,8 +88,6 @@ class SAWishListViewController: UIViewController {
     }
 
     func navigateToSetUpSavingPlan(sender:UIButton) {
-        print("Clicked on Wishlist button")
-
         let dict = ["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()

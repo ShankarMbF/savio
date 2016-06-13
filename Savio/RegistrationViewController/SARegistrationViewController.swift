@@ -61,6 +61,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("ErrorTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! ErrorTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 let tfTitleDict = metadataDict["lable"]as! Dictionary<String,AnyObject>
                 //Set Error messages to error lable
                 cell.lblError?.text = tfTitleDict["title"] as? String
@@ -75,6 +76,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("TitleTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! TitleTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.dict = dict
@@ -117,6 +119,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("TxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! TxtFieldTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
@@ -200,6 +203,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("PickerTextfildTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! PickerTextfildTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
@@ -216,6 +220,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("FindAddressTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! FindAddressTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
 //                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
@@ -247,6 +252,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("linkButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! linkButtonTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 let btnPostcodeDict = metadataDict["button"]as! Dictionary<String,AnyObject>
@@ -263,6 +269,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("ButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! ButtonTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 let btnPostcodeDict = metadataDict["button"]as! Dictionary<String,AnyObject>
@@ -273,6 +280,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("NumericTextTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! NumericTextTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
@@ -305,6 +313,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("EmailTxtTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! EmailTxtTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
@@ -337,6 +346,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if dict["classType"]!.isEqualToString("DropDownTxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! DropDownTxtFieldTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.dict = dict
@@ -644,6 +654,18 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if arrRegistrationFields[i].isKindOfClass(FindAddressTableViewCell){
                 let cell = arrRegistrationFields[i] as! FindAddressTableViewCell
                 dict["post_code"] = cell.tfPostCode?.text
+                //                dict["post_code"] = "se19dy"
+            }
+            
+            if arrRegistrationFields[i].isKindOfClass(NumericTextTableViewCell){
+                let cell = arrRegistrationFields[i] as! NumericTextTableViewCell
+                dict["phone_number"] = cell.tf?.text
+                //                dict["post_code"] = "se19dy"
+            }
+            
+            if arrRegistrationFields[i].isKindOfClass(EmailTxtTableViewCell){
+                let cell = arrRegistrationFields[i] as! EmailTxtTableViewCell
+                dict["email"] = cell.tf?.text
                 //                dict["post_code"] = "se19dy"
             }
             
@@ -1035,9 +1057,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             if arrRegistrationFields[i].isKindOfClass(EmailTxtTableViewCell){
                 let cell = arrRegistrationFields[i] as! EmailTxtTableViewCell
                 let str = cell.tf?.text
-                
-                
-                
                 if str==""{
                     errorFLag = true
                     errorMsg = "Don't forget your email address"
@@ -1047,7 +1066,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     
                 else{
                     dictForTextFieldValue.removeValueForKey("errorEmail")
-                    
                 }
                 
                 if str?.characters.count>0 && (self.isValidEmail(str!)==false){
@@ -1061,7 +1079,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 dict = arrRegistration[20]as Dictionary<String,AnyObject>
                 idx = 20
-                
             }
 
             

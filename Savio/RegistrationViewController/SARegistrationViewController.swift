@@ -8,7 +8,7 @@
 
 import UIKit
 //Extend all delegates which are required
-class SARegistrationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,linkButtonTableViewCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NumericTxtTableViewCellDelegate{
+class SARegistrationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,linkButtonTableViewCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate{
     
     @IBOutlet weak var tblView: UITableView!
     var arrRegistration  = [Dictionary <String, AnyObject>]()     //Array for hold json file data to create UI
@@ -279,9 +279,59 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
+                
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
-
+                
+                if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
+                    cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
+                }
+                
+                if (dictForTextFieldValue["errorMobile"] != nil && cell.tf?.placeholder == "Mobile number") {
+                    let str = dictForTextFieldValue["errorMobile"]
+                    if (str!.isEqualToString("Don't forget your mobile number")){
+                        cell.tf?.layer.borderColor = UIColor.redColor().CGColor
+                    }
+                }
+                if (dictForTextFieldValue["errorMobileValidation"] != nil && cell.tf?.placeholder == "Mobile number") {
+                    let str = dictForTextFieldValue["errorMobileValidation"]
+                    if (str!.isEqualToString("That mobile number doesn’t look right")){
+                        cell.tf?.textColor = UIColor.redColor()
+                        cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
+                    }
+                }
                  arrRegistrationFields.append(cell)
+            }
+            
+            if dict["classType"]!.isEqualToString("EmailTxtTableViewCell"){
+                let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
+                let cell = bundleArr[0] as! EmailTxtTableViewCell
+                cell.delegate = self
+                cell.tblView = tblView
+                cell.tf?.textColor = UIColor.blackColor()
+                cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
+                
+                let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
+                
+                cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+                
+                if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
+                    cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
+                }
+                
+                if (dictForTextFieldValue["errorEmail"] != nil && cell.tf?.placeholder == "Email") {
+                    let str = dictForTextFieldValue["errorEmail"]
+                    if (str!.isEqualToString("Don't forget your email address")){
+                        cell.tf?.layer.borderColor = UIColor.redColor().CGColor
+                    }
+                }
+                if (dictForTextFieldValue["errorEmailValid"] != nil && cell.tf?.placeholder == "Email") {
+                    let str = dictForTextFieldValue["errorEmailValid"]
+                    if (str!.isEqualToString("That email address doesn’t look right")){
+                        cell.tf?.textColor = UIColor.redColor()
+                        cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
+                    }
+                }
+                arrRegistrationFields.append(cell)
             }
             
             if dict["classType"]!.isEqualToString("DropDownTxtFieldTableViewCell"){
@@ -476,6 +526,10 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     
     func numericCellText(txtFldCell: NumericTextTableViewCell) {
          dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+    }
+    
+    func emailCellText(txtFldCell:EmailTxtTableViewCell){
+        dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
     }
     
     func buttonClicked(sender:UIButton){
@@ -978,6 +1032,37 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     idx = 18
                 
         }
+            if arrRegistrationFields[i].isKindOfClass(EmailTxtTableViewCell){
+                let cell = arrRegistrationFields[i] as! EmailTxtTableViewCell
+                let str = cell.tf?.text
+                
+                
+                
+                if str==""{
+                    errorFLag = true
+                    errorMsg = "Don't forget your email address"
+                    //                        dictForTextFieldValue["errorTxt"] = errorMsg
+                    dictForTextFieldValue["errorEmail"] = errorMsg
+                }
+                    
+                else{
+                    dictForTextFieldValue.removeValueForKey("errorEmail")
+                    
+                }
+                
+                if str?.characters.count>0 && (self.isValidEmail(str!)==false){
+                    errorFLag = true
+                    errorMsg = "That email address doesn’t look right"
+                    //                        dictForTextFieldValue["errorTxt"] = errorMsg
+                    dictForTextFieldValue["errorEmailValid"] = errorMsg
+                }
+                else{
+                    dictForTextFieldValue.removeValueForKey("errorEmailValid")
+                }
+                dict = arrRegistration[20]as Dictionary<String,AnyObject>
+                idx = 20
+                
+            }
 
             
             if arrRegistrationFields[i].isKindOfClass(PickerTextfildTableViewCell){

@@ -23,6 +23,7 @@ class SAEnterPhoneNumberViewController: UIViewController {
     }
     
     @IBAction func onClickBackButton(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     @IBAction func onClickAcceptButton(sender: AnyObject) {
     }

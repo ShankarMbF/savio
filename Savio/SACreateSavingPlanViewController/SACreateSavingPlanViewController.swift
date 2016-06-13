@@ -19,7 +19,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var suggestedTop: NSLayoutConstraint!
     @IBOutlet weak var suggestedY: NSLayoutConstraint!
     @IBOutlet weak var suggestedHt: NSLayoutConstraint!
-    var colors:[UIColor] = [UIColor.redColor(), UIColor.blueColor(), UIColor.greenColor(), UIColor.yellowColor()]
+    var colors:[Dictionary<String,AnyObject>] = []
     var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal betweenfriends and family"],["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos"],["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival"],["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!"],["image":"ride-category-icon","header":"Ride","detail":"There's always room for another bike."],["image":"home-category-icon","header":"Home","detail":"Time to make that project a reality."],["image":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines."],["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
@@ -34,17 +34,25 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let objAPI = API()
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
-        objAPI.getWishListForUser(userDict["partyId"] as! String)
-        
-        
-        let isShowFull = true
-        if isShowFull == true {
-            suggestedHt.constant = 50.0
-            suggestedTop.constant = -52.0
-            btnWishList?.hidden = true
-            pageControl?.hidden = true
-            lblLine?.hidden = true
+        if(userDict["partyId"] is String)
+        {
+            objAPI.getWishListForUser(userDict["partyId"] as! String)
         }
+        else
+        {
+            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+        }
+        
+        
+//        
+//        let isShowFull = true
+//        if isShowFull == true {
+//            suggestedHt.constant = 50.0
+//            suggestedTop.constant = -52.0
+//            btnWishList?.hidden = true
+//            pageControl?.hidden = true
+//            lblLine?.hidden = true
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -87,8 +95,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
         self.configureScrollView()
+        
     }
     
     func configureScrollView() {
@@ -101,30 +109,57 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         // Set the scrollview content size.
         scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
-        let count = 0
         // Load the PageView view from the TestView.xib file and configure it properly.
-        if count > 0{
+        if colors.count > 0{
             for i in 0 ..< colors.count {
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
                 // Set its frame and data to pageview
-                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, -64, testView.frame.size.width, scrlView!.frame.size.height)
+                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, -64, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
                 let vw = testView.viewWithTag(2)! as UIView
                 vw.layer.borderWidth = 1
                 vw.layer.borderColor = UIColor.whiteColor().CGColor
+                
+                let objDict = colors[i] as Dictionary<String,AnyObject>
+                
                 let lblNoWishList = testView.viewWithTag(5)! as! UILabel
                 lblNoWishList.hidden = true
                 
                 let lblTitle = testView.viewWithTag(3)! as! UILabel
+                lblTitle.text = objDict["title"] as? String
                 lblTitle.hidden = false
                 
                 let lblCost = testView.viewWithTag(4)! as! UILabel
+                
+                if(objDict["amount"] is String)
+                {
+                    lblCost.text = objDict["amount"] as? String
+                }
+                else
+                {
+                    lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
+                }
+                
+
+               
                 lblCost.hidden = false
                 
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
                 imgEuro.hidden = false
                 
-                
+                suggestedHt.constant = 113.0
+                suggestedTop.constant = 16.0
+                btnWishList?.hidden = false
+                pageControl?.hidden = false
+                if(colors.count >= 5)
+                {
+                   pageControl?.numberOfPages = 5
+                }
+                else{
+                    pageControl?.numberOfPages = colors.count
+                }
+       
+                lblLine?.hidden = false
                 
                 // Add the test view as a subview to the scrollview.
                 scrlView!.addSubview(testView)
@@ -149,11 +184,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let imgEuro = testView.viewWithTag(6)! as! UIImageView
             imgEuro.hidden = true
             
-            
+            suggestedHt.constant = 50.0
+            suggestedTop.constant = -52.0
+            btnWishList?.hidden = true
+            pageControl?.hidden = true
+            lblLine?.hidden = true
             // Add the test view as a subview to the scrollview.
             scrlView!.addSubview(testView)
         }
     }
+    
+    
     
     //Function invoking for configure the page control for animated pages
     func configurePageControl() {
@@ -174,10 +215,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: Bar button action
     func menuButtonClicked(){
-//        let objAPI = API()
-//        //  let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-//        objAPI.getWishlistDelegate = self
-//        objAPI.getWishListForUser("196")
+        //        let objAPI = API()
+        //        //  let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        //        objAPI.getWishlistDelegate = self
+        //        objAPI.getWishListForUser("196")
     }
     
     func heartBtnClicked(){
@@ -195,7 +236,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     @IBAction func clickedOnWishListButton(sender:UIButton){
         print("Clicked on Wishlist button")
-        let objSAWishListViewController = SASavingSummaryViewController()
+        let objSAWishListViewController = SAWishListViewController()
+        objSAWishListViewController.wishListArray = colors
         self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
     }
     
@@ -238,14 +280,27 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: GetWishlist Delegate and Datasource method
     
-    func successResponseForResetPasscodeAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+       
+        colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+        self.setUpView()
     }
     
-    func errorResponseForOTPResetPasscodeAPI(error: String) {
+    func errorResponseForGetWishlistAPI(error: String) {
         print(error)
     }
     
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height
+    }
     /*
      // MARK: - Navigation
      

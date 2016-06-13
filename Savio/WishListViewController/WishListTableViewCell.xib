@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -29,6 +29,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRn-Ud-mTf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O9T-JD-z7u">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lB-gg-S8l">
                                 <rect key="frame" x="60" y="35" width="200" height="123"/>
                                 <subviews>
@@ -36,15 +39,19 @@
                                         <rect key="frame" x="53" y="54" width="94" height="16"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPECIALIZED XC COMP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmj-W7-aCP">
-                                        <rect key="frame" x="54" y="16" width="92" height="29"/>
+                                        <rect key="frame" x="30" y="16" width="140" height="29"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="lmj-W7-aCP" secondAttribute="height" multiplier="92:29" id="cGW-dc-b1s"/>
+                                            <constraint firstAttribute="height" constant="29" id="2BT-sS-6bU"/>
                                             <constraint firstAttribute="width" constant="92" id="kWY-wO-bmj"/>
-                                            <constraint firstAttribute="height" constant="29" id="x6U-KN-fMJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="kWY-wO-bmj"/>
+                                            </mask>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1400" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5s-Ui-gQN">
                                         <rect key="frame" x="54" y="73" width="92" height="30"/>
@@ -60,11 +67,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="cFy-G2-efg" firstAttribute="top" secondItem="lmj-W7-aCP" secondAttribute="bottom" constant="9" id="8Qg-Q3-0bA"/>
                                     <constraint firstItem="cFy-G2-efg" firstAttribute="centerX" secondItem="0lB-gg-S8l" secondAttribute="centerX" id="8v9-7f-GAJ"/>
-                                    <constraint firstItem="lmj-W7-aCP" firstAttribute="centerX" secondItem="0lB-gg-S8l" secondAttribute="centerX" id="Ca8-Y2-o4X"/>
                                     <constraint firstItem="Z5s-Ui-gQN" firstAttribute="top" secondItem="cFy-G2-efg" secondAttribute="bottom" constant="3" id="DTy-qq-fRi"/>
-                                    <constraint firstItem="lmj-W7-aCP" firstAttribute="top" secondItem="0lB-gg-S8l" secondAttribute="top" constant="16" id="Gbc-Af-hWd"/>
+                                    <constraint firstAttribute="trailing" secondItem="lmj-W7-aCP" secondAttribute="trailing" constant="30" id="Hod-i6-48M"/>
                                     <constraint firstItem="Z5s-Ui-gQN" firstAttribute="centerX" secondItem="0lB-gg-S8l" secondAttribute="centerX" id="ZWy-ja-eC8"/>
+                                    <constraint firstItem="lmj-W7-aCP" firstAttribute="leading" secondItem="0lB-gg-S8l" secondAttribute="leading" constant="30" id="fkK-iq-ulK"/>
                                     <constraint firstItem="cFy-G2-efg" firstAttribute="centerY" secondItem="0lB-gg-S8l" secondAttribute="centerY" id="x1X-JT-kgW"/>
                                 </constraints>
                             </view>
@@ -72,9 +80,13 @@
                         <color key="backgroundColor" red="0.53333333329999999" green="0.5450980392" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0lB-gg-S8l" secondAttribute="trailing" constant="60" id="5Nw-AO-4WI"/>
+                            <constraint firstItem="O9T-JD-z7u" firstAttribute="height" secondItem="FRn-Ud-mTf" secondAttribute="height" id="8km-mR-cgu"/>
                             <constraint firstItem="0lB-gg-S8l" firstAttribute="leading" secondItem="FRn-Ud-mTf" secondAttribute="leading" constant="60" id="9Yb-EN-DlJ"/>
                             <constraint firstItem="0lB-gg-S8l" firstAttribute="top" secondItem="FRn-Ud-mTf" secondAttribute="top" constant="35" id="H8v-cS-fq9"/>
+                            <constraint firstItem="O9T-JD-z7u" firstAttribute="centerY" secondItem="FRn-Ud-mTf" secondAttribute="centerY" id="Qff-bC-udh"/>
                             <constraint firstAttribute="bottom" secondItem="0lB-gg-S8l" secondAttribute="bottom" constant="40" id="TtA-RB-PTI"/>
+                            <constraint firstItem="O9T-JD-z7u" firstAttribute="centerX" secondItem="FRn-Ud-mTf" secondAttribute="centerX" id="i5s-ji-mYX"/>
+                            <constraint firstItem="O9T-JD-z7u" firstAttribute="width" secondItem="FRn-Ud-mTf" secondAttribute="width" id="xqj-QM-kCb"/>
                             <constraint firstAttribute="height" constant="198" id="yWK-15-eg0"/>
                         </constraints>
                     </view>
@@ -114,6 +126,9 @@
             <connections>
                 <outlet property="btnDelete" destination="HNN-yJ-4tU" id="vLP-QX-Frv"/>
                 <outlet property="btnSavingPlan" destination="LNt-fg-IkF" id="qjO-Zh-rum"/>
+                <outlet property="imgView" destination="O9T-JD-z7u" id="6wv-kC-x7B"/>
+                <outlet property="lblPrice" destination="Z5s-Ui-gQN" id="gza-Za-gcz"/>
+                <outlet property="lblTitle" destination="lmj-W7-aCP" id="yLh-FC-QdQ"/>
                 <outlet property="vwProductDetail" destination="0lB-gg-S8l" id="MPX-c1-BU0"/>
             </connections>
             <point key="canvasLocation" x="341" y="332.5"/>

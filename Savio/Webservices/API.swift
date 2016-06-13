@@ -59,8 +59,8 @@ protocol ShareExtensionDelegate{
 
 protocol GetWishlistDelegate{
     
-    func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
-    func errorResponseForOTPResetPasscodeAPI(error:String)
+    func successResponseForGetWishlistAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForGetWishlistAPI(error:String)
 }
 class API: UIView {
     let session = NSURLSession.sharedSession()
@@ -462,13 +462,16 @@ class API: UIView {
                     print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        
-                        self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                        }
                     }
                     else
                     {
                         print(response?.description)
-                        self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
+                        }
                     }
                 }
             }
@@ -484,13 +487,9 @@ class API: UIView {
     func getWishListForUser(userId : String)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-
+        
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
-
-        
-//        let cookie = "3dd7a973-bbdc-470f-b66b-5d0b51961da3"//userInfoDict["cookie"] as! String
-//        let partyID = "174"//userInfoDict["partyId"] as! NSNumber
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -498,7 +497,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList?party_ID=174",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             print(request)
             
@@ -509,12 +508,17 @@ class API: UIView {
                     print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.getWishlistDelegate?.successResponseForGetWishlistAPI(dict)
+                        }
                     }
                     else
                     {
                         print(response?.description)
-                        self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getWishlistDelegate?.errorResponseForGetWishlistAPI((response?.description)!)
+                        }
                         
                         
                     }
@@ -524,7 +528,7 @@ class API: UIView {
             dataTask.resume()
         }
         else{
-            self.getWishlistDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
         }
         
     }

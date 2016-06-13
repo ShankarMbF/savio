@@ -23,12 +23,10 @@ class SwitchTableViewCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
     
     @IBAction func otpSwitchChanged(sender: UISwitch) {
-        
         if( sender.on)
         {
             otpLabel.text = "OTP will be send"
@@ -38,6 +36,5 @@ class SwitchTableViewCell: UITableViewCell {
             otpLabel.text = "OTP will not be send"
             delegate?.getStateOfSwitchClicked("OTP will not be send")
         }
-        
     }
 }

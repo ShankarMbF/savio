@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -26,11 +26,9 @@
                     <rect key="frame" x="60" y="35" width="480" height="525"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU HAVE NO ITMES IN YOUR WISHLIST. ADD THE THINGS YOU WANT TO SAVE UP FOR USING OUR BROWSER BOOKMARKLETS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daa-Wh-3j0">
-                            <rect key="frame" x="158" y="221" width="164" height="83"/>
+                            <rect key="frame" x="30" y="221" width="420" height="83"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="83" id="3UJ-cl-miN"/>
-                                <constraint firstAttribute="width" secondItem="daa-Wh-3j0" secondAttribute="height" multiplier="164:83" id="N8M-0e-7VB"/>
-                                <constraint firstAttribute="width" constant="164" id="e73-FU-DA2"/>
+                                <constraint firstAttribute="height" constant="83" id="1ty-eO-pIh"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="11"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -76,12 +74,14 @@
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="60C-95-wly"/>
                         <constraint firstAttribute="trailing" secondItem="uP2-Ie-Ro0" secondAttribute="trailing" constant="30" id="9T8-9y-Uyc"/>
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="top" secondItem="uP2-Ie-Ro0" secondAttribute="bottom" constant="3" id="FZH-zg-jsP"/>
+                        <constraint firstItem="daa-Wh-3j0" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="K4c-Sb-skf"/>
+                        <constraint firstAttribute="trailing" secondItem="daa-Wh-3j0" secondAttribute="trailing" constant="30" id="O4y-2P-N2M"/>
+                        <constraint firstItem="daa-Wh-3j0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="Y3i-RN-tdh"/>
                         <constraint firstItem="uP2-Ie-Ro0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="aJ6-Bg-inl"/>
                         <constraint firstItem="277-RP-G3e" firstAttribute="top" secondItem="wij-Ut-mOa" secondAttribute="bottom" constant="3" id="bnu-Bb-EtB"/>
-                        <constraint firstItem="daa-Wh-3j0" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="br1-OO-AaZ"/>
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="btJ-2m-ggt"/>
                         <constraint firstItem="277-RP-G3e" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="faO-2K-rfk"/>
-                        <constraint firstItem="daa-Wh-3j0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="xQb-ka-DhB"/>
+                        <constraint firstItem="daa-Wh-3j0" firstAttribute="leading" secondItem="SYK-zo-4rC" secondAttribute="leading" constant="30" id="mSj-Zn-e5l"/>
                     </constraints>
                 </view>
             </subviews>

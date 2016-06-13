@@ -10,6 +10,7 @@ import UIKit
 
 class SAWishListViewController: UIViewController {
 
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -65,11 +66,18 @@ class SAWishListViewController: UIViewController {
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("WishListTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! WishListTableViewCell
         //        }
-//        let cellDict = tblArr[indexPath.row]
-//        print(cellDict["header"])
-//        cell.lblHeader!.text = cellDict["header"] as? String;
-//        cell.lblDetail?.text = cellDict["detail"] as? String
-//        cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+        let cellDict = wishListArray[indexPath.row]
+        cell.lblTitle!.text = cellDict["title"] as? String;
+        if(cellDict["amount"] is String)
+        {
+            cell.lblPrice.text = cellDict["amount"] as? String
+        }
+        else
+        {
+            cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
+        }
+
+       // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
         
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell

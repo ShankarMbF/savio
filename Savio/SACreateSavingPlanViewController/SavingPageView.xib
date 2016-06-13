@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -44,15 +44,19 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPECIALIZED XC COMP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uP2-Ie-Ro0">
-                            <rect key="frame" x="193" y="222" width="94" height="30"/>
+                            <rect key="frame" x="30" y="212" width="420" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="uP2-Ie-Ro0" secondAttribute="height" multiplier="47:15" id="TNo-pb-FO0"/>
                                 <constraint firstAttribute="width" constant="94" id="bNm-L6-KE7"/>
-                                <constraint firstAttribute="height" constant="30" id="vgB-Z5-V4Y"/>
+                                <constraint firstAttribute="height" constant="40" id="let-Gy-lf3"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="bNm-L6-KE7"/>
+                                </mask>
+                            </variation>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1400" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="277-RP-G3e">
                             <rect key="frame" x="196" y="274" width="87" height="30"/>
@@ -68,13 +72,15 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="uP2-Ie-Ro0" firstAttribute="leading" secondItem="SYK-zo-4rC" secondAttribute="leading" constant="30" id="4qt-j1-U2N"/>
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="60C-95-wly"/>
+                        <constraint firstAttribute="trailing" secondItem="uP2-Ie-Ro0" secondAttribute="trailing" constant="30" id="9T8-9y-Uyc"/>
+                        <constraint firstItem="wij-Ut-mOa" firstAttribute="top" secondItem="uP2-Ie-Ro0" secondAttribute="bottom" constant="3" id="FZH-zg-jsP"/>
+                        <constraint firstItem="uP2-Ie-Ro0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="aJ6-Bg-inl"/>
                         <constraint firstItem="277-RP-G3e" firstAttribute="top" secondItem="wij-Ut-mOa" secondAttribute="bottom" constant="3" id="bnu-Bb-EtB"/>
                         <constraint firstItem="daa-Wh-3j0" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="br1-OO-AaZ"/>
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="btJ-2m-ggt"/>
                         <constraint firstItem="277-RP-G3e" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="faO-2K-rfk"/>
-                        <constraint firstItem="uP2-Ie-Ro0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="h46-lP-Ktl"/>
-                        <constraint firstItem="wij-Ut-mOa" firstAttribute="top" secondItem="uP2-Ie-Ro0" secondAttribute="bottom" constant="3" id="hHQ-bO-xyY"/>
                         <constraint firstItem="daa-Wh-3j0" firstAttribute="centerX" secondItem="SYK-zo-4rC" secondAttribute="centerX" id="xQb-ka-DhB"/>
                     </constraints>
                 </view>

@@ -14,7 +14,10 @@ class WishListTableViewCell: UITableViewCell {
     @IBOutlet weak var btnDelete: UIButton?
     @IBOutlet weak var vwProductDetail: UIView?
     
+    @IBOutlet weak var lblPrice: UILabel!
     
+    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var lblTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -189,7 +189,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
             }
-            
             return cell1
         }
         else if(indexPath.section == 1){
@@ -251,7 +250,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
-            cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else if(indexPath.section == offerCount+6)
@@ -265,7 +264,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
-            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         

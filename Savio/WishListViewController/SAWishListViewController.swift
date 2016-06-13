@@ -93,7 +93,7 @@ class SAWishListViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-        let cellDict = wishListArray[sender.tag]
+        objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

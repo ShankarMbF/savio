@@ -198,6 +198,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.view = self.view
             if(itemDetailsDataDict["amount"] != nil)
             {
+                
+                
                 if(itemDetailsDataDict["amount"] is String)
                 {
                     cell1.costTextField.text = itemDetailsDataDict["amount"] as? String

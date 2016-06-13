@@ -51,16 +51,24 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
     @IBAction func selectDate(sender: UITextField) {
         previousDate = tfDatePicker.text
         
-//        let datePickerView:UIDatePicker = UIDatePicker()
+        //        let datePickerView:UIDatePicker = UIDatePicker()
         
         datePickerView.datePickerMode = UIDatePickerMode.Date
         
         sender.inputView = datePickerView
-        datePickerView.maximumDate=NSDate()
+        //        datePickerView.maximumDate=NSDate()
         
-        datePickerView.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
-//               datePickerView.selectRow(0!, inComponent: 0, animated: false)
-      
+        
+        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let currentDate: NSDate = NSDate()
+        let components: NSDateComponents = NSDateComponents()
+        
+        components.year = -18
+        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        datePickerView.maximumDate = minDate
+        
+        datePickerView.addTarget(self, action: #selector(PickerTextfildTableViewCell.datePickerValueChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        //               datePickerView.selectRow(0!, inComponent: 0, animated: false)
         
     }
     

@@ -78,7 +78,7 @@ class SAWishListViewController: UIViewController {
         }
 
        // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
-        
+        cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
@@ -94,6 +94,7 @@ class SAWishListViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+        let cellDict = wishListArray[sender.tag]
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

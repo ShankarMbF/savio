@@ -120,7 +120,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
-//                cell.tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
 
@@ -694,18 +693,23 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 
                 if (self.checkTextFieldContentOnlyNumber(str!) == true){
                     errorMsg = "Name should contain alphabets only"
-                    
+                    if cell.tfTitle?.text?.characters.count==0 {
+                        errorMsg = "Please select a title and name should contain alphabets only"
+                    }
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
                 }
                 
-                if checkTextFieldContentSpecialChar(str!){
+               else if checkTextFieldContentSpecialChar(str!){
                     errorMsg = "Name should not contain special characters"
+                    if cell.tfTitle?.text?.characters.count==0 {
+                        errorMsg = "Please select a title and name should not contain special characters"
+                    }
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
                 }
                 
-                if str?.characters.count > 50{
+               else if str?.characters.count > 50{
                     errorMsg = "Wow, that’s such a long name we can’t save it"
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg

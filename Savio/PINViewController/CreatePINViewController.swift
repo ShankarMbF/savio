@@ -18,6 +18,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     @IBOutlet weak var confirmPIN: UIButton!
     
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var subHeaderLabel: UILabel!
     
     @IBOutlet weak var backButton: UIButton!
     var objAPI = API()
@@ -31,7 +32,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         //Add borderWidth and borderColor to UITextFields
         enterFourDigitPIN.layer.borderWidth = 1
         enterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        enterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"4 digit passcode",
+        enterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"Enter 4 digit passcode",
                                                                      attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])
         //Set input accessory view to the UITextfield
         enterFourDigitPIN.inputAccessoryView = toolBar
@@ -49,9 +50,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPIN.layer.shadowOpacity = 1
         confirmPIN.layer.cornerRadius = 5
         
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        
-        
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
     }
     
     override func viewDidLayoutSubviews() {

@@ -10,7 +10,7 @@ import UIKit
 
 class SASavingSummaryViewController: UIViewController {
     
-
+    
     @IBOutlet weak var vwCongrats : UIView?
     @IBOutlet weak var vwScrContent : UIView?
     @IBOutlet weak var vwSummary : UIView?
@@ -19,27 +19,41 @@ class SASavingSummaryViewController: UIViewController {
     @IBOutlet weak var scrlVw : UIScrollView?
     @IBOutlet weak var lblOffer : UILabel?
     @IBOutlet weak var btnContinue : UIButton?
-
+    
+    @IBOutlet weak var lblNextDebit: UILabel!
     @IBOutlet weak var htOfferView: NSLayoutConstraint!
     @IBOutlet weak var htContentView: NSLayoutConstraint!
     @IBOutlet weak var topSpaceForContinue: NSLayoutConstraint!
     
+    @IBOutlet weak var topBgImageView: UIImageView!
+    
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    
+    @IBOutlet weak var lblMonth: UILabel!
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
     var colorDataDict : Dictionary<String,AnyObject> = [:]
-
+    
+    var itemDataDict : Dictionary<String,AnyObject> = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-      self.setUpView()
-
+        self.setUpView()
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     func setUpView(){
+        print(itemDataDict)
+        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-
+        
         btnContinue?.backgroundColor = self.setUpColor()
         btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
         btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
@@ -80,11 +94,11 @@ class SASavingSummaryViewController: UIViewController {
         vwSummary?.layer.borderWidth = 1.5
         
         lblOffer?.hidden = true
-         topSpaceForContinue.constant = 30
+        topSpaceForContinue.constant = 30
         htOfferView.constant = 0
         
-        let offerCount = 2
-         for var i=0; i<offerCount; i++ {
+        let offerCount = 0
+        for var i=0; i<offerCount; i++ {
             
             lblOffer?.hidden = false
             // Load the TestView view.
@@ -99,23 +113,33 @@ class SASavingSummaryViewController: UIViewController {
             htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
             topSpaceForContinue.constant = 80
             scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
-
+            
+            
+            
         }
         
         
-//        for var i: CGFloat = 0.0; i<offerCount; i++ {
-//            
-//            var contentRect = CGRectZero;
-//            
-//            contentRect = CGRectMake(0, (i * 80)+10 , UIScreen.mainScreen().bounds.size.width - 60 , 80)
-//            
-//            let vw: UIView = vwOfferSubView!
-//            
-//            vw.frame = contentRect
-//            vw.addSubview(vwOfferSubView!)
-//            
-//            
-//        }
+        lblTitle.text = itemDataDict["title"] as? String
+        lblPrice.text = itemDataDict["amount"] as? String
+        lblDate.text = itemDataDict["payDate"] as? String
+        let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+        topBgImageView.image = UIImage(data: data)
+        
+        
+        
+        //        for var i: CGFloat = 0.0; i<offerCount; i++ {
+        //
+        //            var contentRect = CGRectZero;
+        //
+        //            contentRect = CGRectMake(0, (i * 80)+10 , UIScreen.mainScreen().bounds.size.width - 60 , 80)
+        //
+        //            let vw: UIView = vwOfferSubView!
+        //
+        //            vw.frame = contentRect
+        //            vw.addSubview(vwOfferSubView!)
+        //
+        //
+        //        }
         
         
     }
@@ -126,15 +150,15 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     
     //MARK: Bar button action
     func menuButtonClicked(){

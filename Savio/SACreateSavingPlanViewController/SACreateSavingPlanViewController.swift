@@ -25,7 +25,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
-    var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal betweenfriends and family"],["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos"],["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival"],["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!"],["image":"ride-category-icon","header":"Ride","detail":"There's always room for another bike."],["image":"home-category-icon","header":"Home","detail":"Time to make that project a reality."],["image":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines."],["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]]
+    var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal betweenfriends and family","sav-id":"8"]
+        ,["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
+        ,["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
+         ["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
+         ["image":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
+         ["image":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
+         ["image":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
+         ["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
     override func viewDidLoad() {
@@ -158,6 +165,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                 }
                
+                let data :NSData = NSData(base64EncodedString: objDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                
+                let bgImageView = testView.viewWithTag(1) as! UIImageView
+                bgImageView.image = UIImage(data: data)
                 lblCost.hidden = false
                 
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
@@ -185,7 +196,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview
-            testView.frame = CGRectMake(scrlView!.bounds.origin.x, -64, testView.frame.size.width, scrlView!.frame.size.height)
+            testView.frame = CGRectMake(scrlView!.bounds.origin.x, -64, scrlView!.frame.size.width, scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
             vw.layer.borderWidth = 1
             vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -297,11 +308,20 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
-        NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-        self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+        if(indexPath.row == 0)
+        {
+            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+        else
+        {
+            NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+            self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+        }
+
     }
     
     //MARK: GetWishlist Delegate and Datasource method

@@ -57,7 +57,7 @@ class SAWishListViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5
+        return wishListArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -76,8 +76,10 @@ class SAWishListViewController: UIViewController {
         {
             cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
         }
-
-       // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+        
+        let data :NSData = NSData(base64EncodedString: cellDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+        
+        cell.imgView?.image = UIImage(data: data)
         cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell

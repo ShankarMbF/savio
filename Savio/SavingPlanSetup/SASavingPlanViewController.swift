@@ -24,7 +24,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     var offerCount = 0
     var userInfoDict  = Dictionary<String,AnyObject>()
-    
+    var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,39 +83,56 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        if(imageDataDict["header"] as! String == "Group Save")
+        
+        if(itemDetailsDataDict["imageURL"] != nil)
         {
-            topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Wedding")
-        {
-            topBackgroundImageView.image = UIImage(named: "wdding-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Baby")
-        {
-            topBackgroundImageView.image = UIImage(named: "baby-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Holiday")
-        {
-            topBackgroundImageView.image = UIImage(named: "holiday-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Ride")
-        {
-            topBackgroundImageView.image = UIImage(named: "ride-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Home")
-        {
-            topBackgroundImageView.image = UIImage(named: "home-setup-bg.png")
-        }
-        else if(imageDataDict["header"] as! String == "Gadget")
-        {
-            topBackgroundImageView.image = UIImage(named: "gadget-setup-bg.png")
+            let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            
+            topBackgroundImageView.image = UIImage(data: data)
+            cameraButton.hidden = true
+            
         }
         else
         {
-            topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
+            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+            if(imageDataDict["header"] as! String == "Group Save")
+            {
+                topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Wedding")
+            {
+                topBackgroundImageView.image = UIImage(named: "wdding-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Baby")
+            {
+                topBackgroundImageView.image = UIImage(named: "baby-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Holiday")
+            {
+                topBackgroundImageView.image = UIImage(named: "holiday-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Ride")
+            {
+                topBackgroundImageView.image = UIImage(named: "ride-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Home")
+            {
+                topBackgroundImageView.image = UIImage(named: "home-setup-bg.png")
+            }
+            else if(imageDataDict["header"] as! String == "Gadget")
+            {
+                topBackgroundImageView.image = UIImage(named: "gadget-setup-bg.png")
+            }
+            else
+            {
+                topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
+            }
+            
+            
+            
         }
+        
+        
     }
     
     
@@ -188,6 +205,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+                
             }
             return cell1
         }
@@ -206,7 +224,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
                 }
-         
+                cell1.costTextField.textColor = UIColor.whiteColor()
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
             }
@@ -307,28 +325,62 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             if(itemDetailsDataDict["amount"] is String)
             {
-                parameterDict["price"] = itemDetailsDataDict["amount"]
+                parameterDict["amount"] = itemDetailsDataDict["amount"]
             }
             else
             {
-                parameterDict["price"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                parameterDict["amount"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
             }
         }
         else{
             let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
-            parameterDict["price"] = cell2.costTextField.text
+            parameterDict["amount"] = cell2.costTextField.text
+        }
+        if(itemDetailsDataDict["imageURL"] != nil)
+        {
+            parameterDict["imageURL"] = itemDetailsDataDict["imageURL"]
+        }
+        else{
+            if(cameraButton.hidden == true)
+            {
+                let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                parameterDict["imageURL"] = base64String
+            }
+            else{
+                parameterDict["imageURL"] = nil
+            }
         }
         
-        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SavingPlanDatePickerTableViewCell
-        parameterDict["payDate"] = cell3.datePickerTextField.text
+        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier") as! SavingPlanDatePickerTableViewCell
+        let dateParameter = NSDateFormatter()
+        dateParameter.dateFormat = "yyyy-mm-dd"
+        var pathComponents : NSArray!
+        
+        pathComponents = (cell3.datePickerTextField.text)!.componentsSeparatedByString(" ")
+        var dateStr = pathComponents.lastObject as! String
+        
+        dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+        
+        var pathComponents2 : NSArray!
+        pathComponents2 = dateStr.componentsSeparatedByString("-")
+        
+        parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         
-        parameterDict["user_ID"] = userInfoDict["partyId"]
+        parameterDict["pty_id"] = userInfoDict["partyId"]
         
         parameterDict["payType"] = userInfoDict["cxvxc"]
         
-        parameterDict["sav_id"] = "1"
+        if((imageDataDict["sav-id"]) != nil)
+        {
+            parameterDict["sav_id"] = imageDataDict["sav-id"]
+        }
+        else
+        {
+            parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
+        }
         
         return parameterDict
         
@@ -336,9 +388,37 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func nextButtonPressed(sender:UIButton)
     {
-        let objAPI = API()
-        objAPI.partySavingPlanDelegate = self
-        objAPI .createPartySavingPlan(self.getParameters())
+        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && self.getParameters()["imageURL"] != nil)
+        {
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            self.view.addSubview(objAnimView)
+            
+            
+            let objAPI = API()
+            objAPI.partySavingPlanDelegate = self
+            if(itemDetailsDataDict["title"] == nil)
+            {
+                objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+            }
+            else
+            {
+                var newDict : Dictionary<String,AnyObject> = [:]
+                newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
+                newDict["sav_id"] = self.getParameters()["sav_id"]
+                newDict["payType"] = self.getParameters()["payType"]
+                newDict["payDate"] = self.getParameters()["payDate"]
+                newDict["user_ID"] = self.getParameters()["pty_id"]
+                objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+            }
+            
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
     
     func closeOfferButtonPressed(sender:UIButton)
@@ -467,9 +547,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+        
+        let objSummaryView = SASavingSummaryViewController()
+        objSummaryView.itemDataDict =  self.getParameters()
+        self.navigationController?.pushViewController(objSummaryView, animated: true)
+        
+        
     }
     
     func errorResponseForPartySavingPlanAPI(error: String) {
         print(error)
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
     }
 }

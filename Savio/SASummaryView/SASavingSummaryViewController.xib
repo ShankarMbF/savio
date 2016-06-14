@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -37,8 +37,14 @@
                 <outlet property="btnContinue" destination="mBZ-xa-DeM" id="B3E-j4-s6X"/>
                 <outlet property="htContentView" destination="0Zy-Tj-Gfl" id="GIT-PR-Wge"/>
                 <outlet property="htOfferView" destination="eug-u5-awU" id="rxV-oy-BX8"/>
+                <outlet property="lblDate" destination="ANc-Fu-nr6" id="oTz-uI-afM"/>
+                <outlet property="lblMonth" destination="9ZG-dL-tRk" id="A74-Ga-fxQ"/>
+                <outlet property="lblNextDebit" destination="Qjs-gN-ZII" id="5fc-mc-JLg"/>
                 <outlet property="lblOffer" destination="ro6-16-qTo" id="LMa-2I-lgh"/>
+                <outlet property="lblPrice" destination="B4u-vR-bRe" id="wmU-1v-gaO"/>
+                <outlet property="lblTitle" destination="pqf-7j-JgA" id="hxa-Pt-x78"/>
                 <outlet property="scrlVw" destination="iKv-QE-zQs" id="Raj-V0-PH6"/>
+                <outlet property="topBgImageView" destination="Y49-OL-cgH" id="bHH-iv-yBa"/>
                 <outlet property="topSpaceForContinue" destination="i3Q-Wm-NLr" id="cD7-s7-cxJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vwCongrats" destination="kPO-xb-Zg7" id="DTA-6J-xkl"/>

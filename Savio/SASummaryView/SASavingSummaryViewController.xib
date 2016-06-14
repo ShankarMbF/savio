@@ -429,6 +429,9 @@
                                     <state key="normal" title="Continue">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="btnContinueClicked:" destination="-1" eventType="touchUpInside" id="WUh-Jf-JGe"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>

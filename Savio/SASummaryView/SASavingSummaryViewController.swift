@@ -49,8 +49,14 @@ class SASavingSummaryViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func btnContinueClicked(sender: AnyObject) {
+        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    
     func setUpView(){
-        print(itemDataDict)
+        //print(itemDataDict)
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         
@@ -124,6 +130,14 @@ class SASavingSummaryViewController: UIViewController {
         lblDate.text = itemDataDict["payDate"] as? String
         let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         topBgImageView.image = UIImage(data: data)
+        if(itemDataDict["day"] as? String == "date")
+        {
+            lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
+        }
+        else{
+            lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
+        }
+        
         
         
         

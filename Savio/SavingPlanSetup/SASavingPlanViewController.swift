@@ -16,7 +16,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     var cost : Int = 0
     var dateDiff : Int = 0
-    var dateString = ""
+    var dateString = "date"
     var popOverSelectedStr = ""
     var imageDataDict : Dictionary<String,AnyObject> = [:]
     
@@ -334,7 +334,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else{
             let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
-            parameterDict["amount"] = cell2.costTextField.text
+            parameterDict["amount"] = String(format:"%d",cost)
         }
         if(itemDetailsDataDict["imageURL"] != nil)
         {
@@ -388,14 +388,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func nextButtonPressed(sender:UIButton)
     {
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.view.addSubview(objAnimView)
+        
+        
         if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && self.getParameters()["imageURL"] != nil)
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-            objAnimView.frame = self.view.frame
-            objAnimView.animate()
-            self.view.addSubview(objAnimView)
-            
-            
+
             let objAPI = API()
             objAPI.partySavingPlanDelegate = self
             if(itemDetailsDataDict["title"] == nil)
@@ -416,6 +418,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else
         {
+            objAnimView.removeFromSuperview()
             let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
@@ -546,13 +549,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       // print(objResponse)
         objAnimView.removeFromSuperview()
-        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
-        alert.show()
+ 
+        var dict :  Dictionary<String,AnyObject> = [:]
+        dict["title"] = self.getParameters()["title"]
+        dict["amount"] = self.getParameters()["amount"]
+        dict["payDate"] = self.getParameters()["payDate"]
+        dict["imageURL"] = self.getParameters()["imageURL"]
+        dict["day"] = dateString
+        if(dateString == "day")
+        {
+            dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+        }
+        else{
+            dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+        }
+        
         
         let objSummaryView = SASavingSummaryViewController()
-        objSummaryView.itemDataDict =  self.getParameters()
+        objSummaryView.itemDataDict =  dict
         self.navigationController?.pushViewController(objSummaryView, animated: true)
         
         

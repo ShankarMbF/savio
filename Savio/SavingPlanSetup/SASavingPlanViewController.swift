@@ -198,8 +198,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.view = self.view
             if(itemDetailsDataDict["amount"] != nil)
             {
-                
-                
                 if(itemDetailsDataDict["amount"] is String)
                 {
                     cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
@@ -208,8 +206,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
                 }
-                
+         
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                cost = Int(cell1.slider.value)
             }
             return cell1
         }
@@ -269,7 +268,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-        
     }
     
     func datePickerText(date: Int) {
@@ -317,11 +315,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         else{
-            
             let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
             parameterDict["price"] = cell2.costTextField.text
         }
-        
         
         let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SavingPlanDatePickerTableViewCell
         parameterDict["payDate"] = cell3.datePickerTextField.text

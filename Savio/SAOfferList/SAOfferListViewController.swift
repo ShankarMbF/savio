@@ -10,7 +10,7 @@ import UIKit
 
 protocol SAOfferListViewDelegate {
     
-    func addedOffers(offerForSaveArr:Array<Dictionary<String,AnyObject>>)
+    func addedOffers(offerForSaveDict:Dictionary<String,AnyObject>)
 }
 
 class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
@@ -125,11 +125,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         //        let cell = tableView.dequeueReusableCellWithIdentifier("SavingCategoryTableViewCell") as? SavingCategoryTableViewCell
-   
+        
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! SAOfferListTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-   
+        
         cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.btnAddOffer?.tag = indexPath.row
         cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -143,71 +143,51 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         let urlStr = cellDict["offImage"] as! String
         let url = NSURL(string: urlStr)
-        let urlData = NSData(contentsOfURL: url!)
         
-       
-        
-//        if image == nil {
-        
-            let request: NSURLRequest = NSURLRequest(URL: url!)
-        
-        
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-//                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell.offerImage?.image = image
-                })
+        let request: NSURLRequest = NSURLRequest(URL: url!)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            let image = UIImage(data: data!)
+            
+            //                self.imageCache[unwrappedImage] = image
+            dispatch_async(dispatch_get_main_queue(), {
+                cell.offerImage?.image = image
+            })
         })
-        
-   //        }
-//            
-//        else{
-//            cell.dealImage.image = image
-//        }
-
-        
-        
-        
-        
-//        let cellImg = UIImage(data: urlData!)
-//        cell.offerImage?.image = cellImg
         
         let attributes = [
             NSForegroundColorAttributeName :cell.setUpColor(),
             NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
         ]
         var attributedString = NSAttributedString(string: "Offer detail V", attributes: attributes)
-
+        
         
         if prevIndxArr.count > 0 {
             var ht: CGFloat = 0.0
             var str = ""
-
+            
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
-                     attributedString = NSAttributedString(string: "Offer detail ^", attributes: attributes)
-                     str = (cellDict["offDesc"] as? String)!
+                    attributedString = NSAttributedString(string: "Offer detail ^", attributes: attributes)
+                    str = (cellDict["offDesc"] as? String)!
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                 }
                 else{
-                     str = ""
-                     ht = 0.0
+                    str = ""
+                    ht = 0.0
                 }
                 cell.lblHT.constant = ht
                 cell.lblProductOffer?.text = str
             }
             
-           
+            
         }
         else{
             cell.lblHT.constant = 0.0
             cell.lblProductOffer?.text = ""
         }
         
-         cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
-//        cell.lblHT.constant = 20.0
+        cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        //        cell.lblHT.constant = 20.0
         return cell
     }
     
@@ -228,26 +208,28 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func clickedOnOfferDetail(sender:UIButton) {
         print(sender.tag)
-        indx = sender.tag
+        dispatch_async(dispatch_get_main_queue()){
+        self.indx = sender.tag
         var isVisible = false
-        if prevIndxArr.count > 0{
-            for i in 0 ..< prevIndxArr.count {
-               let obj = prevIndxArr[i] as Int
+        if self.prevIndxArr.count > 0{
+            for i in 0 ..< self.prevIndxArr.count {
+               let obj = self.prevIndxArr[i] as Int
                 if obj == sender.tag{
                   isVisible = true
-                    prevIndxArr.removeAtIndex(i)
+                    self.prevIndxArr.removeAtIndex(i)
                     break
                 }
             }
             if(isVisible == false){
-                prevIndxArr.removeAll()
-                prevIndxArr.append(sender.tag)
+                self.prevIndxArr.removeAll()
+                self.prevIndxArr.append(sender.tag)
             }
         }
         else{
-            prevIndxArr.append(sender.tag)
+            self.prevIndxArr.append(sender.tag)
         }
-        tblView?.reloadData()
+        self.tblView?.reloadData()
+        }
     }
 
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
@@ -272,18 +254,20 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
 //        let  dict = ["offerTitle":offerTitle,"offerDiscount":offerDiscount,]
         
          let cellDict = offerArr[sender.tag]
-        let arr : Array<Dictionary<String,AnyObject>> = [cellDict]
-        delegate?.addedOffers(arr)
+//        let arr : Array<Dictionary<String,AnyObject>> = [cellDict]
+        delegate?.addedOffers(cellDict)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         print(objResponse)
+        objAnimView.removeFromSuperview()
         if offerArr.count > 0 {
             offerArr.removeAll()
         }
         offerArr = objResponse["offers"] as! Array<Dictionary<String,AnyObject>>
         tblView?.reloadData()
-        objAnimView.removeFromSuperview()
+        
     }
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()

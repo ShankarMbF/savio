@@ -21,7 +21,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L0l-8t-2UG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L0l-8t-2UG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgV-1d-7Kr">
@@ -52,10 +52,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETB-mW-csM">
-                        <rect key="frame" x="308" y="-5" width="12" height="22"/>
+                        <rect key="frame" x="300" y="1" width="20" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="3Rl-nn-v5n"/>
-                            <constraint firstAttribute="width" constant="12" id="CKU-Qm-no3"/>
+                            <constraint firstAttribute="width" constant="20" id="CKU-Qm-no3"/>
                         </constraints>
                         <state key="normal" image="offer-close.png"/>
                     </button>
@@ -63,7 +63,7 @@
                 <constraints>
                     <constraint firstItem="KgV-1d-7Kr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1TA-em-31X"/>
                     <constraint firstItem="DKO-6w-Us3" firstAttribute="top" secondItem="KgV-1d-7Kr" secondAttribute="bottom" constant="14" id="INH-GC-uHS"/>
-                    <constraint firstItem="ETB-mW-csM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-5" id="MIJ-Ep-7YC"/>
+                    <constraint firstItem="ETB-mW-csM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1" id="MIJ-Ep-7YC"/>
                     <constraint firstItem="L0l-8t-2UG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PnK-Lm-XbG"/>
                     <constraint firstAttribute="trailing" secondItem="gv0-X7-iDW" secondAttribute="trailing" id="Scm-g4-8yU"/>
                     <constraint firstAttribute="bottom" secondItem="L0l-8t-2UG" secondAttribute="bottom" id="Vji-Mr-heA"/>
@@ -78,7 +78,7 @@
                     <constraint firstItem="L0l-8t-2UG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xJo-Og-4E8"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="closeButton" destination="ETB-mW-csM" id="68v-Nf-y00"/>
                 <outlet property="descriptionLabel" destination="gv0-X7-iDW" id="erb-o2-mTN"/>

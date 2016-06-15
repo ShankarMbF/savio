@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -23,12 +23,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
     
     var offerCount = 0
+    var offerArr: Array<Dictionary<String,AnyObject>> = []
     var userInfoDict  = Dictionary<String,AnyObject>()
     var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        offerArr.removeAll()
         self.title = "Savings plan setup"
         let font = UIFont(name: "GothamRounded-Book", size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
@@ -148,7 +149,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func backButtonClicked()
     {
+        if offerArr.count > 0{
+            let obj = SAOfferListViewController()
+            obj.delegate = self
+            self.navigationController?.pushViewController(obj, animated: true)
+        }else{
         self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
@@ -274,14 +281,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             return cell1
         }
-        else if(indexPath.section == offerCount+5)
+        else if(indexPath.section == offerArr.count+5)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
             cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-        else if(indexPath.section == offerCount+6)
+        else if(indexPath.section == offerArr.count+6)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
@@ -293,6 +300,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            let dict = offerArr[indexPath.row]
+            cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
+            cell1.offerDetailLabel.text = dict["offTitle"] as? String
+            cell1.descriptionLabel.text = dict["offSummary"] as? String
+            
+            let urlStr = dict["offImage"] as! String
+            let url = NSURL(string: urlStr)
+            
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell1.offerImageView?.image = image
+                })
+            })
+
+            
             return cell1
         }
     }
@@ -314,6 +341,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         cell3.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+        
+       
     }
     
     func getParameters() -> Dictionary<String,AnyObject>
@@ -397,11 +426,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func nextButtonPressed(sender:UIButton)
     {
-        
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-        objAnimView.frame = self.view.frame
-        objAnimView.animate()
-        self.view.addSubview(objAnimView)
+        if offerArr.count > 0 {
+        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        self.objAnimView.frame = self.view.frame
+        self.objAnimView.animate()
+        self.view.addSubview(self.objAnimView)
         
         
         if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && self.getParameters()["imageURL"] != nil)
@@ -427,15 +456,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else
         {
-            objAnimView.removeFromSuperview()
+            self.objAnimView.removeFromSuperview()
             let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
+        }
+        }
+        else {
+        
+        let obj = SAOfferListViewController()
+        obj.delegate = self
+        self.navigationController?.pushViewController(obj, animated: true)
         }
     }
     
     func closeOfferButtonPressed(sender:UIButton)
     {
-        offerCount = offerCount - 1
+        offerArr.removeAtIndex(0)
         tblView.reloadData()
     }
     func setDayDateButtonButtonPressed(sender:UIButton)
@@ -530,11 +566,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 return 0
             }
         }
-        else if(indexPath.section == offerCount+5)
+        else if(indexPath.section == offerArr.count+5)
         {
             return 65
         }
-        else if(indexPath.section == offerCount+6){
+        else if(indexPath.section == offerArr.count+6){
             return 44
         }
         else {
@@ -576,6 +612,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
         }
         
+        if offerArr.count>0{
+            dict["offers"] = offerArr
+        }
+        
         
         let objSummaryView = SASavingSummaryViewController()
         objSummaryView.itemDataDict =  dict
@@ -589,5 +629,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "OK")
         alert.show()
+    }
+    
+    func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
+        offerArr.append(offerForSaveArr)
+        tblView.reloadData()
     }
 }

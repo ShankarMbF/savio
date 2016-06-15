@@ -52,7 +52,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         }
         else
         {
-   
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -130,7 +130,19 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             }
         }
         
+        var customToolBar : UIToolbar?
+        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
         
+        customToolBar!.items = [acceptButton]
+        
+        priceTextField.inputAccessoryView = customToolBar
+        
+    }
+    
+    
+    func doneBarButtonPressed() {
+        priceTextField.resignFirstResponder()
     }
     
     func showImage(idx: Int)  {
@@ -156,10 +168,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func successResponseForResetPasscodeAPI(objResponse: Dictionary<String, AnyObject>) {
-
-            spinner.stopAnimating()
-            spinner.hidden = true
-
+        
+        spinner.stopAnimating()
+        spinner.hidden = true
+        
         let alert = UIAlertController(title: "Success", message: "Item successfully added to wishlist", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
@@ -172,10 +184,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func errorResponseForOTPResetPasscodeAPI(error: String) {
-//        dispatch_async(dispatch_get_main_queue()){
-            spinner.stopAnimating()
-            spinner.hidden = true
-      //  }
+        //        dispatch_async(dispatch_get_main_queue()){
+        spinner.stopAnimating()
+        spinner.hidden = true
+        //  }
         let alert = UIAlertController(title: "Warning", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in

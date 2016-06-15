@@ -341,13 +341,13 @@ class API: UIView {
                         if(dict["errorCode"] as! NSString == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                 self.logInDelegate?.successResponseForLogInAPI(dict)
-                              
+                                self.logInDelegate?.successResponseForLogInAPI(dict)
+                                
                             }
                         }
                         else{
                             dispatch_async(dispatch_get_main_queue()){
-                                 self.logInDelegate?.errorResponseForOTPLogInAPI("Password is incorrect")
+                                self.logInDelegate?.errorResponseForOTPLogInAPI("Password is incorrect")
                             }
                         }
                     }
@@ -464,7 +464,6 @@ class API: UIView {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL",baseURL))!)
             request.HTTPMethod = "POST"
             
-            
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -477,8 +476,19 @@ class API: UIView {
                     print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                        if let val = dict["errorCode"] {
+                            if(dict["errorCode"] as! String == "204")
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("Please login to Savio first.")
+                                }
+                            }
+                        }
+                        else
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                            }
                         }
                     }
                     else
@@ -510,7 +520,7 @@ class API: UIView {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-       // print(dict)
+        // print(dict)
         
         
         if(isFromWishList == "FromWishList")
@@ -530,7 +540,7 @@ class API: UIView {
                     if let data = data
                     {
                         let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                       // print(json)
+                        // print(json)
                         if let dict = json as? Dictionary<String,AnyObject>
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -551,7 +561,7 @@ class API: UIView {
             else{
                 self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
             }
-
+            
         }
         else
         {
@@ -591,7 +601,7 @@ class API: UIView {
             else{
                 self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
             }
-
+            
             
         }
         //Check if network is present

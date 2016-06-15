@@ -119,9 +119,6 @@
                         <state key="normal" title="Add Offer">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="clickedOnAddOffer:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="mVE-Zx-BKO"/>
-                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zlr-nO-JeO">
                         <rect key="frame" x="113" y="270" width="94" height="21"/>
@@ -175,14 +172,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="btnAddOffer" destination="ZVB-3Q-ELu" id="dvN-H0-51J"/>
+                <outlet property="btnAddOffer" destination="ZVB-3Q-ELu" id="nx8-wn-sjQ"/>
                 <outlet property="btnOfferDetail" destination="Zlr-nO-JeO" id="Ew3-ia-xCd"/>
                 <outlet property="lblHT" destination="2gb-U7-DS1" id="kAR-X8-BXp"/>
                 <outlet property="lblOfferDiscount" destination="WPK-HC-PwS" id="ijK-Mh-f1M"/>
-                <outlet property="lblOfferImage" destination="682-Zc-T1z" id="vSH-ur-Rez"/>
                 <outlet property="lblOfferSummary" destination="BuO-PY-J7u" id="vSS-r0-nRo"/>
                 <outlet property="lblOfferTitle" destination="sj8-Jr-iYt" id="wkd-BS-3Q3"/>
                 <outlet property="lblProductOffer" destination="eNg-Kv-Haw" id="LhL-FJ-M8s"/>
+                <outlet property="offerImage" destination="682-Zc-T1z" id="pHl-gu-4Ob"/>
             </connections>
             <point key="canvasLocation" x="338" y="218.5"/>
         </tableViewCell>

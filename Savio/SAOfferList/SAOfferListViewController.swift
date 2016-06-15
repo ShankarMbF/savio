@@ -10,21 +10,23 @@ import UIKit
 
 protocol SAOfferListViewDelegate {
     
-    func addedOffers(offerArr:Array<Dictionary<String,AnyObject>>)
+    func addedOffers(offerForSaveDict:Dictionary<String,AnyObject>)
 }
 
-class SAOfferListViewController: UIViewController,OfferCellDelegate{
+class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var indx : Int = 0
     var  prevIndxArr: Array<Int> = []
     var rowHT : CGFloat = 310.0
     
-    var  offerArr: Array<Int> = []
+    var  offerArr: Array<Dictionary<String,AnyObject>> = []
 
     
     @IBOutlet weak var tblView : UITableView?
     @IBOutlet weak var closeLbl : UILabel?
     
     var delegate : SAOfferListViewDelegate?
+    
+     var objAnimView = ImageViewAnimation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,14 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
         closeLbl?.layer.masksToBounds = false
         closeLbl?.layer.borderWidth = 2.0
         closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        
+        self.view.addSubview(objAnimView)
+         let objAPI = API()
+        objAPI.getofferlistDelegate = self
+        objAPI.getOfferListForSavingId("1")
     }
     /*
     // MARK: - Navigation
@@ -118,20 +128,39 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5
+        return offerArr.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         //        let cell = tableView.dequeueReusableCellWithIdentifier("SavingCategoryTableViewCell") as? SavingCategoryTableViewCell
-   
+        
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! SAOfferListTableViewCell
-        cell.delegate = self
-   
-//        cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.btnOfferDetail?.tag = indexPath.row
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         
+        cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnAddOffer?.tag = indexPath.row
+        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.btnOfferDetail?.tag = indexPath.row
+        let cellDict = offerArr[indexPath.row]
+        cell.lblOfferTitle?.text = cellDict["offCompanyName"] as? String
+        cell.lblOfferDiscount?.text = cellDict["offTitle"] as? String
+        cell.lblOfferSummary?.text = cellDict["offSummary"] as? String
+        cell.lblProductOffer?.text = cellDict["offDesc"] as? String
+        
+        let urlStr = cellDict["offImage"] as! String
+        let url = NSURL(string: urlStr)
+        
+        let request: NSURLRequest = NSURLRequest(URL: url!)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            let image = UIImage(data: data!)
+            
+            //                self.imageCache[unwrappedImage] = image
+            dispatch_async(dispatch_get_main_queue(), {
+                cell.offerImage?.image = image
+            })
+        })
         
         let attributes = [
             NSForegroundColorAttributeName :cell.setUpColor(),
@@ -139,35 +168,34 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
         ]
         var attributedString = NSAttributedString(string: "Offer detail V", attributes: attributes)
         
-
         
         if prevIndxArr.count > 0 {
             var ht: CGFloat = 0.0
             var str = ""
-
+            
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
-                     attributedString = NSAttributedString(string: "Offer detail ^", attributes: attributes)
-                     str = "This is Savio application and team size is 4, name: Prashant, Maheshwari, Manoj and Gagan"
+                    attributedString = NSAttributedString(string: "Offer detail ^", attributes: attributes)
+                    str = (cellDict["offDesc"] as? String)!
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                 }
                 else{
-                     str = ""
-                     ht = 0.0
+                    str = ""
+                    ht = 0.0
                 }
                 cell.lblHT.constant = ht
                 cell.lblProductOffer?.text = str
             }
             
-           
+            
         }
         else{
             cell.lblHT.constant = 0.0
             cell.lblProductOffer?.text = ""
         }
         
-         cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
-//        cell.lblHT.constant = 20.0
+        cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        //        cell.lblHT.constant = 20.0
         return cell
     }
     
@@ -188,26 +216,28 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
     
     func clickedOnOfferDetail(sender:UIButton) {
         print(sender.tag)
-        indx = sender.tag
+        dispatch_async(dispatch_get_main_queue()){
+        self.indx = sender.tag
         var isVisible = false
-        if prevIndxArr.count > 0{
-            for i in 0 ..< prevIndxArr.count {
-               let obj = prevIndxArr[i] as Int
+        if self.prevIndxArr.count > 0{
+            for i in 0 ..< self.prevIndxArr.count {
+               let obj = self.prevIndxArr[i] as Int
                 if obj == sender.tag{
                   isVisible = true
-                    prevIndxArr.removeAtIndex(i)
+                    self.prevIndxArr.removeAtIndex(i)
                     break
                 }
             }
             if(isVisible == false){
-                prevIndxArr.removeAll()
-                prevIndxArr.append(sender.tag)
+                self.prevIndxArr.removeAll()
+                self.prevIndxArr.append(sender.tag)
             }
         }
         else{
-            prevIndxArr.append(sender.tag)
+            self.prevIndxArr.append(sender.tag)
         }
-        tblView?.reloadData()
+        self.tblView?.reloadData()
+        }
     }
 
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
@@ -222,16 +252,33 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
         return rowHT
     }
 
-    func clickedOnAddOffer(obj:SAOfferListTableViewCell){
-        let offerTitle = obj.lblOfferTitle?.text
-        let  offerDiscount = obj.lblOfferDiscount?.text
-        let offerSummary = obj.lblOfferSummary?.text
-        print(offerTitle)
-        print(offerDiscount)
-        print(offerSummary)
-        let  dict = ["offerTitle":offerTitle,"offerDiscount":offerDiscount,]
+    func clickedOnAddOffer(sender: UIButton){
+//        let offerTitle = obj.lblOfferTitle?.text
+//        let  offerDiscount = obj.lblOfferDiscount?.text
+//        let offerSummary = obj.lblOfferSummary?.text
+//        print(offerTitle)
+//        print(offerDiscount)
+//        print(offerSummary)
+//        let  dict = ["offerTitle":offerTitle,"offerDiscount":offerDiscount,]
         
+         let cellDict = offerArr[sender.tag]
+//        let arr : Array<Dictionary<String,AnyObject>> = [cellDict]
+        delegate?.addedOffers(cellDict)
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse)
+        objAnimView.removeFromSuperview()
+        if offerArr.count > 0 {
+            offerArr.removeAll()
+        }
+        offerArr = objResponse["offers"] as! Array<Dictionary<String,AnyObject>>
+        tblView?.reloadData()
         
+    }
+    func errorResponseForGetOfferlistAPI(error:String){
+        objAnimView.removeFromSuperview()
     }
     
 }

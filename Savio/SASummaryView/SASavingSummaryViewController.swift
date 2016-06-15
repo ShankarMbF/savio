@@ -34,6 +34,7 @@ class SASavingSummaryViewController: UIViewController {
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
+    var indexId : Int = 0
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
     var itemDataDict : Dictionary<String,AnyObject> = [:]
@@ -59,7 +60,6 @@ class SASavingSummaryViewController: UIViewController {
         //print(itemDataDict)
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        
         btnContinue?.backgroundColor = self.setUpColor()
         btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
         btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
@@ -86,6 +86,31 @@ class SASavingSummaryViewController: UIViewController {
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        
+        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        {
+            var wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            
+            for i in 0 ..< wishListArray!.count
+            {
+             let dict = wishListArray![i] as Dictionary<String,AnyObject>
+                if(dict["id"] as! String == itemDataDict["id"] as! String)
+                {
+                     indexId = i
+                }
+            
+            }
+            
+            wishListArray?.removeAtIndex(indexId)
+            
+            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+            
+            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
+            btnName.titleLabel?.textColor = UIColor.blackColor()
+        }
         
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -130,31 +155,27 @@ class SASavingSummaryViewController: UIViewController {
         lblDate.text = itemDataDict["payDate"] as? String
         let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         topBgImageView.image = UIImage(data: data)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+      
         if(itemDataDict["day"] as? String == "date")
         {
             lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
+            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.Month, value: 30, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
+            
+            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
         }
         else{
             lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
+            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.NSWeekCalendarUnit, value: 7, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
+            
+            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
+            
         }
         
-        
-        
-        
-        //        for var i: CGFloat = 0.0; i<offerCount; i++ {
-        //
-        //            var contentRect = CGRectZero;
-        //
-        //            contentRect = CGRectMake(0, (i * 80)+10 , UIScreen.mainScreen().bounds.size.width - 60 , 80)
-        //
-        //            let vw: UIView = vwOfferSubView!
-        //
-        //            vw.frame = contentRect
-        //            vw.addSubview(vwOfferSubView!)
-        //
-        //
-        //        }
-        
+   
         
     }
     

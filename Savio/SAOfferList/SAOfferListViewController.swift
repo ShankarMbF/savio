@@ -60,6 +60,14 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
+        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        {
+            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+            
+            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
+            btnName.titleLabel?.textColor = UIColor.blackColor()
+        }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton

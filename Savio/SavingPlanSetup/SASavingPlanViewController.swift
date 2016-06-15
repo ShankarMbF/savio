@@ -80,6 +80,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         //  btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
+        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        {
+            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+            
+            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
+             btnName.titleLabel?.textColor = UIColor.blackColor()
+        }
+        
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -397,7 +406,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && self.getParameters()["imageURL"] != nil)
         {
-
+            
             let objAPI = API()
             objAPI.partySavingPlanDelegate = self
             if(itemDetailsDataDict["title"] == nil)
@@ -549,14 +558,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-       // print(objResponse)
+        // print(objResponse)
         objAnimView.removeFromSuperview()
- 
+        
         var dict :  Dictionary<String,AnyObject> = [:]
         dict["title"] = self.getParameters()["title"]
         dict["amount"] = self.getParameters()["amount"]
         dict["payDate"] = self.getParameters()["payDate"]
         dict["imageURL"] = self.getParameters()["imageURL"]
+        dict["id"] = itemDetailsDataDict["id"]
         dict["day"] = dateString
         if(dateString == "day")
         {

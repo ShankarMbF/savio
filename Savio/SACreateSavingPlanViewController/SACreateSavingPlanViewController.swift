@@ -136,7 +136,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                  heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
 
+                NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
+                NSUserDefaults.standardUserDefaults().synchronize()
 
+                
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
                 // Set its frame and data to pageview
@@ -250,6 +253,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func heartBtnClicked(){
         if colors.count>0{
+            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = colors
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)

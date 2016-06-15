@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SAOfferList/SAOfferListViewController.swift"
-            timestampString = "487681359.611399"
+            timestampString = "487683847.076845"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "successResponseForGetOfferlistAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>

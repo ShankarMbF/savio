@@ -103,13 +103,19 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func heartBtnClicked(){
         
-        let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
-        
-        if wishListArray!.count>0{
+        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
+            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
             
-            let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = wishListArray!
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            if wishListArray!.count>0{
+                
+                let objSAWishListViewController = SAWishListViewController()
+                objSAWishListViewController.wishListArray = wishListArray!
+                self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            }
+            else{
+                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
+            }
         }
         else{
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")

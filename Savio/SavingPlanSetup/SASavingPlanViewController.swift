@@ -145,7 +145,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     
     func heartBtnClicked(){
-        
+        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
+
         let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
 
         if wishListArray!.count>0{
@@ -153,6 +154,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray!
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
         }
         else{
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")

@@ -275,7 +275,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return offerCount+7
+        return offerArr.count+7
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

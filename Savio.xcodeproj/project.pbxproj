@@ -276,6 +276,9 @@
 		C94A708D1CF55FA8002E9449 /* splash-logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */; };
 		C94A708E1CF55FA8002E9449 /* splash-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */; };
 		C94A708F1CF55FA8002E9449 /* splash-logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */; };
+		C94E1E4D1D11714F001C85C6 /* home-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */; };
+		C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */; };
+		C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */; };
 		C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */; };
 		C95CD60D1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */; };
 		C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */; };
@@ -672,6 +675,9 @@
 		C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@1x.png"; sourceTree = "<group>"; };
 		C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@2x.png"; sourceTree = "<group>"; };
 		C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@3x.png"; sourceTree = "<group>"; };
+		C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg.png"; sourceTree = "<group>"; };
+		C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@2x.png"; sourceTree = "<group>"; };
+		C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@3x.png"; sourceTree = "<group>"; };
 		C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTxtFieldTableViewCell.swift; sourceTree = "<group>"; };
 		C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownTxtFieldTableViewCell.xib; sourceTree = "<group>"; };
 		C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerTextfildTableViewCell.swift; sourceTree = "<group>"; };
@@ -1079,6 +1085,9 @@
 		A8BDCBA81D05557500D4C47B /* setupSavingPlan */ = {
 			isa = PBXGroup;
 			children = (
+				C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */,
+				C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */,
+				C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */,
 				A8BC96D31D0EB8B800535447 /* dropdown@3x.png */,
 				A8BC96D41D0EB8B800535447 /* dropdown.png */,
 				A8BC96D51D0EB8B800535447 /* dropdown@2x.png */,
@@ -1756,6 +1765,7 @@
 				C91E23EC1D029CF900DC6D29 /* WishListTableViewCell.xib in Resources */,
 				C975A9311D01952900184C8C /* group-save-category-icon@2x.png in Resources */,
 				A858A5F01D08127C0097546F /* gadget-circle.png in Resources */,
+				C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */,
 				C90D39D21D06CACA00F285BB /* detail-arrow-down@1x.png in Resources */,
 				A8095C5E1CEDC616006366F7 /* pre-loader@3x22.png in Resources */,
 				A8BDCBED1D05557500D4C47B /* holiday-setup-bg@3x.png in Resources */,
@@ -1826,6 +1836,7 @@
 				A8095C5B1CEDC616006366F7 /* pre-loader@3x2.png in Resources */,
 				C9E855031CF456CC006213BF /* savivo-logo@3x.png in Resources */,
 				A8BDCBDF1D05557500D4C47B /* generic-setup-bg.png in Resources */,
+				C94E1E4D1D11714F001C85C6 /* home-setup-bg.png in Resources */,
 				A8095C391CEDC616006366F7 /* pre-loader@2x20.png in Resources */,
 				C90D39D61D06CACA00F285BB /* detail-arrow-up@2x.png in Resources */,
 				A8BDCBE51D05557500D4C47B /* groupsave-setup-bg.png in Resources */,
@@ -1847,6 +1858,7 @@
 				A8095C2E1CEDC616006366F7 /* pre-loader@2x10.png in Resources */,
 				A858A5FA1D08127C0097546F /* holiday-circle@2x.png in Resources */,
 				A8095C591CEDC616006366F7 /* pre-loader@3x18.png in Resources */,
+				C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */,
 				A8095C1B1CEDC616006366F7 /* pre-loader@1x25.png in Resources */,
 				A8095C4B1CEDC616006366F7 /* pre-loader@2x5.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
@@ -1976,7 +1988,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
+				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -1994,7 +2006,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
+				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

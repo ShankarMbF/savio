@@ -74,7 +74,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "487675871.321725"
+                  timestampString = "487678322.753156"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "304"
@@ -89,7 +89,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "487675871.321892"
+                  timestampString = "487678322.753369"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "305"
@@ -170,7 +170,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "487675871.325215"
+                  timestampString = "487678322.757047"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
@@ -185,7 +185,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "487675871.32538"
+                  timestampString = "487678322.75723"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
@@ -312,11 +312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-            timestampString = "487672913.379716"
+            timestampString = "487677857.691161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "635"
-            endingLineNumber = "635"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
             landmarkName = "successResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -360,28 +360,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-            timestampString = "487673295.113716"
+            timestampString = "487677819.921421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "453"
-            endingLineNumber = "453"
-            landmarkName = "nextButtonPressed(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/Webservices/API.swift"
-            timestampString = "487675699.702592"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
-            landmarkName = "logInWithUserID(_:)"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "clearButtonPressed()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

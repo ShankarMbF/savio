@@ -24,6 +24,7 @@
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" €100 OF FREE VOUCHERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2u-o6-Dac">
                     <rect key="frame" x="217" y="27" width="165" height="10"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="165" id="7yW-oy-3LN"/>
                         <constraint firstAttribute="height" constant="10" id="v3x-Ho-mLb"/>
@@ -34,6 +35,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free samples, 20% off all toys, 20% off maternity clothing" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnq-23-8i8">
                     <rect key="frame" x="181" y="35" width="239" height="13"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="13" id="pIj-pU-t6R"/>
                         <constraint firstAttribute="width" constant="239" id="wNF-a6-O9i"/>
@@ -44,6 +46,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mothercare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ1-vA-bwA">
                     <rect key="frame" x="231" y="5" width="139" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="927-IF-Khw"/>
                         <constraint firstAttribute="width" constant="139" id="U7M-kn-nJa"/>

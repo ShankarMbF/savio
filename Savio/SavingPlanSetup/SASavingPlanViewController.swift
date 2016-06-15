@@ -27,6 +27,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var userInfoDict  = Dictionary<String,AnyObject>()
     var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         offerArr.removeAll()
@@ -137,11 +138,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
             }
-            
-            
-            
         }
-        
         
     }
     
@@ -309,7 +306,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
-            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else{
@@ -354,7 +351,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
         cell2.costTextField.text = " 0"
         
-        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SavingPlanDatePickerTableViewCell
+        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier") as! SavingPlanDatePickerTableViewCell
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         cell3.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())

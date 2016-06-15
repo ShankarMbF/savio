@@ -8,13 +8,9 @@
 
 import UIKit
 
-protocol OfferCellDelegate {
-    
-    func clickedOnAddOffer(obj:SAOfferListTableViewCell)
-}
+
 
 class SAOfferListTableViewCell: UITableViewCell {
-     var delegate: OfferCellDelegate?
     
      var colorDataDict : Dictionary<String,AnyObject> = [:]
     
@@ -22,7 +18,7 @@ class SAOfferListTableViewCell: UITableViewCell {
      @IBOutlet weak var lblOfferTitle: UILabel?
     @IBOutlet weak var lblOfferDiscount: UILabel?
     @IBOutlet weak var lblProductOffer: UILabel?
-    @IBOutlet weak var lblOfferImage: UIImageView?
+    @IBOutlet weak var offerImage: UIImageView?
 
     @IBOutlet weak var btnAddOffer: UIButton?
     @IBOutlet weak var btnOfferDetail: UIButton?
@@ -69,11 +65,6 @@ class SAOfferListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    
-    @IBAction func clickedOnAddOffer(sender:UIButton){
-      delegate?.clickedOnAddOffer(self)
-    }
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))

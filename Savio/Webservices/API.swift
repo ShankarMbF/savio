@@ -63,6 +63,12 @@ protocol GetWishlistDelegate{
     func errorResponseForGetWishlistAPI(error:String)
 }
 
+protocol GetOfferlistDelegate{
+    
+    func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForGetOfferlistAPI(error:String)
+}
+
 protocol PartySavingPlanDelegate{
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
@@ -77,6 +83,7 @@ class API: UIView {
     var resetPasscodeDelegate : ResetPasscodeDelegate?
     var shareExtensionDelegate : ShareExtensionDelegate?
     var getWishlistDelegate : GetWishlistDelegate?
+    var getofferlistDelegate : GetOfferlistDelegate?
     var partySavingPlanDelegate : PartySavingPlanDelegate?
     
     //Checking Reachability function
@@ -626,6 +633,54 @@ class API: UIView {
                         }
                         
                         
+                    }
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else{
+            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
+        }
+        
+    }
+    
+    func getOfferListForSavingId(input : String)
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Offers/SavingID?input=%@",baseURL,input))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            print(request)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("Error")
+                        }
                     }
                 }
                 

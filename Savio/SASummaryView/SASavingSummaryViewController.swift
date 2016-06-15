@@ -180,7 +180,6 @@ class SASavingSummaryViewController: UIViewController {
             })
         }
         
-        
         lblTitle.text = itemDataDict["title"] as? String
         lblPrice.text = itemDataDict["amount"] as? String
         

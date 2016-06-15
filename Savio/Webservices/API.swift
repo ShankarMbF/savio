@@ -338,7 +338,7 @@ class API: UIView {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         print("\(dict)")
-                        if(dict["message"] as! String == "Password is incorrect")
+                        if(dict["internalMessage"] as! String == "Invalid Pin")
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.logInDelegate?.errorResponseForOTPLogInAPI("Password is incorrect")

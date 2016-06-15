@@ -450,7 +450,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.view.addSubview(self.objAnimView)
         
         
-        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil)
+        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil )
         {
             
             let objAPI = API()
@@ -632,7 +632,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if offerArr.count>0{
             dict["offers"] = offerArr
         }
-        
+        print(dict)
         
         let objSummaryView = SASavingSummaryViewController()
         objSummaryView.itemDataDict =  dict

@@ -80,7 +80,7 @@ class SASavingSummaryViewController: UIViewController {
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.title = "Create a saving plan"
+        self.title = "Your saving plan"
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
@@ -94,16 +94,16 @@ class SASavingSummaryViewController: UIViewController {
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
-             wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
+            wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
             
             for i in 0 ..< wishListArray.count
             {
-             let dict = wishListArray[i] as Dictionary<String,AnyObject>
-                if(String(format: "%d",((dict["id"] as? NSNumber)?.doubleValue)!) == String(format: "%d",((itemDataDict["id"] as? NSNumber)?.doubleValue)!))
+                let dict = wishListArray[i] as Dictionary<String,AnyObject>
+                if(dict["id"] as? NSNumber == itemDataDict["id"] as? NSNumber)
                 {
-                     indexId = i
+                    indexId = i
                 }
-            
+                
             }
             
             wishListArray.removeAtIndex(indexId)
@@ -114,7 +114,7 @@ class SASavingSummaryViewController: UIViewController {
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-           btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -153,7 +153,7 @@ class SASavingSummaryViewController: UIViewController {
             
             
             let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
-     
+            
             
             let lblTitle = testView.viewWithTag(1)! as! UILabel
             lblTitle.text = objDict["offCompanyName"] as? String
@@ -161,10 +161,10 @@ class SASavingSummaryViewController: UIViewController {
             
             let lblDetail = testView.viewWithTag(2)! as! UILabel
             lblDetail.text = objDict["offTitle"] as? String
-        
+            
             let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
             lblOfferDetail.text = objDict["offDesc"] as? String
-   
+            
             
             let urlStr = objDict["offImage"] as! String
             let url = NSURL(string: urlStr)
@@ -181,45 +181,43 @@ class SASavingSummaryViewController: UIViewController {
         }
         
         
-        lblTitle.text = itemDataDict["title"] as? String
+        lblTitle.text = String(format:"£ %@",(itemDataDict["title"] as? String)!)
         lblPrice.text = itemDataDict["amount"] as? String
         
         if (itemDataDict["imageURL"] != nil) {
-
-        let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-        topBgImageView.image = UIImage(data: data)
+            
+            let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            topBgImageView.image = UIImage(data: data)
         }
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"
-      
-        lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
+        //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+        
+        lblDate.text = dateFormatter.stringFromDate(NSDate())
+
         paymentLastDate.text = itemDataDict["payDate"] as? String
         
         
         if(itemDataDict["day"] as? String == "date")
         {
             lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
-//            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-//            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.Month, value: 30, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
-            
-            lblNextDebit.text = itemDataDict["payDate"] as? String
-            
-//            dateComponents.month = 1
-//            let next7Days = cal!.dateByAddingComponents(dateComponents, toDate: dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)!, options: NSCalendarOptions(rawValue: 0))
-//            
-//            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
+            let dateComponents = NSDateComponents()
+            dateComponents.month = 1
+            let calender = NSCalendar.currentCalendar()
+            let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+            lblNextDebit.text = dateFormatter.stringFromDate(newDate!)
         }
         else{
             lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
-//            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-//            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.NSWeekCalendarUnit, value: 7, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
-            
-            lblNextDebit.text = itemDataDict["payDate"] as? String
+            let daysToAdd : Double = 7
+            let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
+            lblNextDebit.text = dateFormatter.stringFromDate(newDate)
+
             
         }
         
-   
+        
         
     }
     
@@ -245,8 +243,8 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     func heartBtnClicked(){
-    
-            
+        
+        
         if wishListArray.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
@@ -258,7 +256,7 @@ class SASavingSummaryViewController: UIViewController {
             alert.show()
         }
     }
-
+    
     
     
     func setUpShadowColor()-> UIColor

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SegmentBarChangeDelegate {
+    func segmentBarChanged(str:String)
+}
+
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var setDayDateButton: UIButton!
     
@@ -16,6 +20,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
    // @IBOutlet weak var segmentControl: UISegmentedControl!
    
     @IBOutlet weak var segmentBar: CustomSegmentBar!
+    
+    var segmentDelegate : SegmentBarChangeDelegate?
+    
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     override func awakeFromNib() {
@@ -23,15 +30,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         
-        // Initialization code
-//        let attr = NSDictionary(object: UIFont(name: "GothamRounded-Book", size: 10.0)!, forKey: NSFontAttributeName)
-//        segmentControl.setTitleTextAttributes(attr as [NSObject : AnyObject], forState: UIControlState.Normal)
-//        segmentControl.selectedSegmentIndex = 1
-//        segmentControl.backgroundColor = self.setUpColor()
-//        //UISegmentedControl.appearance().tintColor = UIColor.clearColor()
-//        
-//        UISegmentedControl.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
-//        segmentControl.selectedSegmentIndex = 0
+        // Initialization cod
         
         let layer =  CAGradientLayer()
         layer.frame.size = setDayDateButton.frame.size
@@ -141,11 +140,11 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         print(sender.titleForSegmentAtIndex(sender.selectedSegmentIndex))
         if(sender.selectedSegmentIndex == 0) {
             dayDateLabel.text = "date"
-            //sender.setImage(UIImage(named: "butn01-1.png"), forSegmentAtIndex: 1)
+            segmentDelegate!.segmentBarChanged("date")
         }
         else{
             dayDateLabel.text = "day"
-            //sender.setImage(UIImage(named: "butn01-1.png"), forSegmentAtIndex: 0)
+            segmentDelegate!.segmentBarChanged("day")
         }
     }
 }

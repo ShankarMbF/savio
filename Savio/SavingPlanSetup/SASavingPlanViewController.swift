@@ -450,7 +450,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.view.addSubview(self.objAnimView)
         
         
-        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && self.getParameters()["imageURL"] != nil)
+        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil)
         {
             
             let objAPI = API()

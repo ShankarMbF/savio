@@ -132,9 +132,9 @@ class SASavingSummaryViewController: UIViewController {
         lblOffer?.hidden = true
         topSpaceForContinue.constant = 30
         htOfferView.constant = 0
-        
+        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
         let offerCount = 0
-        for var i=0; i<offerCount; i++ {
+        for var i=0; i<arrOff.count; i++ {
             
             lblOffer?.hidden = false
             // Load the TestView view.
@@ -144,6 +144,7 @@ class SASavingSummaryViewController: UIViewController {
             vwOffer?.addSubview(testView)
             testView.layer.borderColor = UIColor.blackColor().CGColor
             testView.layer.borderWidth = 1.0
+            testView.backgroundColor = UIColor.lightGrayColor()
             
             htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
             htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
@@ -151,7 +152,7 @@ class SASavingSummaryViewController: UIViewController {
             scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
             
             
-            let objDict : Dictionary<String,AnyObject> = [:]
+            let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
      
             
             let lblTitle = testView.viewWithTag(1)! as! UILabel
@@ -165,19 +166,29 @@ class SASavingSummaryViewController: UIViewController {
             lblOfferDetail.text = objDict["offDesc"] as? String
    
             
+            let urlStr = objDict["offImage"] as! String
+            let url = NSURL(string: urlStr)
             let bgImageView = testView.viewWithTag(4) as! UIImageView
-
-
-            
-            
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    bgImageView.image = image
+                })
+            })
         }
         
         
         lblTitle.text = itemDataDict["title"] as? String
         lblPrice.text = itemDataDict["amount"] as? String
+        
+        if (itemDataDict["imageURL"] != nil) {
 
         let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         topBgImageView.image = UIImage(data: data)
+        }
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
       
@@ -189,8 +200,8 @@ class SASavingSummaryViewController: UIViewController {
         if(itemDataDict["day"] as? String == "date")
         {
             lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
-            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.Month, value: 30, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
+//            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+//            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.Month, value: 30, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
             
             lblNextDebit.text = itemDataDict["payDate"] as? String
             
@@ -201,8 +212,8 @@ class SASavingSummaryViewController: UIViewController {
         }
         else{
             lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
-            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.NSWeekCalendarUnit, value: 7, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
+//            let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+//            let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.NSWeekCalendarUnit, value: 7, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
             
             lblNextDebit.text = itemDataDict["payDate"] as? String
             

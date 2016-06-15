@@ -134,7 +134,7 @@ class SASavingSummaryViewController: UIViewController {
         htOfferView.constant = 0
         let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
         let offerCount = 0
-        for var i=0; i<arrOff.count; i++ {
+        for var i=0; i<offerCount; i++ {
             
             lblOffer?.hidden = false
             // Load the TestView view.

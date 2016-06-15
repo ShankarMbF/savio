@@ -166,7 +166,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             NSForegroundColorAttributeName :cell.setUpColor(),
             NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
         ]
-        var attributedString = NSAttributedString(string: "Offer detail V", attributes: attributes)
+        var attributedString = NSAttributedString(string: "Offer details v", attributes: attributes)
         
         
         if prevIndxArr.count > 0 {
@@ -175,7 +175,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
-                    attributedString = NSAttributedString(string: "Offer detail ^", attributes: attributes)
+                    attributedString = NSAttributedString(string: "Offer details ^", attributes: attributes)
                     str = (cellDict["offDesc"] as? String)!
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                 }

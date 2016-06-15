@@ -126,7 +126,7 @@
                         </constraints>
                         <state key="normal">
                             <attributedString key="attributedTitle">
-                                <fragment content="Offer detail ">
+                                <fragment content="Offer details ">
                                     <attributes>
                                         <color key="NSColor" red="0.56470588235294117" green="0.87058823529411766" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                         <font key="NSFont" size="12" name="GothamRounded-Book"/>
@@ -136,7 +136,7 @@
                                 <fragment content="v">
                                     <attributes>
                                         <color key="NSColor" red="0.56470588235294117" green="0.87058823529411766" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
-                                        <font key="NSFont" size="14" name="GothamRounded-Book"/>
+                                        <font key="NSFont" size="12" name="GothamRounded-Book"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>

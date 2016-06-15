@@ -181,8 +181,8 @@ class SASavingSummaryViewController: UIViewController {
         }
         
         
-        lblTitle.text = String(format:"£ %@",(itemDataDict["title"] as? String)!)
-        lblPrice.text = itemDataDict["amount"] as? String
+        lblTitle.text = itemDataDict["title"] as? String
+        lblPrice.text =  String(format:"£ %@",(itemDataDict["amount"] as? String)!)
         
         if (itemDataDict["imageURL"] != nil) {
             

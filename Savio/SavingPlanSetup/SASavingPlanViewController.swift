@@ -155,7 +155,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
     }
@@ -596,6 +596,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
+        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
         topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
         cameraButton.hidden = true
         

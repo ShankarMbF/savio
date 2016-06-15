@@ -63,10 +63,10 @@
                         </state>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PP-vq-H1I" customClass="CustomSegmentBar" customModule="Savio" customModuleProvider="target">
-                        <rect key="frame" x="10" y="35" width="105" height="18"/>
+                        <rect key="frame" x="10" y="35" width="105" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="18" id="Q9h-bU-yY8"/>
+                            <constraint firstAttribute="height" constant="20" id="Q9h-bU-yY8"/>
                             <constraint firstAttribute="width" constant="105" id="aLy-Xs-j0W"/>
                         </constraints>
                     </view>

@@ -17,6 +17,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     @IBOutlet var textView: UITextView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var bgView: UIView!
+    var spinner =  UIActivityIndicatorView()
     var currentImagePosition: Int = 0;
     var dictGlobal: Dictionary = [String: AnyObject]()
     @IBAction func cancelButtonTapped(sender: AnyObject) {
@@ -27,6 +28,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         priceTextField.resignFirstResponder()
         let objAPI = API()
         
+        self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
+        self.spinner.hidesWhenStopped = true
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.view.addSubview(self.spinner)
+        self.spinner.startAnimating()
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         let data = defaults.valueForKey("myPasscode") as! NSData
@@ -40,12 +46,13 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
                 
                 })
-
+            
             self.presentViewController(alert, animated: true, completion: nil)
             //self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
         }
         else
         {
+   
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -58,7 +65,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 dict["imageURL"] = base64String
                 objAPI.shareExtensionDelegate = self
                 objAPI.sendWishList(dict)
-
+                
             });
             
             
@@ -149,6 +156,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func successResponseForResetPasscodeAPI(objResponse: Dictionary<String, AnyObject>) {
+
+            spinner.stopAnimating()
+            spinner.hidden = true
+
         let alert = UIAlertController(title: "Success", message: "Item successfully added to wishlist", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
@@ -161,13 +172,17 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func errorResponseForOTPResetPasscodeAPI(error: String) {
+//        dispatch_async(dispatch_get_main_queue()){
+            spinner.stopAnimating()
+            spinner.hidden = true
+      //  }
         let alert = UIAlertController(title: "Warning", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
             self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
             
             })
-
+        
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }

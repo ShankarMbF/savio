@@ -25,7 +25,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
-    var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal betweenfriends and family","sav-id":"8"]
+    var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
         ,["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
         ,["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
          ["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
@@ -259,7 +259,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
         

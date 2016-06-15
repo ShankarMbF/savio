@@ -122,7 +122,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
     }
-    
+
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
@@ -143,11 +143,8 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         return true
     }
-    //UITextfieldDelegate method
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        //this method handles the return button press of UIKeyboard
-        return true
-    }
+
+
     
     //UITextfieldDelegate method
     
@@ -164,6 +161,8 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
+        
+
         return true
     }
     

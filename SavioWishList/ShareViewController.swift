@@ -149,7 +149,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func successResponseForResetPasscodeAPI(objResponse: Dictionary<String, AnyObject>) {
-        let alert = UIAlertController(title: "Warning", message: "Item successfully added to wishlist", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Success", message: "Item successfully added to wishlist", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
             self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)

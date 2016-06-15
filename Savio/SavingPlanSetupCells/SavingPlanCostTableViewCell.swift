@@ -44,6 +44,12 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         slider.setThumbImage(self.setUpImage(), forState: UIControlState.Highlighted)
         
         currencyLabel.textColor = self.setUpColor()
+        let leftView = UIView()
+        leftView.frame = CGRectMake(0, 0, 10, 26)
+        leftView.backgroundColor = UIColor.clearColor()
+        
+        costTextField.leftView = leftView
+        costTextField.leftViewMode = UITextFieldViewMode.Always
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -163,7 +169,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         
         //set the slider value
-        costTextField.text = String(format: " %d",Int(sender.value))
+        costTextField.text = String(format: "%d",Int(sender.value))
         costTextField.textColor = UIColor.whiteColor()
         delegate?.txtFieldCellText(self)
     }
@@ -188,7 +194,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             slider.value = slider.value + 10;
         }
         
-        costTextField.text = String(format: " %d",Int(slider.value))
+        costTextField.text = String(format: "%d",Int(slider.value))
         costTextField.textColor = UIColor.whiteColor()
         delegate?.txtFieldCellText(self)
     }
@@ -256,16 +262,27 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         return true
     }
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+    //UITextfieldDelegate method
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        return true
+        let currentCharacterCount = textField.text?.characters.count ?? 0
+        if (range.length + range.location > currentCharacterCount){
+            return false
+        }
+        let newLength = currentCharacterCount + string.characters.count - range.length
+        if (newLength > 4) {
+            return false;
+        }
+        return true;
     }
+
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         
         slider.value = (costTextField.text! as NSString).floatValue
         delegate?.txtFieldCellText(self)
-        
+  
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
@@ -274,6 +291,12 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.setAnimationBeginsFromCurrentState(true)
             view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
+        }
+        
+        if((costTextField.text! as NSString).floatValue > 3000)
+        {
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
         }
         return true
     }

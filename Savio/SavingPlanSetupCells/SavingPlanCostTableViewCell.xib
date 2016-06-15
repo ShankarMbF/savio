@@ -94,7 +94,7 @@
                             </mask>
                         </variation>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" 0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
                         <rect key="frame" x="159" y="32" width="130" height="26"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>

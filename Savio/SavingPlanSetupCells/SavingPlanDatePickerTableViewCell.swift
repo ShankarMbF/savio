@@ -11,7 +11,7 @@ import UIKit
 protocol SavingPlanDatePickerCellDelegate {
     func datePickerText(date:Int)
 }
-class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
+class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,SegmentBarChangeDelegate {
     
     @IBOutlet weak var calenderImageView: UIImageView!
     @IBOutlet weak var datePickerTextField: UITextField!
@@ -21,6 +21,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     var datePickerView:UIDatePicker = UIDatePicker()
     var savingPlanDatePickerDelegate : SavingPlanDatePickerCellDelegate?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
+    var segmentBarDelegate = SegmentBarChangeDelegate.self
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,8 +31,9 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         let date = datePickerView.date
         let dateFormatter = NSDateFormatter()
+        
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        datePickerView.minimumDate = date
+        
         datePickerTextField.text = dateFormatter.stringFromDate(date)
         
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
@@ -47,6 +49,25 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         calenderImageView.image = self.setUpImage()
         
     }
+    
+    func segmentBarChanged(str: String) {
+        if(str == "date")
+        {
+            let dateComponents = NSDateComponents()
+            dateComponents.month = 1
+            let calender = NSCalendar.currentCalendar()
+            let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+            datePickerView.minimumDate = newDate
+        }
+        else{
+            let daysToAdd : Double = 7
+            let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
+            datePickerView.minimumDate = newDate
+            
+        }
+        
+    }
+    
     
     func setUpImage()-> UIImage
     {

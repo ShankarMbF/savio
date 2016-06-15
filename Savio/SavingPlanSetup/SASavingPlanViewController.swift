@@ -80,7 +80,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-          btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
@@ -147,7 +147,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func heartBtnClicked(){
         
         let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
-
+        
         if wishListArray!.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
@@ -159,7 +159,64 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             alert.show()
         }
     }
-
+    func setUpColor()-> UIColor
+    {
+        var red : CGFloat = 0.0
+        var green : CGFloat = 0.0
+        var blue: CGFloat  = 0.0
+        
+        if(imageDataDict["header"] as! String == "Group Save")
+        {
+            red = 161/255
+            green = 214/255
+            blue = 248/255
+            
+        }
+        else if(imageDataDict["header"] as! String == "Wedding")
+        {
+            red = 189/255
+            green = 184/255
+            blue = 235/255
+        }
+        else if(imageDataDict["header"] as! String == "Baby")
+        {
+            red = 122/255
+            green = 223/255
+            blue = 172/255
+        }
+        else if(imageDataDict["header"] as! String == "Holiday")
+        {
+            red = 109/255
+            green = 214/255
+            blue = 200/255
+        }
+        else if(imageDataDict["header"] as! String == "Ride")
+        {
+            red = 242/255
+            green = 104/255
+            blue = 107/255
+        }
+        else if(imageDataDict["header"] as! String == "Home")
+        {
+            red = 244/255
+            green = 161/255
+            blue = 111/255
+        }
+        else if(imageDataDict["header"] as! String == "Gadget")
+        {
+            red = 205/255
+            green = 220/255
+            blue = 57/255
+        }
+        else
+        {
+            red = 244/255
+            green = 176/255
+            blue = 58/255
+        }
+        return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
+    }
+    
     
     func backButtonClicked()
     {
@@ -168,7 +225,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             obj.delegate = self
             self.navigationController?.pushViewController(obj, animated: true)
         }else{
-        self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
@@ -236,7 +293,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 
+                
             }
+            cell1.titleTextField.textColor = self.setUpColor()
             return cell1
         }
         else if(indexPath.section == 1){
@@ -332,7 +391,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cell1.offerImageView?.image = image
                 })
             })
-
+            
             
             return cell1
         }
@@ -356,7 +415,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         cell3.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
         
-       
+        
     }
     
     func getParameters() -> Dictionary<String,AnyObject>
@@ -406,7 +465,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier") as! SavingPlanDatePickerTableViewCell
         let dateParameter = NSDateFormatter()
-        dateParameter.dateFormat = "yyyy-mm-dd"
+        dateParameter.dateFormat = "yyyy-MM-dd"
         var pathComponents : NSArray!
         
         pathComponents = (cell3.datePickerTextField.text)!.componentsSeparatedByString(" ")
@@ -441,45 +500,45 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func nextButtonPressed(sender:UIButton)
     {
         if offerArr.count > 0 {
-        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-        self.objAnimView.frame = self.view.frame
-        self.objAnimView.animate()
-        self.view.addSubview(self.objAnimView)
-        
-        
-        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil )
-        {
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
             
-            let objAPI = API()
-            objAPI.partySavingPlanDelegate = self
-            if(itemDetailsDataDict["title"] == nil)
+            
+            if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0)
             {
-                objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                
+                let objAPI = API()
+                objAPI.partySavingPlanDelegate = self
+                if(itemDetailsDataDict["title"] == nil)
+                {
+                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                }
+                else
+                {
+                    var newDict : Dictionary<String,AnyObject> = [:]
+                    newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
+                    newDict["sav_id"] = self.getParameters()["sav_id"]
+                    newDict["payType"] = self.getParameters()["payType"]
+                    newDict["payDate"] = self.getParameters()["payDate"]
+                    newDict["user_ID"] = self.getParameters()["pty_id"]
+                    objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+                }
+                
             }
             else
             {
-                var newDict : Dictionary<String,AnyObject> = [:]
-                newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
-                newDict["sav_id"] = self.getParameters()["sav_id"]
-                newDict["payType"] = self.getParameters()["payType"]
-                newDict["payDate"] = self.getParameters()["payDate"]
-                newDict["user_ID"] = self.getParameters()["pty_id"]
-                objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+                self.objAnimView.removeFromSuperview()
+                let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
             }
-            
-        }
-        else
-        {
-            self.objAnimView.removeFromSuperview()
-            let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
         }
         else {
-        
-        let obj = SAOfferListViewController()
-        obj.delegate = self
-        self.navigationController?.pushViewController(obj, animated: true)
+            
+            let obj = SAOfferListViewController()
+            obj.delegate = self
+            self.navigationController?.pushViewController(obj, animated: true)
         }
     }
     

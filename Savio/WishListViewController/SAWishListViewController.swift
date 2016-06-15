@@ -47,7 +47,7 @@ class SAWishListViewController: UIViewController {
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-             btnName.titleLabel?.textColor = UIColor.blackColor()
+             btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
         
         let rightBarButton = UIBarButtonItem()

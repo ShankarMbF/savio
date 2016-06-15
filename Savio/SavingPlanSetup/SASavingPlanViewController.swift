@@ -78,7 +78,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-        //  btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+          btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
@@ -86,7 +86,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-             btnName.titleLabel?.textColor = UIColor.blackColor()
+            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -145,6 +145,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     
+    
+    func heartBtnClicked(){
+        
+        let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+
+        if wishListArray!.count>0{
+            
+            let objSAWishListViewController = SAWishListViewController()
+            objSAWishListViewController.wishListArray = wishListArray!
+            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+    }
+
     
     func backButtonClicked()
     {

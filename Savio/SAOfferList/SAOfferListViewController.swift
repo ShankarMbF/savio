@@ -66,7 +66,7 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-            btnName.titleLabel?.textColor = UIColor.blackColor()
+           btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -91,9 +91,20 @@ class SAOfferListViewController: UIViewController,OfferCellDelegate{
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func heartBtnClicked()  {
-        print("Heart Btn Clicked..")
-        //work in progress
+    func heartBtnClicked(){
+        
+        let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+        
+        if wishListArray!.count>0{
+            
+            let objSAWishListViewController = SAWishListViewController()
+            objSAWishListViewController.wishListArray = wishListArray!
+            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
     
     // MARK: - Button Action

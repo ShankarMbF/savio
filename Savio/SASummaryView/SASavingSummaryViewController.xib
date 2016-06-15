@@ -39,10 +39,11 @@
                 <outlet property="htOfferView" destination="eug-u5-awU" id="rxV-oy-BX8"/>
                 <outlet property="lblDate" destination="ANc-Fu-nr6" id="oTz-uI-afM"/>
                 <outlet property="lblMonth" destination="9ZG-dL-tRk" id="A74-Ga-fxQ"/>
-                <outlet property="lblNextDebit" destination="Qjs-gN-ZII" id="5fc-mc-JLg"/>
+                <outlet property="lblNextDebit" destination="6Fx-NQ-iWR" id="Ufd-Vu-ceR"/>
                 <outlet property="lblOffer" destination="ro6-16-qTo" id="LMa-2I-lgh"/>
                 <outlet property="lblPrice" destination="B4u-vR-bRe" id="wmU-1v-gaO"/>
                 <outlet property="lblTitle" destination="pqf-7j-JgA" id="hxa-Pt-x78"/>
+                <outlet property="paymentLastDate" destination="Qjs-gN-ZII" id="Jdb-TK-rXW"/>
                 <outlet property="scrlVw" destination="iKv-QE-zQs" id="Raj-V0-PH6"/>
                 <outlet property="topBgImageView" destination="Y49-OL-cgH" id="bHH-iv-yBa"/>
                 <outlet property="topSpaceForContinue" destination="i3Q-Wm-NLr" id="cD7-s7-cxJ"/>
@@ -62,7 +63,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uW6-Jw-vNl">
                     <rect key="frame" x="0.0" y="64" width="600" height="190"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y49-OL-cgH">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y49-OL-cgH">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="190"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kPO-xb-Zg7">

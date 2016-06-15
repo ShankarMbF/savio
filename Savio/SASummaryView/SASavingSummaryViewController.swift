@@ -30,6 +30,7 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var lblTitle: UILabel!
     
+    @IBOutlet weak var paymentLastDate: UILabel!
     
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblDate: UILabel!
@@ -38,6 +39,10 @@ class SASavingSummaryViewController: UIViewController {
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
     var itemDataDict : Dictionary<String,AnyObject> = [:]
+    
+    var offersArray : Array<Dictionary<String,AnyObject>> = []
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,27 +94,27 @@ class SASavingSummaryViewController: UIViewController {
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
-            var wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+             wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
             
-            for i in 0 ..< wishListArray!.count
+            for i in 0 ..< wishListArray.count
             {
-             let dict = wishListArray![i] as Dictionary<String,AnyObject>
-                if(dict["id"] as! String == itemDataDict["id"] as! String)
+             let dict = wishListArray[i] as Dictionary<String,AnyObject>
+                if(String(format: "%d",((dict["id"] as? NSNumber)?.doubleValue)!) == String(format: "%d",((itemDataDict["id"] as? NSNumber)?.doubleValue)!))
                 {
                      indexId = i
                 }
             
             }
             
-            wishListArray?.removeAtIndex(indexId)
+            wishListArray.removeAtIndex(indexId)
             
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
-            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-            btnName.titleLabel?.textColor = UIColor.blackColor()
+            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+           btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -146,32 +151,60 @@ class SASavingSummaryViewController: UIViewController {
             scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
             
             
+            let objDict : Dictionary<String,AnyObject> = [:]
+     
+            
+            let lblTitle = testView.viewWithTag(1)! as! UILabel
+            lblTitle.text = objDict["offCompanyName"] as? String
+            lblTitle.hidden = false
+            
+            let lblDetail = testView.viewWithTag(2)! as! UILabel
+            lblDetail.text = objDict["offTitle"] as? String
+        
+            let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
+            lblOfferDetail.text = objDict["offDesc"] as? String
+   
+            
+            let bgImageView = testView.viewWithTag(4) as! UIImageView
+
+
+            
             
         }
         
         
         lblTitle.text = itemDataDict["title"] as? String
         lblPrice.text = itemDataDict["amount"] as? String
-        lblDate.text = itemDataDict["payDate"] as? String
+
         let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         topBgImageView.image = UIImage(data: data)
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
       
+        lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+        
+        paymentLastDate.text = itemDataDict["payDate"] as? String
+        
+        
         if(itemDataDict["day"] as? String == "date")
         {
             lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
             let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
             let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.Month, value: 30, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
             
-            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
+            lblNextDebit.text = itemDataDict["payDate"] as? String
+            
+//            dateComponents.month = 1
+//            let next7Days = cal!.dateByAddingComponents(dateComponents, toDate: dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)!, options: NSCalendarOptions(rawValue: 0))
+//            
+//            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
         }
         else{
             lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
             let cal = NSCalendar(calendarIdentifier: NSGregorianCalendar)
             let next7Days = cal!.dateByAddingUnit(NSCalendarUnit.NSWeekCalendarUnit, value: 7, toDate:dateFormatter.dateFromString((itemDataDict["payDate"] as? String)!)! , options: NSCalendarOptions(rawValue: 0))
             
-            lblNextDebit.text = dateFormatter.stringFromDate(next7Days!)
+            lblNextDebit.text = itemDataDict["payDate"] as? String
             
         }
         
@@ -201,9 +234,20 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     func heartBtnClicked(){
-        
-    }
     
+            
+        if wishListArray.count>0{
+            
+            let objSAWishListViewController = SAWishListViewController()
+            objSAWishListViewController.wishListArray = wishListArray
+            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        }
+        else{
+            let alert = UIAlertView(title: "Alert", message: "You have no any wish saved", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+    }
+
     
     
     func setUpShadowColor()-> UIColor

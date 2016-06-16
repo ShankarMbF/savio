@@ -103,7 +103,6 @@ class SASavingSummaryViewController: UIViewController {
                 {
                     indexId = i
                 }
-                
             }
             
             wishListArray.removeAtIndex(indexId)
@@ -132,7 +131,8 @@ class SASavingSummaryViewController: UIViewController {
         lblOffer?.hidden = true
         topSpaceForContinue.constant = 30
         htOfferView.constant = 0
-        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
+        if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
+//        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
         let offerCount = 0
         for var i=0; i<arrOff.count; i++ {
             
@@ -179,8 +179,7 @@ class SASavingSummaryViewController: UIViewController {
                 })
             })
         }
-        
-        
+        }
         lblTitle.text = itemDataDict["title"] as? String
         lblPrice.text =  String(format:"£ %@",(itemDataDict["amount"] as? String)!)
         
@@ -197,7 +196,6 @@ class SASavingSummaryViewController: UIViewController {
         lblDate.text = dateFormatter.stringFromDate(NSDate())
 
         paymentLastDate.text = itemDataDict["payDate"] as? String
-        
         
         if(itemDataDict["day"] as? String == "date")
         {

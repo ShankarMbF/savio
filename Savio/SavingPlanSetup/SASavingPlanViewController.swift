@@ -14,6 +14,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
+    
     var cost : Int = 0
     
     var dateDiff : Int = 0
@@ -30,6 +31,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var userInfoDict  = Dictionary<String,AnyObject>()
     var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
+    
+    var isOfferShow: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -513,7 +516,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func nextButtonPressed(sender:UIButton)
     {
-        if offerArr.count > 0 {
+        if isOfferShow == false {
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
@@ -722,5 +725,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
         tblView.reloadData()
+        isOfferShow = false
     }
+    
+    func skipOffers(){
+        isOfferShow = false
+    }
+
 }

@@ -10,6 +10,7 @@ import UIKit
 
 class SAWishListViewController: UIViewController {
 
+    @IBOutlet var wishListTable: UITableView?
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +107,11 @@ class SAWishListViewController: UIViewController {
         let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+    }
+    
+    func deleteButtonPress(sender:UIButton)  {
+        wishListArray.removeAtIndex(sender.tag)
+        wishListTable?.reloadData()
     }
     
     //MARK: Bar button action

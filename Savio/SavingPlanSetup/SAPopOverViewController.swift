@@ -56,6 +56,19 @@ class SAPopOverViewController: UIViewController,UITableViewDelegate,UITableViewD
         return cell!
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if( popOverTableView.respondsToSelector(Selector("setSeparatorInset:"))){
+            popOverTableView.separatorInset = UIEdgeInsetsZero
+        }
+        
+        if( popOverTableView.respondsToSelector(Selector("setLayoutMargins:"))){
+            popOverTableView.layoutMargins = UIEdgeInsetsZero
+        }
+        
+        if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+    }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if(setArrayString == "day")

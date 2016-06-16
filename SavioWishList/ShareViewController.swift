@@ -78,6 +78,21 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         
     }
+    
+    //UITextfieldDelegate method
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentCharacterCount = textField.text?.characters.count ?? 0
+        if (range.length + range.location > currentCharacterCount){
+            return false
+        }
+        let newLength = currentCharacterCount + string.characters.count - range.length
+        if (newLength > 4) {
+            return false;
+        }
+        return true;
+    }
+    
     @IBAction func leftBtnPressed(sender: AnyObject) {
         currentImagePosition -= 1;
         if currentImagePosition < 0 {
@@ -89,6 +104,15 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
+//        if((priceTextField.text! as NSString).floatValue > 3000)
+//        {
+// 
+//            let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default))
+//
+//            self.presentViewController(alert, animated: true, completion: nil)
+//
+//        }
         return textField.resignFirstResponder()
     }
     

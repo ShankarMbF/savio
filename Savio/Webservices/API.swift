@@ -475,18 +475,17 @@ class API: UIView {
                     print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        if let val = dict["errorCode"] {
-                            if(dict["errorCode"] as! String == "204")
-                            {
-                                dispatch_async(dispatch_get_main_queue()){
-                                    self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("Please login to Savio first.")
-                                }
+                        
+                        if(dict["errorCode"] as! String == "200")
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
                             }
                         }
                         else
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                                self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("Please login to Savio first.")
                             }
                         }
                     }
@@ -627,7 +626,7 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
+                    //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())

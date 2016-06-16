@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SAWishListViewController: UIViewController {
+class SAWishListViewController: UIViewController,GetWishlistDelegate {
 
     @IBOutlet var wishListTable: UITableView?
+     var objAnimView = ImageViewAnimation()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,8 @@ class SAWishListViewController: UIViewController {
 
     func setUpView(){
         self.title = "My Wish List"
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SAWishListViewController.callWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
+
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -54,6 +56,28 @@ class SAWishListViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func callWishListData(notification:NSNotification)
+    {
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        
+        self.view.addSubview(objAnimView)
+        let objAPI = API()
+        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        objAPI.getWishlistDelegate = self
+        
+        if(userDict["partyId"] is String)
+        {
+            objAPI.getWishListForUser(userDict["partyId"] as! String)
+        }
+        else
+        {
+            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +116,7 @@ class SAWishListViewController: UIViewController {
         cell.imgView?.image = UIImage(data: data)
         cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
     
@@ -125,6 +150,21 @@ class SAWishListViewController: UIViewController {
         self.navigationController?.popViewControllerAnimated(true)
     }
 
+    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+       if wishListArray.count > 0 {
+            wishListArray.removeAll()
+        }
+        wishListArray = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+        objAnimView.removeFromSuperview()
+        self.setUpView()
+        wishListTable?.reloadData()
+        
+    }
+    
+    func errorResponseForGetWishlistAPI(error: String) {
+        print(error)
+        objAnimView.removeFromSuperview()
+    }
 
     /*
     // MARK: - Navigation

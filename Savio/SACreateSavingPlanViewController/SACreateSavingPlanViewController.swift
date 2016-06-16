@@ -37,15 +37,23 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.getWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         self.setUpView()
+        self.callWishListAPI()
       
     }
     override func viewWillAppear(animated: Bool) {
      super.viewWillAppear(animated)
+
+    }
+    
+    func callWishListAPI()
+    {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -64,6 +72,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
 
+    }
+    
+    func getWishListData(notification:NSNotification)
+    {
+     self.callWishListAPI()  
     }
     
     override func didReceiveMemoryWarning() {
@@ -327,8 +340,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
        
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
-        self.setUpView()
         objAnimView.removeFromSuperview()
+        self.setUpView()
+    
     }
     
     func errorResponseForGetWishlistAPI(error: String) {

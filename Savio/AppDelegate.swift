@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //       objApi.deleteKeychainValue("myUserInfo")
 //        objApi.deleteKeychainValue("userInfo")
         print(objApi.getValueFromKeychainOfKey("myPasscode") as! String)
+        //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
+        
         if((objApi.getValueFromKeychainOfKey("myPasscode") as! String) == "")
         {
             //If no then Go to SAWelcomViewController
@@ -63,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController
                 objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                 window?.rootViewController = objSANav
-
                 
             }
             

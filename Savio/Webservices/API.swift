@@ -424,7 +424,6 @@ class API: UIView {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         let data = NSKeyedArchiver.archivedDataWithRootObject(value)
         defaults.setObject(data, forKey: key)
-        
     }
     
     func getValueFromKeychainOfKey(key:String)-> AnyObject{

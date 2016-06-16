@@ -37,52 +37,60 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         
-        
-        let data = defaults.valueForKey("myPasscode") as! NSData
-        
-        
-        if((NSKeyedUnarchiver.unarchiveObjectWithData(data) as! String) == "")
+        if  let data = defaults.valueForKey("myPasscode") as? NSData
         {
-            let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
-            { action -> Void in
-                self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+            if((NSKeyedUnarchiver.unarchiveObjectWithData(data) as! String) == "")
+            {
+                let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+                { action -> Void in
+                    self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+                    
+                    })
                 
-                })
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-            //self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
+                //self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+            }
+            else
+            {
+                if((priceTextField.text! as NSString).floatValue > 3000)
+                {
+                    
+                    let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                }
+                else{
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
+                        let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        let data = defaults.valueForKey("userInfo") as! NSData
+                        let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
+                        var dict : Dictionary<String,AnyObject> = [:]
+                        dict["title"] = self.textView.text
+                        dict["amount"] = self.priceTextField.text
+                        dict["pty_id"] = userDict!["partyId"]
+                        dict["imageURL"] = base64String
+                        objAPI.shareExtensionDelegate = self
+                        objAPI.sendWishList(dict)
+                        
+                    });
+                }
+                
+            }
         }
         else
         {
-            if((priceTextField.text! as NSString).floatValue > 3000)
-            {
-                
-                let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                
-                self.presentViewController(alert, animated: true, completion: nil)
-                
-            }
-            else{
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                    let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
-                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                    let data = defaults.valueForKey("userInfo") as! NSData
-                    let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
-                    var dict : Dictionary<String,AnyObject> = [:]
-                    dict["title"] = self.textView.text
-                    dict["amount"] = self.priceTextField.text
-                    dict["pty_id"] = userDict!["partyId"]
-                    dict["imageURL"] = base64String
-                    objAPI.shareExtensionDelegate = self
-                    objAPI.sendWishList(dict)
-                    
-                });
-            }
             
+            spinner.stopAnimating()
+            spinner.hidden = true
+            let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
-        
         
     }
     

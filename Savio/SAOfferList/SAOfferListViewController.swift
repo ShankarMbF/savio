@@ -11,6 +11,7 @@ import UIKit
 protocol SAOfferListViewDelegate {
     
     func addedOffers(offerForSaveDict:Dictionary<String,AnyObject>)
+    func skipOffers()
 }
 
 class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
@@ -126,6 +127,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     // MARK: - Button Action
     @IBAction func clickedOnSkipOffersBtn(sender:UIButton){
         self.backButtonPress()
+        delegate?.skipOffers()
     }
     
     // MARK: - Tableview Delegate & Datasource

@@ -24,23 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         //Check if keychain has encrypted pin value
         let objApi = API()
-//        objApi.deleteKeychainValue("myPasscode")
-//       objApi.deleteKeychainValue("myUserInfo")
-//        objApi.deleteKeychainValue("userInfo")
+        //        objApi.deleteKeychainValue("myPasscode")
+        //       objApi.deleteKeychainValue("myUserInfo")
+        //        objApi.deleteKeychainValue("userInfo")
         print(objApi.getValueFromKeychainOfKey("myPasscode") as! String)
         //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         
-        if((objApi.getValueFromKeychainOfKey("myPasscode") as! String) == "")
+        if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
-            //If no then Go to SAWelcomViewController
-            objSAWelcomViewController = SAWelcomViewController()
-            //Set SAWelcomViewController as rootViewController of UINavigationViewController
-            objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
-            window?.rootViewController = objSANav
-            
-            
-        }
-        else{
             
             let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             print(userInfoDict)
@@ -48,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(udidDict)
             print(UIDevice.currentDevice().identifierForVendor!.UUIDString)
             
-            let udidArray = udidDict[0] 
+            let udidArray = udidDict[0]
             
             if(udidArray["DEVICE_ID"] as! String  == UIDevice.currentDevice().identifierForVendor!.UUIDString)
             {
@@ -68,6 +59,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }
             
+            
+            
+        }
+        else{
+            
+            //If no then Go to SAWelcomViewController
+            objSAWelcomViewController = SAWelcomViewController()
+            //Set SAWelcomViewController as rootViewController of UINavigationViewController
+            objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
+            window?.rootViewController = objSANav
             
         }
         objSANav?.navigationBarHidden = true

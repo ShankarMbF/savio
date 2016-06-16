@@ -41,7 +41,7 @@
                         <constraint firstAttribute="width" constant="239" id="wNF-a6-O9i"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="8"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mothercare" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ1-vA-bwA">

@@ -92,6 +92,7 @@ class SAWishListViewController: UIViewController {
         cell.imgView?.image = UIImage(data: data)
         cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+          cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         return cell
     }
     
@@ -112,6 +113,9 @@ class SAWishListViewController: UIViewController {
     func deleteButtonPress(sender:UIButton)  {
         wishListArray.removeAtIndex(sender.tag)
         wishListTable?.reloadData()
+        NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        self.setUpView()
     }
     
     //MARK: Bar button action

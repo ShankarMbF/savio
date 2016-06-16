@@ -68,9 +68,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 
             });
             
-            
-            
-            
         }
         
         

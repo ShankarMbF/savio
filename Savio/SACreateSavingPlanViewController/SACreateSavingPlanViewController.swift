@@ -42,6 +42,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         self.setUpView()
+      
+    }
+    override func viewWillAppear(animated: Bool) {
+     super.viewWillAppear(animated)
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -59,17 +63,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
-        
-        
-//        
-//        let isShowFull = true
-//        if isShowFull == true {
-//            suggestedHt.constant = 50.0
-//            suggestedTop.constant = -52.0
-//            btnWishList?.hidden = true
-//            pageControl?.hidden = true
-//            lblLine?.hidden = true
-//        }
+
     }
     
     override func didReceiveMemoryWarning() {

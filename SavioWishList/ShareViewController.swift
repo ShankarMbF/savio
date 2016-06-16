@@ -34,9 +34,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         self.view.addSubview(self.spinner)
         self.spinner.startAnimating()
         
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
-        let data = defaults.valueForKey("myPasscode") as! NSData
         
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+ 
+
+        let data = defaults.valueForKey("myPasscode") as! NSData
+
         
         if((NSKeyedUnarchiver.unarchiveObjectWithData(data) as! String) == "")
         {

@@ -36,10 +36,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
- 
-
+        
+        
         let data = defaults.valueForKey("myPasscode") as! NSData
-
+        
         
         if((NSKeyedUnarchiver.unarchiveObjectWithData(data) as! String) == "")
         {
@@ -55,21 +55,31 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         }
         else
         {
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
-                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                let data = defaults.valueForKey("userInfo") as! NSData
-                let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
-                var dict : Dictionary<String,AnyObject> = [:]
-                dict["title"] = self.textView.text
-                dict["amount"] = self.priceTextField.text
-                dict["pty_id"] = userDict!["partyId"]
-                dict["imageURL"] = base64String
-                objAPI.shareExtensionDelegate = self
-                objAPI.sendWishList(dict)
+            if((priceTextField.text! as NSString).floatValue > 3000)
+            {
                 
-            });
+                let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+            }
+            else{
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                    let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
+                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    let data = defaults.valueForKey("userInfo") as! NSData
+                    let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
+                    var dict : Dictionary<String,AnyObject> = [:]
+                    dict["title"] = self.textView.text
+                    dict["amount"] = self.priceTextField.text
+                    dict["pty_id"] = userDict!["partyId"]
+                    dict["imageURL"] = base64String
+                    objAPI.shareExtensionDelegate = self
+                    objAPI.sendWishList(dict)
+                    
+                });
+            }
             
         }
         
@@ -101,15 +111,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
-//        if((priceTextField.text! as NSString).floatValue > 3000)
-//        {
-// 
-//            let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
-//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default))
-//
-//            self.presentViewController(alert, animated: true, completion: nil)
-//
-//        }
         return textField.resignFirstResponder()
     }
     
@@ -167,6 +168,16 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     func doneBarButtonPressed() {
         priceTextField.resignFirstResponder()
+        if((priceTextField.text! as NSString).floatValue > 3000)
+        {
+            
+            let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        }
+        
     }
     
     func showImage(idx: Int)  {

@@ -58,11 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }
             else{
-                //else Go to SARegistrationViewController
-                objRegisterViewController = SARegistrationViewController()
-                //Set SARegistrationViewController as rootViewController of UINavigationViewController
-                objSANav = UINavigationController(rootViewController: objRegisterViewController!)
+                //If no then Go to SAWelcomViewController
+                objSAWelcomViewController = SAWelcomViewController()
+                //Set SAWelcomViewController as rootViewController of UINavigationViewController
+                objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                 window?.rootViewController = objSANav
+
                 
             }
             

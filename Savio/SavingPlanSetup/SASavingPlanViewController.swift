@@ -170,7 +170,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var red : CGFloat = 0.0
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
-        
+         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         if(imageDataDict["header"] as! String == "Group Save")
         {
             red = 161/255

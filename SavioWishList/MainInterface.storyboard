@@ -126,7 +126,7 @@
                                             <constraint firstAttribute="height" constant="30" id="QnS-eu-POh"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="j1y-V4-xli" id="kR5-Ai-tCX"/>
                                         </connections>

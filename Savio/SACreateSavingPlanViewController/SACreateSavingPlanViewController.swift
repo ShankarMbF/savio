@@ -89,6 +89,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
     }
     
+    
     func setUpView(){
         btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
@@ -145,7 +146,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
 
                 NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
                 NSUserDefaults.standardUserDefaults().synchronize()
-
                 
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView

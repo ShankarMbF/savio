@@ -137,6 +137,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     func deleteButtonPress(sender:UIButton)  {
         wishListArray.removeAtIndex(sender.tag)
         wishListTable?.reloadData()
+        NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        self.setUpView()
     }
     
     //MARK: Bar button action

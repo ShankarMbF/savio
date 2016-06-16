@@ -9,7 +9,8 @@
 import UIKit
 
 protocol SavingPlanDatePickerCellDelegate {
-    func datePickerText(date:Int)
+    func datePickerText(date:Int,dateStr:String)
+
 }
 class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,SegmentBarChangeDelegate {
     
@@ -127,7 +128,8 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
         print(timeDifference)
         
-        savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600))
+        savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
+        
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDelegate(self)
         UIView.setAnimationDuration(0.5)

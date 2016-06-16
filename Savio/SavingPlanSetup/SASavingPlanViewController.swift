@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -16,9 +16,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     
     var cost : Int = 0
+    
     var dateDiff : Int = 0
     var dateString = "date"
     var popOverSelectedStr = ""
+    var datePickerDate : String = ""
+    var itemTitle : String = ""
     var imageDataDict : Dictionary<String,AnyObject> = [:]
     
     var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
@@ -149,19 +152,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func heartBtnClicked(){
         if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
-
-        let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
-        
-        if wishListArray!.count>0{
             
-            let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = wishListArray!
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
-        }
-        else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
+            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            
+            if wishListArray!.count>0{
+                
+                let objSAWishListViewController = SAWishListViewController()
+                objSAWishListViewController.wishListArray = wishListArray!
+                self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            }
+            else{
+                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
+            }
         }
         else{
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
@@ -173,7 +176,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var red : CGFloat = 0.0
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
-         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         if(imageDataDict["header"] as! String == "Group Save")
         {
             red = 161/255
@@ -298,6 +301,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
             cell1.view = self.view
+            cell1.savingPlanTitleDelegate = self
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
@@ -406,9 +410,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     
-    func datePickerText(date: Int) {
+    func getTextFieldText(text: String) {
+        itemTitle = text
+    }
+    func datePickerText(date: Int,dateStr:String) {
         print(date)
         dateDiff = date
+        datePickerDate = dateStr
     }
     
     func clearButtonPressed()
@@ -437,8 +445,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["title"] = itemDetailsDataDict["title"]
         }
         else{
-            let cell1 = tblView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier") as! SavingPlanTitleTableViewCell
-            parameterDict["title"] = cell1.titleTextField.text
+          
+            parameterDict["title"] = itemTitle
         }
         
         if(itemDetailsDataDict["amount"] != nil)
@@ -453,7 +461,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         else{
-            let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
+            
             parameterDict["amount"] = String(format:"%d",cost)
         }
         if(itemDetailsDataDict["imageURL"] != nil)
@@ -472,12 +480,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         
-        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier") as! SavingPlanDatePickerTableViewCell
+        
         let dateParameter = NSDateFormatter()
         dateParameter.dateFormat = "yyyy-MM-dd"
         var pathComponents : NSArray!
         
-        pathComponents = (cell3.datePickerTextField.text)!.componentsSeparatedByString(" ")
+        pathComponents = (datePickerDate).componentsSeparatedByString(" ")
         var dateStr = pathComponents.lastObject as! String
         
         dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
@@ -677,7 +685,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        // print(objResponse)
+         print(objResponse)
         objAnimView.removeFromSuperview()
         
         var dict :  Dictionary<String,AnyObject> = [:]

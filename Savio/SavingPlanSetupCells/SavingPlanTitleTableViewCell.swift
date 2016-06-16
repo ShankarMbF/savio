@@ -8,16 +8,22 @@
 
 import UIKit
 
+protocol SavingPlanTitleTableViewCellDelegate {
+    func getTextFieldText(text:String)
+    
+}
 class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
     weak var tblView : UITableView?
     weak var view : UIView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
+    var savingPlanTitleDelegate: SavingPlanTitleTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
         titleTextField.delegate = self
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         print(colorDataDict)
@@ -122,7 +128,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
     }
-
+    
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
@@ -143,8 +149,8 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         return true
     }
-
-
+    
+    
     
     //UITextfieldDelegate method
     
@@ -162,7 +168,8 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.commitAnimations()
         }
         
-
+        savingPlanTitleDelegate?.getTextFieldText(textField.text!)
+        
         return true
     }
     

@@ -1125,43 +1125,17 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         return  value == filtered
     }
     
+    //Function invoke for validate the email
     func isValidEmail(testStr:String) -> Bool {
         
-        
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         let result = emailTest.evaluateWithObject(testStr)
-//        if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {
-//            return emailTest.evaluateWithObject(testStr)
-//        }
+
         return result
-        
-        
-        
-//        print("validate emilId: \(testStr)")
-//        let emailRegEx = "^(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?(?:(?:(?:[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+(?:\\.[-A-Za-z0-9!#$%&’*+/=?^_'{|}~]+)*)|(?:\"(?:(?:(?:(?: )*(?:(?:[!#-Z^-~]|\\[|\\])|(?:\\\\(?:\\t|[ -~]))))+(?: )*)|(?: )+)\"))(?:@)(?:(?:(?:[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)(?:\\.[A-Za-z0-9](?:[-A-Za-z0-9]{0,61}[A-Za-z0-9])?)*)|(?:\\[(?:(?:(?:(?:(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))\\.){3}(?:[0-9]|(?:[1-9][0-9])|(?:1[0-9][0-9])|(?:2[0-4][0-9])|(?:25[0-5]))))|(?:(?:(?: )*[!-Z^-~])*(?: )*)|(?:[Vv][0-9A-Fa-f]+\\.[-A-Za-z0-9._~!$&'()*+,;=:]+))\\])))(?:(?:(?:(?: )*(?:(?:(?:\\t| )*\\r\\n)?(?:\\t| )+))+(?: )*)|(?: )+)?$"
-//        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-//        let result = emailTest.evaluateWithObject(testStr)
-//        return result
     }
     
-    //    @IBAction func clickOnRegisterButton(sender:UIButton){
-    //
-    //        for var i=0; i<arrRegistrationFields.count; i++ {
-    //            let cell = arrRegistrationFields[i] as! TitleTableViewCell
-    //            if cell.isKindOfClass(TitleTableViewCell){
-    //              let str = cell.tfName?.text
-    //                if str==""{
-    //                    let dict = arrRegistration[i-1] as Dictionary<String,AnyObject>
-    //                     let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-    //                    let lableDict = metadataDict["metaData"]as? NSMutableDictionary
-    //                    lableDict?.setValue("Yes", forKey: "isErrorShow")
-    //                }
-    //            }
-    //
-    //
-    //            }
-    //    }
+
     
     //OTP Verification Delegate Method
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
@@ -1218,7 +1192,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){

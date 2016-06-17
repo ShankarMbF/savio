@@ -194,6 +194,7 @@
 		A8AEA9431CFFF1DE0069F22A /* NextButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AEA9411CFFF1DE0069F22A /* NextButtonTableViewCell.xib */; };
 		A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AEA9441CFFF9110069F22A /* ClearButtonTableViewCell.swift */; };
 		A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */; };
+		A8B347791D13D7E200063524 /* savivo-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E854FE1CF456CC006213BF /* savivo-logo.png */; };
 		A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B74C3A1CEDD13E003A5D9A /* DataProtectionPolicy.swift */; };
 		A8B74C3D1CEDD152003A5D9A /* DataProtectionPolicy.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B74C3C1CEDD152003A5D9A /* DataProtectionPolicy.xib */; };
 		A8BC96D61D0EB8B800535447 /* dropdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BC96D31D0EB8B800535447 /* dropdown@3x.png */; };
@@ -1570,6 +1571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8B347791D13D7E200063524 /* savivo-logo.png in Resources */,
 				A8BDCC0B1D05936F00D4C47B /* ShareExtension.js in Resources */,
 				A858A5BC1D07EB570097546F /* MainInterface.storyboard in Resources */,
 				A8BDCC0C1D05936F00D4C47B /* icon-60.png in Resources */,
@@ -2000,7 +2002,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
+				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -2018,7 +2020,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
+				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

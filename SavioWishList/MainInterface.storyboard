@@ -57,7 +57,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="icon-60.png" translatesAutoresizingMaskIntoConstraints="NO" id="ynd-Y9-ckS">
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ynd-Y9-ckS">
                                         <rect key="frame" x="260" y="3" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="d9f-Dh-sk1"/>
@@ -189,6 +189,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon-60.png" width="60" height="60"/>
+        <image name="savivo-logo.png" width="85" height="85"/>
     </resources>
 </document>

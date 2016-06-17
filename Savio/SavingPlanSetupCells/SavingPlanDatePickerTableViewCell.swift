@@ -29,7 +29,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         // Initialization code
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        
+        datePickerView.datePickerMode = UIDatePickerMode.Date
         let date = datePickerView.date
         let dateFormatter = NSDateFormatter()
         
@@ -42,7 +42,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
-        customToolBar!.items = [acceptButton, flexibleSpace, cancelButton]
+        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton,]
         datePickerTextField.delegate = self
         datePickerTextField.inputView = datePickerView
         datePickerTextField.inputAccessoryView = customToolBar

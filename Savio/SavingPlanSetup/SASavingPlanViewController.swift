@@ -445,7 +445,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["title"] = itemDetailsDataDict["title"]
         }
         else{
-          
+            
             parameterDict["title"] = itemTitle
         }
         
@@ -480,20 +480,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         
-        
-        let dateParameter = NSDateFormatter()
-        dateParameter.dateFormat = "yyyy-MM-dd"
-        var pathComponents : NSArray!
-        
-        pathComponents = (datePickerDate).componentsSeparatedByString(" ")
-        var dateStr = pathComponents.lastObject as! String
-        
-        dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
-        
-        var pathComponents2 : NSArray!
-        pathComponents2 = dateStr.componentsSeparatedByString("-")
-        
-        parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+        if(datePickerDate != "")
+        {
+            let dateParameter = NSDateFormatter()
+            dateParameter.dateFormat = "yyyy-MM-dd"
+            var pathComponents : NSArray!
+            
+            pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+            var dateStr = pathComponents.lastObject as! String
+            
+            dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+            
+            var pathComponents2 : NSArray!
+            pathComponents2 = dateStr.componentsSeparatedByString("-")
+            
+            parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+        }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         
@@ -523,7 +525,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.view.addSubview(self.objAnimView)
             
             
-            if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0)
+            if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
             {
                 
                 let objAPI = API()
@@ -547,8 +549,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else
             {
                 self.objAnimView.removeFromSuperview()
-                let alert = UIAlertView(title: "Warning", message: "Please enter title,price and date", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
+                
+                if(self.getParameters()["title"] == nil  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil)
+                {
+                    self.displayAlert("Please enter title for your saving plan")
+                }
+                else if(cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil)
+                {
+                    self.displayAlert("Please enter amount for your saving plan")
+                }
+                else if( cost != 0 && dateDiff != 0   && self.getParameters()["imageURL"] != nil)
+                {
+                    self.displayAlert("Please select date for your saving plan")
+                }
+                else if( cost != 0 && dateDiff == 0  && self.getParameters()["imageURL"] != nil)
+                {
+                    self.displayAlert("Please select monthly/weekly payment date")
+                }
+                else if(  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil)
+                {
+                    self.displayAlert("Please select image for your saving plan")
+                }
+                else
+                {
+                    self.displayAlert("Please enter all details")
+                }
             }
         }
         else {
@@ -557,6 +582,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             obj.delegate = self
             self.navigationController?.pushViewController(obj, animated: true)
         }
+    }
+    
+    func displayAlert(message:String)
+    {
+        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
     }
     
     func closeOfferButtonPressed(sender:UIButton)
@@ -591,6 +622,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             objPopOverView.preferredContentSize = CGSizeMake(60, 80)
             objPopOverView.popoverPresentationController?.sourceRect = CGRectMake(0, -70, 53, 90)
             self.presentViewController(objPopOverView, animated: true, completion: nil)
+        }
+        else if(cost == 0 && dateDiff != 0){
+            let alert = UIAlertView(title: "Warning", message: "Please select cost", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+        else if(cost != 0 && dateDiff == 0){
+            let alert = UIAlertView(title: "Warning", message: "Please select date", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
         }
         else{
             let alert = UIAlertView(title: "Warning", message: "Please select cost and date first", delegate: nil, cancelButtonTitle: "OK")
@@ -685,7 +724,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-         print(objResponse)
+        print(objResponse)
         objAnimView.removeFromSuperview()
         
         var dict :  Dictionary<String,AnyObject> = [:]
@@ -731,5 +770,5 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func skipOffers(){
         isOfferShow = false
     }
-
+    
 }

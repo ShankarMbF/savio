@@ -104,7 +104,7 @@
                         </constraints>
                         <color key="textColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
+                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="78s-de-v0U"/>

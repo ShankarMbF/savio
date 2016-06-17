@@ -45,17 +45,49 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         currencyLabel.textColor = self.setUpColor()
         let leftView = UIView()
-        leftView.frame = CGRectMake(0, 0, 10, 26)
+        leftView.frame = CGRectMake(0, 0, 5, 26)
         leftView.backgroundColor = UIColor.clearColor()
         
         costTextField.leftView = leftView
         costTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        var customToolBar : UIToolbar?
+        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        
+        customToolBar!.items = [acceptButton]
+        
+        costTextField.inputAccessoryView = customToolBar
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    
+    func doneBarButtonPressed() {
+        costTextField.resignFirstResponder()
+        slider.value = (costTextField.text! as NSString).floatValue
+        delegate?.txtFieldCellText(self)
+        
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+        }
+        
+        if((costTextField.text! as NSString).floatValue > 3000)
+        {
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+  
     }
     
     //get the Image for selected theme

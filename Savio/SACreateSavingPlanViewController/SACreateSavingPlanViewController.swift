@@ -139,6 +139,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         // Set the scrollview content size.
         scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
         // Load the PageView view from the TestView.xib file and configure it properly.
+        
+    
         if colors.count > 0{
             for i in 0 ..< colors.count {
                  heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)

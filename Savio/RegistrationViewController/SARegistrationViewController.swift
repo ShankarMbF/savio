@@ -440,6 +440,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         print("\(dictForTextFieldValue)")
     }
     
+    func getTextFOrPostCode(findAddrCell: FindAddressTableViewCell)
+    {
+        if findAddrCell.tfPostCode?.text?.characters.count>0{
+            dictForTextFieldValue.updateValue((findAddrCell.tfPostCode?.text)!, forKey: (findAddrCell.tfPostCode?.placeholder)!)
+        }
+    }
     
     func getAddressButtonClicked(findAddrCell: FindAddressTableViewCell){
         //        var strPostCode = String()
@@ -591,7 +597,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
         else{
             if dictForTextFieldValue["errorPostcodeValid"] != nil{
-                var dict = arrRegistration[5] as Dictionary<String,AnyObject>
+                var dict = arrRegistration[6] as Dictionary<String,AnyObject>
                 var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let lableDict = metadataDict["lable"]!.mutableCopy()
                 lableDict.setValue("Yes", forKey: "isErrorShow")
@@ -599,7 +605,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 metadataDict["lable"] = lableDict
                 dict["metaData"] = metadataDict
                 dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right"
-                arrRegistration[5] = dict
+                arrRegistration[6] = dict
                 self.createCells()
             }
         }
@@ -994,6 +1000,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 else{
                     dictForTextFieldValue.removeValueForKey("errorPostcode")
+                    dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
+
                 }
                 dict = arrRegistration[6]as Dictionary<String,AnyObject>
                 idx = 6

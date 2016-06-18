@@ -359,10 +359,24 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 if(dateString == "day")
                 {
-                    cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
+                    if((dateDiff/168) == 1)
+                    {
+                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                    }
+                    else
+                    {
+                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
+                    }
+                   
                 }
                 else{
-                    cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month(s)",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                    if((dateDiff/168)/4 == 1)
+                    {
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                    }
+                    else{
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                    }
                 }
             }
             return cell1
@@ -638,18 +652,35 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func popOverValueChanged(value: String) {
-        
         isPopoverValueChanged = true
         if(dateString == "day")
         {
-            print(dateDiff/168)
+            if((dateDiff/168) == 0)
+            {
+                let alert = UIAlertView(title: "Warning", message: "Please select correct future date", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
+            }
+            else
+            {
+                popOverSelectedStr = value
+                tblView.reloadData()
+            }
         }
         else{
             
-            print((dateDiff/168)/4)
+            if((dateDiff/168)/4 == 0)
+            {
+                let alert = UIAlertView(title: "Warning", message: "Please select correct future date", delegate: nil, cancelButtonTitle: "OK")
+                alert.show()
+
+            }
+            else
+            {
+                popOverSelectedStr = value
+                tblView.reloadData()
+            }
         }
-        popOverSelectedStr = value
-        tblView.reloadData()
+     
         
     }
     

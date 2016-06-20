@@ -212,6 +212,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
         }
         else{
+            NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview

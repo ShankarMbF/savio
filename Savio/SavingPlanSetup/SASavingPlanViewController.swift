@@ -92,10 +92,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
             let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
-            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-            
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            
+            if(wishListArray?.count > 0)
+            {
+                
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+
+
+            }
+          
         }
         
         let rightBarButton = UIBarButtonItem()

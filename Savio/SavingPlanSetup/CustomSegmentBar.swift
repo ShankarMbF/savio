@@ -36,7 +36,7 @@ class CustomSegmentBar: UIView {
         self.leftButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
         self.leftButton?.frame = CGRectMake(self.sideOffset, self.topOffset, widthActBtn, heightActBtn)
         self.leftButton?.setTitle(leftTitle, forState: UIControlState.Normal)
-        self.leftButton?.addTarget(self, action:#selector(toggleButton), forControlEvents: UIControlEvents.TouchUpInside)
+        self.leftButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.leftButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.leftButton?.tag = 1
         self.addSubview(self.leftButton!)
@@ -45,7 +45,7 @@ class CustomSegmentBar: UIView {
         self.rightButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
         self.rightButton?.frame = CGRectMake(self.midOfToggleView!, self.topOffset, widthActBtn, heightActBtn)
         self.rightButton?.setTitle(rightTitle, forState: UIControlState.Normal)
-        self.rightButton?.addTarget(self, action:#selector(toggleButton), forControlEvents: UIControlEvents.TouchUpInside)
+        self.rightButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.rightButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.rightButton?.tag = 0
         self.addSubview(self.rightButton!)

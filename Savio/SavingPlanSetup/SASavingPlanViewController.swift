@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -31,6 +31,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var userInfoDict  = Dictionary<String,AnyObject>()
     var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
+    var isClearPressed = false
     
     var isOfferShow: Bool = true
     
@@ -72,7 +73,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SASavingPlanViewController.backButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -86,7 +87,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-        btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
@@ -144,6 +145,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
             }
+            self.cameraButton.hidden = false
         }
         
     }
@@ -305,8 +307,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
-                
-                
+
+            }
+            
+            if(isClearPressed)
+            {
+                cell1.titleTextField.text = itemTitle
             }
             cell1.titleTextField.textColor = self.setUpColor()
             return cell1
@@ -330,6 +336,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
             }
+           if(isClearPressed)
+           {
+                cell1.costTextField.text = "0"
+                cell1.costTextField.textColor = UIColor.whiteColor()
+                cell1.slider.value = 0
+                cost = 0
+            }
             return cell1
         }
         else if(indexPath.section == 2){
@@ -337,19 +350,45 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
+            if(isClearPressed)
+            {
+                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                let currentDate: NSDate = NSDate()
+                let components: NSDateComponents = NSDateComponents()
+                
+                components.day = +7
+                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                
+                cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
+
+            }
             return cell1
         }
         else if(indexPath.section == 3){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier", forIndexPath: indexPath) as! SetDayTableViewCell
             cell1.tblView = tblView
-            cell1.setDayDateButton.tag = indexPath.section
+            cell1.view = self.view
+            cell1.segmentDelegate = self
+
             if(popOverSelectedStr != "")
             {
-                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
-                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+//                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
+//                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
+//                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+                cell1.dayDateTextField.text = popOverSelectedStr
             }
-            cell1.setDayDateButton.addTarget(self, action: Selector("setDayDateButtonButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            if(isClearPressed)
+            {
+//                cell1.setDayDateButton.setTitle("", forState: UIControlState.Normal)
+//                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
+//                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+                cell1.dayDateTextField.text = ""
+            }
+
             return cell1
         }
         else if(indexPath.section == 4){
@@ -385,7 +424,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
-            cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else if(indexPath.section == offerArr.count+6)
@@ -399,7 +438,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
-            cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             
             let dict = offerArr[indexPath.row]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
@@ -427,6 +466,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func getTextFieldText(text: String) {
         itemTitle = text
     }
+    func getDateTextField(str: String) {
+        popOverSelectedStr = str
+        isPopoverValueChanged = true
+        tblView.reloadData()
+    }
+    
+    func segmentBarChanged(str: String) {
+        
+    }
     func datePickerText(date: Int,dateStr:String) {
         print(date)
         dateDiff = date
@@ -435,16 +483,37 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func clearButtonPressed()
     {
-        let cell1 = tblView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier") as! SavingPlanTitleTableViewCell
-        cell1.titleTextField.text = ""
         
-        let cell2 = tblView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier") as! SavingPlanCostTableViewCell
-        cell2.costTextField.text = " 0"
+        let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
+            { action -> Void in
+              
+                self.setUpView()
+                self.dateDiff = 0
+                self.cost = 0
+                self.isPopoverValueChanged = false
+                
+                self.itemTitle = ""
+                
+                self.isClearPressed = true
+                self.popOverSelectedStr = ""
+                
+                if(self.itemDetailsDataDict.keys.count > 0)
+                {
+                    self.itemDetailsDataDict.removeAll()
+                }
+                
+                if self.offerArr.count>0{
+                    self.offerArr.removeAll()
+                }
+                self.tblView.reloadData()
+                
+                
+            })
         
-        let cell3 = tblView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier") as! SavingPlanDatePickerTableViewCell
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        cell3.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+
         
         
     }
@@ -556,6 +625,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["payType"] = self.getParameters()["payType"]
                     newDict["payDate"] = self.getParameters()["payDate"]
                     newDict["user_ID"] = self.getParameters()["pty_id"]
+                    
+                    if offerArr.count>0{
+                        newDict["offers"] = offerArr
+                    }
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
                 

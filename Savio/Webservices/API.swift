@@ -74,6 +74,12 @@ protocol PartySavingPlanDelegate{
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForPartySavingPlanAPI(error:String)
 }
+
+protocol CategoriesSavingPlan
+{
+    func successResponseForCategoriesSavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForCategoriesSavingPlanAPI(error:String)
+}
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -85,6 +91,7 @@ class API: UIView {
     var getWishlistDelegate : GetWishlistDelegate?
     var getofferlistDelegate : GetOfferlistDelegate?
     var partySavingPlanDelegate : PartySavingPlanDelegate?
+    var categorySavingPlanDelegate : CategoriesSavingPlan?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -557,7 +564,7 @@ class API: UIView {
                 dataTask.resume()
             }
             else{
-                self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
             }
             
         }
@@ -597,7 +604,7 @@ class API: UIView {
                 dataTask.resume()
             }
             else{
-                self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
             }
             
             
@@ -654,6 +661,55 @@ class API: UIView {
         
     }
     
+    func getCategoriesForSavingPlan()
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            print(request)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.categorySavingPlanDelegate?.successResponseForCategoriesSavingPlanAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI((response?.description)!)
+                        }
+                        
+                        
+                    }
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else{
+            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("No network found")
+        }
+
+    }
+    
     func getOfferListForSavingId(input : String)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -697,7 +753,7 @@ class API: UIView {
             dataTask.resume()
         }
         else{
-            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
+            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
         }
         
     }

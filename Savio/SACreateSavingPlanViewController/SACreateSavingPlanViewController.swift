@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate{
+class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate,CategoriesSavingPlan{
     @IBOutlet weak var lblBoostedView: UIView?
     @IBOutlet weak var tblView: UITableView?
     @IBOutlet weak var scrlView: UIScrollView?
@@ -21,7 +21,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var suggestedHt: NSLayoutConstraint!
     
     var objAnimView = ImageViewAnimation()
-
+    
     
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
@@ -37,28 +37,35 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.getWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         self.setUpView()
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.view.addSubview(objAnimView)
+        
+        let objAPI = API()
+
+        objAPI.categorySavingPlanDelegate = self
+        objAPI.getCategoriesForSavingPlan()
+
         self.callWishListAPI()
-      
+        
     }
     override func viewWillAppear(animated: Bool) {
-     super.viewWillAppear(animated)
-
+        super.viewWillAppear(animated)
+        
     }
     
     func callWishListAPI()
     {
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-        objAnimView.frame = self.view.frame
-        objAnimView.animate()
-        
-        self.view.addSubview(objAnimView)
+       
         let objAPI = API()
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
@@ -71,12 +78,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
-
+        
     }
     
     func getWishListData(notification:NSNotification)
     {
-     self.callWishListAPI()  
+        self.callWishListAPI()
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,9 +150,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
         if colors.count > 0{
             for i in 0 ..< colors.count {
-                 heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-
+                
                 NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
@@ -176,7 +183,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 {
                     lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                 }
-               
+                
                 let data :NSData = NSData(base64EncodedString: objDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 
                 let bgImageView = testView.viewWithTag(1) as! UIImageView
@@ -192,12 +199,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 pageControl?.hidden = false
                 if(colors.count >= 5)
                 {
-                   pageControl?.numberOfPages = 5
+                    pageControl?.numberOfPages = 5
                 }
                 else{
                     pageControl?.numberOfPages = colors.count
                 }
-       
+                
                 lblLine?.hidden = false
                 
                 // Add the test view as a subview to the scrollview.
@@ -334,17 +341,30 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
             self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
         }
+        
+    }
+    
+    //MARK: GetCategorysavingPlan Delegate and Datasource method
+    
+    func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+
+        
+    }
+    func errorResponseForCategoriesSavingPlanAPI(error: String) {
+        print(error)
 
     }
+    
     
     //MARK: GetWishlist Delegate and Datasource method
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-       
+        
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
         objAnimView.removeFromSuperview()
         self.setUpView()
-    
+        
     }
     
     func errorResponseForGetWishlistAPI(error: String) {

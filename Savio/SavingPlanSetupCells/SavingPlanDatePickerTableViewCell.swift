@@ -50,7 +50,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
-        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton,]
+        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton]
         datePickerTextField.delegate = self
         datePickerTextField.inputView = datePickerView
         datePickerTextField.inputAccessoryView = customToolBar
@@ -77,6 +77,9 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         
     }
     
+    func getDateTextField(str: String) {
+        
+    }
     
     func setUpImage()-> UIImage
     {

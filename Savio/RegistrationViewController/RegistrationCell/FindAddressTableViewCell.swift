@@ -9,6 +9,7 @@
 import UIKit
 protocol FindAddressCellDelegate {
     func getAddressButtonClicked(findAddrCell: FindAddressTableViewCell)
+    func getTextFOrPostCode(findAddrCell: FindAddressTableViewCell)
 }
 class FindAddressTableViewCell: UITableViewCell,UITextFieldDelegate {
 
@@ -66,7 +67,6 @@ class FindAddressTableViewCell: UITableViewCell,UITextFieldDelegate {
         if !CGRectContainsPoint(aRect!, self.frame.origin) {
             tblView?.scrollRectToVisible(self.frame, animated: true)
         }
-        
     }
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
@@ -93,6 +93,7 @@ class FindAddressTableViewCell: UITableViewCell,UITextFieldDelegate {
     //    }
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        delegate?.getTextFOrPostCode(self)
         return true
     }
     @IBAction func clickOnAddressButton(sender:UIButton){

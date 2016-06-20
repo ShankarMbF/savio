@@ -117,6 +117,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
         cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnDelete?.tag = indexPath.row
         return cell
     }
     

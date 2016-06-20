@@ -10,57 +10,146 @@ import UIKit
 
 protocol SegmentBarChangeDelegate {
     func segmentBarChanged(str:String)
+    func getDateTextField(str:String)
 }
 
-class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate {
+
+
+class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {
     @IBOutlet weak var setDayDateButton: UIButton!
-    
+
     @IBOutlet weak var dayDateTextField: UITextField!
     @IBOutlet weak var dayDateLabel: UILabel!
-   // @IBOutlet weak var segmentControl: UISegmentedControl!
-   
+    // @IBOutlet weak var segmentControl: UISegmentedControl!
+    var dayPickerView = UIPickerView()
+    let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    let dateArray : Array<String> = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]
+    
+    @IBOutlet weak var dropDownImageView: UIImageView!
+    
     @IBOutlet weak var segmentBar: CustomSegmentBar!
     
     var segmentDelegate : SegmentBarChangeDelegate?
+    var customToolBar : UIToolbar?
+    weak var view : UIView?
+    var dateStr : String = ""
     
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        
+        dayPickerView.delegate = self
+        dayPickerView.dataSource = self
+        
+        let leftView = UIView()
+        leftView.frame = CGRectMake(0, 0, 5, 26)
+        leftView.backgroundColor = UIColor.clearColor()
+        
+        dayDateTextField.leftView = leftView
+        dayDateTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton]
         
         // Initialization cod
         
-        let layer =  CAGradientLayer()
-        layer.frame.size = setDayDateButton.frame.size
-        layer.startPoint = CGPointZero
-        layer.endPoint = CGPointMake(1, 0)
-        let colorGreen = UIColor.whiteColor().CGColor
-        let colorBlack = self.setUpColor().CGColor
-        
-        layer.colors = [colorGreen, colorGreen, colorBlack, colorBlack]
-        layer.locations = [0.0, 0.7, 0.7, 1.0]
-        layer.cornerRadius = 5
-        
-        setDayDateButton.layer.insertSublayer(layer, atIndex: 0)
+        // dayDateTextField.layer.borderColor = UIColor.clearColor().CGColor
+        dayDateTextField.delegate = self
+        dayDateTextField.inputView = dayPickerView
+        dayDateTextField.inputAccessoryView = customToolBar
         
 
+        
+        dropDownImageView.backgroundColor = self.setUpColor()
+        
         segmentBar.segmentSelected =  { (idx: Int)  in
             if(idx == 0)
             {
-                 self.dayDateLabel.text = "day"
+                self.dayDateLabel.text = "day"
             }
             else
             {
-                 self.dayDateLabel.text = "date"
+                self.dayDateLabel.text = "date"
             }
         }
         
     }
     
     
+    func doneBarButtonPressed(){
+        dayDateTextField.resignFirstResponder()
+        dayDateTextField.text = dateStr
+        dayPickerView.reloadAllComponents()
+        segmentDelegate!.getDateTextField(dateStr)
+        
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDelegate(self)
+        UIView.setAnimationDuration(0.5)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        view!.frame = CGRectMake(view!.frame.origin.x, 0, view!.frame.size.width, view!.frame.size.height)
+        UIView.commitAnimations()
+        
+    }
     
+    func cancelBarButtonPressed(){
+        dayDateTextField.resignFirstResponder()
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDelegate(self)
+        UIView.setAnimationDuration(0.5)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        view!.frame = CGRectMake(view!.frame.origin.x, 0, view!.frame.size.width, view!.frame.size.height)
+        UIView.commitAnimations()
+        
+    }
+    
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        
+        if(dayDateLabel.text == "day")
+        {
+            return dayArray.count
+        }
+        else
+        {
+            return dateArray.count
+        }
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if(dayDateLabel.text == "day")
+        {
+            return dayArray[row]
+        }
+        else
+        {
+            return dateArray[row]
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if(dayDateLabel.text == "day")
+        {
+            dateStr =  dayArray[row]
+        }
+        else
+        {
+            dateStr =  dateArray[row]
+        }
+    }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -124,8 +213,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
-
-   
+    
+    
     
     @IBAction func setDayDatePressed(sender: AnyObject) {
         
@@ -146,5 +235,29 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             dayDateLabel.text = "day"
             segmentDelegate!.segmentBarChanged("day")
         }
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    {
+        var y : Float = 0.0
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            y = 300
+        }
+        else if(UIScreen.mainScreen().bounds.size.height == 568)
+        {
+            y = 220
+        }
+        else if(UIScreen.mainScreen().bounds.size.height == 667)
+        {
+            y = 120
+        }
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDelegate(self)
+        UIView.setAnimationDuration(0.5)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
+        UIView.commitAnimations()
+        return true
     }
 }

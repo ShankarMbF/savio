@@ -10,7 +10,9 @@
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
+        </mutableArray>
+        <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -50,18 +52,27 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWM-ZP-KLb">
-                        <rect key="frame" x="233" y="36" width="53" height="18"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VFk-f7-AHB">
+                        <rect key="frame" x="233" y="37" width="53" height="18"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="53" id="6fH-ma-oNt"/>
-                            <constraint firstAttribute="height" constant="18" id="mlp-H5-jQH"/>
+                            <constraint firstAttribute="width" constant="53" id="Lfl-4b-4ba"/>
+                            <constraint firstAttribute="height" constant="18" id="pKe-ps-7Q9"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
-                        <state key="normal">
-                            <color key="titleColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                    </button>
+                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="10"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="-1" id="kdm-Zx-IJN"/>
+                        </connections>
+                    </textField>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown.png" translatesAutoresizingMaskIntoConstraints="NO" id="LrU-of-bI0">
+                        <rect key="frame" x="272" y="37" width="16" height="18"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="OvX-jV-8Y9"/>
+                            <constraint firstAttribute="height" constant="18" id="tn0-bL-UcD"/>
+                        </constraints>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PP-vq-H1I" customClass="CustomSegmentBar" customModule="Savio" customModuleProvider="target">
                         <rect key="frame" x="10" y="35" width="105" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -70,40 +81,33 @@
                             <constraint firstAttribute="width" constant="105" id="aLy-Xs-j0W"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown.png" translatesAutoresizingMaskIntoConstraints="NO" id="LrU-of-bI0">
-                        <rect key="frame" x="270" y="36" width="16" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="16" id="ovA-Ub-ke0"/>
-                            <constraint firstAttribute="height" constant="18" id="rtm-L0-bpe"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="LrU-of-bI0" secondAttribute="bottom" constant="10" id="CyM-bX-jvo"/>
+                    <constraint firstItem="LrU-of-bI0" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="9" id="JFR-Tn-fRo"/>
                     <constraint firstItem="zoB-ec-eUM" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="55" id="JyC-Ws-jZN"/>
                     <constraint firstItem="yeh-6F-lio" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Lo6-xE-cuk"/>
-                    <constraint firstItem="LrU-of-bI0" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="40" id="RxO-St-uhB"/>
                     <constraint firstItem="kC2-NW-yLo" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="SG7-tH-wgY"/>
                     <constraint firstItem="6PP-vq-H1I" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="TvS-jX-Cdu"/>
                     <constraint firstItem="6PP-vq-H1I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UDj-I9-T9F"/>
                     <constraint firstItem="yeh-6F-lio" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Xyt-nC-cIg"/>
+                    <constraint firstItem="VFk-f7-AHB" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="9" id="Y5A-fq-j4y"/>
+                    <constraint firstAttribute="trailing" secondItem="LrU-of-bI0" secondAttribute="trailing" constant="32" id="YF5-xQ-fIV"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="82" id="aac-aO-Jcz"/>
+                    <constraint firstItem="LrU-of-bI0" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="42" id="ani-nr-UVy"/>
                     <constraint firstItem="zoB-ec-eUM" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="fS4-8b-G72"/>
                     <constraint firstAttribute="trailingMargin" secondItem="zoB-ec-eUM" secondAttribute="trailing" constant="-5" id="fZg-C5-dEH"/>
-                    <constraint firstItem="VWM-ZP-KLb" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="3" id="h8J-69-IzP"/>
-                    <constraint firstItem="LrU-of-bI0" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="8" id="j9u-dP-BJB"/>
-                    <constraint firstItem="VWM-ZP-KLb" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="8" id="rW6-i7-eSx"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="VWM-ZP-KLb" secondAttribute="trailing" constant="26" id="wdx-ib-AxH"/>
+                    <constraint firstItem="VFk-f7-AHB" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="3" id="oTh-Dh-5sB"/>
                     <constraint firstAttribute="trailingMargin" secondItem="yeh-6F-lio" secondAttribute="trailing" id="x3M-eo-xpe"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="dayDateLabel" destination="zoB-ec-eUM" id="yq7-5v-Xbc"/>
+                <outlet property="dayDateTextField" destination="VFk-f7-AHB" id="1ET-YK-Yze"/>
+                <outlet property="dropDownImageView" destination="LrU-of-bI0" id="Ez5-fI-3u7"/>
                 <outlet property="segmentBar" destination="6PP-vq-H1I" id="bHB-lU-TEN"/>
-                <outlet property="setDayDateButton" destination="VWM-ZP-KLb" id="hkT-17-Is9"/>
             </connections>
-            <point key="canvasLocation" x="310" y="254.5"/>
+            <point key="canvasLocation" x="-436" y="49.5"/>
         </tableViewCell>
     </objects>
     <resources>

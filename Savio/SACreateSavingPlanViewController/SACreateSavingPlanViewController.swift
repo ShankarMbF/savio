@@ -241,7 +241,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     
-    
     //Function invoking for configure the page control for animated pages
     func configurePageControl() {
         // Set the total pages to the page control.
@@ -261,10 +260,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        //        let objAPI = API()
-        //        //  let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        //        objAPI.getWishlistDelegate = self
-        //        objAPI.getWishListForUser("196")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){

@@ -227,8 +227,11 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
     userInfoDict["cookie"] = udidArray["COOKIE"] as! String
     objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
     print(userInfoDict)
-    let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-    self.navigationController?.pushViewController(objHurrrayView, animated: true)
+    
+    let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+    
+//    let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+    self.navigationController?.pushViewController(objContainer, animated: true)
 }
 
 func errorResponseForOTPLogInAPI(error: String) {

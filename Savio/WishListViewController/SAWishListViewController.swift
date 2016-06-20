@@ -16,6 +16,10 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        self.wishListAPI()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+
 
         // Do any additional setup after loading the view.
     }
@@ -60,6 +64,10 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     
     func callWishListData(notification:NSNotification)
     {
+        self.wishListAPI()
+    }
+    
+    func wishListAPI(){
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -77,7 +85,6 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
         {
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
-
     }
 
     override func didReceiveMemoryWarning() {

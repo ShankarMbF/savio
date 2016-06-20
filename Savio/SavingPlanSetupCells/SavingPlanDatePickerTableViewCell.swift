@@ -85,31 +85,31 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     {
         
         var imageName = ""
-        if(colorDataDict["header"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             imageName = "group-save-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Wedding")
+        else if(colorDataDict["title"] as! String == "Wedding")
         {
             imageName = "wedding-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Baby")
+        else if(colorDataDict["title"] as! String == "Baby")
         {
             imageName = "baby-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Holiday")
+        else if(colorDataDict["title"] as! String == "Holiday")
         {
             imageName = "holiday-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Ride")
+        else if(colorDataDict["title"] as! String == "Ride")
         {
             imageName = "ride-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Home")
+        else if(colorDataDict["title"] as! String == "Home")
         {
             imageName = "home-calendar.png"
         }
-        else if(colorDataDict["header"] as! String == "Gadget")
+        else if(colorDataDict["title"] as! String == "Gadget")
         {
             imageName = "gadget-calendar.png"
         }

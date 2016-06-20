@@ -124,31 +124,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            if(imageDataDict["header"] as! String == "Group Save")
+            if(imageDataDict["title"] as! String == "Group Save")
             {
                 topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Wedding")
+            else if(imageDataDict["title"] as! String == "Wedding")
             {
                 topBackgroundImageView.image = UIImage(named: "wdding-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Baby")
+            else if(imageDataDict["title"] as! String == "Baby")
             {
                 topBackgroundImageView.image = UIImage(named: "baby-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Holiday")
+            else if(imageDataDict["title"] as! String == "Holiday")
             {
                 topBackgroundImageView.image = UIImage(named: "holiday-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Ride")
+            else if(imageDataDict["title"] as! String == "Ride")
             {
                 topBackgroundImageView.image = UIImage(named: "ride-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Home")
+            else if(imageDataDict["title"] as! String == "Home")
             {
                 topBackgroundImageView.image = UIImage(named: "home-setup-bg.png")
             }
-            else if(imageDataDict["header"] as! String == "Gadget")
+            else if(imageDataDict["title"] as! String == "Gadget")
             {
                 topBackgroundImageView.image = UIImage(named: "gadget-setup-bg.png")
             }
@@ -190,44 +190,44 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        if(imageDataDict["header"] as! String == "Group Save")
+        if(imageDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
             green = 214/255
             blue = 248/255
             
         }
-        else if(imageDataDict["header"] as! String == "Wedding")
+        else if(imageDataDict["title"] as! String == "Wedding")
         {
             red = 189/255
             green = 184/255
             blue = 235/255
         }
-        else if(imageDataDict["header"] as! String == "Baby")
+        else if(imageDataDict["title"] as! String == "Baby")
         {
             red = 122/255
             green = 223/255
             blue = 172/255
         }
-        else if(imageDataDict["header"] as! String == "Holiday")
+        else if(imageDataDict["title"] as! String == "Holiday")
         {
             red = 109/255
             green = 214/255
             blue = 200/255
         }
-        else if(imageDataDict["header"] as! String == "Ride")
+        else if(imageDataDict["title"] as! String == "Ride")
         {
             red = 242/255
             green = 104/255
             blue = 107/255
         }
-        else if(imageDataDict["header"] as! String == "Home")
+        else if(imageDataDict["title"] as! String == "Home")
         {
             red = 244/255
             green = 161/255
             blue = 111/255
         }
-        else if(imageDataDict["header"] as! String == "Gadget")
+        else if(imageDataDict["title"] as! String == "Gadget")
         {
             red = 205/255
             green = 220/255
@@ -599,7 +599,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if((imageDataDict["sav-id"]) != nil)
         {
-            parameterDict["sav_id"] = imageDataDict["sav-id"]
+            parameterDict["sav_id"] = imageDataDict["savPlanID-id"]
         }
         else
         {

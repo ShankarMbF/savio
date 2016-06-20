@@ -318,10 +318,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let cell = bundleArr[0] as! SavingCategoryTableViewCell
         //        }
         let cellDict = tblArr[indexPath.row]
-        print(cellDict["header"])
-        cell.lblHeader!.text = cellDict["header"] as? String;
-        cell.lblDetail?.text = cellDict["detail"] as? String
-        cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+   
+        cell.lblHeader!.text = cellDict["title"] as? String;
+        cell.lblDetail?.text = cellDict["savDescription"] as? String
+       // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
         
         return cell
     }
@@ -350,6 +350,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
+        print(tblArr)
+        self.setUpView()
+        tblView?.scrollsToTop = true
+        tblView?.reloadData()
         print(objResponse)
 
         

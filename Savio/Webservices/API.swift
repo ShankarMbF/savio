@@ -80,6 +80,12 @@ protocol CategoriesSavingPlan
     func successResponseForCategoriesSavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForCategoriesSavingPlanAPI(error:String)
 }
+
+protocol DeleteWishListDelegate
+{
+    func successResponseForDeleteWishListAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForDeleteWishListAPI(error:String)
+}
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -92,6 +98,7 @@ class API: UIView {
     var getofferlistDelegate : GetOfferlistDelegate?
     var partySavingPlanDelegate : PartySavingPlanDelegate?
     var categorySavingPlanDelegate : CategoriesSavingPlan?
+    var deleteWishList : DeleteWishListDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -462,7 +469,7 @@ class API: UIView {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-       // print(dict)
+        // print(dict)
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -479,7 +486,7 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-//                    print(json)
+                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         
@@ -514,6 +521,59 @@ class API: UIView {
     }
     
     
+    func deleteWishList(dict:Dictionary<String,AnyObject>)
+    {
+        print(dict)
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        // print(dict)
+        
+        if(self.isConnectedToNetwork())
+        {
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
+            request.HTTPMethod = "DELETE"
+            
+            print(request)
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    // print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.deleteWishList?.successResponseForDeleteWishListAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.deleteWishList?.errorResponseForDeleteWishListAPI((response?.description)!)
+                        }
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else{
+            self.deleteWishList?.errorResponseForDeleteWishListAPI("No network found")
+        }
+        
+    }
+    
     func createPartySavingPlan(dict:Dictionary<String,AnyObject>,isFromWishList:String)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
@@ -525,7 +585,7 @@ class API: UIView {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-        // print(dict)
+         //print(dict)
         
         
         if(isFromWishList == "FromWishList")
@@ -707,7 +767,7 @@ class API: UIView {
         else{
             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("No network found")
         }
-
+        
     }
     
     func getOfferListForSavingId(input : String)

@@ -8,13 +8,15 @@
 
 import UIKit
 
-class SAWishListViewController: UIViewController,GetWishlistDelegate {
+class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishListDelegate {
 
     @IBOutlet var wishListTable: UITableView?
      var objAnimView = ImageViewAnimation()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.callWishListData()
         self.setUpView()
         self.wishListAPI()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -26,7 +28,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
 
     func setUpView(){
         self.title = "My Wish List"
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SAWishListViewController.callWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SAWishListViewController.getWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
 
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -54,7 +56,22 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-             btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        
+            if(wishListArray!.count > 0)
+            {
+                
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+                
+            }
+
+            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -62,7 +79,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    func callWishListData(notification:NSNotification)
+    
+    func getWishListData(notification:NSNotification)
+    {
+        self.callWishListData()
+    }
+    
+    func callWishListData()
     {
         self.wishListAPI()
     }
@@ -133,7 +156,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     }
 
     func navigateToSetUpSavingPlan(sender:UIButton) {
-        let dict = ["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners."]
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         
@@ -143,11 +166,49 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     }
     
     func deleteButtonPress(sender:UIButton)  {
-        wishListArray.removeAtIndex(sender.tag)
-        wishListTable?.reloadData()
-        NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        
+        let alert = UIAlertController(title: "Are you sure", message: "You want to delete this item?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
+        { action -> Void in
+            
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            
+            self.view.addSubview(self.objAnimView)
+            
+            let objAPI = API()
+            
+            
+            let dateDict = self.wishListArray[sender.tag] as Dictionary<String,AnyObject>
+            let dict : Dictionary<String,AnyObject> = ["id":dateDict["id"] as! NSNumber]
+            
+            objAPI.deleteWishList = self
+            objAPI.deleteWishList(dict)
+            
+            self.wishListArray.removeAtIndex(sender.tag)
+            self.wishListTable?.reloadData()
+            NSUserDefaults.standardUserDefaults().setObject(self.wishListArray, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            })
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+        //MARK: DELETE Wishlist delegate
+    
+    func successResponseForDeleteWishListAPI(objResponse: Dictionary<String, AnyObject>) {
+     
+        print(objResponse)
+        objAnimView.removeFromSuperview()
         self.setUpView()
+    }
+    
+    func errorResponseForDeleteWishListAPI(error: String) {
+        print(error)
+        objAnimView.removeFromSuperview()
     }
     
     //MARK: Bar button action
@@ -162,6 +223,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate {
     }
 
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+       
        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }

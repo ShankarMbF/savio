@@ -89,44 +89,44 @@ class CustomSegmentBar: UIView {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["header"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
             green = 214/255
             blue = 248/255
             
         }
-        else if(colorDataDict["header"] as! String == "Wedding")
+        else if(colorDataDict["title"] as! String == "Wedding")
         {
             red = 189/255
             green = 184/255
             blue = 235/255
         }
-        else if(colorDataDict["header"] as! String == "Baby")
+        else if(colorDataDict["title"] as! String == "Baby")
         {
             red = 122/255
             green = 223/255
             blue = 172/255
         }
-        else if(colorDataDict["header"] as! String == "Holiday")
+        else if(colorDataDict["title"] as! String == "Holiday")
         {
             red = 109/255
             green = 214/255
             blue = 200/255
         }
-        else if(colorDataDict["header"] as! String == "Ride")
+        else if(colorDataDict["title"] as! String == "Ride")
         {
             red = 242/255
             green = 104/255
             blue = 107/255
         }
-        else if(colorDataDict["header"] as! String == "Home")
+        else if(colorDataDict["title"] as! String == "Home")
         {
             red = 244/255
             green = 161/255
             blue = 111/255
         }
-        else if(colorDataDict["header"] as! String == "Gadget")
+        else if(colorDataDict["title"] as! String == "Gadget")
         {
             red = 205/255
             green = 220/255

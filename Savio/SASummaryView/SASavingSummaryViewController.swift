@@ -107,13 +107,28 @@ class SASavingSummaryViewController: UIViewController {
             
             wishListArray.removeAtIndex(indexId)
             
+            
+            
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
-            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
+            
+            if(wishListArray.count > 0)
+            {
+                
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+                
+            }
+
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -189,13 +204,13 @@ class SASavingSummaryViewController: UIViewController {
             topBgImageView.image = UIImage(data: data)
         }
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
         //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
         lblDate.text = dateFormatter.stringFromDate(NSDate())
 
-        paymentLastDate.text = itemDataDict["payDate"] as? String
+        paymentLastDate.text = "payment method"
         
         if(itemDataDict["day"] as? String == "date")
         {
@@ -263,44 +278,44 @@ class SASavingSummaryViewController: UIViewController {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["header"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 114/255
             green = 177/255
             blue = 237/255
             
         }
-        else if(colorDataDict["header"] as! String == "Wedding")
+        else if(colorDataDict["title"] as! String == "Wedding")
         {
             red = 153/255
             green = 153/255
             blue = 255/255
         }
-        else if(colorDataDict["header"] as! String == "Baby")
+        else if(colorDataDict["title"] as! String == "Baby")
         {
             red = 133/255
             green = 222/255
             blue = 175/255
         }
-        else if(colorDataDict["header"] as! String == "Holiday")
+        else if(colorDataDict["title"] as! String == "Holiday")
         {
             red = 0/255
             green = 153/255
             blue = 153/255
         }
-        else if(colorDataDict["header"] as! String == "Ride")
+        else if(colorDataDict["title"] as! String == "Ride")
         {
             red = 244/255
             green = 87/255
             blue = 95/255
         }
-        else if(colorDataDict["header"] as! String == "Home")
+        else if(colorDataDict["title"] as! String == "Home")
         {
             red = 251/255
             green = 151/255
             blue = 80/255
         }
-        else if(colorDataDict["header"] as! String == "Gadget")
+        else if(colorDataDict["title"] as! String == "Gadget")
         {
             red = 187/255
             green = 211/255
@@ -321,44 +336,44 @@ class SASavingSummaryViewController: UIViewController {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["header"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
             green = 214/255
             blue = 248/255
             
         }
-        else if(colorDataDict["header"] as! String == "Wedding")
+        else if(colorDataDict["title"] as! String == "Wedding")
         {
             red = 189/255
             green = 184/255
             blue = 235/255
         }
-        else if(colorDataDict["header"] as! String == "Baby")
+        else if(colorDataDict["title"] as! String == "Baby")
         {
             red = 122/255
             green = 223/255
             blue = 172/255
         }
-        else if(colorDataDict["header"] as! String == "Holiday")
+        else if(colorDataDict["title"] as! String == "Holiday")
         {
             red = 109/255
             green = 214/255
             blue = 200/255
         }
-        else if(colorDataDict["header"] as! String == "Ride")
+        else if(colorDataDict["title"] as! String == "Ride")
         {
             red = 242/255
             green = 104/255
             blue = 107/255
         }
-        else if(colorDataDict["header"] as! String == "Home")
+        else if(colorDataDict["title"] as! String == "Home")
         {
             red = 244/255
             green = 161/255
             blue = 111/255
         }
-        else if(colorDataDict["header"] as! String == "Gadget")
+        else if(colorDataDict["title"] as! String == "Gadget")
         {
             red = 205/255
             green = 220/255

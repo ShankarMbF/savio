@@ -103,10 +103,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else{
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-
-
+                
+                
             }
-          
+            
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -318,7 +318,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
-
+                
             }
             
             if(isClearPressed)
@@ -347,8 +347,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
             }
-           if(isClearPressed)
-           {
+            if(isClearPressed)
+            {
                 cell1.costTextField.text = "0"
                 cell1.costTextField.textColor = UIColor.whiteColor()
                 cell1.slider.value = 0
@@ -374,7 +374,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                 
                 cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
-
+                
             }
             return cell1
         }
@@ -383,23 +383,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.view = self.view
             cell1.segmentDelegate = self
-
+            
             if(popOverSelectedStr != "")
             {
-//                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
-//                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-//                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+                //                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
+                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
+                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
                 cell1.dayDateTextField.text = popOverSelectedStr
             }
             
             if(isClearPressed)
             {
-//                cell1.setDayDateButton.setTitle("", forState: UIControlState.Normal)
-//                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-//                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+                //                cell1.setDayDateButton.setTitle("", forState: UIControlState.Normal)
+                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
+                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
                 cell1.dayDateTextField.text = ""
             }
-
+            
             return cell1
         }
         else if(indexPath.section == 4){
@@ -411,13 +411,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if((dateDiff/168) == 1)
                     {
-                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
                     }
                     else
                     {
-                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
                     }
-                   
+                    
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
@@ -497,34 +497,34 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-            { action -> Void in
-              
-                self.setUpView()
-                self.dateDiff = 0
-                self.cost = 0
-                self.isPopoverValueChanged = false
-                
-                self.itemTitle = ""
-                
-                self.isClearPressed = true
-                self.popOverSelectedStr = ""
-                
-                if(self.itemDetailsDataDict.keys.count > 0)
-                {
-                    self.itemDetailsDataDict.removeAll()
-                }
-                
-                if self.offerArr.count>0{
-                    self.offerArr.removeAll()
-                }
-                self.tblView.reloadData()
-                
-                
+        { action -> Void in
+            
+            self.setUpView()
+            self.dateDiff = 0
+            self.cost = 0
+            self.isPopoverValueChanged = false
+            
+            self.itemTitle = ""
+            
+            self.isClearPressed = true
+            self.popOverSelectedStr = ""
+            
+            if(self.itemDetailsDataDict.keys.count > 0)
+            {
+                self.itemDetailsDataDict.removeAll()
+            }
+            
+            if self.offerArr.count>0{
+                self.offerArr.removeAll()
+            }
+            self.tblView.reloadData()
+            
+            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-
+        
         
         
     }
@@ -606,6 +606,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
         }
         
+        if offerArr.count>0{
+            var newOfferArray : Array<NSNumber> = []
+            for i in 0 ..< offerArr.count
+            {
+                let dict = offerArr[i]
+                newOfferArray.append(dict["offId"] as! NSNumber)
+            }
+            
+            parameterDict["offer_List"] = newOfferArray
+        }
+        else
+        {
+            parameterDict["offer_List"] = ""
+        }
         return parameterDict
         
     }
@@ -636,10 +650,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["payType"] = self.getParameters()["payType"]
                     newDict["payDate"] = self.getParameters()["payDate"]
                     newDict["user_ID"] = self.getParameters()["pty_id"]
-                    
-                    if offerArr.count>0{
-                        newDict["offers"] = offerArr
-                    }
+                    newDict["offer_List"] = self.getParameters()["offer_List"]
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
                 
@@ -756,7 +767,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 let alert = UIAlertView(title: "Warning", message: "Please select correct future date", delegate: nil, cancelButtonTitle: "OK")
                 alert.show()
-
+                
             }
             else
             {
@@ -764,7 +775,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 tblView.reloadData()
             }
         }
-     
+        
         
     }
     
@@ -839,32 +850,42 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+        // print(objResponse)
         objAnimView.removeFromSuperview()
         
-        var dict :  Dictionary<String,AnyObject> = [:]
-        dict["title"] = self.getParameters()["title"]
-        dict["amount"] = self.getParameters()["amount"]
-        dict["payDate"] = self.getParameters()["payDate"]
-        dict["imageURL"] = self.getParameters()["imageURL"]
-        dict["id"] = itemDetailsDataDict["id"]
-        dict["day"] = dateString
-        if(dateString == "day")
+        if let message = "Multiple representations of the same entity" as? String
         {
-            dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+            print(message)
+            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
         }
-        else{
-            dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+        else
+        {
+            var dict :  Dictionary<String,AnyObject> = [:]
+            dict["title"] = self.getParameters()["title"]
+            dict["amount"] = self.getParameters()["amount"]
+            dict["payDate"] = self.getParameters()["payDate"]
+            dict["imageURL"] = self.getParameters()["imageURL"]
+            dict["id"] = itemDetailsDataDict["id"]
+            dict["day"] = dateString
+            if(dateString == "day")
+            {
+                dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+            }
+            else{
+                dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+            }
+            
+            if offerArr.count>0{
+                dict["offers"] = offerArr
+            }
+            //print(dict)
+            
+            let objSummaryView = SASavingSummaryViewController()
+            objSummaryView.itemDataDict =  dict
+            self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
-        
-        if offerArr.count>0{
-            dict["offers"] = offerArr
-        }
-        print(dict)
-        
-        let objSummaryView = SASavingSummaryViewController()
-        objSummaryView.itemDataDict =  dict
-        self.navigationController?.pushViewController(objSummaryView, animated: true)
+      
         
         
     }

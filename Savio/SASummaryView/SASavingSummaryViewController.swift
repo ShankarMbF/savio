@@ -107,13 +107,28 @@ class SASavingSummaryViewController: UIViewController {
             
             wishListArray.removeAtIndex(indexId)
             
+            
+            
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
-            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
+            
+            if(wishListArray.count > 0)
+            {
+                
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+                
+            }
+
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -189,13 +204,13 @@ class SASavingSummaryViewController: UIViewController {
             topBgImageView.image = UIImage(data: data)
         }
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
         //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
         lblDate.text = dateFormatter.stringFromDate(NSDate())
 
-        paymentLastDate.text = itemDataDict["payDate"] as? String
+        paymentLastDate.text = "payment method"
         
         if(itemDataDict["day"] as? String == "date")
         {

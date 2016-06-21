@@ -355,7 +355,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-        print(objResponse)
+        //print(objResponse)
 
         
     }

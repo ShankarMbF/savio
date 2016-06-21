@@ -33,6 +33,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isPopoverValueChanged = false
     var isClearPressed = false
     
+    @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
     
     override func viewDidLoad() {
@@ -44,10 +45,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        
-        savingPlanTitleLabel.layer.borderWidth = 1
-        savingPlanTitleLabel.layer.borderColor = UIColor.whiteColor().CGColor
-        
+ 
         tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
@@ -65,6 +63,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, 1000)
+    }
     
     func setUpView(){
         
@@ -386,17 +388,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(popOverSelectedStr != "")
             {
-                //                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
-                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
-                cell1.dayDateTextField.text = popOverSelectedStr
+                  cell1.dayDateTextField.text = popOverSelectedStr
             }
             
             if(isClearPressed)
             {
-                //                cell1.setDayDateButton.setTitle("", forState: UIControlState.Normal)
-                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
                 cell1.dayDateTextField.text = ""
             }
             
@@ -599,7 +595,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if((imageDataDict["sav-id"]) != nil)
         {
-            parameterDict["sav_id"] = imageDataDict["savPlanID-id"]
+            parameterDict["sav_id"] = imageDataDict["savPlanID"]
         }
         else
         {
@@ -689,6 +685,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let obj = SAOfferListViewController()
             obj.delegate = self
+            obj.savID = imageDataDict["savPlanID"] as! NSNumber
             self.navigationController?.pushViewController(obj, animated: true)
         }
     }

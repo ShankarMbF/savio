@@ -325,6 +325,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 79.0
     }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
         if(indexPath.row == 0)

@@ -16,12 +16,11 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.callWishListData()
+//        self.callWishListData()
         self.setUpView()
         self.wishListAPI()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-
 
         // Do any additional setup after loading the view.
     }
@@ -81,11 +80,6 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     
     func getWishListData(notification:NSNotification)
-    {
-        self.callWishListData()
-    }
-    
-    func callWishListData()
     {
         self.wishListAPI()
     }
@@ -213,7 +207,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){

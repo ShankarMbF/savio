@@ -70,11 +70,11 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAWishListViewController":
-            self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            self.centreVC = SAWishListViewController(nibName: "SAWishListViewController", bundle: nil)
             self.replaceViewController()
         
         case "SAOfferListViewController":
-            self.centreVC = SAWishListViewController(nibName: "SAWishListViewController", bundle: nil)
+            self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             self.replaceViewController()
             
         case "SignOut":

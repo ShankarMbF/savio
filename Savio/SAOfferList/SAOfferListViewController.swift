@@ -46,7 +46,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.backButtonPress), forControlEvents: .TouchUpInside)
         
@@ -99,7 +99,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     */
     // MARK: - Navigation Bar Button Action
     func backButtonPress()  {
-        self.navigationController?.popViewControllerAnimated(true)
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
@@ -126,7 +126,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     // MARK: - Button Action
     @IBAction func clickedOnSkipOffersBtn(sender:UIButton){
-        self.backButtonPress()
+        self.navigationController?.popViewControllerAnimated(true)
         delegate?.skipOffers()
     }
     

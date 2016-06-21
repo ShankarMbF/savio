@@ -72,6 +72,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         slider.value = (costTextField.text! as NSString).floatValue
         delegate?.txtFieldCellText(self)
         
+        
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
@@ -81,13 +82,23 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
-        
+        else if(UIScreen.mainScreen().bounds.size.height == 568)
+        {
+            //UIViewAnimation for moving screen little bit up
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+150), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+            
+        }
         if((costTextField.text! as NSString).floatValue > 3000)
         {
             let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
-  
+        
     }
     
     //get the Image for selected theme
@@ -216,7 +227,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
-
+    
     @IBAction func plusButtonPressed(sender: AnyObject) {
         if(slider.value >= 2000)
         {
@@ -246,7 +257,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     
-       //Keyboard notification function
+    //Keyboard notification function
     
     @objc func keyboardWasShown(notification: NSNotification){
         //do stuff
@@ -299,13 +310,13 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.commitAnimations()
             
         }
-
+            
         else{
             self.registerForKeyboardNotifications()
         }
         return true
     }
-
+    
     //UITextfieldDelegate method
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
@@ -319,23 +330,35 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         return true;
     }
-
+    
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         
         slider.value = (costTextField.text! as NSString).floatValue
         delegate?.txtFieldCellText(self)
-  
+        
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-           view!.frame = CGRectMake(view!.frame.origin.x, 0, view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
+        else if(UIScreen.mainScreen().bounds.size.height == 568)
+        {
+            //UIViewAnimation for moving screen little bit up
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+150), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+            
+        }
+        
         
         if((costTextField.text! as NSString).floatValue > 3000)
         {

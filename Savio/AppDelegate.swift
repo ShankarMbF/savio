@@ -32,23 +32,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
-            let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-            print(userInfoDict)
-            let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-            print(udidDict)
-            print(UIDevice.currentDevice().identifierForVendor!.UUIDString)
-            
-            let udidArray = udidDict[0]
-            
-            if(udidArray["DEVICE_ID"] as! String  == UIDevice.currentDevice().identifierForVendor!.UUIDString)
+            if let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as? Dictionary<String,AnyObject>
             {
-                //else Go to SAEnterYourPINViewController
-                objEnterYourPinViewController = SAEnterYourPINViewController()
-                //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController
-                objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
-                window?.rootViewController = objSANav
+                print(userInfoDict)
+                let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
+                print(udidDict)
+                print(UIDevice.currentDevice().identifierForVendor!.UUIDString)
+                
+                let udidArray = udidDict[0]
+                
+                if(udidArray["DEVICE_ID"] as! String  == UIDevice.currentDevice().identifierForVendor!.UUIDString)
+                {
+                    //else Go to SAEnterYourPINViewController
+                    objEnterYourPinViewController = SAEnterYourPINViewController()
+                    //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController
+                    objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
+                    window?.rootViewController = objSANav
+                }
+                else{
+                    //If no then Go to SAWelcomViewController
+                    objSAWelcomViewController = SAWelcomViewController()
+                    //Set SAWelcomViewController as rootViewController of UINavigationViewController
+                    objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
+                    window?.rootViewController = objSANav
+                }
             }
-            else{
+            else
+            {
                 //If no then Go to SAWelcomViewController
                 objSAWelcomViewController = SAWelcomViewController()
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController

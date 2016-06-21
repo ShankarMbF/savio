@@ -20,9 +20,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var suggestedY: NSLayoutConstraint!
     @IBOutlet weak var suggestedHt: NSLayoutConstraint!
     
+    @IBOutlet weak var verticalScrlView: UIScrollView!
     var objAnimView = ImageViewAnimation()
     
     
+    @IBOutlet weak var contentView: UIView!
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
     var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
@@ -93,7 +95,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+        verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  contentView!.frame.size.height)
     }
     
     
@@ -159,7 +161,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
                 // Set its frame and data to pageview
-                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, -64, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
                 let vw = testView.viewWithTag(2)! as UIView
                 vw.layer.borderWidth = 1
                 vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -218,7 +220,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview
-            testView.frame = CGRectMake(scrlView!.bounds.origin.x, -64, scrlView!.frame.size.width, scrlView!.frame.size.height)
+            testView.frame = CGRectMake(scrlView!.bounds.origin.x, 0, scrlView!.frame.size.width, scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
             vw.layer.borderWidth = 1
             vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -347,12 +349,15 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
-        print(tblArr)
-        self.setUpView()
-        tblView?.scrollsToTop = true
-        tblView?.reloadData()
-        //print(objResponse)
+        print(objResponse)
+        if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
+        {
+            tblArr = tblArray
+            self.setUpView()
+            tblView?.scrollsToTop = true
+            tblView?.reloadData()
+        }
+ 
 
         
     }

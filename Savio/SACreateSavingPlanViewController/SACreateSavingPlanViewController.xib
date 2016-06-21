@@ -53,6 +53,9 @@
                                         <constraint firstAttribute="width" constant="39" id="P3Y-D7-voe"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="wvp-f4-PPy"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="changePage:" destination="-1" eventType="valueChanged" id="bhe-BU-PTD"/>
+                                    </connections>
                                 </pageControl>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dm-A6-YOR">
                                     <rect key="frame" x="0.0" y="192" width="600" height="113"/>
@@ -66,6 +69,9 @@
                                             <state key="normal" title="See wish list items">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="clickedOnWishListButton:" destination="-1" eventType="touchUpInside" id="98Y-7A-mc4"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-ZB-Y80">
                                             <rect key="frame" x="60" y="66" width="480" height="1"/>

@@ -71,13 +71,15 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dropDownImageView.backgroundColor = self.setUpColor()
         
         segmentBar.segmentSelected =  { (idx: Int)  in
-            if(idx == 0)
+            if(idx == 1)
             {
-                self.dayDateLabel.text = "day"
+                self.dayDateLabel.text = "date"
+                self.segmentDelegate!.segmentBarChanged("date")
             }
             else
             {
-                self.dayDateLabel.text = "date"
+                self.dayDateLabel.text = "day"
+                self.segmentDelegate!.segmentBarChanged("day")
             }
         }
         
@@ -86,8 +88,21 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     func doneBarButtonPressed(){
         dayDateTextField.resignFirstResponder()
-        dayDateTextField.text = dateStr
+       
+        if(dayDateLabel.text == "date")
+        {
+            
+             dayDateTextField.text = String(format: "     %@",dateStr)
+        }
+        else
+        {
+             dayDateTextField.text = dateStr
+        }
+      
+
+       
         dayPickerView.reloadAllComponents()
+        
         segmentDelegate!.getDateTextField(dateStr)
         
         UIView.beginAnimations(nil, context: nil)
@@ -224,18 +239,6 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         return UIModalPresentationStyle.None
     }
     
-    @IBAction func segmentControlChanged(sender: UISegmentedControl) {
-        
-        print(sender.titleForSegmentAtIndex(sender.selectedSegmentIndex))
-        if(sender.selectedSegmentIndex == 0) {
-            dayDateLabel.text = "date"
-            segmentDelegate!.segmentBarChanged("date")
-        }
-        else{
-            dayDateLabel.text = "day"
-            segmentDelegate!.segmentBarChanged("day")
-        }
-    }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {

@@ -62,7 +62,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.setUpView()
     }
     
     func callWishListAPI()

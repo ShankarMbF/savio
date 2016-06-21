@@ -44,7 +44,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func setUpView(){
         self.title = "Partner offers"
-        
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -282,8 +283,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         if offerArr.count > 0 {
             offerArr.removeAll()
         }
-        offerArr = objResponse["offers"] as! Array<Dictionary<String,AnyObject>>
+        if let obj = objResponse["offers"] as? Array<Dictionary<String,AnyObject>>{
+        offerArr = obj
         tblView?.reloadData()
+        }
         
     }
     func errorResponseForGetOfferlistAPI(error:String){

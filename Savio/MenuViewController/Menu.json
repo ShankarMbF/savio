@@ -6,6 +6,18 @@
   "showArrow": 0
   },
   {
+  "title": "Your progress",
+  "image": "",
+  "className": "SAProgressViewController",
+  "showArrow": 0
+  },
+  {
+  "title": "Switch plans",
+  "image": "",
+  "className": "SASwitchViewController",
+  "showArrow": 0
+  },
+  {
   "title": "Offers",
   "image": "",
   "className": "SAOfferListViewController",
@@ -16,6 +28,5 @@
   "image": "",
   "className": "SAWishListViewController",
   "showArrow": 0
-  },
-  
+  }
   ]

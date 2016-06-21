@@ -389,6 +389,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        
+        tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
+        print(tblArr)
+        self.setUpView()
+        tblView?.scrollsToTop = true
+        tblView?.reloadData()
         print(objResponse)
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {

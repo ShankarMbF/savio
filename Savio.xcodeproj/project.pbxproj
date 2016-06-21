@@ -285,6 +285,10 @@
 		C94E1E4D1D11714F001C85C6 /* home-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */; };
 		C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */; };
 		C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */; };
+		C94F93AC1D1946910065F588 /* SASwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F93AA1D1946910065F588 /* SASwitchViewController.swift */; };
+		C94F93AD1D1946910065F588 /* SASwitchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C94F93AB1D1946910065F588 /* SASwitchViewController.xib */; };
+		C94F93B11D1969450065F588 /* SAProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F93AF1D1969450065F588 /* SAProgressViewController.swift */; };
+		C94F93B21D1969450065F588 /* SAProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C94F93B01D1969450065F588 /* SAProgressViewController.xib */; };
 		C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */; };
 		C95CD60D1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */; };
 		C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */; };
@@ -696,6 +700,10 @@
 		C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg.png"; sourceTree = "<group>"; };
 		C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@2x.png"; sourceTree = "<group>"; };
 		C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@3x.png"; sourceTree = "<group>"; };
+		C94F93AA1D1946910065F588 /* SASwitchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASwitchViewController.swift; sourceTree = "<group>"; };
+		C94F93AB1D1946910065F588 /* SASwitchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASwitchViewController.xib; sourceTree = "<group>"; };
+		C94F93AF1D1969450065F588 /* SAProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAProgressViewController.swift; sourceTree = "<group>"; };
+		C94F93B01D1969450065F588 /* SAProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAProgressViewController.xib; sourceTree = "<group>"; };
 		C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTxtFieldTableViewCell.swift; sourceTree = "<group>"; };
 		C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownTxtFieldTableViewCell.xib; sourceTree = "<group>"; };
 		C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerTextfildTableViewCell.swift; sourceTree = "<group>"; };
@@ -1239,6 +1247,24 @@
 			path = WishListViewController;
 			sourceTree = "<group>";
 		};
+		C94F93A91D1946480065F588 /* SwitchPlan */ = {
+			isa = PBXGroup;
+			children = (
+				C94F93AA1D1946910065F588 /* SASwitchViewController.swift */,
+				C94F93AB1D1946910065F588 /* SASwitchViewController.xib */,
+			);
+			path = SwitchPlan;
+			sourceTree = "<group>";
+		};
+		C94F93AE1D19692E0065F588 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				C94F93AF1D1969450065F588 /* SAProgressViewController.swift */,
+				C94F93B01D1969450065F588 /* SAProgressViewController.xib */,
+			);
+			path = ProgressView;
+			sourceTree = "<group>";
+		};
 		C95CD6101CF2C92100013200 /* DropDownList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1428,6 +1454,8 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				C94F93AE1D19692E0065F588 /* ProgressView */,
+				C94F93A91D1946480065F588 /* SwitchPlan */,
 				C9F600511D17F78B003155A2 /* MenuViewController */,
 				C9F6004C1D17ED01003155A2 /* ContainerView */,
 				C9C6E4E61D0930770015C3B6 /* Savio.entitlements */,
@@ -1654,6 +1682,7 @@
 				A8095C3A1CEDC616006366F7 /* pre-loader@2x21.png in Resources */,
 				A8BDCBE21D05557500D4C47B /* group-save-calendar.png in Resources */,
 				A8BDCBEE1D05557500D4C47B /* home-calendar.png in Resources */,
+				C94F93B21D1969450065F588 /* SAProgressViewController.xib in Resources */,
 				C9E855021CF456CC006213BF /* savivo-logo@2x.png in Resources */,
 				C975A92F1D01952900184C8C /* generic-category-icon@3x.png in Resources */,
 				A8095C1D1CEDC616006366F7 /* pre-loader@1x27.png in Resources */,
@@ -1842,6 +1871,7 @@
 				C9E525B31CE986FA000FD01E /* Assets.xcassets in Resources */,
 				A8095C4F1CEDC616006366F7 /* pre-loader@2x9.png in Resources */,
 				A86682041CFF07C80014DB59 /* SetDayTableViewCell.xib in Resources */,
+				C94F93AD1D1946910065F588 /* SASwitchViewController.xib in Resources */,
 				A8BDCBEB1D05557500D4C47B /* holiday-setup-bg.png in Resources */,
 				A8BDCBE01D05557500D4C47B /* generic-setup-bg@2x.png in Resources */,
 				C91E23FC1D02D0D700DC6D29 /* nav-heart.png in Resources */,
@@ -1987,7 +2017,9 @@
 				A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */,
 				A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */,
 				C96D5E551D0ED7B100CE248D /* EmailTxtTableViewCell.swift in Sources */,
+				C94F93AC1D1946910065F588 /* SASwitchViewController.swift in Sources */,
 				C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */,
+				C94F93B11D1969450065F588 /* SAProgressViewController.swift in Sources */,
 				C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */,
 				C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */,
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,

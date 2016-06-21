@@ -221,10 +221,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }
-        wishListArray = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+        
+        if let obj = objResponse["wishListList"] as? Array<Dictionary<String,AnyObject>>{
+        wishListArray = obj
         objAnimView.removeFromSuperview()
         self.setUpView()
         wishListTable?.reloadData()
+        }
         
     }
     

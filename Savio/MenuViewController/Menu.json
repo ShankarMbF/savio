@@ -1,0 +1,21 @@
+ [
+  {
+  "title": "Start saving plan",
+  "image": "",
+  "className": "SACreateSavingPlanViewController",
+  "showArrow": 0
+  },
+  {
+  "title": "Offers",
+  "image": "",
+  "className": "SAOfferListViewController",
+  "showArrow": 0
+  },
+  {
+  "title": "Wish List",
+  "image": "",
+  "className": "SAWishListViewController",
+  "showArrow": 0
+  },
+  
+  ]

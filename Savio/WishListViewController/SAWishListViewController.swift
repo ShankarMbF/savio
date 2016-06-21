@@ -16,9 +16,11 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.callWishListData()
+//        self.callWishListData()
         self.setUpView()
-        
+        self.wishListAPI()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 
         // Do any additional setup after loading the view.
     }
@@ -79,11 +81,10 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     func getWishListData(notification:NSNotification)
     {
-        self.callWishListData()
+        self.wishListAPI()
     }
     
-    func callWishListData()
-    {
+    func wishListAPI(){
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -101,7 +102,6 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -207,7 +207,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){

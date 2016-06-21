@@ -244,7 +244,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     
-    
     //Function invoking for configure the page control for animated pages
     func configurePageControl() {
         // Set the total pages to the page control.
@@ -264,10 +263,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        //        let objAPI = API()
-        //        //  let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        //        objAPI.getWishlistDelegate = self
-        //        objAPI.getWishListForUser("196")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
@@ -329,6 +325,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 79.0
     }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
         if(indexPath.row == 0)

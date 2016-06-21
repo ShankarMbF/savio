@@ -41,7 +41,7 @@ class ContainerViewController: UIViewController {
         if (destination.origin.x > 0) {
             destination.origin.x = 0;
         } else {
-            destination.origin.x += 200;
+            destination.origin.x += 250;
         }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.navController.view.frame = destination
@@ -77,6 +77,14 @@ class ContainerViewController: UIViewController {
             self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             self.replaceViewController()
             
+        case "SASwitchViewController":
+            self.centreVC = SASwitchViewController(nibName: "SASwitchViewController", bundle: nil)
+            self.replaceViewController()
+            
+        case "SAProgressViewController":
+            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            self.replaceViewController()
+            
         case "SignOut":
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 
@@ -87,9 +95,9 @@ class ContainerViewController: UIViewController {
     
     func replaceViewController() {
         self.navController = UINavigationController(rootViewController: self.centreVC)
-//        self.navController.navigationBar.hidden = true
+        //        self.navController.navigationBar.hidden = true
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navController.view.frame = self.view.frame
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)

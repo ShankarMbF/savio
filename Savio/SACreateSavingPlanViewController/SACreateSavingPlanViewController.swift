@@ -347,6 +347,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        
         tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
         print(tblArr)
         self.setUpView()

@@ -228,10 +228,10 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
     objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
     print(userInfoDict)
     
-    let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+    //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
     
-//    let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-    self.navigationController?.pushViewController(objContainer, animated: true)
+   let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+    self.navigationController?.pushViewController(objHurrrayView, animated: true)
 }
 
 func errorResponseForOTPLogInAPI(error: String) {

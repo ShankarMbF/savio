@@ -319,7 +319,47 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
    
         cell.lblHeader!.text = cellDict["title"] as? String;
         cell.lblDetail?.text = cellDict["savDescription"] as? String
-       // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+      
+        /*
+
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@1x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        else if(UIScreen.mainScreen().bounds.size.height == 1080 || UIScreen.mainScreen().bounds.size.height == 1920)
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@2x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        else
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@3x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        */
+      
         
         return cell
     }

@@ -267,7 +267,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -283,7 +283,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -617,7 +617,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            
             parameterDict["offer_List"] = newOfferArray
         }
         else
@@ -843,7 +842,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
         
     }

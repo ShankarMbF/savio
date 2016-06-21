@@ -33,6 +33,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isPopoverValueChanged = false
     var isClearPressed = false
     
+    @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
     
     override func viewDidLoad() {
@@ -44,9 +45,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        
-        savingPlanTitleLabel.layer.borderWidth = 1
-        savingPlanTitleLabel.layer.borderColor = UIColor.whiteColor().CGColor
         
         tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
@@ -65,6 +63,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+    }
     
     func setUpView(){
         
@@ -265,7 +267,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -281,7 +283,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -386,17 +388,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(popOverSelectedStr != "")
             {
-                //                cell1.setDayDateButton.setTitle(popOverSelectedStr, forState: UIControlState.Normal)
-                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
                 cell1.dayDateTextField.text = popOverSelectedStr
             }
             
             if(isClearPressed)
             {
-                //                cell1.setDayDateButton.setTitle("", forState: UIControlState.Normal)
-                //                cell1.setDayDateButton.titleLabel?.textAlignment = NSTextAlignment.Left
-                //                cell1.setDayDateButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
                 cell1.dayDateTextField.text = ""
             }
             
@@ -413,6 +409,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
                     }
+                    else if ((dateDiff/168) == 0)
+                    {
+                        cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                    }
                     else
                     {
                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
@@ -423,6 +423,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if((dateDiff/168)/4 == 1)
                     {
                         cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                    }
+                    else if ((dateDiff/168)/4 == 0)
+                    {
+                        cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
                         cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
@@ -599,7 +603,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if((imageDataDict["sav-id"]) != nil)
         {
-            parameterDict["sav_id"] = imageDataDict["savPlanID-id"]
+            parameterDict["sav_id"] = imageDataDict["savPlanID"]
         }
         else
         {
@@ -613,7 +617,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            
             parameterDict["offer_List"] = newOfferArray
         }
         else
@@ -689,6 +692,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let obj = SAOfferListViewController()
             obj.delegate = self
+            obj.savID = imageDataDict["savPlanID"] as! NSNumber
             self.navigationController?.pushViewController(obj, animated: true)
         }
     }
@@ -838,7 +842,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
         
     }
@@ -885,7 +889,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             objSummaryView.itemDataDict =  dict
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
-      
+        
         
         
     }

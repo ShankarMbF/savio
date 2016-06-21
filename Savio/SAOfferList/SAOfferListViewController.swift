@@ -18,6 +18,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var indx : Int = 0
     var  prevIndxArr: Array<Int> = []
     var rowHT : CGFloat = 310.0
+    var savID : NSNumber = 0
     
     var  offerArr: Array<Dictionary<String,AnyObject>> = []
 
@@ -87,7 +88,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         self.view.addSubview(objAnimView)
          let objAPI = API()
         objAPI.getofferlistDelegate = self
-        objAPI.getOfferListForSavingId("1")
+        objAPI.getOfferListForSavingId(String(format: "%@",savID))
     }
     /*
     // MARK: - Navigation

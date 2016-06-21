@@ -20,9 +20,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var suggestedY: NSLayoutConstraint!
     @IBOutlet weak var suggestedHt: NSLayoutConstraint!
     
+    @IBOutlet weak var verticalScrlView: UIScrollView!
     var objAnimView = ImageViewAnimation()
     
     
+    @IBOutlet weak var contentView: UIView!
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
     var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
@@ -93,7 +95,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+        verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  contentView!.frame.size.height)
     }
     
     
@@ -159,7 +161,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 // Load the TestView view.
                 let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
                 // Set its frame and data to pageview
-                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, -64, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
                 let vw = testView.viewWithTag(2)! as UIView
                 vw.layer.borderWidth = 1
                 vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -218,7 +220,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview
-            testView.frame = CGRectMake(scrlView!.bounds.origin.x, -64, scrlView!.frame.size.width, scrlView!.frame.size.height)
+            testView.frame = CGRectMake(scrlView!.bounds.origin.x, 0, scrlView!.frame.size.width, scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
             vw.layer.borderWidth = 1
             vw.layer.borderColor = UIColor.whiteColor().CGColor
@@ -317,7 +319,47 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
    
         cell.lblHeader!.text = cellDict["title"] as? String;
         cell.lblDetail?.text = cellDict["savDescription"] as? String
-       // cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+      
+        /*
+
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@1x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        else if(UIScreen.mainScreen().bounds.size.height == 1080 || UIScreen.mainScreen().bounds.size.height == 1920)
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@2x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        else
+        {
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@3x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.imageView?.image = image
+                })
+            })
+        }
+        */
+      
         
         return cell
     }
@@ -354,6 +396,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         tblView?.scrollsToTop = true
         tblView?.reloadData()
         print(objResponse)
+        if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
+        {
+            tblArr = tblArray
+            self.setUpView()
+            tblView?.scrollsToTop = true
+            tblView?.reloadData()
+        }
+ 
 
         
     }

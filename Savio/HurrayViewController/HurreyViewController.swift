@@ -34,7 +34,7 @@ class HurreyViewController: UIViewController {
 
 
     @IBAction func createPlanPressed(sender: AnyObject) {
-        let objCreateSavingPlanView = SACreateSavingPlanViewController(nibName:"SACreateSavingPlanViewController",bundle: nil)
-        self.navigationController?.pushViewController(objCreateSavingPlanView, animated: true)
+        let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+        self.navigationController?.pushViewController(objContainer, animated: true)
     }
 }

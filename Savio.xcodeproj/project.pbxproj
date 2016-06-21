@@ -245,6 +245,8 @@
 		A8BDCC0B1D05936F00D4C47B /* ShareExtension.js in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCC091D05936F00D4C47B /* ShareExtension.js */; };
 		A8BDCC0C1D05936F00D4C47B /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCC0A1D05936F00D4C47B /* icon-60.png */; };
 		A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */; };
+		A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */; };
+		A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -658,6 +660,8 @@
 		A8BDCC091D05936F00D4C47B /* ShareExtension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ShareExtension.js; sourceTree = "<group>"; };
 		A8BDCC0A1D05936F00D4C47B /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60.png"; sourceTree = "<group>"; };
 		A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentBar.swift; sourceTree = "<group>"; };
+		A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTableViewCell.swift; sourceTree = "<group>"; };
+		A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraTableViewCell.xib; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1086,6 +1090,8 @@
 				A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */,
 				A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */,
 				A82B9C9A1D06DDDF00BFD084 /* slider.swift */,
+				A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */,
+				A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */,
 			);
 			name = SavingPlanSetupCells;
 			path = Savio/SavingPlanSetupCells;
@@ -1788,6 +1794,7 @@
 				C90D39C41D068D2000F285BB /* divider-savio@2x.png in Resources */,
 				A8095C691CEDC617006366F7 /* pre-loader@3x32.png in Resources */,
 				A858A5F11D08127C0097546F /* gadget-circle@2x.png in Resources */,
+				A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */,
 				A8095C2B1CEDC616006366F7 /* pre-loader@1x8.png in Resources */,
 				A858A5F61D08127C0097546F /* group-save-circle.png in Resources */,
 				A8095C6D1CEDC617006366F7 /* pre-loader@3x4.png in Resources */,
@@ -2022,6 +2029,7 @@
 				A84625AD1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift in Sources */,
 				C95CD6171CF2C92100013200 /* DPDConstants.swift in Sources */,
 				C95CD61A1CF2C92100013200 /* DropDown.swift in Sources */,
+				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,

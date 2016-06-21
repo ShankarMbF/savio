@@ -267,7 +267,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = true
+                imagePicker.allowsEditing = false
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -283,7 +283,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = true
+                imagePicker.allowsEditing = false
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -843,7 +843,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerCropRect] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
         cameraButton.hidden = true
         
     }

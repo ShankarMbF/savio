@@ -142,7 +142,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            if(imageDataDict["title"] as! String == "Group Save")
+            if(imageDataDict["title"] as! String == "Group save")
             {
                 topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
             }
@@ -210,7 +210,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        if(imageDataDict["title"] as! String == "Group Save")
+        if(imageDataDict["title"] as! String == "Group save")
         {
             red = 161/255
             green = 214/255
@@ -319,6 +319,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
     }
+    //MARK: UITableviewDelegate methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return offerArr.count+7
     }
@@ -495,15 +496,65 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell1
         }
     }
+   
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view : UIView = UIView()
+        view.backgroundColor = UIColor.clearColor()
+        return view
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 3
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        if(indexPath.section == 0)
+        {
+            return 44
+        }
+        else if(indexPath.section == 1){
+            return 90
+        }
+        else if(indexPath.section == 2){
+            return 70
+        }
+        else if(indexPath.section == 3){
+            return 65
+        }
+        else if(indexPath.section == 4)
+        {
+            if(isPopoverValueChanged == true)
+            {
+                return 40
+            }
+            else{
+                return 0
+            }
+        }
+        else if(indexPath.section == offerArr.count+5)
+        {
+            return 65
+        }
+        else if(indexPath.section == offerArr.count+6){
+            return 44
+        }
+        else {
+            return 60
+        }
+        
+    }
+    
+    
     
     func getTextFieldText(text: String) {
         itemTitle = text
-       
+        
     }
     func getDateTextField(str: String) {
         popOverSelectedStr = str
         isPopoverValueChanged = true
-         tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 40
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 40
         
         tblView.reloadData()
     }
@@ -515,7 +566,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else
         {
-             dateString = "day"
+            dateString = "day"
         }
         isPopoverValueChanged = true
     }
@@ -551,7 +602,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.offerArr.removeAll()
             }
             self.tblViewHt.constant = 400
-            self.scrlView.contentOffset = CGPointZero
+            self.scrlView.contentOffset = CGPointMake(0, 20)
             self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             self.tblView.reloadData()
             
@@ -749,53 +800,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let view : UIView = UIView()
-        view.backgroundColor = UIColor.clearColor()
-        return view
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 3
-    }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if(indexPath.section == 0)
-        {
-            return 44
-        }
-        else if(indexPath.section == 1){
-            return 90
-        }
-        else if(indexPath.section == 2){
-            return 70
-        }
-        else if(indexPath.section == 3){
-            return 65
-        }
-        else if(indexPath.section == 4)
-        {
-            if(isPopoverValueChanged == true)
-            {
-                return 40
-            }
-            else{
-                return 0
-            }
-        }
-        else if(indexPath.section == offerArr.count+5)
-        {
-            return 65
-        }
-        else if(indexPath.section == offerArr.count+6){
-            return 44
-        }
-        else {
-            return 60
-        }
-        
     }
     
     //MARK: UIImagePickerControllerDelegate methods

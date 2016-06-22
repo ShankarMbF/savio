@@ -85,7 +85,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     {
         
         var imageName = ""
-        if(colorDataDict["title"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group save")
         {
             imageName = "group-save-calendar.png"
         }

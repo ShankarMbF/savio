@@ -1,0 +1,54 @@
+//
+//  InviteFriendsButtonTableViewCell.swift
+//  Savio
+//
+//  Created by Maheshwari on 22/06/16.
+//  Copyright © 2016 Prashant. All rights reserved.
+//
+
+import UIKit
+
+class InviteFriendsButtonTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var orginisersLabel: UILabel!
+    @IBOutlet weak var inviteButton: UIButton!
+    var userInfodict : Dictionary<String, AnyObject> = [:]
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code  red = 161/255  green = 214/255 blue = 248/255
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfodict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
+        let attributedString = NSMutableAttributedString(string: String(format: "%@ (Organiser)",userInfodict!["first_name"] as! String))
+        
+        attributedString.addAttribute(NSForegroundColorAttributeName,
+                                     value: UIColor.whiteColor(),
+                                     range: NSRange(
+                                        location:0,
+                                        length:(userInfodict!["first_name"] as! String).characters.count))
+        
+        attributedString.addAttribute(NSForegroundColorAttributeName,
+        value: UIColor(red: 161/255,green:214/255,blue:248/255,alpha:1),
+        range: NSRange(
+        location:(userInfodict!["first_name"] as! String).characters.count,
+        length:12))
+        
+        orginisersLabel.attributedText = attributedString
+ 
+        self.addShadowView()
+    }
+    func addShadowView(){
+        inviteButton?.layer.cornerRadius = 2.0
+        inviteButton!.layer.shadowColor = UIColor(red: 114/256, green: 177/256, blue: 237/256, alpha: 1.0).CGColor
+        inviteButton!.layer.shadowOffset = CGSize(width: 0, height:3)
+        inviteButton!.layer.shadowOpacity = 1
+        inviteButton!.layer.masksToBounds = false
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}

@@ -27,14 +27,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var contentView: UIView!
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
-    var tblArr : Array<Dictionary<String,AnyObject>> = [["image":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
-        ,["image":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
-        ,["image":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
-         ["image":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
-         ["image":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
-         ["image":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
-         ["image":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
-         ["image":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
+    var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
+        ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
+        ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
+         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
+         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
+         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
+         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
+         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
     override func viewDidLoad() {
@@ -45,6 +45,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
+        tblView?.separatorInset = UIEdgeInsetsZero
         self.setUpView()
         
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
@@ -53,10 +54,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.view.addSubview(objAnimView)
         
         let objAPI = API()
-
+        
         objAPI.categorySavingPlanDelegate = self
         objAPI.getCategoriesForSavingPlan()
-
+        
         self.callWishListAPI()
         
     }
@@ -67,7 +68,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func callWishListAPI()
     {
-       
+        
         let objAPI = API()
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
@@ -95,7 +96,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  contentView!.frame.size.height)
+        verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  scrlView!.frame.size.height + tblView!.frame.size.height + suggestedHt.constant)
     }
     
     
@@ -149,7 +150,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
         // Load the PageView view from the TestView.xib file and configure it properly.
         
-    
+        
         if colors.count > 0{
             for i in 0 ..< colors.count {
                 heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -216,7 +217,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         else{
             NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
-
+            
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
             let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and data to pageview
@@ -310,56 +311,29 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        //        let cell = tableView.dequeueReusableCellWithIdentifier("SavingCategoryTableViewCell") as? SavingCategoryTableViewCell
-        //        if cell == nil {
+        
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! SavingCategoryTableViewCell
-        //        }
         let cellDict = tblArr[indexPath.row]
-   
+        cell.layoutMargins = UIEdgeInsetsZero
         cell.lblHeader!.text = cellDict["title"] as? String;
         cell.lblDetail?.text = cellDict["savDescription"] as? String
-      
-        /*
-
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@1x"] as! String)!)
+        
+        //cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
+        
+     
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell.imageView?.image = image
-                })
+                if(data != nil)
+                {
+                    let image = UIImage(data: data!)
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.imageView?.image = image
+                    })
+                }
             })
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 1080 || UIScreen.mainScreen().bounds.size.height == 1920)
-        {
-            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@2x"] as! String)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell.imageView?.image = image
-                })
-            })
-        }
-        else
-        {
-            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo@3x"] as! String)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell.imageView?.image = image
-                })
-            })
-        }
-        */
-      
+  
         
         return cell
     }
@@ -370,32 +344,46 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
+        NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
+        NSUserDefaults.standardUserDefaults().synchronize()
         if(indexPath.row == 0)
         {
-            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
+            let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
+            self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
+
         }
         else
         {
-            NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            
+ 
             let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
             self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
         }
         
     }
-    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){
+            tblView!.separatorInset = UIEdgeInsetsZero
+        }
+        
+        if( tblView!.respondsToSelector(Selector("setLayoutMargins:"))){
+            tblView!.layoutMargins = UIEdgeInsetsZero
+        }
+        
+        if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
+    }
+
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         
         tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
-        print(tblArr)
+
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-        print(objResponse)
+       
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray
@@ -403,13 +391,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             tblView?.scrollsToTop = true
             tblView?.reloadData()
         }
- 
-
+        
+        
         
     }
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
         print(error)
-
+        
     }
     
     

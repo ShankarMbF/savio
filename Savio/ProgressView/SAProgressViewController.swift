@@ -10,20 +10,33 @@ import UIKit
 
 class SAProgressViewController: UIViewController {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-
+    
+    @IBOutlet weak var calculationLabel: UILabel!
+    @IBOutlet weak var percentageLabel: UILabel!
+    @IBOutlet weak var circularProgressOne: KDCircularProgress!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var scrlView: UIScrollView!
+    @IBOutlet weak var makeImpulseSavingButton: UIButton!
+    @IBOutlet weak var savingPlanTitleLabel: UILabel!
+    @IBOutlet weak var statsButton: UIButton!
+    @IBOutlet weak var progressButton: UIButton!
+    @IBOutlet weak var offersButton: UIButton!
+    @IBOutlet weak var planButton: UIButton!
+    @IBOutlet weak var spendButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         self.setUpView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func setUpView(){
+        
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -37,11 +50,11 @@ class SAProgressViewController: UIViewController {
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.title = "Switch plans"
+        self.title = "My Plan"
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
-        //        btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -76,11 +89,29 @@ class SAProgressViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        
+        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        planButton.tintColor = UIColor.whiteColor()
+        
+        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
+        
+        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
+        
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = 3
+        
+//        for var i=0; i<2; i++
+//        {
+            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView
+            circularProgress.frame = CGRectMake(0, 0, circularProgress.frame.size.width, circularProgress.frame.size.height)
+          
+            scrlView.addSubview(circularProgress)
+        
+            //scrlView.contentSize = CGSizeMake(CGFloat(i) * circularProgress.frame.size.width, 0)
+//       / }
     }
-    
-    
-    
-    
     
     //MARK: Bar button action
     func menuButtonClicked(){
@@ -88,8 +119,7 @@ class SAProgressViewController: UIViewController {
     }
     
     func heartBtnClicked(){
-        
-        
+
         if wishListArray.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
@@ -101,15 +131,31 @@ class SAProgressViewController: UIViewController {
             alert.show()
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // Calculate the new page index depending on the content offset.
+        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
+        
+        // Set the new page index to the page control.
+        pageControl!.currentPage = Int(currentPage)
     }
-    */
-
+    
+    @IBAction func changePage(sender: AnyObject) {
+        var newFrame = scrlView!.frame
+        newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
+        scrlView!.scrollRectToVisible(newFrame, animated: true)
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

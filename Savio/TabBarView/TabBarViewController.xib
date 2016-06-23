@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TabBarViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="offersButton" destination="Kvg-Ci-Ykf" id="w1j-Ar-OIB"/>
+                <outlet property="progressButton" destination="UR4-2Z-FYI" id="i4M-6o-P1e"/>
+                <outlet property="spendButton" destination="CLp-2J-ChN" id="4Mq-A4-Hab"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,21 +23,27 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLp-2J-ChN">
                             <rect key="frame" x="0.0" y="1" width="200" height="50"/>
-                            <state key="normal" title="Button"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="spendButtonPressed:" destination="-1" eventType="touchUpInside" id="fPC-of-XIs"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvg-Ci-Ykf">
                             <rect key="frame" x="400" y="1" width="200" height="50"/>
-                            <state key="normal" title="Button"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="planButtonPressed:" destination="-1" eventType="touchUpInside" id="G0Q-ZJ-4zJ"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR4-2Z-FYI">
                             <rect key="frame" x="200" y="1" width="200" height="50"/>
-                            <state key="normal" title="Button"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="offersButtonPressed:" destination="-1" eventType="touchUpInside" id="umV-Pt-18d"/>
                             </connections>

@@ -12,6 +12,8 @@ class SAMenuViewController: UIViewController {
 
     var arrMenu: Array<Dictionary<String,AnyObject>> = []
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fileUrl: NSURL = NSBundle.mainBundle().URLForResource("Menu", withExtension: "json")!
@@ -50,9 +52,22 @@ class SAMenuViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        selectedCell!.contentView.backgroundColor = UIColor.redColor()
+        
         let dict =  self.arrMenu[indexPath.row]
         let className: String = dict["className"] as! String
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
+    }
+ 
+    
+    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
+    
+    // Just set it back in deselect
+    
+     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        var selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        selectedCell!.contentView.backgroundColor = UIColor.redColor()
     }
 
     /*

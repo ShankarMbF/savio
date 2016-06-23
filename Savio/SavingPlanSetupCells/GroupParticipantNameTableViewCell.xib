@@ -29,7 +29,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="huk-Qw-Sis"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="13"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -45,31 +45,45 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWD-Pr-tQj">
-                        <rect key="frame" x="9" y="15" width="232" height="15"/>
+                        <rect key="frame" x="9" y="18" width="232" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="vlU-vf-AvB"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="15"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="13"/>
                         <color key="textColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bO-x3-HUm">
+                        <rect key="frame" x="4" y="34" width="312" height="1"/>
+                        <color key="backgroundColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Btk-0p-rlH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
+                <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="SsL-M9-2to" firstAttribute="leading" secondItem="4Gq-mG-C4v" secondAttribute="trailing" constant="40" id="1LL-nP-nk9"/>
                     <constraint firstAttribute="trailing" secondItem="SsL-M9-2to" secondAttribute="trailing" constant="15" id="3Hn-j7-ZJ0"/>
-                    <constraint firstItem="UWD-Pr-tQj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="3TF-6y-U9w"/>
+                    <constraint firstItem="UWD-Pr-tQj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="3TF-6y-U9w"/>
                     <constraint firstItem="SsL-M9-2to" firstAttribute="leading" secondItem="UWD-Pr-tQj" secondAttribute="trailing" constant="40" id="5Wz-nw-f4i"/>
+                    <constraint firstItem="1bO-x3-HUm" firstAttribute="top" secondItem="UWD-Pr-tQj" secondAttribute="bottom" constant="1" id="GMU-bo-Eei"/>
                     <constraint firstItem="SsL-M9-2to" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="MWN-GW-oiQ"/>
                     <constraint firstItem="4Gq-mG-C4v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="Pbd-LB-yUl"/>
                     <constraint firstItem="4Gq-mG-C4v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="QJd-VN-ZSD"/>
                     <constraint firstItem="UWD-Pr-tQj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="1" id="QfU-JT-oyt"/>
+                    <constraint firstItem="1bO-x3-HUm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="Uln-Ei-7vj"/>
+                    <constraint firstAttribute="trailing" secondItem="1bO-x3-HUm" secondAttribute="trailing" constant="4" id="c9x-XM-Obh"/>
                     <constraint firstItem="SsL-M9-2to" firstAttribute="leading" secondItem="UWD-Pr-tQj" secondAttribute="trailing" constant="40" id="soa-tc-eU3"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.63921570780000003" green="0.63529413940000001" blue="0.63921570780000003" alpha="1" colorSpace="deviceRGB"/>
             <connections>
                 <outlet property="ParticipantsNameLabel" destination="4Gq-mG-C4v" id="v0C-qZ-h4E"/>
-                <outlet property="nextArrowButton" destination="SsL-M9-2to" id="PIH-Fn-wHG"/>
+                <outlet property="deleteContactButton" destination="SsL-M9-2to" id="fqH-sg-eeO"/>
                 <outlet property="phoneOrEmailLabel" destination="UWD-Pr-tQj" id="QbZ-Ok-Ict"/>
             </connections>
             <point key="canvasLocation" x="535" y="366.5"/>

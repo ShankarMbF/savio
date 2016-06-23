@@ -127,6 +127,7 @@ class ContactViewController: UIViewController {
         
         dict["name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         delegate?.addedContact(dict)
+        self.navigationController?.popViewControllerAnimated(true)
    }
     /*
     // MARK: - Navigation

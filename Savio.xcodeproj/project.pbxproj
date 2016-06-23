@@ -2080,6 +2080,7 @@
 				A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */,
 				C9ED80471D1BC38A00058A96 /* menu-profile.png in Resources */,
 				A8095C2B1CEDC616006366F7 /* pre-loader@1x8.png in Resources */,
+				A870161A1D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib in Resources */,
 				C9ED804D1D1BC38A00058A96 /* menu-settings.png in Resources */,
 				A858A5F61D08127C0097546F /* group-save-circle.png in Resources */,
 				A8095C6D1CEDC617006366F7 /* pre-loader@3x4.png in Resources */,

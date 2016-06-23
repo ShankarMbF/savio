@@ -12,8 +12,6 @@ class SAMenuViewController: UIViewController {
 
     var arrMenu: Array<Dictionary<String,AnyObject>> = []
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fileUrl: NSURL = NSBundle.mainBundle().URLForResource("Menu", withExtension: "json")!
@@ -46,28 +44,35 @@ class SAMenuViewController: UIViewController {
         
         cell?.title?.text =  dict["title"] as? String
         let imageName =  dict["image"] as! String
-        let imageIcon = UIImage(named: imageName)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        let imageIcon = UIImage(named: imageName)//?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         cell?.icon?.image = imageIcon
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
-        selectedCell!.contentView.backgroundColor = UIColor.redColor()
-        
-        let dict =  self.arrMenu[indexPath.row]
+         let dict =  self.arrMenu[indexPath.row]
+        let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+        let imageName =  dict["activeImage"] as! String
+        let imageIcon = UIImage(named: imageName)
+        selectedCell?.icon?.image = imageIcon
+       
         let className: String = dict["className"] as! String
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
- 
     
     // if tableView is set in attribute inspector with selection to multiple Selection it should work.
     
     // Just set it back in deselect
     
      func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
-        selectedCell!.contentView.backgroundColor = UIColor.redColor()
+        let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        selectedCell!.contentView.backgroundColor = UIColor.whiteColor()
+        let dict =  self.arrMenu[indexPath.row]
+        let imageName =  dict["image"] as! String
+        let imageIcon = UIImage(named: imageName)
+        selectedCell?.icon?.image = imageIcon
+
     }
 
     /*

@@ -1,31 +1,36 @@
  [
   {
   "title": "Start saving plan",
-  "image": "",
+  "image": "menu-start.png",
+  "activeImage": "menu-active-start.png",
   "className": "SACreateSavingPlanViewController",
   "showArrow": 0
   },
   {
   "title": "Your progress",
-  "image": "",
+  "image": "menu-progress.png",
+  "activeImage": "menu-active-progress.png",
   "className": "SAProgressViewController",
   "showArrow": 0
   },
   {
   "title": "Switch plans",
-  "image": "",
+  "image": "menu-switch.png",
+  "activeImage": "menu-active-switch.png",
   "className": "SASwitchViewController",
   "showArrow": 0
   },
   {
   "title": "Offers",
-  "image": "",
+  "image": "menu-offers.png",
+  "activeImage": "menu-active-offers.png",
   "className": "SAOfferListViewController",
   "showArrow": 0
   },
   {
   "title": "Wish List",
-  "image": "",
+  "image": "menu-whishlist.png",
+  "activeImage": "menu-active-whishlist.png",
   "className": "SAWishListViewController",
   "showArrow": 0
   }

@@ -8,13 +8,14 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,PopOverDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     
+    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     var cost : Int = 0
     
     var dateDiff : Int = 0
@@ -59,13 +60,28 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        self.setUpView()
+      self.setUpView()
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+        var ht : CGFloat = 0.0
+        if(isPopoverValueChanged)
+        {
+         ht = 40 + CGFloat(offerArr.count * 65)
+        }
+        else
+        {
+            ht = CGFloat(offerArr.count * 65)
+        }
+        
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
     }
     
     func setUpView(){
@@ -126,7 +142,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            if(imageDataDict["title"] as! String == "Group Save")
+            if(imageDataDict["title"] as! String == "Group save")
             {
                 topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
             }
@@ -161,6 +177,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.cameraButton.hidden = false
         }
         
+    
+        
     }
     
     
@@ -192,7 +210,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        if(imageDataDict["title"] as! String == "Group Save")
+        if(imageDataDict["title"] as! String == "Group save")
         {
             red = 161/255
             green = 214/255
@@ -267,7 +285,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = true
+                imagePicker.allowsEditing = false
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -283,7 +301,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = true
+                imagePicker.allowsEditing = false
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -301,6 +319,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
     }
+    //MARK: UITableviewDelegate methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return offerArr.count+7
     }
@@ -477,18 +496,79 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell1
         }
     }
+   
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view : UIView = UIView()
+        view.backgroundColor = UIColor.clearColor()
+        return view
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 3
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        if(indexPath.section == 0)
+        {
+            return 44
+        }
+        else if(indexPath.section == 1){
+            return 90
+        }
+        else if(indexPath.section == 2){
+            return 70
+        }
+        else if(indexPath.section == 3){
+            return 65
+        }
+        else if(indexPath.section == 4)
+        {
+            if(isPopoverValueChanged == true)
+            {
+                return 40
+            }
+            else{
+                return 0
+            }
+        }
+        else if(indexPath.section == offerArr.count+5)
+        {
+            return 65
+        }
+        else if(indexPath.section == offerArr.count+6){
+            return 44
+        }
+        else {
+            return 60
+        }
+        
+    }
+    
+    
     
     func getTextFieldText(text: String) {
         itemTitle = text
+        
     }
     func getDateTextField(str: String) {
         popOverSelectedStr = str
         isPopoverValueChanged = true
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 40
+        
         tblView.reloadData()
     }
     
     func segmentBarChanged(str: String) {
-        
+        if(str == "date")
+        {
+            dateString = "date"
+        }
+        else
+        {
+            dateString = "day"
+        }
+        isPopoverValueChanged = true
     }
     func datePickerText(date: Int,dateStr:String) {
         print(date)
@@ -521,6 +601,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if self.offerArr.count>0{
                 self.offerArr.removeAll()
             }
+            self.tblViewHt.constant = 400
+            self.scrlView.contentOffset = CGPointMake(0, 20)
+            self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             self.tblView.reloadData()
             
             
@@ -706,82 +789,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func closeOfferButtonPressed(sender:UIButton)
     {
         offerArr.removeAtIndex(0)
+        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
         tblView.reloadData()
     }
-    func setDayDateButtonButtonPressed(sender:UIButton)
-    {
-        if(cost != 0 && dateDiff != 0)
-        {
-            let cell = sender.superview?.superview as? SetDayTableViewCell
-            //let indexPath = tblView.indexPathForCell(cell)
-            //tblView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
-            
-            let objPopOverView = SAPopOverViewController(nibName: "SAPopOverViewController",bundle: nil)
-            if(cell?.dayDateLabel.text == "day") {
-                objPopOverView.setArrayString = "day"
-                dateString = "day"
-            }
-            else {
-                objPopOverView.setArrayString = "date"
-                dateString = "date"
-            }
-            
-            objPopOverView.popOverDelegate = self
-            
-            objPopOverView.modalPresentationStyle = UIModalPresentationStyle.Popover
-            objPopOverView.popoverPresentationController?.delegate = self
-            objPopOverView.popoverPresentationController?.sourceView = sender
-            objPopOverView.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
-            objPopOverView.preferredContentSize = CGSizeMake(60, 80)
-            objPopOverView.popoverPresentationController?.sourceRect = CGRectMake(0, -70, 53, 90)
-            self.presentViewController(objPopOverView, animated: true, completion: nil)
-        }
-        else if(cost == 0 && dateDiff != 0){
-            let alert = UIAlertView(title: "Warning", message: "Please select cost", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
-        else if(cost != 0 && dateDiff == 0){
-            let alert = UIAlertView(title: "Warning", message: "Please select date", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
-        else{
-            let alert = UIAlertView(title: "Warning", message: "Please select cost and date first", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-        }
-    }
     
-    func popOverValueChanged(value: String) {
-        isPopoverValueChanged = true
-        if(dateString == "day")
-        {
-            if((dateDiff/168) == 0)
-            {
-                let alert = UIAlertView(title: "Warning", message: "Please select correct future date", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
-            }
-            else
-            {
-                popOverSelectedStr = value
-                tblView.reloadData()
-            }
-        }
-        else{
-            
-            if((dateDiff/168)/4 == 0)
-            {
-                let alert = UIAlertView(title: "Warning", message: "Please select correct future date", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
-                
-            }
-            else
-            {
-                popOverSelectedStr = value
-                tblView.reloadData()
-            }
-        }
-        
-        
-    }
     
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
@@ -791,58 +802,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         return UIModalPresentationStyle.None
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let view : UIView = UIView()
-        view.backgroundColor = UIColor.clearColor()
-        return view
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 3
-    }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if(indexPath.section == 0)
-        {
-            return 44
-        }
-        else if(indexPath.section == 1){
-            return 90
-        }
-        else if(indexPath.section == 2){
-            return 70
-        }
-        else if(indexPath.section == 3){
-            return 65
-        }
-        else if(indexPath.section == 4)
-        {
-            if(isPopoverValueChanged == true)
-            {
-                return 40
-            }
-            else{
-                return 0
-            }
-        }
-        else if(indexPath.section == offerArr.count+5)
-        {
-            return 65
-        }
-        else if(indexPath.section == offerArr.count+6){
-            return 44
-        }
-        else {
-            return 60
-        }
-        
-    }
-    
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
         cameraButton.hidden = true
         
     }
@@ -903,6 +867,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65)
         tblView.reloadData()
         isOfferShow = false
     }

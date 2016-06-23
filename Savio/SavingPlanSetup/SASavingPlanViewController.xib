@@ -16,6 +16,7 @@
                 <outlet property="savingPlanTitleLabel" destination="M9o-cd-Fof" id="IVZ-jL-KJe"/>
                 <outlet property="scrlView" destination="g2W-Wi-2Eu" id="pUM-zm-Zmg"/>
                 <outlet property="tblView" destination="MUm-JV-X8Q" id="TWU-IH-I3j"/>
+                <outlet property="tblViewHt" destination="YPG-To-DdR" id="jir-cu-Dsi"/>
                 <outlet property="topBackgroundImageView" destination="Ohz-oo-qwT" id="LVI-61-nnX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -70,6 +71,9 @@
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MUm-JV-X8Q">
                             <rect key="frame" x="35" y="246" width="530" height="400"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="400" id="YPG-To-DdR"/>
+                            </constraints>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="0SO-TL-uzJ"/>
                                 <outlet property="delegate" destination="-1" id="fyW-Hv-l9x"/>
@@ -94,6 +98,11 @@
                         <constraint firstAttribute="trailing" secondItem="MUm-JV-X8Q" secondAttribute="trailing" constant="35" id="yAp-Qf-qsa"/>
                         <constraint firstItem="Ohz-oo-qwT" firstAttribute="leading" secondItem="g2W-Wi-2Eu" secondAttribute="leading" id="yRb-0F-vWH"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="d8l-0o-ZMu"/>
+                        </mask>
+                    </variation>
                     <connections>
                         <outlet property="delegate" destination="-1" id="7mi-77-xfg"/>
                     </connections>

@@ -119,6 +119,18 @@
 		A8095C711CEDC617006366F7 /* pre-loader@3x8.png in Resources */ = {isa = PBXBuildFile; fileRef = A8095C081CEDC616006366F7 /* pre-loader@3x8.png */; };
 		A8095C721CEDC617006366F7 /* pre-loader@3x9.png in Resources */ = {isa = PBXBuildFile; fileRef = A8095C091CEDC616006366F7 /* pre-loader@3x9.png */; };
 		A8095C751CEDC6A3006366F7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095C741CEDC6A3006366F7 /* API.swift */; };
+		A82796151D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796131D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift */; };
+		A82796161D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796141D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib */; };
+		A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796171D1A705100097E75 /* GroupParticipantNameTableViewCell.swift */; };
+		A827961A1D1A705100097E75 /* GroupParticipantNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796181D1A705100097E75 /* GroupParticipantNameTableViewCell.xib */; };
+		A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */; };
+		A827961E1D1A71B300097E75 /* GroupsavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */; };
+		A82796211D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */; };
+		A82796221D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */; };
+		A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796231D1AA04900097E75 /* GroupCalculationTableViewCell.swift */; };
+		A82796261D1AA04900097E75 /* GroupCalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796241D1AA04900097E75 /* GroupCalculationTableViewCell.xib */; };
+		A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796271D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift */; };
+		A827962A1D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796281D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.xib */; };
 		A82B9C8B1D0688B200BFD084 /* generic-calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C871D0688B200BFD084 /* generic-calendar@3x.png */; };
 		A82B9C8C1D0688B200BFD084 /* generic-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C881D0688B200BFD084 /* generic-camera.png */; };
 		A82B9C8D1D0688B200BFD084 /* generic-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C891D0688B200BFD084 /* generic-camera@2x.png */; };
@@ -541,6 +553,18 @@
 		A8095C081CEDC616006366F7 /* pre-loader@3x8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pre-loader@3x8.png"; sourceTree = "<group>"; };
 		A8095C091CEDC616006366F7 /* pre-loader@3x9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pre-loader@3x9.png"; sourceTree = "<group>"; };
 		A8095C741CEDC6A3006366F7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A82796131D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsButtonTableViewCell.swift; sourceTree = "<group>"; };
+		A82796141D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InviteFriendsButtonTableViewCell.xib; sourceTree = "<group>"; };
+		A82796171D1A705100097E75 /* GroupParticipantNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupParticipantNameTableViewCell.swift; sourceTree = "<group>"; };
+		A82796181D1A705100097E75 /* GroupParticipantNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupParticipantNameTableViewCell.xib; sourceTree = "<group>"; };
+		A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsavingViewController.swift; sourceTree = "<group>"; };
+		A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupsavingViewController.xib; sourceTree = "<group>"; };
+		A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SACreateGroupSavingPlanViewController.swift; path = Savio/SavingPlanSetupCells/SACreateGroupSavingPlanViewController.swift; sourceTree = SOURCE_ROOT; };
+		A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SACreateGroupSavingPlanViewController.xib; path = Savio/SavingPlanSetupCells/SACreateGroupSavingPlanViewController.xib; sourceTree = SOURCE_ROOT; };
+		A82796231D1AA04900097E75 /* GroupCalculationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCalculationTableViewCell.swift; sourceTree = "<group>"; };
+		A82796241D1AA04900097E75 /* GroupCalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCalculationTableViewCell.xib; sourceTree = "<group>"; };
+		A82796271D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSavingPlanTableViewCell.swift; sourceTree = "<group>"; };
+		A82796281D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSavingPlanTableViewCell.xib; sourceTree = "<group>"; };
 		A82B9C871D0688B200BFD084 /* generic-calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-calendar@3x.png"; sourceTree = "<group>"; };
 		A82B9C881D0688B200BFD084 /* generic-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-camera.png"; sourceTree = "<group>"; };
 		A82B9C891D0688B200BFD084 /* generic-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-camera@2x.png"; sourceTree = "<group>"; };
@@ -1078,6 +1102,10 @@
 				A86681F11CFEF1220014DB59 /* SASavingPlanViewController.xib */,
 				A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */,
 				A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */,
+				A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */,
+				A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */,
+				A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */,
+				A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */,
 			);
 			path = SavingPlanSetup;
 			sourceTree = "<group>";
@@ -1104,6 +1132,14 @@
 				A82B9C9A1D06DDDF00BFD084 /* slider.swift */,
 				A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */,
 				A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */,
+				A82796131D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift */,
+				A82796141D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib */,
+				A82796171D1A705100097E75 /* GroupParticipantNameTableViewCell.swift */,
+				A82796181D1A705100097E75 /* GroupParticipantNameTableViewCell.xib */,
+				A82796231D1AA04900097E75 /* GroupCalculationTableViewCell.swift */,
+				A82796241D1AA04900097E75 /* GroupCalculationTableViewCell.xib */,
+				A82796271D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift */,
+				A82796281D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.xib */,
 			);
 			name = SavingPlanSetupCells;
 			path = Savio/SavingPlanSetupCells;
@@ -1771,6 +1807,7 @@
 				A8095C431CEDC616006366F7 /* pre-loader@2x3.png in Resources */,
 				C95CD60F1CF2C7EE00013200 /* PickerTextfildTableViewCell.xib in Resources */,
 				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
+				A82796221D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib in Resources */,
 				C975A93D1D01952900184C8C /* wedding-category-icon@2x.png in Resources */,
 				A8BDCBF61D05557500D4C47B /* ride-setup-bg@3x.png in Resources */,
 				A8095C6C1CEDC617006366F7 /* pre-loader@3x35.png in Resources */,
@@ -1860,6 +1897,7 @@
 				C9E854EA1CF43732006213BF /* arrow.png in Resources */,
 				C9FB59271D1A727A00C9B6AE /* ContactViewController.xib in Resources */,
 				A8B74C3D1CEDD152003A5D9A /* DataProtectionPolicy.xib in Resources */,
+				A82796161D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib in Resources */,
 				A8BDCBEC1D05557500D4C47B /* holiday-setup-bg@2x.png in Resources */,
 				A8BDCBD51D05557500D4C47B /* baby-calendar@3x.png in Resources */,
 				A8095C6A1CEDC617006366F7 /* pre-loader@3x33.png in Resources */,
@@ -1877,6 +1915,7 @@
 				A8095C571CEDC616006366F7 /* pre-loader@3x16.png in Resources */,
 				A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */,
 				C9B6C8471D058A0D00FCB00C /* SAOfferListTableViewCell.xib in Resources */,
+				A82796261D1AA04900097E75 /* GroupCalculationTableViewCell.xib in Resources */,
 				A8095C281CEDC616006366F7 /* pre-loader@1x5.png in Resources */,
 				A858A5F31D08127C0097546F /* generic-circle.png in Resources */,
 				A8095C251CEDC616006366F7 /* pre-loader@1x34.png in Resources */,
@@ -1911,12 +1950,14 @@
 				A8BDCBFA1D05557500D4C47B /* wedding-calendar@3x.png in Resources */,
 				A8BDCBD41D05557500D4C47B /* baby-calendar@2x.png in Resources */,
 				A858A6041D08127C0097546F /* wedding-circle@3x.png in Resources */,
+				A827962A1D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.xib in Resources */,
 				A8BDCBE61D05557500D4C47B /* groupsave-setup-bg@2x.png in Resources */,
 				A8095C0B1CEDC616006366F7 /* pre-loader@1x10.png in Resources */,
 				A8BDCBE91D05557500D4C47B /* holiday-calendar@2x.png in Resources */,
 				A8BDCBE41D05557500D4C47B /* group-save-calendar@3x.png in Resources */,
 				C975A9341D01952900184C8C /* holiday-category-icon@2x.png in Resources */,
 				C975A9381D01952900184C8C /* home-category-icon@3x.png in Resources */,
+				A827961E1D1A71B300097E75 /* GroupsavingViewController.xib in Resources */,
 				A8BDCBFB1D05557500D4C47B /* wedding-setup-bg.png in Resources */,
 				C975A9391D01952900184C8C /* ride-category-icon.png in Resources */,
 				A8095C0E1CEDC616006366F7 /* pre-loader@1x13.png in Resources */,
@@ -1977,6 +2018,7 @@
 				C975A92C1D01952900184C8C /* gadget-category-icon@3x.png in Resources */,
 				A8095C2E1CEDC616006366F7 /* pre-loader@2x10.png in Resources */,
 				A858A5FA1D08127C0097546F /* holiday-circle@2x.png in Resources */,
+				A827961A1D1A705100097E75 /* GroupParticipantNameTableViewCell.xib in Resources */,
 				A8095C591CEDC616006366F7 /* pre-loader@3x18.png in Resources */,
 				C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */,
 				C9F6005B1D17FCB5003155A2 /* MenuTableViewCell.xib in Resources */,
@@ -2032,7 +2074,9 @@
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
 				A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */,
+				A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */,
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
+				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
 				C9905FA41CED9EF700E63471 /* TitleTableViewCell.swift in Sources */,
 				C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */,
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
@@ -2053,6 +2097,7 @@
 				C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */,
 				C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */,
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,
+				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
 				C97949791CEC987900416BD5 /* VTButton.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,
@@ -2080,7 +2125,9 @@
 				A86681FB1CFF01EA0014DB59 /* SavingPlanCostTableViewCell.swift in Sources */,
 				C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */,
 				C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */,
+				A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */,
 				C979497B1CEC987900416BD5 /* VTView.swift in Sources */,
+				A82796151D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

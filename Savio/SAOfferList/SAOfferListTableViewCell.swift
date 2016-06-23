@@ -83,7 +83,7 @@ class SAOfferListTableViewCell: UITableViewCell {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group save")
         {
             red = 114/255
             green = 177/255
@@ -141,7 +141,7 @@ class SAOfferListTableViewCell: UITableViewCell {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group Save")
+        if(colorDataDict["title"] as! String == "Group save")
         {
             red = 161/255
             green = 214/255

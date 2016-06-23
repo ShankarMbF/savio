@@ -34,7 +34,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FWS-YA-F5T">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="934"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Hex-ia-h4p">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="192"/>
@@ -53,6 +53,9 @@
                                         <constraint firstAttribute="width" constant="39" id="P3Y-D7-voe"/>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="37" id="wvp-f4-PPy"/>
                                     </constraints>
+                                    <connections>
+                                        <action selector="changePage:" destination="-1" eventType="valueChanged" id="bhe-BU-PTD"/>
+                                    </connections>
                                 </pageControl>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dm-A6-YOR">
                                     <rect key="frame" x="0.0" y="192" width="600" height="113"/>
@@ -66,6 +69,9 @@
                                             <state key="normal" title="See wish list items">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="clickedOnWishListButton:" destination="-1" eventType="touchUpInside" id="98Y-7A-mc4"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-ZB-Y80">
                                             <rect key="frame" x="60" y="66" width="480" height="1"/>
@@ -150,9 +156,9 @@
                         <constraint firstItem="FWS-YA-F5T" firstAttribute="leading" secondItem="vEv-Q7-c3w" secondAttribute="leading" id="1xn-YM-2zy"/>
                         <constraint firstAttribute="trailing" secondItem="FWS-YA-F5T" secondAttribute="trailing" id="J4z-x9-4n4"/>
                         <constraint firstItem="FWS-YA-F5T" firstAttribute="top" secondItem="vEv-Q7-c3w" secondAttribute="top" id="Jib-Ow-YIw"/>
-                        <constraint firstAttribute="bottom" secondItem="FWS-YA-F5T" secondAttribute="bottom" constant="-580" id="Rnp-VG-0SM"/>
+                        <constraint firstAttribute="bottom" secondItem="FWS-YA-F5T" secondAttribute="bottom" constant="-334" id="Rnp-VG-0SM"/>
                         <constraint firstAttribute="trailing" secondItem="FWS-YA-F5T" secondAttribute="trailing" id="Smt-VW-vGz"/>
-                        <constraint firstItem="FWS-YA-F5T" firstAttribute="centerY" secondItem="vEv-Q7-c3w" secondAttribute="centerY" constant="200" id="n5r-dW-v0k"/>
+                        <constraint firstItem="FWS-YA-F5T" firstAttribute="centerY" secondItem="vEv-Q7-c3w" secondAttribute="centerY" constant="167" id="n5r-dW-v0k"/>
                         <constraint firstItem="FWS-YA-F5T" firstAttribute="centerX" secondItem="vEv-Q7-c3w" secondAttribute="centerX" id="qJE-EW-6GQ"/>
                         <constraint firstItem="FWS-YA-F5T" firstAttribute="leading" secondItem="vEv-Q7-c3w" secondAttribute="leading" id="ty2-4d-O3l"/>
                         <constraint firstItem="FWS-YA-F5T" firstAttribute="top" secondItem="vEv-Q7-c3w" secondAttribute="top" id="yCG-uG-uCZ"/>

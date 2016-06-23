@@ -28,6 +28,9 @@ class SAPopOverViewController: UIViewController,UITableViewDelegate,UITableViewD
         popOverTableView.separatorInset = UIEdgeInsetsZero
     }
     
+    
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(setArrayString == "day") {
             return 7

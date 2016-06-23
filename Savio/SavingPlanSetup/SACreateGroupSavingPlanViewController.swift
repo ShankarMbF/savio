@@ -22,7 +22,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var dateString = "date"
     var isClearPressed = false
     var isDateChanged =  false
-     var participantsArr: Array<String> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,14 +41,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         
         cost =  Int(parameterDict["amount"] as! String)!
-        participantsArr.append("one")
-
-        participantsArr.append("two")
-
-        participantsArr.append("three")
-
-        participantsArr.append("four")
-
+        
         self.setUpView()
     }
     
@@ -184,15 +176,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupCalculationCellIdentifier", forIndexPath: indexPath) as! GroupCalculationTableViewCell
             if(isDateChanged)
             {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %d%% which is £%d of the total goal of %d",100/participantsArr.count,cost/participantsArr.count,cost)
-                
                 if(dateString == "day")
                 {
-                    
                     if((dateDiff/168) == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",(cost/participantsArr.count)/(dateDiff/168),(dateDiff/168))
-                    
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0)
                     {
@@ -200,21 +188,21 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",(cost/participantsArr.count)/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
                     }
                     
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",((cost/participantsArr.count)/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
                         cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",((cost/participantsArr.count)/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                 }
                 

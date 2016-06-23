@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import AddressBook
+import AddressBookUI
 
-class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate {
     
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
@@ -25,10 +27,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var datePickerDate : String = ""
     var itemTitle : String = ""
     var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
-    var participantsArr: Array<String> = []
+    var participantsArr: Array<Dictionary<String,AnyObject>> = []
     var userInfoDict  = Dictionary<String,AnyObject>()
-    var  objAnimView = ImageViewAnimation()
+    var objAnimView = ImageViewAnimation()
     var isClearPressed = false
+    var addressBook: ABPeoplePickerNavigationController?
     
     @IBOutlet weak var scrlView: UIScrollView!
     
@@ -119,13 +122,16 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
-             savingPlanTitleLabel.hidden = false
+            savingPlanTitleLabel.hidden = false
         }
         
         
         
     }
-    
+    func backButtonClicked()
+    {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
     
     
     func heartBtnClicked(){
@@ -223,14 +229,132 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         
     }
+    
+    //MARK: - Addressbook integration
+    func showAddressBook(){
+        addressBook = ABPeoplePickerNavigationController()
+        addressBook?.peoplePickerDelegate = self
+        self.presentViewController(addressBook!, animated: true, completion: nil)
+        
+    }
+    
+    func peoplePickerNavigationControllerDidCancel(peoplePicker: ABPeoplePickerNavigationController) {
+        addressBook?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, shouldContinueAfterSelectingPerson person: ABRecord) -> Bool {
+        return true
+    }
+    
+    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
+        var contactDict: Dictionary<String,AnyObject> = [:]
+        //Get person's first name
+        if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+            print(firstName)
+            contactDict["name"] = firstName as! String
+        }
+        
+        //Get person's last name
+        if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
+            print(lastName)
+            contactDict["lastName"] = lastName as! String
+            
+        }
+        
+        //Get Phone Number
+        
+        var phoneNumber:String?;
+        let unmanagedPhones:Unmanaged? = ABRecordCopyValue(person, kABPersonPhoneProperty);
+        if(unmanagedPhones != nil) {
+            let index = 0 as CFIndex
+            let phoneNumbers = unmanagedPhones?.takeRetainedValue();
+            
+            if(ABMultiValueGetCount(phoneNumbers) > 0) {
+                
+                phoneNumber = ABMultiValueCopyValueAtIndex(phoneNumbers, index).takeRetainedValue() as? String;
+                contactDict["mobileNum"] = phoneNumber
+                
+            } else {
+                phoneNumber = "Phone Number is empty!";
+            }
+            print(phoneNumber)
+        }
+        
+        //Get person's email id
+        if (ABRecordCopyValue(person, kABPersonEmailProperty) != nil)  {
+            let emails: ABMultiValueRef = ABRecordCopyValue(person, kABPersonEmailProperty).takeRetainedValue()
+            if ABMultiValueGetCount(emails) > 0 {
+                let index = 0 as CFIndex
+                let emailAddress = ABMultiValueCopyValueAtIndex(emails, index).takeRetainedValue() as! String
+                contactDict["email"] = emailAddress
+                
+                print(emailAddress)
+            } else {
+                print("No email address")
+            }
+        }
+        
+        
+        
+        
+        var pic: UIImage? //= UIImage(named: "default-pic.png")!
+        let picTemp1 = ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail)
+        if picTemp1 == nil{
+            print("NIL FOUND")
+            pic = nil
+        }
+        else{
+            print("PICTURE FOUND")
+            let picTemp2: NSObject? = Unmanaged<NSObject>.fromOpaque(picTemp1!.toOpaque()).takeRetainedValue()
+            if picTemp2 != nil {
+                pic = UIImage(data: picTemp2! as! NSData)!
+                contactDict["imageData"] = pic
+            }
+        }
+        
+        let contactView = ContactViewController()
+        contactView.delegate = self
+        contactView.contactDict = contactDict
+        self.navigationController?.pushViewController(contactView, animated: true)
+        
+    }
+    
+    func addedContact(contactDict: Dictionary<String, AnyObject>) {
+        print(contactDict)
+        
+        participantsArr.append(contactDict)
+        tblViewHt.constant = tblViewHt.constant + 35
+        tblView.reloadData()
+    }
+    
+    func skipContact(){
+        
+    }
+    
     // MARK: - UITableViewDelegate methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return  participantsArr.count + 6
+        return 7
+        //        if(participantsArr.count == 0)
+        //        {
+        //            return 6
+        //        }
+        //        else{
+        //            return 7
+        //        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if(section == 4)
+        {
+            return participantsArr.count
+            
+        }
+        else
+        {
+            return 1
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -307,17 +431,19 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         else if(indexPath.section == 3)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
+            
             cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
+            
             return cell1
         }
-        else if(indexPath.section == participantsArr.count + 4)
+        else if(indexPath.section == 5)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
             cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-        else if(indexPath.section ==  participantsArr.count + 5)
+        else if(indexPath.section ==  6)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
@@ -327,15 +453,46 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
-            
+            if(participantsArr.count != 0)
+            {
+                let dict = participantsArr[indexPath.row]
+                cell1.ParticipantsNameLabel.text = dict["name"] as? String
+                cell1.phoneOrEmailLabel.text = dict["contact"] as? String
+                cell1.deleteContactButton.addTarget(self, action:  Selector("deleteContactButtonPressed:"), forControlEvents: .TouchUpInside)
+                cell1.deleteContactButton.tag = indexPath.row
+                
+            }
             return cell1
         }
+        
     }
     
+    func deleteContactButtonPressed(sender:UIButton)
+    {
+        let alert = UIAlertController(title: "Are you sure?", message: "You want to delete this person from list", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
+        { action -> Void in
+            
+            self.participantsArr.removeAtIndex(sender.tag)
+            
+            self.tblViewHt.constant = self.tblViewHt.constant - 35
+            self.tblView.reloadData()
+            
+            })
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     func inviteButtonPressed()
     {
-        let alert = UIAlertView(title: "Work in progress", message: "", delegate: nil, cancelButtonTitle: "OK")
-        alert.show()
+        if(participantsArr.count == 7)
+        {
+            self.displayAlert("You can't add more than 7 contacts into group saving plan")
+        }
+        else
+        {
+            self.showAddressBook()
+        }
+        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -346,7 +503,22 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 3
+        if(section == 4)
+        {
+            if(participantsArr.count > 0)
+            {
+                return 0
+                
+            }
+            else
+            {
+                return 3
+            }
+        }
+        else
+        {
+            return 3
+        }
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         if(indexPath.section == 0)
@@ -364,11 +536,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             return 118
         }
-        else if(indexPath.section ==   participantsArr.count + 4)
+        else if(indexPath.section ==   5)
         {
             return 65
         }
-        else if(indexPath.section ==   participantsArr.count + 5)
+        else if(indexPath.section ==   4)
         {
             return 40
         }
@@ -380,7 +552,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             else
             {
-                return 24
+                return 35
             }
         }
     }
@@ -489,9 +661,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     {
         if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
         {
-        let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
-        objGroupSavingPlanView.parameterDict = self.getParameters()
-        self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+            let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
+            objGroupSavingPlanView.parameterDict = self.getParameters()
+            self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
         }
         else
         {
@@ -517,7 +689,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 self.displayAlert("Please enter all details")
             }
-
+            
         }
     }
     

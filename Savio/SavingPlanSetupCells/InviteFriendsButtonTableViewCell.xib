@@ -42,19 +42,38 @@
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
                         <state key="normal" title="Invite Friends"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP4-Nx-q9S">
-                        <rect key="frame" x="25" y="89" width="270" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP4-Nx-q9S">
+                        <rect key="frame" x="9" y="89" width="302" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Tem-BB-c3f"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64f-Zh-9hs">
+                        <rect key="frame" x="4" y="115" width="312" height="1"/>
+                        <color key="backgroundColor" red="0.50618397141379312" green="0.74075124664482761" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ION-cq-wMX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="64f-Zh-9hs" secondAttribute="trailing" constant="4" id="BxP-2M-SoF"/>
+                    <constraint firstItem="64f-Zh-9hs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="Jdm-6T-GAk"/>
                     <constraint firstAttribute="trailingMargin" secondItem="KB1-Jc-Oxb" secondAttribute="trailing" constant="17" id="USE-tU-vYH"/>
+                    <constraint firstItem="wP4-Nx-q9S" firstAttribute="top" secondItem="KB1-Jc-Oxb" secondAttribute="bottom" constant="22" id="Wtw-5l-vn2"/>
+                    <constraint firstItem="64f-Zh-9hs" firstAttribute="top" secondItem="wP4-Nx-q9S" secondAttribute="bottom" constant="5" id="j1l-27-gzn"/>
                     <constraint firstItem="KB1-Jc-Oxb" firstAttribute="top" secondItem="snL-hi-ETX" secondAttribute="bottom" constant="8" id="mFH-cM-txu"/>
                     <constraint firstItem="KB1-Jc-Oxb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="sRw-Nb-Q8j"/>
                     <constraint firstItem="snL-hi-ETX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="tMa-mE-M6Y"/>
+                    <constraint firstAttribute="trailing" secondItem="wP4-Nx-q9S" secondAttribute="trailing" constant="9" id="tu9-iF-ZRT"/>
+                    <constraint firstItem="wP4-Nx-q9S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="9" id="vRL-ZH-Jfp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="snL-hi-ETX" secondAttribute="trailing" constant="12" id="wxP-m8-sH3"/>
                     <constraint firstItem="snL-hi-ETX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="x4M-Vt-eBe"/>
                 </constraints>

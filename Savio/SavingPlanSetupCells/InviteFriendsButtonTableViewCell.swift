@@ -15,22 +15,21 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
     var userInfodict : Dictionary<String, AnyObject> = [:]
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code  red = 161/255  green = 214/255 blue = 248/255
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
-        let data = defaults.valueForKey("userInfo") as! NSData
-        let userInfodict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
-        let attributedString = NSMutableAttributedString(string: String(format: "%@ (Organiser)",userInfodict!["first_name"] as! String))
+        let objAPI = API()
+   
+        let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let attributedString = NSMutableAttributedString(string: String(format: "%@ (Organiser)",userInfodict["first_name"] as! String))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                      value: UIColor.whiteColor(),
                                      range: NSRange(
                                         location:0,
-                                        length:(userInfodict!["first_name"] as! String).characters.count))
+                                        length:(userInfodict["first_name"] as! String).characters.count))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
         value: UIColor(red: 161/255,green:214/255,blue:248/255,alpha:1),
         range: NSRange(
-        location:(userInfodict!["first_name"] as! String).characters.count,
+        location:(userInfodict["first_name"] as! String).characters.count,
         length:12))
         
         orginisersLabel.attributedText = attributedString

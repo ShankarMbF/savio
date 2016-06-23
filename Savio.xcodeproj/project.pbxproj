@@ -125,8 +125,6 @@
 		A827961A1D1A705100097E75 /* GroupParticipantNameTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796181D1A705100097E75 /* GroupParticipantNameTableViewCell.xib */; };
 		A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */; };
 		A827961E1D1A71B300097E75 /* GroupsavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */; };
-		A82796211D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */; };
-		A82796221D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */; };
 		A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796231D1AA04900097E75 /* GroupCalculationTableViewCell.swift */; };
 		A82796261D1AA04900097E75 /* GroupCalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796241D1AA04900097E75 /* GroupCalculationTableViewCell.xib */; };
 		A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796271D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift */; };
@@ -195,6 +193,8 @@
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
 		A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CD62F1CF47E8000222765 /* HurreyViewController.swift */; };
 		A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86CD6301CF47E8000222765 /* HurreyViewController.xib */; };
+		A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */; };
+		A870161A1D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
@@ -619,8 +619,6 @@
 		A82796181D1A705100097E75 /* GroupParticipantNameTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupParticipantNameTableViewCell.xib; sourceTree = "<group>"; };
 		A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsavingViewController.swift; sourceTree = "<group>"; };
 		A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupsavingViewController.xib; sourceTree = "<group>"; };
-		A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SACreateGroupSavingPlanViewController.swift; path = Savio/SavingPlanSetupCells/SACreateGroupSavingPlanViewController.swift; sourceTree = SOURCE_ROOT; };
-		A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SACreateGroupSavingPlanViewController.xib; path = Savio/SavingPlanSetupCells/SACreateGroupSavingPlanViewController.xib; sourceTree = SOURCE_ROOT; };
 		A82796231D1AA04900097E75 /* GroupCalculationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCalculationTableViewCell.swift; sourceTree = "<group>"; };
 		A82796241D1AA04900097E75 /* GroupCalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCalculationTableViewCell.xib; sourceTree = "<group>"; };
 		A82796271D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSavingPlanTableViewCell.swift; sourceTree = "<group>"; };
@@ -689,6 +687,8 @@
 		A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculationTableViewCell.xib; sourceTree = "<group>"; };
 		A86CD62F1CF47E8000222765 /* HurreyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HurreyViewController.swift; sourceTree = "<group>"; };
 		A86CD6301CF47E8000222765 /* HurreyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HurreyViewController.xib; sourceTree = "<group>"; };
+		A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateGroupSavingPlanViewController.swift; sourceTree = "<group>"; };
+		A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateGroupSavingPlanViewController.xib; sourceTree = "<group>"; };
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
 		A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
@@ -1222,8 +1222,8 @@
 				A86681F11CFEF1220014DB59 /* SASavingPlanViewController.xib */,
 				A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */,
 				A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */,
-				A827961F1D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift */,
-				A82796201D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib */,
+				A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */,
+				A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */,
 				A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */,
 				A827961C1D1A71B300097E75 /* GroupsavingViewController.xib */,
 			);
@@ -2355,6 +2355,7 @@
 				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
+				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
 				A82796211D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,

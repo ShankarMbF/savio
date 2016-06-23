@@ -10,8 +10,8 @@ import UIKit
 
 class GroupParticipantNameTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var deleteContactButton: UIButton!
     @IBOutlet weak var phoneOrEmailLabel: UILabel!
-    @IBOutlet weak var nextArrowButton: UIButton!
     @IBOutlet weak var ParticipantsNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -13,7 +13,7 @@ let kNotificationAddCentreView = "AddCentreView"
 
 class ContainerViewController: UIViewController {
      var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
-    var centreVC: UIViewController! =  SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+    var centreVC: UIViewController! = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
     var navController: UINavigationController!
 
     override func viewDidLoad() {

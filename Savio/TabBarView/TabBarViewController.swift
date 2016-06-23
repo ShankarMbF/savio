@@ -21,7 +21,17 @@ class TabBarViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func spendButtonPressed(sender: AnyObject) {
+        
+    }
 
+    
+    @IBAction func offersButtonPressed(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func planButtonPressed(sender: AnyObject) {
+    }
     /*
     // MARK: - Navigation
 

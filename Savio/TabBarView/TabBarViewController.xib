@@ -15,12 +15,60 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4u-fY-9PX">
-                    <rect key="frame" x="0.0" y="536" width="600" height="64"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4u-fY-9PX">
+                    <rect key="frame" x="0.0" y="548" width="600" height="52"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLp-2J-ChN">
+                            <rect key="frame" x="0.0" y="1" width="200" height="50"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="spendButtonPressed:" destination="-1" eventType="touchUpInside" id="fPC-of-XIs"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvg-Ci-Ykf">
+                            <rect key="frame" x="400" y="1" width="200" height="50"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="planButtonPressed:" destination="-1" eventType="touchUpInside" id="G0Q-ZJ-4zJ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UR4-2Z-FYI">
+                            <rect key="frame" x="200" y="1" width="200" height="50"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="offersButtonPressed:" destination="-1" eventType="touchUpInside" id="umV-Pt-18d"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Kvg-Ci-Ykf" firstAttribute="leading" secondItem="UR4-2Z-FYI" secondAttribute="trailing" id="5gS-dM-cbe"/>
+                        <constraint firstItem="UR4-2Z-FYI" firstAttribute="top" secondItem="V4u-fY-9PX" secondAttribute="top" constant="1" id="BIv-zd-pK8"/>
+                        <constraint firstItem="UR4-2Z-FYI" firstAttribute="leading" secondItem="CLp-2J-ChN" secondAttribute="trailing" id="BqG-cm-pPO"/>
+                        <constraint firstAttribute="bottom" secondItem="UR4-2Z-FYI" secondAttribute="bottom" constant="1" id="CVg-sk-Sel"/>
+                        <constraint firstItem="UR4-2Z-FYI" firstAttribute="leading" secondItem="CLp-2J-ChN" secondAttribute="trailing" id="EGD-l6-wVM"/>
+                        <constraint firstItem="CLp-2J-ChN" firstAttribute="leading" secondItem="V4u-fY-9PX" secondAttribute="leading" id="Nzb-4T-zaI"/>
+                        <constraint firstItem="CLp-2J-ChN" firstAttribute="width" secondItem="UR4-2Z-FYI" secondAttribute="width" id="WdY-to-rGA"/>
+                        <constraint firstAttribute="trailing" secondItem="Kvg-Ci-Ykf" secondAttribute="trailing" id="Wgv-iL-RTd"/>
+                        <constraint firstAttribute="bottom" secondItem="CLp-2J-ChN" secondAttribute="bottom" constant="1" id="XDn-1P-GKg"/>
+                        <constraint firstItem="UR4-2Z-FYI" firstAttribute="height" secondItem="Kvg-Ci-Ykf" secondAttribute="height" id="Znb-Ad-mFn"/>
+                        <constraint firstItem="CLp-2J-ChN" firstAttribute="height" secondItem="UR4-2Z-FYI" secondAttribute="height" id="ara-Bz-6Vg"/>
+                        <constraint firstItem="Kvg-Ci-Ykf" firstAttribute="top" secondItem="V4u-fY-9PX" secondAttribute="top" constant="1" id="bFF-I1-5Ug"/>
+                        <constraint firstItem="UR4-2Z-FYI" firstAttribute="width" secondItem="Kvg-Ci-Ykf" secondAttribute="width" id="caV-fe-BmF"/>
+                        <constraint firstItem="Kvg-Ci-Ykf" firstAttribute="leading" secondItem="UR4-2Z-FYI" secondAttribute="trailing" id="dFm-Q1-q4H"/>
+                        <constraint firstAttribute="bottom" secondItem="Kvg-Ci-Ykf" secondAttribute="bottom" constant="1" id="s1B-vN-kXz"/>
+                        <constraint firstAttribute="height" constant="52" id="uTE-aj-1My"/>
+                        <constraint firstItem="CLp-2J-ChN" firstAttribute="top" secondItem="V4u-fY-9PX" secondAttribute="top" constant="1" id="ycW-Ps-f1g"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="V4u-fY-9PX" secondAttribute="trailing" id="1mZ-fi-Lay"/>
+                <constraint firstAttribute="bottom" secondItem="V4u-fY-9PX" secondAttribute="bottom" id="cML-Wn-4VT"/>
+                <constraint firstItem="V4u-fY-9PX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="m83-6H-BFZ"/>
+            </constraints>
+            <point key="canvasLocation" x="263" y="366"/>
         </view>
     </objects>
 </document>

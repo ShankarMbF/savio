@@ -55,7 +55,6 @@ class SAMenuViewController: UIViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
 
-
     /*
     // MARK: - Navigation
 

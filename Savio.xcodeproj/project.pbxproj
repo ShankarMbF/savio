@@ -404,6 +404,12 @@
 		C9F600571D17FBE1003155A2 /* Menu.json in Resources */ = {isa = PBXBuildFile; fileRef = C9F600561D17FBE1003155A2 /* Menu.json */; };
 		C9F6005A1D17FCB5003155A2 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F600581D17FCB5003155A2 /* MenuTableViewCell.swift */; };
 		C9F6005B1D17FCB5003155A2 /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9F600591D17FCB5003155A2 /* MenuTableViewCell.xib */; };
+		C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB59241D1A727A00C9B6AE /* ContactViewController.swift */; };
+		C9FB59271D1A727A00C9B6AE /* ContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB59251D1A727A00C9B6AE /* ContactViewController.xib */; };
+		C9FB592A1D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB59281D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift */; };
+		C9FB592B1D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB59291D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib */; };
+		C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FB592C1D1ABCA800C9B6AE /* ContactTableViewCell.swift */; };
+		C9FB592F1D1ABCA800C9B6AE /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */; };
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -833,6 +839,12 @@
 		C9F600561D17FBE1003155A2 /* Menu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Menu.json; sourceTree = "<group>"; };
 		C9F600581D17FCB5003155A2 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		C9F600591D17FCB5003155A2 /* MenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuTableViewCell.xib; sourceTree = "<group>"; };
+		C9FB59241D1A727A00C9B6AE /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		C9FB59251D1A727A00C9B6AE /* ContactViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactViewController.xib; sourceTree = "<group>"; };
+		C9FB59281D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactProfileTableViewCell.swift; sourceTree = "<group>"; };
+		C9FB59291D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactProfileTableViewCell.xib; sourceTree = "<group>"; };
+		C9FB592C1D1ABCA800C9B6AE /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1490,6 +1502,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				C9FB59231D1A727A00C9B6AE /* ContactList */,
 				C94F93AE1D19692E0065F588 /* ProgressView */,
 				C94F93A91D1946480065F588 /* SwitchPlan */,
 				C9F600511D17F78B003155A2 /* MenuViewController */,
@@ -1577,6 +1590,19 @@
 				C9F600591D17FCB5003155A2 /* MenuTableViewCell.xib */,
 			);
 			path = MenuViewController;
+			sourceTree = "<group>";
+		};
+		C9FB59231D1A727A00C9B6AE /* ContactList */ = {
+			isa = PBXGroup;
+			children = (
+				C9FB59241D1A727A00C9B6AE /* ContactViewController.swift */,
+				C9FB59251D1A727A00C9B6AE /* ContactViewController.xib */,
+				C9FB59281D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift */,
+				C9FB59291D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib */,
+				C9FB592C1D1ABCA800C9B6AE /* ContactTableViewCell.swift */,
+				C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */,
+			);
+			path = ContactList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1725,6 +1751,7 @@
 				A8095C171CEDC616006366F7 /* pre-loader@1x21.png in Resources */,
 				A8AB1C751D05A900002F68F5 /* OfferTableViewCell.xib in Resources */,
 				A8BDCBDD1D05557500D4C47B /* generic-calendar@2x.png in Resources */,
+				C9FB592B1D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib in Resources */,
 				A8095C241CEDC616006366F7 /* pre-loader@1x33.png in Resources */,
 				A8BDCBD31D05557500D4C47B /* baby-calendar.png in Resources */,
 				C975A9301D01952900184C8C /* group-save-category-icon.png in Resources */,
@@ -1827,6 +1854,7 @@
 				A8BDCBE81D05557500D4C47B /* holiday-calendar.png in Resources */,
 				A8BDCBF81D05557500D4C47B /* wedding-calendar.png in Resources */,
 				A8BDCBF51D05557500D4C47B /* ride-setup-bg@2x.png in Resources */,
+				C9FB592F1D1ABCA800C9B6AE /* ContactTableViewCell.xib in Resources */,
 				A8BDCBF41D05557500D4C47B /* ride-setup-bg.png in Resources */,
 				C90D39C41D068D2000F285BB /* divider-savio@2x.png in Resources */,
 				A8095C691CEDC617006366F7 /* pre-loader@3x32.png in Resources */,
@@ -1867,6 +1895,7 @@
 				A8095C261CEDC616006366F7 /* pre-loader@1x35.png in Resources */,
 				A8BDCBEA1D05557500D4C47B /* holiday-calendar@3x.png in Resources */,
 				C9E854EA1CF43732006213BF /* arrow.png in Resources */,
+				C9FB59271D1A727A00C9B6AE /* ContactViewController.xib in Resources */,
 				A8B74C3D1CEDD152003A5D9A /* DataProtectionPolicy.xib in Resources */,
 				A82796161D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib in Resources */,
 				A8BDCBEC1D05557500D4C47B /* holiday-setup-bg@2x.png in Resources */,
@@ -2035,6 +2064,7 @@
 				A86681FF1CFF02010014DB59 /* SavingPlanDatePickerTableViewCell.swift in Sources */,
 				C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */,
 				A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */,
+				C9FB592A1D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift in Sources */,
 				A850454C1CF823D8002E8B47 /* SwitchTableViewCell.swift in Sources */,
 				C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */,
 				C95CD6181CF2C92100013200 /* DPDKeyboardListener.swift in Sources */,
@@ -2077,7 +2107,7 @@
 				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
-				A82796211D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift in Sources */,
+				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,
 				C97949771CEC987900416BD5 /* ColorCodes.swift in Sources */,
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
@@ -2093,6 +2123,7 @@
 				A8AEA9421CFFF1DE0069F22A /* NextButtonTableViewCell.swift in Sources */,
 				A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */,
 				A86681FB1CFF01EA0014DB59 /* SavingPlanCostTableViewCell.swift in Sources */,
+				C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */,
 				C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */,
 				A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */,
 				C979497B1CEC987900416BD5 /* VTView.swift in Sources */,

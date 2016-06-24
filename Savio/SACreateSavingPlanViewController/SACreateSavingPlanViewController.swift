@@ -27,6 +27,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var contentView: UIView!
     var heartBtn: UIButton = UIButton()
     var colors:[Dictionary<String,AnyObject>] = []
+    var placeHolderImgArr: Array<String> = ["group-save-category-icon","wedding-category-icon","baby-category-icon","holiday-category-icon","ride-category-icon","home-category-icon","gadget-category-icon","generic-category-icon"]
     var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
         ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
         ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
@@ -318,9 +319,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         cell.layoutMargins = UIEdgeInsetsZero
         cell.lblHeader!.text = cellDict["title"] as? String;
         cell.lblDetail?.text = cellDict["savDescription"] as? String
+        cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])  //placeHolderImgArr[indexPath.row]
         
         //cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
-        
      
             let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
@@ -329,7 +330,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let image = UIImage(data: data!)
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        cell.imageView?.image = image
+                        cell.imgView?.image = image
                     })
                 }
             })

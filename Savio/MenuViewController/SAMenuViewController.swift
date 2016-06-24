@@ -64,7 +64,6 @@ class SAMenuViewController: UIViewController {
     // if tableView is set in attribute inspector with selection to multiple Selection it should work.
     
     // Just set it back in deselect
-    
      func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
         selectedCell!.contentView.backgroundColor = UIColor.whiteColor()
@@ -72,7 +71,6 @@ class SAMenuViewController: UIViewController {
         let imageName =  dict["image"] as! String
         let imageIcon = UIImage(named: imageName)
         selectedCell?.icon?.image = imageIcon
-
     }
 
     /*

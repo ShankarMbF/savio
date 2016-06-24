@@ -60,13 +60,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-      self.setUpView()
+        self.setUpView()
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,7 +74,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var ht : CGFloat = 0.0
         if(isPopoverValueChanged)
         {
-         ht = 40 + CGFloat(offerArr.count * 65)
+            ht = 40 + CGFloat(offerArr.count * 65)
         }
         else
         {
@@ -177,7 +177,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.cameraButton.hidden = false
         }
         
-    
+        
         
     }
     
@@ -496,7 +496,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell1
         }
     }
-   
+    
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -676,6 +676,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             
             parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+            
+            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -706,6 +708,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             parameterDict["offer_List"] = ""
         }
+        
+        parameterDict["INIVITED_USER_LIST"] = ""
+        parameterDict["INIVITED_DATE"] = ""
+        
+        
         return parameterDict
         
     }
@@ -737,6 +744,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["payDate"] = self.getParameters()["payDate"]
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
+                    
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
                 
@@ -772,7 +780,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         else {
-
+            
             let obj = SAOfferListViewController()
             obj.delegate = self
             obj.savID = imageDataDict["savPlanID"] as! NSNumber

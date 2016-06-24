@@ -19,7 +19,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var  prevIndxArr: Array<Int> = []
     var rowHT : CGFloat = 310.0
     var savID : NSNumber = 0
-    
+    var hideAddOfferButton : Bool = false
     var  offerArr: Array<Dictionary<String,AnyObject>> = []
 
     
@@ -148,8 +148,19 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         let cell = bundleArr[0] as! SAOfferListTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.btnAddOffer?.tag = indexPath.row
+        if(hideAddOfferButton)
+        {
+            cell.btnAddOffer?.hidden = true
+            cell.suggestedHt.constant = 10
+        }
+        else
+        {
+            cell.btnAddOffer?.hidden = false
+            cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.btnAddOffer?.tag = indexPath.row
+            cell.suggestedHt.constant = 72
+        }
+
         cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.btnOfferDetail?.tag = indexPath.row

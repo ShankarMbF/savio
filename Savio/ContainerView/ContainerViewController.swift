@@ -75,6 +75,7 @@ class ContainerViewController: UIViewController {
         
         case "SAOfferListViewController":
             self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            centreVC.hidesBottomBarWhenPushed = true
             self.replaceViewController()
             
         case "SASwitchViewController":

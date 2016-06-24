@@ -12,6 +12,7 @@ import UIKit
 
 class SAOfferListTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var suggestedHt: NSLayoutConstraint!
      var colorDataDict : Dictionary<String,AnyObject> = [:]
     
      @IBOutlet weak var lblOfferSummary: UILabel?

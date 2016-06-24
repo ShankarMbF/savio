@@ -14,41 +14,60 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="390"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="390"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="500" height="390"/>
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="396"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                            <rect key="frame" x="186" y="209" width="128" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
+                            <rect key="frame" x="200" y="226" width="200" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="128" id="Tkm-p9-54I"/>
-                                <constraint firstAttribute="height" constant="40" id="j3o-Co-Idt"/>
+                                <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
+                                <constraint firstAttribute="height" constant="50" id="j3o-Co-Idt"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
-                            <rect key="frame" x="186" y="135" width="128" height="60"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
+                            <rect key="frame" x="200" y="161" width="200" height="60"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="60" id="32I-6T-kbY"/>
+                                <constraint firstAttribute="width" constant="200" id="awE-yN-qEb"/>
+                                <constraint firstAttribute="height" constant="60" id="k5i-eV-QXY"/>
                                 <constraint firstAttribute="width" constant="128" id="zP2-0n-Ldn"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="19"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="30"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="zP2-0n-Ldn"/>
+                                </mask>
+                            </variation>
                         </label>
+                        <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
+                            <rect key="frame" x="175" y="70" width="250" height="256"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="250" id="BXo-Gc-agQ"/>
+                                <constraint firstAttribute="height" constant="256" id="m3n-dn-9pe"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="14" id="5MX-6R-N3D"/>
-                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="14" id="DXf-fO-oQx"/>
-                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="KUs-Cj-6Zw"/>
-                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="135" id="TQE-sn-wiy"/>
-                        <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="141" id="TrW-fM-qE8"/>
+                        <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="Agg-pt-vbP" secondAttribute="leading" constant="175" id="7AM-GX-wKc"/>
+                        <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="70" id="8qp-MA-syz"/>
+                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="Jnw-7u-ylt"/>
+                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="O2b-wx-gu3"/>
+                        <constraint firstItem="lBD-XE-gZN" firstAttribute="centerY" secondItem="Agg-pt-vbP" secondAttribute="centerY" id="TER-pM-dA9"/>
+                        <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="120" id="TrW-fM-qE8"/>
+                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="135" id="ao5-PM-RAC"/>
                         <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="e4m-w7-v8m"/>
+                        <constraint firstItem="lBD-XE-gZN" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="j2M-tB-rrZ"/>
+                        <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="175" id="p2F-6R-SbT"/>
+                        <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="70" id="rtz-gA-5Ml"/>
+                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="5" id="vu9-I7-jNF"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
@@ -78,16 +97,27 @@
                             <color key="value" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="7AM-GX-wKc"/>
+                            <exclude reference="p2F-6R-SbT"/>
+                            <exclude reference="ao5-PM-RAC"/>
+                            <exclude reference="O2b-wx-gu3"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Agg-pt-vbP" secondAttribute="trailing" id="Bxh-Dh-sYa"/>
+                <constraint firstItem="Agg-pt-vbP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Pr1-Bc-HR9"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Twb-Ly-yMV"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WSn-B8-dfY"/>
                 <constraint firstAttribute="bottom" secondItem="Agg-pt-vbP" secondAttribute="bottom" id="uZW-qW-TZk"/>
+                <constraint firstItem="Agg-pt-vbP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uum-Wj-hvV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="620" y="264"/>
         </view>
     </objects>
 </document>

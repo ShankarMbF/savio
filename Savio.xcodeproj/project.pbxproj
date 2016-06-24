@@ -193,10 +193,11 @@
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
 		A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CD62F1CF47E8000222765 /* HurreyViewController.swift */; };
 		A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86CD6301CF47E8000222765 /* HurreyViewController.xib */; };
+		A86F063F1D1D0C8A00E1D821 /* cycle.png in Resources */ = {isa = PBXBuildFile; fileRef = A86F063E1D1D0C8A00E1D821 /* cycle.png */; };
+		A86F06431D1D15D700E1D821 /* SASpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F06411D1D15D700E1D821 /* SASpendViewController.swift */; };
+		A86F06441D1D15D700E1D821 /* SASpendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86F06421D1D15D700E1D821 /* SASpendViewController.xib */; };
 		A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */; };
 		A870161A1D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */; };
-		A870161E1D1BD9E000E58A6A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */; };
-		A870161F1D1BD9E000E58A6A /* TabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */; };
 		A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */; };
 		A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016221D1C0C2500E58A6A /* CircularProgress.xib */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
@@ -691,10 +692,11 @@
 		A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculationTableViewCell.xib; sourceTree = "<group>"; };
 		A86CD62F1CF47E8000222765 /* HurreyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HurreyViewController.swift; sourceTree = "<group>"; };
 		A86CD6301CF47E8000222765 /* HurreyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HurreyViewController.xib; sourceTree = "<group>"; };
+		A86F063E1D1D0C8A00E1D821 /* cycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cycle.png; sourceTree = "<group>"; };
+		A86F06411D1D15D700E1D821 /* SASpendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASpendViewController.swift; sourceTree = "<group>"; };
+		A86F06421D1D15D700E1D821 /* SASpendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASpendViewController.xib; sourceTree = "<group>"; };
 		A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateGroupSavingPlanViewController.swift; sourceTree = "<group>"; };
 		A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateGroupSavingPlanViewController.xib; sourceTree = "<group>"; };
-		A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarViewController.xib; sourceTree = "<group>"; };
 		A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		A87016221D1C0C2500E58A6A /* CircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircularProgress.xib; sourceTree = "<group>"; };
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
@@ -1282,13 +1284,13 @@
 			path = HurrayViewController;
 			sourceTree = "<group>";
 		};
-		A870161B1D1BD9E000E58A6A /* TabBarView */ = {
+		A86F06401D1D15A600E1D821 /* SpendView */ = {
 			isa = PBXGroup;
 			children = (
-				A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */,
-				A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */,
+				A86F06411D1D15D700E1D821 /* SASpendViewController.swift */,
+				A86F06421D1D15D700E1D821 /* SASpendViewController.xib */,
 			);
-			path = TabBarView;
+			path = SpendView;
 			sourceTree = "<group>";
 		};
 		A897514B1CEF07D400F122AD /* PINViewController */ = {
@@ -1641,7 +1643,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
-				A870161B1D1BD9E000E58A6A /* TabBarView */,
+				A86F06401D1D15A600E1D821 /* SpendView */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,
 				C94F93AE1D19692E0065F588 /* ProgressView */,
 				C94F93A91D1946480065F588 /* SwitchPlan */,
@@ -1680,6 +1682,7 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				A86F063E1D1D0C8A00E1D821 /* cycle.png */,
 				C9ED7FE61D1BC38A00058A96 /* Burger Menu */,
 				C90D39B91D068D2000F285BB /* OfferList */,
 				A8BDCBA81D05557500D4C47B /* setupSavingPlan */,
@@ -2078,6 +2081,7 @@
 				A8095C641CEDC617006366F7 /* pre-loader@3x28.png in Resources */,
 				C9E854E91CF43732006213BF /* arrow_down.png in Resources */,
 				C9ED804F1D1BC38A00058A96 /* menu-settings@3x.png in Resources */,
+				A86F06441D1D15D700E1D821 /* SASpendViewController.xib in Resources */,
 				A858A6031D08127C0097546F /* wedding-circle@2x.png in Resources */,
 				A8BDCBF21D05557500D4C47B /* ride-calendar@2x.png in Resources */,
 				A8BDCB851D053A0400D4C47B /* SAPopOverViewController.xib in Resources */,
@@ -2186,7 +2190,6 @@
 				A84625AE1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib in Resources */,
 				A858A5F81D08127C0097546F /* group-save-circle@3x.png in Resources */,
 				A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */,
-				A870161F1D1BD9E000E58A6A /* TabBarViewController.xib in Resources */,
 				A8BDCBDC1D05557500D4C47B /* generic-calendar.png in Resources */,
 				C9E525B31CE986FA000FD01E /* Assets.xcassets in Resources */,
 				C9ED80321D1BC38A00058A96 /* menu-active-spend.png in Resources */,
@@ -2274,6 +2277,7 @@
 				A8BDCBE71D05557500D4C47B /* groupsave-setup-bg@3x.png in Resources */,
 				C975A9371D01952900184C8C /* home-category-icon@2x.png in Resources */,
 				C9ED80591D1BC38A00058A96 /* menu-update.png in Resources */,
+				A86F063F1D1D0C8A00E1D821 /* cycle.png in Resources */,
 				A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */,
 				C9ED80401D1BC38A00058A96 /* menu-active-wishlist@2x.png in Resources */,
 				A8392A431CEEE0C200C7EE48 /* GothamRounded-Medium.otf in Resources */,
@@ -2349,7 +2353,6 @@
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
 				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
 				C9905FA41CED9EF700E63471 /* TitleTableViewCell.swift in Sources */,
-				A870161E1D1BD9E000E58A6A /* TabBarViewController.swift in Sources */,
 				C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */,
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
@@ -2381,6 +2384,7 @@
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
+				A86F06431D1D15D700E1D821 /* SASpendViewController.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,
 				C97949771CEC987900416BD5 /* ColorCodes.swift in Sources */,
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,

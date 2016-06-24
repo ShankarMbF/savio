@@ -685,7 +685,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList?party_ID=%@",baseURL,partyID))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             print(request)
             

@@ -109,23 +109,26 @@ class ContactViewController: UIViewController {
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
-                dict["contact"] = mobileNum
+                dict["mobile_number"] = mobileNum
+                dict["email_id"] = ""
                 text = mobileNum
             }
             else{
                 if let emailStr: String = contactDict["email"] as? String {
-                    dict["contact"] = emailStr
+                    dict["email_id"] = emailStr
+                     dict["mobile_number"] = ""
                 }
             }
         }
             
         else {
             if let emailStr: String = contactDict["email"] as? String {
-                dict["contact"] = emailStr
+                dict["email_id"] = emailStr
+                 dict["mobile_number"] = ""
             }
         }
         
-        dict["name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+        dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         delegate?.addedContact(dict)
         self.navigationController?.popViewControllerAnimated(true)
    }

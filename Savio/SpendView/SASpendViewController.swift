@@ -1,33 +1,34 @@
 //
-//  SAProgressViewController.swift
+//  SASpendViewController.swift
 //  Savio
 //
-//  Created by Prashant on 21/06/16.
+//  Created by Maheshwari on 24/06/16.
 //  Copyright © 2016 Prashant. All rights reserved.
 //
 
 import UIKit
 
-class SAProgressViewController: UIViewController {
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+class SASpendViewController: UIViewController {
     
-    @IBOutlet weak var calculationLabel: UILabel!
-    @IBOutlet weak var percentageLabel: UILabel!
-    @IBOutlet weak var circularProgressOne: KDCircularProgress!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var scrlView: UIScrollView!
-    @IBOutlet weak var makeImpulseSavingButton: UIButton!
-    @IBOutlet weak var savingPlanTitleLabel: UILabel!
-    @IBOutlet weak var statsButton: UIButton!
-    @IBOutlet weak var progressButton: UIButton!
-    @IBOutlet weak var offersButton: UIButton!
-    @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
+    
+    @IBOutlet weak var planButton: UIButton!
+    
+    @IBOutlet weak var offersButton: UIButton!
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        spendButton.tintColor = UIColor.whiteColor()
+        
+        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
+        
+        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
+
         self.setUpView()
+        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,11 +36,7 @@ class SAProgressViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
-    }
+
     func setUpView(){
         
         
@@ -55,7 +52,7 @@ class SAProgressViewController: UIViewController {
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.title = "My Plan"
+        self.title = "Spend money"
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
@@ -96,66 +93,8 @@ class SAProgressViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         
-        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        planButton.tintColor = UIColor.whiteColor()
-        
-        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
-        
-        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
-        
-        pageControl.currentPage = 0
-        pageControl.numberOfPages = 3
-        
-        
-        
-        for var i=0; i<3; i++
-        {
-            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView
-            circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  scrlView.frame.size.width, scrlView.frame.size.height)
-            scrlView.addSubview(circularProgress)
-            
-            let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
-            circularView.startAngle = -90
-            circularView.angle = 180
-            
-             let labelOne = circularProgress.viewWithTag(3) as! UILabel
-            
-            let labelTwo = circularProgress.viewWithTag(2) as! UILabel
-            
-            let imgView = circularProgress.viewWithTag(4) as! UIImageView
-        
-            imgView.image = UIImage(named: "cycle.png")
-            
-            if(i == 0)
-            {
-                labelOne.hidden = true
-                labelTwo.hidden = true
-                imgView.hidden = false
-               
-            }
-            else if(i == 1)
-            {
-                labelOne.hidden = false
-                labelOne.text = "50%"
-                labelTwo.hidden = false
-                labelTwo.text = "£ 46.00 saved"
-                imgView.hidden = true
-               
-            }
-            else
-            {
-                labelOne.hidden = false
-                labelOne.text = "£ 46.00"
-                labelTwo.hidden = false
-                labelTwo.text = "2 months to go"
-                imgView.hidden = true
-            }
-        }
-        //scrlView.bringSubviewToFront(pageControl)
     }
     
-    //MARK: Bar button action
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
@@ -173,23 +112,11 @@ class SAProgressViewController: UIViewController {
             alert.show()
         }
     }
-    
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        // Calculate the new page index depending on the content offset.
-        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
-        
-        // Set the new page index to the page control.
-        pageControl!.currentPage = Int(currentPage)
+
+    @IBAction func planButtonPressed(sender: AnyObject) {
+        let objPlan = SAProgressViewController(nibName: "SAProgressViewController",bundle: nil)
+        self.navigationController?.pushViewController(objPlan, animated: false)
     }
-    
-    @IBAction func changePage(sender: AnyObject) {
-        var newFrame = scrlView!.frame
-        newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
-        scrlView!.scrollRectToVisible(newFrame, animated: true)
-    }
-    
-    
     @IBAction func offersButtonPressed(sender: AnyObject) {
         
         let obj = SAOfferListViewController()
@@ -197,11 +124,16 @@ class SAProgressViewController: UIViewController {
         obj.hideAddOfferButton = true
         self.navigationController?.pushViewController(obj, animated: true)
     }
-    @IBAction func spendButtonPressed(sender: AnyObject) {
-        
-        let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
-        self.navigationController?.pushViewController(objPlan, animated: false)
-    }
+
     
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
-   }
+}

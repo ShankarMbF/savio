@@ -16,6 +16,7 @@
                 <outlet property="cameraButton" destination="Rrm-YQ-RKf" id="U5j-b4-gbi"/>
                 <outlet property="scrlView" destination="xVg-wV-axv" id="pi1-CG-HMd"/>
                 <outlet property="tblView" destination="WuL-si-RjK" id="bnr-Pd-PpB"/>
+                <outlet property="tblViewHt" destination="qIL-de-JlS" id="fXJ-Lh-lvA"/>
                 <outlet property="topBgImageView" destination="puV-bD-nsh" id="rk3-zn-UHd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

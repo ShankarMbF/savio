@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -159,10 +159,10 @@
                     <constraint firstItem="XmZ-h8-1JZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="FcT-TL-ike"/>
                     <constraint firstAttribute="trailingMargin" secondItem="eNg-Kv-Haw" secondAttribute="trailing" constant="30" id="H3h-Fa-q2u"/>
                     <constraint firstItem="eNg-Kv-Haw" firstAttribute="top" secondItem="Zlr-nO-JeO" secondAttribute="bottom" constant="12" id="N7h-sK-Hhn"/>
-                    <constraint firstItem="Zlr-nO-JeO" firstAttribute="top" secondItem="ZVB-3Q-ELu" secondAttribute="bottom" constant="20" id="RVD-My-GTz"/>
                     <constraint firstItem="eNg-Kv-Haw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Twq-v5-Ifk"/>
                     <constraint firstItem="XmZ-h8-1JZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Uby-hZ-Nm8"/>
                     <constraint firstItem="ZVB-3Q-ELu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="30" id="Ypr-cC-JZp"/>
+                    <constraint firstItem="Zlr-nO-JeO" firstAttribute="top" secondItem="682-Zc-T1z" secondAttribute="bottom" constant="72" id="ZSs-r1-AmF"/>
                     <constraint firstItem="ZVB-3Q-ELu" firstAttribute="top" secondItem="XmZ-h8-1JZ" secondAttribute="bottom" constant="12" id="fYW-Z8-q4d"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ZVB-3Q-ELu" secondAttribute="trailing" constant="30" id="lra-uc-qcZ"/>
                     <constraint firstItem="Zlr-nO-JeO" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="tBa-zq-XkN"/>
@@ -178,6 +178,7 @@
                 <outlet property="lblOfferTitle" destination="sj8-Jr-iYt" id="wkd-BS-3Q3"/>
                 <outlet property="lblProductOffer" destination="eNg-Kv-Haw" id="LhL-FJ-M8s"/>
                 <outlet property="offerImage" destination="682-Zc-T1z" id="pHl-gu-4Ob"/>
+                <outlet property="suggestedHt" destination="ZSs-r1-AmF" id="XSR-0X-du9"/>
             </connections>
             <point key="canvasLocation" x="338" y="218.5"/>
         </tableViewCell>

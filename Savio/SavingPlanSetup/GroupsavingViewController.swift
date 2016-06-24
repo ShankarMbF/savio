@@ -10,7 +10,7 @@ import UIKit
 import AddressBook
 import AddressBookUI
 
-class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate {
+class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
@@ -18,6 +18,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     var cost : Int = 0
     var imageDataDict : Dictionary<String,AnyObject> = [:]
@@ -28,7 +29,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var itemTitle : String = ""
     var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
     var participantsArr: Array<Dictionary<String,AnyObject>> = []
-    var userInfoDict  = Dictionary<String,AnyObject>()
+    var userInfoDict  : Dictionary<String,AnyObject> = [:]
     var objAnimView = ImageViewAnimation()
     var isClearPressed = false
     var addressBook: ABPeoplePickerNavigationController?
@@ -56,6 +57,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+
         
     }
     
@@ -66,6 +68,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     func setUpView(){
         
+    
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -126,7 +129,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         
-        
     }
     func backButtonClicked()
     {
@@ -158,18 +160,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        var ht : CGFloat = 0.0
-        if(participantsArr.count == 0)
-        {
-            ht = 40 + CGFloat(participantsArr.count * 65)
-        }
-        else
-        {
-            ht = CGFloat(participantsArr.count * 65)
-        }
-        
-        
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+     
     }
     
     /*
@@ -323,6 +314,18 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         print(contactDict)
         
         participantsArr.append(contactDict)
+        var ht : CGFloat = 0.0
+        if(participantsArr.count == 0)
+        {
+            ht = 40 + CGFloat(participantsArr.count * 65)
+        }
+        else
+        {
+            ht = CGFloat(participantsArr.count * 65)
+        }
+        
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
         tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
@@ -335,14 +338,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 7
-        //        if(participantsArr.count == 0)
-        //        {
-        //            return 6
-        //        }
-        //        else{
-        //            return 7
-        //        }
-        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -456,8 +451,16 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             if(participantsArr.count != 0)
             {
                 let dict = participantsArr[indexPath.row]
-                cell1.ParticipantsNameLabel.text = dict["name"] as? String
-                cell1.phoneOrEmailLabel.text = dict["contact"] as? String
+                cell1.ParticipantsNameLabel.text = dict["first_name"] as? String
+                if (dict["email_id"] as? String != "")
+                {
+                    cell1.phoneOrEmailLabel.text = dict["email_id"] as? String
+                }
+                else
+                {
+                    cell1.phoneOrEmailLabel.text = dict["mobile_number"] as? String
+                }
+                
                 cell1.deleteContactButton.addTarget(self, action:  Selector("deleteContactButtonPressed:"), forControlEvents: .TouchUpInside)
                 cell1.deleteContactButton.tag = indexPath.row
                 
@@ -494,6 +497,13 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+        
+        
+    }
+    
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -536,11 +546,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             return 118
         }
+        else if(indexPath.section ==   4)
+        {
+            return 40
+        }
         else if(indexPath.section ==   5)
         {
             return 65
         }
-        else if(indexPath.section ==   4)
+        else if(indexPath.section ==   6)
         {
             return 40
         }
@@ -556,6 +570,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
         }
     }
+    
     
     func getParameters() -> Dictionary<String,AnyObject>
     {
@@ -602,10 +617,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
         }
         
+        let dateParameter = NSDateFormatter()
+        dateParameter.dateFormat = "yyyy-MM-dd"
         if(datePickerDate != "")
         {
-            let dateParameter = NSDateFormatter()
-            dateParameter.dateFormat = "yyyy-MM-dd"
+          
             var pathComponents : NSArray!
             
             pathComponents = (datePickerDate).componentsSeparatedByString(" ")
@@ -620,12 +636,13 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+        parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
         parameterDict["payType"] = userInfoDict["cxvxc"]
         
-        if((imageDataDict["sav-id"]) != nil)
+        if((imageDataDict["savPlanID"]) != nil)
         {
             parameterDict["sav_id"] = imageDataDict["savPlanID"]
         }
@@ -635,10 +652,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
+         parameterDict["participantsArr"] = participantsArr
         
         return parameterDict
         
     }
+ 
     
     
     func getTextFieldText(text: String) {
@@ -659,6 +678,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     func nextButtonPressed(sender:UIButton)
     {
+        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        self.objAnimView.frame = self.view.frame
+        self.objAnimView.animate()
+        self.view.addSubview(self.objAnimView)
+        
         if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
         {
             let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
@@ -689,6 +713,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 self.displayAlert("Please enter all details")
             }
+            
             
         }
     }

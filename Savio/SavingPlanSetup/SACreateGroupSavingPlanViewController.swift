@@ -8,13 +8,15 @@
 
 import UIKit
 
-class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate {
+class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate {
     
+    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var addAPhotoLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var topBgImageView: UIImageView!
     @IBOutlet weak var scrlView: UIScrollView!
+    var participantsArr : Array<Dictionary<String,AnyObject>> = []
     var selectedStr = ""
     var cost : Int = 0
     var parameterDict : Dictionary<String,AnyObject> = [:]
@@ -22,6 +24,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var dateString = "date"
     var isClearPressed = false
     var isDateChanged =  false
+    var isOfferShow = false
+    var objAnimView = ImageViewAnimation()
+    var userInfoDict  : Dictionary<String,AnyObject> = [:]
+    var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,11 +42,17 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         tblView!.registerNib(UINib(nibName: "CreateSavingPlanTableViewCell", bundle: nil), forCellReuseIdentifier: "CreateSavingPlanTableViewCellIdentifier")
         tblView!.registerNib(UINib(nibName: "GroupCalculationTableViewCell", bundle: nil), forCellReuseIdentifier: "GroupCalculationCellIdentifier")
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
+        tblView!.registerNib(UINib(nibName: "OfferTableViewCell", bundle: nil), forCellReuseIdentifier: "OfferTableViewCellIdentifier")
         
         dateDiff =  Int(parameterDict["dateDiff"] as! String)!
         
-        
+         participantsArr = parameterDict["participantsArr"] as! Array
         cost =  Int(parameterDict["amount"] as! String)!
+        let objAPI = API()
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        print(userInfoDict)
+        let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
+        participantsArr.append(dict)
         
         self.setUpView()
     }
@@ -53,6 +65,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func setUpView(){
         //set Navigation left button
+        
+
+       
+        
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
@@ -104,11 +120,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         else
         {
-     
+            
             self.cameraButton.hidden = false
             addAPhotoLabel.hidden = false
         }
-       
+        
+        
+        
         
     }
     
@@ -140,7 +158,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return offerArr.count + 4
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -174,13 +192,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == 1){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupCalculationCellIdentifier", forIndexPath: indexPath) as! GroupCalculationTableViewCell
+            
             if(isDateChanged)
             {
+                cell1.percentageCalculationLabel.text = String(format: "You are saving for %d%% which is £%d of the total goal of £%d",100/(participantsArr.count + 1),cost/(participantsArr.count + 1),cost)
                 if(dateString == "day")
                 {
                     if((dateDiff/168) == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",(cost/(participantsArr.count + 1))/(dateDiff/168),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0)
                     {
@@ -188,21 +208,21 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",(cost/(participantsArr.count + 1))/(dateDiff/168),(dateDiff/168))
                     }
                     
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",((cost/participantsArr.count + 1)/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
                         cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",((cost/(participantsArr.count + 1))/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                 }
                 
@@ -216,12 +236,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         }
             
-        else if(indexPath.section == 2){
+        else if(indexPath.section == offerArr.count+2){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
             cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-        else if(indexPath.section == 3){
+        else if(indexPath.section == offerArr.count+3){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -229,8 +249,30 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         else
         {
-            var cell : UITableViewCell? = tblView.dequeueReusableCellWithIdentifier("cell" as String) as UITableViewCell?
-            return cell!
+            let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
+            cell1.tblView = tblView
+            cell1.closeButton.tag = indexPath.section
+            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            let dict = offerArr[indexPath.row]
+            cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
+            cell1.offerDetailLabel.text = dict["offTitle"] as? String
+            cell1.descriptionLabel.text = dict["offSummary"] as? String
+            
+            let urlStr = dict["offImage"] as! String
+            let url = NSURL(string: urlStr)
+            
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell1.offerImageView?.image = image
+                })
+            })
+            return cell1
+            
         }
         
         
@@ -251,10 +293,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             return 64
         }
-        else if(indexPath.section == 2){
+        else if(indexPath.section == offerArr.count+2){
             return 65
         }
-        else if(indexPath.section == 3){
+        else if(indexPath.section == offerArr.count+3){
             return 40
         }
             
@@ -272,7 +314,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         else
         {
-            return 0
+            return 60
         }
     }
     
@@ -297,10 +339,77 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     
+    func displayAlert(message:String)
+    {
+        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    
+    func getParameters() -> Dictionary<String,AnyObject>
+    {
+        var newDict : Dictionary<String,AnyObject> = [:]
+        newDict["INIVITED_USER_LIST"] = participantsArr
+        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
+        newDict["PLAN_END_DATE"] = parameterDict["payDate"]
+        newDict["title"] = parameterDict["title"]
+        newDict["amount"] = parameterDict["amount"]
+        newDict["payDate"] = parameterDict["payDate"]
+        newDict["pty_id"] = parameterDict["pty_id"]
+        newDict["sav_id"] = parameterDict["sav_id"]
+        newDict["imageURL"] = parameterDict["imageURL"]
+        newDict["payType"] = "Direct debit"
+        if offerArr.count>0{
+            var newOfferArray : Array<NSNumber> = []
+            for i in 0 ..< offerArr.count
+            {
+                let dict = offerArr[i]
+                newOfferArray.append(dict["offId"] as! NSNumber)
+            }
+            newDict["offer_List"] = newOfferArray
+        }
+        else
+        {
+            newDict["offer_List"] = ""
+        }
+        return newDict
+
+    }
     func createSavingPlanButtonPressed()
     {
-        let alert = UIAlertView(title: "Work in progress", message: "", delegate: nil, cancelButtonTitle: "OK")
-        alert.show()
+        if isOfferShow == true {
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+            
+            
+            if(isDateChanged)
+            {
+                
+                let objAPI = API()
+                objAPI.partySavingPlanDelegate = self
+
+            objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
+     
+                
+                
+            }
+            else
+            {
+                self.objAnimView.removeFromSuperview()
+                
+                self.displayAlert("Please select date/day")
+                
+            }
+        }
+        else {
+            
+            let obj = SAOfferListViewController()
+            obj.delegate = self
+            
+            obj.savID = parameterDict["sav_id"] as! NSNumber
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
     
     func clearButtonPressed()
@@ -310,7 +419,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
-     
+            
             self.setUpView()
             self.isDateChanged = false
             
@@ -329,6 +438,37 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         
         
+    }
+    
+    func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
+        offerArr.append(offerForSaveArr)
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblView.reloadData()
+        isOfferShow = true
+    }
+    
+    func skipOffers(){
+        tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
+        isOfferShow = true
+    }
+    
+    
+    func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    {
+      //  print(objResponse)
+        if(objResponse["message"] as! String == "Party Saving Plan is succesfully added")
+        {
+            let objSummaryview = SASavingSummaryViewController()
+            objSummaryview.itemDataDict = self.getParameters()
+            self.navigationController?.pushViewController(objSummaryview, animated: true)
+        }
+        objAnimView.removeFromSuperview()
+        
+  
+    }
+    func errorResponseForPartySavingPlanAPI(error:String){
+        print(error)
+        objAnimView.removeFromSuperview()
     }
     
 }

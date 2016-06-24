@@ -404,7 +404,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetWishlist Delegate and Datasource method
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-        
+
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
         objAnimView.removeFromSuperview()
         self.setUpView()

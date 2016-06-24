@@ -195,6 +195,10 @@
 		A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86CD6301CF47E8000222765 /* HurreyViewController.xib */; };
 		A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */; };
 		A870161A1D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */; };
+		A870161E1D1BD9E000E58A6A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */; };
+		A870161F1D1BD9E000E58A6A /* TabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */; };
+		A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */; };
+		A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016221D1C0C2500E58A6A /* CircularProgress.xib */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
@@ -689,6 +693,10 @@
 		A86CD6301CF47E8000222765 /* HurreyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HurreyViewController.xib; sourceTree = "<group>"; };
 		A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateGroupSavingPlanViewController.swift; sourceTree = "<group>"; };
 		A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateGroupSavingPlanViewController.xib; sourceTree = "<group>"; };
+		A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabBarViewController.xib; sourceTree = "<group>"; };
+		A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
+		A87016221D1C0C2500E58A6A /* CircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircularProgress.xib; sourceTree = "<group>"; };
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
 		A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
@@ -1274,6 +1282,15 @@
 			path = HurrayViewController;
 			sourceTree = "<group>";
 		};
+		A870161B1D1BD9E000E58A6A /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				A870161C1D1BD9E000E58A6A /* TabBarViewController.swift */,
+				A870161D1D1BD9E000E58A6A /* TabBarViewController.xib */,
+			);
+			path = TabBarView;
+			sourceTree = "<group>";
+		};
 		A897514B1CEF07D400F122AD /* PINViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1427,8 +1444,10 @@
 		C94F93AE1D19692E0065F588 /* ProgressView */ = {
 			isa = PBXGroup;
 			children = (
+				A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */,
 				C94F93AF1D1969450065F588 /* SAProgressViewController.swift */,
 				C94F93B01D1969450065F588 /* SAProgressViewController.xib */,
+				A87016221D1C0C2500E58A6A /* CircularProgress.xib */,
 			);
 			path = ProgressView;
 			sourceTree = "<group>";
@@ -1622,6 +1641,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A870161B1D1BD9E000E58A6A /* TabBarView */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,
 				C94F93AE1D19692E0065F588 /* ProgressView */,
 				C94F93A91D1946480065F588 /* SwitchPlan */,
@@ -2016,7 +2036,6 @@
 				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
 				C9ED80291D1BC38A00058A96 /* menu-active-profile.png in Resources */,
 				C9ED803A1D1BC38A00058A96 /* menu-active-switch@3x.png in Resources */,
-				A82796221D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.xib in Resources */,
 				C975A93D1D01952900184C8C /* wedding-category-icon@2x.png in Resources */,
 				A8BDCBF61D05557500D4C47B /* ride-setup-bg@3x.png in Resources */,
 				A8095C6C1CEDC617006366F7 /* pre-loader@3x35.png in Resources */,
@@ -2167,6 +2186,7 @@
 				A84625AE1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib in Resources */,
 				A858A5F81D08127C0097546F /* group-save-circle@3x.png in Resources */,
 				A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */,
+				A870161F1D1BD9E000E58A6A /* TabBarViewController.xib in Resources */,
 				A8BDCBDC1D05557500D4C47B /* generic-calendar.png in Resources */,
 				C9E525B31CE986FA000FD01E /* Assets.xcassets in Resources */,
 				C9ED80321D1BC38A00058A96 /* menu-active-spend.png in Resources */,
@@ -2254,6 +2274,7 @@
 				A8BDCBE71D05557500D4C47B /* groupsave-setup-bg@3x.png in Resources */,
 				C975A9371D01952900184C8C /* home-category-icon@2x.png in Resources */,
 				C9ED80591D1BC38A00058A96 /* menu-update.png in Resources */,
+				A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */,
 				C9ED80401D1BC38A00058A96 /* menu-active-wishlist@2x.png in Resources */,
 				A8392A431CEEE0C200C7EE48 /* GothamRounded-Medium.otf in Resources */,
 				A8BDCBD91D05557500D4C47B /* gadget-setup-bg.png in Resources */,
@@ -2313,6 +2334,7 @@
 				A86681FF1CFF02010014DB59 /* SavingPlanDatePickerTableViewCell.swift in Sources */,
 				C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */,
 				A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */,
+				A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */,
 				C9FB592A1D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift in Sources */,
 				A850454C1CF823D8002E8B47 /* SwitchTableViewCell.swift in Sources */,
 				C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */,
@@ -2327,6 +2349,7 @@
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
 				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
 				C9905FA41CED9EF700E63471 /* TitleTableViewCell.swift in Sources */,
+				A870161E1D1BD9E000E58A6A /* TabBarViewController.swift in Sources */,
 				C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */,
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
@@ -2358,7 +2381,6 @@
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
-				A82796211D1A9E3A00097E75 /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,
 				C97949771CEC987900416BD5 /* ColorCodes.swift in Sources */,
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,

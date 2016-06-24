@@ -219,6 +219,12 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     func errorResponseForOTPResetPasscodeAPI(error:String){
         objAnimView.removeFromSuperview()
         print("error")
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){

@@ -772,7 +772,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         else {
-            
+
             let obj = SAOfferListViewController()
             obj.delegate = self
             obj.savID = imageDataDict["savPlanID"] as! NSNumber

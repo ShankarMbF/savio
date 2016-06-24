@@ -236,8 +236,17 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
 
 func errorResponseForOTPLogInAPI(error: String) {
     objAnimView.removeFromSuperview()
-    errorLabel.hidden = false
-    errorLabel.text = "Passcode is not correct"
+  
+    if(error == "No network found")
+    {
+        let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
+    }
+    else
+    {
+        errorLabel.hidden = false
+        errorLabel.text = "Passcode is not correct"
+    }
     
 }
 

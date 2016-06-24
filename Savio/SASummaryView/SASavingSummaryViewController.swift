@@ -27,7 +27,6 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var topBgImageView: UIImageView!
     
-    
     @IBOutlet weak var lblTitle: UILabel!
     
     @IBOutlet weak var paymentLastDate: UILabel!
@@ -35,6 +34,32 @@ class SASavingSummaryViewController: UIViewController {
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
+    
+    @IBOutlet weak var lblName1: UILabel?
+    @IBOutlet weak var lblContact1: UILabel?
+    
+    @IBOutlet weak var lblName2: UILabel?
+    @IBOutlet weak var lblContact2: UILabel?
+    
+    @IBOutlet weak var lblName3: UILabel?
+    @IBOutlet weak var lblContact3: UILabel?
+    
+    @IBOutlet weak var lblName4: UILabel?
+    @IBOutlet weak var lblContact4: UILabel?
+    
+    @IBOutlet weak var lblName5: UILabel?
+    @IBOutlet weak var lblContact5: UILabel?
+    
+    @IBOutlet weak var lblName6: UILabel?
+    @IBOutlet weak var lblContact6: UILabel?
+    
+    @IBOutlet weak var lblName7: UILabel?
+    @IBOutlet weak var lblContact7: UILabel?
+    
+    
+//    @IBOutlet weak var lblName1: UILabel?
+//    @IBOutlet weak var lblContact1: UILabel?
+    
     var indexId : Int = 0
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
@@ -43,6 +68,10 @@ class SASavingSummaryViewController: UIViewController {
     var offersArray : Array<Dictionary<String,AnyObject>> = []
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    
+    @IBOutlet weak var summaryViewHt: NSLayoutConstraint!
+
+    @IBOutlet weak var groupViewHt: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +92,6 @@ class SASavingSummaryViewController: UIViewController {
     
     func setUpView(){
         //print(itemDataDict)
-        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
@@ -92,6 +120,93 @@ class SASavingSummaryViewController: UIViewController {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
+        lblName1?.hidden = true
+        lblName2?.hidden = true
+        lblName3?.hidden = true
+        lblName4?.hidden = true
+        lblName5?.hidden = true
+        lblName6?.hidden = true
+        lblName7?.hidden = true
+        
+        lblContact1?.hidden = true
+        lblContact2?.hidden = true
+        lblContact3?.hidden = true
+        lblContact4?.hidden = true
+        lblContact5?.hidden = true
+        lblContact6?.hidden = true
+        lblContact7?.hidden = true
+        
+        groupViewHt.constant = 0.0
+        
+        let arr = itemDataDict["INIVITED_USER_LIST"] as! Array<Dictionary<String,AnyObject>>
+        
+//        let ct:CGFloat = 2
+        if arr.count > 0 {
+            let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
+//            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
+            groupViewHt.constant = ht
+            summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht
+            htContentView.constant = (vwScrContent?.frame.size.height)! + ht
+            
+            for i in 0 ..< arr.count {
+                let dict = arr[i] as Dictionary<String, AnyObject>
+                var contactStr = ""
+                if dict["mobile_number"] != nil {
+                    contactStr = dict["mobile_number"] as! String
+                }
+                else {
+                    contactStr = dict["email_id"] as! String
+                }
+                
+                
+                switch i {
+                case 0:
+                    lblName1?.hidden = false
+                    lblContact1?.hidden = false
+                    lblName1?.text = dict["first_name"] as? String
+                    lblContact1?.text = contactStr
+                    
+                case 1:
+                    lblName2?.hidden = false
+                    lblContact2?.hidden = false
+                    lblName2?.text = dict["first_name"] as? String
+                    lblContact2?.text = contactStr
+                    
+                case 2:
+                    lblName3?.hidden = false
+                    lblContact3?.hidden = false
+                    lblName3?.text = dict["first_name"] as? String
+                    lblContact3?.text = contactStr
+                    
+                case 3:
+                    lblName4?.hidden = false
+                    lblContact4?.hidden = false
+                    lblName4?.text = dict["first_name"] as? String
+                    lblContact4?.text = contactStr
+                    
+                case 4:
+                    lblName5?.hidden = false
+                    lblContact5?.hidden = false
+                    lblName5?.text = dict["first_name"] as? String
+                    lblContact5?.text = contactStr
+                    
+                case 5:
+                    lblName6?.hidden = false
+                    lblContact6?.hidden = false
+                    lblName6?.text = dict["first_name"] as? String
+                    lblContact6?.text = contactStr
+                    
+                case 6:
+                    lblName7?.hidden = false
+                    lblContact7?.hidden = false
+                    lblName7?.text = dict["first_name"] as? String
+                    lblContact7?.text = contactStr
+                    
+                 default: print("Default Line Reached")
+                }
+            }
+        }
+        
         if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
         {
             wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
@@ -106,29 +221,20 @@ class SASavingSummaryViewController: UIViewController {
             }
             
             wishListArray.removeAtIndex(indexId)
-            
-            
-            
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
-            
-            
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
             else{
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
 
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -160,16 +266,11 @@ class SASavingSummaryViewController: UIViewController {
             testView.layer.borderColor = UIColor.blackColor().CGColor
             testView.layer.borderWidth = 1.0
             testView.backgroundColor = UIColor.lightGrayColor()
-            
             htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
             htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
             topSpaceForContinue.constant = 80
             scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
-            
-            
             let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
-            
-            
             let lblTitle = testView.viewWithTag(1)! as! UILabel
             lblTitle.text = objDict["offCompanyName"] as? String
             lblTitle.hidden = false
@@ -180,14 +281,12 @@ class SASavingSummaryViewController: UIViewController {
             let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
             lblOfferDetail.text = objDict["offDesc"] as? String
             
-            
             let urlStr = objDict["offImage"] as! String
             let url = NSURL(string: urlStr)
             let bgImageView = testView.viewWithTag(4) as! UIImageView
             let request: NSURLRequest = NSURLRequest(URL: url!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                 let image = UIImage(data: data!)
-                
                 //                self.imageCache[unwrappedImage] = image
                 dispatch_async(dispatch_get_main_queue(), {
                     bgImageView.image = image
@@ -226,13 +325,9 @@ class SASavingSummaryViewController: UIViewController {
             let daysToAdd : Double = 7
             let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
             lblNextDebit.text = dateFormatter.stringFromDate(newDate)
-
-            
         }
-        
-        
-        
-    }
+}
+   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -256,10 +351,7 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     func heartBtnClicked(){
-        
-        
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -269,8 +361,6 @@ class SASavingSummaryViewController: UIViewController {
             alert.show()
         }
     }
-    
-    
     
     func setUpShadowColor()-> UIColor
     {
@@ -283,7 +373,6 @@ class SASavingSummaryViewController: UIViewController {
             red = 114/255
             green = 177/255
             blue = 237/255
-            
         }
         else if(colorDataDict["title"] as! String == "Wedding")
         {
@@ -341,7 +430,6 @@ class SASavingSummaryViewController: UIViewController {
             red = 161/255
             green = 214/255
             blue = 248/255
-            
         }
         else if(colorDataDict["title"] as! String == "Wedding")
         {

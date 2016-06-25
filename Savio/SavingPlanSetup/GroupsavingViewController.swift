@@ -246,10 +246,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         //Get person's last name
-        if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
-            print(lastName)
-            contactDict["lastName"] = lastName as! String
-            
+        
+        if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
+            if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
+                print(lastName)
+                contactDict["lastName"] = lastName as! String
+            }
+        }
+        else{
+             contactDict["lastName"] = ""
         }
         
         //Get Phone Number

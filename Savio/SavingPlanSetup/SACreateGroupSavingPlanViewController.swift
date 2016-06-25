@@ -382,31 +382,23 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-            
             if(isDateChanged)
             {
-                
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
 
             objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
-     
-                
-                
             }
             else
             {
                 self.objAnimView.removeFromSuperview()
-                
                 self.displayAlert("Please select date/day")
-                
             }
         }
         else {
             
             let obj = SAOfferListViewController()
             obj.delegate = self
-            
             obj.savID = parameterDict["sav_id"] as! NSNumber
             self.navigationController?.pushViewController(obj, animated: true)
         }

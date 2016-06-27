@@ -221,7 +221,7 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
             
-            wishListArray.removeAtIndex(indexId)
+//            wishListArray.removeAtIndex(indexId)
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             

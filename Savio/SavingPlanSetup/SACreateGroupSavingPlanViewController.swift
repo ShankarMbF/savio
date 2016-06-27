@@ -384,10 +384,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-            
             if(isDateChanged)
             {
-                
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
                 
@@ -399,16 +397,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             else
             {
                 self.objAnimView.removeFromSuperview()
-                
                 self.displayAlert("Please select date/day")
-                
             }
         }
         else {
             
             let obj = SAOfferListViewController()
             obj.delegate = self
-            
             obj.savID = parameterDict["sav_id"] as! NSNumber
             self.navigationController?.pushViewController(obj, animated: true)
         }
@@ -416,11 +411,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func clearButtonPressed()
     {
-        
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
             
             self.setUpView()
             self.isDateChanged = false
@@ -432,14 +425,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             self.tblView.reloadData()
             
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        
-        
-        
     }
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
@@ -453,7 +442,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
         isOfferShow = true
     }
-    
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
@@ -486,6 +474,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         
     }
+    
     func errorResponseForPartySavingPlanAPI(error:String){
         print(error)
         

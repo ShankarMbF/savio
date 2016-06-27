@@ -334,6 +334,9 @@
 		C94A708D1CF55FA8002E9449 /* splash-logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */; };
 		C94A708E1CF55FA8002E9449 /* splash-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */; };
 		C94A708F1CF55FA8002E9449 /* splash-logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */; };
+		C94CB9861D2138740040E150 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CB9851D2138740040E150 /* LineChart.swift */; };
+		C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94CB9881D213F040040E150 /* SAStatViewController.swift */; };
+		C94CB98B1D213F040040E150 /* SAStatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C94CB9891D213F040040E150 /* SAStatViewController.xib */; };
 		C94E1E4D1D11714F001C85C6 /* home-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */; };
 		C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */; };
 		C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */; };
@@ -867,6 +870,9 @@
 		C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@1x.png"; sourceTree = "<group>"; };
 		C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@2x.png"; sourceTree = "<group>"; };
 		C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@3x.png"; sourceTree = "<group>"; };
+		C94CB9851D2138740040E150 /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		C94CB9881D213F040040E150 /* SAStatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAStatViewController.swift; sourceTree = "<group>"; };
+		C94CB9891D213F040040E150 /* SAStatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAStatViewController.xib; sourceTree = "<group>"; };
 		C94E1E4A1D11714F001C85C6 /* home-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg.png"; sourceTree = "<group>"; };
 		C94E1E4B1D11714F001C85C6 /* home-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@2x.png"; sourceTree = "<group>"; };
 		C94E1E4C1D11714F001C85C6 /* home-setup-bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-setup-bg@3x.png"; sourceTree = "<group>"; };
@@ -1546,6 +1552,23 @@
 			path = WishListViewController;
 			sourceTree = "<group>";
 		};
+		C94CB9841D2138740040E150 /* LineChart */ = {
+			isa = PBXGroup;
+			children = (
+				C94CB9851D2138740040E150 /* LineChart.swift */,
+			);
+			path = LineChart;
+			sourceTree = "<group>";
+		};
+		C94CB9871D213E7D0040E150 /* StatView */ = {
+			isa = PBXGroup;
+			children = (
+				C94CB9881D213F040040E150 /* SAStatViewController.swift */,
+				C94CB9891D213F040040E150 /* SAStatViewController.xib */,
+			);
+			path = StatView;
+			sourceTree = "<group>";
+		};
 		C94F93A91D1946480065F588 /* SwitchPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,6 +1778,8 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				C94CB9871D213E7D0040E150 /* StatView */,
+				C94CB9841D2138740040E150 /* LineChart */,
 				A86F06401D1D15A600E1D821 /* SpendView */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,
 				C94F93AE1D19692E0065F588 /* ProgressView */,
@@ -2270,6 +2295,7 @@
 				A8BDCBE11D05557500D4C47B /* generic-setup-bg@3x.png in Resources */,
 				C9905F9D1CED9EF700E63471 /* PageView.xib in Resources */,
 				C9905FA51CED9EF700E63471 /* TitleTableViewCell.xib in Resources */,
+				C94CB98B1D213F040040E150 /* SAStatViewController.xib in Resources */,
 				A8095C261CEDC616006366F7 /* pre-loader@1x35.png in Resources */,
 				A8BDCBEA1D05557500D4C47B /* holiday-calendar@3x.png in Resources */,
 				C9E854EA1CF43732006213BF /* arrow.png in Resources */,
@@ -2501,6 +2527,7 @@
 				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
 				C9905FA41CED9EF700E63471 /* TitleTableViewCell.swift in Sources */,
 				C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */,
+				C94CB9861D2138740040E150 /* LineChart.swift in Sources */,
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
@@ -2529,6 +2556,7 @@
 				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
+				C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
 				A86F06431D1D15D700E1D821 /* SASpendViewController.swift in Sources */,

@@ -357,7 +357,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
  
             let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-            objSavingPlanViewController.isUpdatePlan = true
             self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
         }
         

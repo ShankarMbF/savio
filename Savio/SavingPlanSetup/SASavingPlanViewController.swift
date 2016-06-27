@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate,GetUsersPlanDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -63,11 +63,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         self.setUpView()
+        if(self.isUpdatePlan)
+        {
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+            
+            objAPI.getUsersSavingPlan()
+            objAPI.getSavingPlanDelegate = self
+            
+        }
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         
     }
     
@@ -91,9 +103,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(itemDetailsDataDict)
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+       leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -279,15 +291,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     
-    func backButtonClicked()
+    func menuButtonClicked()
     {
-        if offerArr.count > 0{
-            let obj = SAOfferListViewController()
-            obj.delegate = self
-            self.navigationController?.pushViewController(obj, animated: true)
-        }else{
-            self.navigationController?.popViewControllerAnimated(true)
-        }
+         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+//        if offerArr.count > 0{
+//            let obj = SAOfferListViewController()
+//            obj.delegate = self
+//            self.navigationController?.pushViewController(obj, animated: true)
+//        }else{
+//            self.navigationController?.popViewControllerAnimated(true)
+//        }
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
@@ -409,7 +422,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
             if(itemDetailsDataDict["title"] != nil)
             {
-                cell1.datePickerTextField.text = itemDetailsDataDict["title"] as? String
+               // cell1.datePickerTextField.text = itemDetailsDataDict["title"] as? String
                 
             }
             }
@@ -441,7 +454,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
             if(itemDetailsDataDict["title"] != nil)
             {
-                cell1.dayDateTextField.text = itemDetailsDataDict["title"] as? String
+               // cell1.dayDateTextField.text = itemDetailsDataDict["title"] as? String
            
                 
             }
@@ -513,7 +526,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else if(indexPath.section == offerArr.count+7)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell
-            cell1.cancelSavingPlanButton.addTarget(self, action: Selector("cancelSavingButtonPressed"), forControlEvents: .TouchUpInside)
+            cell1.cancelSavingPlanButton.addTarget(self, action: Selector("cancelSavingButtonPressed:"), forControlEvents: .TouchUpInside)
             return cell1
         }
         else{
@@ -634,9 +647,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         datePickerDate = dateStr
     }
     
-    func cancelSavingButtonPressed()
+    func cancelSavingButtonPressed(sender:UIButton)
     {
-        
+        let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     func clearButtonPressed()
@@ -646,7 +660,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
-            if(self.isUpdatePlan)
+            if(self.isUpdatePlan == false)
             {
                 self.setUpView()
                 self.dateDiff = 0
@@ -901,6 +915,27 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    //MARK: GetUsersSavingplanDelegate methods
+    
+    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        
+        itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+        itemDetailsDataDict["title"] = "dummy title"
+        let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+        topBackgroundImageView.image = UIImage(data: data)
+        
+        //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+        tblView.reloadData()
+        objAnimView.removeFromSuperview()
+    }
+    
+    func errorResponseForGetUsersPlanAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+         objAnimView.removeFromSuperview()
+    }
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {

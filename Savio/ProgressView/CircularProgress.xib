@@ -18,56 +18,72 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="396"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="456"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                            <rect key="frame" x="200" y="226" width="200" height="50"/>
+                        <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
+                            <rect key="frame" x="175" y="100" width="250" height="256"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="256"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
+                                    <rect key="frame" x="25" y="150" width="200" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
+                                        <constraint firstAttribute="height" constant="50" id="j3o-Co-Idt"/>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="vOu-qI-wic"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Tkm-p9-54I"/>
+                                        </mask>
+                                    </variation>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
+                                    <rect key="frame" x="25" y="70" width="200" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="200" id="Dil-4C-HQX"/>
+                                        <constraint firstAttribute="height" constant="60" id="tjb-u0-NuJ"/>
+                                        <constraint firstAttribute="width" constant="128" id="zP2-0n-Ldn"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="29"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Dil-4C-HQX"/>
+                                            <exclude reference="zP2-0n-Ldn"/>
+                                        </mask>
+                                    </variation>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
-                                <constraint firstAttribute="height" constant="50" id="j3o-Co-Idt"/>
+                                <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" id="0hB-Xp-9fe"/>
+                                <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="70" id="BZX-Dm-V25"/>
+                                <constraint firstAttribute="trailing" secondItem="FdY-a0-Tz4" secondAttribute="trailing" constant="25" id="DUM-VB-CjT"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" id="DeG-y7-rib"/>
+                                <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="56" id="GzB-g5-ugq"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="LX2-uc-D0U"/>
+                                <constraint firstAttribute="trailing" secondItem="qRB-9J-PIg" secondAttribute="trailing" constant="25" id="Zfx-7d-1hS"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="d8q-wf-id6"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" id="dcW-HI-dMc"/>
+                                <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" id="fcK-FD-s4e"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="mrR-1L-sfk"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="vSK-LO-DuY"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="vYp-pv-gFc"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
-                            <rect key="frame" x="200" y="161" width="200" height="60"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="200" id="awE-yN-qEb"/>
-                                <constraint firstAttribute="height" constant="60" id="k5i-eV-QXY"/>
-                                <constraint firstAttribute="width" constant="128" id="zP2-0n-Ldn"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="30"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="zP2-0n-Ldn"/>
-                                </mask>
-                            </variation>
-                        </label>
-                        <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
-                            <rect key="frame" x="175" y="70" width="250" height="256"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="250" id="BXo-Gc-agQ"/>
-                                <constraint firstAttribute="height" constant="256" id="m3n-dn-9pe"/>
-                            </constraints>
-                        </imageView>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="Agg-pt-vbP" secondAttribute="leading" constant="175" id="7AM-GX-wKc"/>
-                        <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="70" id="8qp-MA-syz"/>
-                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="Jnw-7u-ylt"/>
-                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="O2b-wx-gu3"/>
-                        <constraint firstItem="lBD-XE-gZN" firstAttribute="centerY" secondItem="Agg-pt-vbP" secondAttribute="centerY" id="TER-pM-dA9"/>
-                        <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="120" id="TrW-fM-qE8"/>
-                        <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="135" id="ao5-PM-RAC"/>
-                        <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="e4m-w7-v8m"/>
-                        <constraint firstItem="lBD-XE-gZN" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="j2M-tB-rrZ"/>
-                        <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="175" id="p2F-6R-SbT"/>
-                        <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="70" id="rtz-gA-5Ml"/>
-                        <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="5" id="vu9-I7-jNF"/>
+                        <constraint firstAttribute="bottom" secondItem="kwY-gp-AnE" secondAttribute="bottom" constant="100" id="90X-iR-eCh"/>
+                        <constraint firstItem="kwY-gp-AnE" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="fhu-hL-yr8"/>
+                        <constraint firstItem="kwY-gp-AnE" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="100" id="psC-ug-r4C"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
@@ -97,14 +113,6 @@
                             <color key="value" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="7AM-GX-wKc"/>
-                            <exclude reference="p2F-6R-SbT"/>
-                            <exclude reference="ao5-PM-RAC"/>
-                            <exclude reference="O2b-wx-gu3"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

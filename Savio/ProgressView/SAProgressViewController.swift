@@ -31,21 +31,23 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         
-//        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-//        objAnimView.frame = self.view.frame
-//        objAnimView.animate()
-//        self.view.addSubview(objAnimView)
-//        let objAPI = API()
-//        
-//        objAPI.getSavingPlanDelegate = self
-//        objAPI.getUsersSavingPlan()
-              self.setUpView()
+        self.setUPNavigation()
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        
+        self.view.addSubview(objAnimView)
+        let objAPI = API()
+        
+        objAPI.getSavingPlanDelegate = self
+        objAPI.getUsersSavingPlan()
        
     }
     
@@ -59,9 +61,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
     }
-    func setUpView(){
-        
-        
+    
+    func setUPNavigation()
+    {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
@@ -113,24 +115,31 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        /*
-        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-
-        var attrText = NSMutableAttributedString(string: str)
-        
-        attrText.addAttribute(NSFontAttributeName,
-                                     value: UIFont(
-                                        name: "GothamRounded-Medium",
-                                        size: 16.0)!,
-                                     range: NSRange(
-                                        location: 3,
-                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
+    }
+    func setUpView(){
         
         
-        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-       */
+       
         
+     
+//        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+//
+//        var attrText = NSMutableAttributedString(string: str)
+//        
+//        attrText.addAttribute(NSFontAttributeName,
+//                                     value: UIFont(
+//                                        name: "GothamRounded-Medium",
+//                                        size: 16.0)!,
+//                                     range: NSRange(
+//                                        location: 3,
+//                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
+//        
+//        
+//        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+ 
+        totalAmount = savingPlanDetailsDict["amount"]!.floatValue
+        paidAmount = savingPlanDetailsDict["totalPaidAmount"]!.floatValue
+   
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
@@ -166,22 +175,22 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "%d%%",String(circularView.angle))
+                labelOne.text = String(format: "%0.2f%%",String(paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "£ %f saved",String(paidAmount))
+                labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
                 imgView.hidden = true
                
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "£ %f",String(totalAmount))
+                labelOne.text = String(format: "£ %0.2f",String(totalAmount - paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "%@ %@ to go",String(totalAmount))
+                labelTwo.text = String(format: "%0.2f to go",String(totalAmount - paidAmount))
                 imgView.hidden = true
             }
         }
-        //scrlView.bringSubviewToFront(pageControl)
+        
     }
     
     //MARK: Bar button action
@@ -234,8 +243,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+         savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+        
+        self.setUpView()
          objAnimView.removeFromSuperview()
-         self.setUpView()
+        
         
     }
     

@@ -56,7 +56,6 @@ class ContainerViewController: UIViewController {
     
     func addCentreView(notification: NSNotification) {
         let className = notification.object as! String
-        
         if self.centreVC.nibName == className {
             self.ToggleCentreView()
             return
@@ -90,8 +89,13 @@ class ContainerViewController: UIViewController {
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 
             })
-        default: print("Default Line Reached")
+        default:
+            print("Default Line Reached")
+            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+
         }
+      
     }
     
     func replaceViewController() {

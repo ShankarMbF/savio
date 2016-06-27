@@ -437,7 +437,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         isOfferShow = true
     }
     
-    
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
       //  print(objResponse)
@@ -448,9 +447,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.navigationController?.pushViewController(objSummaryview, animated: true)
         }
         objAnimView.removeFromSuperview()
-        
-  
     }
+    
     func errorResponseForPartySavingPlanAPI(error:String){
         print(error)
         objAnimView.removeFromSuperview()

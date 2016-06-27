@@ -86,6 +86,19 @@ protocol DeleteWishListDelegate
     func successResponseForDeleteWishListAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForDeleteWishListAPI(error:String)
 }
+
+protocol GetUsersPlanDelegate
+{
+    func successResponseForGetUsersPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForGetUsersPlanAPI(error:String)
+}
+
+protocol UpdateSavingPlanDelegate
+{
+    func successResponseForUpdateSavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForUpdateSavingPlanAPI(error:String)
+}
+
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -99,6 +112,9 @@ class API: UIView {
     var partySavingPlanDelegate : PartySavingPlanDelegate?
     var categorySavingPlanDelegate : CategoriesSavingPlan?
     var deleteWishList : DeleteWishListDelegate?
+    var getSavingPlanDelegate : GetUsersPlanDelegate?
+    var updateSavingPlanDelegate : UpdateSavingPlanDelegate?
+    
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -814,6 +830,105 @@ class API: UIView {
         }
         else{
             self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
+        }
+        
+    }
+    
+    func getUsersSavingPlan()
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            print(request)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.getSavingPlanDelegate?.successResponseForGetUsersPlanAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI((response?.description)!)
+                        }
+                        
+                        
+                    }
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else{
+            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI("No network found")
+        }
+        
+    }
+    
+    
+    func updateSavingPlan(dict:Dictionary<String,AnyObject>)
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            print(request)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.updateSavingPlanDelegate?.successResponseForUpdateSavingPlanAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI((response?.description)!)
+                        }
+                        
+                        
+                    }
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else{
+            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("No network found")
         }
         
     }

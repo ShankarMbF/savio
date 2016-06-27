@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAProgressViewController: UIViewController {
+class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
     @IBOutlet weak var calculationLabel: UILabel!
@@ -23,11 +23,30 @@ class SAProgressViewController: UIViewController {
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
+    var objAnimView = ImageViewAnimation()
+    var totalAmount : Float = 0.0
+    var paidAmount : Float = 0.0
+    var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.setUpView()
+        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        
+//        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+//        objAnimView.frame = self.view.frame
+//        objAnimView.animate()
+//        self.view.addSubview(objAnimView)
+//        let objAPI = API()
+//        
+//        objAPI.getSavingPlanDelegate = self
+//        objAPI.getUsersSavingPlan()
+              self.setUpView()
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,14 +114,22 @@ class SAProgressViewController: UIViewController {
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
+        /*
+        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+
+        var attrText = NSMutableAttributedString(string: str)
         
-        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        planButton.tintColor = UIColor.whiteColor()
+        attrText.addAttribute(NSFontAttributeName,
+                                     value: UIFont(
+                                        name: "GothamRounded-Medium",
+                                        size: 16.0)!,
+                                     range: NSRange(
+                                        location: 3,
+                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
-        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
         
-        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
+        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+       */
         
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
@@ -117,7 +144,7 @@ class SAProgressViewController: UIViewController {
             
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
-            circularView.angle = 180
+            circularView.angle = Double((paidAmount * 360)/totalAmount)
             
              let labelOne = circularProgress.viewWithTag(3) as! UILabel
             
@@ -125,7 +152,9 @@ class SAProgressViewController: UIViewController {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
         
-            imgView.image = UIImage(named: "cycle.png")
+            let data :NSData = NSData(base64EncodedString: savingPlanDetailsDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            
+            imgView.image = UIImage(data: data)
             
             if(i == 0)
             {
@@ -137,18 +166,18 @@ class SAProgressViewController: UIViewController {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = "50%"
+                labelOne.text = String(format: "%d%%",String(circularView.angle))
                 labelTwo.hidden = false
-                labelTwo.text = "£ 46.00 saved"
+                labelTwo.text = String(format: "£ %f saved",String(paidAmount))
                 imgView.hidden = true
                
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = "£ 46.00"
+                labelOne.text = String(format: "£ %f",String(totalAmount))
                 labelTwo.hidden = false
-                labelTwo.text = "2 months to go"
+                labelTwo.text = String(format: "%@ %@ to go",String(totalAmount))
                 imgView.hidden = true
             }
         }
@@ -169,7 +198,7 @@ class SAProgressViewController: UIViewController {
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -203,5 +232,17 @@ class SAProgressViewController: UIViewController {
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
+    
+    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+         objAnimView.removeFromSuperview()
+         self.setUpView()
+        
+    }
+    
+    func errorResponseForGetUsersPlanAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        objAnimView.removeFromSuperview()
+    }
     
    }

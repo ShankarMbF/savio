@@ -46,7 +46,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         dateDiff =  Int(parameterDict["dateDiff"] as! String)!
         
-         participantsArr = parameterDict["participantsArr"] as! Array
+        participantsArr = parameterDict["participantsArr"] as! Array
         cost =  Int(parameterDict["amount"] as! String)!
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -66,8 +66,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func setUpView(){
         //set Navigation left button
         
-
-       
+        
+        
         
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -148,12 +148,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
             }
             else{
-                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -341,7 +341,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -358,8 +358,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["sav_id"] = parameterDict["sav_id"]
         newDict["imageURL"] = parameterDict["imageURL"]
         newDict["payType"] = "Direct debit"
+        var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0{
-            var newOfferArray : Array<NSNumber> = []
+            
             for i in 0 ..< offerArr.count
             {
                 let dict = offerArr[i]
@@ -369,13 +370,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         else
         {
-            newDict["offer_List"] = ""
+            newDict["offer_List"] = newOfferArray
         }
         return newDict
-
+        
     }
     func createSavingPlanButtonPressed()
     {
+        
         if isOfferShow == true {
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
@@ -388,9 +390,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-
-            objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
-     
+                
+                objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
+                
                 
                 
             }
@@ -455,19 +457,41 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-      //  print(objResponse)
-        if(objResponse["message"] as! String == "Party Saving Plan is succesfully added")
+        //  print(objResponse)
+        if let message = objResponse["message"] as? String
         {
-            let objSummaryview = SASavingSummaryViewController()
-            objSummaryview.itemDataDict = self.getParameters()
-            self.navigationController?.pushViewController(objSummaryview, animated: true)
+            if(message == "Party Saving Plan is succesfully added")
+            {
+                let objSummaryview = SASavingSummaryViewController()
+                var newDict = self.getParameters()
+                if(dateString == "day")
+                {
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                }
+                else{
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                }
+                objSummaryview.itemDataDict = newDict
+                self.navigationController?.pushViewController(objSummaryview, animated: true)
+            }
+            else if(message == "Offer already exist")
+            {
+                let alert = UIAlertView(title: "Warning", message: "You can not create more than one group saving plan", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            
+            
         }
         objAnimView.removeFromSuperview()
         
-  
+        
     }
     func errorResponseForPartySavingPlanAPI(error:String){
         print(error)
+        
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        
         objAnimView.removeFromSuperview()
     }
     

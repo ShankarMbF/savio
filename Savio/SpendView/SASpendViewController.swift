@@ -22,10 +22,10 @@ class SASpendViewController: UIViewController {
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
         
-        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
+        spendButton.setImage(UIImage(named: "stats-spend-tab-active.png"), forState: UIControlState.Normal)
         
-        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
+        planButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
 
         self.setUpView()
         // Do any additional setup after loading the view.
@@ -108,7 +108,7 @@ class SASpendViewController: UIViewController {
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

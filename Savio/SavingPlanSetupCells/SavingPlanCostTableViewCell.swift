@@ -95,7 +95,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         if((costTextField.text! as NSString).floatValue > 3000)
         {
-            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         
@@ -362,7 +362,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         if((costTextField.text! as NSString).floatValue > 3000)
         {
-            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         return true

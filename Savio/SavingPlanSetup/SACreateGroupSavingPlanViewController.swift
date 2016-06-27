@@ -386,8 +386,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-
-            objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
+                objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
             }
             else
             {
@@ -406,11 +405,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func clearButtonPressed()
     {
-        
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
             
             self.setUpView()
             self.isDateChanged = false
@@ -422,14 +419,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             self.tblView.reloadData()
             
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        
-        
-        
     }
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){

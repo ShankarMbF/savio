@@ -93,9 +93,7 @@ class ContainerViewController: UIViewController {
             print("Default Line Reached")
             let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
-
         }
-      
     }
     
     func replaceViewController() {

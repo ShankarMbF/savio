@@ -65,9 +65,9 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
-        {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData        {
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
@@ -106,8 +106,9 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func heartBtnClicked(){
         
-        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0{
                 

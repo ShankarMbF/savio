@@ -121,9 +121,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
             if(wishListArray?.count > 0)
@@ -212,9 +213,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     
     func heartBtnClicked(){
-        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
-            
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0{
                 
@@ -238,6 +239,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        print(imageDataDict)
         if(imageDataDict["title"] as! String == "Group save")
         {
             red = 161/255
@@ -777,9 +779,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
-        parameterDict["payType"] = userInfoDict["cxvxc"]
+        parameterDict["payType"] = "cxvxc"
         
-        if((imageDataDict["sav-id"]) != nil)
+        if((imageDataDict["savPlanID"]) != nil)
         {
             parameterDict["sav_id"] = imageDataDict["savPlanID"]
         }
@@ -788,8 +790,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
         }
         
+        var newOfferArray : Array<NSNumber> = []
+        var emptyarray : Array<NSNumber> = []
+        
         if offerArr.count>0{
-            var newOfferArray : Array<NSNumber> = []
+
             for i in 0 ..< offerArr.count
             {
                 let dict = offerArr[i]
@@ -799,10 +804,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else
         {
-            parameterDict["offer_List"] = ""
+            parameterDict["offer_List"] = newOfferArray
         }
         
-        parameterDict["INIVITED_USER_LIST"] = ""
+        parameterDict["INIVITED_USER_LIST"] = emptyarray
         parameterDict["INIVITED_DATE"] = ""
         
         
@@ -821,7 +826,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
             {
-                
+                print(self.getParameters())
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
                 if(itemDetailsDataDict["title"] == nil)
@@ -930,7 +935,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBackgroundImageView.image = UIImage(data: data)
                 
-                //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+                offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 tblView.reloadData()
              
             }
@@ -969,37 +974,44 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         // print(objResponse)
         objAnimView.removeFromSuperview()
         
-        if let message = "Multiple representations of the same entity" as? String
+        if let message = objResponse["message"] as? String
         {
-            print(message)
+            if(message  == "Multiple representations of the same entity")
+            {
             let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
+            }
+            else if(message == "Party Saving Plan is succesfully added")
+            {
+                var dict :  Dictionary<String,AnyObject> = [:]
+                dict["title"] = self.getParameters()["title"]
+                dict["amount"] = self.getParameters()["amount"]
+                dict["payDate"] = self.getParameters()["payDate"]
+                dict["imageURL"] = self.getParameters()["imageURL"]
+                dict["id"] = itemDetailsDataDict["id"]
+                dict["day"] = dateString
+                if(dateString == "day")
+                {
+                    dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                }
+                else{
+                    dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                }
+                
+                if offerArr.count>0{
+                    dict["offers"] = offerArr
+                }
+                //print(dict)
+                
+                let objSummaryView = SASavingSummaryViewController()
+                objSummaryView.itemDataDict =  dict
+                self.navigationController?.pushViewController(objSummaryView, animated: true)
+            }
         }
         else
         {
-            var dict :  Dictionary<String,AnyObject> = [:]
-            dict["title"] = self.getParameters()["title"]
-            dict["amount"] = self.getParameters()["amount"]
-            dict["payDate"] = self.getParameters()["payDate"]
-            dict["imageURL"] = self.getParameters()["imageURL"]
-            dict["id"] = itemDetailsDataDict["id"]
-            dict["day"] = dateString
-            if(dateString == "day")
-            {
-                dict["emi"] = String(format:"%d",cost/(dateDiff/168))
-            }
-            else{
-                dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-            }
-            
-            if offerArr.count>0{
-                dict["offers"] = offerArr
-            }
-            //print(dict)
-            
-            let objSummaryView = SASavingSummaryViewController()
-            objSummaryView.itemDataDict =  dict
-            self.navigationController?.pushViewController(objSummaryView, animated: true)
+            let alert = UIAlertView(title: "Alert", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         
         

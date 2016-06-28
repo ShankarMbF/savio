@@ -156,8 +156,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             for i in 0 ..< colors.count {
                 heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                 
-                NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
+                NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
                 // Load the TestView view.
@@ -274,7 +275,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         if colors.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = colors
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
@@ -406,10 +406,19 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetWishlist Delegate and Datasource method
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+      //  print(objResponse)
+        if let error = objResponse["error"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
-        objAnimView.removeFromSuperview()
-        self.setUpView()
+         self.setUpView()
+
+        }
+         objAnimView.removeFromSuperview()
         
     }
     

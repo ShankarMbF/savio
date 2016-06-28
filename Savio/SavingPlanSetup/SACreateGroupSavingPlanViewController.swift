@@ -96,9 +96,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave!) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
             if(wishListArray?.count > 0)
@@ -145,9 +146,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     
     func heartBtnClicked(){
-        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
+         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0{
                 
@@ -397,12 +399,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
+            print(self.getParameters())
             if(isDateChanged)
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
                 
-                objAPI .createPartySavingPlan(getParameters(),isFromWishList: "notFromWishList")
+                objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
                 
                 
@@ -478,7 +481,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 objSummaryview.itemDataDict = newDict
                 self.navigationController?.pushViewController(objSummaryview, animated: true)
             }
-            else if(message == "Offer already exist")
+            else
             {
                 let alert = UIAlertView(title: "Warning", message: "You can not create more than one group saving plan", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()

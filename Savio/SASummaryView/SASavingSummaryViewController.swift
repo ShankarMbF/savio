@@ -207,9 +207,10 @@ class SASavingSummaryViewController: UIViewController {
             }
         }
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             for i in 0 ..< wishListArray.count
             {
@@ -221,8 +222,9 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
             
-//            wishListArray.removeAtIndex(indexId)
-            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+           let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+            
+            NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
             if(wishListArray.count > 0)

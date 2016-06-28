@@ -107,6 +107,7 @@ public class LineChart: UIView {
     }
     private var drawingWidth: CGFloat = 0 {
         didSet {
+
             let data = dataStore[0]
             x.linear = LinearScale(domain: [0.0, CGFloat(data.count - 1)], range: [0, drawingWidth])
             x.scale = x.linear.scale()
@@ -160,7 +161,7 @@ public class LineChart: UIView {
         }
         
         self.drawingHeight = self.bounds.height - (2 * y.axis.inset)
-        self.drawingWidth = self.bounds.width + (5 * x.axis.inset)
+        self.drawingWidth = self.bounds.width - (2 * x.axis.inset)
         
         // remove all labels
         for view: AnyObject in self.subviews {
@@ -280,7 +281,8 @@ public class LineChart: UIView {
             } else {
                 dot = dotsData[index]
             }
-            dot.backgroundColor = Helpers.lightenUIColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)).CGColor
+//            dot.backgroundColor = Helpers.lightenUIColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)).CGColor
+            
         }
     }
     
@@ -336,10 +338,10 @@ public class LineChart: UIView {
         path.addLineToPoint(CGPoint(x: width + x.axis.inset , y: y0))
         path.stroke()
         // draw y-axis
-        y.axis.color.setStroke()
-        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
-        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
-        path.stroke()
+//        y.axis.color.setStroke()
+//        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
+//        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
+//        path.stroke()
     }
     
     
@@ -518,7 +520,6 @@ public class LineChart: UIView {
             self.addSubview(label)
         }
     }
-    
     
     
     /**

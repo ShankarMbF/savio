@@ -200,7 +200,6 @@
 		A86D62C41D21270100B2087D /* stats-achievement-badge@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A31D21270100B2087D /* stats-achievement-badge@3x.png */; };
 		A86D62C51D21270100B2087D /* stats-achievement-holder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A41D21270100B2087D /* stats-achievement-holder@2x.png */; };
 		A86D62C61D21270100B2087D /* stats-achievement-holder@3x-29.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A51D21270100B2087D /* stats-achievement-holder@3x-29.png */; };
-		A86D62C71D21270100B2087D /* stats-achievement-holder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A61D21270100B2087D /* stats-achievement-holder@3x.png */; };
 		A86D62C81D21270100B2087D /* stats-achievement-money@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A71D21270100B2087D /* stats-achievement-money@2x.png */; };
 		A86D62C91D21270100B2087D /* stats-achievement-money@3x-33.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A81D21270100B2087D /* stats-achievement-money@3x-33.png */; };
 		A86D62CA1D21270100B2087D /* stats-achievement-money@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A86D62A91D21270100B2087D /* stats-achievement-money@3x.png */; };
@@ -423,6 +422,7 @@
 		C9B6C8471D058A0D00FCB00C /* SAOfferListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B6C8451D058A0D00FCB00C /* SAOfferListTableViewCell.xib */; };
 		C9C6E4E71D0930770015C3B6 /* Savio.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C9C6E4E61D0930770015C3B6 /* Savio.entitlements */; };
 		C9C6E4E91D09A0E00015C3B6 /* SummaryPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C6E4E81D09A0E00015C3B6 /* SummaryPage.xib */; };
+		C9E17A6F1D22AEA100C4AB0C /* stats-achievement-holder.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E17A6E1D22AEA100C4AB0C /* stats-achievement-holder.png */; };
 		C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E525AB1CE986FA000FD01E /* AppDelegate.swift */; };
 		C9E525B31CE986FA000FD01E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E525B21CE986FA000FD01E /* Assets.xcassets */; };
 		C9E525B61CE986FA000FD01E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9E525B41CE986FA000FD01E /* LaunchScreen.storyboard */; };
@@ -737,7 +737,6 @@
 		A86D62A31D21270100B2087D /* stats-achievement-badge@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-badge@3x.png"; sourceTree = "<group>"; };
 		A86D62A41D21270100B2087D /* stats-achievement-holder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-holder@2x.png"; sourceTree = "<group>"; };
 		A86D62A51D21270100B2087D /* stats-achievement-holder@3x-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-holder@3x-29.png"; sourceTree = "<group>"; };
-		A86D62A61D21270100B2087D /* stats-achievement-holder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-holder@3x.png"; sourceTree = "<group>"; };
 		A86D62A71D21270100B2087D /* stats-achievement-money@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-money@2x.png"; sourceTree = "<group>"; };
 		A86D62A81D21270100B2087D /* stats-achievement-money@3x-33.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-money@3x-33.png"; sourceTree = "<group>"; };
 		A86D62A91D21270100B2087D /* stats-achievement-money@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-money@3x.png"; sourceTree = "<group>"; };
@@ -959,6 +958,7 @@
 		C9B6C8451D058A0D00FCB00C /* SAOfferListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAOfferListTableViewCell.xib; sourceTree = "<group>"; };
 		C9C6E4E61D0930770015C3B6 /* Savio.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Savio.entitlements; sourceTree = "<group>"; };
 		C9C6E4E81D09A0E00015C3B6 /* SummaryPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryPage.xib; sourceTree = "<group>"; };
+		C9E17A6E1D22AEA100C4AB0C /* stats-achievement-holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-holder.png"; sourceTree = "<group>"; };
 		C9E525A81CE986FA000FD01E /* Savio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Savio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E525AB1CE986FA000FD01E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9E525B21CE986FA000FD01E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1365,12 +1365,12 @@
 		A86D62A01D21270100B2087D /* ProgressBar */ = {
 			isa = PBXGroup;
 			children = (
+				C9E17A6E1D22AEA100C4AB0C /* stats-achievement-holder.png */,
 				A86D62A11D21270100B2087D /* stats-achievement-badge@2x.png */,
 				A86D62A21D21270100B2087D /* stats-achievement-badge@3x-32.png */,
 				A86D62A31D21270100B2087D /* stats-achievement-badge@3x.png */,
 				A86D62A41D21270100B2087D /* stats-achievement-holder@2x.png */,
 				A86D62A51D21270100B2087D /* stats-achievement-holder@3x-29.png */,
-				A86D62A61D21270100B2087D /* stats-achievement-holder@3x.png */,
 				A86D62A71D21270100B2087D /* stats-achievement-money@2x.png */,
 				A86D62A81D21270100B2087D /* stats-achievement-money@3x-33.png */,
 				A86D62A91D21270100B2087D /* stats-achievement-money@3x.png */,
@@ -2137,6 +2137,7 @@
 				C97949641CEC381C00416BD5 /* Page1.png in Resources */,
 				C975A92E1D01952900184C8C /* generic-category-icon@2x.png in Resources */,
 				A8095C291CEDC616006366F7 /* pre-loader@1x6.png in Resources */,
+				C9E17A6F1D22AEA100C4AB0C /* stats-achievement-holder.png in Resources */,
 				C9E854F41CF44B4A006213BF /* down-arrow-30x30.png in Resources */,
 				C9905FA31CED9EF700E63471 /* linkButtonTableViewCell.xib in Resources */,
 				C97949661CEC381C00416BD5 /* Page3.png in Resources */,
@@ -2398,7 +2399,6 @@
 				C9ED80251D1BC38A00058A96 /* menu-active-logout@3x.png in Resources */,
 				C975A93B1D01952900184C8C /* ride-category-icon@3x.png in Resources */,
 				C9ED803E1D1BC38A00058A96 /* menu-active-whishlist.png in Resources */,
-				A86D62C71D21270100B2087D /* stats-achievement-holder@3x.png in Resources */,
 				A86D62DE1D21270100B2087D /* stats-plan-tab-active@2x.png in Resources */,
 				A8095C441CEDC616006366F7 /* pre-loader@2x30.png in Resources */,
 				A8095C461CEDC616006366F7 /* pre-loader@2x32.png in Resources */,

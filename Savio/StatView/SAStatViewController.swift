@@ -102,9 +102,10 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            wishListArray = (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>)!
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()

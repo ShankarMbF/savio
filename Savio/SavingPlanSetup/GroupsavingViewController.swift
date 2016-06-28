@@ -90,12 +90,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
+            
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
-            if(wishListArray?.count > 0)
+            if(wishListArray!.count > 0)
             {
                 
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -138,9 +140,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     
     func heartBtnClicked(){
-        if  (NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil) {
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
             
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0{
                 
@@ -404,6 +407,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+                cell1.titleTextField.userInteractionEnabled = false
                 
             }
             
@@ -429,6 +433,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 {
                     cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
                 }
+                cell1.costTextField.userInteractionEnabled = false
                 cell1.costTextField.textColor = UIColor.whiteColor()
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
@@ -447,6 +452,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
+            if(itemDetailsDataDict["title"] != nil)
+            {
+                cell1.datePickerTextField.userInteractionEnabled = false
+            }
             if(isClearPressed)
             {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -468,6 +477,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
             
+            if(itemDetailsDataDict["title"] != nil)
+            {
+                cell1.inviteButton.userInteractionEnabled = false
+            }
             cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
             
             return cell1
@@ -476,13 +489,25 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
+            if(itemDetailsDataDict["title"] != nil)
+            {
+                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
+                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            }
+            else
+            {
             cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            }
             return cell1
         }
         else if(indexPath.section ==  6)
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
+            if(itemDetailsDataDict["title"] != nil)
+            {
+                cell1.clearButton.userInteractionEnabled = false
+            }
             cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
@@ -509,6 +534,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             return cell1
         }
         
+    }
+    
+    func joinGroupButtonPressed(sender:UIButton)
+    {
+        let alert = UIAlertView(title: "Warning", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     func deleteContactButtonPressed(sender:UIButton)
@@ -681,7 +712,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
-        parameterDict["payType"] = userInfoDict["cxvxc"]
+        parameterDict["payType"] = "cxvxc"
         
         if((imageDataDict["savPlanID"]) != nil)
         {

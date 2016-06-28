@@ -49,9 +49,10 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") != nil)
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let wishListArray = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? Array<Dictionary<String,AnyObject>>
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
@@ -68,8 +69,14 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 
                 
             }
-
-            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
+         
+        }
+        else
+        {
+            let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+            
+            NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
+            
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
@@ -134,22 +141,29 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
         }
-        if let sharedPartySavingPlan =  cellDict["sharedPartySavingPlan"] as? String
+        if let sharedPartySavingPlan =  cellDict["sharedPartySavingPlan"] as? NSNumber
         {
-            cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
-            cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }
-        else
-        {
-             cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
-            cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            if(sharedPartySavingPlan == "<null>")
+            {
+                cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+                   cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                           }
+            else
+            {
+                cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
+                cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      
+
+            }
         }
         
+        cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+
         let data :NSData = NSData(base64EncodedString: cellDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         
         cell.imgView?.image = UIImage(data: data)
         cell.btnSavingPlan?.tag = indexPath.row
-        cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+     
         
         cell.btnDelete?.tag = indexPath.row
         return cell
@@ -171,11 +185,12 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     func joinGroupSavingPlan(sender: UIButton)
     {
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+        let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group save","detail":"Set up savings goal between friends and family","sav-id":"8"]
+        
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         
-        let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+        let objSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
@@ -203,8 +218,12 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             
             self.wishListArray.removeAtIndex(sender.tag)
             self.wishListTable?.reloadData()
-            NSUserDefaults.standardUserDefaults().setObject(self.wishListArray, forKey: "wishlistArray")
+            let dataNew = NSKeyedArchiver.archivedDataWithRootObject(self.wishListArray)
+            
+            NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
+            
             NSUserDefaults.standardUserDefaults().synchronize()
+
             
             })
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))

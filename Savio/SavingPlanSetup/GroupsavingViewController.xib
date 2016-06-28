@@ -50,7 +50,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="groupsave-setup-bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="zze-wu-hMR">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="192"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqD-re-6hS">
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqD-re-6hS">
                                             <rect key="frame" x="267" y="125" width="65" height="10"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="10" id="L3f-AU-uV6"/>

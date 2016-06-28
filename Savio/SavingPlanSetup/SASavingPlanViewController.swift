@@ -100,7 +100,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setUpView(){
         
-        print(itemDetailsDataDict)
+      
         //set Navigation left button
         let leftBtnName = UIButton()
        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -375,6 +375,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+                itemTitle = (itemDetailsDataDict["title"] as? String)!
                 
             }
             
@@ -489,7 +490,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
                     }
                     
                 }
@@ -690,7 +691,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.setUpView()
 
-                self.tblViewHt.constant = 400
+                self.tblViewHt.constant = 560
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
@@ -818,7 +819,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.view.addSubview(self.objAnimView)
             
             
-            if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
             {
                 
                 let objAPI = API()
@@ -845,23 +846,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.objAnimView.removeFromSuperview()
                 
-                if(self.getParameters()["title"] == nil  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil)
+                if(itemTitle == ""  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil && isPopoverValueChanged == false)
                 {
                     self.displayAlert("Please enter title for your saving plan")
                 }
-                else if(cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil)
+                else if(itemTitle != "" && cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
                 {
                     self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if( cost != 0 && dateDiff != 0   && self.getParameters()["imageURL"] != nil)
+                else if(itemTitle != "" && cost != 0 && dateDiff == 0   && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
                 {
                     self.displayAlert("Please select date for your saving plan")
                 }
-                else if( cost != 0 && dateDiff == 0  && self.getParameters()["imageURL"] != nil)
+                else if(itemTitle != "" && cost != 0 && dateDiff == 0  && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == false)
                 {
                     self.displayAlert("Please select monthly/weekly payment date")
                 }
-                else if(  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil)
+                else if(itemTitle != "" &&  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil && isPopoverValueChanged == true)
                 {
                     self.displayAlert("Please select image for your saving plan")
                 }
@@ -920,15 +921,41 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "SUCCESS")
+            {
+                itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+                itemDetailsDataDict["title"] = "dummy title"
+                let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                topBackgroundImageView.image = UIImage(data: data)
+                
+                //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+                tblView.reloadData()
+             
+            }
+            else
+            {
+         
+                let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+                
+                isUpdatePlan = false
+                tblView.reloadData()
+            }
+        }
+        else
+        {
+    
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+            
+            isUpdatePlan = false
+            tblView.reloadData()
+        }
+
         
-        itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
-        itemDetailsDataDict["title"] = "dummy title"
-        let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-        topBackgroundImageView.image = UIImage(data: data)
-        
-        //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
-        tblView.reloadData()
-        objAnimView.removeFromSuperview()
+          objAnimView.removeFromSuperview()
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {

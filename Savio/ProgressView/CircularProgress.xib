@@ -18,16 +18,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="456"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="446"/>
                     <subviews>
                         <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
-                            <rect key="frame" x="175" y="100" width="250" height="256"/>
+                            <rect key="frame" x="175" y="100" width="250" height="246"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
-                                    <rect key="frame" x="0.0" y="0.0" width="250" height="256"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="246"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                                    <rect key="frame" x="25" y="150" width="200" height="50"/>
+                                    <rect key="frame" x="25" y="140" width="200" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
                                         <constraint firstAttribute="height" constant="50" id="j3o-Co-Idt"/>
@@ -43,7 +43,8 @@
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
-                                    <rect key="frame" x="25" y="70" width="200" height="60"/>
+                                    <rect key="frame" x="25" y="60" width="200" height="60"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Dil-4C-HQX"/>
                                         <constraint firstAttribute="height" constant="60" id="tjb-u0-NuJ"/>
@@ -60,11 +61,10 @@
                                     </variation>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" id="0hB-Xp-9fe"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="70" id="BZX-Dm-V25"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="60" id="BZX-Dm-V25"/>
                                 <constraint firstAttribute="trailing" secondItem="FdY-a0-Tz4" secondAttribute="trailing" constant="25" id="DUM-VB-CjT"/>
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" id="DeG-y7-rib"/>
                                 <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="56" id="GzB-g5-ugq"/>

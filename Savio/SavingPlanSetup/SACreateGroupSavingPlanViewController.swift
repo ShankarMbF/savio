@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol SACreateGroupSavingPlanDelegate {
+    
+    func clearAll()
+}
+
 class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate {
     
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
@@ -26,6 +32,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var isDateChanged =  false
     var isOfferShow = false
     var objAnimView = ImageViewAnimation()
+    var delegate : SACreateGroupSavingPlanDelegate?
+    
     var userInfoDict  : Dictionary<String,AnyObject> = [:]
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
@@ -195,12 +203,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             if(isDateChanged)
             {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %d%% which is £%d of the total goal of £%d",100/(participantsArr.count + 1),cost/(participantsArr.count + 1),cost)
+                cell1.percentageCalculationLabel.text = String(format: "You are saving for %d%% which is £%d of the total goal of £%d",100/(participantsArr.count ),cost/(participantsArr.count + 1),cost)
                 if(dateString == "day")
                 {
                     if((dateDiff/168) == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",(cost/(participantsArr.count + 1))/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",(cost/(participantsArr.count))/(dateDiff/168),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0)
                     {
@@ -208,21 +216,21 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week(s)",(cost/(participantsArr.count + 1))/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",(cost/(participantsArr.count))/(dateDiff/168),(dateDiff/168))
                     }
                     
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",((cost/participantsArr.count + 1)/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",((cost/participantsArr.count)/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
                         cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",((cost/(participantsArr.count + 1))/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",((cost/(participantsArr.count ))/((dateDiff/168)/4)),(dateDiff/168)/4)
                     }
                 }
                 
@@ -338,7 +346,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         isDateChanged = true
     }
     
-    
+    func closeOfferButtonPressed(sender:UIButton)
+    {
+        offerArr.removeAtIndex(0)
+        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblView.reloadData()
+    }
     func displayAlert(message:String)
     {
         let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
@@ -415,15 +428,18 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
-            self.setUpView()
-            self.isDateChanged = false
+//            self.setUpView()
+//            self.isDateChanged = false
+//            
+//            self.isClearPressed = true
+//            self.selectedStr = ""
+//            
+//            self.scrlView.contentOffset = CGPointZero
+//            
+//            self.tblView.reloadData()
             
-            self.isClearPressed = true
-            self.selectedStr = ""
-            
-            self.scrlView.contentOffset = CGPointZero
-            
-            self.tblView.reloadData()
+            self.navigationController?.popViewControllerAnimated(true)
+            self.delegate?.clearAll()
             
             })
         

@@ -45,7 +45,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         self.view.addSubview(objAnimView)
         let objAPI = API()
-        
         objAPI.getSavingPlanDelegate = self
         objAPI.getUsersSavingPlan()
        
@@ -251,9 +250,29 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-         savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
-        
-        self.setUpView()
+        print(objResponse)
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "SUCCESS")
+            {
+                savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+                
+                self.setUpView()
+            }
+            else
+            {
+            pageControl.hidden = true
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+            }
+        }
+        else
+        {
+            pageControl.hidden = true
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+
          objAnimView.removeFromSuperview()
         
     }

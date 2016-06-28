@@ -10,7 +10,7 @@ import UIKit
 import AddressBook
 import AddressBookUI
 
-class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource {
+class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource,SACreateGroupSavingPlanDelegate {
     
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
@@ -33,6 +33,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var objAnimView = ImageViewAnimation()
     var isClearPressed = false
     var addressBook: ABPeoplePickerNavigationController?
+    
     
     @IBOutlet weak var scrlView: UIScrollView!
     
@@ -57,7 +58,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-
+        
         
     }
     
@@ -68,7 +69,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     func setUpView(){
         
-    
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -160,9 +161,44 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-     
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        objAnimView.removeFromSuperview()
+        
+    }
+    
+    func clearAll() {
+        self.setUpView()
+        self.dateDiff = 0
+        self.cost = 0
+        
+        
+        self.itemTitle = ""
+        
+        self.isClearPressed = true
+        self.popOverSelectedStr = ""
+        
+        if(participantsArr.count > 0)
+        {
+            participantsArr.removeAll()
+        }
+        if(self.itemDetailsDataDict.keys.count > 0)
+        {
+            self.itemDetailsDataDict.removeAll()
+        }
+        
+        self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
+        self.tblViewHt.constant = 500
+        self.scrlView.contentOffset = CGPointMake(0, 20)
+        self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+        self.tblView.reloadData()
+        
+    }
     /*
      // MARK: - Navigation
      
@@ -254,7 +290,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
         }
         else{
-             contactDict["lastName"] = ""
+            contactDict["lastName"] = ""
         }
         
         //Get Phone Number
@@ -504,7 +540,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+        
         
         
     }
@@ -626,7 +662,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         dateParameter.dateFormat = "yyyy-MM-dd"
         if(datePickerDate != "")
         {
-          
+            
             var pathComponents : NSArray!
             
             pathComponents = (datePickerDate).componentsSeparatedByString(" ")
@@ -657,12 +693,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
-         parameterDict["participantsArr"] = participantsArr
+        parameterDict["participantsArr"] = participantsArr
         
         return parameterDict
         
     }
- 
+    
     
     
     func getTextFieldText(text: String) {
@@ -688,37 +724,45 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         self.objAnimView.animate()
         self.view.addSubview(self.objAnimView)
         
-        if(self.getParameters()["title"] != nil && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
+        if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
         {
             let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
             objGroupSavingPlanView.parameterDict = self.getParameters()
+            objGroupSavingPlanView.delegate = self
             self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
         }
         else
         {
             self.objAnimView.removeFromSuperview()
             
-            if(self.getParameters()["title"] == nil  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil)
+            if(itemTitle == ""  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
             {
                 self.displayAlert("Please enter title for your saving plan")
             }
-            else if(cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil)
+            else if(itemTitle != "" && cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
             {
                 self.displayAlert("Please enter amount for your saving plan")
             }
-            else if( cost != 0 && dateDiff != 0   && self.getParameters()["imageURL"] != nil)
+            else if(itemTitle != "" && cost != 0 && dateDiff == 0   && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
             {
                 self.displayAlert("Please select date for your saving plan")
             }
-            else if(cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil)
+            else if(itemTitle != "" && cost != 0 && dateDiff == 0  && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
+            {
+                self.displayAlert("Please select monthly/weekly payment date")
+            }
+            else if(itemTitle != "" &&  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil && participantsArr.count > 0)
             {
                 self.displayAlert("Please select image for your saving plan")
+            }
+            else if(itemTitle != "" &&  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] != nil && participantsArr.count == 0)
+            {
+                self.displayAlert("You can not create group saving plan alone")
             }
             else
             {
                 self.displayAlert("Please enter all details")
             }
-            
             
         }
     }

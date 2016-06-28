@@ -85,6 +85,16 @@ class ContainerViewController: UIViewController {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             self.replaceViewController()
             
+        case "SASavingPlanViewController":
+            let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
+            obj.isUpdatePlan = true
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.centreVC = obj
+            
+            self.replaceViewController()
+            
         case "SignOut":
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 

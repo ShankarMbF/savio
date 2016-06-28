@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate,GetUsersPlanDelegate {
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
@@ -33,6 +33,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var  objAnimView = ImageViewAnimation()
     var isPopoverValueChanged = false
     var isClearPressed = false
+    var isUpdatePlan = false
     
     @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
@@ -56,16 +57,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView!.registerNib(UINib(nibName: "OfferTableViewCell", bundle: nil), forCellReuseIdentifier: "OfferTableViewCellIdentifier")
         tblView!.registerNib(UINib(nibName: "NextButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "NextButtonCellIdentifier")
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
-        
+        //CancelSavingPlanIdentifier
+        tblView!.registerNib(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         self.setUpView()
+        if(self.isUpdatePlan)
+        {
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+            
+            objAPI.getUsersSavingPlan()
+            objAPI.getSavingPlanDelegate = self
+            
+        }
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         
     }
     
@@ -89,9 +103,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(itemDetailsDataDict)
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+       leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -177,8 +191,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.cameraButton.hidden = false
         }
         
+        if(isUpdatePlan)
+        {
+            isPopoverValueChanged = true
+            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
+            cameraButton.backgroundColor = UIColor.blackColor()
+            cameraButton.alpha = 0.5
+            cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
+            
+            cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
+      
+            let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
+            cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
         
-        
+        }
+
+
     }
     
     
@@ -195,12 +223,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
             }
             else{
-                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+                let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -263,15 +291,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     
-    func backButtonClicked()
+    func menuButtonClicked()
     {
-        if offerArr.count > 0{
-            let obj = SAOfferListViewController()
-            obj.delegate = self
-            self.navigationController?.pushViewController(obj, animated: true)
-        }else{
-            self.navigationController?.popViewControllerAnimated(true)
-        }
+         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+//        if offerArr.count > 0{
+//            let obj = SAOfferListViewController()
+//            obj.delegate = self
+//            self.navigationController?.pushViewController(obj, animated: true)
+//        }else{
+//            self.navigationController?.popViewControllerAnimated(true)
+//        }
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
@@ -290,7 +319,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "OK")
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             })
@@ -306,7 +335,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "OK")
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             
@@ -321,7 +350,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     //MARK: UITableviewDelegate methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if(isUpdatePlan)
+        {
+            return offerArr.count+8
+        }
+        else
+        {
         return offerArr.count+7
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -382,6 +418,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
+            if(isUpdatePlan)
+            {
+            if(itemDetailsDataDict["title"] != nil)
+            {
+               // cell1.datePickerTextField.text = itemDetailsDataDict["title"] as? String
+                
+            }
+            }
+
             if(isClearPressed)
             {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -404,6 +449,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.view = self.view
             cell1.segmentDelegate = self
+            
+            if(isUpdatePlan)
+            {
+            if(itemDetailsDataDict["title"] != nil)
+            {
+               // cell1.dayDateTextField.text = itemDetailsDataDict["title"] as? String
+           
+                
+            }
+            }
             
             if(popOverSelectedStr != "")
             {
@@ -466,6 +521,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            return cell1
+        }
+        else if(indexPath.section == offerArr.count+7)
+        {
+            let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell
+            cell1.cancelSavingPlanButton.addTarget(self, action: Selector("cancelSavingButtonPressed:"), forControlEvents: .TouchUpInside)
             return cell1
         }
         else{
@@ -539,6 +600,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else if(indexPath.section == offerArr.count+6){
             return 44
         }
+        else if(indexPath.section == offerArr.count+7){
+            if(isUpdatePlan)
+            {
+                return 65
+            }
+            else{
+                return 0
+            }
+            
+        }
         else {
             return 60
         }
@@ -576,6 +647,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         datePickerDate = dateStr
     }
     
+    func cancelSavingButtonPressed(sender:UIButton)
+    {
+        let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+    }
+    
     func clearButtonPressed()
     {
         
@@ -583,28 +660,43 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
-            self.setUpView()
-            self.dateDiff = 0
-            self.cost = 0
-            self.isPopoverValueChanged = false
-            
-            self.itemTitle = ""
-            
-            self.isClearPressed = true
-            self.popOverSelectedStr = ""
-            
-            if(self.itemDetailsDataDict.keys.count > 0)
+            if(self.isUpdatePlan == false)
             {
-                self.itemDetailsDataDict.removeAll()
+                self.setUpView()
+                self.dateDiff = 0
+                self.cost = 0
+                self.isPopoverValueChanged = false
+                
+                self.itemTitle = ""
+                
+                self.isClearPressed = true
+                self.popOverSelectedStr = ""
+                
+                if(self.itemDetailsDataDict.keys.count > 0)
+                {
+                    self.itemDetailsDataDict.removeAll()
+                }
+                
+                if self.offerArr.count>0{
+                    self.offerArr.removeAll()
+                }
+                self.tblViewHt.constant = 400
+                self.scrlView.contentOffset = CGPointMake(0, 20)
+                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                self.tblView.reloadData()
+                
             }
-            
-            if self.offerArr.count>0{
-                self.offerArr.removeAll()
+            else
+            {
+                self.setUpView()
+
+                self.tblViewHt.constant = 400
+                self.scrlView.contentOffset = CGPointMake(0, 20)
+                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                self.tblView.reloadData()
+
             }
-            self.tblViewHt.constant = 400
-            self.scrlView.contentOffset = CGPointMake(0, 20)
-            self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-            self.tblView.reloadData()
+          
             
             
             })
@@ -790,7 +882,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -823,6 +915,27 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    //MARK: GetUsersSavingplanDelegate methods
+    
+    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        
+        itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+        itemDetailsDataDict["title"] = "dummy title"
+        let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+        topBackgroundImageView.image = UIImage(data: data)
+        
+        //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+        tblView.reloadData()
+        objAnimView.removeFromSuperview()
+    }
+    
+    func errorResponseForGetUsersPlanAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+         objAnimView.removeFromSuperview()
+    }
     //MARK: PartySavingplan methods
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
@@ -832,7 +945,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if let message = "Multiple representations of the same entity" as? String
         {
             print(message)
-            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else
@@ -869,7 +982,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func errorResponseForPartySavingPlanAPI(error: String) {
         print(error)
         objAnimView.removeFromSuperview()
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     

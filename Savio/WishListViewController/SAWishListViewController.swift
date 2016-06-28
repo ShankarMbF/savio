@@ -134,13 +134,23 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
         }
+        if let sharedPartySavingPlan =  cellDict["sharedPartySavingPlan"] as? String
+        {
+            cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
+            cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        else
+        {
+             cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+            cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
         
         let data :NSData = NSData(base64EncodedString: cellDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         
         cell.imgView?.image = UIImage(data: data)
         cell.btnSavingPlan?.tag = indexPath.row
         cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
         cell.btnDelete?.tag = indexPath.row
         return cell
     }
@@ -159,6 +169,16 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     
+    func joinGroupSavingPlan(sender: UIButton)
+    {
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+        objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
+        self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+    }
     func deleteButtonPress(sender:UIButton)  {
         
         

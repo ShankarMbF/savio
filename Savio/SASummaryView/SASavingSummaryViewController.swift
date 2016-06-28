@@ -86,7 +86,7 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     @IBAction func btnContinueClicked(sender: AnyObject) {
-        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -151,7 +151,7 @@ class SASavingSummaryViewController: UIViewController {
             for i in 0 ..< arr.count {
                 let dict = arr[i] as Dictionary<String, AnyObject>
                 var contactStr = ""
-                if dict["mobile_number"] != nil {
+                if dict["mobile_number"] != nil &&  dict["mobile_number"] as! String != "" {
                     contactStr = dict["mobile_number"] as! String
                 }
                 else {
@@ -163,43 +163,43 @@ class SASavingSummaryViewController: UIViewController {
                 case 0:
                     lblName1?.hidden = false
                     lblContact1?.hidden = false
-                    lblName1?.text = dict["first_name"] as? String
+                    lblName1?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact1?.text = contactStr
                     
                 case 1:
                     lblName2?.hidden = false
                     lblContact2?.hidden = false
-                    lblName2?.text = dict["first_name"] as? String
+                    lblName2?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact2?.text = contactStr
                     
                 case 2:
                     lblName3?.hidden = false
                     lblContact3?.hidden = false
-                    lblName3?.text = dict["first_name"] as? String
+                    lblName3?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact3?.text = contactStr
                     
                 case 3:
                     lblName4?.hidden = false
                     lblContact4?.hidden = false
-                    lblName4?.text = dict["first_name"] as? String
+                    lblName4?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact4?.text = contactStr
                     
                 case 4:
                     lblName5?.hidden = false
                     lblContact5?.hidden = false
-                    lblName5?.text = dict["first_name"] as? String
+                    lblName5?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact5?.text = contactStr
                     
                 case 5:
                     lblName6?.hidden = false
                     lblContact6?.hidden = false
-                    lblName6?.text = dict["first_name"] as? String
+                    lblName6?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact6?.text = contactStr
                     
                 case 6:
                     lblName7?.hidden = false
                     lblContact7?.hidden = false
-                    lblName7?.text = dict["first_name"] as? String
+                    lblName7?.text = String(format: "%@ - ",dict["first_name"] as! String)
                     lblContact7?.text = contactStr
                     
                  default: print("Default Line Reached")
@@ -217,6 +217,7 @@ class SASavingSummaryViewController: UIViewController {
                 if(dict["id"] as? NSNumber == itemDataDict["id"] as? NSNumber)
                 {
                     indexId = i
+                    break
                 }
             }
             
@@ -357,7 +358,7 @@ class SASavingSummaryViewController: UIViewController {
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

@@ -239,7 +239,7 @@ func errorResponseForOTPLogInAPI(error: String) {
   
     if(error == "No network found")
     {
-        let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "OK")
+        let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     else

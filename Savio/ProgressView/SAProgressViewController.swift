@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAProgressViewController: UIViewController {
+class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
     @IBOutlet weak var calculationLabel: UILabel!
@@ -23,11 +23,32 @@ class SAProgressViewController: UIViewController {
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
+    var objAnimView = ImageViewAnimation()
+    var totalAmount : Float = 0.0
+    var paidAmount : Float = 0.0
+    var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.setUpView()
+        
+        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        
+        self.setUPNavigation()
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        
+        self.view.addSubview(objAnimView)
+        let objAPI = API()
+        
+        objAPI.getSavingPlanDelegate = self
+        objAPI.getUsersSavingPlan()
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,9 +61,9 @@ class SAProgressViewController: UIViewController {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
     }
-    func setUpView(){
-        
-        
+    
+    func setUPNavigation()
+    {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
@@ -94,16 +115,31 @@ class SAProgressViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    func setUpView(){
         
         
-        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        planButton.tintColor = UIColor.whiteColor()
+       
         
-        spendButton.setImage(UIImage(named: "menu-spend.png"), forState: UIControlState.Normal)
-        
-        planButton.setImage(UIImage(named: "menu-start.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "menu-offers.png"), forState: UIControlState.Normal)
-        
+     
+//        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+//
+//        var attrText = NSMutableAttributedString(string: str)
+//        
+//        attrText.addAttribute(NSFontAttributeName,
+//                                     value: UIFont(
+//                                        name: "GothamRounded-Medium",
+//                                        size: 16.0)!,
+//                                     range: NSRange(
+//                                        location: 3,
+//                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
+//        
+//        
+//        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+ 
+        totalAmount = savingPlanDetailsDict["amount"]!.floatValue
+        paidAmount = savingPlanDetailsDict["totalPaidAmount"]!.floatValue
+   
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
@@ -117,7 +153,7 @@ class SAProgressViewController: UIViewController {
             
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
-            circularView.angle = 180
+            circularView.angle = Double((paidAmount * 360)/totalAmount)
             
              let labelOne = circularProgress.viewWithTag(3) as! UILabel
             
@@ -125,7 +161,9 @@ class SAProgressViewController: UIViewController {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
         
-            imgView.image = UIImage(named: "cycle.png")
+            let data :NSData = NSData(base64EncodedString: savingPlanDetailsDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            
+            imgView.image = UIImage(data: data)
             
             if(i == 0)
             {
@@ -137,22 +175,22 @@ class SAProgressViewController: UIViewController {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = "50%"
+                labelOne.text = String(format: "%0.2f%%",String(paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = "£ 46.00 saved"
+                labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
                 imgView.hidden = true
                
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = "£ 46.00"
+                labelOne.text = String(format: "£ %0.2f",String(totalAmount - paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = "2 months to go"
+                labelTwo.text = String(format: "%0.2f to go",String(totalAmount - paidAmount))
                 imgView.hidden = true
             }
         }
-        //scrlView.bringSubviewToFront(pageControl)
+        
     }
     
     //MARK: Bar button action
@@ -169,7 +207,7 @@ class SAProgressViewController: UIViewController {
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -203,5 +241,20 @@ class SAProgressViewController: UIViewController {
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
+    
+    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+         savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+        
+        self.setUpView()
+         objAnimView.removeFromSuperview()
+        
+        
+    }
+    
+    func errorResponseForGetUsersPlanAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        objAnimView.removeFromSuperview()
+    }
     
    }

@@ -17,7 +17,7 @@
   "title": "Update saving plan",
   "image": "menu-update.png",
   "activeImage": "menu-active-update.png",
-  "className": "SAUpdateSavingPlanViewController",
+  "className": "SASavingPlanViewController",
   "showArrow": 0
   },
   {

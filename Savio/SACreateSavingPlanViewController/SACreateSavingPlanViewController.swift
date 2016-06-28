@@ -278,7 +278,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         
@@ -297,7 +297,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBAction func clickedOnWishListButton(sender:UIButton){
         print("Clicked on Wishlist button")
         let objSAWishListViewController = SAWishListViewController()
-        objSAWishListViewController.wishListArray = colors
+        //objSAWishListViewController.wishListArray = colors
         self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
     }
     
@@ -397,7 +397,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
     }
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
-        print(error)
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
         
     }
     
@@ -405,7 +406,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetWishlist Delegate and Datasource method
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-
+        print(objResponse)
         colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
         objAnimView.removeFromSuperview()
         self.setUpView()
@@ -414,6 +415,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func errorResponseForGetWishlistAPI(error: String) {
         print(error)
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
         objAnimView.removeFromSuperview()
     }
     

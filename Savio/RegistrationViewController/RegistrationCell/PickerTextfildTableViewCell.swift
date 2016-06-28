@@ -98,7 +98,7 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
         let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
         
         if todayDate == pickrDate{
-            let allarme = UIAlertView(title: "Warning", message: "Birthdate should not be today's date", delegate: nil, cancelButtonTitle: "OK")
+            let allarme = UIAlertView(title: "Warning", message: "Birthdate should not be today's date", delegate: nil, cancelButtonTitle: "Ok")
             allarme.show()
         }else{
         self.setDateToTextField()

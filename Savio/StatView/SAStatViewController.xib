@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAStatViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="scrlView" destination="FkA-qW-Phf" id="2Nz-4I-wr3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +15,24 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkA-qW-Phf">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="274" id="ssI-oV-OEZ"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="ewM-3W-9IQ"/>
+                    </connections>
+                </scrollView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="FkA-qW-Phf" secondAttribute="trailing" id="PRW-t4-HtC"/>
+                <constraint firstItem="FkA-qW-Phf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="S5t-ld-Qhk"/>
+                <constraint firstItem="FkA-qW-Phf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ptd-Iy-DRP"/>
+                <constraint firstItem="FkA-qW-Phf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ygC-aq-Eyn"/>
+            </constraints>
         </view>
     </objects>
 </document>

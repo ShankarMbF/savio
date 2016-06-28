@@ -13,6 +13,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     var lineChart: LineChart!
     var label = UILabel()
      var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    @IBOutlet weak var scrlView: UIScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +47,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         // hide dots visiblety in line chart
         // lineChart.dots.visible = false
         
-        
         lineChart.x.labels.visible = true
         lineChart.x.grid.count = CGFloat(data.count)
         lineChart.x.grid.color = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
@@ -63,7 +63,9 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
-        self.view.addSubview(lineChart)
+        self.scrlView?.addSubview(lineChart)
+        self.scrlView?.contentSize = CGSizeMake(lineChart.frame.size.width, 0)
+//        self.view.addSubview(lineChart)
         views["chart"] = lineChart
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==200)]", options: [], metrics: nil, views: views))

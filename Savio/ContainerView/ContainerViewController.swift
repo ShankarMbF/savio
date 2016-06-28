@@ -82,8 +82,8 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAProgressViewController":
-//            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-            self.centreVC = SAStatViewController(nibName: "SAStatViewController", bundle: nil)
+            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+//            self.centreVC = SAStatViewController(nibName: "SAStatViewController", bundle: nil)
             self.replaceViewController()
             
         case "SASavingPlanViewController":

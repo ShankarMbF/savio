@@ -543,6 +543,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
             
+            /*
             let urlStr = dict["offImage"] as! String
             let url = NSURL(string: urlStr)
             
@@ -555,7 +556,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cell1.offerImageView?.image = image
                 })
             })
-            
+            */
             
             return cell1
         }

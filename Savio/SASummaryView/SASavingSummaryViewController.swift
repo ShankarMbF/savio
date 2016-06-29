@@ -137,8 +137,11 @@ class SASavingSummaryViewController: UIViewController {
         lblContact7?.hidden = true
         
         groupViewHt.constant = 0.0
+        if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
+        {
+     
         
-        let arr = itemDataDict["INIVITED_USER_LIST"] as! Array<Dictionary<String,AnyObject>>
+       
         
 //        let ct:CGFloat = 2
         if arr.count > 0 {
@@ -206,7 +209,7 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
         }
-        
+        }
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
@@ -284,21 +287,30 @@ class SASavingSummaryViewController: UIViewController {
             let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
             lblOfferDetail.text = objDict["offDesc"] as? String
             
+            
             let urlStr = objDict["offImage"] as! String
             let url = NSURL(string: urlStr)
             let bgImageView = testView.viewWithTag(4) as! UIImageView
             let request: NSURLRequest = NSURLRequest(URL: url!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    bgImageView.image = image
-                })
-            })
+//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//                let image = UIImage(data: data!)
+//                //                self.imageCache[unwrappedImage] = image
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    bgImageView.image = image
+//                })
+//            })
         }
         }
         lblTitle.text = itemDataDict["title"] as? String
-        lblPrice.text =  String(format:"£ %@",(itemDataDict["amount"] as? String)!)
+        if let amount = itemDataDict["amount"] as? String
+        {
+            lblPrice.text =  String(format:"£ %@",(itemDataDict["amount"] as? String)!)
+        }
+        else
+        {
+            lblPrice.text =  String(format:"£ %d",(itemDataDict["amount"] as? NSNumber)!)
+        }
+        
         
         if (itemDataDict["imageURL"] != nil) {
             
@@ -371,7 +383,7 @@ class SASavingSummaryViewController: UIViewController {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 114/255
             green = 177/255
@@ -428,7 +440,7 @@ class SASavingSummaryViewController: UIViewController {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
             green = 214/255

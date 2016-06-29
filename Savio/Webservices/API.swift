@@ -661,7 +661,7 @@ class API: UIView {
                     if let data = data
                     {
                         let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                        print(json)
+                        //print(json)
                         if let dict = json as? Dictionary<String,AnyObject>
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -897,8 +897,13 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+            request.HTTPMethod = "PUT"
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+
             print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -908,8 +913,7 @@ class API: UIView {
                     //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        dispatch_async(dispatch_get_main_queue())
-                        {
+                        dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.successResponseForUpdateSavingPlanAPI(dict)
                         }
                     }
@@ -919,16 +923,13 @@ class API: UIView {
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI((response?.description)!)
                         }
-                        
-                        
                     }
                 }
-                
             }
             dataTask.resume()
         }
         else{
-            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("No network found")
+            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("Network not available")
         }
         
     }

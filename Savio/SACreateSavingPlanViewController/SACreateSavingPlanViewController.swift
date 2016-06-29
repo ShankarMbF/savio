@@ -378,8 +378,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        
-        tblArr = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)!
+        print(objResponse)
 
         self.setUpView()
         tblView?.scrollsToTop = true
@@ -392,8 +391,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             tblView?.scrollsToTop = true
             tblView?.reloadData()
         }
-        
-        
+    
         
     }
     func errorResponseForCategoriesSavingPlanAPI(error: String) {

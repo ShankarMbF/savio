@@ -121,14 +121,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
-            savingPlanTitleLabel.hidden = true
+            //savingPlanTitleLabel.hidden = true
             
         }
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
-            savingPlanTitleLabel.hidden = false
+            //savingPlanTitleLabel.hidden = false
         }
         
         
@@ -704,7 +704,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             var pathComponents2 : NSArray!
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             
-            parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -712,7 +712,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
-        parameterDict["payType"] = "cxvxc"
+       // parameterDict["payType"] = "cxvxc"
         
         if((imageDataDict["savPlanID"]) != nil)
         {
@@ -848,7 +848,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
         topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        savingPlanTitleLabel.hidden = true
+        //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
         
     }

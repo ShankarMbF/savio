@@ -36,7 +36,7 @@ class NextButtonTableViewCell: UITableViewCell {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
  
-        if(colorDataDict["title"] as! String == "Group save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
             green = 214/255
@@ -94,7 +94,7 @@ class NextButtonTableViewCell: UITableViewCell {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group save")
+        if(colorDataDict["title"] as! String == "Group Save")
         {
             red = 114/255
             green = 177/255

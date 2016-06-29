@@ -113,27 +113,31 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        
+        makeImpulseSavingButton!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        makeImpulseSavingButton!.layer.shadowOffset = CGSizeMake(0, 2)
+        makeImpulseSavingButton!.layer.shadowOpacity = 1
+        makeImpulseSavingButton!.layer.cornerRadius = 5
     }
+    
+    
     func setUpView(){
+
+        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+
+        var attrText = NSMutableAttributedString(string: str)
+        
+        attrText.addAttribute(NSFontAttributeName,
+                                     value: UIFont(
+                                        name: "GothamRounded-Medium",
+                                        size: 16.0)!,
+                                     range: NSRange(
+                                        location: 3,
+                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
         
-       
-        
-     
-//        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-//
-//        var attrText = NSMutableAttributedString(string: str)
-//        
-//        attrText.addAttribute(NSFontAttributeName,
-//                                     value: UIFont(
-//                                        name: "GothamRounded-Medium",
-//                                        size: 16.0)!,
-//                                     range: NSRange(
-//                                        location: 3,
-//                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
-//        
-//        
-//        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
  
         totalAmount = savingPlanDetailsDict["amount"]!.floatValue
         paidAmount = savingPlanDetailsDict["totalPaidAmount"]!.floatValue
@@ -184,7 +188,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelOne.hidden = false
                 labelOne.text = String(format: "£ %0.2f",String(totalAmount - paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "%0.2f to go",String(totalAmount - paidAmount))
+                labelTwo.text = String(format: "%0.0f days to go",String(totalAmount - paidAmount))
                 imgView.hidden = true
             }
         }
@@ -249,7 +253,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       // print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "SUCCESS")

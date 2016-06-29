@@ -390,8 +390,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             tblView?.scrollsToTop = true
             tblView?.reloadData()
         }
-        
-        
+    
         
     }
     func errorResponseForCategoriesSavingPlanAPI(error: String) {

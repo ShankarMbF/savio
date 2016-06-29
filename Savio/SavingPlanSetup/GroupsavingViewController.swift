@@ -121,7 +121,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
-            savingPlanTitleLabel.hidden = true
+            //savingPlanTitleLabel.hidden = true
             
             
         }
@@ -129,7 +129,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
-            savingPlanTitleLabel.hidden = false
+            //savingPlanTitleLabel.hidden = false
         }
         var ht : CGFloat = 100
        
@@ -745,7 +745,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
-        parameterDict["payType"] = "cxvxc"
+       // parameterDict["payType"] = "cxvxc"
         
         if((imageDataDict["savPlanID"]) != nil)
         {
@@ -881,7 +881,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
         topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        savingPlanTitleLabel.hidden = true
+        //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
         
     }

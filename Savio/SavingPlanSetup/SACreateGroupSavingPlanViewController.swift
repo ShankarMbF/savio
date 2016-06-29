@@ -387,6 +387,17 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["sav_id"] = parameterDict["sav_id"]
         newDict["imageURL"] = parameterDict["imageURL"]
         newDict["payType"] = "Direct debit"
+    
+        parameterDict["payDate"] = selectedStr
+        if(dateString == "date")
+        {
+            newDict["payType"] = "Month"
+        }
+        else
+        {
+            newDict["payType"] = "Week"
+        }
+
         var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0{
             
@@ -418,7 +429,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                
+                print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
                 
@@ -485,7 +496,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        //  print(objResponse)
+        //print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Party Saving Plan is succesfully added")
@@ -494,25 +505,24 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 var newDict = self.getParameters()
                 if(dateString == "day")
                 {
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
                 }
                 else{
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
                 }
                 objSummaryview.itemDataDict = newDict
                 self.navigationController?.pushViewController(objSummaryview, animated: true)
             }
             else
             {
-                let alert = UIAlertView(title: "Warning", message: "You can not create more than one group saving plan", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             
             
         }
         objAnimView.removeFromSuperview()
-        
-        
+
     }
     
     func errorResponseForPartySavingPlanAPI(error:String){

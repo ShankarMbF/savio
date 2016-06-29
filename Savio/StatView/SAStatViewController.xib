@@ -99,14 +99,19 @@
                     <state key="normal" title="Stats"/>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pJ-dh-CAm">
-                    <rect key="frame" x="0.0" y="104" width="600" height="280"/>
+                    <rect key="frame" x="0.0" y="104" width="600" height="323"/>
                     <color key="backgroundColor" red="0.99215686270000003" green="0.95294117649999999" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="280" id="E69-WO-fNN"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="E69-WO-fNN"/>
+                        </mask>
+                    </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsX-Nh-UJc">
-                    <rect key="frame" x="0.0" y="384" width="600" height="163"/>
+                    <rect key="frame" x="0.0" y="427" width="600" height="120"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Achievements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftd-KB-sgJ">
                             <rect key="frame" x="219" y="0.0" width="163" height="21"/>
@@ -185,6 +190,7 @@
                         <constraint firstItem="3mQ-sn-Pop" firstAttribute="top" secondItem="ZaU-r2-ec3" secondAttribute="bottom" id="e8l-Gn-M9G"/>
                         <constraint firstAttribute="trailing" secondItem="3mQ-sn-Pop" secondAttribute="trailing" constant="30" id="fxj-85-8UH"/>
                         <constraint firstAttribute="trailing" secondItem="ZaU-r2-ec3" secondAttribute="trailing" id="h13-hh-i9Q"/>
+                        <constraint firstAttribute="height" constant="120" id="j3G-GW-cyK"/>
                         <constraint firstItem="ZaU-r2-ec3" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" id="lCr-wF-6Xa"/>
                         <constraint firstItem="ftd-KB-sgJ" firstAttribute="top" secondItem="lsX-Nh-UJc" secondAttribute="top" id="yXk-P8-gV2"/>
                         <constraint firstItem="ftd-KB-sgJ" firstAttribute="centerX" secondItem="lsX-Nh-UJc" secondAttribute="centerX" id="zPV-5G-xCP"/>
@@ -209,13 +215,19 @@
                 <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" id="NVb-Fg-Eee"/>
                 <constraint firstItem="3pJ-dh-CAm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ta5-mk-ftS"/>
                 <constraint firstAttribute="trailing" secondItem="3pJ-dh-CAm" secondAttribute="trailing" id="YrH-Xo-b15"/>
+                <constraint firstItem="lsX-Nh-UJc" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="bottom" id="fD2-dl-jAy"/>
                 <constraint firstItem="lsX-Nh-UJc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gpd-Tf-RV5"/>
                 <constraint firstAttribute="bottom" secondItem="Rjy-iN-UVw" secondAttribute="bottom" id="lcn-AR-JRc"/>
-                <constraint firstItem="lsX-Nh-UJc" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="bottom" id="mcH-tC-hQr"/>
+                <constraint firstItem="lsX-Nh-UJc" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="bottom" constant="40" id="mcH-tC-hQr"/>
                 <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" id="rvU-pg-MY8"/>
                 <constraint firstItem="Rjy-iN-UVw" firstAttribute="top" secondItem="lsX-Nh-UJc" secondAttribute="bottom" constant="1" id="va5-ap-YIA"/>
                 <constraint firstItem="cxh-hV-9o7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zV5-Co-ug3"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="mcH-tC-hQr"/>
+                </mask>
+            </variation>
         </view>
     </objects>
     <resources>

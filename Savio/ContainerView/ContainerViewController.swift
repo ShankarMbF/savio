@@ -15,10 +15,17 @@ class ContainerViewController: UIViewController {
      var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
     var centreVC: UIViewController! =  SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
     var navController: UINavigationController!
+    var isShowingProgress:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if isShowingProgress == "true" {
+            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+        }
+        else {
+       self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+        }
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black

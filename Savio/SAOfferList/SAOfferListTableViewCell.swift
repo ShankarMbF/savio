@@ -55,9 +55,6 @@ class SAOfferListTableViewCell: UITableViewCell {
         
 //        var attrs = [ NSFontAttributeName : UIFont(name: "GothamRounded-Book", size: 14.0),NSForegroundColorAttributeName : UIColor.redColor(),NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
         
-       
-        
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

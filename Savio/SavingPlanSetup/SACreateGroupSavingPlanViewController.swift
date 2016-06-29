@@ -118,18 +118,19 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        if(parameterDict["imageURL"] != nil)
+         let str = parameterDict["isUpdate"] as! String
+        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("No"))
         {
+                      
+    
             let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
             topBgImageView.image = UIImage(data: data)
             cameraButton.hidden = true
             addAPhotoLabel.hidden = true
-            
         }
         else
         {
-            
             self.cameraButton.hidden = false
             addAPhotoLabel.hidden = false
         }
@@ -168,7 +169,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return offerArr.count + 4
+      if parameterDict["isUpdate"]!.isEqualToString("Yes") {
+        return offerArr.count + 3
+        }
+      else{
+            return offerArr.count + 4
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -248,14 +254,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == offerArr.count+2){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
-            cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            if parameterDict["isUpdate"]!.isEqualToString("Yes") {
+                cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
+                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+            }
+            else{
+                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+            }
             return cell1
         }
         else if(indexPath.section == offerArr.count+3){
+            
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
-            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
+            
         }
         else
         {
@@ -399,7 +413,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-            print(self.getParameters())
+//            print(self.getParameters())
             if(isDateChanged)
             {
                 let objAPI = API()
@@ -448,6 +462,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    
+    func joinGroupButtonPressed(sender:UIButton)
+    {
+        let alert = UIAlertView(title: "Warning", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){

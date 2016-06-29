@@ -123,6 +123,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cameraButton.hidden = true
             savingPlanTitleLabel.hidden = true
             
+            
         }
         else
         {
@@ -130,8 +131,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             self.cameraButton.hidden = false
             savingPlanTitleLabel.hidden = false
         }
-        
-        
+        var ht : CGFloat = 100
+       
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
+        tblViewHt.constant = tblViewHt.constant + 35
     }
     func backButtonClicked()
     {
@@ -381,7 +385,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     // MARK: - UITableViewDelegate methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 7
+        if itemDetailsDataDict["title"] != nil{
+            return 4
+        } else {
+            return 7
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -434,6 +442,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                     cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
                 }
                 cell1.costTextField.userInteractionEnabled = false
+                cell1.slider.userInteractionEnabled = false
+                cell1.minusButton.userInteractionEnabled = false
+                cell1.plusButton.userInteractionEnabled = false
                 cell1.costTextField.textColor = UIColor.whiteColor()
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
@@ -452,10 +463,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
+            cell1.datePickerTextField.text = "Tue 29/12/2017"
+
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.datePickerTextField.userInteractionEnabled = false
-            }
+                           }
             if(isClearPressed)
             {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -475,6 +488,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         else if(indexPath.section == 3)
         {
+            if(itemDetailsDataDict["title"] == nil)
+            {
+            
             let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
             
             if(itemDetailsDataDict["title"] != nil)
@@ -484,6 +500,23 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
             
             return cell1
+            }
+            else{
+            
+            let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
+            cell1.tblView = tblView
+//            if(itemDetailsDataDict["title"] != nil)
+//            {
+//                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
+//                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+//            }
+//            else
+//            {
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//            }
+            return cell1
+            }
+            
         }
         else if(indexPath.section == 5)
         {
@@ -492,16 +525,17 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else
             {
-            cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
         else if(indexPath.section ==  6)
         {
+            
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             if(itemDetailsDataDict["title"] != nil)
@@ -536,11 +570,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
     }
     
-    func joinGroupButtonPressed(sender:UIButton)
-    {
-        let alert = UIAlertView(title: "Warning", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
-    }
+   
     
     func deleteContactButtonPressed(sender:UIButton)
     {
@@ -652,10 +682,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         if(itemDetailsDataDict["title"] != nil)
         {
             parameterDict["title"] = itemDetailsDataDict["title"]
+            parameterDict["isUpdate"] = "Yes"
         }
         else{
             
             parameterDict["title"] = itemTitle
+            parameterDict["isUpdate"] = "No"
         }
         
         if(itemDetailsDataDict["amount"] != nil)
@@ -705,6 +737,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             
             parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+            parameterDict["payDate"]  = "2017-29-07"
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]

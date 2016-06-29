@@ -34,7 +34,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.contentView!.addSubview(label)
         views["label"] = label
         self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-80-[label]", options: [], metrics: nil, views: views))
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
         
         //   var data: [CGFloat] = [50, 30, 50, 113, 317, 50, 24,]
         let data: [CGFloat] = [10,25,50,75,100]
@@ -85,7 +85,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 //        self.view.addSubview(lineChart)
         views["chart"] = lineChart
         self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==150)]", options: [], metrics: nil, views: views))
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==\((self.contentView?.frame.size.height)! - 50))]", options: [], metrics: nil, views: views))
         
     }
 
@@ -208,7 +208,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     */
     
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
-        label.text = "\(yValues)"
+        label.text = "\(yValues[0])"
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

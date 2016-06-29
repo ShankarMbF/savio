@@ -211,6 +211,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
+    
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
@@ -225,6 +227,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         scrlView!.scrollRectToVisible(newFrame, animated: true)
     }
     
+    @IBAction func clickOnStatButton(sender:UIButton){
+        let obj = SAStatViewController()
+        self.navigationController?.pushViewController(obj, animated: false)
+    }
+    
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
         
@@ -233,6 +240,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         obj.hideAddOfferButton = true
         self.navigationController?.pushViewController(obj, animated: true)
     }
+    
     @IBAction func spendButtonPressed(sender: AnyObject) {
         
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
@@ -265,7 +273,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         }
 
          objAnimView.removeFromSuperview()
-        
         
     }
     

@@ -1148,7 +1148,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             }
             else {
                 result = false
-            }            
+            }
         }
         return result
     }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
@@ -14,27 +15,27 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="390"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="453"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="446"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="453"/>
                     <subviews>
                         <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
-                            <rect key="frame" x="175" y="100" width="250" height="246"/>
+                            <rect key="frame" x="200" y="127" width="200" height="200"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
-                                    <rect key="frame" x="0.0" y="0.0" width="250" height="246"/>
+                                    <rect key="frame" x="10" y="10" width="180" height="180"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                                    <rect key="frame" x="25" y="140" width="200" height="50"/>
+                                    <rect key="frame" x="25" y="101" width="150" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
-                                        <constraint firstAttribute="height" constant="50" id="j3o-Co-Idt"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="vOu-qI-wic"/>
+                                        <constraint firstAttribute="height" constant="50" id="myv-oh-nu9"/>
+                                        <constraint firstAttribute="width" constant="150" id="xBj-9G-ey1"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -43,15 +44,16 @@
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
-                                    <rect key="frame" x="25" y="60" width="200" height="60"/>
+                                    <rect key="frame" x="25" y="21" width="150" height="60"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Dil-4C-HQX"/>
-                                        <constraint firstAttribute="height" constant="60" id="tjb-u0-NuJ"/>
+                                        <constraint firstAttribute="width" constant="150" id="Q5P-Hg-exK"/>
+                                        <constraint firstAttribute="height" constant="60" id="fum-cP-NlL"/>
                                         <constraint firstAttribute="width" constant="128" id="zP2-0n-Ldn"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="29"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -62,28 +64,32 @@
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" id="0hB-Xp-9fe"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="24N-FK-d7V"/>
+                                <constraint firstAttribute="width" constant="200" id="2Bd-JI-oi1"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="3BS-tp-p0d"/>
+                                <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="10" id="9UP-7I-eAb"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="60" id="BZX-Dm-V25"/>
-                                <constraint firstAttribute="trailing" secondItem="FdY-a0-Tz4" secondAttribute="trailing" constant="25" id="DUM-VB-CjT"/>
-                                <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" id="DeG-y7-rib"/>
-                                <constraint firstAttribute="bottom" secondItem="qRB-9J-PIg" secondAttribute="bottom" constant="56" id="GzB-g5-ugq"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="LX2-uc-D0U"/>
-                                <constraint firstAttribute="trailing" secondItem="qRB-9J-PIg" secondAttribute="trailing" constant="25" id="Zfx-7d-1hS"/>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="d8q-wf-id6"/>
-                                <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" id="dcW-HI-dMc"/>
-                                <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" id="fcK-FD-s4e"/>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="mrR-1L-sfk"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="vSK-LO-DuY"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="vYp-pv-gFc"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="lBD-XE-gZN" secondAttribute="centerX" id="JvZ-Ki-mAz"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="Mzw-jC-dHU"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="10" id="VSq-oH-jvA"/>
+                                <constraint firstAttribute="width" secondItem="kwY-gp-AnE" secondAttribute="height" multiplier="1:1" id="ZeF-Xz-74Q"/>
+                                <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="10" id="aDM-ZD-8qJ"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="10" id="dzj-Q2-bwV"/>
+                                <constraint firstAttribute="height" constant="200" id="pyA-So-dWZ"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="21" id="xyF-bG-Tio"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="BPC-ZS-jyP"/>
+                                    <exclude reference="JvZ-Ki-mAz"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="kwY-gp-AnE" secondAttribute="bottom" constant="100" id="90X-iR-eCh"/>
-                        <constraint firstItem="kwY-gp-AnE" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="fhu-hL-yr8"/>
-                        <constraint firstItem="kwY-gp-AnE" firstAttribute="top" secondItem="Agg-pt-vbP" secondAttribute="top" constant="100" id="psC-ug-r4C"/>
+                        <constraint firstItem="kwY-gp-AnE" firstAttribute="centerX" secondItem="Agg-pt-vbP" secondAttribute="centerX" id="9W0-Ji-N1C"/>
+                        <constraint firstItem="kwY-gp-AnE" firstAttribute="centerY" secondItem="Agg-pt-vbP" secondAttribute="centerY" id="dHd-L9-jpy"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="angle">
@@ -118,14 +124,13 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Agg-pt-vbP" secondAttribute="trailing" id="Bxh-Dh-sYa"/>
-                <constraint firstItem="Agg-pt-vbP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Pr1-Bc-HR9"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Twb-Ly-yMV"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WSn-B8-dfY"/>
                 <constraint firstAttribute="bottom" secondItem="Agg-pt-vbP" secondAttribute="bottom" id="uZW-qW-TZk"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uum-Wj-hvV"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="620" y="264"/>
+            <point key="canvasLocation" x="418" y="274.5"/>
         </view>
     </objects>
 </document>

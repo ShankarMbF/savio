@@ -325,7 +325,7 @@ class SASavingSummaryViewController: UIViewController {
         
         lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
 
-        paymentLastDate.text = "payment method"
+        paymentLastDate.text = itemDataDict["payType"] as? String
         
         if(itemDataDict["day"] as? String == "date")
         {

@@ -364,6 +364,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         print(contactDict)
         
         participantsArr.append(contactDict)
+        
+        NSUserDefaults.standardUserDefaults().setObject(contactDict, forKey:"InviteGroupArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         var ht : CGFloat = 0.0
         if(participantsArr.count == 0)
         {

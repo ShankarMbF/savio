@@ -119,7 +119,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
+        if (parameterDict["imageURL"] != nil ||  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
 
             let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
@@ -232,7 +232,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             if(isDateChanged)
             {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %0.2f%% which is £%d of the total goal of £%d",100/(participantsArr.count ),cost/(participantsArr.count + 1),cost)
+                cell1.percentageCalculationLabel.text = String(format: "You are saving for %0.2f%% which is £%d of the total goal of £%d",100/(participantsArr.count),cost/(participantsArr.count + 1),cost)
                 if(dateString == "day")
                 {
                     if((dateDiff/168) == 1)

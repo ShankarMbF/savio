@@ -33,7 +33,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var objAnimView = ImageViewAnimation()
     var isClearPressed = false
     var addressBook: ABPeoplePickerNavigationController?
-    
+    var isFromWishList = false
     
     @IBOutlet weak var scrlView: UIScrollView!
     
@@ -121,24 +121,23 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
-            //savingPlanTitleLabel.hidden = true
-            
+            isFromWishList = true
             
         }
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
-            //savingPlanTitleLabel.hidden = false
+            isFromWishList = false
         }
         var ht : CGFloat = 100
-       
+        
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
         tblViewHt.constant = tblViewHt.constant + 35
         
         
-
+        
     }
     func backButtonClicked()
     {
@@ -419,6 +418,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 cell1.titleTextField.userInteractionEnabled = false
+                itemTitle = itemDetailsDataDict["title"] as! String
                 
             }
             
@@ -439,10 +439,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 if(itemDetailsDataDict["amount"] is String)
                 {
                     cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
+                    cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                    cost = Int(cell1.slider.value)
                 }
                 else
                 {
-                    cell1.costTextField.text = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                    cell1.costTextField.text = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                    cell1.slider.value = (itemDetailsDataDict["amount"] as! NSNumber).floatValue
+                    cost = Int(cell1.slider.value)
                 }
                 cell1.costTextField.userInteractionEnabled = false
                 cell1.slider.userInteractionEnabled = false
@@ -467,13 +471,22 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
             
-
+            
             if(itemDetailsDataDict["planEndDate"] != nil)
             {
+                
                 cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
                 cell1.datePickerTextField.userInteractionEnabled = false
-                           }
+                
+                let date  = itemDetailsDataDict["planEndDate"] as? String
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
+                datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
+                dateDiff = Int(timeDifference/3600)
+                
+            }
             if(isClearPressed)
             {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -495,31 +508,31 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             if(itemDetailsDataDict["title"] == nil)
             {
-            
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
-            
-            if(itemDetailsDataDict["title"] != nil)
-            {
-                cell1.inviteButton.userInteractionEnabled = false
-            }
-            cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
-            
-            return cell1
+                
+                let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
+                
+                if(itemDetailsDataDict["title"] != nil)
+                {
+                    cell1.inviteButton.userInteractionEnabled = false
+                }
+                cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
+                
+                return cell1
             }
             else{
-            
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
-            cell1.tblView = tblView
-//            if(itemDetailsDataDict["title"] != nil)
-//            {
-//                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-//                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
-//            }
-//            else
-//            {
+                
+                let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
+                cell1.tblView = tblView
+                //            if(itemDetailsDataDict["title"] != nil)
+                //            {
+                //                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
+                //                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                //            }
+                //            else
+                //            {
                 cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//            }
-            return cell1
+                //            }
+                return cell1
             }
             
         }
@@ -534,7 +547,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             else
             {
-            cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
@@ -575,7 +588,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
     }
     
-   
+    
     
     func deleteContactButtonPressed(sender:UIButton)
     {
@@ -697,14 +710,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if(itemDetailsDataDict["amount"] != nil)
         {
-            if(itemDetailsDataDict["amount"] is String)
-            {
-                parameterDict["amount"] = itemDetailsDataDict["amount"]
-            }
-            else
-            {
-                parameterDict["amount"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
-            }
+    
+                parameterDict["amount"]  = String(format: "%d", cost)
+   
         }
         else{
             
@@ -731,23 +739,23 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
         }
         else {
-        
-        
-        if(datePickerDate != "")
-        {
             
-            var pathComponents : NSArray!
             
-            pathComponents = (datePickerDate).componentsSeparatedByString(" ")
-            var dateStr = pathComponents.lastObject as! String
-            
-            dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
-            
-            var pathComponents2 : NSArray!
-            pathComponents2 = dateStr.componentsSeparatedByString("-")
-            
-            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
-        }
+            if(datePickerDate != "")
+            {
+                
+                var pathComponents : NSArray!
+                
+                pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+                var dateStr = pathComponents.lastObject as! String
+                
+                dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+                
+                var pathComponents2 : NSArray!
+                pathComponents2 = dateStr.componentsSeparatedByString("-")
+                
+                parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+            }
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -755,7 +763,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
-       // parameterDict["payType"] = "cxvxc"
+        // parameterDict["payType"] = "cxvxc"
         
         if((imageDataDict["savPlanID"]) != nil)
         {
@@ -768,6 +776,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
         parameterDict["participantsArr"] = participantsArr
+         parameterDict["payDate"] = itemDetailsDataDict["payDate"]
         
         return parameterDict
         
@@ -794,54 +803,88 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func nextButtonPressed(sender:UIButton)
     {
         
-//        let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
-//        objGroupSavingPlanView.parameterDict = self.getParameters()
-//        objGroupSavingPlanView.delegate = self
-//        self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+        //        let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
+        //        objGroupSavingPlanView.parameterDict = self.getParameters()
+        //        objGroupSavingPlanView.delegate = self
+        //        self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
         
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.view.addSubview(self.objAnimView)
         
-        if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
+        if(isFromWishList)
         {
-            let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
-            objGroupSavingPlanView.parameterDict = self.getParameters()
-            objGroupSavingPlanView.delegate = self
-            self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
-        }
-        else
-        {
-            self.objAnimView.removeFromSuperview()
-            
-            if(itemTitle == ""  && cost != 0 && dateDiff != 0 &&  self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
             {
-                self.displayAlert("Please enter title for your saving plan")
-            }
-            else if(itemTitle != "" && cost == 0 && dateDiff != 0  && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
-            {
-                self.displayAlert("Please enter amount for your saving plan")
-            }
-            else if(itemTitle != "" && cost != 0 && dateDiff == 0   && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
-            {
-                self.displayAlert("Please select date for your saving plan")
-            }
-            else if(itemTitle != "" && cost != 0 && dateDiff == 0  && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
-            {
-                self.displayAlert("Please select monthly/weekly payment date")
-            }
-            else if(itemTitle != "" &&  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] == nil && participantsArr.count > 0)
-            {
-                self.displayAlert("Please select image for your saving plan")
-            }
-            else if(itemTitle != "" &&  cost != 0 && dateDiff == 0 && self.getParameters()["imageURL"] != nil && participantsArr.count == 0)
-            {
-                self.displayAlert("You can not create group saving plan alone")
+                let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
+                objGroupSavingPlanView.parameterDict = self.getParameters()
+                objGroupSavingPlanView.delegate = self
+                self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
             }
             else
             {
-                self.displayAlert("Please enter all details")
+                self.objAnimView.removeFromSuperview()
+                
+                if(itemTitle == "")
+                {
+                    self.displayAlert("Please enter title for your saving plan")
+                }
+                else if(cost == 0 )
+                {
+                    self.displayAlert("Please enter amount for your saving plan")
+                }
+                else if(dateDiff == 0)
+                {
+                    self.displayAlert("Please select date for your saving plan")
+                }
+                else if(self.getParameters()["imageURL"] == nil)
+                {
+                    self.displayAlert("Please select image for your saving plan")
+                }
+                else
+                {
+                    self.displayAlert("Please enter all details")
+                }
+            }
+        }
+        else
+        {
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
+            {
+                let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
+                objGroupSavingPlanView.parameterDict = self.getParameters()
+                objGroupSavingPlanView.delegate = self
+                self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+            }
+            else
+            {
+                self.objAnimView.removeFromSuperview()
+                
+                if(itemTitle == "")
+                {
+                    self.displayAlert("Please enter title for your saving plan")
+                }
+                else if(cost == 0 )
+                {
+                    self.displayAlert("Please enter amount for your saving plan")
+                }
+                else if(dateDiff == 0)
+                {
+                    self.displayAlert("Please select date for your saving plan")
+                }
+                else if(self.getParameters()["imageURL"] == nil)
+                {
+                    self.displayAlert("Please select image for your saving plan")
+                }
+                else if(participantsArr.count == 0)
+                {
+                    self.displayAlert("You can not create group saving plan alone")
+                }
+                else
+                {
+                    self.displayAlert("Please enter all details")
+                }
             }
         }
     }

@@ -118,24 +118,25 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-         let str = parameterDict["isUpdate"] as! String
-        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("No"))
+        
+        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
-                      
-    
+
             let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
             topBgImageView.image = UIImage(data: data)
             cameraButton.hidden = true
-            addAPhotoLabel.hidden = true
+            //addAPhotoLabel.hidden = true
         }
         else
         {
             self.cameraButton.hidden = false
-            addAPhotoLabel.hidden = false
+           // addAPhotoLabel.hidden = false
         }
         
-        
+        if parameterDict["isUpdate"]!.isEqualToString("Yes") {
+            isDateChanged = true
+        }
         
         
     }
@@ -147,7 +148,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     
     func heartBtnClicked(){
-         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
@@ -169,10 +170,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-      if parameterDict["isUpdate"]!.isEqualToString("Yes") {
-        return offerArr.count + 3
+        if parameterDict["isUpdate"]!.isEqualToString("Yes") {
+            return offerArr.count + 3
         }
-      else{
+        else{
             return offerArr.count + 4
         }
     }
@@ -191,14 +192,34 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.view = self.view
             cell1.segmentDelegate = self
             
-            if(selectedStr != "")
-            {
-                cell1.dayDateTextField.text = selectedStr
+            if parameterDict["isUpdate"]!.isEqualToString("Yes") {
+                if let payType = parameterDict["payType"] as? NSString
+                {
+                    if(payType == "Week")
+                    {
+                        let button = UIButton()
+                        button.tag = 0
+                        cell1.segmentBar.toggleButton(button)
+                    }
+                    
+                }
+                if let payDate = parameterDict["payDate"] as? String
+                {
+                    cell1.dayDateTextField.text = payDate
+                }
             }
-            
-            if(isClearPressed)
+            else
             {
-                cell1.dayDateTextField.text = ""
+                if(selectedStr != "")
+                {
+                    cell1.dayDateTextField.text = selectedStr
+                }
+                
+                if(isClearPressed)
+                {
+                    cell1.dayDateTextField.text = ""
+                }
+                
             }
             
             
@@ -256,7 +277,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.joinGroupButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else{
                 cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
@@ -326,6 +347,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == 1)
         {
+ 
             if(isDateChanged)
             {
                 return 100
@@ -387,7 +409,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["sav_id"] = parameterDict["sav_id"]
         newDict["imageURL"] = parameterDict["imageURL"]
         newDict["payType"] = "Direct debit"
-    
+        
         parameterDict["payDate"] = selectedStr
         if(dateString == "date")
         {
@@ -397,7 +419,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             newDict["payType"] = "Week"
         }
-
+        
         var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0{
             
@@ -424,7 +446,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-//            print(self.getParameters())
+            //            print(self.getParameters())
             if(isDateChanged)
             {
                 let objAPI = API()
@@ -456,15 +478,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
-//            self.setUpView()
-//            self.isDateChanged = false
-//            
-//            self.isClearPressed = true
-//            self.selectedStr = ""
-//            
-//            self.scrlView.contentOffset = CGPointZero
-//            
-//            self.tblView.reloadData()
+            //            self.setUpView()
+            //            self.isDateChanged = false
+            //
+            //            self.isClearPressed = true
+            //            self.selectedStr = ""
+            //
+            //            self.scrlView.contentOffset = CGPointZero
+            //
+            //            self.tblView.reloadData()
             
             self.navigationController?.popViewControllerAnimated(true)
             self.delegate?.clearAll()
@@ -522,7 +544,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         }
         objAnimView.removeFromSuperview()
-
+        
     }
     
     func errorResponseForPartySavingPlanAPI(error:String){

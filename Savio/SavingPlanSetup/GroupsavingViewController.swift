@@ -696,6 +696,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
         
+       
         
         if(itemDetailsDataDict["title"] != nil)
         {
@@ -765,13 +766,19 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         // parameterDict["payType"] = "cxvxc"
         
-        if((imageDataDict["savPlanID"]) != nil)
-        {
-            parameterDict["sav_id"] = imageDataDict["savPlanID"]
+        if(itemDetailsDataDict["sharedPartySavingPlan"] != nil){
+            
+            parameterDict["sav_id"] = itemDetailsDataDict["sharedPartySavingPlan"]
         }
-        else
-        {
-            parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
+        else{
+            if((imageDataDict["savPlanID"]) != nil)
+            {
+                parameterDict["sav_id"] = imageDataDict["savPlanID"]
+            }
+            else
+            {
+                parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
+            }
         }
         
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)

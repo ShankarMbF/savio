@@ -608,7 +608,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL",baseURL))!)
                 request.HTTPMethod = "PUT"
                 
                 

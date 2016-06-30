@@ -136,6 +136,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
         tblViewHt.constant = tblViewHt.constant + 35
+        
+        
+
     }
     func backButtonClicked()
     {
@@ -463,10 +466,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
-            cell1.datePickerTextField.text = "Tue 29/12/2017"
+            
 
-            if(itemDetailsDataDict["title"] != nil)
+            if(itemDetailsDataDict["planEndDate"] != nil)
             {
+                cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
+                cell1.datePickerTextField.textColor = UIColor.whiteColor()
                 cell1.datePickerTextField.userInteractionEnabled = false
                            }
             if(isClearPressed)
@@ -720,9 +725,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 parameterDict["imageURL"] = nil
             }
         }
-        
         let dateParameter = NSDateFormatter()
         dateParameter.dateFormat = "yyyy-MM-dd"
+        if(itemDetailsDataDict["planEndDate"] != nil) {
+            parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
+        }
+        else {
+        
+        
         if(datePickerDate != "")
         {
             
@@ -736,8 +746,8 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             var pathComponents2 : NSArray!
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             
-            parameterDict["payDate"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-            parameterDict["payDate"]  = "2017-29-07"
+            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+        }
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -783,6 +793,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     func nextButtonPressed(sender:UIButton)
     {
+        
+//        let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
+//        objGroupSavingPlanView.parameterDict = self.getParameters()
+//        objGroupSavingPlanView.delegate = self
+//        self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+        
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
@@ -827,7 +843,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 self.displayAlert("Please enter all details")
             }
-            
         }
     }
     

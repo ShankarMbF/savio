@@ -69,7 +69,7 @@ class ContactViewController: UIViewController {
             }
             
             cell?.inviteBtn?.tag = indexPath.row
-            cell?.inviteBtn?.addTarget(self, action: #selector(ContactViewController.clickOnInviteButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell?.inviteBtn?.addTarget(self, action: Selector("clickOnInviteButton:"), forControlEvents: UIControlEvents.TouchUpInside)
             if indexPath.row == 1 {
                 if let mobileNum: String = contactDict["mobileNum"] as? String {
                     cell?.headerLbl?.text = "mobile"

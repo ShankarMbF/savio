@@ -231,7 +231,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -247,7 +247,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -535,7 +535,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
   
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell1
             }
             
@@ -547,11 +547,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else
             {
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
@@ -827,7 +827,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if(isFromWishList)
         {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "")
             {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
@@ -849,10 +849,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 else if(dateDiff == 0)
                 {
                     self.displayAlert("Please select date for your saving plan")
-                }
-                else if(self.getParameters()["imageURL"] == nil)
-                {
-                    self.displayAlert("Please select image for your saving plan")
                 }
                 else
                 {
@@ -862,7 +858,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         else
         {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && participantsArr.count > 0)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && participantsArr.count > 0)
             {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
@@ -884,10 +880,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 else if(dateDiff == 0)
                 {
                     self.displayAlert("Please select date for your saving plan")
-                }
-                else if(self.getParameters()["imageURL"] == nil)
-                {
-                    self.displayAlert("Please select image for your saving plan")
                 }
                 else if(participantsArr.count == 0)
                 {
@@ -950,7 +942,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerCropRect] as? UIImage)
         //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
         

@@ -277,10 +277,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.joinGroupButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: Selector("joinGroupButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else{
-                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             }
 
             return cell1
@@ -289,7 +289,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
-            cell1.clearButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
             
         }
@@ -501,7 +501,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-//                print(getParameters())
+               // print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
             }
@@ -586,7 +586,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
+       // print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Party Saving Plan is succesfully added")

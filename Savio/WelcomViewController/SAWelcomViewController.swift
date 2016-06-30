@@ -108,7 +108,7 @@ class SAWelcomViewController: UIViewController {
             scrollView.addSubview(testView)
         }
 //        self.change()
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(SAWelcomViewController.change), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("change"), userInfo: nil, repeats: true)
     }
     
     //Function invoking for configure the page control for animated pages

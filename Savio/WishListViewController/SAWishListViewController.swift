@@ -27,13 +27,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
 
     func setUpView(){
         self.title = "My Wish List"
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SAWishListViewController.getWishListData), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData"), name: UIApplicationWillEnterForegroundNotification, object: nil)
 
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -47,7 +47,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
@@ -146,18 +146,18 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(sharedPartySavingPlan == "<null>")
             {
                 cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
-                   cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
                            }
             else
             {
                 cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
-                cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
       
 
             }
         }
         
-        cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
 
         let data :NSData = NSData(base64EncodedString: cellDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
         

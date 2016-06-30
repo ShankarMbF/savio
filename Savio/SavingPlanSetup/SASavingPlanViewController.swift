@@ -309,7 +309,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -325,7 +325,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = false
+                imagePicker.allowsEditing = true
                 
                 self.presentViewController(imagePicker, animated: true, completion: nil)
             }
@@ -924,7 +924,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.view.addSubview(self.objAnimView)
             
             
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && isPopoverValueChanged == true)
             {
                 let objAPI = API()
                 
@@ -964,7 +964,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["payDate"] = self.getParameters()["payDate"]
                     newDict["title"] = itemTitle
                     newDict["amount"] = cost
-                    newDict["imageURL"] = self.getParameters()["imageURL"]
+                    if(self.getParameters()["imageURL"] != nil)
+                    {
+                        newDict["imageURL"] = self.getParameters()["imageURL"]
+                    }
+                    else
+                    {
+                        
+                        newDict["imageURL"] = ""
+                    }
+                    
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
@@ -1006,10 +1015,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else if(datePickerDate == "")
                 {
                     self.displayAlert("Please select monthly/weekly payment date")
-                }
-                else if(self.getParameters()["imageURL"] == nil)
-                {
-                    self.displayAlert("Please select image for your saving plan")
                 }
                 else
                 {
@@ -1063,7 +1068,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerCropRect] as? UIImage)
         cameraButton.hidden = true
         if(isUpdatePlan)
         {

@@ -50,7 +50,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.backButtonPress), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -63,7 +63,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData        {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
@@ -157,12 +157,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         else
         {
             cell.btnAddOffer?.hidden = false
-            cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.btnAddOffer?.addTarget(self, action: Selector("clickedOnAddOffer:"), forControlEvents: UIControlEvents.TouchUpInside)
             cell.btnAddOffer?.tag = indexPath.row
             cell.suggestedHt.constant = 72
         }
 
-        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnOfferDetail?.addTarget(self, action: Selector("clickedOnOfferDetail:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.btnOfferDetail?.tag = indexPath.row
         let cellDict = offerArr[indexPath.row]

@@ -67,7 +67,7 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
         let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
         datePickerView.maximumDate = minDate
         
-        datePickerView.addTarget(self, action: #selector(PickerTextfildTableViewCell.datePickerValueChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         //               datePickerView.selectRow(0!, inComponent: 0, animated: false)
         
     }

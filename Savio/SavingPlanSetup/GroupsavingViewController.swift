@@ -699,8 +699,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
-        
-       
+        if(itemDetailsDataDict["id"] != nil){
+        parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! String
+        }
         
         if(itemDetailsDataDict["title"] != nil)
         {

@@ -397,10 +397,59 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.show()
     }
     
+    func getParametersForUpdate() -> Dictionary<String,AnyObject>
+    {
+        var newDict : Dictionary<String,AnyObject> = [:]
+        if parameterDict["isUpdate"]!.isEqualToString("No") {
+            newDict["INIVITED_USER_LIST"] = participantsArr
+        }
+//        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
+        newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
+        newDict["title"] = parameterDict["title"]
+        newDict["amount"] = parameterDict["amount"]
+        newDict["payDate"] = parameterDict["payDate"]
+        newDict["pty_id"] = parameterDict["pty_id"]
+        newDict["partySavingPlanID"] = parameterDict["sav_id"]
+        newDict["imageURL"] = parameterDict["imageURL"]
+        newDict["payType"] = parameterDict["payType"]
+        newDict["wishList_ID"] = parameterDict["id"]
+        
+        parameterDict["payDate"] = selectedStr
+        if(dateString == "date")
+        {
+            newDict["payType"] = "Month"
+        }
+        else
+        {
+            newDict["payType"] = "Week"
+        }
+        
+        var newOfferArray : Array<NSNumber> = []
+        if offerArr.count>0{
+            
+            for i in 0 ..< offerArr.count
+            {
+                let dict = offerArr[i]
+                newOfferArray.append(dict["offId"] as! NSNumber)
+            }
+            newDict["offer_List"] = newOfferArray
+        }
+        else
+        {
+            newDict["offer_List"] = newOfferArray
+        }
+        return newDict
+        
+    }
+
+    
+    
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var newDict : Dictionary<String,AnyObject> = [:]
+         if parameterDict["isUpdate"]!.isEqualToString("No") {
         newDict["INIVITED_USER_LIST"] = participantsArr
+        }
         newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
         newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
         newDict["title"] = parameterDict["title"]
@@ -454,7 +503,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 objAPI.partySavingPlanDelegate = self
 //                print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
-                                
+                
             }
             else
             {
@@ -489,35 +538,38 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func joinGroupButtonPressed(sender:UIButton)
     {
+        let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
         
-        if isOfferShow == true {
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-            self.objAnimView.frame = self.view.frame
-            self.objAnimView.animate()
-            self.view.addSubview(self.objAnimView)
-            
-            //            print(self.getParameters())
-            if(isDateChanged)
-            {
-                let objAPI = API()
-                objAPI.partySavingPlanDelegate = self
-                                print(getParameters())
-                objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "FromWishList")
-                
-            }
-            else
-            {
-                self.objAnimView.removeFromSuperview()
-                self.displayAlert("Please select date/day")
-            }
-        }
-        else {
-            
-            let obj = SAOfferListViewController()
-            obj.delegate = self
-            obj.savID = parameterDict["sav_id"] as! NSNumber
-            self.navigationController?.pushViewController(obj, animated: true)
-        }
+        
+//        if isOfferShow == true {
+//            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+//            self.objAnimView.frame = self.view.frame
+//            self.objAnimView.animate()
+//            self.view.addSubview(self.objAnimView)
+//            
+//            //            print(self.getParameters())
+//            if(isDateChanged)
+//            {
+//                let objAPI = API()
+//                objAPI.partySavingPlanDelegate = self
+//                                print(getParametersForUpdate())
+//                objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
+//                
+//            }
+//            else
+//            {
+//                self.objAnimView.removeFromSuperview()
+//                self.displayAlert("Please select date/day")
+//            }
+//        }
+//        else {
+//            
+//            let obj = SAOfferListViewController()
+//            obj.delegate = self
+//            obj.savID = parameterDict["sav_id"] as! NSNumber
+//            self.navigationController?.pushViewController(obj, animated: true)
+//        }
     }
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){

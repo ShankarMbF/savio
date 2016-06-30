@@ -572,7 +572,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     dateDiff = Int(timeDifference/3600)
                     
-                    /*
+                  
                     if(payType == "Month")
                     {
                         if((dateDiff/168) == 1)
@@ -598,7 +598,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         
                         
                     }
- */
+
                 }
                 
                 
@@ -862,7 +862,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             var pathComponents2 : NSArray!
             pathComponents2 = dateStr.componentsSeparatedByString("-")
      
-            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -935,8 +935,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 else if(isUpdatePlan)
                 {
-                    
-                    
                     objAPI.updateSavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let dateParameter = NSDateFormatter()
@@ -951,21 +949,27 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
+                    if(newDict["payType"] as! String == "Month")
+                    {
+                        dateString = "date"
+                    }
+                    else
+                    {
+                        dateString = "day"
+                    }
                     newDict["payDate"] = self.getParameters()["payDate"]
-                    newDict["title"] = self.getParameters()["title"]
-                    newDict["amount"] = self.getParameters()["amount"]
+                    newDict["title"] = itemTitle
+                    newDict["amount"] = cost
                     newDict["imageURL"] = self.getParameters()["imageURL"]
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
                     objAPI.updateSavingPlan(newDict)
-                    
-                    
-                    
+          
                 }
                 else
                 {
@@ -1101,6 +1105,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                     
                     datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                
                     popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
          
                 let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
@@ -1161,6 +1166,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["imageURL"] = self.getParameters()["imageURL"]
                 dict["id"] = itemDetailsDataDict["id"]
                 dict["day"] = dateString
+                let dateParameter = NSDateFormatter()
+                dateParameter.dateFormat = "yyyy-MM-dd"
+                var pathComponents : NSArray!
+                
+                pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+                var dateStr = pathComponents.lastObject as! String
+                
+                dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+                
+                var pathComponents2 : NSArray!
+                pathComponents2 = dateStr.componentsSeparatedByString("-")
+                
+                dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                 if(dateString == "day")
                 {
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
@@ -1203,12 +1221,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if let message = objResponse["message"] as? String
         {
             var dict :  Dictionary<String,AnyObject> = [:]
-            dict["title"] = self.getParameters()["title"]
-            dict["amount"] = self.getParameters()["amount"]
+            dict["title"] = itemTitle
+            dict["amount"] = String(format:"%d",cost)
             dict["payDate"] = self.getParameters()["payDate"]
             dict["imageURL"] = self.getParameters()["imageURL"]
             dict["id"] = self.getParameters()["partySavingPlanID"]
             dict["day"] = dateString
+            let dateParameter = NSDateFormatter()
+            dateParameter.dateFormat = "yyyy-MM-dd"
+            var pathComponents : NSArray!
+            
+            pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+            var dateStr = pathComponents.lastObject as! String
+            
+            dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+            
+            var pathComponents2 : NSArray!
+            pathComponents2 = dateStr.componentsSeparatedByString("-")
+            
+            dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+
             if(dateString == "day")
             {
                 dict["emi"] = String(format:"%d",cost/(dateDiff/168))

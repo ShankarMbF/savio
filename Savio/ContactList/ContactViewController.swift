@@ -114,8 +114,14 @@ class ContactViewController: UIViewController {
 
         for i in 0 ..< contactArray.count {
             var dict = contactArray[i] as Dictionary<String,AnyObject>
-            mobileArray.append(dict["mobile_number"] as! String)
-            emailArray.append(dict["email"] as! String)
+            if let phone = dict["mobile_number"] as? String
+            {
+                mobileArray.append(phone)
+            }
+            if let email = dict["email"] as? String
+            {
+                emailArray.append(email)
+            }
         }
         }
         var dict : Dictionary<String,AnyObject> = [:]

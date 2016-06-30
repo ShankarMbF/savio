@@ -232,7 +232,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             if(isDateChanged)
             {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %0.2f%% which is £%d of the total goal of £%d",100/(participantsArr.count),cost/(participantsArr.count + 1),cost)
+                cell1.percentageCalculationLabel.text = String(format: "You are saving for %d%% which is £%d of the total goal of £%d",100/(participantsArr.count),cost/(participantsArr.count + 1),cost)
                 if(dateString == "day")
                 {
                     if((dateDiff/168) == 1)
@@ -401,7 +401,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         var newDict : Dictionary<String,AnyObject> = [:]
         newDict["INIVITED_USER_LIST"] = participantsArr
         newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
-        newDict["PLAN_END_DATE"] = parameterDict["payDate"]
+        newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
         newDict["title"] = parameterDict["title"]
         newDict["amount"] = parameterDict["amount"]
         newDict["payDate"] = parameterDict["payDate"]
@@ -454,8 +454,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
-                
-                
             }
             else
             {
@@ -477,17 +475,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
-            //            self.setUpView()
-            //            self.isDateChanged = false
-            //
-            //            self.isClearPressed = true
-            //            self.selectedStr = ""
-            //
-            //            self.scrlView.contentOffset = CGPointZero
-            //
-            //            self.tblView.reloadData()
-            
+
             self.navigationController?.popViewControllerAnimated(true)
             self.delegate?.clearAll()
             

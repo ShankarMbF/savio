@@ -1164,6 +1164,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["amount"] = self.getParameters()["amount"]
                 dict["payDate"] = self.getParameters()["payDate"]
                 dict["imageURL"] = self.getParameters()["imageURL"]
+                
                 dict["id"] = itemDetailsDataDict["id"]
                 dict["day"] = dateString
                 let dateParameter = NSDateFormatter()
@@ -1182,9 +1183,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(dateString == "day")
                 {
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                    dict["payType"] = self.getParameters()["Weekly"]
                 }
                 else{
                     dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                    dict["payType"] = self.getParameters()["Monthly"]
                 }
                 
                 if offerArr.count>0{
@@ -1244,9 +1247,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(dateString == "day")
             {
                 dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                dict["payType"] = self.getParameters()["Weekly"]
             }
             else{
                 dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                dict["payType"] = self.getParameters()["Monthly"]
+                
             }
             
             if offerArr.count>0{

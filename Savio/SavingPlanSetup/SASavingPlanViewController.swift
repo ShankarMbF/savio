@@ -47,7 +47,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else
         {
-           self.title = "Savings plan setup"
+            self.title = "Savings plan setup"
         }
         
         let font = UIFont(name: "GothamRounded-Book", size: 15)
@@ -199,22 +199,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             self.cameraButton.hidden = false
         }
-        
-        if(isUpdatePlan)
-        {
-            isPopoverValueChanged = true
-            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
-            cameraButton.backgroundColor = UIColor.blackColor()
-            cameraButton.alpha = 0.5
-            cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
-            cameraButton.hidden = false
-            cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
-            
-            let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
-            cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
-            
-        }
-        
+
         
     }
     
@@ -384,7 +369,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.savingPlanTitleDelegate = self
             if(itemDetailsDataDict["title"] != nil)
             {
-                cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+                cell1.titleTextField.text = itemTitle
                 
             }
             
@@ -392,13 +377,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 if(isUpdatePlan)
                 {
-                   cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+                    cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 }
                 else
                 {
-                     cell1.titleTextField.text = itemTitle
+                    cell1.titleTextField.text = itemTitle
                 }
             }
+            
             cell1.titleTextField.textColor = self.setUpColor()
             return cell1
         }
@@ -409,14 +395,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.view = self.view
             if(itemDetailsDataDict["amount"] != nil)
             {
-                if(itemDetailsDataDict["amount"] is String)
-                {
-                    cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
-                }
-                else
-                {
-                    cell1.costTextField.text = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
-                }
+                
+                cell1.costTextField.text = String(format: " %d",cost)
                 cell1.costTextField.textColor = UIColor.whiteColor()
                 cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
@@ -436,7 +416,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cell1.costTextField.textColor = UIColor.whiteColor()
                     cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                     cost = Int(cell1.slider.value)
-
+                    
                 }
                 else
                 {
@@ -445,7 +425,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cell1.slider.value = 0
                     cost = 0
                 }
-        
+                
             }
             return cell1
         }
@@ -454,15 +434,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
-            if(isUpdatePlan)
-            {
-                if(itemDetailsDataDict["planEndDate"] != nil)
-                {
-                    cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
-                    cell1.datePickerTextField.textColor = UIColor.whiteColor()
-                    datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
-                }
-            }
+            
+            cell1.datePickerTextField.text = datePickerDate
+            cell1.datePickerTextField.textColor = UIColor.whiteColor()
             
             if(isClearPressed)
             {
@@ -476,19 +450,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else{
-                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                let currentDate: NSDate = NSDate()
-                let components: NSDateComponents = NSDateComponents()
-                
-                components.day = +7
-                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                let dateFormatter = NSDateFormatter()
-                
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                
-                cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
+                    let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                    let currentDate: NSDate = NSDate()
+                    let components: NSDateComponents = NSDateComponents()
+                    
+                    components.day = +7
+                    let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+                    let dateFormatter = NSDateFormatter()
+                    
+                    dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                    
+                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
                 }
-                
             }
             return cell1
         }
@@ -509,11 +482,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         button.tag = 0
                         cell1.segmentBar.toggleButton(button)
                     }
-                    
-                }
-                if let payDate = itemDetailsDataDict["payDate"] as? String
-                {
-                    cell1.dayDateTextField.text = payDate
                     
                 }
                 
@@ -547,11 +515,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                         
                     }
-
+                    
                 }
                 else
                 {
-                cell1.dayDateTextField.text = ""
+                    cell1.dayDateTextField.text = ""
                 }
             }
             
@@ -604,18 +572,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     dateDiff = Int(timeDifference/3600)
                     
-            
-                  /*
+                  
                     if(payType == "Month")
                     {
-                       
                         if((dateDiff/168) == 1)
                         {
                             cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
-                        }
-                        else if ((dateDiff/168) == 0)
-                        {
-                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                         }
                         else
                         {
@@ -629,11 +591,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         {
                             cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
                         }
-                        else if ((dateDiff/168)/4 == 0)
-                        {
-                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
-                        }
-
                         else
                         {
                             cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
@@ -641,7 +598,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         
                         
                     }
-*/
+
                 }
                 
                 
@@ -760,8 +717,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func getTextFieldText(text: String) {
         itemTitle = text
-   
-        
     }
     func getDateTextField(str: String) {
         popOverSelectedStr = str
@@ -839,8 +794,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
             }
             
-            
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -866,23 +819,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if(itemDetailsDataDict["amount"] != nil)
         {
-            if(isUpdatePlan)
+            if(itemDetailsDataDict["amount"] is String)
             {
-                
-                parameterDict["amount"]  = String(format: "%d", cost)
-
+                parameterDict["amount"] = itemDetailsDataDict["amount"]
             }
             else
             {
-                if(itemDetailsDataDict["amount"] is String)
-                {
-                    parameterDict["amount"] = itemDetailsDataDict["amount"]
-                }
-                else
-                {
-                    parameterDict["amount"]  = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
-                }
-
+                parameterDict["amount"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
             }
         }
         else{
@@ -918,10 +861,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             var pathComponents2 : NSArray!
             pathComponents2 = dateStr.componentsSeparatedByString("-")
-            
-            
-            
-            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+     
+            parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         }
         
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
@@ -983,7 +924,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.view.addSubview(self.objAnimView)
             
             
-            if(itemDetailsDataDict["title"] as? String != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "" && self.getParameters()["imageURL"] != nil && isPopoverValueChanged == true)
             {
                 let objAPI = API()
                 
@@ -994,9 +935,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 else if(isUpdatePlan)
                 {
-                    
-
-                  
+                    objAPI.updateSavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let dateParameter = NSDateFormatter()
                     dateParameter.dateFormat = "yyyy-MM-dd"
@@ -1009,25 +948,28 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
-   
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+                    
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
+                    if(newDict["payType"] as! String == "Month")
+                    {
+                        dateString = "date"
+                    }
+                    else
+                    {
+                        dateString = "day"
+                    }
                     newDict["payDate"] = self.getParameters()["payDate"]
-                    newDict["title"] = self.getParameters()["title"]
-                    newDict["amount"] = self.getParameters()["amount"]
+                    newDict["title"] = itemTitle
+                    newDict["amount"] = cost
                     newDict["imageURL"] = self.getParameters()["imageURL"]
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
-                    
-                   // print(newDict)
-                    objAPI.updateSavingPlanDelegate = self
                     objAPI.updateSavingPlan(newDict)
-                    
-            
-                    
+          
                 }
                 else
                 {
@@ -1049,7 +991,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.objAnimView.removeFromSuperview()
                 
-                if(itemDetailsDataDict["title"] as? String == "")
+                if(itemTitle == "")
                 {
                     self.displayAlert("Please enter title for your saving plan")
                 }
@@ -1057,11 +999,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if(dateDiff == 0)
+                else if(dateDiff == 0 )
                 {
                     self.displayAlert("Please select date for your saving plan")
                 }
-                else if(datePickerDate != "" )
+                else if(datePickerDate == "")
                 {
                     self.displayAlert("Please select monthly/weekly payment date")
                 }
@@ -1111,7 +1053,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
-    
+
     }
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
@@ -1140,13 +1082,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: GetUsersSavingplanDelegate methods
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
- print(objResponse)
+        
         if let message = objResponse["message"] as? String
         {
             if(message == "SUCCESS")
             {
                 itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
-                // itemDetailsDataDict["title"] = "dummy title"
+                isPopoverValueChanged = true
+                    tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
+                    cameraButton.backgroundColor = UIColor.blackColor()
+                    cameraButton.alpha = 0.5
+                    cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
+                    
+                    cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
+                    
+                    let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
+                    cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
+                    
+                    itemTitle = itemDetailsDataDict["title"] as! String
+                    
+                    
+                    cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
+                    
+                    datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                
+                    popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
+         
                 let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBackgroundImageView.image = UIImage(data: data)
                 
@@ -1193,7 +1154,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             if(message  == "Multiple representations of the same entity")
             {
-                let alert = UIAlertView(title: "Alert", message: "You have already part of one savings plan.", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             else if(message == "Party Saving Plan is succesfully added")
@@ -1205,6 +1166,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["imageURL"] = self.getParameters()["imageURL"]
                 dict["id"] = itemDetailsDataDict["id"]
                 dict["day"] = dateString
+                let dateParameter = NSDateFormatter()
+                dateParameter.dateFormat = "yyyy-MM-dd"
+                var pathComponents : NSArray!
+                
+                pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+                var dateStr = pathComponents.lastObject as! String
+                
+                dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+                
+                var pathComponents2 : NSArray!
+                pathComponents2 = dateStr.componentsSeparatedByString("-")
+                
+                dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                 if(dateString == "day")
                 {
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
@@ -1242,17 +1216,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-       // print(objResponse)
+        print(objResponse)
         
         if let message = objResponse["message"] as? String
         {
             var dict :  Dictionary<String,AnyObject> = [:]
-            dict["title"] = self.getParameters()["title"]
-            dict["amount"] = self.getParameters()["amount"]
+            dict["title"] = itemTitle
+            dict["amount"] = String(format:"%d",cost)
             dict["payDate"] = self.getParameters()["payDate"]
             dict["imageURL"] = self.getParameters()["imageURL"]
             dict["id"] = self.getParameters()["partySavingPlanID"]
             dict["day"] = dateString
+            let dateParameter = NSDateFormatter()
+            dateParameter.dateFormat = "yyyy-MM-dd"
+            var pathComponents : NSArray!
+            
+            pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+            var dateStr = pathComponents.lastObject as! String
+            
+            dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+            
+            var pathComponents2 : NSArray!
+            pathComponents2 = dateStr.componentsSeparatedByString("-")
+            
+            dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+
             if(dateString == "day")
             {
                 dict["emi"] = String(format:"%d",cost/(dateDiff/168))
@@ -1270,8 +1258,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             objSummaryView.itemDataDict =  dict
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
-      
-
+        
+        
         objAnimView.removeFromSuperview()
     }
     

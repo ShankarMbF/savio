@@ -106,6 +106,24 @@ class ContactViewController: UIViewController {
     
     func clickOnInviteButton(sender:UIButton){
         var text: String = ""
+        
+        var mobileArray : Array<String> = []
+        var emailArray : Array<String> = []
+       if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
+       {
+
+        for i in 0 ..< contactArray.count {
+            var dict = contactArray[i] as Dictionary<String,AnyObject>
+            if let phone = dict["mobile_number"] as? String
+            {
+                mobileArray.append(phone)
+            }
+            if let email = dict["email"] as? String
+            {
+                emailArray.append(email)
+            }
+        }
+        }
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
@@ -117,6 +135,7 @@ class ContactViewController: UIViewController {
                 if let emailStr: String = contactDict["email"] as? String {
                     dict["email_id"] = emailStr
                      dict["mobile_number"] = ""
+                     text = emailStr
                 }
             }
         }
@@ -125,12 +144,38 @@ class ContactViewController: UIViewController {
             if let emailStr: String = contactDict["email"] as? String {
                 dict["email_id"] = emailStr
                  dict["mobile_number"] = ""
+                text = emailStr
             }
         }
         
         dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
-        delegate?.addedContact(dict)
-        self.navigationController?.popViewControllerAnimated(true)
+        
+    
+        if(mobileArray.count > 0 || emailArray.count > 0)
+        {
+            if(mobileArray.contains(text))
+            {
+                let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            else if(emailArray.contains(text))
+            {
+                let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            else
+            {
+            delegate?.addedContact(dict)
+            self.navigationController?.popViewControllerAnimated(true)
+            }
+        }
+        else
+        {
+            delegate?.addedContact(dict)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+   
+       
    }
     /*
     // MARK: - Navigation

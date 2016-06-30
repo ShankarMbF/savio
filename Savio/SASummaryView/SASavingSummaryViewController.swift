@@ -147,9 +147,9 @@ class SASavingSummaryViewController: UIViewController {
         if arr.count > 0 {
             let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
 //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
-            groupViewHt.constant = ht
-            summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht
-            htContentView.constant = (vwScrContent?.frame.size.height)! + ht
+            groupViewHt.constant = ht + 10
+            summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
+            htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
             
             for i in 0 ..< arr.count {
                 let dict = arr[i] as Dictionary<String, AnyObject>
@@ -319,10 +319,11 @@ class SASavingSummaryViewController: UIViewController {
         }
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
+
         
         //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
-        lblDate.text = dateFormatter.stringFromDate(NSDate())
+        lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
 
         paymentLastDate.text = "payment method"
         

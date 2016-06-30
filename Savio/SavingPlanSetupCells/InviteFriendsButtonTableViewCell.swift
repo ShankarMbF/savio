@@ -10,6 +10,7 @@ import UIKit
 
 class InviteFriendsButtonTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var bottomBorderLabel: UILabel!
     @IBOutlet weak var orginisersLabel: UILabel!
     @IBOutlet weak var inviteButton: UIButton!
     var userInfodict : Dictionary<String, AnyObject> = [:]
@@ -18,7 +19,7 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         let objAPI = API()
    
         let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        let attributedString = NSMutableAttributedString(string: String(format: "%@ (Organiser)",userInfodict["first_name"] as! String))
+        let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                      value: UIColor.whiteColor(),

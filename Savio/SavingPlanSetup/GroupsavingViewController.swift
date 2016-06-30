@@ -516,22 +516,22 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                     cell1.inviteButton.userInteractionEnabled = false
                 }
                 cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
-                
+                if(participantsArr.count > 0)
+                {
+                    cell1.bottomBorderLabel.hidden = false
+                }
+                else
+                {
+                    cell1.bottomBorderLabel.hidden = true
+                }
                 return cell1
             }
             else{
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
-                //            if(itemDetailsDataDict["title"] != nil)
-                //            {
-                //                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-                //                cell1.nextButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
-                //            }
-                //            else
-                //            {
+  
                 cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-                //            }
                 return cell1
             }
             
@@ -754,7 +754,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 var pathComponents2 : NSArray!
                 pathComponents2 = dateStr.componentsSeparatedByString("-")
                 
-                parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+                parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
             }
         }
         

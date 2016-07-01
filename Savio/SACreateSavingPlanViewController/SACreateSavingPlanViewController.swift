@@ -103,12 +103,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     
     func setUpView(){
-//        btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
-//        btnWishList!.layer.shadowOpacity = 1
+        //        btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        //        btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
+        //        btnWishList!.layer.shadowOpacity = 1
         btnWishList!.layer.cornerRadius = 5
         
-        btnVwBg.layer.cornerRadius = 2.0
+        btnVwBg.layer.cornerRadius = 5
         
         
         //set Navigation left button
@@ -327,7 +327,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         cell.lblDetail?.text = cellDict["savDescription"] as? String
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])  //placeHolderImgArr[indexPath.row]
         
-       cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
+        cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
         if (cellDict["savLogo1x"] != nil){
             let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
@@ -336,7 +336,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let image = UIImage(data: data!)
                     dispatch_async(dispatch_get_main_queue(), {
                         if image != nil {
-                        cell.imgView?.image = image
+                            cell.imgView?.image = image
                         }
                     })
                 }
@@ -353,21 +353,29 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
-        NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        if(indexPath.row == 0)
+        
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
         {
-            let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
-            self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
-
+            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         else
         {
- 
-            let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-            self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
-        }
-        
+            NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            if(indexPath.row == 0)
+            {
+                let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
+                self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
+                
+            }
+            else
+            {
+                
+                let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+                self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+            }
+       }
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){
@@ -382,7 +390,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             cell.layoutMargins = UIEdgeInsetsZero
         }
     }
-
+    
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
@@ -390,7 +398,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-       print(objResponse)
+        print(objResponse)
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray
@@ -398,7 +406,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             tblView?.scrollsToTop = true
             tblView?.reloadData()
         }
-    
+        
         
     }
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
@@ -419,11 +427,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         else
         {
-        colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
-         self.setUpView()
-
+            colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+            self.setUpView()
+            
         }
-         objAnimView.removeFromSuperview()
+        objAnimView.removeFromSuperview()
         
     }
     

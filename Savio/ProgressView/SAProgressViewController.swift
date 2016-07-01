@@ -114,10 +114,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        
-        makeImpulseSavingButton!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        makeImpulseSavingButton!.layer.shadowOffset = CGSizeMake(0, 2)
-        makeImpulseSavingButton!.layer.shadowOpacity = 1
         makeImpulseSavingButton!.layer.cornerRadius = 5
     }
     

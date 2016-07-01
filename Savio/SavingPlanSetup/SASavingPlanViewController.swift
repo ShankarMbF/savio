@@ -982,17 +982,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 else
                 {
-                    objAPI.partySavingPlanDelegate = self
-                    var newDict : Dictionary<String,AnyObject> = [:]
-                    newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
-                    newDict["sav_id"] = self.getParameters()["sav_id"]
-                    newDict["payType"] = self.getParameters()["payType"]
-                    newDict["payDate"] = self.getParameters()["payDate"]
-                    newDict["user_ID"] = self.getParameters()["pty_id"]
-                    newDict["offer_List"] = self.getParameters()["offer_List"]
-                    
-                    objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
-                    
+       
+                        objAPI.partySavingPlanDelegate = self
+                        var newDict : Dictionary<String,AnyObject> = [:]
+                        newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
+                        newDict["sav_id"] = self.getParameters()["sav_id"]
+                        newDict["payType"] = self.getParameters()["payType"]
+                        newDict["payDate"] = self.getParameters()["payDate"]
+                        newDict["user_ID"] = self.getParameters()["pty_id"]
+                        newDict["offer_List"] = self.getParameters()["offer_List"]
+                        
+                        objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+         
+                   
                 }
                 
             }

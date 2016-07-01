@@ -18,6 +18,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     
+    @IBOutlet weak var contentViewHt: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     var cost : Int = 0
@@ -133,12 +134,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         let ht : CGFloat = 100
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
-        
-        scrlView.backgroundColor = UIColor.blueColor()
-        tblView.backgroundColor = UIColor.redColor()
-        contentView.backgroundColor = UIColor.greenColor()
+    
         
     }
     func backButtonClicked()
@@ -381,7 +379,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
@@ -924,7 +922,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
-            
+            if(self.participantsArr.count > 0)
+            {
+                self.participantsArr.removeAll()
+            }
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
             self.tblViewHt.constant = 500
             self.scrlView.contentOffset = CGPointMake(0, 20)

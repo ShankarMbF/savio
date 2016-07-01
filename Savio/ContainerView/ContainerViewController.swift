@@ -26,6 +26,8 @@ class ContainerViewController: UIViewController {
         else {
        self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
         }
+        
+       
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black

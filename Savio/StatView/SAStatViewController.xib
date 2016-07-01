@@ -170,6 +170,15 @@
                                 <constraint firstItem="nPD-Gf-Sh1" firstAttribute="top" secondItem="ZaU-r2-ec3" secondAttribute="top" constant="5" id="yFl-lt-zy2"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9v4-mA-xGM">
+                            <rect key="frame" x="30" y="73" width="540" height="43"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mQ-sn-Pop">
                             <rect key="frame" x="30" y="73" width="540" height="40"/>
                             <color key="backgroundColor" red="0.16078431372549021" green="0.16862745098039217" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>

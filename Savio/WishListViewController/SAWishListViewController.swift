@@ -143,18 +143,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         if let sharedPartySavingPlan =  cellDict["sharedPartySavingPlan"] as? NSNumber
         {
-            if(sharedPartySavingPlan == "<null>")
-            {
-                cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
-                cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
-                           }
-            else
-            {
                 cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
                 cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
-      
-
-            }
+        }
+        else
+        {
+            cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+            cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
         }
         
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -256,7 +251,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
 
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-       print(objResponse)
+      // print(objResponse)
        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }

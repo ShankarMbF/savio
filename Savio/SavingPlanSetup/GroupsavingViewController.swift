@@ -34,7 +34,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var isClearPressed = false
     var addressBook: ABPeoplePickerNavigationController?
     var isFromWishList = false
-    
+    var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
     
     override func viewDidLoad() {
@@ -130,13 +130,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             self.cameraButton.hidden = false
             isFromWishList = false
         }
-        var ht : CGFloat = 100
+        let ht : CGFloat = 100
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         tblViewHt.constant = tblViewHt.constant + 35
         
-        
+        scrlView.backgroundColor = UIColor.blueColor()
+        tblView.backgroundColor = UIColor.redColor()
+        contentView.backgroundColor = UIColor.greenColor()
         
     }
     func backButtonClicked()
@@ -228,12 +230,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = true
                 
-                self.presentViewController(imagePicker, animated: true, completion: nil)
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
@@ -244,12 +246,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = true
+              
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
                 
-                self.presentViewController(imagePicker, animated: true, completion: nil)
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
@@ -379,7 +381,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
@@ -920,6 +922,8 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 self.itemDetailsDataDict.removeAll()
             }
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
             
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
             self.tblViewHt.constant = 500
@@ -942,7 +946,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerCropRect] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
         

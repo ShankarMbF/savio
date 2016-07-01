@@ -327,22 +327,22 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         cell.lblDetail?.text = cellDict["savDescription"] as? String
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])  //placeHolderImgArr[indexPath.row]
         
-        //cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
-     
-//        if (cellDict["savLogo1x"] != nil){
-//            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
-//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//                if(data != nil)
-//                {
-//                    let image = UIImage(data: data!)
-//                    
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        cell.imgView?.image = image
-//                    })
-//                }
-//            })
-//        }
-         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
+       cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
+        if (cellDict["savLogo1x"] != nil){
+            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                if(data != nil)
+                {
+                    let image = UIImage(data: data!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if image != nil {
+                        cell.imgView?.image = image
+                        }
+                    })
+                }
+            })
+        }
+        
         
         return cell
     }
@@ -390,7 +390,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-       
+       print(objResponse)
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray

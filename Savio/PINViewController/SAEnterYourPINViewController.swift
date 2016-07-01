@@ -9,7 +9,7 @@
 import UIKit
 
 class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate {
-    
+    @IBOutlet weak var btnVwBg: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
@@ -46,6 +46,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         registerButton.layer.shadowOffset = CGSizeMake(0, 4)
         registerButton.layer.shadowOpacity = 1
         registerButton.layer.cornerRadius = 5
+        btnVwBg.layer.cornerRadius = 5
         
         
         loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
@@ -120,13 +121,13 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         registerButton.hidden = false
         forgotPasscodeButton.hidden = true
         loginButton.hidden = true
+        btnVwBg.hidden = true
         enterPasscodeTextField.hidden = true
         checkString = "ForgotPasscode"
         errorLabel.hidden = true
         enterPasscodeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         enterPasscodeTextField.textColor = UIColor.blackColor()
         enterPasscodeTextField.resignFirstResponder()
-
         
     }
     
@@ -134,9 +135,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         enterPasscodeTextField.resignFirstResponder()
         
     }
-    
-    
-    
     
     @IBAction func onClickCancelButton(sender: AnyObject) {
         
@@ -147,6 +145,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         forgotPasscodeButton.hidden = false
         loginButton.hidden = false
+        btnVwBg.hidden = false
         enterPasscodeTextField.hidden = false
     }
     @IBAction func clickOnLoginButton(sender: AnyObject) {

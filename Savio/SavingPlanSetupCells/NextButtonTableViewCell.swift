@@ -11,6 +11,8 @@ import UIKit
 class NextButtonTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var btnVwBg: UIView!
+    
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
@@ -18,11 +20,12 @@ class NextButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        nextButton.layer.shadowColor = self.setUpShadowColor().CGColor
-        nextButton.layer.shadowOffset = CGSizeMake(0, 3)
-        nextButton.layer.shadowOpacity = 1
+//        nextButton.layer.shadowColor = self.setUpShadowColor().CGColor
+//        nextButton.layer.shadowOffset = CGSizeMake(0, 3)
+//        nextButton.layer.shadowOpacity = 1
         nextButton.layer.cornerRadius = 5
         nextButton.backgroundColor = self.setUpColor()
+//    btnVwBg.backgroundColor = self.setUpColor()
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

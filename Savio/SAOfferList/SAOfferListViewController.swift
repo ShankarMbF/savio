@@ -165,13 +165,14 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         cell.btnOfferDetail?.addTarget(self, action: Selector("clickedOnOfferDetail:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.btnOfferDetail?.tag = indexPath.row
-        let cellDict = offerArr[indexPath.row]
-        cell.lblOfferTitle?.text = cellDict["offCompanyName"] as? String
-        cell.lblOfferDiscount?.text = cellDict["offTitle"] as? String
-        cell.lblOfferSummary?.text = cellDict["offSummary"] as? String
-        cell.lblProductOffer?.text = cellDict["offDesc"] as? String
+        let cellDict:Dictionary? = offerArr[indexPath.row]
+        cell.lblOfferTitle?.text = cellDict!["offCompanyName"] as? String
+        cell.lblOfferDiscount?.text = cellDict!["offTitle"] as? String
+        cell.lblOfferSummary?.text = cellDict!["offSummary"] as? String
+        cell.lblProductOffer?.text = cellDict!["offDesc"] as? String
         
-        let urlStr = cellDict["offImage"] as! String
+        print(cellDict)
+        let urlStr = cellDict!["offImage"] as! String
         let url = NSURL(string: urlStr)
         
         let request: NSURLRequest = NSURLRequest(URL: url!)
@@ -195,11 +196,15 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             var ht: CGFloat = 0.0
             var str = ""
             
+//            cellDict["offDesc"]!.isKindOfClass(String)
             for var i in 0 ..< prevIndxArr.count {
+                
                 if prevIndxArr[i] == indexPath.row {
                     attributedString = NSAttributedString(string: "Offer details ^", attributes: attributes)
-                    str = (cellDict["offDesc"] as? String)!
+                    if let str1 = cellDict!["offDesc"] as? String  {
+                    str = str1
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
+                    }
                 }
                 else{
                     str = ""

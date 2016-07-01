@@ -45,9 +45,9 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         reEnterFourDigitPIN.inputAccessoryView = toolBar
         
         //Add shadowcolor to confirmPIN
-        confirmPIN.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        confirmPIN.layer.shadowOffset = CGSizeMake(0, 4)
-        confirmPIN.layer.shadowOpacity = 1
+//        confirmPIN.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        confirmPIN.layer.shadowOffset = CGSizeMake(0, 4)
+//        confirmPIN.layer.shadowOpacity = 1
         confirmPIN.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        

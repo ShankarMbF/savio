@@ -135,11 +135,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         tblViewHt.constant = tblViewHt.constant + 35
-        
-        scrlView.backgroundColor = UIColor.blueColor()
-        tblView.backgroundColor = UIColor.redColor()
-        contentView.backgroundColor = UIColor.greenColor()
-        
+                
     }
     func backButtonClicked()
     {

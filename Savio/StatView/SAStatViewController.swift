@@ -136,10 +136,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
-            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            
+
             if(wishListArray.count > 0)
             {
                 

@@ -844,7 +844,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 parameterDict["imageURL"] = base64String
             }
             else{
-                parameterDict["imageURL"] = nil
+                parameterDict["imageURL"] = ""
             }
         }
         
@@ -931,6 +931,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(itemDetailsDataDict["title"] == nil)
                 {
                     objAPI.partySavingPlanDelegate = self
+                        print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan)
@@ -977,6 +978,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
+                    
+                
                     objAPI.updateSavingPlan(newDict)
           
                 }
@@ -1206,8 +1209,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 objSummaryView.itemDataDict =  dict
                 self.navigationController?.pushViewController(objSummaryView, animated: true)
             }
+            else
+            {
+                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
         }
         else if let message = objResponse["internalMessage"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if let message = objResponse["error"] as? String
         {
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()

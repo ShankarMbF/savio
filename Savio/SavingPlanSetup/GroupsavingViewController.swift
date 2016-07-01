@@ -136,8 +136,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
-    
-        
+                
     }
     func backButtonClicked()
     {

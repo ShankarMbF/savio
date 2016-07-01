@@ -212,7 +212,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             backButton.hidden = true
             confirmPIN .setTitle("Got It", forState: UIControlState.Normal)
             backgroundScrollView.contentOffset = CGPointMake(0, 0)
-            
         }
         
     }

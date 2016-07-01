@@ -526,6 +526,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
 
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
             self.navigationController?.popViewControllerAnimated(true)
             self.delegate?.clearAll()
             
@@ -591,6 +593,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             if(message == "Party Saving Plan is succesfully added")
             {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
                 let objSummaryview = SASavingSummaryViewController()
                 var newDict = self.getParameters()
                 if(dateString == "day")

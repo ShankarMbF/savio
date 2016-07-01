@@ -130,13 +130,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             self.cameraButton.hidden = false
             isFromWishList = false
         }
-        var ht : CGFloat = 100
+        let ht : CGFloat = 100
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         tblViewHt.constant = tblViewHt.constant + 35
         
-        
+        scrlView.backgroundColor = UIColor.blueColor()
+        tblView.backgroundColor = UIColor.redColor()
+        contentView.backgroundColor = UIColor.greenColor()
         
     }
     func backButtonClicked()
@@ -379,7 +381,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, contentView.frame.size.height + 35)
+        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
@@ -920,6 +922,8 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 self.itemDetailsDataDict.removeAll()
             }
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
             
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
             self.tblViewHt.constant = 500

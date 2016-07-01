@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j1y-V4-xli">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j1y-V4-xli">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="GothamRounded-Medium.otf">
+            <string>GothamRounded-Medium</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Share View Controller-->
         <scene sceneID="ceB-am-kn3">
@@ -125,7 +130,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="QnS-eu-POh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <outlet property="delegate" destination="j1y-V4-xli" id="kR5-Ai-tCX"/>
@@ -174,12 +179,18 @@
                             <constraint firstItem="hd3-Yg-euT" firstAttribute="top" secondItem="8bI-gs-bmD" secondAttribute="bottom" constant="60" id="mWk-Ag-mI0"/>
                             <constraint firstItem="hd3-Yg-euT" firstAttribute="trailing" secondItem="wbc-yd-nQP" secondAttribute="trailingMargin" id="yzA-fw-dxy"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="bgView" destination="hd3-Yg-euT" id="BdK-OA-ptR"/>
                         <outlet property="imageView" destination="Gkh-is-Wg0" id="EsA-kt-sOt"/>
                         <outlet property="lblImagePagingCount" destination="VW2-DN-ayh" id="5CH-7V-fU0"/>
                         <outlet property="priceTextField" destination="ciH-vj-deV" id="ct7-7Q-GRN"/>
+                        <outlet property="shareView" destination="wbc-yd-nQP" id="nBf-rm-1eG"/>
                         <outlet property="textView" destination="4wQ-BK-2Fl" id="lSi-O1-hQq"/>
                     </connections>
                 </viewController>

@@ -141,6 +141,9 @@
 		A82B9C991D06AAEA00BFD084 /* offer-close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */; };
 		A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82B9C9A1D06DDDF00BFD084 /* slider.swift */; };
 		A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */; };
+		A835B5681D2651C2000AEC43 /* gotham-rounded-book-2.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8392A3E1CEEE0C200C7EE48 /* gotham-rounded-book-2.otf */; };
+		A835B5691D2651C2000AEC43 /* GothamRounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8392A3F1CEEE0C200C7EE48 /* GothamRounded-Light.otf */; };
+		A835B56A1D2651C2000AEC43 /* GothamRounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8392A401CEEE0C200C7EE48 /* GothamRounded-Medium.otf */; };
 		A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8392A1D1CEED33600C7EE48 /* NSString-MD5.swift */; };
 		A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8392A391CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift */; };
 		A8392A3C1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8392A3A1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.xib */; };
@@ -2053,6 +2056,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A835B5681D2651C2000AEC43 /* gotham-rounded-book-2.otf in Resources */,
+				A835B5691D2651C2000AEC43 /* GothamRounded-Light.otf in Resources */,
+				A835B56A1D2651C2000AEC43 /* GothamRounded-Medium.otf in Resources */,
 				A8B347791D13D7E200063524 /* savivo-logo.png in Resources */,
 				A8BDCC0B1D05936F00D4C47B /* ShareExtension.js in Resources */,
 				A858A5BC1D07EB570097546F /* MainInterface.storyboard in Resources */,

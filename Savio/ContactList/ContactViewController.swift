@@ -106,9 +106,10 @@ class ContactViewController: UIViewController {
     
     func clickOnInviteButton(sender:UIButton){
         var text: String = ""
-        
+        var name : String = ""
         var mobileArray : Array<String> = []
         var emailArray : Array<String> = []
+        var nameArray : Array<String> = []
        if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
        {
 
@@ -122,7 +123,12 @@ class ContactViewController: UIViewController {
             {
                 emailArray.append(email)
             }
+            if let first_name = dict["first_name"] as? String
+            {
+                nameArray.append(first_name)
+            }
         }
+        
         }
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
@@ -150,15 +156,15 @@ class ContactViewController: UIViewController {
         
         dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         
-    
+        name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         if(mobileArray.count > 0 || emailArray.count > 0)
         {
-            if(mobileArray.contains(text))
+            if(mobileArray.contains(text) || nameArray.contains(name))
             {
                 let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            else if(emailArray.contains(text))
+            else if(emailArray.contains(text) || nameArray.contains(name))
             {
                 let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()

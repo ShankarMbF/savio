@@ -1288,6 +1288,11 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func errorResponseForRegistrationAPI(error:String){
         objAnimView?.removeFromSuperview()
         
+      
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+ 
+        
     }
     
 }

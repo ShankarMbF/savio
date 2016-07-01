@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SACreateSavingPlanViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="btnVwBg" destination="thi-17-NJ8" id="jvc-K8-voi"/>
                 <outlet property="btnWishList" destination="L5g-j6-Ux2" id="rGp-mp-5vb"/>
                 <outlet property="contentView" destination="FWS-YA-F5T" id="nWh-T5-hA1"/>
                 <outlet property="lblLine" destination="1lh-ZB-Y80" id="GQm-0x-8EG"/>
@@ -60,6 +61,13 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dm-A6-YOR">
                                     <rect key="frame" x="0.0" y="192" width="600" height="113"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thi-17-NJ8">
+                                            <rect key="frame" x="30" y="10" width="540" height="45"/>
+                                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="4db-7B-tKF"/>
+                                            </constraints>
+                                        </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5g-j6-Ux2">
                                             <rect key="frame" x="30" y="10" width="540" height="40"/>
                                             <color key="backgroundColor" red="0.2156862745" green="0.21960784310000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -95,6 +103,9 @@
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
+                                        <constraint firstItem="thi-17-NJ8" firstAttribute="leading" secondItem="3dm-A6-YOR" secondAttribute="leading" constant="30" id="4MX-Bm-wmk"/>
+                                        <constraint firstAttribute="trailing" secondItem="thi-17-NJ8" secondAttribute="trailing" constant="30" id="C2k-LY-DJv"/>
+                                        <constraint firstItem="thi-17-NJ8" firstAttribute="top" secondItem="3dm-A6-YOR" secondAttribute="top" constant="10" id="C5B-7f-YiK"/>
                                         <constraint firstItem="Sxf-PU-hPi" firstAttribute="top" secondItem="1lh-ZB-Y80" secondAttribute="bottom" constant="15" id="CYY-xr-fJM"/>
                                         <constraint firstAttribute="trailing" secondItem="1lh-ZB-Y80" secondAttribute="trailing" constant="60" id="FbT-UX-eTY"/>
                                         <constraint firstItem="1lh-ZB-Y80" firstAttribute="top" secondItem="L5g-j6-Ux2" secondAttribute="bottom" constant="16" id="IQk-PI-yoy"/>

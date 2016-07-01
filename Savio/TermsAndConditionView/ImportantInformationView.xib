@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -44,6 +44,13 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rm-dp-8S9">
+                            <rect key="frame" x="10" y="489" width="560" height="45"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="XPd-ke-TAi"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slp-4J-ir4">
                             <rect key="frame" x="10" y="489" width="560" height="40"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,13 +89,16 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="6rm-dp-8S9" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="04x-xu-WYB"/>
                         <constraint firstItem="RB6-7D-MCA" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="5tv-vI-fyL"/>
                         <constraint firstAttribute="trailing" secondItem="RB6-7D-MCA" secondAttribute="trailing" constant="10" id="6YF-9p-sSw"/>
+                        <constraint firstAttribute="trailing" secondItem="6rm-dp-8S9" secondAttribute="trailing" constant="10" id="Fa3-Lu-XJ5"/>
                         <constraint firstItem="6Pp-S0-ESN" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="RBO-dN-8qO"/>
                         <constraint firstItem="D3W-4L-dLT" firstAttribute="top" secondItem="6Pp-S0-ESN" secondAttribute="bottom" constant="15" id="SeG-Ve-tcz"/>
                         <constraint firstItem="RB6-7D-MCA" firstAttribute="top" secondItem="D3W-4L-dLT" secondAttribute="bottom" constant="3" id="WPI-0s-Ni0"/>
                         <constraint firstAttribute="trailing" secondItem="slp-4J-ir4" secondAttribute="trailing" constant="10" id="Wuq-QM-nJv"/>
                         <constraint firstItem="slp-4J-ir4" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="14" id="hJ4-rT-7kP"/>
+                        <constraint firstItem="6rm-dp-8S9" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="14" id="hiz-nP-3AK"/>
                         <constraint firstItem="RB6-7D-MCA" firstAttribute="centerX" secondItem="C0c-tE-4TG" secondAttribute="centerX" id="m3O-cY-OoH"/>
                         <constraint firstItem="6Pp-S0-ESN" firstAttribute="top" secondItem="C0c-tE-4TG" secondAttribute="top" constant="40" id="oov-xw-6le"/>
                         <constraint firstItem="slp-4J-ir4" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="paJ-fF-x3h"/>
@@ -105,6 +115,7 @@
                 <constraint firstItem="C0c-tE-4TG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="kW7-LF-eny"/>
             </constraints>
             <connections>
+                <outlet property="btnVeBg" destination="6rm-dp-8S9" id="B68-Es-mOR"/>
                 <outlet property="gotItButton" destination="slp-4J-ir4" id="ZSX-8s-1nK"/>
                 <outlet property="lblHeader" destination="6Pp-S0-ESN" id="tb7-QP-Mir"/>
                 <outlet property="termsAndConditionTextView" destination="RB6-7D-MCA" id="ev3-J2-9Tp"/>

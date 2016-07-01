@@ -23,6 +23,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var verticalScrlView: UIScrollView!
     var objAnimView = ImageViewAnimation()
     
+    @IBOutlet weak var btnVwBg: UIView!
     
     @IBOutlet weak var contentView: UIView!
     var heartBtn: UIButton = UIButton()
@@ -102,10 +103,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     
     func setUpView(){
-        btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
-        btnWishList!.layer.shadowOpacity = 1
+//        btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
+//        btnWishList!.layer.shadowOpacity = 1
         btnWishList!.layer.cornerRadius = 5
+        
+        btnVwBg.layer.cornerRadius = 2.0
+        
         
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -202,6 +206,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 suggestedTop.constant = 16.0
                 btnWishList?.hidden = false
                 pageControl?.hidden = false
+                btnVwBg.hidden = false
                 if(colors.count >= 5)
                 {
                     pageControl?.numberOfPages = 5
@@ -240,6 +245,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             
             suggestedHt.constant = 50.0
             suggestedTop.constant = -52.0
+            btnVwBg.hidden = true
             btnWishList?.hidden = true
             pageControl?.hidden = true
             lblLine?.hidden = true
@@ -323,18 +329,20 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         //cell.imgView?.image = UIImage(named: cellDict["image"] as! String)
      
-            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                if(data != nil)
-                {
-                    let image = UIImage(data: data!)
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        cell.imgView?.image = image
-                    })
-                }
-            })
-  
+//        if (cellDict["savLogo1x"] != nil){
+//            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
+//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//                if(data != nil)
+//                {
+//                    let image = UIImage(data: data!)
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        cell.imgView?.image = image
+//                    })
+//                }
+//            })
+//        }
+         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
         
         return cell
     }

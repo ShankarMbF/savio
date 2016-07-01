@@ -191,9 +191,9 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-                if let data = data
+                if data != nil
                 {
-                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableLeaves)
                     // print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
@@ -210,13 +210,16 @@ class API: UIView {
                         }
                     }
                 }
+                else {
+                    self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                }
                 
             }
             dataTask.resume()
         }
         else{
             //Give error no network found
-            delegate?.error("No network found")
+            delegate?.errorResponseForRegistrationAPI("No network found")
         }
         
     }

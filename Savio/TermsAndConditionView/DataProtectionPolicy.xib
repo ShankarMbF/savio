@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
@@ -50,6 +50,13 @@
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
                         </textView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGX-Se-sAE">
+                            <rect key="frame" x="10" y="510" width="560" height="45"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="TWZ-Wb-j1x"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4zp-wc-6gL">
                             <rect key="frame" x="10" y="510" width="560" height="40"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -85,6 +92,7 @@
                         <constraint firstItem="HVG-fE-0ko" firstAttribute="leading" secondItem="Zfu-Ja-0iP" secondAttribute="leading" constant="10" id="9sU-1g-LOM"/>
                         <constraint firstAttribute="trailing" secondItem="HVG-fE-0ko" secondAttribute="trailing" constant="10" id="HrD-6r-0aU"/>
                         <constraint firstItem="4zp-wc-6gL" firstAttribute="centerX" secondItem="Zfu-Ja-0iP" secondAttribute="centerX" id="HvU-ED-OrR"/>
+                        <constraint firstItem="BGX-Se-sAE" firstAttribute="top" secondItem="HVG-fE-0ko" secondAttribute="bottom" constant="24" id="VsF-XD-MQO"/>
                         <constraint firstItem="9KT-wl-Jhc" firstAttribute="top" secondItem="6lc-gf-cFv" secondAttribute="bottom" constant="15" id="WUu-Dl-AGf"/>
                         <constraint firstItem="9KT-wl-Jhc" firstAttribute="leading" secondItem="Zfu-Ja-0iP" secondAttribute="leading" constant="10" id="Z3O-Cm-634"/>
                         <constraint firstAttribute="trailing" secondItem="4zp-wc-6gL" secondAttribute="trailing" constant="10" id="Zk9-Wi-VfV"/>
@@ -93,6 +101,8 @@
                         <constraint firstItem="4zp-wc-6gL" firstAttribute="leading" secondItem="Zfu-Ja-0iP" secondAttribute="leading" constant="10" id="hXE-ZN-tRK"/>
                         <constraint firstItem="HVG-fE-0ko" firstAttribute="centerY" secondItem="Zfu-Ja-0iP" secondAttribute="centerY" id="j0h-gn-vB9"/>
                         <constraint firstItem="4zp-wc-6gL" firstAttribute="top" secondItem="HVG-fE-0ko" secondAttribute="bottom" constant="24" id="leY-4h-e3d"/>
+                        <constraint firstAttribute="trailing" secondItem="BGX-Se-sAE" secondAttribute="trailing" constant="10" id="pdA-FZ-1Nn"/>
+                        <constraint firstItem="BGX-Se-sAE" firstAttribute="leading" secondItem="Zfu-Ja-0iP" secondAttribute="leading" constant="10" id="rQl-o0-dah"/>
                     </constraints>
                 </view>
             </subviews>
@@ -105,6 +115,7 @@
             </constraints>
             <connections>
                 <outlet property="backButton" destination="4zp-wc-6gL" id="cW3-j6-x8k"/>
+                <outlet property="btnVeBg" destination="BGX-Se-sAE" id="o4H-5b-wiF"/>
                 <outlet property="dataPolicyAndTermsTextView" destination="HVG-fE-0ko" id="gGB-xp-Rxu"/>
                 <outlet property="lblHeading" destination="6lc-gf-cFv" id="WPa-q4-whl"/>
             </connections>

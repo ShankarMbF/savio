@@ -538,7 +538,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func joinGroupButtonPressed(sender:UIButton)
     {
-        let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: "Alert", message: "You have been added to group saving plan", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         
         

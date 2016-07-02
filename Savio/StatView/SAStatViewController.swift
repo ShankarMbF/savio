@@ -63,7 +63,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         lineChart.y.grid.color = UIColor.grayColor()
         
         lineChart.x.labels.values = xLabels
-        lineChart.y.labels.visible = false
+        lineChart.y.labels.visible = true
         
 //        for var i = 0; i < xLabels.count; i++ {
 //            if i%2 == 0 {

@@ -338,10 +338,10 @@ public class LineChart: UIView {
         path.addLineToPoint(CGPoint(x: width + x.axis.inset , y: y0))
         path.stroke()
         // draw y-axis
-//        y.axis.color.setStroke()
-//        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
-//        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
-//        path.stroke()
+        y.axis.color.setStroke()
+        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
+        path.stroke()
     }
     
     

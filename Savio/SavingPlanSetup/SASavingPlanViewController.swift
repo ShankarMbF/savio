@@ -951,48 +951,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if(itemDetailsDataDict["title"] == nil)
                 {
-//                    objAPI.partySavingPlanDelegate = self
-//                        print(self.getParameters())
-//                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                    objAPI.partySavingPlanDelegate = self
+                        print(self.getParameters())
+                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                     
-                    var dict :  Dictionary<String,AnyObject> = [:]
-                    dict["title"] = self.getParameters()["title"]
-                    dict["amount"] = self.getParameters()["amount"]
-                    dict["payDate"] = self.getParameters()["payDate"]
-                    dict["imageURL"] = self.getParameters()["imageURL"]
-                    
-                    dict["id"] = itemDetailsDataDict["id"]
-                    dict["day"] = dateString
-                    let dateParameter = NSDateFormatter()
-                    dateParameter.dateFormat = "yyyy-MM-dd"
-                    var pathComponents : NSArray!
-                    
-                    pathComponents = (datePickerDate).componentsSeparatedByString(" ")
-                    var dateStr = pathComponents.lastObject as! String
-                    
-                    dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
-                    
-                    var pathComponents2 : NSArray!
-                    pathComponents2 = dateStr.componentsSeparatedByString("-")
-                    
-                    dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
-                    if(dateString == "day")
-                    {
-                        dict["emi"] = String(format:"%d",cost/(dateDiff/168))
-                        dict["payType"] = self.getParameters()["Weekly"]
-                    }
-                    else{
-                        dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-                        dict["payType"] = self.getParameters()["Monthly"]
-                    }
-                    
-                    if offerArr.count>0{
-                        dict["offers"] = offerArr
-                    }
-                    
-                    let objSummaryView = SASavingSummaryViewController()
-                    objSummaryView.itemDataDict =  dict
-                    self.navigationController?.pushViewController(objSummaryView, animated: true)
                 }
                 else if(isUpdatePlan)
                 {

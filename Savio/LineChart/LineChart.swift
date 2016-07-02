@@ -509,8 +509,17 @@ public class LineChart: UIView {
         for (index, _) in xAxisData.enumerate() {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - (width / 2)
             let label = UILabel(frame: CGRect(x: xValue, y: y, width: width, height: x.axis.inset))
-            label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
-            label.textAlignment = .Center
+            label.font = UIFont(name: "GothamRounded-Light", size: 11)
+            if index == 0 {
+                label.textAlignment = .Right
+            }
+            else  if index == xAxisData.count - 1 {
+                label.textAlignment = .Left
+            }
+            else {
+                label.textAlignment = .Center
+            }
+            
             if (x.labels.values.count != 0) {
                 text = x.labels.values[index]
             } else {

@@ -363,7 +363,7 @@ class SASavingSummaryViewController: UIViewController {
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        
+       NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil) 
     }
     
     func heartBtnClicked(){

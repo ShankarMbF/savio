@@ -25,6 +25,7 @@ class NextButtonTableViewCell: UITableViewCell {
 //        nextButton.layer.shadowOpacity = 1
         nextButton.layer.cornerRadius = 5
         nextButton.backgroundColor = self.setUpColor()
+    btnVwBg.backgroundColor = self.setUpShadowColor()
 //    btnVwBg.backgroundColor = self.setUpColor()
     }
     

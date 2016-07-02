@@ -251,7 +251,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
 
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-      // print(objResponse)
+     
+      //  print(objResponse)
        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }

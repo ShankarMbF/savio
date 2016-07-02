@@ -16,7 +16,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
      var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
-    
+    var itemTitle = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!

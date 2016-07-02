@@ -323,13 +323,13 @@ class SASavingSummaryViewController: UIViewController {
         
         //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
-        lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
-
-        paymentLastDate.text = itemDataDict["payType"] as? String
+            lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
+        
+        lblMonth.text =  String(format: "£%@", itemDataDict["emi"] as! String)
         
         if(itemDataDict["day"] as? String == "date")
         {
-            lblMonth.text =  String(format: "Monthly £%@", itemDataDict["emi"] as! String)
+            paymentLastDate.text =  "Monthly"
             let dateComponents = NSDateComponents()
             dateComponents.month = 1
             let calender = NSCalendar.currentCalendar()
@@ -337,7 +337,7 @@ class SASavingSummaryViewController: UIViewController {
             lblNextDebit.text = dateFormatter.stringFromDate(newDate!)
         }
         else{
-            lblMonth.text = String(format: "Weekly £%@", itemDataDict["emi"] as! String)
+           paymentLastDate.text = "Weekly"
             let daysToAdd : Double = 7
             let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
             lblNextDebit.text = dateFormatter.stringFromDate(newDate)

@@ -26,6 +26,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     var objAnimView = ImageViewAnimation()
     var totalAmount : Float = 0.0
     var paidAmount : Float = 0.0
+    var planTitle = ""
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,9 +121,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     func setUpView(){
 
-        let str = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
 
-        var attrText = NSMutableAttributedString(string: str)
+        var attrText = NSMutableAttributedString(string: planTitle)
         
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
@@ -201,7 +202,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         if wishListArray.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = wishListArray
+            //objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
         else{
@@ -229,6 +230,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     @IBAction func clickOnStatButton(sender:UIButton){
         let obj = SAStatViewController()
+        obj.itemTitle = planTitle
         self.navigationController?.pushViewController(obj, animated: false)
     }
     
@@ -244,6 +246,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBAction func spendButtonPressed(sender: AnyObject) {
         
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
+        
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     

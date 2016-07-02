@@ -356,11 +356,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
         {
-            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+           if(str == "true")
+           { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }
-        else
-        {
+           }
+           else
+           {
             NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -375,7 +376,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
                 self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
             }
-       }
+            }
+        
+        }
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){

@@ -119,10 +119,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         if(itemDetailsDataDict["imageURL"] != nil)
         {
             let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            
+          //  print(itemDetailsDataDict)
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
             isFromWishList = true
+            itemTitle = itemDetailsDataDict["title"] as! String
+            cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             
         }
         else
@@ -699,7 +701,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
         if(itemDetailsDataDict["id"] != nil){
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! String
+        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         }
         
         if(itemDetailsDataDict["title"] != nil)
@@ -826,7 +828,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if(isFromWishList)
         {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "")
+            if(itemTitle != "" && cost != 0 && dateDiff != 0 && datePickerDate != "")
             {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()

@@ -40,7 +40,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         let data: [CGFloat] = [10,25,50,75,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        let xLabels: [String] = ["1'st Month","2nd Month","3rd Month","4th Month","5th Month"]
+        let xLabels: [String] = ["1st Month","2nd Month","3rd Month","4th Month","5th Month"]
 //        let xLabels: [String] = ["1'st Month","2nd Month"]
         
         lineChart = LineChart()

@@ -629,4 +629,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         objAnimView.removeFromSuperview()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
 }

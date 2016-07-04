@@ -923,6 +923,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
+            
             if(self.participantsArr.count > 0)
             {
                 self.participantsArr.removeAll()
@@ -957,4 +958,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
+    
+
 }

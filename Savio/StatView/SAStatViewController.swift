@@ -35,7 +35,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.contentView!.addSubview(label)
         views["label"] = label
         self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+       self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-80-[label]", options: [], metrics: nil, views: views))
         
         //   var data: [CGFloat] = [50, 30, 50, 113, 317, 50, 24,]
         let data: [CGFloat] = [10,25,50,75,100]

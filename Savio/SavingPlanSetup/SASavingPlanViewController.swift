@@ -477,6 +477,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else
             {
                 cell1.datePickerTextField.text = datePickerDate
+                
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
             
@@ -995,7 +996,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
@@ -1166,7 +1167,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.title = "Update Saving plan"
                 cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                 
-                datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                var pathComponents2 : NSArray!
+                pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")
+                
+                datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+      
                 
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
@@ -1334,6 +1339,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
+            objSummaryView.isUpdatePlan = true
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
         

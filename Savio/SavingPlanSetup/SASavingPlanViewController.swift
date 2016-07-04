@@ -111,10 +111,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
         //set Navigation left button
-        
-        if let vc = self.parentViewController
-        {
-            if let parentVC = vc as? SAMenuViewController {
+  
+            if (isUpdatePlan) {
                 let leftBtnName = UIButton()
                 leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
                 leftBtnName.frame = CGRectMake(0, 0, 30, 30)
@@ -135,7 +133,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 leftBarButton.customView = leftBtnName
                 self.navigationItem.leftBarButtonItem = leftBarButton
             }
-        }
        
         
         //set Navigation right button nav-heart
@@ -1134,7 +1131,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            itemDetailsDataDict["imageURL"] = base64String
+            //itemDetailsDataDict["imageURL"] = base64String
         }
         
     }
@@ -1177,7 +1174,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 topBackgroundImageView.image = UIImage(data: data)
                 
                 offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
-                self.setUpView()
                 tblView.reloadData()
                 
             }

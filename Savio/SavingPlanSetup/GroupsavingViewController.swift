@@ -61,6 +61,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
+        if let array =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
+        {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
         
     }
     
@@ -924,6 +929,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
+            
             if(self.participantsArr.count > 0)
             {
                 self.participantsArr.removeAll()
@@ -958,4 +964,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
+    
+
 }

@@ -123,6 +123,35 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         return textField.resignFirstResponder()
     }
     
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            //UIViewAnimation for moving screen little bit up
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            self.view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-30), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+        }
+        return true
+    }
+    
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            self.view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+        }
+
+        return true
+    }
+
     @IBAction func rightButtonPressed(sender: AnyObject) {
         let imgString = self.dictGlobal["image"] as! String
         let arrayImgUrl:  Array? = imgString.componentsSeparatedByString("#~@")   // #~@ taken from ShareExtensio.js file
@@ -193,6 +222,16 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     func doneBarButtonPressed() {
         priceTextField.resignFirstResponder()
+        if(UIScreen.mainScreen().bounds.size.height == 480)
+        {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDelegate(self)
+            UIView.setAnimationDuration(0.5)
+            UIView.setAnimationBeginsFromCurrentState(true)
+            self.view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
+            UIView.commitAnimations()
+        }
+        
         if((priceTextField.text! as NSString).floatValue > 3000)
         {
             

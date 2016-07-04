@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
@@ -204,6 +204,7 @@
                         <constraint firstItem="3mQ-sn-Pop" firstAttribute="top" secondItem="ZaU-r2-ec3" secondAttribute="bottom" id="e8l-Gn-M9G"/>
                         <constraint firstAttribute="trailing" secondItem="3mQ-sn-Pop" secondAttribute="trailing" constant="30" id="fxj-85-8UH"/>
                         <constraint firstAttribute="trailing" secondItem="ZaU-r2-ec3" secondAttribute="trailing" id="h13-hh-i9Q"/>
+                        <constraint firstItem="9v4-mA-xGM" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" constant="30" id="hnX-bk-WP1"/>
                         <constraint firstAttribute="height" constant="120" id="j3G-GW-cyK"/>
                         <constraint firstItem="ZaU-r2-ec3" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" id="lCr-wF-6Xa"/>
                         <constraint firstItem="9v4-mA-xGM" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" constant="30" id="rL7-8Z-2yV"/>

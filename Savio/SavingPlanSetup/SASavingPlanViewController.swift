@@ -111,14 +111,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
         //set Navigation left button
-        let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
         
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = leftBtnName
-        self.navigationItem.leftBarButtonItem = leftBarButton
+        if let vc = self.parentViewController
+        {
+            if let parentVC = vc as? SAMenuViewController {
+                let leftBtnName = UIButton()
+                leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+                leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+                
+                let leftBarButton = UIBarButtonItem()
+                leftBarButton.customView = leftBtnName
+                self.navigationItem.leftBarButtonItem = leftBarButton
+                
+            } else  {
+        
+                let leftBtnName = UIButton()
+                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+                leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+                
+                let leftBarButton = UIBarButtonItem()
+                leftBarButton.customView = leftBtnName
+                self.navigationItem.leftBarButtonItem = leftBarButton
+            }
+        }
+       
         
         //set Navigation right button nav-heart
         
@@ -206,6 +224,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
+    //MARK: Bar button action
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+    }
     
     
     func heartBtnClicked(){
@@ -229,6 +251,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             alert.show()
         }
     }
+    
+    func backButtonClicked()
+    {
+        
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
+    
+    
     func setUpColor()-> UIColor
     {
         var red : CGFloat = 0.0
@@ -288,13 +320,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
     
-    
-    func backButtonClicked()
-    {
-        
-        self.navigationController?.popViewControllerAnimated(true)
-        
-    }
+
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
         
@@ -1151,6 +1177,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 topBackgroundImageView.image = UIImage(data: data)
                 
                 offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+                self.setUpView()
                 tblView.reloadData()
                 
             }

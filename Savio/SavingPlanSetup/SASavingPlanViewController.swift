@@ -1296,7 +1296,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       // print(objResponse)
         
         if let message = objResponse["message"] as? String
         {

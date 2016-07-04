@@ -89,7 +89,7 @@ class SASavingSummaryViewController: UIViewController {
     @IBAction func btnContinueClicked(sender: AnyObject) {
         if(isUpdatePlan)
         {
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "Your saving plan is updated successfully", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

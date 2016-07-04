@@ -55,7 +55,7 @@ public class LineChart: UIView {
         public var visible: Bool = true
         // #607d8b
         public var color: UIColor = UIColor(red: 96/255.0, green: 125/255.0, blue: 139/255.0, alpha: 1)
-        public var inset: CGFloat = 15
+        public var inset: CGFloat = 20
     }
     
     public struct Coordinate {
@@ -338,10 +338,10 @@ public class LineChart: UIView {
         path.addLineToPoint(CGPoint(x: width + x.axis.inset , y: y0))
         path.stroke()
         // draw y-axis
-//        y.axis.color.setStroke()
-//        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
-//        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
-//        path.stroke()
+        y.axis.color.setStroke()
+        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
+        path.stroke()
     }
     
     
@@ -501,7 +501,7 @@ public class LineChart: UIView {
      */
     private func drawXLabels() {
         let xAxisData = self.dataStore[0]
-        let y = self.bounds.height - x.axis.inset
+        let y = self.bounds.height - x.axis.inset + 4 // 4 added for giving space to supercript
         let (_, _, step) = x.linear.ticks(xAxisData.count)
         let width = x.scale(step)
         
@@ -509,14 +509,28 @@ public class LineChart: UIView {
         for (index, _) in xAxisData.enumerate() {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - (width / 2)
             let label = UILabel(frame: CGRect(x: xValue, y: y, width: width, height: x.axis.inset))
-            label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
-            label.textAlignment = .Center
+            if index == 0 {
+                label.textAlignment = .Right
+            }
+            else  if index == xAxisData.count - 1 {
+                label.textAlignment = .Left
+            }
+            else {
+                label.textAlignment = .Center
+            }
+            
             if (x.labels.values.count != 0) {
                 text = x.labels.values[index]
             } else {
                 text = String(index)
             }
-            label.text = text
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 12)!])
+           
+            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:6)
+
+            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:10], range: NSRange(location:1,length:2))
+        
+            label.attributedText = attString
             self.addSubview(label)
         }
     }

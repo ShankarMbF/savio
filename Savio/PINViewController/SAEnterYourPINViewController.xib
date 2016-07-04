@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Light.otf">
@@ -23,6 +23,7 @@
             <connections>
                 <outlet property="btnCancel" destination="yO2-Dv-Fci" id="sbz-I7-Fsk"/>
                 <outlet property="btnForgottPasscode" destination="YRO-Ha-Z4h" id="Eme-Fg-pIa"/>
+                <outlet property="btnVwBg" destination="XRg-0T-Rrk" id="02k-Wr-awq"/>
                 <outlet property="enterPasscodeTextField" destination="ajo-fL-EaP" id="P0l-6N-IgH"/>
                 <outlet property="errorLabel" destination="hME-bb-vkK" id="cCS-Fu-FAT"/>
                 <outlet property="forgotPasscodeButton" destination="YRO-Ha-Z4h" id="5AQ-qV-oXj"/>
@@ -58,6 +59,13 @@
                         <outlet property="delegate" destination="-1" id="uor-O1-450"/>
                     </connections>
                 </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRg-0T-Rrk">
+                    <rect key="frame" x="30" y="209" width="540" height="45"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="N0G-RJ-4Wc"/>
+                    </constraints>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLD-AK-Fy3">
                     <rect key="frame" x="30" y="209" width="540" height="40"/>
                     <color key="backgroundColor" red="0.36470588235294116" green="0.37254901960784315" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -165,11 +173,14 @@
                 <constraint firstItem="uH3-CJ-3vG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2YC-Mf-lvc"/>
                 <constraint firstItem="ajo-fL-EaP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="4Ja-Ty-ahV"/>
                 <constraint firstAttribute="trailing" secondItem="oLD-AK-Fy3" secondAttribute="trailing" constant="30" id="5hl-8q-orw"/>
+                <constraint firstAttribute="trailing" secondItem="XRg-0T-Rrk" secondAttribute="trailing" constant="30" id="GZa-Oy-Qav"/>
                 <constraint firstItem="yO2-Dv-Fci" firstAttribute="top" secondItem="1ng-Ts-N3O" secondAttribute="bottom" constant="32" id="L8L-BW-n1k"/>
+                <constraint firstItem="XRg-0T-Rrk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Mcg-zc-hJy"/>
                 <constraint firstItem="1ng-Ts-N3O" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Nnp-5x-fI1"/>
                 <constraint firstItem="oLD-AK-Fy3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="Val-6v-2xL"/>
                 <constraint firstItem="hME-bb-vkK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aCg-D1-9Au"/>
                 <constraint firstItem="oLD-AK-Fy3" firstAttribute="top" secondItem="ajo-fL-EaP" secondAttribute="bottom" constant="23" id="bdZ-0f-Nfb"/>
+                <constraint firstItem="XRg-0T-Rrk" firstAttribute="top" secondItem="ajo-fL-EaP" secondAttribute="bottom" constant="23" id="gFm-eg-bGT"/>
                 <constraint firstItem="ajo-fL-EaP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hMl-Jz-hUe"/>
                 <constraint firstItem="1ng-Ts-N3O" firstAttribute="top" secondItem="YRO-Ha-Z4h" secondAttribute="bottom" constant="31" id="hZ3-0N-1sh"/>
                 <constraint firstItem="ajo-fL-EaP" firstAttribute="top" secondItem="hME-bb-vkK" secondAttribute="bottom" constant="5" id="k1Y-bE-ood"/>

@@ -16,7 +16,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
      var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
-    
+    var itemTitle = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
@@ -40,7 +40,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         let data: [CGFloat] = [10,25,50,75,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        let xLabels: [String] = ["1'st Month","2nd Month","3rd Month","4th Month","5th Month"]
+        let xLabels: [String] = ["1st Month","2nd Month","3rd Month","4th Month","5th Month"]
 //        let xLabels: [String] = ["1'st Month","2nd Month"]
         
         lineChart = LineChart()
@@ -52,7 +52,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         lineChart.x.grid.visible = true
         lineChart.y.grid.visible = true
         
-        
         // hide dots visiblety in line chart
         // lineChart.dots.visible = false
         
@@ -63,7 +62,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         lineChart.y.grid.color = UIColor.grayColor()
         
         lineChart.x.labels.values = xLabels
-        lineChart.y.labels.visible = false
+        lineChart.y.labels.visible = true
         
 //        for var i = 0; i < xLabels.count; i++ {
 //            if i%2 == 0 {
@@ -96,16 +95,15 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     
     func setUpView(){
         
-        
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.title = "My Plan"
          planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
-        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
-        makeImpulseBtn!.layer.shadowOpacity = 1
-        makeImpulseBtn!.layer.cornerRadius = 5
+//        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
+//        makeImpulseBtn!.layer.shadowOpacity = 1
+//        makeImpulseBtn!.layer.cornerRadius = 5
 
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -136,10 +134,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
-            NSUserDefaults.standardUserDefaults().setObject(wishListArray, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            
+
             if(wishListArray.count > 0)
             {
                 

@@ -38,10 +38,10 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         self.addShadowView()
     }
     func addShadowView(){
-        inviteButton?.layer.cornerRadius = 2.0
-        inviteButton!.layer.shadowColor = UIColor(red: 114/256, green: 177/256, blue: 237/256, alpha: 1.0).CGColor
-        inviteButton!.layer.shadowOffset = CGSize(width: 0, height:3)
-        inviteButton!.layer.shadowOpacity = 1
+        inviteButton?.layer.cornerRadius = 5.0
+//        inviteButton!.layer.shadowColor = UIColor(red: 114/256, green: 177/256, blue: 237/256, alpha: 1.0).CGColor
+//        inviteButton!.layer.shadowOffset = CGSize(width: 0, height:3)
+//        inviteButton!.layer.shadowOpacity = 1
         inviteButton!.layer.masksToBounds = false
     }
     

@@ -35,9 +35,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         //Set input accessory view to the UITextfield
         fiveDigitTextField.inputAccessoryView = toolbar
         
-        gotItButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        gotItButton.layer.shadowOffset = CGSizeMake(0, 4)
-        gotItButton.layer.shadowOpacity = 1
+//        gotItButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        gotItButton.layer.shadowOffset = CGSizeMake(0, 4)
+//        gotItButton.layer.shadowOpacity = 1
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>

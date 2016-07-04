@@ -31,9 +31,9 @@ class WishListTableViewCell: UITableViewCell {
         btnDelete?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
         
         //Set Shadow to saving plan button
-        btnSavingPlan!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        btnSavingPlan!.layer.shadowOffset = CGSizeMake(0, 2)
-        btnSavingPlan!.layer.shadowOpacity = 1
+//        btnSavingPlan!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        btnSavingPlan!.layer.shadowOffset = CGSizeMake(0, 2)
+//        btnSavingPlan!.layer.shadowOpacity = 1
         btnSavingPlan!.layer.cornerRadius = 5
         
         //set border to uiview

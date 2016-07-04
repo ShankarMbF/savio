@@ -45,9 +45,9 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         reEnterFourDigitPIN.inputAccessoryView = toolBar
         
         //Add shadowcolor to confirmPIN
-        confirmPIN.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        confirmPIN.layer.shadowOffset = CGSizeMake(0, 4)
-        confirmPIN.layer.shadowOpacity = 1
+//        confirmPIN.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        confirmPIN.layer.shadowOffset = CGSizeMake(0, 4)
+//        confirmPIN.layer.shadowOpacity = 1
         confirmPIN.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
@@ -67,9 +67,14 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
-        if (newLength > 4) {
+        if (newLength == 5) {
+            
+            enterFourDigitPIN.resignFirstResponder()
+            reEnterFourDigitPIN.becomeFirstResponder()
             return false;
         }
+        
+
         return true;
     }
     
@@ -212,7 +217,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             backButton.hidden = true
             confirmPIN .setTitle("Got It", forState: UIControlState.Normal)
             backgroundScrollView.contentOffset = CGPointMake(0, 0)
-            
         }
         
     }

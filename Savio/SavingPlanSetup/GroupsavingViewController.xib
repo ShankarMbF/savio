@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="cameraButton" destination="JzU-xa-etS" id="nDj-Yn-dUx"/>
                 <outlet property="contentView" destination="utt-4l-toQ" id="vqn-2n-Nvd"/>
+                <outlet property="contentViewHt" destination="OQ5-pq-RXn" id="SJw-DX-JNx"/>
                 <outlet property="savingPlanTitleLabel" destination="eqD-re-6hS" id="zyA-9h-ePX"/>
                 <outlet property="scrlView" destination="bZg-DJ-1R2" id="WAr-qu-Gvf"/>
                 <outlet property="tblView" destination="umo-dj-Tjc" id="adQ-td-as7"/>
@@ -31,7 +32,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utt-4l-toQ">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="630"/>
                             <subviews>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umo-dj-Tjc">
                                     <rect key="frame" x="35" y="200" width="530" height="500"/>
@@ -104,7 +105,7 @@
                                 <constraint firstItem="6Ub-W7-mUI" firstAttribute="top" secondItem="utt-4l-toQ" secondAttribute="top" id="3mb-GC-qMS"/>
                                 <constraint firstItem="umo-dj-Tjc" firstAttribute="top" secondItem="6Ub-W7-mUI" secondAttribute="bottom" constant="8" id="3sY-ph-Ofy"/>
                                 <constraint firstAttribute="height" constant="600" id="DOw-VY-uDv"/>
-                                <constraint firstAttribute="height" constant="1000" id="OQ5-pq-RXn"/>
+                                <constraint firstAttribute="height" constant="630" id="OQ5-pq-RXn"/>
                                 <constraint firstItem="6Ub-W7-mUI" firstAttribute="leading" secondItem="utt-4l-toQ" secondAttribute="leading" id="Pek-O7-44c"/>
                                 <constraint firstAttribute="trailing" secondItem="umo-dj-Tjc" secondAttribute="trailing" constant="35" id="Wnw-xG-m43"/>
                                 <constraint firstItem="umo-dj-Tjc" firstAttribute="leading" secondItem="utt-4l-toQ" secondAttribute="leading" constant="35" id="a20-YL-DzY"/>

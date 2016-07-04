@@ -40,9 +40,9 @@ class SAOfferListTableViewCell: UITableViewCell {
         
         btnOfferDetail?.setTitleColor(self.setUpColor(), forState: UIControlState.Normal)
         //Set Shadow to saving plan button
-        btnAddOffer!.layer.shadowColor = self.setUpShadowColor().CGColor
-        btnAddOffer!.layer.shadowOffset = CGSizeMake(0, 2)
-        btnAddOffer!.layer.shadowOpacity = 1
+//        btnAddOffer!.layer.shadowColor = self.setUpShadowColor().CGColor
+//        btnAddOffer!.layer.shadowOffset = CGSizeMake(0, 2)
+//        btnAddOffer!.layer.shadowOpacity = 1
         btnAddOffer!.layer.cornerRadius = 5
         
         let attributes = [

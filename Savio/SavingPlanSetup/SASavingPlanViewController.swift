@@ -35,6 +35,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isClearPressed = false
     var isUpdatePlan = false
     
+    var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
     
@@ -111,9 +112,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -160,6 +161,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
+            itemTitle = (itemDetailsDataDict["title"] as? String)!
+            cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             
         }
         else
@@ -199,7 +202,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             self.cameraButton.hidden = false
         }
-
+        
         
     }
     
@@ -286,16 +289,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     
-    func menuButtonClicked()
+    func backButtonClicked()
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
-        //        if offerArr.count > 0{
-        //            let obj = SAOfferListViewController()
-        //            obj.delegate = self
-        //            self.navigationController?.pushViewController(obj, animated: true)
-        //        }else{
-        //            self.navigationController?.popViewControllerAnimated(true)
-        //        }
+        
+        self.navigationController?.popViewControllerAnimated(true)
+        
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
@@ -306,12 +304,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                imagePicker.allowsEditing = true
                 
-                self.presentViewController(imagePicker, animated: true, completion: nil)
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
@@ -322,12 +320,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                imagePicker.allowsEditing = true
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
                 
-                self.presentViewController(imagePicker, animated: true, completion: nil)
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
@@ -435,8 +432,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
             
-            cell1.datePickerTextField.text = datePickerDate
-            cell1.datePickerTextField.textColor = UIColor.whiteColor()
+            if(datePickerDate == "")
+            {
+                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                let currentDate: NSDate = NSDate()
+                let components: NSDateComponents = NSDateComponents()
+                
+                components.day = +7
+                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+                
+                let dateComponents = NSDateComponents()
+                dateComponents.month = 1
+                let calender = NSCalendar.currentCalendar()
+                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+                
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                cell1.datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
+            }
+            else
+            {
+                cell1.datePickerTextField.text = datePickerDate
+                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+            }
+            
+            
             
             if(isClearPressed)
             {
@@ -572,7 +593,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     dateDiff = Int(timeDifference/3600)
                     
-                  
+                    
                     if(payType == "Month")
                     {
                         if((dateDiff/168) == 1)
@@ -598,7 +619,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         
                         
                     }
-
+                    
                 }
                 
                 
@@ -844,7 +865,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 parameterDict["imageURL"] = base64String
             }
             else{
-                parameterDict["imageURL"] = nil
+                parameterDict["imageURL"] = ""
             }
         }
         
@@ -861,7 +882,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             var pathComponents2 : NSArray!
             pathComponents2 = dateStr.componentsSeparatedByString("-")
-     
+            
             parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         }
         
@@ -931,7 +952,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(itemDetailsDataDict["title"] == nil)
                 {
                     objAPI.partySavingPlanDelegate = self
+                    print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                    
                 }
                 else if(isUpdatePlan)
                 {
@@ -949,7 +972,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
@@ -977,11 +1000,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
+                    
+                    
                     objAPI.updateSavingPlan(newDict)
-          
+                    
                 }
                 else
                 {
+                    
                     objAPI.partySavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
@@ -992,6 +1018,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+                    
                     
                 }
                 
@@ -1034,7 +1061,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else
             {
-                obj.savID = imageDataDict["savPlanID"] as! NSNumber
+                if let  str = imageDataDict["savPlanID"] as? NSNumber{
+                    obj.savID = imageDataDict["savPlanID"] as! NSNumber
+                }
+                else
+                {
+                    obj.savID = Int(imageDataDict["savPlanID"] as! String)!
+                }
                 
             }
             self.navigationController?.pushViewController(obj, animated: true)
@@ -1058,7 +1091,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
-
+        
     }
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
@@ -1068,8 +1101,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
-        topBackgroundImageView?.image = (info[UIImagePickerControllerCropRect] as? UIImage)
+        topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
+        
         if(isUpdatePlan)
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
@@ -1094,25 +1128,25 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
-                    tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
-                    cameraButton.backgroundColor = UIColor.blackColor()
-                    cameraButton.alpha = 0.5
-                    cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
-                    
-                    cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
-                    
-                    let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
-                    cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
-                    
-                    itemTitle = itemDetailsDataDict["title"] as! String
-                    
-                    
-                    cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
-                    
-                    datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
+                cameraButton.backgroundColor = UIColor.blackColor()
+                cameraButton.alpha = 0.5
+                cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
                 
-                    popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
-         
+                cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
+                
+                let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
+                cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
+                
+                itemTitle = itemDetailsDataDict["title"] as! String
+                
+                self.title = "Update Saving plan"
+                cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
+                
+                datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                
+                popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
+                
                 let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBackgroundImageView.image = UIImage(data: data)
                 
@@ -1203,8 +1237,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 objSummaryView.itemDataDict =  dict
                 self.navigationController?.pushViewController(objSummaryView, animated: true)
             }
+            else
+            {
+                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
         }
         else if let message = objResponse["internalMessage"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if let message = objResponse["error"] as? String
         {
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -1248,7 +1292,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             
             dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
-
+            
             if(dateString == "day")
             {
                 dict["emi"] = String(format:"%d",cost/(dateDiff/168))

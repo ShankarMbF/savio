@@ -67,9 +67,14 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
-        if (newLength > 4) {
+        if (newLength == 5) {
+            
+            enterFourDigitPIN.resignFirstResponder()
+            reEnterFourDigitPIN.becomeFirstResponder()
             return false;
         }
+        
+
         return true;
     }
     

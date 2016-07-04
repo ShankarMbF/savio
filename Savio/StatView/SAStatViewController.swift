@@ -102,10 +102,10 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.title = "My Plan"
          planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
-        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
-        makeImpulseBtn!.layer.shadowOpacity = 1
-        makeImpulseBtn!.layer.cornerRadius = 5
+//        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
+//        makeImpulseBtn!.layer.shadowOpacity = 1
+//        makeImpulseBtn!.layer.cornerRadius = 5
 
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)

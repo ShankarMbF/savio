@@ -27,7 +27,8 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         
         self.setUpView()
         
-        label.text = "Current Value"
+        label.text = itemTitle
+        label.font = UIFont(name: "GothamRounded-Book", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = NSTextAlignment.Center
         self.contentView!.addSubview(label)
@@ -99,7 +100,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 //        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
 //        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
 //        makeImpulseBtn!.layer.shadowOpacity = 1
-//        makeImpulseBtn!.layer.cornerRadius = 5
+        makeImpulseBtn!.layer.cornerRadius = 5
 
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)

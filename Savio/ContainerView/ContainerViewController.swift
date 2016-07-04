@@ -104,7 +104,9 @@ class ContainerViewController: UIViewController {
             self.centreVC = obj
             
             self.replaceViewController()
-            
+        case "SASettingsViewController":
+            self.centreVC = SASettingsViewController(nibName: "SASettingsViewController", bundle: nil)
+            self.replaceViewController()
         case "SignOut":
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 

@@ -242,6 +242,8 @@
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
 		A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897514C1CEF099500F122AD /* CreatePINViewController.swift */; };
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
+		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
+		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
 		A8AB1C751D05A900002F68F5 /* OfferTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */; };
 		A8AEA9421CFFF1DE0069F22A /* NextButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */; };
@@ -779,6 +781,8 @@
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
 		A897514C1CEF099500F122AD /* CreatePINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePINViewController.swift; sourceTree = "<group>"; };
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
+		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
+		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
 		A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NextButtonTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1425,6 +1429,15 @@
 			path = PINViewController;
 			sourceTree = "<group>";
 		};
+		A8A0B1351D2A86CA001A6CB0 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */,
+				A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		A8BDCBA81D05557500D4C47B /* setupSavingPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -1781,6 +1794,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				C94CB9871D213E7D0040E150 /* StatView */,
 				C94CB9841D2138740040E150 /* LineChart */,
 				A86F06401D1D15A600E1D821 /* SpendView */,
@@ -2178,6 +2192,7 @@
 				C9ED802F1D1BC38A00058A96 /* menu-active-settings.png in Resources */,
 				C975A92D1D01952900184C8C /* generic-category-icon.png in Resources */,
 				A8095C701CEDC617006366F7 /* pre-loader@3x7.png in Resources */,
+				A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
@@ -2524,6 +2539,7 @@
 				C95CD6181CF2C92100013200 /* DPDKeyboardListener.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
+				A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */,
 				C97949781CEC987900416BD5 /* FontCodes.swift in Sources */,
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,

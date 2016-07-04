@@ -111,14 +111,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
         //set Navigation left button
-        let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+  
+            if (isUpdatePlan) {
+                let leftBtnName = UIButton()
+                leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+                leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+                
+                let leftBarButton = UIBarButtonItem()
+                leftBarButton.customView = leftBtnName
+                self.navigationItem.leftBarButtonItem = leftBarButton
+                
+            } else  {
         
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = leftBtnName
-        self.navigationItem.leftBarButtonItem = leftBarButton
+                let leftBtnName = UIButton()
+                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+                leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+                
+                let leftBarButton = UIBarButtonItem()
+                leftBarButton.customView = leftBtnName
+                self.navigationItem.leftBarButtonItem = leftBarButton
+            }
+       
         
         //set Navigation right button nav-heart
         
@@ -206,6 +221,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
+    //MARK: Bar button action
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+    }
     
     
     func heartBtnClicked(){
@@ -229,6 +248,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             alert.show()
         }
     }
+    
+    func backButtonClicked()
+    {
+        
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
+    
+    
     func setUpColor()-> UIColor
     {
         var red : CGFloat = 0.0
@@ -288,13 +317,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
     
-    
-    func backButtonClicked()
-    {
-        
-        self.navigationController?.popViewControllerAnimated(true)
-        
-    }
+
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
         
@@ -454,6 +477,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else
             {
                 cell1.datePickerTextField.text = datePickerDate
+                
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
             
@@ -972,7 +996,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
@@ -1108,7 +1132,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            itemDetailsDataDict["imageURL"] = base64String
+            //itemDetailsDataDict["imageURL"] = base64String
         }
         
     }
@@ -1143,7 +1167,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.title = "Update Saving plan"
                 cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                 
-                datePickerDate = itemDetailsDataDict["planEndDate"] as! String
+                var pathComponents2 : NSArray!
+                pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")
+                
+                datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+      
                 
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
@@ -1268,7 +1296,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       // print(objResponse)
         
         if let message = objResponse["message"] as? String
         {
@@ -1311,6 +1339,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
+            objSummaryView.isUpdatePlan = true
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
         

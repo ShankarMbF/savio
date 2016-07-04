@@ -130,6 +130,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else
         {
             self.cameraButton.hidden = false
+            topBgImageView.image = UIImage(named: "groupsave-setup-bg.png")
            // addAPhotoLabel.hidden = false
         }
         

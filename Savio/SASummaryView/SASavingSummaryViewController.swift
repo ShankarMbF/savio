@@ -57,8 +57,8 @@ class SASavingSummaryViewController: UIViewController {
     @IBOutlet weak var lblContact7: UILabel?
     
     
-//    @IBOutlet weak var lblName1: UILabel?
-//    @IBOutlet weak var lblContact1: UILabel?
+    //    @IBOutlet weak var lblName1: UILabel?
+    //    @IBOutlet weak var lblContact1: UILabel?
     
     var indexId : Int = 0
     var colorDataDict : Dictionary<String,AnyObject> = [:]
@@ -70,7 +70,8 @@ class SASavingSummaryViewController: UIViewController {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
     @IBOutlet weak var summaryViewHt: NSLayoutConstraint!
-
+    var isUpdatePlan = false
+    
     @IBOutlet weak var groupViewHt: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -86,8 +87,16 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     @IBAction func btnContinueClicked(sender: AnyObject) {
-        let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        if(isUpdatePlan)
+        {
+            let alert = UIAlertView(title: "Alert", message: "Your saving plan is updated successfully", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     func setUpView(){
@@ -139,76 +148,76 @@ class SASavingSummaryViewController: UIViewController {
         groupViewHt.constant = 0.0
         if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
         {
-     
-        
-       
-        
-//        let ct:CGFloat = 2
-        if arr.count > 0 {
-            let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
-//            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
-            groupViewHt.constant = ht + 10
-            summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
-            htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
             
-            for i in 0 ..< arr.count {
-                let dict = arr[i] as Dictionary<String, AnyObject>
-                var contactStr = ""
-                if dict["mobile_number"] != nil &&  dict["mobile_number"] as! String != "" {
-                    contactStr = dict["mobile_number"] as! String
-                }
-                else {
-                    contactStr = dict["email_id"] as! String
-                }
+            
+            
+            
+            //        let ct:CGFloat = 2
+            if arr.count > 0 {
+                let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
+                //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
+                groupViewHt.constant = ht + 10
+                summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
+                htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
                 
-                
-                switch i {
-                case 0:
-                    lblName1?.hidden = false
-                    lblContact1?.hidden = false
-                    lblName1?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact1?.text = contactStr
+                for i in 0 ..< arr.count {
+                    let dict = arr[i] as Dictionary<String, AnyObject>
+                    var contactStr = ""
+                    if dict["mobile_number"] != nil &&  dict["mobile_number"] as! String != "" {
+                        contactStr = dict["mobile_number"] as! String
+                    }
+                    else {
+                        contactStr = dict["email_id"] as! String
+                    }
                     
-                case 1:
-                    lblName2?.hidden = false
-                    lblContact2?.hidden = false
-                    lblName2?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact2?.text = contactStr
                     
-                case 2:
-                    lblName3?.hidden = false
-                    lblContact3?.hidden = false
-                    lblName3?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact3?.text = contactStr
-                    
-                case 3:
-                    lblName4?.hidden = false
-                    lblContact4?.hidden = false
-                    lblName4?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact4?.text = contactStr
-                    
-                case 4:
-                    lblName5?.hidden = false
-                    lblContact5?.hidden = false
-                    lblName5?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact5?.text = contactStr
-                    
-                case 5:
-                    lblName6?.hidden = false
-                    lblContact6?.hidden = false
-                    lblName6?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact6?.text = contactStr
-                    
-                case 6:
-                    lblName7?.hidden = false
-                    lblContact7?.hidden = false
-                    lblName7?.text = String(format: "%@ - ",dict["first_name"] as! String)
-                    lblContact7?.text = contactStr
-                    
-                 default: print("Default Line Reached")
+                    switch i {
+                    case 0:
+                        lblName1?.hidden = false
+                        lblContact1?.hidden = false
+                        lblName1?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact1?.text = contactStr
+                        
+                    case 1:
+                        lblName2?.hidden = false
+                        lblContact2?.hidden = false
+                        lblName2?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact2?.text = contactStr
+                        
+                    case 2:
+                        lblName3?.hidden = false
+                        lblContact3?.hidden = false
+                        lblName3?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact3?.text = contactStr
+                        
+                    case 3:
+                        lblName4?.hidden = false
+                        lblContact4?.hidden = false
+                        lblName4?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact4?.text = contactStr
+                        
+                    case 4:
+                        lblName5?.hidden = false
+                        lblContact5?.hidden = false
+                        lblName5?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact5?.text = contactStr
+                        
+                    case 5:
+                        lblName6?.hidden = false
+                        lblContact6?.hidden = false
+                        lblName6?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact6?.text = contactStr
+                        
+                    case 6:
+                        lblName7?.hidden = false
+                        lblContact7?.hidden = false
+                        lblName7?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                        lblContact7?.text = contactStr
+                        
+                    default: print("Default Line Reached")
+                    }
                 }
             }
-        }
         }
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
@@ -225,7 +234,7 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
             
-           let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+            let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
             
             NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -239,7 +248,7 @@ class SASavingSummaryViewController: UIViewController {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
-
+            
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
         
@@ -259,47 +268,50 @@ class SASavingSummaryViewController: UIViewController {
         topSpaceForContinue.constant = 30
         htOfferView.constant = 0
         if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
-//        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
-        let offerCount = 0
-        for var i=0; i<arrOff.count; i++ {
-            
-            lblOffer?.hidden = false
-            // Load the TestView view.
-            let testView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
-            // Set its frame and data to pageview
-            testView.frame = CGRectMake(0, (CGFloat(i) * testView.frame.size.height) + 30, testView.frame.size.width - 60, testView.frame.size.height)
-            vwOffer?.addSubview(testView)
-            testView.layer.borderColor = UIColor.blackColor().CGColor
-            testView.layer.borderWidth = 1.0
-            testView.backgroundColor = UIColor.lightGrayColor()
-            htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
-            htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
-            topSpaceForContinue.constant = 80
-            scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
-            let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
-            let lblTitle = testView.viewWithTag(1)! as! UILabel
-            lblTitle.text = objDict["offCompanyName"] as? String
-            lblTitle.hidden = false
-            
-            let lblDetail = testView.viewWithTag(2)! as! UILabel
-            lblDetail.text = objDict["offTitle"] as? String
-            
-            let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
-            lblOfferDetail.text = objDict["offDesc"] as? String
-            
-            
-            let urlStr = objDict["offImage"] as! String
-            let url = NSURL(string: urlStr)
-            let bgImageView = testView.viewWithTag(4) as! UIImageView
-            let request: NSURLRequest = NSURLRequest(URL: url!)
-//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//                let image = UIImage(data: data!)
-//                //                self.imageCache[unwrappedImage] = image
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    bgImageView.image = image
-//                })
-//            })
-        }
+            //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
+            let offerCount = 0
+            for var i=0; i<arrOff.count; i++ {
+                
+                lblOffer?.hidden = false
+                // Load the TestView view.
+                let testView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
+                // Set its frame and data to pageview
+                testView.frame = CGRectMake(0, (CGFloat(i) * testView.frame.size.height) + 30, testView.frame.size.width - 60, testView.frame.size.height)
+                vwOffer?.addSubview(testView)
+                testView.layer.borderColor = UIColor.blackColor().CGColor
+                testView.layer.borderWidth = 1.0
+                testView.backgroundColor = UIColor.lightGrayColor()
+                htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
+                htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
+                topSpaceForContinue.constant = 80
+                scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
+                let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
+                let lblTitle = testView.viewWithTag(1)! as! UILabel
+                lblTitle.text = objDict["offCompanyName"] as? String
+                lblTitle.hidden = false
+                
+                let lblDetail = testView.viewWithTag(2)! as! UILabel
+                lblDetail.text = objDict["offTitle"] as? String
+                
+                let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
+                lblOfferDetail.text = objDict["offDesc"] as? String
+                
+                
+                if let urlStr = objDict["offImage"] as? String
+                {
+                let urlStr = urlStr
+                let url = NSURL(string: urlStr)
+                let bgImageView = testView.viewWithTag(4) as! UIImageView
+                let request: NSURLRequest = NSURLRequest(URL: url!)
+                //            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                //                let image = UIImage(data: data!)
+                //                //                self.imageCache[unwrappedImage] = image
+                //                dispatch_async(dispatch_get_main_queue(), {
+                //                    bgImageView.image = image
+                //                })
+                //            })
+            }
+            }
         }
         lblTitle.text = itemDataDict["title"] as? String
         if let amount = itemDataDict["amount"] as? String
@@ -319,11 +331,11 @@ class SASavingSummaryViewController: UIViewController {
         }
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-
+        
         
         //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         
-            lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
+        lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
         
         lblMonth.text =  String(format: "£%@", itemDataDict["emi"] as! String)
         
@@ -334,16 +346,24 @@ class SASavingSummaryViewController: UIViewController {
             dateComponents.month = 1
             let calender = NSCalendar.currentCalendar()
             let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-            lblNextDebit.text = dateFormatter.stringFromDate(newDate!)
+            
+            var pathComponents2 : NSArray!
+            pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
+
+            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
         }
         else{
-           paymentLastDate.text = "Weekly"
+            paymentLastDate.text = "Weekly"
             let daysToAdd : Double = 7
             let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
-            lblNextDebit.text = dateFormatter.stringFromDate(newDate)
+            var pathComponents2 : NSArray!
+            pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString("-")
+            
+            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+
         }
-}
-   
+    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -363,7 +383,7 @@ class SASavingSummaryViewController: UIViewController {
     
     //MARK: Bar button action
     func menuButtonClicked(){
-       NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil) 
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){

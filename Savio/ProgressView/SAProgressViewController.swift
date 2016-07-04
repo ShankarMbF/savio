@@ -252,13 +252,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-       // print(objResponse)
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "SUCCESS")
             {
                 savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
-                
                 self.setUpView()
             }
             else

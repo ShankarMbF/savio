@@ -18,6 +18,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     
+    @IBOutlet weak var contentViewHt: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     var cost : Int = 0
@@ -118,10 +119,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         if(itemDetailsDataDict["imageURL"] != nil)
         {
             let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            
+          //  print(itemDetailsDataDict)
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
             isFromWishList = true
+            itemTitle = itemDetailsDataDict["title"] as! String
+            cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             
         }
         else
@@ -133,7 +136,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         let ht : CGFloat = 100
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
                 
     }
@@ -377,7 +380,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentView.frame = CGRectMake(0, 0, contentView.frame.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
@@ -698,7 +701,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
         if(itemDetailsDataDict["id"] != nil){
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! String
+        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         }
         
         if(itemDetailsDataDict["title"] != nil)
@@ -825,7 +828,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if(isFromWishList)
         {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != "")
+            if(itemTitle != "" && cost != 0 && dateDiff != 0 && datePickerDate != "")
             {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
@@ -920,7 +923,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
-            
+            if(self.participantsArr.count > 0)
+            {
+                self.participantsArr.removeAll()
+            }
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
             self.tblViewHt.constant = 500
             self.scrlView.contentOffset = CGPointMake(0, 20)

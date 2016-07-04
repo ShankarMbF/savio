@@ -277,7 +277,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.createSavingPlanButton.addTarget(self, action: Selector("joinGroupButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else{
                 cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)

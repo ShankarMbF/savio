@@ -112,9 +112,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -161,6 +161,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             topBackgroundImageView.image = UIImage(data: data)
             cameraButton.hidden = true
+            itemTitle = (itemDetailsDataDict["title"] as? String)!
+            cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             
         }
         else
@@ -287,16 +289,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     
-    func menuButtonClicked()
+    func backButtonClicked()
     {
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
-        //        if offerArr.count > 0{
-        //            let obj = SAOfferListViewController()
-        //            obj.delegate = self
-        //            self.navigationController?.pushViewController(obj, animated: true)
-        //        }else{
-        //            self.navigationController?.popViewControllerAnimated(true)
-        //        }
+     
+        self.navigationController?.popViewControllerAnimated(true)
+       
     }
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
@@ -435,8 +432,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
             
-            cell1.datePickerTextField.text = datePickerDate
-            cell1.datePickerTextField.textColor = UIColor.whiteColor()
+            if(datePickerDate == "")
+            {
+                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                let currentDate: NSDate = NSDate()
+                let components: NSDateComponents = NSDateComponents()
+                
+                components.day = +7
+                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+                let dateComponents = NSDateComponents()
+                dateComponents.month = 1
+                let calender = NSCalendar.currentCalendar()
+                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+
+                let dateFormatter = NSDateFormatter()
+                
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                cell1.datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
+            }
+            else
+            {
+                cell1.datePickerTextField.text = datePickerDate
+                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+            }
+            
+            
             
             if(isClearPressed)
             {
@@ -844,7 +865,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 parameterDict["imageURL"] = base64String
             }
             else{
-                parameterDict["imageURL"] = nil
+                parameterDict["imageURL"] = ""
             }
         }
         
@@ -931,7 +952,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(itemDetailsDataDict["title"] == nil)
                 {
                     objAPI.partySavingPlanDelegate = self
+                        print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                    
                 }
                 else if(isUpdatePlan)
                 {
@@ -949,7 +972,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                     newDict["wishList_ID"] = ""
                     newDict["sav_id"] = self.getParameters()["sav_id"]
                     newDict["payType"] = self.getParameters()["payType"]
@@ -977,22 +1000,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
+                    
+                
                     objAPI.updateSavingPlan(newDict)
           
                 }
                 else
                 {
-                    objAPI.partySavingPlanDelegate = self
-                    var newDict : Dictionary<String,AnyObject> = [:]
-                    newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
-                    newDict["sav_id"] = self.getParameters()["sav_id"]
-                    newDict["payType"] = self.getParameters()["payType"]
-                    newDict["payDate"] = self.getParameters()["payDate"]
-                    newDict["user_ID"] = self.getParameters()["pty_id"]
-                    newDict["offer_List"] = self.getParameters()["offer_List"]
-                    
-                    objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
-                    
+       
+                        objAPI.partySavingPlanDelegate = self
+                        var newDict : Dictionary<String,AnyObject> = [:]
+                        newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
+                        newDict["sav_id"] = self.getParameters()["sav_id"]
+                        newDict["payType"] = self.getParameters()["payType"]
+                        newDict["payDate"] = self.getParameters()["payDate"]
+                        newDict["user_ID"] = self.getParameters()["pty_id"]
+                        newDict["offer_List"] = self.getParameters()["offer_List"]
+                        
+                        objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
+         
+                   
                 }
                 
             }
@@ -1204,8 +1231,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 objSummaryView.itemDataDict =  dict
                 self.navigationController?.pushViewController(objSummaryView, animated: true)
             }
+            else
+            {
+                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
         }
         else if let message = objResponse["internalMessage"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if let message = objResponse["error"] as? String
         {
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()

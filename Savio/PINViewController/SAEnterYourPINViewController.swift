@@ -227,6 +227,9 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
     objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
     print(userInfoDict)
     let flag = objResponse["isPartySavingpersent"] as! String
+    
+    NSUserDefaults.standardUserDefaults().setObject(flag, forKey: "SavingPlanPresent")
+    NSUserDefaults.standardUserDefaults().synchronize()
     //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
     
    let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)

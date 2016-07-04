@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489315445.263717"
+            timestampString = "489325519.175125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "491"
-            endingLineNumber = "491"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "createSavingPlanButtonPressed()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489315445.263717"
+            timestampString = "489325519.175125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "595"
-            endingLineNumber = "595"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
             landmarkName = "successResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489315445.263717"
+            timestampString = "489325519.175125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "errorResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/Webservices/API.swift"
-            timestampString = "489041708.061819"
+            timestampString = "489319925.821785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
             landmarkName = "createPartySavingPlan(_:isFromWishList:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,187 +106,187 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/Webservices/API.swift"
-            timestampString = "489041708.061819"
+            timestampString = "489319925.821785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "599"
+            endingLineNumber = "599"
+            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/Webservices/API.swift"
+            timestampString = "489319925.821785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
+            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "489327161.065288"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "625"
+                  endingLineNumber = "625"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "489327161.065451"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "625"
+                  endingLineNumber = "625"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
+            timestampString = "489325077.25251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
+            landmarkName = "tableView(_:heightForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/Webservices/API.swift"
+            timestampString = "489319925.821785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
+            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #2)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "489327161.067042"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "665"
+                  endingLineNumber = "665"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #2)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "489327161.067194"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "665"
+                  endingLineNumber = "665"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
+            timestampString = "489327159.747028"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "953"
+            endingLineNumber = "953"
+            landmarkName = "clearButtonPressed()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.GroupsavingViewController.clearButtonPressed () -&gt; ()"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/SavingPlanSetup/GroupsavingViewController.swift"
+                  timestampString = "489327161.068145"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "955"
+                  endingLineNumber = "955"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.GroupsavingViewController.(clearButtonPressed () -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/SavingPlanSetup/GroupsavingViewController.swift"
+                  timestampString = "489327161.068293"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "955"
+                  endingLineNumber = "955"
+                  offsetFromSymbolStart = "3540">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
+            timestampString = "489325519.175125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "598"
             endingLineNumber = "598"
-            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/Webservices/API.swift"
-            timestampString = "489041708.061819"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "624"
-            endingLineNumber = "624"
-            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "489316827.013625"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "624"
-                  endingLineNumber = "624"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "489316827.013777"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "624"
-                  endingLineNumber = "624"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489315445.263717"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "getParametersForUpdate()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
-            timestampString = "489315445.263717"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "698"
-            endingLineNumber = "698"
-            landmarkName = "GroupsavingViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/Webservices/API.swift"
-            timestampString = "489044738.472238"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "664"
-            endingLineNumber = "664"
-            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #2)"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "489316827.017565"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "664"
-                  endingLineNumber = "664"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Savio.API.(createPartySavingPlan (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;, isFromWishList : Swift.String) -&gt; ()).(closure #2)"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
-                  timestampString = "489316827.017831"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "664"
-                  endingLineNumber = "664"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
-            timestampString = "489315873.42327"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "942"
-            endingLineNumber = "942"
-            landmarkName = "clearButtonPressed()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/ProgressView/SAProgressViewController.swift"
-            timestampString = "489060780.912214"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "successResponseForGetUsersPlanAPI(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489315445.263717"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
             landmarkName = "successResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
-            timestampString = "489315398.224911"
+            timestampString = "489325077.25251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "setUpView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/SavingPlanSetup/GroupsavingViewController.swift"
+            timestampString = "489326980.665827"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>

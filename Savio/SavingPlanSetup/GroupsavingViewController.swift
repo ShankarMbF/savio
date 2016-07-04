@@ -113,10 +113,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             else{
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
-            
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -126,12 +123,17 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         {
             let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
           //  print(itemDetailsDataDict)
+            if data.length > 0{
             topBackgroundImageView.image = UIImage(data: data)
+            }
+            else {
+                imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+
+            }
             cameraButton.hidden = true
             isFromWishList = true
             itemTitle = itemDetailsDataDict["title"] as! String
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
-            
         }
         else
         {
@@ -710,6 +712,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
+        if(itemDetailsDataDict["savingId"] != nil){
+            parameterDict["sav_id"] = itemDetailsDataDict["savingId"] as! NSNumber
+        }
+        
+        if(itemDetailsDataDict["savingId"] != nil){
+            parameterDict["sharedPartySavingPlan"] = itemDetailsDataDict["sharedPartySavingPlan"] as! NSNumber
+        }
+        
         if(itemDetailsDataDict["title"] != nil)
         {
             parameterDict["title"] = itemDetailsDataDict["title"]
@@ -771,16 +781,16 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
         }
         
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+//        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
         
         // parameterDict["payType"] = "cxvxc"
         
-        if(itemDetailsDataDict["sharedPartySavingPlan"] != nil){
+        if(itemDetailsDataDict["savingId"] != nil){
             
-            parameterDict["sav_id"] = itemDetailsDataDict["sharedPartySavingPlan"]
+            parameterDict["sav_id"] = itemDetailsDataDict["savingId"]
         }
         else{
             if((imageDataDict["savPlanID"]) != nil)
@@ -796,6 +806,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
         parameterDict["participantsArr"] = participantsArr
          parameterDict["payDate"] = itemDetailsDataDict["payDate"]
+        
         
         return parameterDict
         

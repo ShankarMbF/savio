@@ -258,7 +258,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             if(message == "SUCCESS")
             {
                 savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
-                
                 self.setUpView()
             }
             else

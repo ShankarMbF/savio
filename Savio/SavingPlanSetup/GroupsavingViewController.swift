@@ -41,6 +41,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        print(itemDetailsDataDict)
         self.title = "Savings plan setup"
         let font = UIFont(name: "GothamRounded-Book", size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
@@ -176,17 +177,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
         objAnimView.removeFromSuperview()
-        
     }
     
     func clearAll() {
         self.setUpView()
         self.dateDiff = 0
         self.cost = 0
-        
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         self.itemTitle = ""
         
@@ -701,7 +700,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
         if(itemDetailsDataDict["id"] != nil){
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+            let str = Int (itemDetailsDataDict["id"] as! NSNumber)
+            print(str)
+        parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
         if(itemDetailsDataDict["title"] != nil)

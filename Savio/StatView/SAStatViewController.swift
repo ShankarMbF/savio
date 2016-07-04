@@ -52,7 +52,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         lineChart.x.grid.visible = true
         lineChart.y.grid.visible = true
         
-        
         // hide dots visiblety in line chart
         // lineChart.dots.visible = false
         
@@ -95,7 +94,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     }
     
     func setUpView(){
-        
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()

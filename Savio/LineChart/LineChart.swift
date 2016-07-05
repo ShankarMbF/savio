@@ -11,6 +11,8 @@ public protocol LineChartDelegate {
  */
 public class LineChart: UIView {
     
+    
+
     /**
     * Helpers class
     */
@@ -93,6 +95,7 @@ public class LineChart: UIView {
     
     public var x: Coordinate = Coordinate()
     public var y: Coordinate = Coordinate()
+    public var graphView: UIView = UIView()
 
     
     // values calculated on init
@@ -146,10 +149,12 @@ public class LineChart: UIView {
 
     convenience init() {
         self.init(frame: CGRectZero)
+
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
     }
     
     override public func drawRect(rect: CGRect) {
@@ -241,6 +246,8 @@ public class LineChart: UIView {
         let yValues: [CGFloat] = getYValuesForXValue(rounded)
         highlightDataPoints(rounded)
         delegate?.didSelectDataPoint(CGFloat(rounded), yValues: yValues)
+        moveScrollLineForPoint(xValue + dots.outerRadius/2)
+
     }
     
     
@@ -258,6 +265,7 @@ public class LineChart: UIView {
      * Listen on touch move event
      */
     override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
         handleTouchEvents(touches, event: event!)
     }
     
@@ -308,7 +316,9 @@ public class LineChart: UIView {
             dotLayer.frame = CGRect(x: xValue, y: yValue, width: dots.outerRadius, height: dots.outerRadius)
             self.layer.addSublayer(dotLayer)
             dotLayers.append(dotLayer)
-            
+            if index == 2 {
+                drawScrollLineForPoint(xValue + dots.outerRadius/2)
+            }
             // animate opacity
             if animation.enabled {
                 let anim = CABasicAnimation(keyPath: "opacity")
@@ -323,6 +333,20 @@ public class LineChart: UIView {
     }
     
     
+    private func drawScrollLineForPoint(a1: CGFloat) {
+        
+        graphView = UIView(frame: CGRect(x: a1 - 10, y: x.axis.inset, width: 20, height: self.drawingHeight))
+        graphView.backgroundColor = UIColor.clearColor()
+        let line: UIView  = UIView(frame: CGRect(x: 10 , y: 0, width: 2, height: self.drawingHeight))
+        line.backgroundColor = UIColor.redColor()
+        graphView.addSubview(line)
+        self.addSubview(graphView)
+    }
+    
+    private func moveScrollLineForPoint(a1: CGFloat) {
+        graphView.frame = CGRect(x: a1 - 10, y: x.axis.inset, width: 20, height: self.drawingHeight)
+    }
+
     /**
      * Draw x and y axis.
      */
@@ -499,6 +523,14 @@ public class LineChart: UIView {
     /**
      * Draw x labels.
      */
+    private func createXLabelText (index: Int) -> String {
+        var label: String
+        
+        label = String()
+        
+        return label
+    }
+    
     private func drawXLabels() {
         let xAxisData = self.dataStore[0]
         let y = self.bounds.height - x.axis.inset + 4 // 4 added for giving space to supercript
@@ -524,11 +556,11 @@ public class LineChart: UIView {
             } else {
                 text = String(index)
             }
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 12)!])
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 10)!])
            
-            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:6)
+            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
 
-            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:10], range: NSRange(location:1,length:2))
+            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5], range: NSRange(location:1,length:2))
         
             label.attributedText = attString
             self.addSubview(label)

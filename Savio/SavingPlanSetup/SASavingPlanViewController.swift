@@ -407,6 +407,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             cell1.titleTextField.textColor = self.setUpColor()
             return cell1
+            
         }
         else if(indexPath.section == 1){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier", forIndexPath: indexPath) as! SavingPlanCostTableViewCell
@@ -1212,6 +1213,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         
+        print(objResponse)
         objAnimView.removeFromSuperview()
         
         if let message = objResponse["message"] as? String

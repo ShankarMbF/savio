@@ -185,6 +185,12 @@ public class KDCircularProgress: UIView {
     @objc @IBInspectable private var IBColor1: UIColor?
     @objc @IBInspectable private var IBColor2: UIColor?
     @objc @IBInspectable private var IBColor3: UIColor?
+    @objc @IBInspectable private var IBColor4: UIColor?
+    @objc @IBInspectable private var IBColor5: UIColor?
+    @objc @IBInspectable private var IBColor6: UIColor?
+    @objc @IBInspectable private var IBColor7: UIColor?
+    @objc @IBInspectable private var IBColor8: UIColor?
+
     
     private var animationCompletionBlock: ((Bool) -> Void)?
     
@@ -243,7 +249,7 @@ public class KDCircularProgress: UIView {
     }
     
     private func checkAndSetIBColors() {
-        let nonNilColors = [IBColor1, IBColor2, IBColor3].flatMap { $0 }
+        let nonNilColors = [IBColor1, IBColor2, IBColor3,IBColor4,IBColor5,IBColor6,IBColor7,IBColor8].flatMap { $0 }
         if !nonNilColors.isEmpty {
             setColors(nonNilColors)
         }

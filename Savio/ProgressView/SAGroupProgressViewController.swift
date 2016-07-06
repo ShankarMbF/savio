@@ -19,22 +19,28 @@ class SAGroupProgressViewController: UIViewController {
     @IBOutlet weak var pagecontrol: UIPageControl!
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
+    var chartValues : Array<Dictionary<String,AnyObject>> = [];
+    let chart = VBPieChart();
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         self.setUpView()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-   
+    
     
     func setUpView(){
-       
         
+        horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
@@ -50,19 +56,46 @@ class SAGroupProgressViewController: UIViewController {
             circularView.startAngle = -90
             circularView.roundedCorners = false
             circularView.lerpColorMode = false
-            circularView.angle = 180//Double((paidAmount * 360)/totalAmount)
-            circularView.setColors(UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),UIColor(red:247/255,green:184/255,blue:183/255,alpha:1),UIColor(red:118/255,green:229/255,blue:224/255,alpha:1),UIColor(red:238/255,green:234/255,blue:108/255,alpha:1),UIColor(red:170/255,green:234/255,blue:184/255,alpha:1),UIColor(red:193/255,green:198/255,blue:227/255,alpha:1),UIColor(red:246/255,green:197/255,blue:124/255,alpha:1))
+            
+            circularView.angle = 0//Double((paidAmount * 360)/totalAmount)
+            //            circularView.setColors(UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),UIColor(red:247/255,green:184/255,blue:183/255,alpha:1),UIColor(red:118/255,green:229/255,blue:224/255,alpha:1),UIColor(red:238/255,green:234/255,blue:108/255,alpha:1),UIColor(red:170/255,green:234/255,blue:184/255,alpha:1),UIColor(red:193/255,green:198/255,blue:227/255,alpha:1),UIColor(red:246/255,green:197/255,blue:124/255,alpha:1))
             
             
+            let side =  circularView.frame.height - 100
+            
+            chart.frame = CGRectMake(10, 40, side, side)
+            
+            
+            chart.enableStrokeColor = false;
+            chart.holeRadiusPrecent = 0.75;
+            
+            chart.layer.shadowOffset = CGSizeMake(2, 2);
+            chart.layer.shadowRadius = 3;
+            chart.layer.shadowColor = UIColor.blackColor().CGColor;
+            chart.layer.shadowOpacity = 0.7;
+            chart.labelsPosition = VBLabelsPosition.OnChart
+            self.chartValues = [
+                                ["name":"", "value": 20, "color":UIColor(red:237/255,green:182/255,blue:242/255,alpha:1)],
+                                ["name":"", "value": 20, "color":UIColor(red:181/255,green:235/255,blue:157/255,alpha:1)],
+                                ["name":"", "value": 20, "color":UIColor(red:247/255,green:184/255,blue:183/255,alpha:1)],
+                                ["name":"", "value": 20, "color":UIColor(red:118/255,green:229/255,blue:224/255,alpha:1)],
+                                ["name":"", "value": 100, "color":UIColor.clearColor()],
+                  
+            ];
+            
+            chart.setChartValues(self.chartValues as [AnyObject], animation:false);
+            
+            
+            circularView.addSubview(chart)
             let labelOne = circularProgress.viewWithTag(3) as! UILabel
             
             let labelTwo = circularProgress.viewWithTag(2) as! UILabel
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
-
             
-        
-          
+            
+            
+            
             if(i == 0)
             {
                 labelOne.hidden = true
@@ -147,8 +180,8 @@ class SAGroupProgressViewController: UIViewController {
         
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
-
     
-
-
+    
+    
+    
 }

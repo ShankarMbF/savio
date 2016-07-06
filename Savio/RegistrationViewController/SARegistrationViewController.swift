@@ -683,7 +683,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //            dict["deviceRegistration"] = udidDict
             //            dict["device_ID"] = NSUUID().UUIDString
             
-            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":UIDevice.currentDevice().identifierForVendor!.UUIDString]
+            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid]
             
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             dict["deviceRegistration"] =  udidArray

@@ -134,7 +134,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                                         length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
         
-        savingPlanTitleLabel.text = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        savingPlanTitleLabel.attributedText = attrText
  
         totalAmount = savingPlanDetailsDict["amount"]!.floatValue
         paidAmount = savingPlanDetailsDict["totalPaidAmount"]!.floatValue

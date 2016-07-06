@@ -40,5 +40,12 @@
   "activeImage": "menu-active-whishlist.png",
   "className": "SAWishListViewController",
   "showArrow": 0
+  },
+  {
+  "title": "Settings",
+  "image": "menu-settings.png",
+  "activeImage": "menu-active-settings.png",
+  "className": "SASettingsViewController",
+  "showArrow": 0
   }
   ]

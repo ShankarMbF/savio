@@ -8,9 +8,16 @@
 
 import UIKit
 
+struct Device {
+    static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
+}
+
 @UIApplicationMain
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+
     var window: UIWindow?
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomViewController?
@@ -37,11 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(userInfoDict)
                 let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
                 print(udidDict)
-                print(UIDevice.currentDevice().identifierForVendor!.UUIDString)
+                print(Device.udid)
                 
                 let udidArray = udidDict[0]
                 
-                if(udidArray["DEVICE_ID"] as! String  == UIDevice.currentDevice().identifierForVendor!.UUIDString)
+                if(udidArray["DEVICE_ID"] as! String  == Device.udid)
                 {
                     //else Go to SAEnterYourPINViewController
                     objEnterYourPinViewController = SAEnterYourPINViewController()

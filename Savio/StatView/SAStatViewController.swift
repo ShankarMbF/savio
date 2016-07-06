@@ -26,24 +26,21 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         super.viewDidLoad()
         
         self.setUpView()
-        var views: [String: AnyObject] = [:]
         
-        label.text = "Current Value"
+        label.text = itemTitle
+        label.font = UIFont(name: "GothamRounded-Book", size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = NSTextAlignment.Center
         self.contentView!.addSubview(label)
-        views["label"] = label
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+        lineChart = LineChart()
         
         //   var data: [CGFloat] = [50, 30, 50, 113, 317, 50, 24,]
         let data: [CGFloat] = [10,25,50,75,100]
         
         // simple line with custom x axis labels // hear need to pass json value
         let xLabels: [String] = ["1st Month","2nd Month","3rd Month","4th Month","5th Month"]
-//        let xLabels: [String] = ["1'st Month","2nd Month"]
+        //        let xLabels: [String] = ["1'st Month","2nd Month"]
         
-        lineChart = LineChart()
         
         lineChart.animation.enabled = true
         lineChart.area = true
@@ -64,30 +61,30 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
         
-//        for var i = 0; i < xLabels.count; i++ {
-//            if i%2 == 0 {
-//                lineChart.dots.color = UIColor.blackColor()
-//            }
-//            else{
-//                lineChart.dots.color = UIColor.whiteColor()
-//            }
-//        }
-//        lineChart.dots.color = UIColor.blackColor()
-        
         lineChart.addLine(data)
         //  lineChart.addLine(data2)
         
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
+        //        scrHt.constant = lineChart.frame.size.height
+        //        self.view.addSubview(lineChart)
+
         self.contentView?.addSubview(lineChart)
-//        scrHt.constant = lineChart.frame.size.height
-//        self.view.addSubview(lineChart)
-        views["chart"] = lineChart
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==\((self.contentView?.frame.size.height)! - 50))]", options: [], metrics: nil, views: views))
-        
+
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        var views: [String: AnyObject] = [:]
+
+        views["label"] = label
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+        views["chart"] = lineChart
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
+        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==\((self.contentView?.frame.size.height)!  - 50))]", options: [], metrics: nil, views: views))
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -103,7 +100,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 //        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
 //        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
 //        makeImpulseBtn!.layer.shadowOpacity = 1
-//        makeImpulseBtn!.layer.cornerRadius = 5
+        makeImpulseBtn!.layer.cornerRadius = 5
 
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)

@@ -57,7 +57,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         cost =  Int(parameterDict["amount"] as! String)!
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        print(userInfoDict)
+//        print(userInfoDict)
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         
@@ -398,7 +398,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func getParametersForUpdate() -> Dictionary<String,AnyObject>
     {
-        print(parameterDict)
+//        print(parameterDict)
         var newDict : Dictionary<String,AnyObject> = [:]
         
         if parameterDict["isUpdate"]!.isEqualToString("No") {
@@ -445,7 +445,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             newDict["offer_List"] = newOfferArray
         }
-        print(newDict)
+//        print(newDict)
         return newDict
         
     }
@@ -511,7 +511,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                print(getParameters())
+//                print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
             }
@@ -565,7 +565,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                print(getParametersForUpdate())
+//                print(getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
                 
             }
@@ -598,7 +598,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
+//        print(objResponse)
         if let message = objResponse["errorCode"] as? String
         {
 //            if(message == "Party Saving Plan is succesfully added")
@@ -629,7 +629,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func errorResponseForPartySavingPlanAPI(error:String){
-        print(error)
+//        print(error)
         
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()

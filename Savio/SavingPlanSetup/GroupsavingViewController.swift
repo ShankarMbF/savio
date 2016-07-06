@@ -41,7 +41,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        print(itemDetailsDataDict)
+//        print(itemDetailsDataDict)
         self.title = "Savings plan setup"
         let font = UIFont(name: "GothamRounded-Book", size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
@@ -293,7 +293,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         var contactDict: Dictionary<String,AnyObject> = [:]
         //Get person's first name
         if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-            print(firstName)
+//            print(firstName)
             contactDict["name"] = firstName as! String
         }
         
@@ -301,7 +301,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
             if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
-                print(lastName)
+//                print(lastName)
                 contactDict["lastName"] = lastName as! String
             }
         }
@@ -325,7 +325,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             } else {
                 phoneNumber = "Phone Number is empty!";
             }
-            print(phoneNumber)
+//            print(phoneNumber)
         }
         
         //Get person's email id
@@ -336,7 +336,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 let emailAddress = ABMultiValueCopyValueAtIndex(emails, index).takeRetainedValue() as! String
                 contactDict["email"] = emailAddress
                 
-                print(emailAddress)
+//                print(emailAddress)
             } else {
                 print("No email address")
             }
@@ -348,11 +348,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         var pic: UIImage? //= UIImage(named: "default-pic.png")!
         let picTemp1 = ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail)
         if picTemp1 == nil{
-            print("NIL FOUND")
+//            print("NIL FOUND")
             pic = nil
         }
         else{
-            print("PICTURE FOUND")
+//            print("PICTURE FOUND")
             let picTemp2: NSObject? = Unmanaged<NSObject>.fromOpaque(picTemp1!.toOpaque()).takeRetainedValue()
             if picTemp2 != nil {
                 pic = UIImage(data: picTemp2! as! NSData)!
@@ -368,7 +368,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
-        print(contactDict)
+//        print(contactDict)
         
         participantsArr.append(contactDict)
         
@@ -708,7 +708,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         var parameterDict : Dictionary<String,AnyObject> = [:]
         if(itemDetailsDataDict["id"] != nil){
             let str = Int (itemDetailsDataDict["id"] as! NSNumber)
-            print(str)
+//            print(str)
         parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
@@ -824,7 +824,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         cost = Int(txtFldCell.slider.value)
     }
     func datePickerText(date: Int,dateStr:String) {
-        print(date)
+//        print(date)
         dateDiff = date
         datePickerDate = dateStr
     }

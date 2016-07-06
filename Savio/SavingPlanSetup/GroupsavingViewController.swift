@@ -753,7 +753,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 parameterDict["imageURL"] = base64String
             }
             else{
-                parameterDict["imageURL"] = nil
+                parameterDict["imageURL"] = ""
             }
         }
         let dateParameter = NSDateFormatter()

@@ -370,12 +370,12 @@ class API: UIView {
                     //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        0
                         print("\(dict)")
                         if(dict["errorCode"] as! NSString == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.logInDelegate?.successResponseForLogInAPI(dict)
-                                
                             }
                         }
                         else{
@@ -390,10 +390,8 @@ class API: UIView {
                         dispatch_async(dispatch_get_main_queue()){
                             self.logInDelegate?.errorResponseForOTPLogInAPI((response?.description)!)
                         }
-                        
                     }
                 }
-                
             }
             dataTask.resume()
         }
@@ -611,7 +609,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
                 request.HTTPMethod = "PUT"
                 
                 

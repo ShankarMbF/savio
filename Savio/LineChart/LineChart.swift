@@ -4,6 +4,7 @@ import QuartzCore
 // delegate method
 public protocol LineChartDelegate {
     func didSelectDataPoint(x: CGFloat, yValues: [CGFloat])
+    func setValuesForSlider(min: CGFloat, max: CGFloat)
 }
 
 /**
@@ -96,7 +97,7 @@ public class LineChart: UIView {
     public var x: Coordinate = Coordinate()
     public var y: Coordinate = Coordinate()
     public var graphView: UIView = UIView()
-
+    public var graphHeight: CGFloat = 0
     
     // values calculated on init
     private var drawingHeight: CGFloat = 0 {
@@ -145,6 +146,7 @@ public class LineChart: UIView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
+
     }
 
     convenience init() {
@@ -159,13 +161,15 @@ public class LineChart: UIView {
     
     override public func drawRect(rect: CGRect) {
         
+        graphHeight = self.bounds.height
+
         if removeAll {
             let context = UIGraphicsGetCurrentContext()
             CGContextClearRect(context, rect)
             return
         }
         
-        self.drawingHeight = self.bounds.height - (2 * y.axis.inset)
+        self.drawingHeight = graphHeight - (2 * y.axis.inset)
         self.drawingWidth = self.bounds.width - (2 * x.axis.inset)
         
         // remove all labels
@@ -209,9 +213,37 @@ public class LineChart: UIView {
             if area { drawAreaBeneathLineChart(lineIndex) }
             
         }
-        
+        //add slider
+            addSlider()
+    }
+    private func addSlider() {
+//        let slider: UISlider  = UISlider(frame: CGRect(x: x.axis.inset - 7.5, y: graphHeight, width: self.drawingWidth + 2 * 7.5, height: 20))
+//        slider.maximumValue = Float(self.drawingWidth + x.axis.inset)
+//        slider.minimumValue = Float(x.axis.inset)
+        self.delegate?.setValuesForSlider(x.axis.inset, max: self.drawingWidth + x.axis.inset)
+//        slider.minimumTrackTintColor = UIColor.blackColor()
+//        slider.maximumTrackTintColor = UIColor.blackColor()
+//        slider.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
+//        slider.addTarget(self, action: #selector(sliderValueChanged), forControlEvents: UIControlEvents.ValueChanged)
+//        self.addSubview(slider)
+//        let xValue = self.x.scale(CGFloat(2))
+
     }
     
+    func sliderValueChanged(slider: UISlider) {
+        print(slider.value)
+        if  CGFloat(slider.value) >= x.axis.inset && CGFloat(slider.value) <=  self.drawingWidth + x.axis.inset {
+            moveScrollLineForPoint(CGFloat(slider.value))
+            let xValue = CGFloat(slider.value)
+            let inverted = self.x.invert(xValue - x.axis.inset)
+            let rounded = Int(round(Double(inverted)))
+            setProgressForProgressBar(rounded)
+            let yValues: [CGFloat] = getYValuesForXValue(rounded)
+            let stringValue: String = String.init(format: "%.0f", yValues.first!)
+            self.valueLabel.text = stringValue
+
+        }
+    }
     
     /**
      * Get y value for given x value. Or return zero or maximum value.
@@ -246,7 +278,6 @@ public class LineChart: UIView {
         let yValues: [CGFloat] = getYValuesForXValue(rounded)
         highlightDataPoints(rounded)
         delegate?.didSelectDataPoint(CGFloat(rounded), yValues: yValues)
-        moveScrollLineForPoint(xValue + dots.outerRadius/2)
 
     }
     
@@ -296,6 +327,16 @@ public class LineChart: UIView {
     
     
     
+    func setProgressForProgressBar(index: Int)  {
+        var data: [CGFloat] = self.dataStore[0]
+        if data.count > 0 {
+            let currentValue: CGFloat = data[index] as CGFloat
+            let maxValue: CGFloat = data.last! as CGFloat
+            let progressValue = (360.0  / maxValue) * currentValue
+            progress.angle = Double(progressValue)
+        }
+        
+    }
     /**
      * Draw small dot at every data point.
      */
@@ -303,9 +344,10 @@ public class LineChart: UIView {
         var dotLayers: [DotCALayer] = []
         var data = self.dataStore[lineIndex]
         
+        self.setProgressForProgressBar(0)
         for index in 0..<data.count {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - dots.outerRadius/2
-            let yValue = self.bounds.height - self.y.scale(data[index]) - y.axis.inset - dots.outerRadius/2
+            let yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset - dots.outerRadius/2
             
             // draw custom layer with another layer in the center
             let dotLayer = DotCALayer()
@@ -316,9 +358,6 @@ public class LineChart: UIView {
             dotLayer.frame = CGRect(x: xValue, y: yValue, width: dots.outerRadius, height: dots.outerRadius)
             self.layer.addSublayer(dotLayer)
             dotLayers.append(dotLayer)
-            if index == 2 {
-                drawScrollLineForPoint(xValue + dots.outerRadius/2)
-            }
             // animate opacity
             if animation.enabled {
                 let anim = CABasicAnimation(keyPath: "opacity")
@@ -332,18 +371,44 @@ public class LineChart: UIView {
         dotsDataStore.append(dotLayers)
     }
     
-    
-    private func drawScrollLineForPoint(a1: CGFloat) {
+    public var valueLabel: UILabel = UILabel()
+    let progress = KDCircularProgress(frame: CGRect(x: 0, y: -15, width: 30, height: 30))
+
+    func drawScrollLineForPoint(a1: CGFloat) {
         
-        graphView = UIView(frame: CGRect(x: a1 - 10, y: x.axis.inset, width: 20, height: self.drawingHeight))
+        graphView = UIView(frame: CGRect(x: a1 - 15, y: x.axis.inset, width: 30, height: self.drawingHeight ))
         graphView.backgroundColor = UIColor.clearColor()
-        let line: UIView  = UIView(frame: CGRect(x: 10 , y: 0, width: 2, height: self.drawingHeight))
+        var data = self.dataStore[0]
+
+        self.valueLabel.frame = CGRect(x: 5, y: 5, width: 20, height: 20)
+        self.valueLabel.text = String(data[2])
+        self.valueLabel.font =  UIFont(name: "GothamRounded-Light", size: 8)
+        self.valueLabel.textAlignment = .Center
+        let line: UIView  = UIView(frame: CGRect(x: 14.5 , y: 0, width: 1, height: self.drawingHeight + 2 * x.axis.inset))
         line.backgroundColor = UIColor.redColor()
         graphView.addSubview(line)
         self.addSubview(graphView)
+        
+        //progress view 
+        
+        progress.startAngle = -90
+        progress.progressThickness = 0.5
+        progress.trackThickness = 0.2
+        progress.clockwise = true
+        progress.gradientRotateSpeed = 2
+        progress.roundedCorners = true
+        progress.glowMode = .Forward
+        progress.setColors(UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0) )
+        progress.trackColor = UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 242.0/256.0, alpha: 1.0)
+        progress.backgroundColor = UIColor.whiteColor()
+        progress.layer.cornerRadius = progress.frame.width / 2.0
+        graphView.addSubview(progress)
+        progress.addSubview(valueLabel)
+
+
     }
     
-    private func moveScrollLineForPoint(a1: CGFloat) {
+     func moveScrollLineForPoint(a1: CGFloat) {
         graphView.frame = CGRect(x: a1 - 10, y: x.axis.inset, width: 20, height: self.drawingHeight)
     }
 
@@ -351,7 +416,7 @@ public class LineChart: UIView {
      * Draw x and y axis.
      */
     private func drawAxes() {
-        let height = self.bounds.height
+        let height = graphHeight
         let width = self.bounds.width
         let path = UIBezierPath()
         // draw x-axis
@@ -410,11 +475,11 @@ public class LineChart: UIView {
         let path = UIBezierPath()
         
         var xValue = self.x.scale(0) + x.axis.inset
-        var yValue = self.bounds.height - self.y.scale(data[0]) - y.axis.inset
+        var yValue = graphHeight - self.y.scale(data[0]) - y.axis.inset
         path.moveToPoint(CGPoint(x: xValue, y: yValue))
         for index in 1..<data.count {
             xValue = self.x.scale(CGFloat(index)) + x.axis.inset
-            yValue = self.bounds.height - self.y.scale(data[index]) - y.axis.inset
+            yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset
             path.addLineToPoint(CGPoint(x: xValue, y: yValue))
         }
         
@@ -453,19 +518,19 @@ public class LineChart: UIView {
 //        colors[lineIndex].colorWithAlphaComponent(0.2).setFill()
          UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).colorWithAlphaComponent(0.2).setFill()
         // move to origin
-        path.moveToPoint(CGPoint(x: x.axis.inset, y: self.bounds.height - self.y.scale(0) - y.axis.inset))
+        path.moveToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         // add line to first data point
-        path.addLineToPoint(CGPoint(x: x.axis.inset, y: self.bounds.height - self.y.scale(data[0]) - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(data[0]) - y.axis.inset))
         // draw whole line chart
         for index in 1..<data.count {
             let x1 = self.x.scale(CGFloat(index)) + x.axis.inset
-            let y1 = self.bounds.height - self.y.scale(data[index]) - y.axis.inset
+            let y1 = graphHeight - self.y.scale(data[index]) - y.axis.inset
             path.addLineToPoint(CGPoint(x: x1, y: y1))
         }
         // move down to x axis
-        path.addLineToPoint(CGPoint(x: self.x.scale(CGFloat(data.count - 1)) + x.axis.inset, y: self.bounds.height - self.y.scale(0) - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: self.x.scale(CGFloat(data.count - 1)) + x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         // move to origin
-        path.addLineToPoint(CGPoint(x: x.axis.inset, y: self.bounds.height - self.y.scale(0) - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         path.fill()
     }
     
@@ -478,7 +543,7 @@ public class LineChart: UIView {
         x.grid.color.setStroke()
         let path = UIBezierPath()
         var x1: CGFloat
-        let y1: CGFloat = self.bounds.height - y.axis.inset
+        let y1: CGFloat = graphHeight - y.axis.inset
         let y2: CGFloat = y.axis.inset
         let (start, stop, step) = self.x.ticks
         for var i: CGFloat = start; i <= stop; i += step {
@@ -501,7 +566,7 @@ public class LineChart: UIView {
         var y1: CGFloat
         let (start, stop, step) = self.y.ticks
         for var i: CGFloat = start; i <= stop; i += step {
-            y1 = self.bounds.height - self.y.scale(i) - y.axis.inset
+            y1 = graphHeight - self.y.scale(i) - y.axis.inset
             path.moveToPoint(CGPoint(x: x1, y: y1))
             path.addLineToPoint(CGPoint(x: x2, y: y1))
         }
@@ -533,7 +598,7 @@ public class LineChart: UIView {
     
     private func drawXLabels() {
         let xAxisData = self.dataStore[0]
-        let y = self.bounds.height - x.axis.inset + 4 // 4 added for giving space to supercript
+        let y = graphHeight - x.axis.inset + 4 // 4 added for giving space to supercript
         let (_, _, step) = x.linear.ticks(xAxisData.count)
         let width = x.scale(step)
         
@@ -575,7 +640,7 @@ public class LineChart: UIView {
         var yValue: CGFloat
         let (start, stop, step) = self.y.ticks
         for var i: CGFloat = start; i <= stop; i += step {
-            yValue = self.bounds.height - self.y.scale(i) - (y.axis.inset * 1.5)
+            yValue = graphHeight - self.y.scale(i) - (y.axis.inset * 1.5)
             let label = UILabel(frame: CGRect(x: 0, y: yValue, width: y.axis.inset, height: y.axis.inset))
             label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
             label.textAlignment = .Center

@@ -21,25 +21,28 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var makeImpulseBtn: UIButton!
+    @IBOutlet var scrollViewForGraph: UIScrollView!
     
+    @IBOutlet var widthOfContentView: NSLayoutConstraint!
+    @IBOutlet var graphSliderView: UISlider!
+    
+    var xLabels: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setUpView()
         
-        label.text = itemTitle
-        label.font = UIFont(name: "GothamRounded-Book", size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = NSTextAlignment.Center
-        self.contentView!.addSubview(label)
+//        label.text = itemTitle
+//        label.font = UIFont(name: "GothamRounded-Book", size: 16)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textAlignment = NSTextAlignment.Center
+//        self.contentView!.addSubview(label)
         lineChart = LineChart()
         
-        //   var data: [CGFloat] = [50, 30, 50, 113, 317, 50, 24,]
-        let data: [CGFloat] = [10,25,50,75,100]
+        let data: [CGFloat] = [10,25,50,55,65,75,85,86,88,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        let xLabels: [String] = ["1st Month","2nd Month","3rd Month","4th Month","5th Month"]
-        //        let xLabels: [String] = ["1'st Month","2nd Month"]
+        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","7th Month","8th Month","9th Month","10th Month"]
         
         
         lineChart.animation.enabled = true
@@ -66,23 +69,64 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
-        //        scrHt.constant = lineChart.frame.size.height
-        //        self.view.addSubview(lineChart)
 
         self.contentView?.addSubview(lineChart)
+        
 
     }
+    
+    @IBAction func graphSliderValueChanged(sender: UISlider) {
 
+        let fraction: CGFloat = CGFloat(self.graphSliderView.maximumValue - self.graphSliderView.minimumValue) / ((self.widthOfContentView.constant  + 30.0) / 2.0)
+        self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) / fraction ), y: 0  )
+
+//        if  sender.value <= Float((self.contentView?.frame.width)! - self.scrollViewForGraph.frame.width/2)  {
+//            self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) - self.scrollViewForGraph.frame.width/2), y: 0  )
+//
+//        }
+//        else if sender.value <= Float(self.scrollViewForGraph.frame.width/2){
+//            self.scrollViewForGraph.contentOffset = CGPoint(x: 0, y: 0  )
+//
+//        }
+        self.lineChart.sliderValueChanged(sender)
+    }
+    
+    // MARK: - Delegates line chart
+    func setValuesForSlider(min: CGFloat, max: CGFloat) {
+        self.graphSliderView.maximumValue = Float(max)
+        self.graphSliderView.minimumValue = Float(min)
+        self.lineChart.drawScrollLineForPoint(min)
+        self.graphSliderView.minimumTrackTintColor = UIColor.blackColor()
+        self.graphSliderView.maximumTrackTintColor = UIColor.blackColor()
+        self.graphSliderView.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
+        self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
+    }
+
+    //MARK: -
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var views: [String: AnyObject] = [:]
 
-        views["label"] = label
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+//        views["label"] = label
+//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
+//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
         views["chart"] = lineChart
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==\((self.contentView?.frame.size.height)!  - 50))]", options: [], metrics: nil, views: views))
+        if xLabels.count > 5 {
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
+            let offsetSpace = 70
+            let constant = String.init(format: "H:|-[chart(%d)]-|", xLabels.count * offsetSpace)
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(constant, options: [], metrics: nil, views: views))
+            self.widthOfContentView.constant = CGFloat( xLabels.count * offsetSpace)
+            self.scrollViewForGraph.contentSize = CGSize(width: CGFloat( xLabels.count * offsetSpace), height: self.scrollViewForGraph.frame.height)
+        }
+        else  {
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
+            self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
+            self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
+
+        }
 
     }
     override func didReceiveMemoryWarning() {

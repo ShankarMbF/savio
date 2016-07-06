@@ -244,6 +244,8 @@
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
 		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
 		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
+		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
+		A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
 		A8AB1C751D05A900002F68F5 /* OfferTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */; };
 		A8AEA9421CFFF1DE0069F22A /* NextButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */; };
@@ -783,6 +785,8 @@
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
 		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
 		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
+		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
+		A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAGroupProgressViewController.xib; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
 		A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NextButtonTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1601,6 +1605,8 @@
 				C94F93AF1D1969450065F588 /* SAProgressViewController.swift */,
 				C94F93B01D1969450065F588 /* SAProgressViewController.xib */,
 				A87016221D1C0C2500E58A6A /* CircularProgress.xib */,
+				A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */,
+				A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */,
 			);
 			path = ProgressView;
 			sourceTree = "<group>";
@@ -2201,6 +2207,7 @@
 				A8095C3B1CEDC616006366F7 /* pre-loader@2x22.png in Resources */,
 				C975A90B1D01564E00184C8C /* divider-pound.png in Resources */,
 				A8095C301CEDC616006366F7 /* pre-loader@2x12.png in Resources */,
+				A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */,
 				C9E525B61CE986FA000FD01E /* LaunchScreen.storyboard in Resources */,
 				A8095C1A1CEDC616006366F7 /* pre-loader@1x24.png in Resources */,
 				A8095C551CEDC616006366F7 /* pre-loader@3x14.png in Resources */,
@@ -2531,6 +2538,7 @@
 				C96D5E511D0EAE8A00CE248D /* NumericTextTableViewCell.swift in Sources */,
 				A86681FF1CFF02010014DB59 /* SavingPlanDatePickerTableViewCell.swift in Sources */,
 				C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */,
+				A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */,
 				A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */,
 				A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */,
 				C9FB592A1D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift in Sources */,
@@ -2640,7 +2648,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
+				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -2658,7 +2666,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "686a4c43-afe5-4446-bc90-93bf146c052d";
+				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

@@ -89,6 +89,20 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     func doneBarButtonPressed(){
         dayDateTextField.resignFirstResponder()
        
+        if(dayPickerView.selectedRowInComponent(0) == 0){
+            if(dayDateLabel.text == "date")
+            {
+                
+                dayDateTextField.text = "     1"
+            }
+            else
+            {
+                dayDateTextField.text = "Mon"
+            }
+
+        }
+        else
+        {
         if(dayDateLabel.text == "date")
         {
             
@@ -100,7 +114,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
       
 
-       
+        }
         dayPickerView.reloadAllComponents()
         
         segmentDelegate!.getDateTextField(dateStr)
@@ -130,6 +144,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     {
         return 1
     }
+    
+    
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         
@@ -255,6 +271,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         {
             y = 120
         }
+        dayPickerView.selectRow(0, inComponent: 0, animated: true)
+       
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDelegate(self)
         UIView.setAnimationDuration(0.5)

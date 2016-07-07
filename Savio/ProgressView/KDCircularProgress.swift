@@ -452,7 +452,7 @@ public class KDCircularProgress: UIView {
             
             let glowValue = GlowConstants.glowAmountForAngle(reducedAngle, glowAmount: glowAmount, glowMode: glowMode, size: width)
             if glowValue > 0 {
-               // CGContextSetShadowWithColor(imageCtx, CGSizeZero, glowValue, UIColor.blackColor().CGColor)
+                CGContextSetShadowWithColor(imageCtx, CGSizeZero, glowValue, UIColor.blackColor().CGColor)
             }
             CGContextSetLineCap(imageCtx, roundedCorners == true ? .Round : .Butt)
             CGContextSetLineWidth(imageCtx, progressLineWidth)

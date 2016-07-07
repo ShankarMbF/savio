@@ -246,6 +246,9 @@
 		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
 		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
 		A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */; };
+		A8A6C78F1D2D2808009B0D2F /* UIColor+HexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7891D2D2808009B0D2F /* UIColor+HexColor.m */; };
+		A8A6C7901D2D2808009B0D2F /* VBPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C78B1D2D2808009B0D2F /* VBPieChart.m */; };
+		A8A6C7911D2D2808009B0D2F /* VBPiePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C78E1D2D2808009B0D2F /* VBPiePiece.m */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
 		A8AB1C751D05A900002F68F5 /* OfferTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */; };
 		A8AEA9421CFFF1DE0069F22A /* NextButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */; };
@@ -789,6 +792,13 @@
 		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
 		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
 		A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAGroupProgressViewController.xib; sourceTree = "<group>"; };
+		A8A6C7881D2D2808009B0D2F /* UIColor+HexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexColor.h"; sourceTree = "<group>"; };
+		A8A6C7891D2D2808009B0D2F /* UIColor+HexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexColor.m"; sourceTree = "<group>"; };
+		A8A6C78A1D2D2808009B0D2F /* VBPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPieChart.h; sourceTree = "<group>"; };
+		A8A6C78B1D2D2808009B0D2F /* VBPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPieChart.m; sourceTree = "<group>"; };
+		A8A6C78C1D2D2808009B0D2F /* VBPieChart_swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VBPieChart_swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		A8A6C78D1D2D2808009B0D2F /* VBPiePiece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPiePiece.h; sourceTree = "<group>"; };
+		A8A6C78E1D2D2808009B0D2F /* VBPiePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPiePiece.m; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
 		A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9401CFFF1DE0069F22A /* NextButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NextButtonTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1446,6 +1456,20 @@
 			path = SettingsView;
 			sourceTree = "<group>";
 		};
+		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				A8A6C7881D2D2808009B0D2F /* UIColor+HexColor.h */,
+				A8A6C7891D2D2808009B0D2F /* UIColor+HexColor.m */,
+				A8A6C78A1D2D2808009B0D2F /* VBPieChart.h */,
+				A8A6C78B1D2D2808009B0D2F /* VBPieChart.m */,
+				A8A6C78C1D2D2808009B0D2F /* VBPieChart_swift-Bridging-Header.h */,
+				A8A6C78D1D2D2808009B0D2F /* VBPiePiece.h */,
+				A8A6C78E1D2D2808009B0D2F /* VBPiePiece.m */,
+			);
+			path = PieChart;
+			sourceTree = "<group>";
+		};
 		A8BDCBA81D05557500D4C47B /* setupSavingPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -1605,6 +1629,7 @@
 		C94F93AE1D19692E0065F588 /* ProgressView */ = {
 			isa = PBXGroup;
 			children = (
+				A8A6C7871D2D2808009B0D2F /* PieChart */,
 				A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */,
 				C94F93AF1D1969450065F588 /* SAProgressViewController.swift */,
 				C94F93B01D1969450065F588 /* SAProgressViewController.xib */,
@@ -2559,6 +2584,8 @@
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
 				A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */,
+				A8A6C7911D2D2808009B0D2F /* VBPiePiece.m in Sources */,
+				A8A6C7901D2D2808009B0D2F /* VBPieChart.m in Sources */,
 				A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */,
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
 				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
@@ -2570,6 +2597,7 @@
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
 				C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */,
 				A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */,
+				A8A6C78F1D2D2808009B0D2F /* UIColor+HexColor.m in Sources */,
 				A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */,
 				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,

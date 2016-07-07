@@ -111,8 +111,6 @@ class SAGroupProgressViewController: UIViewController {
     }
     
     
-    
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
@@ -144,11 +142,28 @@ class SAGroupProgressViewController: UIViewController {
     @IBAction func spendButtonPressed(sender: AnyObject) {
         
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
-        
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
 
+    //MARK: TableView Delegate and Datasource method
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
+        return 1;
+    }
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return 7;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        let cellId = "CellId"
+        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellId)
+        
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellId)
+        }
+        cell?.textLabel?.text = "Prashant"
+        return cell!
+    }
 
 
 }

@@ -331,8 +331,8 @@ static __inline__ CGFloat CGPointDistanceBetweenTwoPoints(CGPoint point1, CGPoin
     
     UITouch *touch = [touches anyObject];
     _touchBegan = [touch locationInView:self];
+
     _hitLayer = (VBPiePiece*)[self layerForTouch:touch];
-    
     moveP = CGPointMake(1, 1);
     CGPoint p = [touch locationInView:self];
     if (p.y > self.center.y && p.x > self.center.x) {
@@ -346,6 +346,7 @@ static __inline__ CGFloat CGPointDistanceBetweenTwoPoints(CGPoint point1, CGPoin
         moveP.y = 1;
         moveP.x = -1;
     }
+    
 }
 
 
@@ -364,6 +365,7 @@ static __inline__ CGFloat CGPointDistanceBetweenTwoPoints(CGPoint point1, CGPoin
     }
     
     if ([_hitLayer isKindOfClass:[VBPiePiece class]]) {
+        
         float d = _hitLayer.accentPrecent+((-delta.x+delta.y)/2/_radius);
         d = MAX(0, d);
         d = MIN(d, _maxAccentPrecent);

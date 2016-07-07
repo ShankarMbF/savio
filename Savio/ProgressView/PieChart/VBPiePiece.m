@@ -327,31 +327,51 @@
     if ([[self animationKeys] count] != 0) {
         return NO;
     }
-    _accentPrecent = accentPrecent;
-    _accent = YES;
     
-    self.accentValue = _innerRadius*_accentPrecent;
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"str"];
+    animation.toValue = [NSNumber numberWithInt:1.2];
+    animation.fromValue = [NSNumber numberWithInt:1];
     
-    CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    [self addAnimation:animation forKey:@"str"];
     
-    CGAffineTransform matrix = CGAffineTransformIdentity;
-    matrix = CGAffineTransformMakeTranslation(center.x, center.y);
-    matrix = CGAffineTransformTranslate(matrix, _accentVector.x*_accentValue, _accentVector.y*_accentValue);
-    matrix = CGAffineTransformTranslate(matrix,-center.x,-center.x);
-    _currentMatrix = matrix;
     
-    CGMutablePathRef path = [self refreshPath];
     
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-	animation.repeatCount = 0;
-    animation.duration = 0.3;
-	animation.fromValue = (__bridge id)self.path;
-	animation.toValue = (__bridge id)path;
-    [self addAnimation:animation forKey:@"animatePath"];
-    
-    self.path = path;
-    CGPathRelease(path);
+   // self.transform = CATransform3DMakeScale(1.1,1, 2);
+//    if(self.strokeColor != ([UIColor clearColor].CGColor))
+//    {
+//        self.zPosition = 5;
+//        _accentPrecent = accentPrecent;
+//        _accent = YES;
+//        
+//        self.accentValue = _innerRadius*_accentPrecent;
+//        
+//        CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+//        
+//        CGAffineTransform matrix = CGAffineTransformIdentity;
+//        matrix = CGAffineTransformMakeTranslation(center.x, center.y);
+//        matrix = CGAffineTransformTranslate(matrix, _accentVector.x*_accentValue, _accentVector.y*_accentValue);
+//        matrix = CGAffineTransformTranslate(matrix,-center.x,-center.x);
+//        _currentMatrix = matrix;
+//        
+//        CGMutablePathRef path = [self refreshPath];
+//        
+//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
+//        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        animation.repeatCount = 0;
+//        animation.duration = 0.3;
+//        animation.fromValue = (__bridge id)self.path;
+//        animation.toValue = (__bridge id)path;
+//        [self addAnimation:animation forKey:@"animatePath"];
+//        
+//        self.path = path;
+//        CGPathRelease(path);
+//        
+//    }
+//    else
+//    {
+//        NSLog(@"here");
+//    }
+   
     
     return YES;
 }

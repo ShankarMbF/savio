@@ -80,12 +80,41 @@ class SAGroupProgressViewController: UIViewController {
             circularView.angle = 90
             let labelOne = circularProgress.viewWithTag(4) as! UILabel
             
-            let labelOne = circularProgress.viewWithTag(3) as! UILabel
+            let labelTwo = circularProgress.viewWithTag(5) as! UILabel
             
-            let labelTwo = circularProgress.viewWithTag(2) as! UILabel
+            let imgView = circularProgress.viewWithTag(3) as! UIImageView
+            imgView.layer.borderColor = UIColor.blueColor().CGColor
+            imgView.layer.borderWidth = 1
+            imgView.layer.cornerRadius = imgView.frame.size.height / 2
             
-            let imgView = circularProgress.viewWithTag(4) as! UIImageView
+            let chart = VBPieChart()
+            let side =  circularProgress.frame.height + 10
+            let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
+            chart.frame = CGRectMake(xValue,-5, side, side)
+            circularProgress.addSubview(chart)
             
+            chart.enableStrokeColor = true;
+            chart.holeRadiusPrecent = 0.75;
+            
+            chart.layer.shadowOffset = CGSizeMake(2, 2);
+            chart.layer.shadowRadius = 3;
+            chart.layer.shadowColor = UIColor.blackColor().CGColor;
+            chart.layer.shadowOpacity = 0.7
+            chart.startAngle = Float(M_PI+M_PI_2)
+            self.chartValues = [
+                ["name":"", "value": 20, "color":UIColor(red:237/255,green:182/255,blue:242/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:181/255,green:235/255,blue:157/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:247/255,green:184/255,blue:183/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:118/255,green:229/255,blue:224/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:238/255,green:234/255,blue:108/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:170/255,green:234/255,blue:184/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:193/255,green:198/255,blue:227/255,alpha:1)],
+                ["name":"", "value": 20, "color":UIColor(red:246/255,green:197/255,blue:124/255,alpha:1)],
+                ["name":"", "value": 100, "color":UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)],
+                
+            ];
+            
+            chart.setChartValues(self.chartValues as [AnyObject], animation:true);
             
             if(i == 0)
             {
@@ -147,6 +176,12 @@ class SAGroupProgressViewController: UIViewController {
     }
     
     
+    
+    func statsButtonPressed(btn:UIButton)
+    {
+        let obj = SAStatViewController()
+        self.navigationController?.pushViewController(obj, animated: false)
+    }
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
@@ -233,7 +268,7 @@ class SAGroupProgressViewController: UIViewController {
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
                     if indexPath.row == 0 {
-                    return 232.0
+                    return 220
                     }
                     else {
                         return 160.0

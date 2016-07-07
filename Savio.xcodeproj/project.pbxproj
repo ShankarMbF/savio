@@ -1657,6 +1657,7 @@
 				A87016221D1C0C2500E58A6A /* CircularProgress.xib */,
 				A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */,
 				A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */,
+				A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */,
 				C957E3F01D2E223100A1AD84 /* GroupProgressTableViewCell.swift */,
 				C957E3F11D2E223100A1AD84 /* GroupProgressTableViewCell.xib */,
 			);

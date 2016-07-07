@@ -10,9 +10,29 @@ import UIKit
 
 class GroupProgressTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var remainingProgress: KDCircularProgress!
+    @IBOutlet weak var saveProgress: KDCircularProgress!
+    @IBOutlet weak var planView: UIView!
+    @IBOutlet weak var topVw: UIView!
+    @IBOutlet weak var userProfile: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+       
+        saveProgress.startAngle = -90
+        saveProgress.roundedCorners = true
+        saveProgress.angle = 180
+        
+        remainingProgress.startAngle = -90
+        remainingProgress.roundedCorners = true
+        remainingProgress.angle = 180
+        remainingProgress.clockwise = false
+        
+        userProfile.layer.borderWidth = 2.0
+        userProfile.layer.borderColor = UIColor.blackColor().CGColor
+        userProfile.layer.cornerRadius = userProfile.frame.size.height/2
+//        userProfile.layer.masksToBounds = false
+        userProfile.layer.zPosition = 1
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

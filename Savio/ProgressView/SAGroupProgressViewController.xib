@@ -13,12 +13,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAGroupProgressViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="contentVwHt" destination="gqc-Mi-sis" id="2ik-c0-mLR"/>
                 <outlet property="horizontalScrollView" destination="c4S-KN-7rD" id="MMB-Yl-5Ac"/>
                 <outlet property="offersButton" destination="cpn-zq-oTz" id="EG3-Tu-V54"/>
                 <outlet property="pageControl" destination="gf6-nN-cap" id="OPg-Ly-F8B"/>
                 <outlet property="planButton" destination="D7a-fw-i33" id="lOQ-Hl-CtK"/>
                 <outlet property="spendButton" destination="OGV-x5-hXK" id="vk7-1r-eNw"/>
                 <outlet property="statsButton" destination="1lY-ph-r2K" id="kNQ-5m-EPO"/>
+                <outlet property="tblHt" destination="Nwv-eT-6aZ" id="0hE-yM-zNW"/>
+                <outlet property="tblView" destination="Ihf-ot-vbi" id="X4u-VU-2M3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -135,6 +138,9 @@
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ihf-ot-vbi">
                                     <rect key="frame" x="0.0" y="265" width="600" height="171"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="171" id="Nwv-eT-6aZ"/>
+                                    </constraints>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="bSN-xX-w5Z"/>
                                         <outlet property="delegate" destination="-1" id="yYE-Do-RJD"/>
@@ -157,6 +163,11 @@
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" id="uE0-Fq-mvb"/>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="centerX" secondItem="alJ-QQ-JNZ" secondAttribute="centerX" id="xTM-HU-mFF"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="tYb-tU-nTC"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <constraints>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,17 +8,21 @@
         <mutableArray key="gotham-rounded-book-2.otf">
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
+            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAGroupProgressViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="contentVwHt" destination="gqc-Mi-sis" id="2ik-c0-mLR"/>
                 <outlet property="horizontalScrollView" destination="c4S-KN-7rD" id="MMB-Yl-5Ac"/>
                 <outlet property="offersButton" destination="cpn-zq-oTz" id="EG3-Tu-V54"/>
                 <outlet property="pageControl" destination="gf6-nN-cap" id="OPg-Ly-F8B"/>
                 <outlet property="planButton" destination="D7a-fw-i33" id="lOQ-Hl-CtK"/>
                 <outlet property="spendButton" destination="OGV-x5-hXK" id="vk7-1r-eNw"/>
                 <outlet property="statsButton" destination="1lY-ph-r2K" id="kNQ-5m-EPO"/>
+                <outlet property="tblHt" destination="P6A-uP-4hQ" id="tvS-ag-Mmf"/>
+                <outlet property="tblView" destination="Ihf-ot-vbi" id="X4u-VU-2M3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -134,16 +138,42 @@
                                     </constraints>
                                     <color key="currentPageIndicatorTintColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </pageControl>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Member (8)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-Fd-CSw">
+                                    <rect key="frame" x="30" y="236" width="540" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="VO7-se-thu"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ihf-ot-vbi">
+                                    <rect key="frame" x="0.0" y="265" width="600" height="171"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="171" id="P6A-uP-4hQ"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="bSN-xX-w5Z"/>
+                                        <outlet property="delegate" destination="-1" id="yYE-Do-RJD"/>
+                                    </connections>
+                                </tableView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" constant="200" id="3Vx-dX-Enl"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="Rxj-TM-ht8" secondAttribute="bottom" id="4ef-df-spo"/>
+                                <constraint firstItem="Jc8-Fd-CSw" firstAttribute="top" secondItem="c4S-KN-7rD" secondAttribute="bottom" constant="26" id="89c-RR-bFx"/>
+                                <constraint firstAttribute="trailing" secondItem="Ihf-ot-vbi" secondAttribute="trailing" id="A0f-HT-7Nq"/>
+                                <constraint firstAttribute="trailing" secondItem="Jc8-Fd-CSw" secondAttribute="trailing" constant="30" id="Aad-EX-UWa"/>
+                                <constraint firstItem="Jc8-Fd-CSw" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="30" id="CYh-xv-wNR"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="20" id="DMd-oH-uuv"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="FaW-Nk-sMq"/>
                                 <constraint firstAttribute="trailing" secondItem="c4S-KN-7rD" secondAttribute="trailing" id="Oa7-QD-0Ta"/>
                                 <constraint firstAttribute="trailing" secondItem="Rxj-TM-ht8" secondAttribute="trailing" constant="20" id="dgt-Qf-DZV"/>
                                 <constraint firstAttribute="height" constant="444" id="gqc-Mi-sis"/>
+                                <constraint firstItem="Ihf-ot-vbi" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="hfv-kG-POB"/>
+                                <constraint firstItem="Ihf-ot-vbi" firstAttribute="top" secondItem="Jc8-Fd-CSw" secondAttribute="bottom" constant="8" id="kbn-R3-gmW"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" id="mhJ-aS-s5H"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" constant="20" id="uE0-Fq-mvb"/>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="centerX" secondItem="alJ-QQ-JNZ" secondAttribute="centerX" id="xTM-HU-mFF"/>

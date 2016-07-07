@@ -844,9 +844,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        
-        
-        
     }
     
     func getParameters() -> Dictionary<String,AnyObject>

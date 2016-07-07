@@ -358,6 +358,8 @@
 		C94F93AD1D1946910065F588 /* SASwitchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C94F93AB1D1946910065F588 /* SASwitchViewController.xib */; };
 		C94F93B11D1969450065F588 /* SAProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94F93AF1D1969450065F588 /* SAProgressViewController.swift */; };
 		C94F93B21D1969450065F588 /* SAProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C94F93B01D1969450065F588 /* SAProgressViewController.xib */; };
+		C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C957E3F01D2E223100A1AD84 /* GroupProgressTableViewCell.swift */; };
+		C957E3F31D2E223100A1AD84 /* GroupProgressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C957E3F11D2E223100A1AD84 /* GroupProgressTableViewCell.xib */; };
 		C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */; };
 		C95CD60D1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */; };
 		C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */; };
@@ -913,6 +915,8 @@
 		C94F93AB1D1946910065F588 /* SASwitchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASwitchViewController.xib; sourceTree = "<group>"; };
 		C94F93AF1D1969450065F588 /* SAProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAProgressViewController.swift; sourceTree = "<group>"; };
 		C94F93B01D1969450065F588 /* SAProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAProgressViewController.xib; sourceTree = "<group>"; };
+		C957E3F01D2E223100A1AD84 /* GroupProgressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupProgressTableViewCell.swift; sourceTree = "<group>"; };
+		C957E3F11D2E223100A1AD84 /* GroupProgressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupProgressTableViewCell.xib; sourceTree = "<group>"; };
 		C95CD6081CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTxtFieldTableViewCell.swift; sourceTree = "<group>"; };
 		C95CD6091CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownTxtFieldTableViewCell.xib; sourceTree = "<group>"; };
 		C95CD60A1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerTextfildTableViewCell.swift; sourceTree = "<group>"; };
@@ -1667,6 +1671,8 @@
 				A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */,
 				A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */,
 				A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */,
+				C957E3F01D2E223100A1AD84 /* GroupProgressTableViewCell.swift */,
+				C957E3F11D2E223100A1AD84 /* GroupProgressTableViewCell.xib */,
 			);
 			path = ProgressView;
 			sourceTree = "<group>";
@@ -2528,6 +2534,7 @@
 				A8095C4A1CEDC616006366F7 /* pre-loader@2x4.png in Resources */,
 				C91E23FA1D02D0D700DC6D29 /* nav-heart-fill.png in Resources */,
 				A858A6001D08127C0097546F /* ride-circle@2x.png in Resources */,
+				C957E3F31D2E223100A1AD84 /* GroupProgressTableViewCell.xib in Resources */,
 				A8095C121CEDC616006366F7 /* pre-loader@1x17.png in Resources */,
 				A86D62D21D21270100B2087D /* stats-offers-tab-active@2x.png in Resources */,
 				A8095C5B1CEDC616006366F7 /* pre-loader@3x2.png in Resources */,
@@ -2654,6 +2661,7 @@
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
 				C97949791CEC987900416BD5 /* VTButton.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
+				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,
 				A84625AD1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift in Sources */,
 				C95CD6171CF2C92100013200 /* DPDConstants.swift in Sources */,

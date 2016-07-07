@@ -231,7 +231,7 @@
                             </constraints>
                         </scrollView>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
-                            <rect key="frame" x="33" y="288" width="534" height="36"/>
+                            <rect key="frame" x="28" y="288" width="544" height="36"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="graphSliderValueChanged:" destination="-1" eventType="valueChanged" id="ZlD-NH-eyc"/>
@@ -242,9 +242,9 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Zx6-CM-USF" secondAttribute="trailing" constant="20" id="FNm-dv-SaZ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="20" id="HwE-hE-bib"/>
-                        <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="35" id="IzM-aA-TWe"/>
+                        <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="30" id="IzM-aA-TWe"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="-20" id="KFv-Q4-CFP"/>
-                        <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="35" id="WPU-nr-MhQ"/>
+                        <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="30" id="WPU-nr-MhQ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="30" id="WjE-nc-Mpk"/>
                         <constraint firstAttribute="bottom" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="15" id="g9p-Gu-KQU"/>
                         <constraint firstAttribute="bottom" secondItem="fnS-6P-Qus" secondAttribute="bottom" id="xrV-xc-lhk"/>

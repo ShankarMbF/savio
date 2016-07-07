@@ -39,10 +39,10 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 //        self.contentView!.addSubview(label)
         lineChart = LineChart()
         
-        let data: [CGFloat] = [10,25,50,55,65,75,85,86,88,100]
+        let data: [CGFloat] = [10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","7th Month","8th Month","9th Month","10th Month"]
+        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","1st Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","7th Month","2nd Month","3rd Month","7th Month"]
         
         
         lineChart.animation.enabled = true
@@ -75,23 +75,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 
     }
     
-    @IBAction func graphSliderValueChanged(sender: UISlider) {
-
-        let fraction: CGFloat = CGFloat(self.graphSliderView.maximumValue - self.graphSliderView.minimumValue) / ((self.widthOfContentView.constant  + 30.0) / 2.0)
-        self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) / fraction ), y: 0  )
-
-//        if  sender.value <= Float((self.contentView?.frame.width)! - self.scrollViewForGraph.frame.width/2)  {
-//            self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) - self.scrollViewForGraph.frame.width/2), y: 0  )
-//
-//        }
-//        else if sender.value <= Float(self.scrollViewForGraph.frame.width/2){
-//            self.scrollViewForGraph.contentOffset = CGPoint(x: 0, y: 0  )
-//
-//        }
-        self.lineChart.sliderValueChanged(sender)
-    }
-    
-    // MARK: - Delegates line chart
+    // MARK: - Delegates and functions for  line chart
     func setValuesForSlider(min: CGFloat, max: CGFloat) {
         self.graphSliderView.maximumValue = Float(max)
         self.graphSliderView.minimumValue = Float(min)
@@ -101,6 +85,21 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.graphSliderView.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
+
+    @IBAction func graphSliderValueChanged(sender: UISlider) {
+        let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
+        let widthOfContentView: CGFloat = self.widthOfContentView.constant
+        if widthOfContentView > widthScrollView {
+            let fraction: CGFloat = (widthOfContentView - widthScrollView) / CGFloat (self.graphSliderView.maximumValue)
+            if sender.value <= 20.0 {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
+            } else {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) * fraction ), y: 0  )
+            }
+        }
+        self.lineChart.sliderValueChanged(sender)
+    }
+    
 
     //MARK: -
     
@@ -161,7 +160,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
         //set Navigation right button nav-heart
-        
+    
         let btnName = UIButton()
         //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)

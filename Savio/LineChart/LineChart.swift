@@ -278,7 +278,6 @@ public class LineChart: UIView {
         let yValues: [CGFloat] = getYValuesForXValue(rounded)
         highlightDataPoints(rounded)
         delegate?.didSelectDataPoint(CGFloat(rounded), yValues: yValues)
-
     }
     
     
@@ -371,36 +370,44 @@ public class LineChart: UIView {
         dotsDataStore.append(dotLayers)
     }
     
+    
+    
     public var valueLabel: UILabel = UILabel()
-    let progress = KDCircularProgress(frame: CGRect(x: 0, y: -15, width: 30, height: 30))
-
+    let progress = KDCircularProgress(frame: CGRect(x: 0, y: -20, width: 40, height: 40))
+    let widthOfScrollingLineView: CGFloat = 40.0
+    
     func drawScrollLineForPoint(a1: CGFloat) {
         
-        graphView = UIView(frame: CGRect(x: a1 - 15, y: x.axis.inset, width: 30, height: self.drawingHeight ))
+        graphView = UIView(frame: CGRect(x: a1 - widthOfScrollingLineView / 2.0, y: x.axis.inset, width: 40, height: self.drawingHeight ))
         graphView.backgroundColor = UIColor.clearColor()
         var data = self.dataStore[0]
 
-        self.valueLabel.frame = CGRect(x: 5, y: 5, width: 20, height: 20)
+        self.valueLabel.frame = CGRect(x: 5, y: widthOfScrollingLineView / 2.0, width: 30, height: 15)
         self.valueLabel.text = String(data[2])
-        self.valueLabel.font =  UIFont(name: "GothamRounded-Light", size: 8)
+        self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 9)
         self.valueLabel.textAlignment = .Center
-        let line: UIView  = UIView(frame: CGRect(x: 14.5 , y: 0, width: 1, height: self.drawingHeight + 2 * x.axis.inset))
+        let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.drawingHeight))
         line.backgroundColor = UIColor.redColor()
         graphView.addSubview(line)
         self.addSubview(graphView)
         
+        //image view 
+        let imageView: UIImageView = UIImageView(frame: CGRect(x: 15, y: 10, width: 10, height: 10))
+        imageView.image = UIImage(named: "slider-icon")
+    
+        self.progress.addSubview(imageView)
         //progress view 
         
         progress.startAngle = -90
-        progress.progressThickness = 0.5
-        progress.trackThickness = 0.2
+        progress.progressThickness = 0.3
+        progress.trackThickness = 0.1
         progress.clockwise = true
         progress.gradientRotateSpeed = 2
         progress.roundedCorners = true
         progress.glowMode = .Forward
         progress.setColors(UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0) )
         progress.trackColor = UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 242.0/256.0, alpha: 1.0)
-        progress.backgroundColor = UIColor.whiteColor()
+        progress.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
         progress.layer.cornerRadius = progress.frame.width / 2.0
         graphView.addSubview(progress)
         progress.addSubview(valueLabel)
@@ -409,7 +416,7 @@ public class LineChart: UIView {
     }
     
      func moveScrollLineForPoint(a1: CGFloat) {
-        graphView.frame = CGRect(x: a1 - 10, y: x.axis.inset, width: 20, height: self.drawingHeight)
+        graphView.frame = CGRect(x: a1 - widthOfScrollingLineView / 2, y: x.axis.inset, width: 20, height: self.drawingHeight)
     }
 
     /**

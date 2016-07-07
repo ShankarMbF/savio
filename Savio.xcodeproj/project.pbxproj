@@ -311,6 +311,8 @@
 		A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */; };
 		A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */; };
 		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
+		A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */; };
+		A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -864,6 +866,8 @@
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
+		A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAImpulseSavingViewController.swift; sourceTree = "<group>"; };
+		A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAImpulseSavingViewController.xib; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1572,6 +1576,15 @@
 			path = CancelSavingPlan;
 			sourceTree = "<group>";
 		};
+		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
+			isa = PBXGroup;
+			children = (
+				A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */,
+				A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */,
+			);
+			path = ImpulseSavingView;
+			sourceTree = "<group>";
+		};
 		C90571931CFEAA8500ECC4FC /* SACreateSavingPlanViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1847,6 +1860,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A8F820261D2E7FA600BB7537 /* ImpulseSavingView */,
 				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				C94CB9871D213E7D0040E150 /* StatView */,
@@ -2463,6 +2477,7 @@
 				A8BDCBE91D05557500D4C47B /* holiday-calendar@2x.png in Resources */,
 				C9ED802B1D1BC38A00058A96 /* menu-active-profile@3x.png in Resources */,
 				C9ED80261D1BC38A00058A96 /* menu-active-offers.png in Resources */,
+				A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */,
 				A8BDCBE41D05557500D4C47B /* group-save-calendar@3x.png in Resources */,
 				C9ED80571D1BC38A00058A96 /* menu-switch@2x.png in Resources */,
 				C975A9341D01952900184C8C /* holiday-category-icon@2x.png in Resources */,
@@ -2655,6 +2670,7 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
+				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
 				C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */,
 				C9B6C8421D05711C00FCB00C /* SAOfferListViewController.swift in Sources */,

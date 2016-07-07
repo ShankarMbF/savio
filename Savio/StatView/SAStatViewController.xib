@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,12 +16,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAStatViewController" customModule="Savio" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="3pJ-dh-CAm" id="SVN-ex-ilu"/>
+                <outlet property="contentView" destination="jmE-Ve-npa" id="heM-hi-hby"/>
+                <outlet property="graphSliderView" destination="fnS-6P-Qus" id="OdD-en-XP1"/>
                 <outlet property="makeImpulseBtn" destination="3mQ-sn-Pop" id="Xu9-RX-bKs"/>
                 <outlet property="offersButton" destination="mdv-PT-ZyN" id="Wbd-ea-MVQ"/>
                 <outlet property="planButton" destination="XTi-lU-zpW" id="TgB-XS-I2r"/>
+                <outlet property="scrollViewForGraph" destination="Zx6-CM-USF" id="q8m-Vk-YcE"/>
                 <outlet property="spendButton" destination="o4Q-gp-8E3" id="iMe-pS-WQo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="widthOfContentView" destination="dvW-Ub-t8M" id="gzE-oh-ufT"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -98,18 +101,6 @@
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Stats"/>
                 </button>
-                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pJ-dh-CAm">
-                    <rect key="frame" x="0.0" y="104" width="600" height="323"/>
-                    <color key="backgroundColor" red="0.99215686270000003" green="0.95294117649999999" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="280" id="E69-WO-fNN"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="E69-WO-fNN"/>
-                        </mask>
-                    </variation>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsX-Nh-UJc">
                     <rect key="frame" x="0.0" y="427" width="600" height="120"/>
                     <subviews>
@@ -217,6 +208,54 @@
                         </mask>
                     </variation>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pJ-dh-CAm" userLabel="Graph">
+                    <rect key="frame" x="0.0" y="104" width="600" height="323"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-CM-USF">
+                            <rect key="frame" x="20" y="30" width="560" height="278"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmE-Ve-npa" userLabel="ContentView">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="278"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="600" id="dvW-Ub-t8M"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="jmE-Ve-npa" secondAttribute="trailing" id="GI0-g2-pCy"/>
+                                <constraint firstAttribute="bottom" secondItem="jmE-Ve-npa" secondAttribute="bottom" id="Kn6-WQ-ZTo"/>
+                                <constraint firstItem="jmE-Ve-npa" firstAttribute="leading" secondItem="Zx6-CM-USF" secondAttribute="leading" id="Qbf-bN-7yS"/>
+                                <constraint firstItem="jmE-Ve-npa" firstAttribute="height" secondItem="Zx6-CM-USF" secondAttribute="height" id="hn2-uy-dtk"/>
+                                <constraint firstItem="jmE-Ve-npa" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="top" id="m0D-Hy-vWK"/>
+                            </constraints>
+                        </scrollView>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
+                            <rect key="frame" x="28" y="288" width="544" height="36"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="graphSliderValueChanged:" destination="-1" eventType="valueChanged" id="ZlD-NH-eyc"/>
+                            </connections>
+                        </slider>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Zx6-CM-USF" secondAttribute="trailing" constant="20" id="FNm-dv-SaZ"/>
+                        <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="20" id="HwE-hE-bib"/>
+                        <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="30" id="IzM-aA-TWe"/>
+                        <constraint firstItem="fnS-6P-Qus" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="-20" id="KFv-Q4-CFP"/>
+                        <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="30" id="WPU-nr-MhQ"/>
+                        <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="30" id="WjE-nc-Mpk"/>
+                        <constraint firstAttribute="bottom" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="15" id="g9p-Gu-KQU"/>
+                        <constraint firstAttribute="bottom" secondItem="fnS-6P-Qus" secondAttribute="bottom" id="xrV-xc-lhk"/>
+                        <constraint firstItem="Zx6-CM-USF" firstAttribute="centerX" secondItem="3pJ-dh-CAm" secondAttribute="centerX" id="ynT-8E-K1s"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="ynT-8E-K1s"/>
+                        </mask>
+                    </variation>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -244,6 +283,7 @@
                     <exclude reference="mcH-tC-hQr"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="263" y="202"/>
         </view>
     </objects>
     <resources>

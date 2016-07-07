@@ -96,7 +96,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }

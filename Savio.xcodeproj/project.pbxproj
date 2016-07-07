@@ -308,6 +308,9 @@
 		A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */; };
 		A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */; };
 		A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */; };
+		A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */; };
+		A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */; };
+		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -527,6 +530,9 @@
 		C9FB592F1D1ABCA800C9B6AE /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */; };
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
+		CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D571D2CEA8A005CC750 /* slider-icon.png */; };
+		CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */; };
+		CA0F6D5C1D2CEA8A005CC750 /* slider-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -857,6 +863,9 @@
 		A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSegmentBar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTableViewCell.swift; sourceTree = "<group>"; };
 		A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraTableViewCell.xib; sourceTree = "<group>"; };
+		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
+		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
+		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1078,6 +1087,9 @@
 		C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTableViewCell.swift; sourceTree = "<group>"; };
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
+		CA0F6D571D2CEA8A005CC750 /* slider-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon.png"; sourceTree = "<group>"; };
+		CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@2x.png"; sourceTree = "<group>"; };
+		CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1555,6 +1567,15 @@
 			path = setupSavingPlan;
 			sourceTree = "<group>";
 		};
+		A8F820211D2E665800BB7537 /* CancelSavingPlan */ = {
+			isa = PBXGroup;
+			children = (
+				A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */,
+				A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */,
+			);
+			path = CancelSavingPlan;
+			sourceTree = "<group>";
+		};
 		C90571931CFEAA8500ECC4FC /* SACreateSavingPlanViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1831,6 +1852,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				C94CB9871D213E7D0040E150 /* StatView */,
 				C94CB9841D2138740040E150 /* LineChart */,
@@ -1873,6 +1895,9 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				CA0F6D571D2CEA8A005CC750 /* slider-icon.png */,
+				CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */,
+				CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */,
 				A86D62A01D21270100B2087D /* ProgressBar */,
 				A86F063E1D1D0C8A00E1D821 /* cycle.png */,
 				C9ED7FE61D1BC38A00058A96 /* Burger Menu */,
@@ -2173,6 +2198,7 @@
 				C9ED803C1D1BC38A00058A96 /* menu-active-update@2x.png in Resources */,
 				A8BDCBD31D05557500D4C47B /* baby-calendar.png in Resources */,
 				C975A9301D01952900184C8C /* group-save-category-icon.png in Resources */,
+				CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */,
 				A8095C2F1CEDC616006366F7 /* pre-loader@2x11.png in Resources */,
 				A858A5FD1D08127C0097546F /* home-circle@2x.png in Resources */,
 				A8BDCBF11D05557500D4C47B /* ride-calendar.png in Resources */,
@@ -2246,6 +2272,7 @@
 				C905719B1CFF020200ECC4FC /* SavingCategoryTableViewCell.xib in Resources */,
 				A8095C431CEDC616006366F7 /* pre-loader@2x3.png in Resources */,
 				C95CD60F1CF2C7EE00013200 /* PickerTextfildTableViewCell.xib in Resources */,
+				CA0F6D5C1D2CEA8A005CC750 /* slider-icon@3x.png in Resources */,
 				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
 				C9ED80291D1BC38A00058A96 /* menu-active-profile.png in Resources */,
 				C9ED803A1D1BC38A00058A96 /* menu-active-switch@3x.png in Resources */,
@@ -2347,6 +2374,7 @@
 				A86D62D81D21270100B2087D /* stats-plan-tab-active@3x.png in Resources */,
 				A86D62E21D21270100B2087D /* stats-spend-tab@3x.png in Resources */,
 				A8095C1C1CEDC616006366F7 /* pre-loader@1x26.png in Resources */,
+				A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */,
 				A82B9C8B1D0688B200BFD084 /* generic-calendar@3x.png in Resources */,
 				A8095C5A1CEDC616006366F7 /* pre-loader@3x19.png in Resources */,
 				C94A708D1CF55FA8002E9449 /* splash-logo@1x.png in Resources */,
@@ -2393,6 +2421,7 @@
 				A858A5F31D08127C0097546F /* generic-circle.png in Resources */,
 				A8095C251CEDC616006366F7 /* pre-loader@1x34.png in Resources */,
 				C91E23EC1D029CF900DC6D29 /* WishListTableViewCell.xib in Resources */,
+				A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */,
 				C975A9311D01952900184C8C /* group-save-category-icon@2x.png in Resources */,
 				A858A5F01D08127C0097546F /* gadget-circle.png in Resources */,
 				C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */,
@@ -2534,6 +2563,7 @@
 				A8095C521CEDC616006366F7 /* pre-loader@3x11.png in Resources */,
 				A858A5FC1D08127C0097546F /* home-circle.png in Resources */,
 				A8095C3D1CEDC616006366F7 /* pre-loader@2x24.png in Resources */,
+				CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */,
 				C975A9281D01952900184C8C /* baby-category-icon@2x.png in Resources */,
 				A8095C141CEDC616006366F7 /* pre-loader@1x19.png in Resources */,
 				C97A351B1CF6CC7900BEB441 /* icon.png in Resources */,
@@ -2605,6 +2635,7 @@
 				A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */,
 				A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */,
 				C96D5E551D0ED7B100CE248D /* EmailTxtTableViewCell.swift in Sources */,
+				A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */,
 				C94F93AC1D1946910065F588 /* SASwitchViewController.swift in Sources */,
 				C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */,
 				C94F93B11D1969450065F588 /* SAProgressViewController.swift in Sources */,

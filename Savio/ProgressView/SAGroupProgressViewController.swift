@@ -68,18 +68,17 @@ class SAGroupProgressViewController: UIViewController {
         
         for var i=0; i<3; i++
         {
-            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView
+            let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
-            horizontalScrollView.addSubview(circularProgress)
+            
             
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
-            circularView.roundedCorners = false
-            circularView.lerpColorMode = false
+            circularView.roundedCorners = true
+            circularView.lerpColorMode = true
             
-            circularView.angle = 0//Double((paidAmount * 360)/totalAmount)
-            //            circularView.setColors(UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),UIColor(red:247/255,green:184/255,blue:183/255,alpha:1),UIColor(red:118/255,green:229/255,blue:224/255,alpha:1),UIColor(red:238/255,green:234/255,blue:108/255,alpha:1),UIColor(red:170/255,green:234/255,blue:184/255,alpha:1),UIColor(red:193/255,green:198/255,blue:227/255,alpha:1),UIColor(red:246/255,green:197/255,blue:124/255,alpha:1))
-            
+            circularView.angle = 90
+            let labelOne = circularProgress.viewWithTag(4) as! UILabel
             
             let labelOne = circularProgress.viewWithTag(3) as! UILabel
             
@@ -93,16 +92,18 @@ class SAGroupProgressViewController: UIViewController {
                 labelOne.hidden = true
                 labelTwo.hidden = true
                 imgView.hidden = false
+                circularView.hidden = true
                 
             }
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = "0.0%%"
+                labelOne.text = "0.0%"
                 labelTwo.hidden = false
                 labelTwo.text = "£ 0.0 saved"
                 imgView.hidden = true
-                
+                circularView.hidden = false
+                chart.hidden = true
             }
             else
             {
@@ -111,7 +112,17 @@ class SAGroupProgressViewController: UIViewController {
                 labelTwo.hidden = false
                 labelTwo.text = "0 days to go"
                 imgView.hidden = true
+                circularView.hidden = false
+                chart.hidden = true
             }
+            
+            //Double((paidAmount * 360)/totalAmount)
+            //            circularView.setColors(UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),UIColor(red:247/255,green:184/255,blue:183/255,alpha:1),UIColor(red:118/255,green:229/255,blue:224/255,alpha:1),UIColor(red:238/255,green:234/255,blue:108/255,alpha:1),UIColor(red:170/255,green:234/255,blue:184/255,alpha:1),UIColor(red:193/255,green:198/255,blue:227/255,alpha:1),UIColor(red:246/255,green:197/255,blue:124/255,alpha:1))
+            
+            
+           
+           horizontalScrollView.addSubview(circularProgress)
+            
         }
         
     }

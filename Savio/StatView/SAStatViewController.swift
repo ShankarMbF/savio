@@ -21,25 +21,28 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var makeImpulseBtn: UIButton!
+    @IBOutlet var scrollViewForGraph: UIScrollView!
     
+    @IBOutlet var widthOfContentView: NSLayoutConstraint!
+    @IBOutlet var graphSliderView: UISlider!
+    
+    var xLabels: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setUpView()
         
-        label.text = itemTitle
-        label.font = UIFont(name: "GothamRounded-Book", size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = NSTextAlignment.Center
-        self.contentView!.addSubview(label)
+//        label.text = itemTitle
+//        label.font = UIFont(name: "GothamRounded-Book", size: 16)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textAlignment = NSTextAlignment.Center
+//        self.contentView!.addSubview(label)
         lineChart = LineChart()
         
-        //   var data: [CGFloat] = [50, 30, 50, 113, 317, 50, 24,]
-        let data: [CGFloat] = [10,25,50,75,100]
+        let data: [CGFloat] = [10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        let xLabels: [String] = ["1st Month","2nd Month","3rd Month","4th Month","5th Month"]
-        //        let xLabels: [String] = ["1'st Month","2nd Month"]
+        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","1st Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","7th Month","2nd Month","3rd Month","7th Month"]
         
         
         lineChart.animation.enabled = true
@@ -66,23 +69,63 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
-        //        scrHt.constant = lineChart.frame.size.height
-        //        self.view.addSubview(lineChart)
 
         self.contentView?.addSubview(lineChart)
+        
 
     }
+    
+    // MARK: - Delegates and functions for  line chart
+    func setValuesForSlider(min: CGFloat, max: CGFloat) {
+        self.graphSliderView.maximumValue = Float(max)
+        self.graphSliderView.minimumValue = Float(min)
+        self.lineChart.drawScrollLineForPoint(min)
+        self.graphSliderView.minimumTrackTintColor = UIColor.blackColor()
+        self.graphSliderView.maximumTrackTintColor = UIColor.blackColor()
+        self.graphSliderView.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
+        self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
+    }
 
+    @IBAction func graphSliderValueChanged(sender: UISlider) {
+        let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
+        let widthOfContentView: CGFloat = self.widthOfContentView.constant
+        if widthOfContentView > widthScrollView {
+            let fraction: CGFloat = (widthOfContentView - widthScrollView) / CGFloat (self.graphSliderView.maximumValue)
+            if sender.value <= 20.0 {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
+            } else {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) * fraction ), y: 0  )
+            }
+        }
+        self.lineChart.sliderValueChanged(sender)
+    }
+    
+
+    //MARK: -
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var views: [String: AnyObject] = [:]
 
-        views["label"] = label
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+//        views["label"] = label
+//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
+//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
         views["chart"] = lineChart
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
-        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==\((self.contentView?.frame.size.height)!  - 50))]", options: [], metrics: nil, views: views))
+        if xLabels.count > 5 {
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
+            let offsetSpace = 70
+            let constant = String.init(format: "H:|-[chart(%d)]-|", xLabels.count * offsetSpace)
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(constant, options: [], metrics: nil, views: views))
+            self.widthOfContentView.constant = CGFloat( xLabels.count * offsetSpace)
+            self.scrollViewForGraph.contentSize = CGSize(width: CGFloat( xLabels.count * offsetSpace), height: self.scrollViewForGraph.frame.height)
+        }
+        else  {
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: [], metrics: nil, views: views))
+            self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
+            self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
+            self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
+
+        }
 
     }
     override func didReceiveMemoryWarning() {
@@ -117,7 +160,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
         //set Navigation right button nav-heart
-        
+    
         let btnName = UIButton()
         //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)

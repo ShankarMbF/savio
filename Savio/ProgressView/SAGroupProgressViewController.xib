@@ -118,13 +118,18 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="228" id="XOO-Gc-ITl"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="Inx-xE-lRN"/>
+                                    </connections>
                                 </scrollView>
                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="gf6-nN-cap">
-                                    <rect key="frame" x="281" y="156" width="39" height="37"/>
+                                    <rect key="frame" x="281" y="200" width="39" height="37"/>
+                                    <color key="tintColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="39" id="bxc-EW-XAl"/>
                                         <constraint firstAttribute="height" constant="37" id="c0m-u8-S0L"/>
                                     </constraints>
+                                    <color key="currentPageIndicatorTintColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </pageControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Member (8)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-Fd-CSw">
                                     <rect key="frame" x="30" y="236" width="540" height="21"/>
@@ -154,6 +159,7 @@
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="FaW-Nk-sMq"/>
                                 <constraint firstAttribute="trailing" secondItem="Ihf-ot-vbi" secondAttribute="trailing" id="Ict-Hy-a93"/>
                                 <constraint firstAttribute="trailing" secondItem="c4S-KN-7rD" secondAttribute="trailing" id="Oa7-QD-0Ta"/>
+                                <constraint firstAttribute="trailing" secondItem="Rxj-TM-ht8" secondAttribute="trailing" constant="20" id="dgt-Qf-DZV"/>
                                 <constraint firstAttribute="height" constant="444" id="gqc-Mi-sis"/>
                                 <constraint firstItem="Jc8-Fd-CSw" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="30" id="jSd-dX-vkF"/>
                                 <constraint firstItem="Ihf-ot-vbi" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="jzW-rT-lSC"/>

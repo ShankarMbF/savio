@@ -204,7 +204,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI("Error")
                         }
@@ -370,12 +370,12 @@ class API: UIView {
                     //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print("\(dict)")
+                        0
+//                        print("\(dict)")
                         if(dict["errorCode"] as! NSString == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.logInDelegate?.successResponseForLogInAPI(dict)
-                                
                             }
                         }
                         else{
@@ -386,14 +386,12 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.logInDelegate?.errorResponseForOTPLogInAPI((response?.description)!)
                         }
-                        
                     }
                 }
-                
             }
             dataTask.resume()
         }
@@ -422,17 +420,17 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
+//                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print("\(dict)")
+//                        print("\(dict)")
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.successResponseForResetPasscodeAPI(dict)
                         }
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
                         }
@@ -524,7 +522,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
                         }
@@ -542,7 +540,7 @@ class API: UIView {
     
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
-        print(dict)
+//        print(dict)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
@@ -559,7 +557,7 @@ class API: UIView {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
             request.HTTPMethod = "DELETE"
             
-            print(request)
+//            print(request)
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -578,7 +576,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.deleteWishList?.errorResponseForDeleteWishListAPI((response?.description)!)
                         }
@@ -611,7 +609,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
                 request.HTTPMethod = "PUT"
                 
                 
@@ -633,7 +631,7 @@ class API: UIView {
                         }
                         else
                         {
-                            print(response?.description)
+//                            print(response?.description)
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -673,7 +671,7 @@ class API: UIView {
                         }
                         else
                         {
-                            print(response?.description)
+//                            print(response?.description)
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -706,7 +704,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            print(request)
+//            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -722,7 +720,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getWishlistDelegate?.errorResponseForGetWishlistAPI((response?.description)!)
                         }
@@ -755,7 +753,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            print(request)
+//            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -771,7 +769,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI((response?.description)!)
                         }
@@ -804,16 +802,16 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Offers/SavingID?input=%@",baseURL,input))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            print(request)
+//            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
+//                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print(dict)
+//                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
@@ -821,7 +819,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("Error")
                         }
@@ -852,7 +850,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            print(request)
+//            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -868,7 +866,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI((response?.description)!)
                         }
@@ -907,7 +905,7 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
 
-            print(request)
+//            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -922,7 +920,7 @@ class API: UIView {
                     }
                     else
                     {
-                        print(response?.description)
+//                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI((response?.description)!)
                         }

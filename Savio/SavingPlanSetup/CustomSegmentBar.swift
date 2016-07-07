@@ -33,7 +33,7 @@ class CustomSegmentBar: UIView {
         let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
 
         self.leftButton = UIButton()
-        self.leftButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
+        self.leftButton?.backgroundColor = self.setUpColor()
         self.leftButton?.frame = CGRectMake(self.sideOffset, self.topOffset, widthActBtn, heightActBtn)
         self.leftButton?.setTitle(leftTitle, forState: UIControlState.Normal)
         self.leftButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -42,7 +42,7 @@ class CustomSegmentBar: UIView {
         self.addSubview(self.leftButton!)
         
         self.rightButton = UIButton()
-        self.rightButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
+        self.rightButton?.backgroundColor = self.setUpColor()
         self.rightButton?.frame = CGRectMake(self.midOfToggleView!, self.topOffset, widthActBtn, heightActBtn)
         self.rightButton?.setTitle(rightTitle, forState: UIControlState.Normal)
         self.rightButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -51,9 +51,9 @@ class CustomSegmentBar: UIView {
         self.addSubview(self.rightButton!)
         
         self.activeButton = UIButton()
-        self.activeButton?.backgroundColor = self.setUpColor()
-        self.activeButton?.setTitle(leftTitle, forState: UIControlState.Normal)
-        self.activeButton?.frame = CGRectMake(self.sideOffset, self.sideOffset , widthActBtn , heightActBtn)
+        self.activeButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
+        self.activeButton?.setTitle(rightTitle, forState: UIControlState.Normal)
+        self.activeButton?.frame = CGRectMake(self.midOfToggleView!, self.sideOffset , widthActBtn , heightActBtn)
         self.activeButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
 //        self.activeButton?.addTarget(self, action:#selector(toggleButton), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(self.activeButton!)

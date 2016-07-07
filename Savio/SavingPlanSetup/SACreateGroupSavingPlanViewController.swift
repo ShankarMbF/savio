@@ -57,7 +57,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         cost =  Int(parameterDict["amount"] as! String)!
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        print(userInfoDict)
+//        print(userInfoDict)
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         
@@ -120,7 +120,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         if (parameterDict["imageURL"] != nil ||  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
-
+            
             let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
             topBgImageView.image = UIImage(data: data)
@@ -130,8 +130,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else
         {
             self.cameraButton.hidden = false
-            topBgImageView.image = UIImage(named: "groupsave-setup-bg.png")
-           // addAPhotoLabel.hidden = false
+            // addAPhotoLabel.hidden = false
         }
         
         if parameterDict["isUpdate"]!.isEqualToString("Yes") {
@@ -282,7 +281,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             else{
                 cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             }
-
+            
             return cell1
         }
         else if(indexPath.section == offerArr.count+3){
@@ -348,7 +347,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == 1)
         {
- 
+            
             if(isDateChanged)
             {
                 return 100
@@ -399,21 +398,29 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func getParametersForUpdate() -> Dictionary<String,AnyObject>
     {
+//        print(parameterDict)
         var newDict : Dictionary<String,AnyObject> = [:]
+        
         if parameterDict["isUpdate"]!.isEqualToString("No") {
+            
             newDict["INIVITED_USER_LIST"] = participantsArr
         }
-//        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
+        
+        //        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
         newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
         newDict["title"] = parameterDict["title"]
         newDict["amount"] = parameterDict["amount"]
         newDict["payDate"] = parameterDict["payDate"]
-        newDict["pty_id"] = parameterDict["pty_id"]
-        newDict["partySavingPlanID"] = parameterDict["sav_id"]
+        newDict["user_ID"] = parameterDict["pty_id"]
+        newDict["partySavingPlanID"] = parameterDict["sharedPartySavingPlan"]
         newDict["imageURL"] = parameterDict["imageURL"]
         newDict["payType"] = parameterDict["payType"]
-        newDict["wishList_ID"] = parameterDict["id"]
+        newDict["wishList_ID"] = parameterDict["wishList_ID"] as! NSNumber
         
+        
+        newDict["sav_id"] = parameterDict["sav_id"] as! NSNumber
+        
+        newDict["payDate"] = selectedStr
         parameterDict["payDate"] = selectedStr
         if(dateString == "date")
         {
@@ -438,17 +445,18 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             newDict["offer_List"] = newOfferArray
         }
+//        print(newDict)
         return newDict
         
     }
-
+    
     
     
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var newDict : Dictionary<String,AnyObject> = [:]
-         if parameterDict["isUpdate"]!.isEqualToString("No") {
-        newDict["INIVITED_USER_LIST"] = participantsArr
+        if parameterDict["isUpdate"]!.isEqualToString("No") {
+            newDict["INIVITED_USER_LIST"] = participantsArr
         }
         newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
         newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
@@ -460,7 +468,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["imageURL"] = parameterDict["imageURL"]
         newDict["payType"] = "Direct debit"
         
-        parameterDict["payDate"] = selectedStr
+        parameterDict["payDate"] = selectedStr as String
+        newDict["payDate"] = selectedStr as String
+        
         if(dateString == "date")
         {
             newDict["payType"] = "Month"
@@ -501,7 +511,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                print(getParameters())
+//                print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
             }
@@ -525,7 +535,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-
+            
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             self.navigationController?.popViewControllerAnimated(true)
@@ -540,8 +550,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func joinGroupButtonPressed(sender:UIButton)
     {
-//        let alert = UIAlertView(title: "Alert", message: "You have been added to group saving plan", delegate: nil, cancelButtonTitle: "Ok")
-//        alert.show()
+//                let alert = UIAlertView(title: "Alert", message: "You have been added to group saving plan", delegate: nil, cancelButtonTitle: "Ok")
+//                alert.show()
         
         
         if isOfferShow == true {
@@ -555,7 +565,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                                print(getParametersForUpdate())
+//                print(getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
                 
             }
@@ -588,10 +598,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
-        if let message = objResponse["message"] as? String
+//        print(objResponse)
+        if let message = objResponse["errorCode"] as? String
         {
-            if(message == "Party Saving Plan is succesfully added")
+//            if(message == "Party Saving Plan is succesfully added")
+            if(message == "200")
             {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
                 NSUserDefaults.standardUserDefaults().synchronize()
@@ -613,15 +624,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            
-            
         }
         objAnimView.removeFromSuperview()
-        
     }
     
     func errorResponseForPartySavingPlanAPI(error:String){
-        print(error)
+//        print(error)
         
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()

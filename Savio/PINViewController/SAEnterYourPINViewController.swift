@@ -49,9 +49,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         btnVwBg.layer.cornerRadius = 5
         
         
-        loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        loginButton.layer.shadowOffset = CGSizeMake(0, 4)
-        loginButton.layer.shadowOpacity = 1
+//        loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        loginButton.layer.shadowOffset = CGSizeMake(0, 4)
+//        loginButton.layer.shadowOpacity = 1
         loginButton.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>

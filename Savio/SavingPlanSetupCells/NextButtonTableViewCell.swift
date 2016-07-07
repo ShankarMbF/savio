@@ -86,7 +86,7 @@ class NextButtonTableViewCell: UITableViewCell {
         else
         {
             red = 244/255
-            green = 176/255
+            green = 172/255
             blue = 58/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)

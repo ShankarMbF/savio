@@ -152,7 +152,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
-            circularView.angle = Double((paidAmount * 360)/totalAmount)
+            circularView.roundedCorners = true
+            circularView.angle = 180//Double((paidAmount * 360)/totalAmount)
             
              let labelOne = circularProgress.viewWithTag(3) as! UILabel
             

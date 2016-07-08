@@ -35,8 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //       objApi.deleteKeychainValue("myUserInfo")
         //        objApi.deleteKeychainValue("userInfo")
         print(objApi.getValueFromKeychainOfKey("myPasscode") as! String)
-        //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         
+      
+        //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
+      
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
             if let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as? Dictionary<String,AnyObject>
@@ -82,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         objSANav?.navigationBarHidden = true
-        
+      
         window?.makeKeyAndVisible()
         
         return true

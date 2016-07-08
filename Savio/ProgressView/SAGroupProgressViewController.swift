@@ -25,6 +25,7 @@ class SAGroupProgressViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
     let chart = VBPieChart();
+    var ht:CGFloat = 0.0
 
     let chartColors = [
     UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
@@ -39,6 +40,7 @@ class SAGroupProgressViewController: UIViewController {
     ];
     
      var  prevIndxArr: Array<Int> = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +64,9 @@ class SAGroupProgressViewController: UIViewController {
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
-        tblHt.constant = 5 * 233
-        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
+        tblView.reloadData()
+//        tblHt.constant = (5 * 55) + 220
+//        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
         
         for var i=0; i<3; i++
@@ -222,7 +225,7 @@ class SAGroupProgressViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 5;
+        return 3;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -237,19 +240,51 @@ class SAGroupProgressViewController: UIViewController {
         cell?.saveProgress.progressColors = [chartColors[indexPath.row]]
         cell?.planView.backgroundColor = chartColors[indexPath.row]
         cell?.topVw.backgroundColor = chartColors[indexPath.row]
+        
+        if prevIndxArr.count > 0 {
+            for var i in 0 ..< prevIndxArr.count {
+                
+                if prevIndxArr[i] == indexPath.row {
+                    cell?.topVwHt.constant = 22.0
+                    
+                    if indexPath.row == 0{
+                        ht = 220.0
+                    }else {
+                        ht = 160.0
+                    }
+                    break
+                }
+                else{
+                    cell?.topVwHt.constant = 50.0 //(cell?.userProfile.frame.size.height)! + 5.0
+                }
+            }
+        }
+        else{
+            ht = 55.0
+            cell?.topVwHt.constant = 50.0
+//            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
+        }
+        tblHt.constant = (2 * 50) + ht
+        print(tblHt.constant)
+        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
+
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        ht = 0
         dispatch_async(dispatch_get_main_queue()){
+            let selectedCell:GroupProgressTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? GroupProgressTableViewCell
+            selectedCell?.topVwHt.constant = 22.0
             var isVisible = false
             if self.prevIndxArr.count > 0{
                 for i in 0 ..< self.prevIndxArr.count {
                     let obj = self.prevIndxArr[i] as Int
                     if obj == indexPath.row {
                         isVisible = true
+                        selectedCell?.topVwHt.constant = 50.0
                         self.prevIndxArr.removeAtIndex(i)
-                        break
+                       break
                     }
                 }
                 if(isVisible == false){
@@ -258,31 +293,34 @@ class SAGroupProgressViewController: UIViewController {
                 }
             }
             else{
+                 selectedCell?.topVwHt.constant = 50.0
                 self.prevIndxArr.append(indexPath.row)
             }
-            self.tblView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+//            self.tblView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            self.tblView.reloadData()
         }
+    }
+    
+    // Just set it back in deselect
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let selectedCell:GroupProgressTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? GroupProgressTableViewCell
+        selectedCell?.topVwHt.constant = 50.0
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
                     if indexPath.row == 0 {
-                    return 220
+                        return 220
                     }
                     else {
                         return 160.0
                     }
                 }
-                
             }
         }
-        
-        return 55.0
-        
-       
+        return 50.0
     }
 
 }

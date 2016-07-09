@@ -792,8 +792,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func cancelSavingButtonPressed(sender:UIButton)
     {
-        let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+       let obj  = SACancelSavingViewController()
+        self.navigationController?.pushViewController(obj, animated: true)
     }
     
     func clearButtonPressed()

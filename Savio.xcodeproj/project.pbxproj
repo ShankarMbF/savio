@@ -240,6 +240,15 @@
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
+		A8900C181D2FAF5200D8CD0F /* info-box-arrow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C121D2FAF5200D8CD0F /* info-box-arrow@1x.png */; };
+		A8900C191D2FAF5200D8CD0F /* info-box-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C131D2FAF5200D8CD0F /* info-box-arrow@2x.png */; };
+		A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C141D2FAF5200D8CD0F /* info-box-arrow@3x.png */; };
+		A8900C1B1D2FAF5200D8CD0F /* slider-handle@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C151D2FAF5200D8CD0F /* slider-handle@1x.png */; };
+		A8900C1C1D2FAF5200D8CD0F /* slider-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C161D2FAF5200D8CD0F /* slider-handle@2x.png */; };
+		A8900C1D1D2FAF5200D8CD0F /* slider-handle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8900C171D2FAF5200D8CD0F /* slider-handle@3x.png */; };
+		A8900C211D2FB27F00D8CD0F /* CircleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */; };
+		A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1F1D2FB27F00D8CD0F /* Math.swift */; };
+		A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */; };
 		A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897514C1CEF099500F122AD /* CreatePINViewController.swift */; };
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
 		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
@@ -311,6 +320,8 @@
 		A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */; };
 		A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */; };
 		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
+		A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */; };
+		A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -808,6 +819,15 @@
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
 		A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
+		A8900C121D2FAF5200D8CD0F /* info-box-arrow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-box-arrow@1x.png"; sourceTree = "<group>"; };
+		A8900C131D2FAF5200D8CD0F /* info-box-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-box-arrow@2x.png"; sourceTree = "<group>"; };
+		A8900C141D2FAF5200D8CD0F /* info-box-arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-box-arrow@3x.png"; sourceTree = "<group>"; };
+		A8900C151D2FAF5200D8CD0F /* slider-handle@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-handle@1x.png"; sourceTree = "<group>"; };
+		A8900C161D2FAF5200D8CD0F /* slider-handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-handle@2x.png"; sourceTree = "<group>"; };
+		A8900C171D2FAF5200D8CD0F /* slider-handle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-handle@3x.png"; sourceTree = "<group>"; };
+		A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleSlider.swift; sourceTree = "<group>"; };
+		A8900C1F1D2FB27F00D8CD0F /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackLayer.swift; sourceTree = "<group>"; };
 		A897514C1CEF099500F122AD /* CreatePINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePINViewController.swift; sourceTree = "<group>"; };
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
 		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
@@ -882,6 +902,8 @@
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
+		A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAImpulseSavingViewController.swift; sourceTree = "<group>"; };
+		A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAImpulseSavingViewController.xib; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1480,6 +1502,19 @@
 			path = SpendView;
 			sourceTree = "<group>";
 		};
+		A8900C111D2FAF1400D8CD0F /* Impulse Save */ = {
+			isa = PBXGroup;
+			children = (
+				A8900C121D2FAF5200D8CD0F /* info-box-arrow@1x.png */,
+				A8900C131D2FAF5200D8CD0F /* info-box-arrow@2x.png */,
+				A8900C141D2FAF5200D8CD0F /* info-box-arrow@3x.png */,
+				A8900C151D2FAF5200D8CD0F /* slider-handle@1x.png */,
+				A8900C161D2FAF5200D8CD0F /* slider-handle@2x.png */,
+				A8900C171D2FAF5200D8CD0F /* slider-handle@3x.png */,
+			);
+			path = "Impulse Save";
+			sourceTree = "<group>";
+		};
 		A897514B1CEF07D400F122AD /* PINViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1606,6 +1641,18 @@
 				A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */,
 			);
 			path = CancelSavingPlan;
+			sourceTree = "<group>";
+		};
+		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
+			isa = PBXGroup;
+			children = (
+				A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */,
+				A8900C1F1D2FB27F00D8CD0F /* Math.swift */,
+				A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */,
+				A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */,
+				A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */,
+			);
+			path = ImpulseSavingView;
 			sourceTree = "<group>";
 		};
 		C90571931CFEAA8500ECC4FC /* SACreateSavingPlanViewController */ = {
@@ -1908,6 +1955,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A8F820261D2E7FA600BB7537 /* ImpulseSavingView */,
 				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				C94CB9871D213E7D0040E150 /* StatView */,
@@ -2268,6 +2316,7 @@
 				C90D39C71D068D2000F285BB /* dotted-box@2x.png in Resources */,
 				A8BDCBF31D05557500D4C47B /* ride-calendar@3x.png in Resources */,
 				A8095C721CEDC617006366F7 /* pre-loader@3x9.png in Resources */,
+				A8900C1D1D2FAF5200D8CD0F /* slider-handle@3x.png in Resources */,
 				C90D39D31D06CACA00F285BB /* detail-arrow-down@2x.png in Resources */,
 				A86D62C41D21270100B2087D /* stats-achievement-badge@3x.png in Resources */,
 				A86D62D51D21270100B2087D /* stats-offers-tab@2x.png in Resources */,
@@ -2296,6 +2345,7 @@
 				A8BDCBEF1D05557500D4C47B /* home-calendar@2x.png in Resources */,
 				C90D39D51D06CACA00F285BB /* detail-arrow-up@1x.png in Resources */,
 				A8095C211CEDC616006366F7 /* pre-loader@1x30.png in Resources */,
+				A8900C1B1D2FAF5200D8CD0F /* slider-handle@1x.png in Resources */,
 				A8095C0F1CEDC616006366F7 /* pre-loader@1x14.png in Resources */,
 				A8095C0C1CEDC616006366F7 /* pre-loader@1x11.png in Resources */,
 				A86D62DA1D21270100B2087D /* stats-plan-tab@2x.png in Resources */,
@@ -2316,6 +2366,7 @@
 				C9ED802F1D1BC38A00058A96 /* menu-active-settings.png in Resources */,
 				C975A92D1D01952900184C8C /* generic-category-icon.png in Resources */,
 				A8095C701CEDC617006366F7 /* pre-loader@3x7.png in Resources */,
+				A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */,
 				A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
@@ -2535,6 +2586,7 @@
 				C9ED802B1D1BC38A00058A96 /* menu-active-profile@3x.png in Resources */,
 				C9361EBE1D30C18300605E1B /* social-wa.png in Resources */,
 				C9ED80261D1BC38A00058A96 /* menu-active-offers.png in Resources */,
+				A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */,
 				A8BDCBE41D05557500D4C47B /* group-save-calendar@3x.png in Resources */,
 				C9ED80571D1BC38A00058A96 /* menu-switch@2x.png in Resources */,
 				C975A9341D01952900184C8C /* holiday-category-icon@2x.png in Resources */,
@@ -2556,6 +2608,7 @@
 				C975A93B1D01952900184C8C /* ride-category-icon@3x.png in Resources */,
 				C9ED803E1D1BC38A00058A96 /* menu-active-whishlist.png in Resources */,
 				A86D62DE1D21270100B2087D /* stats-plan-tab-active@2x.png in Resources */,
+				A8900C1C1D2FAF5200D8CD0F /* slider-handle@2x.png in Resources */,
 				A8095C441CEDC616006366F7 /* pre-loader@2x30.png in Resources */,
 				A8095C461CEDC616006366F7 /* pre-loader@2x32.png in Resources */,
 				C9E854F31CF44B4A006213BF /* down-arrow-15x15.png in Resources */,
@@ -2628,6 +2681,7 @@
 				C94E1E4E1D11714F001C85C6 /* home-setup-bg@2x.png in Resources */,
 				C9F6005B1D17FCB5003155A2 /* MenuTableViewCell.xib in Resources */,
 				A8095C1B1CEDC616006366F7 /* pre-loader@1x25.png in Resources */,
+				A8900C181D2FAF5200D8CD0F /* info-box-arrow@1x.png in Resources */,
 				A8095C4B1CEDC616006366F7 /* pre-loader@2x5.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
 				A8095C321CEDC616006366F7 /* pre-loader@2x14.png in Resources */,
@@ -2688,6 +2742,7 @@
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
 				A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */,
 				A8A6C7911D2D2808009B0D2F /* VBPiePiece.m in Sources */,
+				A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */,
 				A8A6C7901D2D2808009B0D2F /* VBPieChart.m in Sources */,
 				A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */,
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
@@ -2705,6 +2760,7 @@
 				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,
 				A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */,
+				A8900C211D2FB27F00D8CD0F /* CircleSlider.swift in Sources */,
 				A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */,
 				A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */,
 				C96D5E551D0ED7B100CE248D /* EmailTxtTableViewCell.swift in Sources */,
@@ -2728,6 +2784,7 @@
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
+				A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
 				A86F06431D1D15D700E1D821 /* SASpendViewController.swift in Sources */,
 				A8095C751CEDC6A3006366F7 /* API.swift in Sources */,
@@ -2735,6 +2792,7 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
+				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
 				C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */,
 				C9B6C8421D05711C00FCB00C /* SAOfferListViewController.swift in Sources */,

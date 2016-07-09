@@ -75,7 +75,10 @@ class SAGroupProgressViewController: UIViewController {
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
             
             
+            let side =  circularProgress.frame.height + 10
+            let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
+            
             circularView.startAngle = -90
             circularView.roundedCorners = true
             circularView.lerpColorMode = true
@@ -91,8 +94,7 @@ class SAGroupProgressViewController: UIViewController {
             imgView.layer.cornerRadius = imgView.frame.size.height / 2
             
             let chart = VBPieChart()
-            let side =  circularProgress.frame.height + 10
-            let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
+            
             chart.frame = CGRectMake(xValue,-5, side, side)
             circularProgress.addSubview(chart)
             

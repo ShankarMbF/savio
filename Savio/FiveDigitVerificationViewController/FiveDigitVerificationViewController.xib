@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Light.otf">
@@ -70,6 +70,18 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3q-2m-3Rg">
+                    <rect key="frame" x="30" y="377" width="540" height="45"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="GrC-Og-G3c"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0n-B1-XQp">
                     <rect key="frame" x="30" y="377" width="540" height="40"/>
                     <color key="backgroundColor" red="0.95686274509803915" green="0.69019607843137254" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,9 +176,11 @@
             <constraints>
                 <constraint firstItem="0wM-Li-Y8L" firstAttribute="top" secondItem="F0n-B1-XQp" secondAttribute="bottom" constant="20" id="0Gw-OQ-Pkn"/>
                 <constraint firstItem="Vat-uq-VUl" firstAttribute="top" secondItem="GpB-HN-YI8" secondAttribute="bottom" constant="-25" id="1hE-Yr-Z7i"/>
+                <constraint firstItem="A3q-2m-3Rg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="3Mp-6Z-U35"/>
                 <constraint firstItem="GpB-HN-YI8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5ie-b5-abX"/>
                 <constraint firstItem="0wM-Li-Y8L" firstAttribute="top" secondItem="F0n-B1-XQp" secondAttribute="bottom" constant="18" id="6d7-X8-5dK"/>
                 <constraint firstItem="F0n-B1-XQp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7nX-sf-fQh"/>
+                <constraint firstAttribute="trailing" secondItem="A3q-2m-3Rg" secondAttribute="trailing" constant="30" id="Bcp-GD-sEo"/>
                 <constraint firstItem="0wM-Li-Y8L" firstAttribute="top" secondItem="F0n-B1-XQp" secondAttribute="bottom" constant="24" id="FF8-U8-Egj"/>
                 <constraint firstItem="0wM-Li-Y8L" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="L4q-WT-nP8"/>
                 <constraint firstItem="Oqd-I4-ww3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="LgF-dt-sY0"/>
@@ -174,6 +188,7 @@
                 <constraint firstItem="F0n-B1-XQp" firstAttribute="top" secondItem="8DL-NG-yGU" secondAttribute="bottom" constant="167" id="NE6-6n-UwK"/>
                 <constraint firstItem="aKg-ku-OcO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NwS-IL-xii"/>
                 <constraint firstAttribute="trailing" secondItem="Vat-uq-VUl" secondAttribute="trailing" constant="30" id="P7K-dA-dDH"/>
+                <constraint firstItem="A3q-2m-3Rg" firstAttribute="top" secondItem="aKg-ku-OcO" secondAttribute="bottom" constant="73" id="PM6-lr-XQv"/>
                 <constraint firstItem="8DL-NG-yGU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cSQ-uf-bMh"/>
                 <constraint firstItem="YnB-er-ZmT" firstAttribute="top" secondItem="GpB-HN-YI8" secondAttribute="bottom" constant="-44" id="dDN-da-IsZ"/>
                 <constraint firstAttribute="bottom" secondItem="F0n-B1-XQp" secondAttribute="bottom" constant="140" id="eAX-3h-kLx"/>

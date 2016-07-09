@@ -343,6 +343,22 @@
 		C91E23FC1D02D0D700DC6D29 /* nav-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F61D02D0D700DC6D29 /* nav-heart.png */; };
 		C91E23FD1D02D0D700DC6D29 /* nav-heart-fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F71D02D0D700DC6D29 /* nav-heart-fill@3x.png */; };
 		C91E23FE1D02D0D700DC6D29 /* nav-heart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F81D02D0D700DC6D29 /* nav-heart@3x.png */; };
+		C9361EB21D30C18300605E1B /* social-fb.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA31D30C18300605E1B /* social-fb.png */; };
+		C9361EB31D30C18300605E1B /* social-fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA41D30C18300605E1B /* social-fb@2x.png */; };
+		C9361EB41D30C18300605E1B /* social-fb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA51D30C18300605E1B /* social-fb@3x.png */; };
+		C9361EB51D30C18300605E1B /* social-g+.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA61D30C18300605E1B /* social-g+.png */; };
+		C9361EB61D30C18300605E1B /* social-g+@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA71D30C18300605E1B /* social-g+@2x.png */; };
+		C9361EB71D30C18300605E1B /* social-g+@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA81D30C18300605E1B /* social-g+@3x.png */; };
+		C9361EB81D30C18300605E1B /* social-pop-up-close.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA91D30C18300605E1B /* social-pop-up-close.png */; };
+		C9361EB91D30C18300605E1B /* social-pop-up-close@2x-09.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAA1D30C18300605E1B /* social-pop-up-close@2x-09.png */; };
+		C9361EBA1D30C18300605E1B /* social-pop-up-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAB1D30C18300605E1B /* social-pop-up-close@2x.png */; };
+		C9361EBB1D30C18300605E1B /* social-tr.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAC1D30C18300605E1B /* social-tr.png */; };
+		C9361EBC1D30C18300605E1B /* social-tr@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAD1D30C18300605E1B /* social-tr@2x.png */; };
+		C9361EBD1D30C18300605E1B /* social-tr@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAE1D30C18300605E1B /* social-tr@3x.png */; };
+		C9361EBE1D30C18300605E1B /* social-wa.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EAF1D30C18300605E1B /* social-wa.png */; };
+		C9361EBF1D30C18300605E1B /* social-wa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EB01D30C18300605E1B /* social-wa@2x.png */; };
+		C9361EC01D30C18300605E1B /* social-wa@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EB11D30C18300605E1B /* social-wa@3x.png */; };
+		C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9361EC11D30CD0E00605E1B /* SocialSharingView.xib */; };
 		C94A708D1CF55FA8002E9449 /* splash-logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */; };
 		C94A708E1CF55FA8002E9449 /* splash-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */; };
 		C94A708F1CF55FA8002E9449 /* splash-logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */; };
@@ -898,6 +914,22 @@
 		C91E23F61D02D0D700DC6D29 /* nav-heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-heart.png"; sourceTree = "<group>"; };
 		C91E23F71D02D0D700DC6D29 /* nav-heart-fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-heart-fill@3x.png"; sourceTree = "<group>"; };
 		C91E23F81D02D0D700DC6D29 /* nav-heart@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-heart@3x.png"; sourceTree = "<group>"; };
+		C9361EA31D30C18300605E1B /* social-fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-fb.png"; sourceTree = "<group>"; };
+		C9361EA41D30C18300605E1B /* social-fb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-fb@2x.png"; sourceTree = "<group>"; };
+		C9361EA51D30C18300605E1B /* social-fb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-fb@3x.png"; sourceTree = "<group>"; };
+		C9361EA61D30C18300605E1B /* social-g+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-g+.png"; sourceTree = "<group>"; };
+		C9361EA71D30C18300605E1B /* social-g+@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-g+@2x.png"; sourceTree = "<group>"; };
+		C9361EA81D30C18300605E1B /* social-g+@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-g+@3x.png"; sourceTree = "<group>"; };
+		C9361EA91D30C18300605E1B /* social-pop-up-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-pop-up-close.png"; sourceTree = "<group>"; };
+		C9361EAA1D30C18300605E1B /* social-pop-up-close@2x-09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-pop-up-close@2x-09.png"; sourceTree = "<group>"; };
+		C9361EAB1D30C18300605E1B /* social-pop-up-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-pop-up-close@2x.png"; sourceTree = "<group>"; };
+		C9361EAC1D30C18300605E1B /* social-tr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-tr.png"; sourceTree = "<group>"; };
+		C9361EAD1D30C18300605E1B /* social-tr@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-tr@2x.png"; sourceTree = "<group>"; };
+		C9361EAE1D30C18300605E1B /* social-tr@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-tr@3x.png"; sourceTree = "<group>"; };
+		C9361EAF1D30C18300605E1B /* social-wa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-wa.png"; sourceTree = "<group>"; };
+		C9361EB01D30C18300605E1B /* social-wa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-wa@2x.png"; sourceTree = "<group>"; };
+		C9361EB11D30C18300605E1B /* social-wa@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-wa@3x.png"; sourceTree = "<group>"; };
+		C9361EC11D30CD0E00605E1B /* SocialSharingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialSharingView.xib; sourceTree = "<group>"; };
 		C94A708A1CF55FA8002E9449 /* splash-logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@1x.png"; sourceTree = "<group>"; };
 		C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@2x.png"; sourceTree = "<group>"; };
 		C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@3x.png"; sourceTree = "<group>"; };
@@ -1621,6 +1653,28 @@
 			path = WishListViewController;
 			sourceTree = "<group>";
 		};
+		C9361EA21D30C18200605E1B /* Social Media */ = {
+			isa = PBXGroup;
+			children = (
+				C9361EA31D30C18300605E1B /* social-fb.png */,
+				C9361EA41D30C18300605E1B /* social-fb@2x.png */,
+				C9361EA51D30C18300605E1B /* social-fb@3x.png */,
+				C9361EA61D30C18300605E1B /* social-g+.png */,
+				C9361EA71D30C18300605E1B /* social-g+@2x.png */,
+				C9361EA81D30C18300605E1B /* social-g+@3x.png */,
+				C9361EA91D30C18300605E1B /* social-pop-up-close.png */,
+				C9361EAA1D30C18300605E1B /* social-pop-up-close@2x-09.png */,
+				C9361EAB1D30C18300605E1B /* social-pop-up-close@2x.png */,
+				C9361EAC1D30C18300605E1B /* social-tr.png */,
+				C9361EAD1D30C18300605E1B /* social-tr@2x.png */,
+				C9361EAE1D30C18300605E1B /* social-tr@3x.png */,
+				C9361EAF1D30C18300605E1B /* social-wa.png */,
+				C9361EB01D30C18300605E1B /* social-wa@2x.png */,
+				C9361EB11D30C18300605E1B /* social-wa@3x.png */,
+			);
+			path = "Social Media";
+			sourceTree = "<group>";
+		};
 		C94CB9841D2138740040E150 /* LineChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1634,6 +1688,7 @@
 			children = (
 				C94CB9881D213F040040E150 /* SAStatViewController.swift */,
 				C94CB9891D213F040040E150 /* SAStatViewController.xib */,
+				C9361EC11D30CD0E00605E1B /* SocialSharingView.xib */,
 			);
 			path = StatView;
 			sourceTree = "<group>";
@@ -1896,6 +1951,7 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				C9361EA21D30C18200605E1B /* Social Media */,
 				CA0F6D571D2CEA8A005CC750 /* slider-icon.png */,
 				CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */,
 				CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */,
@@ -2161,6 +2217,7 @@
 				C975A9321D01952900184C8C /* group-save-category-icon@3x.png in Resources */,
 				C9ED803B1D1BC38A00058A96 /* menu-active-update.png in Resources */,
 				A8095C561CEDC616006366F7 /* pre-loader@3x15.png in Resources */,
+				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A8095C471CEDC616006366F7 /* pre-loader@2x33.png in Resources */,
 				A8095C3E1CEDC616006366F7 /* pre-loader@2x25.png in Resources */,
 				A8095C711CEDC617006366F7 /* pre-loader@3x8.png in Resources */,
@@ -2215,6 +2272,7 @@
 				A86D62C41D21270100B2087D /* stats-achievement-badge@3x.png in Resources */,
 				A86D62D51D21270100B2087D /* stats-offers-tab@2x.png in Resources */,
 				C97949681CEC381C00416BD5 /* Page5.png in Resources */,
+				C9361EBD1D30C18300605E1B /* social-tr@3x.png in Resources */,
 				C9ED80511D1BC38A00058A96 /* menu-spend@2x.png in Resources */,
 				A8095C6F1CEDC617006366F7 /* pre-loader@3x6.png in Resources */,
 				A86D62CE1D21270100B2087D /* stats-achievement-streak@2x.png in Resources */,
@@ -2224,6 +2282,7 @@
 				C9E17A6F1D22AEA100C4AB0C /* stats-achievement-holder.png in Resources */,
 				C9E854F41CF44B4A006213BF /* down-arrow-30x30.png in Resources */,
 				C9905FA31CED9EF700E63471 /* linkButtonTableViewCell.xib in Resources */,
+				C9361EB31D30C18300605E1B /* social-fb@2x.png in Resources */,
 				C97949661CEC381C00416BD5 /* Page3.png in Resources */,
 				A858A5F51D08127C0097546F /* generic-circle@3x.png in Resources */,
 				C91E23FD1D02D0D700DC6D29 /* nav-heart-fill@3x.png in Resources */,
@@ -2232,6 +2291,7 @@
 				A8095C1E1CEDC616006366F7 /* pre-loader@1x28.png in Resources */,
 				C9ED805E1D1BC38A00058A96 /* menu-wishlist@2x.png in Resources */,
 				A86D62CB1D21270100B2087D /* stats-achievement-smiley@2x.png in Resources */,
+				C9361EB91D30C18300605E1B /* social-pop-up-close@2x-09.png in Resources */,
 				C9ED80551D1BC38A00058A96 /* menu-start@3x.png in Resources */,
 				A8BDCBEF1D05557500D4C47B /* home-calendar@2x.png in Resources */,
 				C90D39D51D06CACA00F285BB /* detail-arrow-up@1x.png in Resources */,
@@ -2270,12 +2330,14 @@
 				A8095C1A1CEDC616006366F7 /* pre-loader@1x24.png in Resources */,
 				A8095C551CEDC616006366F7 /* pre-loader@3x14.png in Resources */,
 				C9ED80421D1BC38A00058A96 /* menu-logout@2x.png in Resources */,
+				C9361EB51D30C18300605E1B /* social-g+.png in Resources */,
 				C905719B1CFF020200ECC4FC /* SavingCategoryTableViewCell.xib in Resources */,
 				A8095C431CEDC616006366F7 /* pre-loader@2x3.png in Resources */,
 				C95CD60F1CF2C7EE00013200 /* PickerTextfildTableViewCell.xib in Resources */,
 				CA0F6D5C1D2CEA8A005CC750 /* slider-icon@3x.png in Resources */,
 				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
 				C9ED80291D1BC38A00058A96 /* menu-active-profile.png in Resources */,
+				C9361EB61D30C18300605E1B /* social-g+@2x.png in Resources */,
 				C9ED803A1D1BC38A00058A96 /* menu-active-switch@3x.png in Resources */,
 				C975A93D1D01952900184C8C /* wedding-category-icon@2x.png in Resources */,
 				A8BDCBF61D05557500D4C47B /* ride-setup-bg@3x.png in Resources */,
@@ -2325,6 +2387,7 @@
 				A86F06441D1D15D700E1D821 /* SASpendViewController.xib in Resources */,
 				A858A6031D08127C0097546F /* wedding-circle@2x.png in Resources */,
 				A8BDCBF21D05557500D4C47B /* ride-calendar@2x.png in Resources */,
+				C9361EBB1D30C18300605E1B /* social-tr.png in Resources */,
 				A8BDCB851D053A0400D4C47B /* SAPopOverViewController.xib in Resources */,
 				C9ED805D1D1BC38A00058A96 /* menu-whishlist@3x.png in Resources */,
 				C9F600551D17F8DF003155A2 /* SAMenuViewController.xib in Resources */,
@@ -2407,6 +2470,7 @@
 				C9905FA91CED9EF700E63471 /* SARegistrationViewController.xib in Resources */,
 				C91E23FB1D02D0D700DC6D29 /* nav-heart@2x.png in Resources */,
 				C94A708F1CF55FA8002E9449 /* splash-logo@3x.png in Resources */,
+				C9361EB81D30C18300605E1B /* social-pop-up-close.png in Resources */,
 				A8095C331CEDC616006366F7 /* pre-loader@2x15.png in Resources */,
 				A8095C651CEDC617006366F7 /* pre-loader@3x29.png in Resources */,
 				A86D62CD1D21270100B2087D /* stats-achievement-smiley@3x.png in Resources */,
@@ -2439,6 +2503,7 @@
 				A8AEA9431CFFF1DE0069F22A /* NextButtonTableViewCell.xib in Resources */,
 				A82B9C971D06AAEA00BFD084 /* offer-close@1x.png in Resources */,
 				A84625AE1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib in Resources */,
+				C9361EB41D30C18300605E1B /* social-fb@3x.png in Resources */,
 				A858A5F81D08127C0097546F /* group-save-circle@3x.png in Resources */,
 				A86D62D61D21270100B2087D /* stats-offers-tab@3x.png in Resources */,
 				A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */,
@@ -2468,6 +2533,7 @@
 				C9ED802A1D1BC38A00058A96 /* menu-active-profile@2x.png in Resources */,
 				A8BDCBE91D05557500D4C47B /* holiday-calendar@2x.png in Resources */,
 				C9ED802B1D1BC38A00058A96 /* menu-active-profile@3x.png in Resources */,
+				C9361EBE1D30C18300605E1B /* social-wa.png in Resources */,
 				C9ED80261D1BC38A00058A96 /* menu-active-offers.png in Resources */,
 				A8BDCBE41D05557500D4C47B /* group-save-calendar@3x.png in Resources */,
 				C9ED80571D1BC38A00058A96 /* menu-switch@2x.png in Resources */,
@@ -2483,6 +2549,7 @@
 				A8095C0E1CEDC616006366F7 /* pre-loader@1x13.png in Resources */,
 				A858A5FB1D08127C0097546F /* holiday-circle@3x.png in Resources */,
 				C9E535F41CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib in Resources */,
+				C9361EBF1D30C18300605E1B /* social-wa@2x.png in Resources */,
 				A8095C511CEDC616006366F7 /* pre-loader@3x10.png in Resources */,
 				A858A5EF1D08127C0097546F /* baby-circle.png in Resources */,
 				C9ED80251D1BC38A00058A96 /* menu-active-logout@3x.png in Resources */,
@@ -2495,6 +2562,7 @@
 				A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */,
 				A858A5F71D08127C0097546F /* group-save-circle@2x.png in Resources */,
 				A8095C401CEDC616006366F7 /* pre-loader@2x27.png in Resources */,
+				C9361EB71D30C18300605E1B /* social-g+@3x.png in Resources */,
 				A86D62C51D21270100B2087D /* stats-achievement-holder@2x.png in Resources */,
 				A8BDCBE31D05557500D4C47B /* group-save-calendar@2x.png in Resources */,
 				C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */,
@@ -2505,11 +2573,14 @@
 				C91E23E81D029C3300DC6D29 /* SAWishListViewController.xib in Resources */,
 				A858A5ED1D08127C0097546F /* baby-circle@2x.png in Resources */,
 				A8095C681CEDC617006366F7 /* pre-loader@3x31.png in Resources */,
+				C9361EB21D30C18300605E1B /* social-fb.png in Resources */,
 				C975A9291D01952900184C8C /* baby-category-icon@3x.png in Resources */,
 				C9847A3B1D005F8A0074FDAC /* SavingPageView.xib in Resources */,
+				C9361EC01D30C18300605E1B /* social-wa@3x.png in Resources */,
 				A8BDCBF71D05557500D4C47B /* wdding-setup-bg@3x.png in Resources */,
 				C975A92B1D01952900184C8C /* gadget-category-icon@2x.png in Resources */,
 				A8392A421CEEE0C200C7EE48 /* GothamRounded-Light.otf in Resources */,
+				C9361EBA1D30C18300605E1B /* social-pop-up-close@2x.png in Resources */,
 				A8095C631CEDC617006366F7 /* pre-loader@3x27.png in Resources */,
 				A8095C161CEDC616006366F7 /* pre-loader@1x20.png in Resources */,
 				A8095C481CEDC616006366F7 /* pre-loader@2x34.png in Resources */,
@@ -2564,6 +2635,7 @@
 				A8095C521CEDC616006366F7 /* pre-loader@3x11.png in Resources */,
 				A858A5FC1D08127C0097546F /* home-circle.png in Resources */,
 				A8095C3D1CEDC616006366F7 /* pre-loader@2x24.png in Resources */,
+				C9361EBC1D30C18300605E1B /* social-tr@2x.png in Resources */,
 				CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */,
 				C975A9281D01952900184C8C /* baby-category-icon@2x.png in Resources */,
 				A8095C141CEDC616006366F7 /* pre-loader@1x19.png in Resources */,

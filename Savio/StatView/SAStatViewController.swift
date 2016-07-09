@@ -26,6 +26,9 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     @IBOutlet var widthOfContentView: NSLayoutConstraint!
     @IBOutlet var graphSliderView: UISlider!
     
+    @IBOutlet weak var sharingVw: UIView?
+
+    
     var xLabels: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,6 +253,17 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 //        if let chart = lineChart {
 //            chart.setNeedsDisplay()
 //        }
+    }
+    
+    
+    
+    //Mark: - Social Sharing
+    
+    @IBAction func clickedOnAchivements(sender: UIButton){
+       let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
+        
+         testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        view.addSubview(testView)
     }
 
 }

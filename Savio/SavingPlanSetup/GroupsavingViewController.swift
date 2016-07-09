@@ -292,14 +292,17 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
         var contactDict: Dictionary<String,AnyObject> = [:]
         //Get person's first name
-        if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-//            print(firstName)
-            contactDict["name"] = firstName as! String
-        }
-        
+     
         //Get person's last name
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
+            
+            if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                //            print(firstName)
+                contactDict["name"] = firstName as! String
+            }
+        
+            
             if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
 //                print(lastName)
                 contactDict["lastName"] = lastName as! String

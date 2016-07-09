@@ -120,6 +120,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     func setUpView(){
 
+        /*
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
 
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -141,7 +142,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
-        
+        */
         
         for var i=0; i<3; i++
         {
@@ -160,9 +161,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
         
-            let data :NSData = NSData(base64EncodedString: savingPlanDetailsDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+         //   let data :NSData = NSData(base64EncodedString: savingPlanDetailsDict["imageURL"] as! String, options: //NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
-            imgView.image = UIImage(data: data)
+          //  imgView.image = UIImage(data: data)
             
             if(i == 0)
             {
@@ -270,7 +271,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         else
         {
             pageControl.hidden = true
-            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
 

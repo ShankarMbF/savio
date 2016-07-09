@@ -18,13 +18,13 @@ class ContactViewController: UIViewController {
     
     var contactDict: Dictionary<String,AnyObject> = [:]
     var delegate : SAContactViewDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,9 +55,14 @@ class ContactViewController: UIViewController {
             }
             
             cell?.personImage?.image = contactDict["imageData"] as? UIImage
-            cell?.name?.text = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
-            
-            
+            if let name = contactDict["name"] as? String
+            {
+                if let lastName = contactDict["lastName"] as? String
+                {
+                    cell?.name?.text = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+                }
+                
+            }
             return cell!
         }
         else{
@@ -96,7 +101,7 @@ class ContactViewController: UIViewController {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
-         return 80.0
+            return 80.0
         }
         else {
             return 77.0
@@ -110,25 +115,25 @@ class ContactViewController: UIViewController {
         var mobileArray : Array<String> = []
         var emailArray : Array<String> = []
         var nameArray : Array<String> = []
-       if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
-       {
-
-        for i in 0 ..< contactArray.count {
-            var dict = contactArray[i] as Dictionary<String,AnyObject>
-            if let phone = dict["mobile_number"] as? String
-            {
-                mobileArray.append(phone)
+        if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
+        {
+            
+            for i in 0 ..< contactArray.count {
+                var dict = contactArray[i] as Dictionary<String,AnyObject>
+                if let phone = dict["mobile_number"] as? String
+                {
+                    mobileArray.append(phone)
+                }
+                if let email = dict["email"] as? String
+                {
+                    emailArray.append(email)
+                }
+                if let first_name = dict["first_name"] as? String
+                {
+                    nameArray.append(first_name)
+                }
             }
-            if let email = dict["email"] as? String
-            {
-                emailArray.append(email)
-            }
-            if let first_name = dict["first_name"] as? String
-            {
-                nameArray.append(first_name)
-            }
-        }
-        
+            
         }
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
@@ -140,8 +145,8 @@ class ContactViewController: UIViewController {
             else{
                 if let emailStr: String = contactDict["email"] as? String {
                     dict["email_id"] = emailStr
-                     dict["mobile_number"] = ""
-                     text = emailStr
+                    dict["mobile_number"] = ""
+                    text = emailStr
                 }
             }
         }
@@ -149,14 +154,25 @@ class ContactViewController: UIViewController {
         else {
             if let emailStr: String = contactDict["email"] as? String {
                 dict["email_id"] = emailStr
-                 dict["mobile_number"] = ""
+                dict["mobile_number"] = ""
                 text = emailStr
             }
         }
         
-        dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+        if let firstName = contactDict["name"] as? String
+        {
+            if let lastName = contactDict["lastName"] as? String
+            {
+                dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+                
+                name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+            }
+            
+        }
         
-        name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+        //dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+        
+        
         if(mobileArray.count > 0 || emailArray.count > 0)
         {
             if(mobileArray.contains(text) || nameArray.contains(name))
@@ -171,8 +187,8 @@ class ContactViewController: UIViewController {
             }
             else
             {
-            delegate?.addedContact(dict)
-            self.navigationController?.popViewControllerAnimated(true)
+                delegate?.addedContact(dict)
+                self.navigationController?.popViewControllerAnimated(true)
             }
         }
         else
@@ -180,17 +196,17 @@ class ContactViewController: UIViewController {
             delegate?.addedContact(dict)
             self.navigationController?.popViewControllerAnimated(true)
         }
-   
-       
-   }
+        
+        
+    }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

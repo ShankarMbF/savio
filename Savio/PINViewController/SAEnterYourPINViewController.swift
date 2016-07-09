@@ -21,6 +21,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var forgotPasscodeButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var enterPasscodeTextField: UITextField!
+    
+    
+    @IBOutlet weak var registerButtonBackgroundView: UIView!
     var objAnimView = ImageViewAnimation()
     
     let objAPI = API()
@@ -42,9 +45,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         enterPasscodeTextField.inputAccessoryView = toolBar
         
         //Add shadowcolor to UIButtons
-        registerButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        registerButton.layer.shadowOffset = CGSizeMake(0, 4)
-        registerButton.layer.shadowOpacity = 1
+   
         registerButton.layer.cornerRadius = 5
         btnVwBg.layer.cornerRadius = 5
         
@@ -118,6 +119,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         lblForgottonYourPasscode.hidden = false
         btnCancel.hidden = false
         registerButton .setTitle("Send me a code", forState: UIControlState.Normal)
+        registerButtonBackgroundView.hidden = false
         registerButton.hidden = false
         forgotPasscodeButton.hidden = true
         loginButton.hidden = true

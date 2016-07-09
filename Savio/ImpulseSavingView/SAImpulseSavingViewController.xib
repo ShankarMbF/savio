@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
+            <string>GothamRounded-Medium</string>
+            <string>GothamRounded-Medium</string>
         </mutableArray>
         <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
         </mutableArray>
@@ -17,12 +20,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAImpulseSavingViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="addFundsButton" destination="qpX-fH-sUf" id="bmp-6h-qcO"/>
+                <outlet property="anotherStepLabel" destination="7nj-rH-zBJ" id="iPC-rZ-BXr"/>
                 <outlet property="circularView" destination="Kps-gQ-FZS" id="ckw-3n-e6y"/>
                 <outlet property="contentView" destination="Cfd-Qt-DLv" id="gWk-HT-Juf"/>
+                <outlet property="deductMoneyLabel" destination="LnU-Q0-7JQ" id="4TB-YY-dcj"/>
                 <outlet property="messagePopUpView" destination="Q7h-Oq-yJY" id="xLX-Ku-qrE"/>
                 <outlet property="messagePopupImageView" destination="yB9-9N-vHC" id="v7s-Os-fhL"/>
+                <outlet property="offersButton" destination="2mS-bH-cam" id="FI5-NL-2WF"/>
+                <outlet property="planButton" destination="x18-ek-7mc" id="Tx4-41-OIf"/>
+                <outlet property="priceLabel" destination="Vso-oK-UIB" id="uCD-Dv-KEM"/>
                 <outlet property="priceTextField" destination="Kyo-nz-RKi" id="EGq-ql-aP6"/>
+                <outlet property="savedPaymentLabel" destination="kPF-tF-yFc" id="gRg-SJ-i05"/>
                 <outlet property="scrlView" destination="mhw-25-L9J" id="xDU-IB-Ct5"/>
+                <outlet property="spendButton" destination="BWW-nf-o6H" id="ijo-ee-UPf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,11 +42,11 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhw-25-L9J">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhw-25-L9J">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="548"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfd-Qt-DLv">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="548"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7h-Oq-yJY">
                                     <rect key="frame" x="30" y="10" width="540" height="50"/>
@@ -47,7 +58,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="A97-IM-EgS"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="10"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info-box-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="yB9-9N-vHC">
@@ -70,17 +81,17 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We'll deduct this from your linked account ending xxxxx568" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-Q0-7JQ">
-                                    <rect key="frame" x="30" y="448" width="540" height="35"/>
+                                    <rect key="frame" x="30" y="404" width="540" height="35"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="Kva-Sz-x7r"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lcc-gB-x96">
-                                    <rect key="frame" x="30" y="493" width="540" height="45"/>
-                                    <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                    <rect key="frame" x="30" y="449" width="540" height="45"/>
+                                    <color key="backgroundColor" red="0.94117647058823528" green="0.64313725490196072" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="Qx2-DD-eOH"/>
                                     </constraints>
@@ -91,7 +102,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpX-fH-sUf">
-                                    <rect key="frame" x="30" y="493" width="540" height="40"/>
+                                    <rect key="frame" x="30" y="449" width="540" height="40"/>
                                     <color key="backgroundColor" red="0.36470588235294116" green="0.37254901960784315" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="ZhZ-3r-xdw"/>
@@ -106,12 +117,27 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="addFundsButtonPressed:" destination="-1" eventType="touchUpInside" id="agp-YQ-bUs"/>
+                                        <action selector="addFundsButtonPressed:" destination="-1" eventType="touchUpInside" id="Kis-EH-anm"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kps-gQ-FZS">
-                                    <rect key="frame" x="150" y="124" width="300" height="300"/>
+                                    <rect key="frame" x="150" y="80" width="300" height="300"/>
                                     <subviews>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved payment" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPF-tF-yFc">
+                                            <rect key="frame" x="30" y="110" width="240" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="80" id="hx5-g9-mRO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your another step closer to your goal!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7nj-rH-zBJ">
+                                            <rect key="frame" x="50" y="220" width="200" height="50"/>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="00" borderStyle="roundedRect" minimumFontSize="36" translatesAutoresizingMaskIntoConstraints="NO" id="Kyo-nz-RKi">
                                             <rect key="frame" x="100" y="125" width="100" height="50"/>
                                             <constraints>
@@ -125,19 +151,38 @@
                                                 <outlet property="delegate" destination="-1" id="1Mr-8F-WYb"/>
                                             </connections>
                                         </textField>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-oK-UIB">
+                                            <rect key="frame" x="100" y="50" width="100" height="50"/>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="Kyo-nz-RKi" firstAttribute="top" secondItem="Kps-gQ-FZS" secondAttribute="top" constant="125" id="7Q9-2i-Xxx"/>
                                         <constraint firstItem="Kyo-nz-RKi" firstAttribute="centerX" secondItem="Kps-gQ-FZS" secondAttribute="centerX" id="7j9-ug-REp"/>
+                                        <constraint firstItem="7nj-rH-zBJ" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="50" id="LL9-TH-POx"/>
+                                        <constraint firstItem="Vso-oK-UIB" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="100" id="LaF-LH-UJ6"/>
                                         <constraint firstAttribute="height" constant="300" id="ORa-H6-QgL"/>
+                                        <constraint firstItem="kPF-tF-yFc" firstAttribute="centerX" secondItem="Kps-gQ-FZS" secondAttribute="centerX" id="SSf-On-SeF"/>
+                                        <constraint firstAttribute="trailing" secondItem="Vso-oK-UIB" secondAttribute="trailing" constant="100" id="UMk-dX-Sa5"/>
+                                        <constraint firstItem="kPF-tF-yFc" firstAttribute="centerY" secondItem="Kps-gQ-FZS" secondAttribute="centerY" id="Wma-Mg-hgB"/>
+                                        <constraint firstItem="kPF-tF-yFc" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="30" id="gjb-kE-8c2"/>
+                                        <constraint firstItem="Vso-oK-UIB" firstAttribute="top" secondItem="Kps-gQ-FZS" secondAttribute="top" constant="50" id="hMV-ve-sgX"/>
+                                        <constraint firstItem="kPF-tF-yFc" firstAttribute="top" secondItem="Vso-oK-UIB" secondAttribute="bottom" constant="10" id="jhW-Ss-kwJ"/>
+                                        <constraint firstItem="7nj-rH-zBJ" firstAttribute="top" secondItem="kPF-tF-yFc" secondAttribute="bottom" constant="30" id="jlt-tO-aJ3"/>
+                                        <constraint firstAttribute="trailing" secondItem="7nj-rH-zBJ" secondAttribute="trailing" constant="50" id="rnL-tU-Mra"/>
                                         <constraint firstItem="Kyo-nz-RKi" firstAttribute="centerY" secondItem="Kps-gQ-FZS" secondAttribute="centerY" id="sBj-Uz-rSR"/>
+                                        <constraint firstAttribute="bottom" secondItem="7nj-rH-zBJ" secondAttribute="bottom" constant="30" id="sxP-zL-ZRS"/>
                                         <constraint firstAttribute="width" constant="300" id="tQ9-52-qBR"/>
+                                        <constraint firstAttribute="trailing" secondItem="kPF-tF-yFc" secondAttribute="trailing" constant="30" id="xwG-dN-Gw9"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="548" id="2pq-do-DSY"/>
+                                <constraint firstAttribute="height" constant="800" id="2pq-do-DSY"/>
                                 <constraint firstAttribute="bottom" secondItem="lcc-gB-x96" secondAttribute="bottom" constant="18" id="5cL-u4-gRg"/>
                                 <constraint firstItem="Kps-gQ-FZS" firstAttribute="centerX" secondItem="Cfd-Qt-DLv" secondAttribute="centerX" id="8cf-qi-5Sz"/>
                                 <constraint firstItem="Q7h-Oq-yJY" firstAttribute="leading" secondItem="Cfd-Qt-DLv" secondAttribute="leading" constant="30" id="9I3-ST-e7S"/>
@@ -147,16 +192,18 @@
                                 <constraint firstItem="LnU-Q0-7JQ" firstAttribute="leading" secondItem="Cfd-Qt-DLv" secondAttribute="leading" constant="30" id="Ftm-5N-W6D"/>
                                 <constraint firstItem="lcc-gB-x96" firstAttribute="leading" secondItem="Cfd-Qt-DLv" secondAttribute="leading" constant="30" id="Igo-Q5-8G9"/>
                                 <constraint firstAttribute="trailing" secondItem="LnU-Q0-7JQ" secondAttribute="trailing" constant="30" id="Tj4-v5-fE4"/>
-                                <constraint firstItem="Kps-gQ-FZS" firstAttribute="centerY" secondItem="Cfd-Qt-DLv" secondAttribute="centerY" id="WTd-et-i0T"/>
+                                <constraint firstItem="Kps-gQ-FZS" firstAttribute="centerY" secondItem="Cfd-Qt-DLv" secondAttribute="centerY" constant="-126" id="WTd-et-i0T"/>
                                 <constraint firstAttribute="trailing" secondItem="qpX-fH-sUf" secondAttribute="trailing" constant="30" id="aU5-sr-9Ae"/>
                                 <constraint firstItem="qpX-fH-sUf" firstAttribute="leading" secondItem="Cfd-Qt-DLv" secondAttribute="leading" constant="30" id="dmj-3C-Pst"/>
                                 <constraint firstItem="lcc-gB-x96" firstAttribute="top" secondItem="LnU-Q0-7JQ" secondAttribute="bottom" constant="10" id="f0r-iZ-O4M"/>
                                 <constraint firstAttribute="trailing" secondItem="lcc-gB-x96" secondAttribute="trailing" constant="30" id="jj5-uK-53J"/>
+                                <constraint firstItem="Kps-gQ-FZS" firstAttribute="top" secondItem="Q7h-Oq-yJY" secondAttribute="bottom" constant="20" id="kCr-k5-Lum"/>
                                 <constraint firstItem="Q7h-Oq-yJY" firstAttribute="top" secondItem="Cfd-Qt-DLv" secondAttribute="top" constant="10" id="m0B-3c-xFC"/>
                                 <constraint firstAttribute="trailing" secondItem="Q7h-Oq-yJY" secondAttribute="trailing" constant="30" id="pOf-I0-4aQ"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
+                                    <exclude reference="WTd-et-i0T"/>
                                     <exclude reference="5cL-u4-gRg"/>
                                 </mask>
                             </variation>
@@ -164,12 +211,22 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="Cfd-Qt-DLv" firstAttribute="leading" secondItem="mhw-25-L9J" secondAttribute="leading" id="Ch9-kd-2N1"/>
-                        <constraint firstItem="Cfd-Qt-DLv" firstAttribute="centerY" secondItem="mhw-25-L9J" secondAttribute="centerY" id="X7N-mV-IF7"/>
+                        <constraint firstItem="Cfd-Qt-DLv" firstAttribute="centerX" secondItem="mhw-25-L9J" secondAttribute="centerX" id="PTb-Pl-Ufn"/>
+                        <constraint firstItem="Cfd-Qt-DLv" firstAttribute="centerY" secondItem="mhw-25-L9J" secondAttribute="centerY" constant="126" id="X7N-mV-IF7"/>
                         <constraint firstItem="Cfd-Qt-DLv" firstAttribute="top" secondItem="mhw-25-L9J" secondAttribute="top" id="Z96-hE-cUO"/>
                         <constraint firstAttribute="trailing" secondItem="Cfd-Qt-DLv" secondAttribute="trailing" id="aa1-fh-BP3"/>
-                        <constraint firstAttribute="bottom" secondItem="Cfd-Qt-DLv" secondAttribute="bottom" id="dWb-ll-8Ca"/>
+                        <constraint firstAttribute="bottom" secondItem="Cfd-Qt-DLv" secondAttribute="bottom" constant="-252" id="dWb-ll-8Ca"/>
                         <constraint firstItem="Cfd-Qt-DLv" firstAttribute="centerX" secondItem="mhw-25-L9J" secondAttribute="centerX" id="v6O-Ny-8Ft"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="X7N-mV-IF7"/>
+                            <exclude reference="v6O-Ny-8Ft"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Zfu-SG-OS5"/>
+                    </connections>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NvQ-dJ-gRR">
                     <rect key="frame" x="0.0" y="548" width="600" height="52"/>
@@ -177,6 +234,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2mS-bH-cam">
                             <rect key="frame" x="400" y="2" width="200" height="50"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="offersButtonPressed:" destination="-1" eventType="touchUpInside" id="hzt-5o-jrC"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x18-ek-7mc">
                             <rect key="frame" x="200" y="0.0" width="200" height="52"/>
@@ -190,6 +250,9 @@
                             <state key="normal">
                                 <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="spendButtonPressed:" destination="-1" eventType="touchUpInside" id="HgV-0L-sYj"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,7 +287,7 @@
                 <constraint firstItem="mhw-25-L9J" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vAi-xD-mzc"/>
                 <constraint firstAttribute="trailing" secondItem="mhw-25-L9J" secondAttribute="trailing" id="znE-Oe-Vcr"/>
             </constraints>
-            <point key="canvasLocation" x="156" y="227"/>
+            <point key="canvasLocation" x="-131" y="289"/>
         </view>
     </objects>
     <resources>

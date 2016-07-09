@@ -9,13 +9,20 @@
 import UIKit
 
 class SAImpulseSavingViewController: UIViewController {
+    @IBOutlet weak var addFundsButton: UIButton!
     
+    @IBOutlet weak var deductMoneyLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var anotherStepLabel: UILabel!
+    @IBOutlet weak var savedPaymentLabel: UILabel!
+    @IBOutlet weak var offersButton: UIButton!
+    @IBOutlet weak var planButton: UIButton!
+    @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrlView: UIScrollView!
     @IBOutlet weak var messagePopupImageView: UIImageView!
     @IBOutlet weak var messagePopUpView: UIView!
     @IBOutlet weak var circularView: UIView!
-    
     @IBOutlet weak var priceTextField: UITextField!
     
     public var circleSlider: CircleSlider! {
@@ -67,7 +74,8 @@ class SAImpulseSavingViewController: UIViewController {
     
     func valueChange(sender: CircleSlider) {
         
-        print(sender.value)
+        priceTextField.text = String(format:"%d",Int(sender.value))
+       messagePopUpView.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,7 +85,12 @@ class SAImpulseSavingViewController: UIViewController {
     
     func setUpView(){
         
-        scrlView.contentSize = CGSizeMake(0, contentView.frame.height)
+        scrlView.contentSize = CGSizeMake(0, 2300)
+        
+        
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -153,10 +166,15 @@ class SAImpulseSavingViewController: UIViewController {
         
     }
     
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+    }
+    
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
     
+        messagePopUpView.hidden = true
         //If the UIScreen size is 480 move the View little bit up so the UITextField will not be hidden
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
@@ -182,10 +200,20 @@ class SAImpulseSavingViewController: UIViewController {
      
         return true
     }
+    
+    
+    @IBAction func offersButtonPressed(sender: AnyObject) {
+    }
+    
+    
+    @IBAction func spendButtonPressed(sender: AnyObject) {
+    }
+    
 
     func doneBarButtonPressed(){
         priceTextField.resignFirstResponder()
         circleSlider.value = (priceTextField.text! as NSString).floatValue
+        
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
@@ -208,10 +236,36 @@ class SAImpulseSavingViewController: UIViewController {
         }
 
     }
-    func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
-    }
+   
     
+    @IBAction func addFundsButtonPressed(sender: AnyObject) {
+        
+        if(addFundsButton.titleLabel?.text == "ADD FUNDS")
+        {
+            circularView.backgroundColor = UIColor(red : 244/255,
+                green : 172/255,
+                blue : 58/255, alpha: 1)
+            circularView.layer.cornerRadius = circularView.frame.height / 2
+            priceTextField.hidden = true
+            priceLabel.text = String(format:"£%d",Int(circleSlider.value))
+            circleSlider.hidden = true
+            priceLabel.hidden = false
+            anotherStepLabel.hidden = false
+            savedPaymentLabel.hidden = false
+            addFundsButton.setTitle("Continue", forState: .Normal)
+            addFundsButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            addFundsButton.backgroundColor = UIColor(red : 244/255,
+                green : 172/255,
+                blue : 58/255, alpha: 1)
+            deductMoneyLabel.text = String(format:"Your payment of £%d has been added to your saving plan.",Int(circleSlider.value))
+        }
+        else
+        {
+            print("continue")
+        }
+        
+        
+    }
     
     
     func heartBtnClicked(){
@@ -227,10 +281,7 @@ class SAImpulseSavingViewController: UIViewController {
             alert.show()
         }
     }
-    
-    @IBAction func addFundsButtonPressed(sender: AnyObject) {
-    }
-    
+
     
     /*
      // MARK: - Navigation

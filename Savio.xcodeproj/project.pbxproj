@@ -2000,6 +2000,7 @@
 			isa = PBXGroup;
 			children = (
 				C9361EA21D30C18200605E1B /* Social Media */,
+				A8900C111D2FAF1400D8CD0F /* Impulse Save */,
 				CA0F6D571D2CEA8A005CC750 /* slider-icon.png */,
 				CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */,
 				CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */,
@@ -2630,6 +2631,7 @@
 				C975A9291D01952900184C8C /* baby-category-icon@3x.png in Resources */,
 				C9847A3B1D005F8A0074FDAC /* SavingPageView.xib in Resources */,
 				C9361EC01D30C18300605E1B /* social-wa@3x.png in Resources */,
+				A8900C191D2FAF5200D8CD0F /* info-box-arrow@2x.png in Resources */,
 				A8BDCBF71D05557500D4C47B /* wdding-setup-bg@3x.png in Resources */,
 				C975A92B1D01952900184C8C /* gadget-category-icon@2x.png in Resources */,
 				A8392A421CEEE0C200C7EE48 /* GothamRounded-Light.otf in Resources */,

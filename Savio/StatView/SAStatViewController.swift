@@ -256,14 +256,18 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     }
     
     
-    
     //Mark: - Social Sharing
     
     @IBAction func clickedOnAchivements(sender: UIButton){
        let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
         
          testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        view.addSubview(testView)
+        
+        let vw = testView.viewWithTag(7)! as UIView
+        vw.layer.borderWidth = 2.0
+        vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+//        view.addSubview(testView)
+        self.navigationController?.view.addSubview(testView)
     }
 
 }

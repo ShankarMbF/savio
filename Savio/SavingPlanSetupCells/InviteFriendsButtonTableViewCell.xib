@@ -26,7 +26,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfE-Js-Tm0">
                         <rect key="frame" x="25" y="37" width="270" height="35"/>
-                        <color key="backgroundColor" red="0.44705882352941173" green="0.69411764705882351" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.47450980392156861" green="0.71764705882352942" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="zcg-K4-kpi"/>
                         </constraints>

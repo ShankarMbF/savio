@@ -458,6 +458,8 @@
 		C9905FAD1CEDCD1A00E63471 /* Registration.json in Resources */ = {isa = PBXBuildFile; fileRef = C9905FAC1CEDCD1A00E63471 /* Registration.json */; };
 		C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99787171D08331A000D1FAA /* SASavingSummaryViewController.swift */; };
 		C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C99787181D08331A000D1FAA /* SASavingSummaryViewController.xib */; };
+		C9A807D41D33A3910053A07B /* SAEditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A807D21D33A3910053A07B /* SAEditUserInfoViewController.swift */; };
+		C9A807D51D33A3910053A07B /* SAEditUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A807D31D33A3910053A07B /* SAEditUserInfoViewController.xib */; };
 		C9B6C8421D05711C00FCB00C /* SAOfferListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6C8401D05711C00FCB00C /* SAOfferListViewController.swift */; };
 		C9B6C8431D05711C00FCB00C /* SAOfferListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9B6C8411D05711C00FCB00C /* SAOfferListViewController.xib */; };
 		C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6C8441D058A0D00FCB00C /* SAOfferListTableViewCell.swift */; };
@@ -1040,6 +1042,8 @@
 		C9905FAC1CEDCD1A00E63471 /* Registration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Registration.json; sourceTree = "<group>"; };
 		C99787171D08331A000D1FAA /* SASavingSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SASavingSummaryViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C99787181D08331A000D1FAA /* SASavingSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASavingSummaryViewController.xib; sourceTree = "<group>"; };
+		C9A807D21D33A3910053A07B /* SAEditUserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAEditUserInfoViewController.swift; sourceTree = "<group>"; };
+		C9A807D31D33A3910053A07B /* SAEditUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAEditUserInfoViewController.xib; sourceTree = "<group>"; };
 		C9B6C8401D05711C00FCB00C /* SAOfferListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAOfferListViewController.swift; sourceTree = "<group>"; };
 		C9B6C8411D05711C00FCB00C /* SAOfferListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAOfferListViewController.xib; sourceTree = "<group>"; };
 		C9B6C8441D058A0D00FCB00C /* SAOfferListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SAOfferListTableViewCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1917,6 +1921,15 @@
 			path = SASummaryView;
 			sourceTree = "<group>";
 		};
+		C9A807D11D33A3660053A07B /* EditUserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C9A807D21D33A3910053A07B /* SAEditUserInfoViewController.swift */,
+				C9A807D31D33A3910053A07B /* SAEditUserInfoViewController.xib */,
+			);
+			path = EditUserInfo;
+			sourceTree = "<group>";
+		};
 		C9B6C83F1D0570EF00FCB00C /* SAOfferList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1955,6 +1968,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				C9A807D11D33A3660053A07B /* EditUserInfo */,
 				A8F820261D2E7FA600BB7537 /* ImpulseSavingView */,
 				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
@@ -2538,6 +2552,7 @@
 				A858A5F31D08127C0097546F /* generic-circle.png in Resources */,
 				A8095C251CEDC616006366F7 /* pre-loader@1x34.png in Resources */,
 				C91E23EC1D029CF900DC6D29 /* WishListTableViewCell.xib in Resources */,
+				C9A807D51D33A3910053A07B /* SAEditUserInfoViewController.xib in Resources */,
 				A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */,
 				C975A9311D01952900184C8C /* group-save-category-icon@2x.png in Resources */,
 				A858A5F01D08127C0097546F /* gadget-circle.png in Resources */,
@@ -2775,6 +2790,7 @@
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
 				C97949791CEC987900416BD5 /* VTButton.swift in Sources */,
+				C9A807D41D33A3910053A07B /* SAEditUserInfoViewController.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
 				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,

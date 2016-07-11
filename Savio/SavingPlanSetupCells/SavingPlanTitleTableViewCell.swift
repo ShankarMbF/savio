@@ -171,7 +171,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
         else if(UIScreen.mainScreen().bounds.size.height == 568)
@@ -181,7 +181,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+60), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
             
         }
@@ -216,7 +216,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
         else if(UIScreen.mainScreen().bounds.size.height == 568)
@@ -226,7 +226,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+60), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
             
         }

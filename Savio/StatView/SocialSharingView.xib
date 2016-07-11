@@ -68,14 +68,12 @@
                                 <constraint firstAttribute="width" constant="22" id="jKE-M4-vgE"/>
                             </constraints>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="social-pop-up-close.png">
-                                <color key="titleColor" red="1" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
+                            <state key="normal" backgroundImage="social-pop-up-close.png"/>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MA-GK-FIR">
+                        <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MA-GK-FIR">
                             <rect key="frame" x="0.0" y="417" width="570" height="103"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
+                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
                                     <rect key="frame" x="204" y="0.0" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="163" id="FN5-De-vUr"/>
@@ -85,31 +83,31 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TfT-4Z-lF0">
+                                <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TfT-4Z-lF0">
                                     <rect key="frame" x="0.0" y="31" width="570" height="52"/>
                                     <subviews>
-                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCq-s7-AcI">
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCq-s7-AcI">
                                             <rect key="frame" x="289" y="5" width="133" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="VVi-hX-cXi"/>
                                             </constraints>
                                             <state key="normal" image="social-g+.png"/>
                                         </button>
-                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVZ-AA-pfv">
+                                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVZ-AA-pfv">
                                             <rect key="frame" x="430" y="5" width="132" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="rJe-qk-aKp"/>
                                             </constraints>
                                             <state key="normal" image="social-wa.png"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-0y-MsM">
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-0y-MsM">
                                             <rect key="frame" x="8" y="5" width="133" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="9rh-gl-fgH"/>
                                             </constraints>
                                             <state key="normal" image="social-fb.png"/>
                                         </button>
-                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ab-bZ-7Lr">
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ab-bZ-7Lr">
                                             <rect key="frame" x="149" y="5" width="132" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="8RV-cn-aaO"/>

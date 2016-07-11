@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class SAStatViewController: UIViewController, LineChartDelegate {
 
@@ -205,7 +206,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -266,8 +266,53 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
         vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        view.addSubview(testView)
+        
+//         let imgVw = testView.viewWithTag(0)! as UIView
+        
+        let btnClose = testView.viewWithTag(6)! as! UIButton
+        btnClose.addTarget(self, action: #selector(SAStatViewController.closeSharePopup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let fbBtn = testView.viewWithTag(2) as! UIButton
+        fbBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let twBtn = testView.viewWithTag(3) as! UIButton
+        twBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let glBtn = testView.viewWithTag(4) as! UIButton
+        glBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let waBtn = testView.viewWithTag(5) as! UIButton
+        waBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
         self.navigationController?.view.addSubview(testView)
+    }
+    
+    //Close the share popup
+    func closeSharePopup(sender: UIButton) {
+        sender.superview?.superview!.removeFromSuperview()
+    }
+    
+    func clickedOnSocialMediaButton(sender: UIButton){
+        print(sender.tag)
+        self.shareOnFacebook(sender)
+    }
+    
+    func shareOnFacebook(sender: UIButton) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook){
+            var facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            facebookSheet.setInitialText("Share on Facebook")
+            
+            self.presentViewController(facebookSheet, animated: true, completion: nil)
+            
+            //        self.presentViewController(facebookSheet, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
 }
+
+
+

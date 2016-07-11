@@ -95,7 +95,7 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         let widthOfContentView: CGFloat = self.widthOfContentView.constant
         if widthOfContentView > widthScrollView {
             let fraction: CGFloat = (widthOfContentView - widthScrollView) / CGFloat (self.graphSliderView.maximumValue)
-            if sender.value <= 20.0 {
+            if sender.value <= self.graphSliderView.minimumValue {
                 self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
             } else {
                 self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) * fraction ), y: 0  )

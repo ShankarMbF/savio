@@ -58,7 +58,7 @@ public class LineChart: UIView {
         public var visible: Bool = true
         // #607d8b
         public var color: UIColor = UIColor(red: 96/255.0, green: 125/255.0, blue: 139/255.0, alpha: 1)
-        public var inset: CGFloat = 20
+        public var inset: CGFloat = 25
     }
     
     public struct Coordinate {
@@ -145,7 +145,7 @@ public class LineChart: UIView {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor(colorLiteralRed: 2536.0/256.0, green: 246.0/256.0, blue: 235.0/256.0, alpha: 1)
 
     }
 
@@ -214,20 +214,8 @@ public class LineChart: UIView {
             
         }
         //add slider
-            addSlider()
-    }
-    private func addSlider() {
-//        let slider: UISlider  = UISlider(frame: CGRect(x: x.axis.inset - 7.5, y: graphHeight, width: self.drawingWidth + 2 * 7.5, height: 20))
-//        slider.maximumValue = Float(self.drawingWidth + x.axis.inset)
-//        slider.minimumValue = Float(x.axis.inset)
         self.delegate?.setValuesForSlider(x.axis.inset, max: self.drawingWidth + x.axis.inset)
-//        slider.minimumTrackTintColor = UIColor.blackColor()
-//        slider.maximumTrackTintColor = UIColor.blackColor()
-//        slider.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
-//        slider.addTarget(self, action: #selector(sliderValueChanged), forControlEvents: UIControlEvents.ValueChanged)
-//        self.addSubview(slider)
-//        let xValue = self.x.scale(CGFloat(2))
-
+        
     }
     
     func sliderValueChanged(slider: UISlider) {
@@ -237,7 +225,7 @@ public class LineChart: UIView {
             let xValue = CGFloat(slider.value)
             let inverted = self.x.invert(xValue - x.axis.inset)
             let rounded = Int(round(Double(inverted)))
-            setProgressForProgressBar(rounded)
+            setProgressForCircularFloatingProgressBar(rounded)
             let yValues: [CGFloat] = getYValuesForXValue(rounded)
             let stringValue: String = String.init(format: "%.0f", yValues.first!)
             self.valueLabel.text = stringValue
@@ -326,7 +314,7 @@ public class LineChart: UIView {
     
     
     
-    func setProgressForProgressBar(index: Int)  {
+    func setProgressForCircularFloatingProgressBar(index: Int)  {
         var data: [CGFloat] = self.dataStore[0]
         if data.count > 0 {
             let currentValue: CGFloat = data[index] as CGFloat
@@ -343,7 +331,7 @@ public class LineChart: UIView {
         var dotLayers: [DotCALayer] = []
         var data = self.dataStore[lineIndex]
         
-        self.setProgressForProgressBar(0)
+        self.setProgressForCircularFloatingProgressBar(0)
         for index in 0..<data.count {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - dots.outerRadius/2
             let yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset - dots.outerRadius/2
@@ -352,7 +340,15 @@ public class LineChart: UIView {
             let dotLayer = DotCALayer()
             dotLayer.dotInnerColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)//colors[lineIndex]
             dotLayer.innerRadius = dots.innerRadius
-            dotLayer.backgroundColor = dots.color.CGColor
+            
+            if index % 2 == 0  {
+                dotLayer.backgroundColor = dots.color.CGColor
+            } else {
+                dotLayer.backgroundColor = UIColor(colorLiteralRed: 85.0/256.0, green: 87.0/256.0, blue: 86.0/256.0, alpha: 1).CGColor
+
+            }
+            
+            
             dotLayer.cornerRadius = dots.outerRadius / 2
             dotLayer.frame = CGRect(x: xValue, y: yValue, width: dots.outerRadius, height: dots.outerRadius)
             self.layer.addSublayer(dotLayer)
@@ -373,48 +369,67 @@ public class LineChart: UIView {
     
     
     public var valueLabel: UILabel = UILabel()
-    let progress = KDCircularProgress(frame: CGRect(x: 0, y: -20, width: 40, height: 40))
-    let widthOfScrollingLineView: CGFloat = 40.0
-    
+    let widthOfScrollingLineView: CGFloat = 34.0
+
+    let progress = KDCircularProgress(frame: CGRect(x:  0, y: -17.0, width: 34, height: 34))
     func drawScrollLineForPoint(a1: CGFloat) {
         
         graphView = UIView(frame: CGRect(x: a1 - widthOfScrollingLineView / 2.0, y: x.axis.inset, width: 40, height: self.drawingHeight ))
         graphView.backgroundColor = UIColor.clearColor()
         var data = self.dataStore[0]
 
-        self.valueLabel.frame = CGRect(x: 5, y: widthOfScrollingLineView / 2.0, width: 30, height: 15)
-        self.valueLabel.text = String(data[2])
-        self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 9)
+        self.valueLabel.frame = CGRect(x: 4.0 , y: widthOfScrollingLineView / 2.0 - 2.0, width: widthOfScrollingLineView - 10.0, height: 10)
+        let stringValue: String = String.init(format: "%.0f", data.first!)
+
+        self.valueLabel.text = stringValue
+        self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 7)
         self.valueLabel.textAlignment = .Center
         let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.drawingHeight))
-        line.backgroundColor = UIColor.redColor()
+        line.backgroundColor = UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0)
         graphView.addSubview(line)
         self.addSubview(graphView)
         
-        //image view 
-        let imageView: UIImageView = UIImageView(frame: CGRect(x: 15, y: 10, width: 10, height: 10))
+
+        //white center view
+        let cvRadius: CGFloat = 12.5
+        let cvX: CGFloat = progress.frame.width / 2.0 - cvRadius
+        let cvY: CGFloat = progress.frame.height / 2.0 - cvRadius
+        let centerView = UIView(frame: CGRect(origin: CGPoint(x: cvX, y:cvY), size: CGSize(width: 2 * cvRadius, height: 2 * cvRadius)))
+        centerView.layer.cornerRadius = centerView.frame.width / 2.0
+        centerView.backgroundColor = UIColor.whiteColor()
+        progress.addSubview(centerView)
+
+        //image view
+        let imgHeight: CGFloat = 7
+        let imageView: UIImageView = UIImageView(frame: CGRect(x: (widthOfScrollingLineView - imgHeight) / 2, y: imgHeight, width: imgHeight, height: imgHeight))
         imageView.image = UIImage(named: "slider-icon")
-    
-        self.progress.addSubview(imageView)
-        //progress view 
         
+        //progress view
+        self.progress.addSubview(imageView)
         progress.startAngle = -90
-        progress.progressThickness = 0.3
-        progress.trackThickness = 0.1
+        progress.progressThickness = 0.4
+        progress.trackThickness = 0.2
         progress.clockwise = true
         progress.gradientRotateSpeed = 2
         progress.roundedCorners = true
-        progress.glowMode = .Forward
+        progress.glowMode = .NoGlow
         progress.setColors(UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0) )
-        progress.trackColor = UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 242.0/256.0, alpha: 1.0)
-        progress.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
-        progress.layer.cornerRadius = progress.frame.width / 2.0
+        progress.trackColor = UIColor.init(red: 232.0/256.0, green: 236.0/256.0, blue: 237.0/256.0, alpha: 1.0)
         graphView.addSubview(progress)
         progress.addSubview(valueLabel)
 
-
     }
     
+    func circlePathWithCenter(center: CGPoint, radius: CGFloat) -> UIBezierPath {
+        let circlePath = UIBezierPath()
+        circlePath.addArcWithCenter(center, radius: radius, startAngle: -CGFloat(M_PI), endAngle: -CGFloat(M_PI/2), clockwise: true)
+        circlePath.addArcWithCenter(center, radius: radius, startAngle: -CGFloat(M_PI/2), endAngle: 0, clockwise: true)
+        circlePath.addArcWithCenter(center, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI/2), clockwise: true)
+        circlePath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
+        circlePath.closePath()
+        return circlePath
+    }
+
      func moveScrollLineForPoint(a1: CGFloat) {
         graphView.frame = CGRect(x: a1 - widthOfScrollingLineView / 2, y: x.axis.inset, width: 20, height: self.drawingHeight)
     }
@@ -435,9 +450,9 @@ public class LineChart: UIView {
         path.stroke()
         // draw y-axis
         y.axis.color.setStroke()
-        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
-        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
-        path.stroke()
+//        path.moveToPoint(CGPoint(x: x.axis.inset, y: height - y.axis.inset))
+//        path.addLineToPoint(CGPoint(x: x.axis.inset, y: y.axis.inset))
+//        path.stroke()
     }
     
     
@@ -571,16 +586,16 @@ public class LineChart: UIView {
         let x1: CGFloat = x.axis.inset
         let x2: CGFloat = self.bounds.width - x.axis.inset
         var y1: CGFloat
-        let (start, stop, step) = self.y.ticks
+        var (start, stop, step) = self.y.ticks
+        let drawIndex: CGFloat =  floor(( (stop - start) / step ) / 5.0)
+        step *= drawIndex
         for var i: CGFloat = start; i <= stop; i += step {
             y1 = graphHeight - self.y.scale(i) - y.axis.inset
-            path.moveToPoint(CGPoint(x: x1, y: y1))
-            path.addLineToPoint(CGPoint(x: x2, y: y1))
+                path.moveToPoint(CGPoint(x: x1, y: y1))
+                path.addLineToPoint(CGPoint(x: x2, y: y1))
         }
         path.stroke()
     }
-    
-    
     
     /**
      * Draw grid.
@@ -589,8 +604,6 @@ public class LineChart: UIView {
 //        drawXGrid()
         drawYGrid()
     }
-    
-    
     
     /**
      * Draw x labels.
@@ -628,11 +641,13 @@ public class LineChart: UIView {
             } else {
                 text = String(index)
             }
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 10)!])
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!])
            
-            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
+            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
 
             attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5], range: NSRange(location:1,length:2))
+            
+            
         
             label.attributedText = attString
             self.addSubview(label)
@@ -645,18 +660,19 @@ public class LineChart: UIView {
      */
     private func drawYLabels() {
         var yValue: CGFloat
-        let (start, stop, step) = self.y.ticks
+        var (start, stop, step) = self.y.ticks
+        let drawIndex: CGFloat =  floor(( (stop - start) / step ) / 5.0)
+        step *= drawIndex
         for var i: CGFloat = start; i <= stop; i += step {
             yValue = graphHeight - self.y.scale(i) - (y.axis.inset * 1.5)
-            let label = UILabel(frame: CGRect(x: 0, y: yValue, width: y.axis.inset, height: y.axis.inset))
-            label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption2)
-            label.textAlignment = .Center
+            let label = UILabel(frame: CGRect(x: 2.0, y: yValue, width: y.axis.inset - 4.0, height: y.axis.inset))
+            label.font = UIFont(name: "GothamRounded-Medium", size: 8)
+            label.textAlignment = .Right
             label.text = String(Int(round(i)))
+            label.backgroundColor = UIColor.clearColor()
             self.addSubview(label)
         }
     }
-    
-    
     
     /**
      * Add line chart

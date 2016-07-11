@@ -294,6 +294,17 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     
     func clickedOnSocialMediaButton(sender: UIButton){
         print(sender.tag)
+        
+        switch sender.tag {
+        case 2:
+            self.shareOnFacebook(sender)
+            
+        case 3:
+            self.shareOnTwitter(sender)
+        default:
+            print("Nothing")
+        }
+        
         self.shareOnFacebook(sender)
     }
     
@@ -307,6 +318,19 @@ class SAStatViewController: UIViewController, LineChartDelegate {
             //        self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
             var alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+     func shareOnTwitter(sender: UIButton) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
+            var twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            twitterSheet.setInitialText("Share on Twitter")
+            self.presentViewController(twitterSheet, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }

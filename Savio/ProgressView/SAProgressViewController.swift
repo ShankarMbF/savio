@@ -252,6 +252,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
+    @IBAction func impulseSavingButtonPressed(sender: UIButton) {
+        let objImpulseSave = SAImpulseSavingViewController()
+        self.navigationController?.pushViewController(objImpulseSave, animated: true)
+    }
+    
+    
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         if let message = objResponse["message"] as? String

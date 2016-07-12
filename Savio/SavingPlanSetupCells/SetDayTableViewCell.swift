@@ -261,7 +261,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         var y : Float = 0.0
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
-            y = 300
+            y = 250
         }
         else if(UIScreen.mainScreen().bounds.size.height == 568)
         {

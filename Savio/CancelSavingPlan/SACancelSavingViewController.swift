@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SACancelSavingViewController: UIViewController {
+class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-
+ var  objAnimView = ImageViewAnimation()
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     
@@ -108,11 +108,36 @@ class SACancelSavingViewController: UIViewController {
     
     @IBAction func yesButtonPressed(sender: AnyObject) {
         
-        view1.hidden = true
-        view2.hidden = false
+        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        self.objAnimView.frame = self.view.frame
+        self.objAnimView.animate()
+        self.view.addSubview(self.objAnimView)
+
+        let objAPI = API()
+   
+            objAPI.cancelSavingPlanDelegate = self
+
+            objAPI .cancelSavingPlan()
+        
     }
     
+    func successResponseForCancelSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String
+        {
+            if (message == "Cancelled Plan successfully")
+            {
+                view1.hidden = true
+                view2.hidden = false
+            }
+        }
+        
+    }
     
+    func errorResponseForCancelSavingPlanAPI(error: String) {
+         objAnimView.removeFromSuperview()
+    }
     
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {
         let objSavingPlan = SACreateSavingPlanViewController()

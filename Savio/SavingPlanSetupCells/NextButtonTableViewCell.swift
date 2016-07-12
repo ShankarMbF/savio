@@ -100,9 +100,9 @@ class NextButtonTableViewCell: UITableViewCell {
         
         if(colorDataDict["title"] as! String == "Group Save")
         {
-            red = 114/255
-            green = 177/255
-            blue = 237/255
+            red = 121/255
+            green = 183/255
+            blue = 242/255
             
         }
         else if(colorDataDict["title"] as! String == "Wedding")
@@ -113,9 +113,9 @@ class NextButtonTableViewCell: UITableViewCell {
         }
         else if(colorDataDict["title"] as! String == "Baby")
         {
-            red = 133/255
-            green = 222/255
-            blue = 175/255
+            red = 125/255
+            green = 223/255
+            blue = 172/255
         }
         else if(colorDataDict["title"] as! String == "Holiday")
         {
@@ -143,9 +143,9 @@ class NextButtonTableViewCell: UITableViewCell {
         }
         else
         {
-            red = 240/255
-            green = 164/255
-            blue = 57/255
+            red = 247/255
+            green = 148/255
+            blue = 56/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }

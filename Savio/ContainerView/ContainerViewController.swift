@@ -12,37 +12,41 @@ let kNotificationToggleMenuView = "ToggleCentreView"
 let kNotificationAddCentreView = "AddCentreView"
 
 class ContainerViewController: UIViewController {
-     var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
+    var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
     var centreVC: UIViewController! =  SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
     var navController: UINavigationController!
     var isShowingProgress:String?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if isShowingProgress == "true" {
+        if isShowingProgress == "PartySavingPlanExist" {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
         }
+        else if(isShowingProgress == "GroupSaving PlanExist")
+        {
+            self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+        }
         else {
-       self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+            self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
         }
         
-       
+        
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-//        self.navController.navigationBar.hidden = true
+        //        self.navController.navigationBar.hidden = true
         
         self.view.addSubview(self.menuVC!.view)
         self.view.addSubview(self.navController!.view)
-
-         self.addChildViewController(self.navController)
+        
+        self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
-
+        
     }
     
     func ToggleCentreView() {
@@ -56,11 +60,11 @@ class ContainerViewController: UIViewController {
             self.navController.view.frame = destination
         })
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-
+        
     }
     
     func addCentreView(notification: NSNotification) {
@@ -69,9 +73,17 @@ class ContainerViewController: UIViewController {
             self.ToggleCentreView()
             return
         }
+        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
+        {
+            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+           self.ToggleCentreView()
+            return
+        }
+
         self.navController.view.removeFromSuperview()
         self.navController.removeFromParentViewController()
-        
+
         switch className {
         case "SACreateSavingPlanViewController":
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
@@ -80,7 +92,7 @@ class ContainerViewController: UIViewController {
         case "SAWishListViewController":
             self.centreVC = SAWishListViewController(nibName: "SAWishListViewController", bundle: nil)
             self.replaceViewController()
-        
+            
         case "SAOfferListViewController":
             self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             centreVC.hidesBottomBarWhenPushed = true
@@ -91,21 +103,40 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAProgressViewController":
-            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-//            self.centreVC = SAStatViewController(nibName: "SAStatViewController", bundle: nil)
+            
+            if isShowingProgress == "PartySavingPlanExist" {
+                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            }
+            else if(isShowingProgress == "GroupSaving PlanExist")
+            {
+                self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+            }
+            else {
+                self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+            }
+            
             self.replaceViewController()
             
         case "SASavingPlanViewController":
-            let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
-            obj.isUpdatePlan = true
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.centreVC = obj
             
-            self.replaceViewController()
+            if isShowingProgress == "PartySavingPlanExist" {
+                let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
+                obj.isUpdatePlan = true
+                let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+                NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                self.centreVC = obj
+                
+                self.replaceViewController()
+            }
+            else  {
+                
+            }
+            
+            
+       
         case "SASettingsViewController":
-            self.centreVC = SASettingsViewController(nibName: "SASettingsViewController", bundle: nil)
+            self.centreVC = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
             self.replaceViewController()
         case "SignOut":
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -129,13 +160,13 @@ class ContainerViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

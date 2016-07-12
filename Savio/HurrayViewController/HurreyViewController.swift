@@ -21,11 +21,11 @@ class HurreyViewController: UIViewController {
         super.viewWillAppear(true)
 //
 //        btn?.layer.masksToBounds = true
-        self.addShadowView()
+        btn?.layer.cornerRadius = 5.0
     }
     
     func addShadowView(){
-        btn?.layer.cornerRadius = 5.0
+        
 //        btn!.layer.shadowColor = UIColor(red: 222/256, green: 154/256, blue: 62/256, alpha: 1.0).CGColor
 //        btn!.layer.shadowOffset = CGSize(width: 0, height: 2)
 //        btn!.layer.shadowRadius = 4

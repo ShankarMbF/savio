@@ -51,7 +51,7 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0r-9h-Hap">
                     <rect key="frame" x="30" y="361" width="540" height="45"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.96862745098039216" green="0.5725490196078431" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="MHA-Zh-11L"/>
                     </constraints>
@@ -104,6 +104,7 @@
                 <constraint firstItem="L0r-9h-Hap" firstAttribute="top" secondItem="Kl4-Vf-3Td" secondAttribute="bottom" constant="150" id="3yO-Zd-Rw8"/>
                 <constraint firstItem="Kl4-Vf-3Td" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FmF-QL-WjY"/>
                 <constraint firstItem="xEm-qu-yo9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="HJl-M2-443"/>
+                <constraint firstItem="Kl4-Vf-3Td" firstAttribute="top" secondItem="srb-ZI-X44" secondAttribute="bottom" constant="43" id="K5G-Ni-i8q"/>
                 <constraint firstItem="YAh-VO-ioi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="1" id="Pg4-hT-2tT"/>
                 <constraint firstItem="L0r-9h-Hap" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="R8z-YJ-nHb"/>
                 <constraint firstAttribute="trailing" secondItem="xEm-qu-yo9" secondAttribute="trailing" constant="30" id="aNu-xR-TqH"/>
@@ -118,8 +119,10 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="ezv-lJ-c68"/>
+                    <exclude reference="3yO-Zd-Rw8"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="182" y="248"/>
         </view>
     </objects>
     <resources>

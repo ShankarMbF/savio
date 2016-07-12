@@ -273,19 +273,19 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         imgVw.image = shareImg
         
         let btnClose = testView.viewWithTag(6)! as! UIButton
-        btnClose.addTarget(self, action: #selector(SAStatViewController.closeSharePopup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btnClose.addTarget(self, action: Selector("closeSharePopup:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         let fbBtn = testView.viewWithTag(2) as! UIButton
-        fbBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        fbBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         let twBtn = testView.viewWithTag(3) as! UIButton
-        twBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        twBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         let glBtn = testView.viewWithTag(4) as! UIButton
-        glBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        glBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         let waBtn = testView.viewWithTag(5) as! UIButton
-        waBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        waBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.navigationController?.view.addSubview(testView)
     }

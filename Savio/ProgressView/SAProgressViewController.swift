@@ -120,7 +120,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     func setUpView(){
 
-        /*
+        
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
 
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -142,7 +142,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
-        */
+
         
         for var i=0; i<3; i++
         {

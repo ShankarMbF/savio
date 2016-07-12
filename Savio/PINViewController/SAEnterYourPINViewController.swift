@@ -241,7 +241,7 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
 
 func errorResponseForOTPLogInAPI(error: String) {
     objAnimView.removeFromSuperview()
-  
+  print(error)
     if(error == "No network found")
     {
         let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")

@@ -122,7 +122,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     
     func successResponseForCancelSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        
+        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String
         {

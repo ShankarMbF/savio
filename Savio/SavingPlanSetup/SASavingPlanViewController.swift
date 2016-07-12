@@ -1176,7 +1176,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBackgroundImageView.image = UIImage(data: data)
                 
-                offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+                //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 tblView.reloadData()
                 
             }

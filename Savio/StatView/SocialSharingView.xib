@@ -20,12 +20,15 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R3R-lr-pVF">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </imageView>
                 <view clipsSubviews="YES" tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLg-cM-xJo">
                     <rect key="frame" x="15" y="40" width="570" height="520"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tq7-V3-DLg">
+                        <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cycle.png" translatesAutoresizingMaskIntoConstraints="NO" id="tq7-V3-DLg">
                             <rect key="frame" x="198" y="30" width="175" height="175"/>
-                            <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="175" id="7eG-1s-6IV"/>
                                 <constraint firstAttribute="width" constant="175" id="DN2-sy-5XZ"/>
@@ -73,7 +76,7 @@
                         <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MA-GK-FIR">
                             <rect key="frame" x="0.0" y="417" width="570" height="103"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
+                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share it!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
                                     <rect key="frame" x="204" y="0.0" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="163" id="FN5-De-vUr"/>
@@ -180,15 +183,20 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="R3R-lr-pVF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0iW-AG-47k"/>
+                <constraint firstAttribute="bottom" secondItem="R3R-lr-pVF" secondAttribute="bottom" id="6Hg-6O-h6g"/>
                 <constraint firstItem="cLg-cM-xJo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="8mJ-29-cJu"/>
                 <constraint firstItem="cLg-cM-xJo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="DIm-MO-DlX"/>
                 <constraint firstAttribute="bottom" secondItem="cLg-cM-xJo" secondAttribute="bottom" constant="40" id="Mtq-IX-fNd"/>
+                <constraint firstAttribute="trailing" secondItem="R3R-lr-pVF" secondAttribute="trailing" id="Tg1-9q-ao4"/>
                 <constraint firstItem="cLg-cM-xJo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Z90-VU-uRE"/>
+                <constraint firstItem="R3R-lr-pVF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fHr-os-el4"/>
             </constraints>
             <point key="canvasLocation" x="340" y="241"/>
         </view>
     </objects>
     <resources>
+        <image name="cycle.png" width="178" height="178"/>
         <image name="social-fb.png" width="40" height="40"/>
         <image name="social-g+.png" width="40" height="40"/>
         <image name="social-pop-up-close.png" width="22" height="22"/>

@@ -402,7 +402,7 @@ public class LineChart: UIView {
         //image view
         let imgHeight: CGFloat = 7
         let imageView: UIImageView = UIImageView(frame: CGRect(x: (widthOfScrollingLineView - imgHeight) / 2, y: imgHeight, width: imgHeight, height: imgHeight))
-        imageView.image = UIImage(named: "slider-icon")
+        imageView.image = UIImage(named: "target-score-crown")
         
         //progress view
         self.progress.addSubview(imageView)

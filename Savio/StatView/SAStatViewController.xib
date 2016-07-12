@@ -59,7 +59,7 @@
                             <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="o4Q-gp-8E3" firstAttribute="height" secondItem="mdv-PT-ZyN" secondAttribute="height" id="3hV-PF-kYk"/>
                         <constraint firstAttribute="bottom" secondItem="o4Q-gp-8E3" secondAttribute="bottom" id="7Rv-tS-uC8"/>
@@ -102,7 +102,7 @@
                     <state key="normal" title="Stats"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsX-Nh-UJc">
-                    <rect key="frame" x="0.0" y="427" width="600" height="120"/>
+                    <rect key="frame" x="0.0" y="417" width="600" height="130"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your achievements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftd-KB-sgJ">
                             <rect key="frame" x="219" y="0.0" width="163" height="21"/>
@@ -195,6 +195,11 @@
                             <state key="normal" title="MAKE IMPULSE SAVING">
                                 <color key="titleColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -208,7 +213,7 @@
                         <constraint firstAttribute="trailing" secondItem="3mQ-sn-Pop" secondAttribute="trailing" constant="30" id="fxj-85-8UH"/>
                         <constraint firstAttribute="trailing" secondItem="ZaU-r2-ec3" secondAttribute="trailing" id="h13-hh-i9Q"/>
                         <constraint firstItem="9v4-mA-xGM" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" constant="30" id="hnX-bk-WP1"/>
-                        <constraint firstAttribute="height" constant="120" id="j3G-GW-cyK"/>
+                        <constraint firstAttribute="height" constant="130" id="j3G-GW-cyK"/>
                         <constraint firstItem="ZaU-r2-ec3" firstAttribute="leading" secondItem="lsX-Nh-UJc" secondAttribute="leading" id="lCr-wF-6Xa"/>
                         <constraint firstAttribute="trailing" secondItem="9v4-mA-xGM" secondAttribute="trailing" constant="30" id="nm9-68-QLv"/>
                         <constraint firstItem="ftd-KB-sgJ" firstAttribute="top" secondItem="lsX-Nh-UJc" secondAttribute="top" id="yXk-P8-gV2"/>
@@ -221,13 +226,13 @@
                     </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pJ-dh-CAm" userLabel="Graph">
-                    <rect key="frame" x="0.0" y="104" width="600" height="323"/>
+                    <rect key="frame" x="0.0" y="104" width="600" height="313"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-CM-USF">
-                            <rect key="frame" x="20" y="30" width="560" height="278"/>
+                            <rect key="frame" x="20" y="30" width="560" height="268"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmE-Ve-npa" userLabel="ContentView">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="278"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="268"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="600" id="dvW-Ub-t8M"/>
@@ -242,9 +247,14 @@
                                 <constraint firstItem="jmE-Ve-npa" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="top" id="m0D-Hy-vWK"/>
                             </constraints>
                         </scrollView>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
-                            <rect key="frame" x="28" y="288" width="544" height="36"/>
+                        <slider opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
+                            <rect key="frame" x="48" y="278" width="524" height="36"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="graphSliderValueChanged:" destination="-1" eventType="valueChanged" id="ZlD-NH-eyc"/>
                             </connections>
@@ -256,7 +266,7 @@
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="20" id="HwE-hE-bib"/>
                         <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="30" id="IzM-aA-TWe"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="-20" id="KFv-Q4-CFP"/>
-                        <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="30" id="WPU-nr-MhQ"/>
+                        <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="50" id="WPU-nr-MhQ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="30" id="WjE-nc-Mpk"/>
                         <constraint firstAttribute="bottom" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="15" id="g9p-Gu-KQU"/>
                         <constraint firstAttribute="bottom" secondItem="fnS-6P-Qus" secondAttribute="bottom" id="xrV-xc-lhk"/>

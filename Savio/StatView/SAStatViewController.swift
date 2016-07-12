@@ -9,7 +9,7 @@
 import UIKit
 import Social
 
-class SAStatViewController: UIViewController, LineChartDelegate {
+class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInteractionControllerDelegate {
 
     @IBOutlet weak var scrHt: NSLayoutConstraint!
     var lineChart: LineChart!
@@ -31,6 +31,11 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 
     
     var xLabels: [String] = []
+    var documentInteractionController = UIDocumentInteractionController()
+    var shareImg: UIImage?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,9 +89,10 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.graphSliderView.maximumValue = Float(max)
         self.graphSliderView.minimumValue = Float(min)
         self.lineChart.drawScrollLineForPoint(min)
-        self.graphSliderView.minimumTrackTintColor = UIColor.blackColor()
-        self.graphSliderView.maximumTrackTintColor = UIColor.blackColor()
-        self.graphSliderView.setThumbImage(UIImage(named: "slider-icon"), forState: UIControlState.Normal)
+        let trackImage = UIImage(named: "stats-slider-bar")
+        self.graphSliderView.setMinimumTrackImage(trackImage, forState: UIControlState.Normal)
+        self.graphSliderView.setMaximumTrackImage(trackImage, forState: .Normal)
+        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
 
@@ -104,7 +110,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         self.lineChart.sliderValueChanged(sender)
     }
     
-
     //MARK: -
     
     override func viewWillLayoutSubviews() {
@@ -128,7 +133,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
-
         }
 
     }
@@ -181,7 +185,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
 
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
@@ -196,7 +199,6 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
     }
     
     func menuButtonClicked(){
@@ -267,7 +269,8 @@ class SAStatViewController: UIViewController, LineChartDelegate {
         vw.layer.borderWidth = 2.0
         vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-//         let imgVw = testView.viewWithTag(0)! as UIView
+         let imgVw = testView.viewWithTag(10) as! UIImageView
+        shareImg = imgVw.image
         
         let btnClose = testView.viewWithTag(6)! as! UIButton
         btnClose.addTarget(self, action: #selector(SAStatViewController.closeSharePopup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -301,23 +304,24 @@ class SAStatViewController: UIViewController, LineChartDelegate {
             
         case 3:
             self.shareOnTwitter(sender)
+        case 5:
+            self.shareOnWhatsApp(sender)
         default:
             print("Nothing")
         }
-        
         self.shareOnFacebook(sender)
     }
     
     func shareOnFacebook(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook){
-            var facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            let facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             facebookSheet.setInitialText("Share on Facebook")
             
             self.presentViewController(facebookSheet, animated: true, completion: nil)
             
             //        self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
-            var alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -326,16 +330,45 @@ class SAStatViewController: UIViewController, LineChartDelegate {
     
      func shareOnTwitter(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
-            var twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             twitterSheet.setInitialText("Share on Twitter")
             self.presentViewController(twitterSheet, animated: true, completion: nil)
         } else {
-            var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-
+    
+    func shareOnWhatsApp(sender: UIButton) {
+        let urlWhats = "whatsapp://app"
+        if let urlString = urlWhats.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
+            if let whatsappURL = NSURL(string: urlString) {
+                
+                if UIApplication.sharedApplication().canOpenURL(whatsappURL) {
+                    
+                    if let image = shareImg {
+                        if let imageData = UIImageJPEGRepresentation(image, 1.0) {
+                            let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Documents/whatsAppTmp.wai")
+                            do {
+                                try imageData.writeToURL(tempFile, options: .DataWritingAtomic)
+                                documentInteractionController = UIDocumentInteractionController(URL: tempFile)
+                                documentInteractionController.UTI = "net.whatsapp.image"
+                                documentInteractionController.presentOpenInMenuFromRect(CGRectZero, inView: self.view, animated: true)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+                    
+                } else {
+                    let alert = UIAlertController(title: "Accounts", message: "Your device has not WhatsApp installed.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 }
 
 

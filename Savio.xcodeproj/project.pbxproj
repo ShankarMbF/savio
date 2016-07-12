@@ -326,6 +326,24 @@
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
 		C905719B1CFF020200ECC4FC /* SavingCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571991CFF020200ECC4FC /* SavingCategoryTableViewCell.xib */; };
+		C90C6F561D34AE59004D42A4 /* target-score-crown.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F531D34AE59004D42A4 /* target-score-crown.png */; };
+		C90C6F571D34AE59004D42A4 /* target-score-crown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F541D34AE59004D42A4 /* target-score-crown@2x.png */; };
+		C90C6F581D34AE59004D42A4 /* target-score-crown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F551D34AE59004D42A4 /* target-score-crown@3x.png */; };
+		C90C6F681D35107C004D42A4 /* group-save-streak-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F591D35107C004D42A4 /* group-save-streak-popup@2x.png */; };
+		C90C6F691D35107C004D42A4 /* generic-streak-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5A1D35107C004D42A4 /* generic-streak-popup@2x.png */; };
+		C90C6F6A1D35107C004D42A4 /* generic-stats-slider-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5B1D35107C004D42A4 /* generic-stats-slider-tab.png */; };
+		C90C6F6B1D35107C004D42A4 /* generic-streak-popup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5C1D35107C004D42A4 /* generic-streak-popup@3x.png */; };
+		C90C6F6C1D35107C004D42A4 /* generic-stats-slider-tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5D1D35107C004D42A4 /* generic-stats-slider-tab@2x.png */; };
+		C90C6F6D1D35107C004D42A4 /* group-save-stats-slider-tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5E1D35107C004D42A4 /* group-save-stats-slider-tab@2x.png */; };
+		C90C6F6E1D35107C004D42A4 /* group-save-stats-slider-tab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F5F1D35107C004D42A4 /* group-save-stats-slider-tab@3x.png */; };
+		C90C6F6F1D35107C004D42A4 /* group-save-stats-slider-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F601D35107C004D42A4 /* group-save-stats-slider-tab.png */; };
+		C90C6F701D35107C004D42A4 /* group-save-streak-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F611D35107C004D42A4 /* group-save-streak-popup.png */; };
+		C90C6F711D35107C004D42A4 /* generic-streak-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F621D35107C004D42A4 /* generic-streak-popup.png */; };
+		C90C6F721D35107C004D42A4 /* group-save-streak-popup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F631D35107C004D42A4 /* group-save-streak-popup@3x.png */; };
+		C90C6F731D35107C004D42A4 /* stats-slider-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F641D35107C004D42A4 /* stats-slider-bar.png */; };
+		C90C6F741D35107C004D42A4 /* generic-stats-slider-tab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F651D35107C004D42A4 /* generic-stats-slider-tab@3x.png */; };
+		C90C6F751D35107C004D42A4 /* stats-slider-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F661D35107C004D42A4 /* stats-slider-bar@2x.png */; };
+		C90C6F761D35107C004D42A4 /* stats-slider-bar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90C6F671D35107C004D42A4 /* stats-slider-bar@3x.png */; };
 		C90D39C31D068D2000F285BB /* divider-savio.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D39BA1D068D2000F285BB /* divider-savio.png */; };
 		C90D39C41D068D2000F285BB /* divider-savio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D39BB1D068D2000F285BB /* divider-savio@2x.png */; };
 		C90D39C51D068D2000F285BB /* divider-savio@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D39BC1D068D2000F285BB /* divider-savio@3x.png */; };
@@ -909,6 +927,24 @@
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		C90571991CFF020200ECC4FC /* SavingCategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavingCategoryTableViewCell.xib; sourceTree = "<group>"; };
+		C90C6F531D34AE59004D42A4 /* target-score-crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-score-crown.png"; sourceTree = "<group>"; };
+		C90C6F541D34AE59004D42A4 /* target-score-crown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-score-crown@2x.png"; sourceTree = "<group>"; };
+		C90C6F551D34AE59004D42A4 /* target-score-crown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target-score-crown@3x.png"; sourceTree = "<group>"; };
+		C90C6F591D35107C004D42A4 /* group-save-streak-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-streak-popup@2x.png"; sourceTree = "<group>"; };
+		C90C6F5A1D35107C004D42A4 /* generic-streak-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-streak-popup@2x.png"; sourceTree = "<group>"; };
+		C90C6F5B1D35107C004D42A4 /* generic-stats-slider-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-stats-slider-tab.png"; sourceTree = "<group>"; };
+		C90C6F5C1D35107C004D42A4 /* generic-streak-popup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-streak-popup@3x.png"; sourceTree = "<group>"; };
+		C90C6F5D1D35107C004D42A4 /* generic-stats-slider-tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-stats-slider-tab@2x.png"; sourceTree = "<group>"; };
+		C90C6F5E1D35107C004D42A4 /* group-save-stats-slider-tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-stats-slider-tab@2x.png"; sourceTree = "<group>"; };
+		C90C6F5F1D35107C004D42A4 /* group-save-stats-slider-tab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-stats-slider-tab@3x.png"; sourceTree = "<group>"; };
+		C90C6F601D35107C004D42A4 /* group-save-stats-slider-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-stats-slider-tab.png"; sourceTree = "<group>"; };
+		C90C6F611D35107C004D42A4 /* group-save-streak-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-streak-popup.png"; sourceTree = "<group>"; };
+		C90C6F621D35107C004D42A4 /* generic-streak-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-streak-popup.png"; sourceTree = "<group>"; };
+		C90C6F631D35107C004D42A4 /* group-save-streak-popup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-save-streak-popup@3x.png"; sourceTree = "<group>"; };
+		C90C6F641D35107C004D42A4 /* stats-slider-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-slider-bar.png"; sourceTree = "<group>"; };
+		C90C6F651D35107C004D42A4 /* generic-stats-slider-tab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-stats-slider-tab@3x.png"; sourceTree = "<group>"; };
+		C90C6F661D35107C004D42A4 /* stats-slider-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-slider-bar@2x.png"; sourceTree = "<group>"; };
+		C90C6F671D35107C004D42A4 /* stats-slider-bar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-slider-bar@3x.png"; sourceTree = "<group>"; };
 		C90D39BA1D068D2000F285BB /* divider-savio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-savio.png"; sourceTree = "<group>"; };
 		C90D39BB1D068D2000F285BB /* divider-savio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-savio@2x.png"; sourceTree = "<group>"; };
 		C90D39BC1D068D2000F285BB /* divider-savio@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "divider-savio@3x.png"; sourceTree = "<group>"; };
@@ -1459,6 +1495,24 @@
 		A86D62A01D21270100B2087D /* ProgressBar */ = {
 			isa = PBXGroup;
 			children = (
+				C90C6F591D35107C004D42A4 /* group-save-streak-popup@2x.png */,
+				C90C6F5A1D35107C004D42A4 /* generic-streak-popup@2x.png */,
+				C90C6F5B1D35107C004D42A4 /* generic-stats-slider-tab.png */,
+				C90C6F5C1D35107C004D42A4 /* generic-streak-popup@3x.png */,
+				C90C6F5D1D35107C004D42A4 /* generic-stats-slider-tab@2x.png */,
+				C90C6F5E1D35107C004D42A4 /* group-save-stats-slider-tab@2x.png */,
+				C90C6F5F1D35107C004D42A4 /* group-save-stats-slider-tab@3x.png */,
+				C90C6F601D35107C004D42A4 /* group-save-stats-slider-tab.png */,
+				C90C6F611D35107C004D42A4 /* group-save-streak-popup.png */,
+				C90C6F621D35107C004D42A4 /* generic-streak-popup.png */,
+				C90C6F631D35107C004D42A4 /* group-save-streak-popup@3x.png */,
+				C90C6F641D35107C004D42A4 /* stats-slider-bar.png */,
+				C90C6F651D35107C004D42A4 /* generic-stats-slider-tab@3x.png */,
+				C90C6F661D35107C004D42A4 /* stats-slider-bar@2x.png */,
+				C90C6F671D35107C004D42A4 /* stats-slider-bar@3x.png */,
+				C90C6F531D34AE59004D42A4 /* target-score-crown.png */,
+				C90C6F541D34AE59004D42A4 /* target-score-crown@2x.png */,
+				C90C6F551D34AE59004D42A4 /* target-score-crown@3x.png */,
 				C9E17A6E1D22AEA100C4AB0C /* stats-achievement-holder.png */,
 				A86D62A11D21270100B2087D /* stats-achievement-badge@2x.png */,
 				A86D62A21D21270100B2087D /* stats-achievement-badge@3x-32.png */,
@@ -2278,6 +2332,7 @@
 				A86D62D41D21270100B2087D /* stats-offers-tab.png in Resources */,
 				C975A92A1D01952900184C8C /* gadget-category-icon.png in Resources */,
 				C95CD61C1CF2C92100013200 /* DropDownCell.xib in Resources */,
+				C90C6F6D1D35107C004D42A4 /* group-save-stats-slider-tab@2x.png in Resources */,
 				A8095C541CEDC616006366F7 /* pre-loader@3x13.png in Resources */,
 				C9ED80491D1BC38A00058A96 /* menu-profile@3x.png in Resources */,
 				A8095C581CEDC616006366F7 /* pre-loader@3x17.png in Resources */,
@@ -2287,6 +2342,7 @@
 				A8095C5C1CEDC616006366F7 /* pre-loader@3x20.png in Resources */,
 				C9E854F51CF44B4A006213BF /* down-arrow-45x45.png in Resources */,
 				A8095C361CEDC616006366F7 /* pre-loader@2x18.png in Resources */,
+				C90C6F761D35107C004D42A4 /* stats-slider-bar@3x.png in Resources */,
 				A858A6011D08127C0097546F /* ride-circle@3x.png in Resources */,
 				A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */,
 				C9C6E4E71D0930770015C3B6 /* Savio.entitlements in Resources */,
@@ -2303,6 +2359,7 @@
 				A8095C1D1CEDC616006366F7 /* pre-loader@1x27.png in Resources */,
 				A8095C171CEDC616006366F7 /* pre-loader@1x21.png in Resources */,
 				A8AB1C751D05A900002F68F5 /* OfferTableViewCell.xib in Resources */,
+				C90C6F701D35107C004D42A4 /* group-save-streak-popup.png in Resources */,
 				A8BDCBDD1D05557500D4C47B /* generic-calendar@2x.png in Resources */,
 				C9FB592B1D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib in Resources */,
 				A8095C241CEDC616006366F7 /* pre-loader@1x33.png in Resources */,
@@ -2311,9 +2368,11 @@
 				C975A9301D01952900184C8C /* group-save-category-icon.png in Resources */,
 				CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */,
 				A8095C2F1CEDC616006366F7 /* pre-loader@2x11.png in Resources */,
+				C90C6F741D35107C004D42A4 /* generic-stats-slider-tab@3x.png in Resources */,
 				A858A5FD1D08127C0097546F /* home-circle@2x.png in Resources */,
 				A8BDCBF11D05557500D4C47B /* ride-calendar.png in Resources */,
 				A8095C2C1CEDC616006366F7 /* pre-loader@1x9.png in Resources */,
+				C90C6F6F1D35107C004D42A4 /* group-save-stats-slider-tab.png in Resources */,
 				C9ED80531D1BC38A00058A96 /* menu-start.png in Resources */,
 				C91E23F01D02C84F00DC6D29 /* nav-menu.png in Resources */,
 				A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */,
@@ -2374,6 +2433,7 @@
 				A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */,
 				A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
+				C90C6F721D35107C004D42A4 /* group-save-streak-popup@3x.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
 				C9E855011CF456CC006213BF /* savivo-logo.png in Resources */,
@@ -2424,6 +2484,7 @@
 				A8095C621CEDC617006366F7 /* pre-loader@3x26.png in Resources */,
 				C9ED80231D1BC38A00058A96 /* menu-active-logout.png in Resources */,
 				A8095C0D1CEDC616006366F7 /* pre-loader@1x12.png in Resources */,
+				C90C6F751D35107C004D42A4 /* stats-slider-bar@2x.png in Resources */,
 				A82B9C8C1D0688B200BFD084 /* generic-camera.png in Resources */,
 				A8095C2A1CEDC616006366F7 /* pre-loader@1x7.png in Resources */,
 				A8095C671CEDC617006366F7 /* pre-loader@3x30.png in Resources */,
@@ -2440,6 +2501,8 @@
 				A86D62CA1D21270100B2087D /* stats-achievement-money@3x.png in Resources */,
 				A86D62C21D21270100B2087D /* stats-achievement-badge@2x.png in Resources */,
 				C9ED804F1D1BC38A00058A96 /* menu-settings@3x.png in Resources */,
+				C90C6F571D34AE59004D42A4 /* target-score-crown@2x.png in Resources */,
+				C90C6F711D35107C004D42A4 /* generic-streak-popup.png in Resources */,
 				A86F06441D1D15D700E1D821 /* SASpendViewController.xib in Resources */,
 				A858A6031D08127C0097546F /* wedding-circle@2x.png in Resources */,
 				A8BDCBF21D05557500D4C47B /* ride-calendar@2x.png in Resources */,
@@ -2492,6 +2555,7 @@
 				C9ED80581D1BC38A00058A96 /* menu-switch@3x.png in Resources */,
 				A8095C661CEDC617006366F7 /* pre-loader@3x3.png in Resources */,
 				A86D62D81D21270100B2087D /* stats-plan-tab-active@3x.png in Resources */,
+				C90C6F581D34AE59004D42A4 /* target-score-crown@3x.png in Resources */,
 				A86D62E21D21270100B2087D /* stats-spend-tab@3x.png in Resources */,
 				A8095C1C1CEDC616006366F7 /* pre-loader@1x26.png in Resources */,
 				A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */,
@@ -2513,7 +2577,9 @@
 				A82796161D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib in Resources */,
 				A8BDCBEC1D05557500D4C47B /* holiday-setup-bg@2x.png in Resources */,
 				A8BDCBD51D05557500D4C47B /* baby-calendar@3x.png in Resources */,
+				C90C6F731D35107C004D42A4 /* stats-slider-bar.png in Resources */,
 				A8095C6A1CEDC617006366F7 /* pre-loader@3x33.png in Resources */,
+				C90C6F681D35107C004D42A4 /* group-save-streak-popup@2x.png in Resources */,
 				C9ED80351D1BC38A00058A96 /* menu-active-start.png in Resources */,
 				C9ED80361D1BC38A00058A96 /* menu-active-start@2x.png in Resources */,
 				A8095C451CEDC616006366F7 /* pre-loader@2x31.png in Resources */,
@@ -2543,6 +2609,7 @@
 				A8095C251CEDC616006366F7 /* pre-loader@1x34.png in Resources */,
 				C91E23EC1D029CF900DC6D29 /* WishListTableViewCell.xib in Resources */,
 				A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */,
+				C90C6F6B1D35107C004D42A4 /* generic-streak-popup@3x.png in Resources */,
 				C975A9311D01952900184C8C /* group-save-category-icon@2x.png in Resources */,
 				A858A5F01D08127C0097546F /* gadget-circle.png in Resources */,
 				C94E1E4F1D11714F001C85C6 /* home-setup-bg@3x.png in Resources */,
@@ -2638,6 +2705,7 @@
 				A8900C191D2FAF5200D8CD0F /* info-box-arrow@2x.png in Resources */,
 				A8BDCBF71D05557500D4C47B /* wdding-setup-bg@3x.png in Resources */,
 				C975A92B1D01952900184C8C /* gadget-category-icon@2x.png in Resources */,
+				C90C6F6C1D35107C004D42A4 /* generic-stats-slider-tab@2x.png in Resources */,
 				A8392A421CEEE0C200C7EE48 /* GothamRounded-Light.otf in Resources */,
 				C9361EBA1D30C18300605E1B /* social-pop-up-close@2x.png in Resources */,
 				A8095C631CEDC617006366F7 /* pre-loader@3x27.png in Resources */,
@@ -2648,6 +2716,7 @@
 				A86D62D31D21270100B2087D /* stats-offers-tab-active@3x.png in Resources */,
 				A8095C4A1CEDC616006366F7 /* pre-loader@2x4.png in Resources */,
 				C91E23FA1D02D0D700DC6D29 /* nav-heart-fill.png in Resources */,
+				C90C6F691D35107C004D42A4 /* generic-streak-popup@2x.png in Resources */,
 				A858A6001D08127C0097546F /* ride-circle@2x.png in Resources */,
 				C957E3F31D2E223100A1AD84 /* GroupProgressTableViewCell.xib in Resources */,
 				A8095C121CEDC616006366F7 /* pre-loader@1x17.png in Resources */,
@@ -2671,6 +2740,7 @@
 				A86F063F1D1D0C8A00E1D821 /* cycle.png in Resources */,
 				A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */,
 				C9ED80401D1BC38A00058A96 /* menu-active-wishlist@2x.png in Resources */,
+				C90C6F561D34AE59004D42A4 /* target-score-crown.png in Resources */,
 				A8392A431CEEE0C200C7EE48 /* GothamRounded-Medium.otf in Resources */,
 				A8BDCBD91D05557500D4C47B /* gadget-setup-bg.png in Resources */,
 				A8095C371CEDC616006366F7 /* pre-loader@2x19.png in Resources */,
@@ -2689,6 +2759,7 @@
 				A8095C1B1CEDC616006366F7 /* pre-loader@1x25.png in Resources */,
 				A8900C181D2FAF5200D8CD0F /* info-box-arrow@1x.png in Resources */,
 				A8095C4B1CEDC616006366F7 /* pre-loader@2x5.png in Resources */,
+				C90C6F6A1D35107C004D42A4 /* generic-stats-slider-tab.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
 				A8095C321CEDC616006366F7 /* pre-loader@2x14.png in Resources */,
 				C9ED80451D1BC38A00058A96 /* menu-offers@2x.png in Resources */,
@@ -2704,6 +2775,7 @@
 				C9B6C8431D05711C00FCB00C /* SAOfferListViewController.xib in Resources */,
 				A8095C341CEDC616006366F7 /* pre-loader@2x16.png in Resources */,
 				C9ED80501D1BC38A00058A96 /* menu-spend.png in Resources */,
+				C90C6F6E1D35107C004D42A4 /* group-save-stats-slider-tab@3x.png in Resources */,
 				C90D39C51D068D2000F285BB /* divider-savio@3x.png in Resources */,
 				A86D62C91D21270100B2087D /* stats-achievement-money@3x-33.png in Resources */,
 				A86681F81CFF01D70014DB59 /* SavingPlanTitleTableViewCell.xib in Resources */,

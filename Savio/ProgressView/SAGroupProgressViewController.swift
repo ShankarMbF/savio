@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAGroupProgressViewController: UIViewController {
+class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var horizontalScrollView: UIScrollView!
     @IBOutlet weak var spendButton: UIButton!
@@ -25,6 +25,7 @@ class SAGroupProgressViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
     let chart = VBPieChart();
+    var piechart : Piechart?
     var ht:CGFloat = 0.0
 
     let chartColors = [
@@ -49,6 +50,7 @@ class SAGroupProgressViewController: UIViewController {
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        self.setUPNavigation()
         self.setUpView()
         // Do any additional setup after loading the view.
     }
@@ -56,6 +58,61 @@ class SAGroupProgressViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func setUPNavigation()
+    {
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
+        //set Navigation left button
+        let leftBtnName = UIButton()
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        
+        let leftBarButton = UIBarButtonItem()
+        leftBarButton.customView = leftBtnName
+        self.navigationItem.leftBarButtonItem = leftBarButton
+        self.title = "My Plan"
+        //set Navigation right button nav-heart
+        
+        let btnName = UIButton()
+        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.setTitle("0", forState: UIControlState.Normal)
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        {
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            
+            
+            if(wishListArray.count > 0)
+            {
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+                
+            }
+            
+            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            
+        }
+        
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.customView = btnName
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        
     }
     
     
@@ -93,6 +150,7 @@ class SAGroupProgressViewController: UIViewController {
             imgView.layer.borderWidth = 1
             imgView.layer.cornerRadius = imgView.frame.size.height / 2
             
+            /*
             let chart = VBPieChart()
             
             chart.frame = CGRectMake(xValue,-5, side, side)
@@ -120,6 +178,7 @@ class SAGroupProgressViewController: UIViewController {
             ];
             
             chart.setChartValues(self.chartValues as [AnyObject], animation:true);
+ */
             
             if(i == 0)
             {
@@ -127,6 +186,32 @@ class SAGroupProgressViewController: UIViewController {
                 labelTwo.hidden = true
                 imgView.hidden = false
                 circularView.hidden = true
+                
+                var error = Piechart.Slice()
+                error.value = 4
+                error.color = UIColor(red:237/255,green:182/255,blue:242/255,alpha:1)
+                error.text = "Error"
+                
+                var zero = Piechart.Slice()
+                zero.value = 6
+                zero.color = UIColor(red:181/255,green:235/255,blue:157/255,alpha:1)
+                zero.text = "Zero"
+                
+                var win = Piechart.Slice()
+                win.value = 10
+                win.color = UIColor(red:247/255,green:184/255,blue:183/255,alpha:1)
+                win.text = "Winner"
+                
+                var win1 = Piechart.Slice()
+                win1.value = 10
+                win1.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
+                win1.text = "Winner"
+                
+                piechart = Piechart()
+                piechart!.frame = CGRectMake(xValue,-5, side, side)
+                piechart!.delegate = self
+                piechart!.slices = [error, zero, win,win1]
+                circularProgress.addSubview(piechart!)
                 
             }
             else if(i == 1)
@@ -137,7 +222,6 @@ class SAGroupProgressViewController: UIViewController {
                 labelTwo.text = "£ 0.0 saved"
                 imgView.hidden = true
                 circularView.hidden = false
-                chart.hidden = true
             }
             else
             {
@@ -147,14 +231,8 @@ class SAGroupProgressViewController: UIViewController {
                 labelTwo.text = "0 days to go"
                 imgView.hidden = true
                 circularView.hidden = false
-                chart.hidden = true
             }
-            
-            //Double((paidAmount * 360)/totalAmount)
-            //            circularView.setColors(UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),UIColor(red:247/255,green:184/255,blue:183/255,alpha:1),UIColor(red:118/255,green:229/255,blue:224/255,alpha:1),UIColor(red:238/255,green:234/255,blue:108/255,alpha:1),UIColor(red:170/255,green:234/255,blue:184/255,alpha:1),UIColor(red:193/255,green:198/255,blue:227/255,alpha:1),UIColor(red:246/255,green:197/255,blue:124/255,alpha:1))
-            
-            
-           
+ 
            horizontalScrollView.addSubview(circularProgress)
             
         }
@@ -240,13 +318,14 @@ class SAGroupProgressViewController: UIViewController {
         cell?.saveProgress.progressColors = [chartColors[indexPath.row]]
         cell?.planView.backgroundColor = chartColors[indexPath.row]
         cell?.topVw.backgroundColor = chartColors[indexPath.row]
+        cell?.makeImpulseSavingButton.addTarget(self, action: Selector("impulseSavingButtonPressed:"), forControlEvents: .TouchUpInside)
         
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 
                 if prevIndxArr[i] == indexPath.row {
                     cell?.topVwHt.constant = 22.0
-                    
+                    cell?.topSpaceProfilePic.constant = 0
                     if indexPath.row == 0{
                         ht = 220.0
                     }else {
@@ -256,12 +335,14 @@ class SAGroupProgressViewController: UIViewController {
                 }
                 else{
                     cell?.topVwHt.constant = 50.0 //(cell?.userProfile.frame.size.height)! + 5.0
+                    cell?.topSpaceProfilePic.constant = -3
                 }
             }
         }
         else{
             ht = 55.0
             cell?.topVwHt.constant = 50.0
+            cell?.topSpaceProfilePic.constant = -3
 //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
         tblHt.constant = (2 * 50) + ht
@@ -276,6 +357,7 @@ class SAGroupProgressViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue()){
             let selectedCell:GroupProgressTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? GroupProgressTableViewCell
             selectedCell?.topVwHt.constant = 22.0
+               selectedCell?.topSpaceProfilePic.constant = 0
             var isVisible = false
             if self.prevIndxArr.count > 0{
                 for i in 0 ..< self.prevIndxArr.count {
@@ -283,6 +365,7 @@ class SAGroupProgressViewController: UIViewController {
                     if obj == indexPath.row {
                         isVisible = true
                         selectedCell?.topVwHt.constant = 50.0
+                           selectedCell?.topSpaceProfilePic.constant = -3
                         self.prevIndxArr.removeAtIndex(i)
                        break
                     }
@@ -294,9 +377,11 @@ class SAGroupProgressViewController: UIViewController {
             }
             else{
                  selectedCell?.topVwHt.constant = 50.0
+                   selectedCell?.topSpaceProfilePic.constant = -3
                 self.prevIndxArr.append(indexPath.row)
             }
 //            self.tblView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+              self.piechart!.click(indexPath.row)
             self.tblView.reloadData()
         }
     }
@@ -305,6 +390,7 @@ class SAGroupProgressViewController: UIViewController {
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell:GroupProgressTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? GroupProgressTableViewCell
         selectedCell?.topVwHt.constant = 50.0
+        selectedCell?.topSpaceProfilePic.constant = -3
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -321,6 +407,22 @@ class SAGroupProgressViewController: UIViewController {
             }
         }
         return 50.0
+    }
+    
+    func impulseSavingButtonPressed(sender:UIButton)
+    {
+        let objImpulseSave = SAImpulseSavingViewController()
+        self.navigationController?.pushViewController(objImpulseSave, animated: true)
+
+    }
+    
+    
+    func setSubtitle(total: CGFloat, slice: Piechart.Slice) -> String {
+        return "\(Int(slice.value / total * 100))% \(slice.text)"
+    }
+    
+    func setInfo(total: CGFloat, slice: Piechart.Slice) -> String {
+        return "\(Int(slice.value))/\(Int(total))"
     }
 
 }

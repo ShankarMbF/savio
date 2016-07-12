@@ -263,6 +263,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         pageControl!.currentPage = 0
     }
     
+
     // MARK: UIScrollViewDelegate method implementation
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.

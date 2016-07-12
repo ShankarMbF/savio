@@ -99,6 +99,18 @@ protocol UpdateSavingPlanDelegate
     func errorResponseForUpdateSavingPlanAPI(error:String)
 }
 
+protocol GetUserInfoDelegate
+{
+    func successResponseForGetUserInfoAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForGetUserInfoAPI(error:String)
+}
+
+protocol CancelSavingPlanDelegate
+{
+    func successResponseForCancelSavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForCancelSavingPlanAPI(error:String)
+}
+
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -114,7 +126,8 @@ class API: UIView {
     var deleteWishList : DeleteWishListDelegate?
     var getSavingPlanDelegate : GetUsersPlanDelegate?
     var updateSavingPlanDelegate : UpdateSavingPlanDelegate?
-    
+    var getUserInfoDelegate : GetUserInfoDelegate?
+    var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -204,14 +217,17 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI("Error")
                         }
                     }
                 }
                 else {
-                    self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                    }
                 }
                 
             }
@@ -219,7 +235,9 @@ class API: UIView {
         }
         else{
             //Give error no network found
-            delegate?.errorResponseForRegistrationAPI("No network found")
+            dispatch_async(dispatch_get_main_queue()){
+                self.delegate?.errorResponseForRegistrationAPI("No network found")
+            }
         }
         
     }
@@ -370,8 +388,8 @@ class API: UIView {
                     //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        0
-//                        print("\(dict)")
+                        
+                 print("\(dict)")
                         if(dict["errorCode"] as! NSString == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -386,7 +404,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.logInDelegate?.errorResponseForOTPLogInAPI((response?.description)!)
                         }
@@ -420,17 +438,17 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-//                    print(json)
+                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-//                        print("\(dict)")
+                        //                        print("\(dict)")
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.successResponseForResetPasscodeAPI(dict)
                         }
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
                         }
@@ -522,7 +540,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
                         }
@@ -540,7 +558,7 @@ class API: UIView {
     
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
-//        print(dict)
+        //        print(dict)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
@@ -557,7 +575,7 @@ class API: UIView {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
             request.HTTPMethod = "DELETE"
             
-//            print(request)
+            //            print(request)
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -576,7 +594,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.deleteWishList?.errorResponseForDeleteWishListAPI((response?.description)!)
                         }
@@ -602,7 +620,7 @@ class API: UIView {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-         //print(dict)
+        //print(dict)
         
         
         if(isFromWishList == "FromWishList")
@@ -631,7 +649,7 @@ class API: UIView {
                         }
                         else
                         {
-//                            print(response?.description)
+                            //                            print(response?.description)
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -671,7 +689,7 @@ class API: UIView {
                         }
                         else
                         {
-//                            print(response?.description)
+                            //                            print(response?.description)
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -704,7 +722,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-//            print(request)
+            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -720,7 +738,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getWishlistDelegate?.errorResponseForGetWishlistAPI((response?.description)!)
                         }
@@ -753,7 +771,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Savings",baseURL))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-//            print(request)
+            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -769,7 +787,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI((response?.description)!)
                         }
@@ -786,6 +804,7 @@ class API: UIView {
         }
         
     }
+    //MARK: Offer list
     
     func getOfferListForSavingId(input : String)
     {
@@ -802,16 +821,16 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Offers/SavingID?input=%@",baseURL,input))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-//            print(request)
+            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-//                    print(json)
+                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-//                        print(dict)
+                        //                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
@@ -819,7 +838,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("Error")
                         }
@@ -834,6 +853,8 @@ class API: UIView {
         }
         
     }
+    
+    //MARK: Get users saving plan
     
     func getUsersSavingPlan()
     {
@@ -850,7 +871,7 @@ class API: UIView {
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/?party_ID=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-//            print(request)
+            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -866,7 +887,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI((response?.description)!)
                         }
@@ -884,7 +905,7 @@ class API: UIView {
         
     }
     
-    
+    //MARK: Update saving plan
     func updateSavingPlan(dict:Dictionary<String,AnyObject>)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -904,8 +925,8 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-
-//            print(request)
+            
+            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -920,7 +941,7 @@ class API: UIView {
                     }
                     else
                     {
-//                        print(response?.description)
+                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI((response?.description)!)
                         }
@@ -931,6 +952,115 @@ class API: UIView {
         }
         else{
             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("Network not available")
+        }
+        
+    }
+    
+    //MARK: Get User Info
+    
+    func getUserInfo()
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/id/%@",baseURL,partyID))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //                    print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        //                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.getUserInfoDelegate?.successResponseForGetUserInfoAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        //                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("Error")
+                        }
+                    }
+                }
+                
+            }
+            dataTask.resume()
+            
+            
+        }
+        else{
+            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("No network found")
+        }
+    }
+    
+    //MARK: Cancel saving plan
+    func cancelSavingPlan()
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/savings/%@",baseURL,partyID))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            request.HTTPMethod = "PUT"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.cancelSavingPlanDelegate?.successResponseForCancelSavingPlanAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        //                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI((response?.description)!)
+                        }
+                        
+                        
+                    }
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue()){
+                self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI("Network not available")
+            }
         }
         
     }

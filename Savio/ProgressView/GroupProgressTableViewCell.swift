@@ -16,7 +16,9 @@ class GroupProgressTableViewCell: UITableViewCell {
     @IBOutlet weak var topVw: UIView!
     @IBOutlet weak var userProfile: UIImageView!
     @IBOutlet weak var topVwHt: NSLayoutConstraint!
+    @IBOutlet weak var makeImpulseSavingButton: UIButton!
 
+    @IBOutlet weak var topSpaceProfilePic: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

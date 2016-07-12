@@ -29,13 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//            window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
+//   
+//         UIApplication.sharedApplication().statusBarStyle = .LightContent
         //Check if keychain has encrypted pin value
         let objApi = API()
         //        objApi.deleteKeychainValue("myPasscode")
         //       objApi.deleteKeychainValue("myUserInfo")
         //        objApi.deleteKeychainValue("userInfo")
-        
-
       
         //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
    

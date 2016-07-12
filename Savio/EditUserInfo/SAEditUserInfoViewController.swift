@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GetUserInfoDelegate{
     
     @IBOutlet weak var scrlView: UIScrollView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -31,32 +31,40 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var dateOfBirth = ""
     var phoneNumber = ""
     var editUser = true
-    
+    var getUserInfoDelegate = GetUserInfoDelegate.self
     var imagePicker = UIImagePickerController()
     
-    var userInfoDict = ["Title":"Mr","first-name":"Mahi","Surname":"Kodande","DOB":"04/09/1990","postcode":"nw1w9be","First Address Line":"","Second Address Line":"","Third Address Line":"","town":"","county":"Maharashtra","mobile-number":"8275915260","email":"mahi@vsplc.com"]
+    var userInfoDict : Dictionary<String,AnyObject> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        
         addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
         addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
         addProfilePictureButton.titleLabel?.textAlignment = .Center
         addProfilePictureButton.titleLabel?.numberOfLines = 0
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2
+        
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView!.frame = self.view.frame
+        objAnimView!.animate()
+        
+        self.view.addSubview(objAnimView!)
+        
+        let objAPI = API()
+        objAPI.getUserInfoDelegate = self
+        objAPI.getUserInfo()
         self.setUPNavigation()
-    
-        //Get Registration UI Json data
-        self.getJSONForUI()
-        //Setup Registration UI
-        self.createCells()
+        
+       
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-       
+        
     }
     
     func setUPNavigation()
@@ -122,7 +130,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         let json = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments))
         self.arrRegistration = json as! Array
         
-       
+        
         
     }
     
@@ -173,7 +181,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 if(editUser)
                 {
                     cell.tfTitle!.userInteractionEnabled = false
-                    cell.tfTitle?.text = userInfoDict["Title"]
+                    cell.tfTitle?.text = userInfoDict["title"] as? String
                 }
                 if (dictForTextFieldValue["title"] != nil){
                     cell.tfTitle?.text = dictForTextFieldValue["title"] as? String
@@ -184,7 +192,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 if(editUser)
                 {
-                    cell.tfName?.text = userInfoDict["first-name"]
+                    cell.tfName?.text = userInfoDict["first_name"] as? String
                 }
                 if (dictForTextFieldValue["name"] != nil){
                     cell.tfName?.text = dictForTextFieldValue["name"] as? String
@@ -304,19 +312,27 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 {
                     if(cell.tf?.placeholder == "Surname")
                     {
-                        cell.tf?.text = userInfoDict["Surname"]
+                        cell.tf?.text = userInfoDict["second_name"] as? String
                     }
                     else if(cell.tf?.placeholder == "First Address Line")
                     {
-                        cell.tf?.text = userInfoDict["First Address Line"]
+                        cell.tf?.text = userInfoDict["address_1"] as? String
                     }
                     else if(cell.tf?.placeholder == "Town")
                     {
-                        cell.tf?.text = userInfoDict["town"]
+                        cell.tf?.text = userInfoDict["town"] as? String
                     }
                     else if(cell.tf?.placeholder == "County")
                     {
-                        cell.tf?.text = userInfoDict["county"]
+                        cell.tf?.text = userInfoDict["county"] as? String
+                    }
+                    else if(cell.tf?.placeholder == "Second Address Line")
+                    {
+                        cell.tf?.text = userInfoDict["address_2"] as? String
+                    }
+                    else if(cell.tf?.placeholder == "Third Address Line")
+                    {
+                        cell.tf?.text = userInfoDict["address_3"] as? String
                     }
                     
                     
@@ -337,7 +353,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 if(editUser)
                 {
                     cell.tfDatePicker.userInteractionEnabled = false
-                    cell.tfDatePicker.text = userInfoDict["DOB"]
+                    cell.tfDatePicker.text = userInfoDict["date_of_birth"] as? String
                 }
                 //                cell.tfDatePicker?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tfDatePicker?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
@@ -364,7 +380,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 if(editUser)
                 {
-                    cell.tfPostCode?.text = userInfoDict["postcode"]
+                    cell.tfPostCode?.text = userInfoDict["post_code"] as? String
                 }
                 if (dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] != nil){
                     cell.tfPostCode?.text = dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] as? String
@@ -388,7 +404,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.btnPostCode?.setTitle(btnPostcodeDict["placeholder"] as? String, forState: UIControlState.Normal)
                 arrRegistrationFields.append(cell)
             }
-  
+            
             if dict["classType"]!.isEqualToString("ButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
                 let cell = bundleArr[0] as! ButtonTableViewCell
@@ -417,7 +433,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 if(editUser)
                 {
                     cell.tf!.userInteractionEnabled = false
-                    cell.tf?.text = userInfoDict["mobile-number"]
+                    cell.tf?.text = userInfoDict["phone_number"] as? String
                 }
                 
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
@@ -455,7 +471,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 if(editUser)
                 {
-                    cell.tf?.text = userInfoDict["email"]
+                    cell.tf?.text = userInfoDict["email"] as? String
                     cell.tf?.userInteractionEnabled = false
                 }
                 
@@ -494,7 +510,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 
-          
+                
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
                     //                    if (arrAddress.count>0){
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
@@ -511,9 +527,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 }
             }
         }
-       
+        
         scrlView.contentSize = CGSizeMake(0, CGFloat(35 * (arrRegistrationFields.count+5)))
-       
+        
         tblView.reloadData()
     }
     
@@ -534,7 +550,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             alert.show()
         }
     }
-
+    
     //MARK: -UITableviewDelegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
@@ -551,7 +567,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-  
+        
         if(indexPath.row == arrRegistrationFields.count - 1){
             return 55.0
         }
@@ -567,7 +583,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2.0
         addProfilePictureButton.setTitle("", forState: .Normal)
         addProfilePictureButton.clipsToBounds = true
-   
+        
         
     }
     
@@ -575,14 +591,14 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     func selectedDate(txtFldCell:PickerTextfildTableViewCell){
         
@@ -688,9 +704,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-1], forKey: "County")
         
         
-        userInfoDict.updateValue(fullNameArr[0], forKey: "First Address Line")
-        userInfoDict.updateValue(fullNameArr[1], forKey: "Second Address Line")
-        userInfoDict.updateValue(fullNameArr[2], forKey: "Third Address Line")
+        userInfoDict.updateValue(fullNameArr[0], forKey: "address_1")
+        userInfoDict.updateValue(fullNameArr[1], forKey: "address_2")
+        userInfoDict.updateValue(fullNameArr[2], forKey: "address_3")
         
         //        dictForTextFieldValue.updateValue(addressStr, forKey: "First Address Line")
         userInfoDict.updateValue(fullNameArr[fullNameArr.count-2], forKey: "town")
@@ -702,7 +718,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         //        dictForTextFieldValue.updateValue((dropDownTextCell.tf?.text)!, forKey: (dropDownTextCell.tf?.placeholder)!)
         self.createCells()
     }
-   
+    
     
     func numericCellText(txtFldCell: NumericTextTableViewCell) {
         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
@@ -734,11 +750,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 
                 //Webservice call
-             
-      
+                
+                
             }
             else{
-                 print(userInfoDict)
+                print(userInfoDict)
+                let alert = UIAlertView(title: "Alert", message: "Work in Progress", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
             }
         }
         else{
@@ -1301,20 +1319,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     
-    //OTP Verification Delegate Method
-    func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
-    {
-        objAnimView?.removeFromSuperview()
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-    }
-    func errorResponseForOTPSentAPI(error:String){
-        objAnimView?.removeFromSuperview()
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-        
-        
-    }
+  
     
     
     //PostCode Verification Delegate Method
@@ -1359,124 +1364,48 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
-        objAnimView?.removeFromSuperview()
-        print("\(objResponse)")
         
-        
-        
-        if(objResponse["message"] as! String == "All field are match")
-        {
-            let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
-                checkString = "ForgotPasscode"
-                let objAPI = API()
-                objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
-                checkString = "ForgotPasscode"
-                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
-                self.navigationController?.pushViewController(objCreatePINView, animated: true)
-                
-            }))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        else if(objResponse["message"] as! String == "Three Field is match and Mobile number is different")
-        {
-            changePhoneNumber = true
-            var dict = objResponse["party"] as! Dictionary<String,AnyObject>
-            let objAPI = API()
-            objAPI.storeValueInKeychainForKey("myMobile", value: dict["phone_number"] as! String)
-            
-            let alert = UIAlertController(title: "Looks like you have an earlier enrolled mobile number", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-            for var i=0; i<arrRegistrationFields.count; i++ {
-                //            var  dict : NSMutableDictionary = NSMutableDictionary()
-                if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell)
-                {
-                    let cell = arrRegistrationFields[i] as! TitleTableViewCell
-                    
-                }
-                
-                if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell)
-                {
-                    let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
-                    
-                    if cell.tf?.placeholder == "Mobile number"{
-                        cell.tf?.becomeFirstResponder()
-                        cell.tf?.text = ""
-                    }
-                }
-            }
-            
-        }
-        else if(objResponse["message"] as! String == "Three Field is not match and Mobile number is match")
-        {
-            var dict = objResponse["party"] as! Dictionary<String,AnyObject>
-            firstName = dict["first_name"] as! String
-            lastName = dict["second_name"] as! String
-            dateOfBirth = dict["date_of_birth"] as! String
-            
-            let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: "Enter your firstname, lastname, date of birth as earlier", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-            
-        }
-            
-        else{
-            checkString = "Register"
-            let objAPI = API()
-            objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
-            objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
-            
-            
-        }
     }
     func errorResponseForRegistrationAPI(error:String){
-        objAnimView?.removeFromSuperview()
-        
-        
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
-        
-        
+  
     }
-
-
+    
+    
     @IBAction func addProfilePictureButtonPressed(sender: AnyObject) {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
                 
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                    
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                    self.imagePicker.allowsEditing = true
-                    
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
                 
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                    self.imagePicker.allowsEditing = true
-                    
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
-                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -1484,15 +1413,41 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - GetUserInfoDelegate
+    func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
+     print(objResponse)
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "Party Found")
+            {
+                userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
+                //Get Registration UI Json data
+                self.getJSONForUI()
+                //Setup Registration UI
+                self.createCells()
+            }
+            else{
+                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }
+        objAnimView!.removeFromSuperview()
     }
-    */
-
+    
+    func errorResponseForGetUserInfoAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        objAnimView!.removeFromSuperview()
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

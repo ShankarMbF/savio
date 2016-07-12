@@ -251,6 +251,7 @@
 		A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */; };
 		A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897514C1CEF099500F122AD /* CreatePINViewController.swift */; };
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
+		A89A28041D34B6A400722A19 /* Piechart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A28031D34B6A400722A19 /* Piechart.swift */; };
 		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
 		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
 		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
@@ -833,6 +834,7 @@
 		A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackLayer.swift; sourceTree = "<group>"; };
 		A897514C1CEF099500F122AD /* CreatePINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePINViewController.swift; sourceTree = "<group>"; };
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
+		A89A28031D34B6A400722A19 /* Piechart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piechart.swift; sourceTree = "<group>"; };
 		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
 		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
 		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
@@ -1545,6 +1547,7 @@
 		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
+				A89A28031D34B6A400722A19 /* Piechart.swift */,
 				A8A6C7881D2D2808009B0D2F /* UIColor+HexColor.h */,
 				A8A6C7891D2D2808009B0D2F /* UIColor+HexColor.m */,
 				A8A6C78A1D2D2808009B0D2F /* VBPieChart.h */,
@@ -2794,6 +2797,7 @@
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
 				C97949791CEC987900416BD5 /* VTButton.swift in Sources */,
+				A89A28041D34B6A400722A19 /* Piechart.swift in Sources */,
 				C9A807D41D33A3910053A07B /* SAEditUserInfoViewController.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
 				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,

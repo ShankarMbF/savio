@@ -203,10 +203,17 @@ class SAImpulseSavingViewController: UIViewController {
     
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
+        let obj = SAOfferListViewController()
+        obj.savID = 63
+        obj.hideAddOfferButton = true
+        self.navigationController?.pushViewController(obj, animated: true)
     }
     
     
     @IBAction func spendButtonPressed(sender: AnyObject) {
+        let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
+        
+        self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
 

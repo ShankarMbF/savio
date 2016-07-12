@@ -268,9 +268,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
         vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        
+        shareImg = UIImage(named: "generic-streak-popup.png")
          let imgVw = testView.viewWithTag(10) as! UIImageView
-        shareImg = imgVw.image
+        imgVw.image = shareImg
         
         let btnClose = testView.viewWithTag(6)! as! UIButton
         btnClose.addTarget(self, action: #selector(SAStatViewController.closeSharePopup(_:)), forControlEvents: UIControlEvents.TouchUpInside)

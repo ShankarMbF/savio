@@ -70,7 +70,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func callWishListAPI()
     {
-        
         let objAPI = API()
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
@@ -369,11 +368,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             {
                 let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
                 self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
-                
             }
             else
             {
-                
                 let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
                 self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
             }

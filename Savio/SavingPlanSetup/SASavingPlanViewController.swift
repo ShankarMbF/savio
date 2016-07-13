@@ -1077,9 +1077,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             obj.delegate = self
             if(isUpdatePlan)
             {
-                
                 obj.savID = itemDetailsDataDict["sav_id"] as! NSNumber
-                
             }
             else
             {

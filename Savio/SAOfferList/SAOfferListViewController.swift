@@ -81,6 +81,24 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.masksToBounds = false
         closeLbl?.layer.borderWidth = 2.0
         closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as! Array
+        if arr.count > 0{
+            for var dict:Dictionary<String,AnyObject> in arr {
+                let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
+                if savingArr.count > 0 {
+                    for var saveDict in savingArr {
+                        if saveDict["savingID"] as! String == savID {
+                            offerArr.append(dict)
+                        }
+                    }
+                    
+                }
+            }
+            tblView?.reloadData()
+        }
+        else {
+        
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -88,7 +106,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         self.view.addSubview(objAnimView)
          let objAPI = API()
         objAPI.getofferlistDelegate = self
-        objAPI.getOfferListForSavingId(String(format: "%@",savID))
+        objAPI.getOfferListForSavingId()
+        }
     }
     /*
     // MARK: - Navigation
@@ -109,9 +128,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-            
             if wishListArray!.count>0{
-                
                 let objSAWishListViewController = SAWishListViewController()
                 objSAWishListViewController.wishListArray = wishListArray!
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)

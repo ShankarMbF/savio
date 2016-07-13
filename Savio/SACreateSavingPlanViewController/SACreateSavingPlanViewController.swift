@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate,CategoriesSavingPlan{
+class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate,CategoriesSavingPlan, GetOfferlistDelegate{
     @IBOutlet weak var lblBoostedView: UIView?
     @IBOutlet weak var tblView: UITableView?
     @IBOutlet weak var scrlView: UIScrollView?
@@ -66,6 +66,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpView()
+    }
+    
+    func callGetOfferListAPI() {
+        let objAPI = API()
+        objAPI.getofferlistDelegate = self
+        objAPI.getOfferListForSavingId()
+
     }
     
     func callWishListAPI()
@@ -415,6 +422,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             self.setUpView()
             tblView?.scrollsToTop = true
             tblView?.reloadData()
+            self.callGetOfferListAPI()
         }
         
         
@@ -452,16 +460,34 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
     }
     
+    func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse)
+        objAnimView.removeFromSuperview()
+      
+        if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
+            print(obj)
+            let userDefault = NSUserDefaults.standardUserDefaults()
+            userDefault.setValue(obj, forKey: "offerList")
+            userDefault.synchronize()
+        }
+        
+    }
+    func errorResponseForGetOfferlistAPI(error:String){
+        objAnimView.removeFromSuperview()
+    }
+    
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.ByWordWrapping
         label.font = font
         label.text = text
-        
         label.sizeToFit()
         return label.frame.height
     }
+    
+    
+
     /*
      // MARK: - Navigation
      

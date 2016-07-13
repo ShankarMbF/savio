@@ -816,11 +816,8 @@ class API: UIView {
                         dispatch_async(dispatch_get_main_queue()){
                             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI((response?.description)!)
                         }
-                        
-                        
                     }
                 }
-                
             }
             dataTask.resume()
         }
@@ -831,7 +828,7 @@ class API: UIView {
     }
     //MARK: Offer list
     
-    func getOfferListForSavingId(input : String)
+    func getOfferListForSavingId()
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
@@ -869,7 +866,6 @@ class API: UIView {
                         }
                     }
                 }
-                
             }
             dataTask.resume()
         }

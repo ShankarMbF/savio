@@ -8,13 +8,15 @@
 
 import UIKit
 import Social
+import Google
+import SafariServices
 
-class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInteractionControllerDelegate {
-
+class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInteractionControllerDelegate,SFSafariViewControllerDelegate {
+    
     @IBOutlet weak var scrHt: NSLayoutConstraint!
     var lineChart: LineChart!
     var label = UILabel()
-     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
     var itemTitle = ""
@@ -28,7 +30,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     @IBOutlet var graphSliderView: UISlider!
     
     @IBOutlet weak var sharingVw: UIView?
-
+    
     
     var xLabels: [String] = []
     var documentInteractionController = UIDocumentInteractionController()
@@ -41,11 +43,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         self.setUpView()
         
-//        label.text = itemTitle
-//        label.font = UIFont(name: "GothamRounded-Book", size: 16)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textAlignment = NSTextAlignment.Center
-//        self.contentView!.addSubview(label)
+        //        label.text = itemTitle
+        //        label.font = UIFont(name: "GothamRounded-Book", size: 16)
+        //        label.translatesAutoresizingMaskIntoConstraints = false
+        //        label.textAlignment = NSTextAlignment.Center
+        //        self.contentView!.addSubview(label)
         lineChart = LineChart()
         
         let data: [CGFloat] = [10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
@@ -78,10 +80,10 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
-
+        
         self.contentView?.addSubview(lineChart)
         
-
+        
     }
     
     // MARK: - Delegates and functions for  line chart
@@ -95,7 +97,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
-
+    
     @IBAction func graphSliderValueChanged(sender: UISlider) {
         let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
         let widthOfContentView: CGFloat = self.widthOfContentView.constant
@@ -115,10 +117,10 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var views: [String: AnyObject] = [:]
-
-//        views["label"] = label
-//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-//        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
+        
+        //        views["label"] = label
+        //        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
+        //        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
         views["chart"] = lineChart
         if xLabels.count > 5 {
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
@@ -134,7 +136,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
         }
-
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -146,13 +148,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.title = "My Plan"
-         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
-//        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
-//        makeImpulseBtn!.layer.shadowOpacity = 1
+        //        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        //        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
+        //        makeImpulseBtn!.layer.shadowOpacity = 1
         makeImpulseBtn!.layer.cornerRadius = 5
-
+        
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
@@ -168,7 +170,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
         //set Navigation right button nav-heart
-    
+        
         let btnName = UIButton()
         //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
@@ -178,11 +180,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
-         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-
+            
             if(wishListArray.count > 0)
             {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -235,41 +237,41 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
-
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
         label.text = "\(yValues[0])"
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-//        if let chart = lineChart {
-//            chart.setNeedsDisplay()
-//        }
+        //        if let chart = lineChart {
+        //            chart.setNeedsDisplay()
+        //        }
     }
     
     
     //Mark: - Social Sharing
     
     @IBAction func clickedOnAchivements(sender: UIButton){
-       let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
+        let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
         
-         testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
         vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         shareImg = UIImage(named: "generic-streak-popup.png")
-         let imgVw = testView.viewWithTag(10) as! UIImageView
+        let imgVw = testView.viewWithTag(10) as! UIImageView
         imgVw.image = shareImg
         
         let btnClose = testView.viewWithTag(6)! as! UIButton
@@ -304,6 +306,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             
         case 3:
             self.shareOnTwitter(sender)
+        case 4:
+            self.shareOnGoogle(sender)
         case 5:
             self.shareOnWhatsApp(sender)
         default:
@@ -328,7 +332,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     
-     func shareOnTwitter(sender: UIButton) {
+    func shareOnTwitter(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
             let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             twitterSheet.setInitialText("Share on Twitter")
@@ -368,6 +372,28 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 }
             }
         }
+    }
+    
+    
+    
+
+    func shareOnGoogle(sender: UIButton)
+    {
+        let urlComponents = NSURLComponents()
+        urlComponents.path = "https://plus.google.com/share"
+        urlComponents.queryItems = [NSURLQueryItem(name: "url", value: "hello")]
+        let url =  NSURL(string: "https://plus.google.com/share")
+        
+        
+        if #available(iOS 9.0, *) {
+            let controller: SFSafariViewController = SFSafariViewController(URL: url!)
+            controller.delegate = self
+            self.presentViewController(controller, animated: true, completion: { _ in })
+        } else {
+           UIApplication.sharedApplication().openURL(url!)
+        }
+        
+        
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7771077AE6E6A1D17CBF2F85 /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7451B943A5B44BA7D90C483 /* libPods-Savio.a */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -194,6 +195,15 @@
 		A86682041CFF07C80014DB59 /* SetDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682021CFF07C80014DB59 /* SetDayTableViewCell.xib */; };
 		A86682071CFF09940014DB59 /* CalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */; };
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
+		A86B72F51D36014E0075F501 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F41D36014E0075F501 /* AddressBook.framework */; };
+		A86B72F71D3601520075F501 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F61D3601520075F501 /* AssetsLibrary.framework */; };
+		A86B72F91D36015D0075F501 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F81D36015D0075F501 /* Foundation.framework */; };
+		A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FA1D3601620075F501 /* CoreLocation.framework */; };
+		A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FC1D36016B0075F501 /* CoreMotion.framework */; };
+		A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FE1D36017B0075F501 /* CoreGraphics.framework */; };
+		A86B73011D36017B0075F501 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FF1D36017B0075F501 /* CoreText.framework */; };
+		A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B73021D3601890075F501 /* MediaPlayer.framework */; };
+		A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B73041D3612240075F501 /* SafariServices.framework */; };
 		A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CD62F1CF47E8000222765 /* HurreyViewController.swift */; };
 		A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86CD6301CF47E8000222765 /* HurreyViewController.xib */; };
 		A86D629E1D20F26E00B2087D /* CancelButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86D629C1D20F26D00B2087D /* CancelButtonTableViewCell.swift */; };
@@ -795,6 +805,15 @@
 		A86682021CFF07C80014DB59 /* SetDayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetDayTableViewCell.xib; sourceTree = "<group>"; };
 		A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculationTableViewCell.swift; sourceTree = "<group>"; };
 		A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculationTableViewCell.xib; sourceTree = "<group>"; };
+		A86B72F41D36014E0075F501 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		A86B72F61D3601520075F501 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		A86B72F81D36015D0075F501 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A86B72FA1D3601620075F501 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A86B72FC1D36016B0075F501 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		A86B72FE1D36017B0075F501 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A86B72FF1D36017B0075F501 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		A86B73021D3601890075F501 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		A86B73041D3612240075F501 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		A86CD62F1CF47E8000222765 /* HurreyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HurreyViewController.swift; sourceTree = "<group>"; };
 		A86CD6301CF47E8000222765 /* HurreyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HurreyViewController.xib; sourceTree = "<group>"; };
 		A86D629C1D20F26D00B2087D /* CancelButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -927,6 +946,7 @@
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
 		A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAImpulseSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAImpulseSavingViewController.xib; sourceTree = "<group>"; };
+		B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1188,6 +1208,8 @@
 		CA0F6D571D2CEA8A005CC750 /* slider-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon.png"; sourceTree = "<group>"; };
 		CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@2x.png"; sourceTree = "<group>"; };
 		CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@3x.png"; sourceTree = "<group>"; };
+		E7451B943A5B44BA7D90C483 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1203,15 +1225,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */,
+				A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */,
+				A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */,
+				A86B73011D36017B0075F501 /* CoreText.framework in Frameworks */,
+				A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */,
+				A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */,
+				A86B72F91D36015D0075F501 /* Foundation.framework in Frameworks */,
+				A86B72F71D3601520075F501 /* AssetsLibrary.framework in Frameworks */,
+				A86B72F51D36014E0075F501 /* AddressBook.framework in Frameworks */,
 				C9295A0E1D33863E004C2F5C /* Social.framework in Frameworks */,
 				A8095B9C1CEDC52B006366F7 /* SystemConfiguration.framework in Frameworks */,
 				C9E525C91CE9D29D000FD01E /* Security.framework in Frameworks */,
+				7771077AE6E6A1D17CBF2F85 /* libPods-Savio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08100F54AE2E7E9D7C66644D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A86B73041D3612240075F501 /* SafariServices.framework */,
+				E7451B943A5B44BA7D90C483 /* libPods-Savio.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65354D1AA6A68A07E4FC6719 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */,
+				B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A8095B8C1CEDC4D5006366F7 /* KeyChainItemWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -2004,6 +2054,14 @@
 		C9E5259F1CE986F9000FD01E = {
 			isa = PBXGroup;
 			children = (
+				A86B73021D3601890075F501 /* MediaPlayer.framework */,
+				A86B72FE1D36017B0075F501 /* CoreGraphics.framework */,
+				A86B72FF1D36017B0075F501 /* CoreText.framework */,
+				A86B72FC1D36016B0075F501 /* CoreMotion.framework */,
+				A86B72FA1D3601620075F501 /* CoreLocation.framework */,
+				A86B72F81D36015D0075F501 /* Foundation.framework */,
+				A86B72F61D3601520075F501 /* AssetsLibrary.framework */,
+				A86B72F41D36014E0075F501 /* AddressBook.framework */,
 				C9295A0D1D33863E004C2F5C /* Social.framework */,
 				A86681ED1CFEE91F0014DB59 /* MobileCoreServices.framework */,
 				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
@@ -2014,6 +2072,8 @@
 				C9E525AA1CE986FA000FD01E /* Savio */,
 				A86681DE1CFEC26D0014DB59 /* SavioWishList */,
 				C9E525A91CE986FA000FD01E /* Products */,
+				65354D1AA6A68A07E4FC6719 /* Pods */,
+				08100F54AE2E7E9D7C66644D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2238,10 +2298,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9E525BA1CE986FA000FD01E /* Build configuration list for PBXNativeTarget "Savio" */;
 			buildPhases = (
+				E2F915913F8F3980949F4DD2 /* Check Pods Manifest.lock */,
 				C9E525A41CE986FA000FD01E /* Sources */,
 				C9E525A51CE986FA000FD01E /* Frameworks */,
 				C9E525A61CE986FA000FD01E /* Resources */,
 				A86681EB1CFEC26D0014DB59 /* Embed App Extensions */,
+				F6E8A53B9DA1C55F601C72CF /* Embed Pods Frameworks */,
+				A9BBB90D7FF164B8A45DC6CE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2804,6 +2867,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A9BBB90D7FF164B8A45DC6CE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2F915913F8F3980949F4DD2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F6E8A53B9DA1C55F601C72CF /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A86681D91CFEC26D0014DB59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -3058,15 +3169,21 @@
 		};
 		C9E525BB1CE986FA000FD01E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a8e045ea-39a5-481c-883b-2644134b3088";
@@ -3077,12 +3194,17 @@
 		};
 		C9E525BC1CE986FA000FD01E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

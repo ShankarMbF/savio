@@ -300,7 +300,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         if offerArr.count > 0 {
             offerArr.removeAll()
         }
-        if let obj = objResponse["offers"] as? Array<Dictionary<String,AnyObject>>{
+        if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
         offerArr = obj
         tblView?.reloadData()
         }

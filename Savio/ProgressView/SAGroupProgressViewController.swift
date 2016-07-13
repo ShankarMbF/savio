@@ -24,7 +24,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     @IBOutlet weak var tblHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
-    let chart = VBPieChart();
     var piechart : Piechart?
     var ht:CGFloat = 0.0
 
@@ -132,7 +131,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
             
             
-            let side =  circularProgress.frame.height + 10
+            let side =  circularProgress.frame.height
             let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             
@@ -145,10 +144,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
             
             let labelTwo = circularProgress.viewWithTag(5) as! UILabel
             
-            let imgView = circularProgress.viewWithTag(3) as! UIImageView
-            imgView.layer.borderColor = UIColor.blueColor().CGColor
-            imgView.layer.borderWidth = 1
-            imgView.layer.cornerRadius = imgView.frame.size.height / 2
             
             /*
             let chart = VBPieChart()
@@ -184,7 +179,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
             {
                 labelOne.hidden = true
                 labelTwo.hidden = true
-                imgView.hidden = false
+   
                 circularView.hidden = true
                 
                 var error = Piechart.Slice()
@@ -208,10 +203,18 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
                 win1.text = "Winner"
                 
                 piechart = Piechart()
-                piechart!.frame = CGRectMake(xValue,-5, side, side)
+                piechart!.frame = CGRectMake(xValue,0, side, side)
                 piechart!.delegate = self
+                piechart?.backgroundColor = UIColor.clearColor()
                 piechart!.slices = [error, zero, win,win1]
                 circularProgress.addSubview(piechart!)
+                
+                let imgView = UIImageView()
+                //imgView.layer.borderWidth = 1
+                imgView.frame = CGRectMake(40,40,side-80,side-80)
+                imgView.layer.cornerRadius = imgView.frame.size.height / 2
+                imgView.image = UIImage(named: "cycle.png")
+                piechart!.addSubview(imgView)
                 
             }
             else if(i == 1)
@@ -220,7 +223,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
                 labelOne.text = "0.0%"
                 labelTwo.hidden = false
                 labelTwo.text = "£ 0.0 saved"
-                imgView.hidden = true
                 circularView.hidden = false
             }
             else
@@ -229,7 +231,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
                 labelOne.text = "£ 0"
                 labelTwo.hidden = false
                 labelTwo.text = "0 days to go"
-                imgView.hidden = true
                 circularView.hidden = false
             }
  

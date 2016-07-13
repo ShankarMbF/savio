@@ -128,6 +128,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         {
             if (message == "Cancelled Plan successfully")
             {
+                NSUserDefaults.standardUserDefaults().setObject("", forKey: "SavingPlanPresent")
+                NSUserDefaults.standardUserDefaults().synchronize()
                 view1.hidden = true
                 view2.hidden = false
             }

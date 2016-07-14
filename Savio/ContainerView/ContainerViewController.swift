@@ -46,7 +46,7 @@ class ContainerViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
-        
+       
     }
     
     func ToggleCentreView() {

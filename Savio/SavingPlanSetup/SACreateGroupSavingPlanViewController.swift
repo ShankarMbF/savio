@@ -632,7 +632,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+        let flag = "GroupSaving PlanExist"
+        NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "SavingPlanPresent")
         NSUserDefaults.standardUserDefaults().synchronize()
+        
+        
+        NSUserDefaults.standardUserDefaults().synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         
         let objSummaryview = SASavingSummaryViewController()
         var newDict = self.getParameters()

@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAMenuViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="menuTable" destination="Qwi-PM-WQ6" id="7Yo-Pv-PCO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

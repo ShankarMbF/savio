@@ -218,7 +218,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+               NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     
@@ -1250,6 +1250,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if offerArr.count>0{
                     dict["offers"] = offerArr
                 }
+                
+                let flag = "PartySavingPlanExist"
+                NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "SavingPlanPresent")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
                 
                 let objSummaryView = SASavingSummaryViewController()
                 objSummaryView.itemDataDict =  dict

@@ -133,8 +133,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 leftBarButton.customView = leftBtnName
                 self.navigationItem.leftBarButtonItem = leftBarButton
             }
-       
-        
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
@@ -160,10 +158,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else{
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
-            
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -251,9 +246,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func backButtonClicked()
     {
-        
         self.navigationController?.popViewControllerAnimated(true)
-        
     }
     
     

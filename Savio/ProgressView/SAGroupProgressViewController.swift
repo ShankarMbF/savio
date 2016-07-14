@@ -19,7 +19,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     @IBOutlet weak var pagecontrol: UIPageControl!
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
-    
+    var participantsArr : Array<String> = []
+    var  pieChartSliceArray: Array<Piechart.Slice> = []
     @IBOutlet weak var contentVwHt: NSLayoutConstraint!
     @IBOutlet weak var tblHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
@@ -124,6 +125,28 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
 //        tblHt.constant = (5 * 55) + 220
 //        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
+        for(var i=0; i<8; i++)
+        {
+            var error = Piechart.Slice()
+            error.value = 4
+            error.color = chartColors[i]
+            error.text = "Success"
+            
+            pieChartSliceArray.append(error)
+
+        }
+        
+        if(pieChartSliceArray.count < 8)
+        {
+            var error = Piechart.Slice()
+            error.value = 4
+            error.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
+            error.text = "Error"
+            
+            pieChartSliceArray.append(error)
+
+        }
+        
         
         for var i=0; i<3; i++
         {
@@ -182,31 +205,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
    
                 circularView.hidden = true
                 
-                var error = Piechart.Slice()
-                error.value = 4
-                error.color = UIColor(red:237/255,green:182/255,blue:242/255,alpha:1)
-                error.text = "Error"
-                
-                var zero = Piechart.Slice()
-                zero.value = 6
-                zero.color = UIColor(red:181/255,green:235/255,blue:157/255,alpha:1)
-                zero.text = "Zero"
-                
-                var win = Piechart.Slice()
-                win.value = 10
-                win.color = UIColor(red:247/255,green:184/255,blue:183/255,alpha:1)
-                win.text = "Winner"
-                
-                var win1 = Piechart.Slice()
-                win1.value = 10
-                win1.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
-                win1.text = "Winner"
+        
                 
                 piechart = Piechart()
                 piechart!.frame = CGRectMake(xValue,0, side, side)
                 piechart!.delegate = self
                 piechart?.backgroundColor = UIColor.clearColor()
-                piechart!.slices = [error, zero, win,win1]
+                piechart!.slices = pieChartSliceArray
                 circularProgress.addSubview(piechart!)
                 
                 let imgView = UIImageView()
@@ -288,6 +293,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+        NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = true
         self.navigationController?.pushViewController(obj, animated: true)
     }

@@ -851,43 +851,48 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var parameterDict : Dictionary<String,AnyObject> = [:]
         
         
-        if(itemDetailsDataDict["title"] != nil)
+        if(itemDetailsDataDict["TITLE"] != nil)
         {
-            parameterDict["title"] = itemDetailsDataDict["title"]
+            parameterDict["TITLE"] = itemDetailsDataDict["title"]
         }
         else{
             
-            parameterDict["title"] = itemTitle
+            parameterDict["TITLE"] = itemTitle
         }
         
         if(itemDetailsDataDict["amount"] != nil)
         {
             if(itemDetailsDataDict["amount"] is String)
             {
-                parameterDict["amount"] = itemDetailsDataDict["amount"]
+                parameterDict["AMOUNT"] = itemDetailsDataDict["amount"]
             }
             else
             {
-                parameterDict["amount"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                parameterDict["AMOUNT"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
             }
         }
         else{
             
-            parameterDict["amount"] = String(format:"%d",cost)
+            parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
         if(itemDetailsDataDict["imageURL"] != nil)
         {
-            parameterDict["imageURL"] = itemDetailsDataDict["imageURL"]
+             let newDict = ["imageName.jpg":itemDetailsDataDict["imageURL"] as! String]
+            
+            parameterDict["IMAGE"] = newDict
         }
         else{
             if(cameraButton.hidden == true)
             {
                 let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                parameterDict["imageURL"] = base64String
+                let newDict = ["imageName.jpg":base64String]
+
+                parameterDict["IMAGE"] = newDict
             }
             else{
-                parameterDict["imageURL"] = ""
+                let newDict = ["imageName.jpg":""]
+                parameterDict["IMAGE"] = newDict
             }
         }
         
@@ -908,29 +913,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
         }
         
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+        parameterDict["WISHLIST_ID"] = itemDetailsDataDict["id"]
         
-        parameterDict["pty_id"] = userInfoDict["partyId"]
+        parameterDict["PARTY_ID"] = userInfoDict["partyId"]
         
         if(dateString == "date")
         {
-            parameterDict["payType"] = "Month"
+            parameterDict["PAY_TYPE"] = "Month"
         }
         else
         {
-            parameterDict["payType"] = "Week"
+            parameterDict["PAY_TYPE"] = "Week"
         }
         
         
-        parameterDict["payDate"] = popOverSelectedStr
+        parameterDict["PAY_DATE"] = popOverSelectedStr
         
         if((imageDataDict["savPlanID"]) != nil)
         {
-            parameterDict["sav_id"] = imageDataDict["savPlanID"]
+            parameterDict["SAV_PLAN_ID"] = imageDataDict["savPlanID"]
         }
         else
         {
-            parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
+            parameterDict["SAV_PLAN_ID"] = itemDetailsDataDict["sav-id"]
         }
         
         var newOfferArray : Array<NSNumber> = []
@@ -952,6 +957,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         parameterDict["INIVITED_USER_LIST"] = emptyarray
         parameterDict["INIVITED_DATE"] = ""
+        parameterDict["PARTY_SAVINGPLAN_TYPE"] = ""
+        parameterDict["STATUS"] = "Active"
         
         
         return parameterDict
@@ -994,11 +1001,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
+                    newDict["TITLE"] = itemTitle
                     newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-                    newDict["wishList_ID"] = ""
-                    newDict["sav_id"] = self.getParameters()["sav_id"]
-                    newDict["payType"] = self.getParameters()["payType"]
-                    if(newDict["payType"] as! String == "Month")
+                    newDict["WISHLIST_ID"] = ""
+                    newDict["SAV_PLAN_ID"] = self.getParameters()["SAV_PLAN_ID"]
+                    newDict["PAY_TYPE"] = self.getParameters()["PAY_TYPE"]
+                    if(newDict["PAY_TYPE"] as! String == "Month")
                     {
                         dateString = "date"
                     }
@@ -1006,20 +1014,25 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         dateString = "day"
                     }
-                    newDict["payDate"] = self.getParameters()["payDate"]
+                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
                     newDict["title"] = itemTitle
-                    newDict["amount"] = cost
+                    newDict["AMOUNT"] = cost
                     if(self.getParameters()["imageURL"] != nil)
                     {
-                        newDict["imageURL"] = self.getParameters()["imageURL"]
+                        let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                        let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        let dict = ["imageName.jpg":base64String]
+                        
+                        newDict["imageURL"] = dict
                     }
                     else
                     {
                         
-                        newDict["imageURL"] = ""
+                        let dict = ["imageName.jpg":""]
+                        newDict["IMAGE"] = dict
                     }
                     
-                    newDict["user_ID"] = self.getParameters()["pty_id"]
+                    newDict["PARTY_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
                     
@@ -1032,12 +1045,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     objAPI.partySavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    newDict["wishList_ID"] = self.getParameters()["wishList_ID"]
-                    newDict["sav_id"] = self.getParameters()["sav_id"]
-                    newDict["payType"] = self.getParameters()["payType"]
-                    newDict["payDate"] = self.getParameters()["payDate"]
-                    newDict["user_ID"] = self.getParameters()["pty_id"]
+                    newDict["TITLE"] = self.getParameters()["TITLE"]
+                    newDict["WISHLIST_ID"] = self.getParameters()["wishList_ID"]
+                    newDict["PAY_TYPE"] = self.getParameters()["payType"]
+                    newDict["PAY_DATE"] = self.getParameters()["payDate"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
+                    newDict["PARTY_ID"] = userInfoDict["partyId"]
+                    newDict["SAV_PLAN_ID"] = "0"
+                    
+                    let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    let dict = ["imageName.jpg":base64String]
+                    newDict["IMAGE"] = dict
+                    
+                    newDict["AMOUNT"] = self.getParameters()["wishList_ID"]
+                    newDict["PLAN_END_DATE"] = self.getParameters()["payType"]
+                    newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["payDate"]
+
                     
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                     
@@ -1224,10 +1248,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else if(message == "Party Saving Plan is succesfully added")
             {
                 var dict :  Dictionary<String,AnyObject> = [:]
-                dict["title"] = self.getParameters()["title"]
-                dict["amount"] = self.getParameters()["amount"]
-                dict["payDate"] = self.getParameters()["payDate"]
-                dict["imageURL"] = self.getParameters()["imageURL"]
+                dict["title"] = self.getParameters()["TITLE"]
+                dict["amount"] = self.getParameters()["AMOUNT"]
+                dict["payDate"] = self.getParameters()["PAYDATE"]
+               let newDict = self.getParameters()["IMAGE"]
+                 dict["imageURL"] = newDict!["imageName.jpg"]
                 
                 dict["id"] = itemDetailsDataDict["id"]
                 dict["day"] = dateString
@@ -1300,8 +1325,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             var dict :  Dictionary<String,AnyObject> = [:]
             dict["title"] = itemTitle
             dict["amount"] = String(format:"%d",cost)
-            dict["payDate"] = self.getParameters()["payDate"]
-            dict["imageURL"] = self.getParameters()["imageURL"]
+            dict["payDate"] = self.getParameters()["PAYDATE"]
+            let newDict = self.getParameters()["IMAGE"]
+            dict["imageURL"] = newDict!["imageName.jpg"]
             dict["id"] = self.getParameters()["partySavingPlanID"]
             dict["day"] = dateString
             let dateParameter = NSDateFormatter()

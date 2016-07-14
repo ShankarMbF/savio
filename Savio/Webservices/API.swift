@@ -646,7 +646,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
                 request.HTTPMethod = "PUT"
                 
                 
@@ -686,7 +686,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
                 request.HTTPMethod = "POST"
                 
                 
@@ -775,7 +775,6 @@ class API: UIView {
         else{
             self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
         }
-        
     }
     
     
@@ -1106,7 +1105,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/wlid?input=wishid",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)
             request.HTTPMethod = "POST"
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])

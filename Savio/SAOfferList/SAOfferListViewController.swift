@@ -83,16 +83,14 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
         
         if let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array {
-        
             for var dict:Dictionary<String,AnyObject> in arr {
                 let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
                 if savingArr.count > 0 {
                     for var saveDict in savingArr {
-                        if saveDict["savingID"] as! String == savID {
+                        if saveDict["savingID"] as! NSNumber == savID {
                             offerArr.append(dict)
                         }
                     }
-                    
                 }
             }
             tblView?.reloadData()
@@ -190,18 +188,18 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         cell.lblProductOffer?.text = cellDict!["offDesc"] as? String
         
         print(cellDict)
-        let urlStr = cellDict!["offImage"] as! String
+        if let urlStr = cellDict!["offImage"] as? String {
         let url = NSURL(string: urlStr)
         
         let request: NSURLRequest = NSURLRequest(URL: url!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
             let image = UIImage(data: data!)
-            
             //                self.imageCache[unwrappedImage] = image
             dispatch_async(dispatch_get_main_queue(), {
                 cell.offerImage?.image = image
             })
         })
+        }
         
         let attributes = [
             NSForegroundColorAttributeName :cell.setUpColor(),
@@ -209,11 +207,9 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         ]
         var attributedString = NSAttributedString(string: "Offer details v", attributes: attributes)
         
-        
         if prevIndxArr.count > 0 {
             var ht: CGFloat = 0.0
             var str = ""
-            
 //            cellDict["offDesc"]!.isKindOfClass(String)
             for var i in 0 ..< prevIndxArr.count {
                 
@@ -231,8 +227,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 cell.lblHT.constant = ht
                 cell.lblProductOffer?.text = str
             }
-            
-            
         }
         else{
             cell.lblHT.constant = 0.0

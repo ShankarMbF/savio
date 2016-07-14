@@ -463,16 +463,68 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         print(objResponse)
         objAnimView.removeFromSuperview()
-      
-        if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
-            print(obj)
-            if NSThread.isMainThread(){
-//            NSUserDefaults.standardUserDefaults().setObject(obj, forKey: "ListOffer")
-//            NSUserDefaults.standardUserDefaults().synchronize()
-            }
+        var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+//        if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
+            print(offerArr)
+//            if NSThread.isMainThread(){
+        var arr: Array<Dictionary<String,AnyObject>> = []
+        for var i = 0; i < offerArr.count; i++ {
+           let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
+            print(dict)
+            arr.append(dict)
+           
         }
+        print(arr)
+                NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
+                NSUserDefaults.standardUserDefaults().synchronize()
+
+//            }
+//        }
         
     }
+    
+    
+    
+    
+    
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        for var key:String in Array(dict.keys) {
+           let ob = dict[key]! as? AnyObject
+            
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+    
+    
+    
+//    const NSMutableDictionary *replaced = [NSMutableDictionary dictionaryWithDictionary:self];
+//    const id nul = [NSNull null];
+//    const NSString *blank = @"";
+//    
+//    for (NSString *key in self.allKeys) {
+//    const id object = [self objectForKey:key];
+//    if (object == nul) {
+//    [replaced setObject:blank forKey:key];
+//    } else if ([object isKindOfClass:[NSDictionary class]]) {
+//    [replaced setObject:[(NSDictionary *)object dictionaryByReplacingNullsWithStrings] forKey:key];
+//    } else if ([object isKindOfClass:[NSArray class]]) {
+//    
+//    }
+//    }
+
+    
+    
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
     }

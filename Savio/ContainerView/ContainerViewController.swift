@@ -94,6 +94,8 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAOfferListViewController":
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
+            NSUserDefaults.standardUserDefaults().synchronize()
             self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             centreVC.hidesBottomBarWhenPushed = true
             self.replaceViewController()
@@ -103,7 +105,9 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAProgressViewController":
-            
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
+            NSUserDefaults.standardUserDefaults().synchronize()
+
             if isShowingProgress == "PartySavingPlanExist" {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }

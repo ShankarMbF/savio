@@ -298,17 +298,19 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
             
             if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                //            print(firstName)
                 contactDict["name"] = firstName as! String
             }
         
             
             if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
-//                print(lastName)
                 contactDict["lastName"] = lastName as! String
             }
         }
         else{
+            if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                print(firstName)
+                contactDict["name"] = firstName as! String
+            }
             contactDict["lastName"] = ""
         }
         
@@ -371,7 +373,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
-//        print(contactDict)
+     print(contactDict)
         
         participantsArr.append(contactDict)
         

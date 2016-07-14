@@ -154,9 +154,17 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
 
-        let data :NSData = NSData(base64EncodedString: cellDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+        let urlStr = cellDict["imageURL"] as! String
+        let url = NSURL(string: urlStr)
         
-        cell.imgView?.image = UIImage(data: data)
+//        let request: NSURLRequest = NSURLRequest(URL: url!)
+//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//            let image = UIImage(data: data!)
+//            dispatch_async(dispatch_get_main_queue(), {
+//                cell.imgView?.image = image
+//            })
+//        })
+        
         cell.btnSavingPlan?.tag = indexPath.row
      
         
@@ -252,7 +260,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
 
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
      
-      //  print(objResponse)
+      print(objResponse)
        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }

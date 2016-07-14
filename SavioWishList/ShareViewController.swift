@@ -70,10 +70,13 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         let data = defaults.valueForKey("userInfo") as! NSData
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
                         var dict : Dictionary<String,AnyObject> = [:]
-                        dict["title"] = self.textView.text
-                        dict["amount"] = self.priceTextField.text
-                        dict["pty_id"] = userDict!["partyId"]
-                        dict["imageURL"] = base64String
+                        dict["TITLE"] = self.textView.text
+                        dict["AMOUNT"] = self.priceTextField.text
+                        dict["PARTYID"] = userDict!["partyId"]
+                        var newDict : Dictionary<String,AnyObject> = [:]
+                        newDict["imageName"] = base64String
+                        dict["IMAGEURL"] = newDict
+                        dict["SHAREDSAVINGPLANID"] = ""
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)
                         
@@ -266,8 +269,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         });
     }
     
-    func successResponseForResetPasscodeAPI(objResponse: Dictionary<String, AnyObject>) {
-        
+    func successResponseForShareExtensionAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         spinner.stopAnimating()
         spinner.hidden = true
         
@@ -282,7 +285,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         //
     }
     
-    func errorResponseForOTPResetPasscodeAPI(error: String) {
+    func errorResponseForShareExtensionAPI(error: String) {
         //        dispatch_async(dispatch_get_main_queue()){
         spinner.stopAnimating()
         spinner.hidden = true

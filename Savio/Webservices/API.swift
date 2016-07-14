@@ -53,8 +53,8 @@ protocol ResetPasscodeDelegate{
 }
 protocol ShareExtensionDelegate{
     
-    func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
-    func errorResponseForOTPResetPasscodeAPI(error:String)
+    func successResponseForShareExtensionAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForShareExtensionAPI(error:String)
 }
 
 protocol GetWishlistDelegate{
@@ -111,6 +111,11 @@ protocol CancelSavingPlanDelegate
     func errorResponseForCancelSavingPlanAPI(error:String)
 }
 
+protocol InviteMembersDelegate
+{
+    func successResponseForInviteMembersAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForInviteMembersAPI(error:String)
+}
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -128,6 +133,7 @@ class API: UIView {
     var updateSavingPlanDelegate : UpdateSavingPlanDelegate?
     var getUserInfoDelegate : GetUserInfoDelegate?
     var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
+    var inviteMemberDelegate : InviteMembersDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -146,6 +152,7 @@ class API: UIView {
         return (isReachable && !needsConnection)
     }
     
+    //MARK: Verification of postcode
     func verifyPostCode(postcode:String){
         
         //Check if network is present
@@ -190,6 +197,7 @@ class API: UIView {
         }
     }
     
+    //MARK: Registration
     
     func registerTheUserWithTitle(dictParam:Dictionary<String,AnyObject>,apiName:String)
     {
@@ -242,7 +250,7 @@ class API: UIView {
         
     }
     
-    
+    //MARK: OTP generate and verification
     
     func getOTPForNumber(phoneNumber:String,country_code:String) {
         //Check if network is present
@@ -308,6 +316,8 @@ class API: UIView {
         }
     }
     
+    
+    
     func verifyOTP(phoneNumber:String,country_code:String,OTP:String)
     {
         //Check if network is present
@@ -366,6 +376,7 @@ class API: UIView {
         }
     }
     
+    //MARK: Login
     
     //LogIn function
     func logInWithUserID(dictParam:Dictionary<String,AnyObject>)
@@ -389,7 +400,7 @@ class API: UIView {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         
-                 print("\(dict)")
+                        print("\(dict)")
                         if(dict["errorCode"] as! NSString == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -419,6 +430,8 @@ class API: UIView {
         }
     }
     
+    
+    //MARK: Reset passcode
     
     //ResetPasscode function
     func resetPasscodeOfUserID(dictParam:Dictionary<String,AnyObject>)
@@ -493,6 +506,8 @@ class API: UIView {
     }
     
     
+    //MARK: Create wishlist
+    
     func sendWishList(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
@@ -503,13 +518,11 @@ class API: UIView {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        
-        // print(dict)
-        //Check if network is present
+        print(dict)
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
             request.HTTPMethod = "POST"
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
@@ -524,25 +537,26 @@ class API: UIView {
                     //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        print(dict)
                         
                         if(dict["errorCode"] as! String == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                self.shareExtensionDelegate?.successResponseForResetPasscodeAPI(dict)
+                                self.shareExtensionDelegate?.successResponseForShareExtensionAPI(dict)
                             }
                         }
                         else
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("Please login to Savio first.")
+                                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("Please login to Savio first.")
                             }
                         }
                     }
                     else
                     {
-                        //                        print(response?.description)
+                            print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
-                            self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
+                            self.shareExtensionDelegate?.errorResponseForShareExtensionAPI((response?.description)!)
                         }
                     }
                 }
@@ -550,11 +564,13 @@ class API: UIView {
             dataTask.resume()
         }
         else{
-            self.shareExtensionDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+            self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
         }
         
     }
     
+    
+    //MARK: Delete item from wishlist
     
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
@@ -608,6 +624,9 @@ class API: UIView {
         }
         
     }
+    
+    
+    //MARK: Create saving plan
     
     func createPartySavingPlan(dict:Dictionary<String,AnyObject>,isFromWishList:String)
     {
@@ -704,8 +723,11 @@ class API: UIView {
             
             
         }
-        //Check if network is present
+        
     }
+    
+    
+    //MARK: Get users wishlist
     
     func getWishListForUser(userId : String)
     {
@@ -720,7 +742,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/WL?party_ID=%@",baseURL,partyID))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/partyid?input=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             //            print(request)
             
@@ -755,6 +777,9 @@ class API: UIView {
         }
         
     }
+    
+    
+    //MARK: Get savings plan
     
     func getCategoriesForSavingPlan()
     {
@@ -1062,7 +1087,71 @@ class API: UIView {
         
     }
     
-
     
+    //MARK:Send Invite members
+    
+    func sendInviteMembersList(dict:Dictionary<String,AnyObject>)
+    {
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        // print(dict)
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/wlid?input=wishid",baseURL))!)
+            request.HTTPMethod = "POST"
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    //                    print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        print(dict)
+                        
+                        if(dict["errorCode"] as! String == "200")
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.inviteMemberDelegate?.successResponseForInviteMembersAPI(dict)
+                            }
+                        }
+                        else
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("Please login to Savio first.")
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.inviteMemberDelegate?.errorResponseForInviteMembersAPI((response?.description)!)
+                        }
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue()){
+                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("No network found")
+            }
+        }
+    }
     
 }

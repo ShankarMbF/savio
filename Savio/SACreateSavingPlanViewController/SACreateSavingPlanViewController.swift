@@ -199,12 +199,21 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                 }
                 
-                let data :NSData = NSData(base64EncodedString: objDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 
                 let bgImageView = testView.viewWithTag(1) as! UIImageView
-                bgImageView.image = UIImage(data: data)
-                lblCost.hidden = false
                 
+                let url = NSURL(string:objDict["imageURL"] as! String)
+                
+//                let request: NSURLRequest = NSURLRequest(URL: url!)
+//                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//                    let image = UIImage(data: data!)
+//    
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        bgImageView.image = image
+//                    })
+//                })
+
+           
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
                 imgEuro.hidden = false
                 
@@ -361,14 +370,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(tblArr[indexPath.row])
         
-//        if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
-//        {
-//           if(str == "true")
-//           { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
-//           }
-//           else
-//           {
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
+        {
+           if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
+           { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+           }
+           else
+           {
             NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -381,9 +390,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
                 self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
             }
-//            }
-//        
-//        }
+            }
+        
+        }
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){

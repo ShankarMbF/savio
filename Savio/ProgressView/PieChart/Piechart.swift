@@ -27,8 +27,8 @@ public class Piechart: UIControl {
      * Radius
      */
     public struct Radius {
-        public var inner: CGFloat = 40
-        public var outer: CGFloat = 60
+        public var inner: CGFloat = 60
+        public var outer: CGFloat = 80
     }
     
     /**

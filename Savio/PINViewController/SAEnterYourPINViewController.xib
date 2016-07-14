@@ -61,10 +61,10 @@
                     </connections>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRg-0T-Rrk">
-                    <rect key="frame" x="30" y="209" width="540" height="43"/>
+                    <rect key="frame" x="30" y="209" width="540" height="42"/>
                     <color key="backgroundColor" red="0.96862745098039216" green="0.5725490196078431" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="43" id="N0G-RJ-4Wc"/>
+                        <constraint firstAttribute="height" constant="42" id="N0G-RJ-4Wc"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLD-AK-Fy3">

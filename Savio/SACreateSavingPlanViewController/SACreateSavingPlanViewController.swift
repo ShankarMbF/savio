@@ -466,9 +466,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
       
         if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
             print(obj)
-            let userDefault = NSUserDefaults.standardUserDefaults()
-            userDefault.setValue(obj, forKey: "offerList")
-            userDefault.synchronize()
+            if NSThread.isMainThread(){
+//            NSUserDefaults.standardUserDefaults().setObject(obj, forKey: "ListOffer")
+//            NSUserDefaults.standardUserDefaults().synchronize()
+            }
         }
         
     }

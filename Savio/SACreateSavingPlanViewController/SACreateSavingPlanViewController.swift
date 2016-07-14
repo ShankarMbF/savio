@@ -204,14 +204,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 
                 let url = NSURL(string:objDict["imageURL"] as! String)
                 
-//                let request: NSURLRequest = NSURLRequest(URL: url!)
-//                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//                    let image = UIImage(data: data!)
-//    
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        bgImageView.image = image
-//                    })
-//                })
+                let request: NSURLRequest = NSURLRequest(URL: url!)
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    let image = UIImage(data: data!)
+    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        bgImageView.image = image
+                    })
+                })
 
            
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
@@ -368,8 +368,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(tblArr[indexPath.row])
-        
+
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
         {
            if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
@@ -415,7 +414,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-        print(objResponse)
+
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray

@@ -115,6 +115,7 @@ class ContactViewController: UIViewController {
         var mobileArray : Array<String> = []
         var emailArray : Array<String> = []
         var nameArray : Array<String> = []
+        
         if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
         {
             
@@ -161,13 +162,19 @@ class ContactViewController: UIViewController {
         
         if let firstName = contactDict["name"] as? String
         {
-            if let lastName = contactDict["lastName"] as? String
-            {
-                dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
-                
-                name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
-            }
             
+            dict["first_name"] = String(format: "%@", firstName)
+            
+            name = String(format: "%@", contactDict["name"] as! String)
+            
+            
+        }
+        
+        if let lastName = contactDict["lastName"] as? String
+        {
+            dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, lastName)
+            
+            name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         }
         
         //dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)

@@ -102,7 +102,8 @@ public class Piechart: UIControl {
                 path.addArcWithCenter(center, radius: radius.outer + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
                 innerPath.addArcWithCenter(center, radius: radius.inner - 2.0 , startAngle: startAngle, endAngle: endAngle, clockwise: true)
             }
-            else if index == slices.count - 1 {//this will be the last slice
+            else if index == slices.count - 1 && slice.text == "Error"{
+                //this will be the last slice
                 path.addArcWithCenter(center, radius: radius.outer - 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
                 innerPath.addArcWithCenter(center, radius: radius.inner + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             }

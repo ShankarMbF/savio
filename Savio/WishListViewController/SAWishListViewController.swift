@@ -154,16 +154,16 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
 
-        let urlStr = cellDict["imageURL"] as! String
-        let url = NSURL(string: urlStr)
         
-//        let request: NSURLRequest = NSURLRequest(URL: url!)
-//        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//            let image = UIImage(data: data!)
-//            dispatch_async(dispatch_get_main_queue(), {
-//                cell.imgView?.image = image
-//            })
-//        })
+        let url = NSURL(string:cellDict["imageURL"] as! String)
+        
+        let request: NSURLRequest = NSURLRequest(URL: url!)
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            let image = UIImage(data: data!)
+            dispatch_async(dispatch_get_main_queue(), {
+                cell.imgView?.image = image
+            })
+        })
         
         cell.btnSavingPlan?.tag = indexPath.row
      

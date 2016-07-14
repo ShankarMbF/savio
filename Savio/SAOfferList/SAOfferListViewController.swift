@@ -82,8 +82,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.borderWidth = 2.0
         closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
         
-        let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as! Array
-        if arr.count > 0{
+        if let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array {
+        
             for var dict:Dictionary<String,AnyObject> in arr {
                 let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
                 if savingArr.count > 0 {
@@ -107,6 +107,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
          let objAPI = API()
         objAPI.getofferlistDelegate = self
         objAPI.getOfferListForSavingId()
+      
         }
     }
     /*

@@ -828,6 +828,7 @@ class API: UIView {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         //                        print(dict)
+                        
                         dispatch_async(dispatch_get_main_queue())
                         {
                             self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)

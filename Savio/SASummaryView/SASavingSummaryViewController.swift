@@ -101,6 +101,9 @@ class SASavingSummaryViewController: UIViewController {
     
     func setUpView(){
         //print(itemDataDict)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor

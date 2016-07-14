@@ -18,6 +18,7 @@ protocol SegmentBarChangeDelegate {
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {
     @IBOutlet weak var setDayDateButton: UIButton!
 
+    @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var dayDateTextField: UITextField!
     @IBOutlet weak var dayDateLabel: UILabel!
     // @IBOutlet weak var segmentControl: UISegmentedControl!
@@ -39,7 +40,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        
+        BGContentView.layer.cornerRadius = 5
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         
         dayPickerView.delegate = self

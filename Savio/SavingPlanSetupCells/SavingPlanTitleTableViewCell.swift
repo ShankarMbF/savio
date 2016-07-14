@@ -25,6 +25,8 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         // Initialization code
         
         titleTextField.delegate = self
+        titleTextField.layer.cornerRadius = 5
+        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         print(colorDataDict)
     }

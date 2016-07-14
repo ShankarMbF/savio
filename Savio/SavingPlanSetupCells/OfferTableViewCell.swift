@@ -19,6 +19,7 @@ class OfferTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        offerImageView.layer.cornerRadius = 5
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

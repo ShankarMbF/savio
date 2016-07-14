@@ -14,7 +14,9 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     weak var tblView : UITableView?
     weak var view : UIView?
     var delegate: SavingPlanCostTableViewCellDelegate?
+  
     
+    @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var costTextField: UITextField!
     
@@ -29,6 +31,22 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         costTextField.delegate = self
         //Get the dictionary of selected theme from NSUserdefaults
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        
+        
+        // corner Radius of costTextField, currencyLabel And BGContentView *************************
+        BGContentView.layer.cornerRadius = 5
+        
+        let costpath = UIBezierPath(roundedRect:costTextField.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
+        let costmaskLayer = CAShapeLayer()
+        costmaskLayer.path = costpath.CGPath
+        costTextField.layer.mask = costmaskLayer
+        
+        let Currentpath = UIBezierPath(roundedRect:currencyLabel.bounds, byRoundingCorners:[ .TopLeft, .BottomLeft], cornerRadii: CGSizeMake(5, 5))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = Currentpath.CGPath
+        currencyLabel.layer.mask = maskLayer
+        // Corner Radius of End *************************
+        
         
         //set the color and corner radius for minus and plus button
         minusButton.layer.cornerRadius = minusButton.frame.size.height / 2

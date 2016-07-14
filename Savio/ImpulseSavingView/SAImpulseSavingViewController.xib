@@ -90,10 +90,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lcc-gB-x96">
-                                    <rect key="frame" x="30" y="449" width="540" height="43"/>
+                                    <rect key="frame" x="30" y="449" width="540" height="42"/>
                                     <color key="backgroundColor" red="0.94117647058823528" green="0.64313725490196072" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="43" id="Qx2-DD-eOH"/>
+                                        <constraint firstAttribute="height" constant="42" id="Qx2-DD-eOH"/>
                                     </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

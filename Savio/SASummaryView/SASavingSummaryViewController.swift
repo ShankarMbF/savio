@@ -353,7 +353,8 @@ class SASavingSummaryViewController: UIViewController {
             var pathComponents2 : NSArray!
             pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
 
-            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+//            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
         }
         else{
             paymentLastDate.text = "Weekly"
@@ -362,7 +363,8 @@ class SASavingSummaryViewController: UIViewController {
             var pathComponents2 : NSArray!
             pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString("-")
             
-            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+//            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
 
         }
     }

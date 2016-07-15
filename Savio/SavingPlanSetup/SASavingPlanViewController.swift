@@ -956,9 +956,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["OFFERS"] = newOfferArray
         }
         
-        parameterDict["INIVITED_USER_LIST"] = emptyarray
-        parameterDict["INIVITED_DATE"] = ""
-        parameterDict["PARTY_SAVINGPLAN_TYPE"] = ""
+//        parameterDict["INIVITED_USER_LIST"] = emptyarray
+//        parameterDict["INIVITED_DATE"] = ""
+        parameterDict["PARTY_SAVINGPLAN_TYPE"] = "Individual"
         parameterDict["STATUS"] = "Active"
         
         
@@ -1047,10 +1047,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.partySavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     newDict["TITLE"] = self.getParameters()["TITLE"]
-                    newDict["WISHLIST_ID"] = self.getParameters()["wishList_ID"]
-                    newDict["PAY_TYPE"] = self.getParameters()["payType"]
-                    newDict["PAY_DATE"] = self.getParameters()["payDate"]
-                    newDict["offer_List"] = self.getParameters()["offer_List"]
+                    newDict["WISHLIST_ID"] = self.getParameters()["WISHLIST_ID"]
+                    newDict["PAY_TYPE"] = self.getParameters()["PAY_TYPE"]
+                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+                    newDict["OFFERS"] = self.getParameters()["OFFERS"]
                     newDict["PARTY_ID"] = userInfoDict["partyId"]
                     newDict["SAV_PLAN_ID"] = "0"
                     
@@ -1059,11 +1059,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     let dict = ["imageName.jpg":base64String]
                     newDict["IMAGE"] = dict
                     
-                    newDict["AMOUNT"] = self.getParameters()["wishList_ID"]
-                    newDict["PLAN_END_DATE"] = self.getParameters()["payType"]
-                    newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["payDate"]
+                    newDict["AMOUNT"] = self.getParameters()["AMOUNT"]
+                    newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
+                    newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
+                    newDict["STATUS"] = "Active"
 
-                    
+
+                    print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                     
                     

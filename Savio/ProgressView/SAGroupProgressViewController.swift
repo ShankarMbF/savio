@@ -8,26 +8,31 @@
 
 import UIKit
 
-class SAGroupProgressViewController: UIViewController,PiechartDelegate {
+class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var horizontalScrollView: UIScrollView!
     @IBOutlet weak var spendButton: UIButton!
     
     @IBOutlet weak var planButton: UIButton!
     
+    @IBOutlet weak var savingPlanTitleLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var pagecontrol: UIPageControl!
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
-    var participantsArr : Array<String> = []
+    var participantsArr : Array<Dictionary<String,AnyObject>> = []
     var  pieChartSliceArray: Array<Piechart.Slice> = []
     @IBOutlet weak var contentVwHt: NSLayoutConstraint!
     @IBOutlet weak var tblHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
+     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     var piechart : Piechart?
+    var planTitle = ""
+    var totalAmount : Float = 0.0
+    var paidAmount : Float = 0.0
     var ht:CGFloat = 0.0
-
+  var objAnimView = ImageViewAnimation()
     let chartColors = [
     UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
     UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),
@@ -51,7 +56,18 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         self.setUPNavigation()
-        self.setUpView()
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        
+        self.view.addSubview(objAnimView)
+        let objAPI = API()
+        objAPI.getSavingPlanDelegate = self
+        objAPI.getUsersSavingPlan("g")
+
+        
+       
         // Do any additional setup after loading the view.
     }
     
@@ -117,15 +133,45 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     
     
     func setUpView(){
+        
+        
+        planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        
+        var attrText = NSMutableAttributedString(string: planTitle)
+        
+        attrText.addAttribute(NSFontAttributeName,
+            value: UIFont(
+                name: "GothamRounded-Medium",
+                size: 16.0)!,
+            range: NSRange(
+                location: 3,
+                length: (savingPlanDetailsDict["title"] as! String).characters.count))
+        
+        
+        savingPlanTitleLabel.attributedText = attrText
+        
+        if let amount = savingPlanDetailsDict["amount"] as? NSNumber
+        {
+            totalAmount = amount.floatValue
+        }
+        
+        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
+        {
+            
+            paidAmount = totalPaidAmount.floatValue
+            
+        }
+
+        
         prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
-        tblView.reloadData()
+     
 //        tblHt.constant = (5 * 55) + 220
 //        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
-        for(var i=0; i<8; i++)
+        for(var i=0; i<participantsArr.count; i++)
         {
             var error = Piechart.Slice()
             error.value = 4
@@ -243,6 +289,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
             
         }
         
+        
     }
     
     //MARK: Bar button action
@@ -312,7 +359,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 3;
+        return participantsArr.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -329,6 +376,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
         cell?.topVw.backgroundColor = chartColors[indexPath.row]
         cell?.makeImpulseSavingButton.addTarget(self, action: Selector("impulseSavingButtonPressed:"), forControlEvents: .TouchUpInside)
         
+         let cellDict = participantsArr[indexPath.row] as! Dictionary<String,AnyObject>
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 
@@ -355,7 +403,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
 //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
         tblHt.constant = (2 * 50) + ht
-        print(tblHt.constant)
+        cell?.nameLabel.text = cellDict["partyName"] as? String
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
 
         return cell!
@@ -432,6 +480,50 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate {
     
     func setInfo(total: CGFloat, slice: Piechart.Slice) -> String {
         return "\(Int(slice.value))/\(Int(total))"
+    }
+    
+    
+    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "Success")
+            {
+                savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
+                participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
+                
+                var userDict : Dictionary<String,AnyObject> = [:]
+                userDict["partyName"] = savingPlanDetailsDict["partyName"]
+                userDict["partyImageUrl"] = savingPlanDetailsDict["partyImageUrl"]
+                userDict["savingPlanTransactionList"] = savingPlanDetailsDict["savingPlanTransactionList"]
+                
+                participantsArr.append(userDict)
+                self.setUpView()
+          
+                self.tblView.reloadData()
+            }
+            else
+            {
+                pageControl.hidden = true
+                let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }
+        else
+        {
+            pageControl.hidden = true
+            let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
+        objAnimView.removeFromSuperview()
+        
+    }
+    
+    func errorResponseForGetUsersPlanAPI(error: String) {
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        objAnimView.removeFromSuperview()
     }
 
 }

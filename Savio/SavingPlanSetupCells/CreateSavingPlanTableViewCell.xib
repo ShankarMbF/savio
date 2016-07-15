@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
@@ -16,12 +16,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IBe-gf-7fa">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBe-gf-7fa">
                         <rect key="frame" x="0.0" y="18" width="320" height="43"/>
                         <color key="backgroundColor" red="0.47450980390000003" green="0.71764705880000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="EO4-al-dqs"/>
+                        </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                 <integer key="value" value="5"/>
@@ -42,8 +45,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="nPM-64-FpA" secondAttribute="trailing" id="3WO-8s-6KM"/>
+                    <constraint firstAttribute="trailing" secondItem="IBe-gf-7fa" secondAttribute="trailing" id="7J0-ZA-3bp"/>
+                    <constraint firstItem="IBe-gf-7fa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QFy-aI-8MN"/>
                     <constraint firstItem="nPM-64-FpA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="SAJ-VF-wyn"/>
                     <constraint firstItem="nPM-64-FpA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="q9I-Pe-hs2"/>
+                    <constraint firstItem="IBe-gf-7fa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="sg9-Kp-RAh"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

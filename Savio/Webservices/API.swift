@@ -877,7 +877,7 @@ class API: UIView {
     
     //MARK: Get users saving plan
     
-    func getUsersSavingPlan()
+    func getUsersSavingPlan(str:String)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         

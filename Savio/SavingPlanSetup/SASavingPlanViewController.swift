@@ -79,7 +79,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-            objAPI.getUsersSavingPlan()
+            objAPI.getUsersSavingPlan("i")
             objAPI.getSavingPlanDelegate = self
             
         }
@@ -981,9 +981,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if(itemDetailsDataDict["title"] == nil)
                 {
-                    objAPI.partySavingPlanDelegate = self
-                    print(self.getParameters())
-                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+//                    objAPI.partySavingPlanDelegate = self
+//                    print(self.getParameters())
+//                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+
+                    
+                   
                     
                 }
                 else if(isUpdatePlan)
@@ -1253,7 +1256,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 var dict :  Dictionary<String,AnyObject> = [:]
                 dict["title"] = self.getParameters()["TITLE"]
                 dict["amount"] = self.getParameters()["AMOUNT"]
-                dict["payDate"] = self.getParameters()["PAYDATE"]
+                dict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
                let newDict = self.getParameters()["IMAGE"]
                  dict["imageURL"] = newDict!["imageName.jpg"]
                 
@@ -1333,7 +1336,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             var dict :  Dictionary<String,AnyObject> = [:]
             dict["title"] = itemTitle
             dict["amount"] = String(format:"%d",cost)
-            dict["payDate"] = self.getParameters()["PAYDATE"]
+            dict["PAY_DATE"] = self.getParameters()["PAYDATE"]
             let newDict = self.getParameters()["IMAGE"]
             dict["imageURL"] = newDict!["imageName.jpg"]
             dict["id"] = self.getParameters()["partySavingPlanID"]

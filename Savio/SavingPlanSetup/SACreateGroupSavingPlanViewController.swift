@@ -457,26 +457,29 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         var newDict : Dictionary<String,AnyObject> = [:]
 
-        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
         newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
-        newDict["title"] = parameterDict["title"]
-        newDict["amount"] = parameterDict["amount"]
-        newDict["payDate"] = parameterDict["payDate"]
-        newDict["pty_id"] = parameterDict["pty_id"]
-        newDict["sav_id"] = parameterDict["sav_id"]
-        newDict["imageURL"] = parameterDict["imageURL"]
-        newDict["payType"] = "Direct debit"
+        newDict["TITLE"] = parameterDict["title"]
+        newDict["AMOUNT"] = parameterDict["amount"]
+        newDict["PAY_DATE"] = parameterDict["payDate"]
+        newDict["PARTY_ID"] = parameterDict["pty_id"]
+        newDict["SAV_PLAN_ID"] = parameterDict["sav_id"]
+
         
-        parameterDict["payDate"] = selectedStr as String
-        newDict["payDate"] = selectedStr as String
+        let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
+        
+        newDict["IMAGE"] = dict
+
+        
+        newDict["PAY_DATE"] = selectedStr as String
+
         
         if(dateString == "date")
         {
-            newDict["payType"] = "Month"
+            newDict["PAY_TYPE"] = "Month"
         }
         else
         {
-            newDict["payType"] = "Week"
+            newDict["PAY_TYPE"] = "Week"
         }
         
         var newOfferArray : Array<NSNumber> = []
@@ -487,12 +490,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            newDict["offer_List"] = newOfferArray
+            newDict["OFFERS"] = newOfferArray
         }
         else
         {
-            newDict["offer_List"] = newOfferArray
+            newDict["OFFERS"] = newOfferArray
         }
+        
+        newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
+        newDict["STATUS"] = "Active"
         return newDict
         
     }
@@ -593,6 +599,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
+        print(objResponse)
         if let message = objResponse["errorCode"] as? String
         {
 
@@ -641,7 +648,40 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         
         let objSummaryview = SASavingSummaryViewController()
-        var newDict = self.getParameters()
+        var newDict : Dictionary<String,AnyObject> = [:]
+        
+        newDict["title"] = self.getParameters()["TITLE"]
+        newDict["amount"] = self.getParameters()["AMOUNT"]
+        newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+        let dict = self.getParameters()["IMAGE"]
+        newDict["imageURL"] = dict!["imageName.jpg"]
+  
+        newDict["day"] = dateString
+        let dateParameter = NSDateFormatter()
+        dateParameter.dateFormat = "yyyy-MM-dd"
+        var pathComponents : NSArray!
+        
+        
+        newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
+        if(dateString == "day")
+        {
+            newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
+            newDict["payType"] = self.getParameters()["Weekly"]
+        }
+        else{
+            newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+            newDict["payType"] = self.getParameters()["Monthly"]
+        }
+        
+        if offerArr.count>0{
+            newDict["offers"] = offerArr
+        }
+        
+        
+        let objSummaryView = SASavingSummaryViewController()
+        objSummaryView.itemDataDict =  newDict
+        self.navigationController?.pushViewController(objSummaryView, animated: true)
+        
         if(dateString == "day")
         {
             newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))

@@ -32,11 +32,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
         ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
         ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
-         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
-         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
-         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
-         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
-         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
+        ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
+        ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
+        ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
+        ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
+        ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
     override func viewDidLoad() {
@@ -201,18 +201,23 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 
                 
                 let bgImageView = testView.viewWithTag(1) as! UIImageView
-                
-                let url = NSURL(string:objDict["imageURL"] as! String)
-                
-                let request: NSURLRequest = NSURLRequest(URL: url!)
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    let image = UIImage(data: data!)
+                if let urlString = objDict["imageURL"] as? String
+                {
+                    let url = NSURL(string:urlString)
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        bgImageView.image = image
-                    })
-                })
-                
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    if(urlString != "")
+                    {
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            
+                            let image = UIImage(data: data!)
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                bgImageView.image = image
+                            })
+                        })
+                    }
+                }
                 
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
                 imgEuro.hidden = false
@@ -467,9 +472,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
-
+        
     }
-
+    
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
@@ -525,13 +530,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     
     /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
     
 }

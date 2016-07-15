@@ -52,8 +52,8 @@ class CustomSegmentBar: UIView {
         
         self.activeButton = UIButton()
         self.activeButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
-        self.activeButton?.setTitle(rightTitle, forState: UIControlState.Normal)
-        self.activeButton?.frame = CGRectMake(self.midOfToggleView!, self.sideOffset , widthActBtn , heightActBtn)
+        self.activeButton?.setTitle(leftTitle, forState: UIControlState.Normal)
+        self.activeButton?.frame = CGRectMake(self.sideOffset, self.sideOffset , widthActBtn , heightActBtn)
         self.activeButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
 //        self.activeButton?.addTarget(self, action:#selector(toggleButton), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(self.activeButton!)

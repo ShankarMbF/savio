@@ -260,6 +260,9 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
         else if member == 1 {
             className = "groupMemberPlan"
         }
+        else{
+            className = ""
+        }
         NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
         NSUserDefaults.standardUserDefaults().synchronize()
     }

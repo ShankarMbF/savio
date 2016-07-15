@@ -20,10 +20,17 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if isShowingProgress == "PartySavingPlanExist" {
+        
+//        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+//        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+//        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        isShowingProgress = NSUserDefaults.standardUserDefaults().valueForKey("ShowProgress") as? String
+        
+        if isShowingProgress == "individualPlan" {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
         }
-        else if(isShowingProgress == "GroupSaving PlanExist")
+        else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
         {
             self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
         }
@@ -109,10 +116,10 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
 
-            if isShowingProgress == "PartySavingPlanExist" {
+            if isShowingProgress == "individualPlan" {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
-            else if(isShowingProgress == "GroupSaving PlanExist")
+            else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
             {
                 self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
             }

@@ -79,13 +79,13 @@ class ContainerViewController: UIViewController {
             self.ToggleCentreView()
             return
         }
-        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
-        {
-            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-           self.ToggleCentreView()
-            return
-        }
+//        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
+//        {
+//            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
+//           self.ToggleCentreView()
+//            return
+//        }
 
         self.navController.view.removeFromSuperview()
         self.navController.removeFromParentViewController()
@@ -131,7 +131,7 @@ class ContainerViewController: UIViewController {
             
         case "SASavingPlanViewController":
             
-            if isShowingProgress == "PartySavingPlanExist" {
+//            if isShowingProgress == "PartySavingPlanExist" {
                 let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
                 obj.isUpdatePlan = true
                 let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
@@ -140,10 +140,10 @@ class ContainerViewController: UIViewController {
                 self.centreVC = obj
                 
                 self.replaceViewController()
-            }
-            else  {
-                
-            }
+//            }
+//            else  {
+//                
+//            }
             
             
        

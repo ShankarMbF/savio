@@ -1174,9 +1174,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if let message = objResponse["message"] as? String
         {
-            if(message == "SUCCESS")
+            if(message == "Success")
             {
-                itemDetailsDataDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+                itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
                 tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
                 cameraButton.backgroundColor = UIColor.blackColor()
@@ -1201,7 +1201,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
-                let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["image"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBackgroundImageView.image = UIImage(data: data)
                 
                 //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
@@ -1278,11 +1278,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(dateString == "day")
                 {
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
-                    dict["payType"] = "Weekly"
+                    dict["payType"] = self.getParameters()["PAY_TYPE"]
                 }
                 else{
                     dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-                    dict["payType"] = "Monthly"
+                    dict["payType"] = self.getParameters()["PAY_TYPE"]
                 }
                 
                 if offerArr.count>0{

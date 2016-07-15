@@ -1358,11 +1358,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(dateString == "day")
             {
                 dict["emi"] = String(format:"%d",cost/(dateDiff/168))
-                dict["payType"] = self.getParameters()["Weekly"]
+                dict["payType"] = "Weekly"
             }
             else{
                 dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-                dict["payType"] = self.getParameters()["Monthly"]
+                dict["payType"] = "Monthly"
                 
             }
             

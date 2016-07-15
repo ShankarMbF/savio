@@ -666,11 +666,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(dateString == "day")
         {
             newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
-            newDict["payType"] = self.getParameters()["Weekly"]
+            newDict["payType"] = "Weekly"
         }
         else{
             newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-            newDict["payType"] = self.getParameters()["Monthly"]
+            newDict["payType"] = "Monthly"
         }
         
         if offerArr.count>0{

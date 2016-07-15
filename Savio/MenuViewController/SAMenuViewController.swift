@@ -58,6 +58,7 @@ class SAMenuViewController: UIViewController {
         selectedCell?.icon?.image = imageIcon
        
         let className: String = dict["className"] as! String
+        print(className)
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
     

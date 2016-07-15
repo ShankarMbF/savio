@@ -12,7 +12,6 @@
         <mutableArray key="gotham-rounded-book-2.otf">
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
-            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -73,8 +72,8 @@
                             <action selector="plusButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="T44-9P-AOY"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smW-fd-VOu">
-                        <rect key="frame" x="30" y="32" width="130" height="26"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smW-fd-VOu">
+                        <rect key="frame" x="43" y="39" width="113" height="26"/>
                         <color key="backgroundColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="130" id="Be9-sN-mh9"/>
@@ -82,8 +81,15 @@
                             <constraint firstAttribute="height" constant="26" id="Mko-aR-gqg"/>
                             <constraint firstAttribute="height" constant="26" id="YMP-OX-foy"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
-                        <color key="textColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <attributedString key="attributedText">
+                            <fragment content="£">
+                                <attributes>
+                                    <color key="NSColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -94,8 +100,8 @@
                             </mask>
                         </variation>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
-                        <rect key="frame" x="159" y="32" width="130" height="26"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="  0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
+                        <rect key="frame" x="155" y="39" width="140" height="26"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="78s-de-v0U"/>
@@ -119,8 +125,8 @@
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="ISQ-4m-YEC" secondAttribute="top" constant="9" id="07h-ob-R3p"/>
-                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="31" id="7mf-TW-UF3"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="width" secondItem="smW-fd-VOu" secondAttribute="width" id="BAs-Uw-02X"/>
+                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="25" id="7mf-TW-UF3"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="width" secondItem="smW-fd-VOu" secondAttribute="width" constant="27" id="BAs-Uw-02X"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="-9" id="D8h-LA-5SQ"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="QW5-xP-CdE" secondAttribute="top" id="Dxe-kg-P81"/>
                     <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="H7v-Sp-nig"/>
@@ -129,13 +135,13 @@
                     <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="8" id="L6j-iS-dy6"/>
                     <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="4.5" id="NMo-NW-l8h"/>
                     <constraint firstItem="smW-fd-VOu" firstAttribute="top" secondItem="ukx-QD-x5v" secondAttribute="top" id="Q9J-5t-3ZX"/>
-                    <constraint firstItem="smW-fd-VOu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="XTI-os-fsj"/>
+                    <constraint firstItem="smW-fd-VOu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="43" id="XTI-os-fsj"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="esR-jk-i6L"/>
                     <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="smW-fd-VOu" secondAttribute="trailing" constant="-1" id="hyU-TU-CH1"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" id="hz8-fp-aIZ"/>
                     <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="18" id="t1p-i4-YP7"/>
                     <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="8" id="to6-FI-Ms4"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="1" id="vIj-U3-q3y"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="8" id="vIj-U3-q3y"/>
                     <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vbe-nO-OQX"/>
                     <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="viL-BQ-Ofz"/>
                     <constraint firstItem="ISQ-4m-YEC" firstAttribute="top" secondItem="smW-fd-VOu" secondAttribute="bottom" constant="11" id="wnC-96-ScD"/>

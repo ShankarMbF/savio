@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAStatViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="GraphContentView" destination="3pJ-dh-CAm" id="F9i-IR-izP"/>
                 <outlet property="contentView" destination="jmE-Ve-npa" id="heM-hi-hby"/>
                 <outlet property="graphSliderView" destination="fnS-6P-Qus" id="OdD-en-XP1"/>
                 <outlet property="makeImpulseBtn" destination="3mQ-sn-Pop" id="Xu9-RX-bKs"/>
@@ -305,7 +306,7 @@
                     <exclude reference="mcH-tC-hQr"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="263" y="202"/>
+            <point key="canvasLocation" x="171" y="189"/>
         </view>
     </objects>
     <resources>

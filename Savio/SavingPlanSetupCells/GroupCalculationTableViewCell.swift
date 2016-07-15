@@ -26,4 +26,3 @@ class GroupCalculationTableViewCell: UITableViewCell {
     }
     
 }
-s

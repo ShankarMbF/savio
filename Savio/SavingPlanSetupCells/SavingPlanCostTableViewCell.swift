@@ -45,6 +45,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         let maskLayer = CAShapeLayer()
         maskLayer.path = Currentpath.CGPath
         currencyLabel.layer.mask = maskLayer
+        costTextField.layer.cornerRadius = 4
         // Corner Radius of End *************************
         
         

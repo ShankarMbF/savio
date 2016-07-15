@@ -13,6 +13,7 @@ import SafariServices
 
 class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInteractionControllerDelegate,SFSafariViewControllerDelegate {
     
+    @IBOutlet weak var GraphContentView: UIView!
     @IBOutlet weak var scrHt: NSLayoutConstraint!
     var lineChart: LineChart!
     var label = UILabel()
@@ -53,7 +54,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let data: [CGFloat] = [10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
         
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","1st Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","2nd Month","3rd Month","4th Month","5th Month","6th Month","7th Month","2nd Month","3rd Month","7th Month"]
+        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","6st Month","7nd Month","8rd Month","9th Month","10th Month","11th Month","12nd Month","13rd Month","14th Month","15th Month","16th Month","17th Month","18nd Month","19rd Month","20th Month"]
         
         
         lineChart.animation.enabled = true
@@ -82,6 +83,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
+        GraphContentView.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
         
     }

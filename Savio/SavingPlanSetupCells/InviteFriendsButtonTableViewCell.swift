@@ -21,7 +21,7 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
    
  
         //************************************* cornerradious start
-        let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.TopRight, .TopLeft], cornerRadii: CGSizeMake(5, 5))
+        let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.TopRight, .TopLeft], cornerRadii: CGSizeMake(05,05))
         let costmaskLayer = CAShapeLayer()
         costmaskLayer.path = costpath.CGPath
         BGContentView.layer.mask = costmaskLayer

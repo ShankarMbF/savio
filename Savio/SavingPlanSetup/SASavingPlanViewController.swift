@@ -165,11 +165,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
+        
         if(itemDetailsDataDict["imageURL"] != nil)
         {
-            let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            
-            topBackgroundImageView.image = UIImage(data: data)
+            let url = NSURL(string:itemDetailsDataDict["imageURL"] as! String)
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                dispatch_async(dispatch_get_main_queue(), {
+                self.topBackgroundImageView.image = UIImage(data: data!)
+                })
+            })
+
+          
             cameraButton.hidden = true
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
@@ -941,11 +949,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            parameterDict["offer_List"] = newOfferArray
+            parameterDict["OFFERS"] = newOfferArray
         }
         else
         {
-            parameterDict["offer_List"] = newOfferArray
+            parameterDict["OFFERS"] = newOfferArray
         }
         
         parameterDict["INIVITED_USER_LIST"] = emptyarray
@@ -967,7 +975,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.view.addSubview(self.objAnimView)
             
             
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && isPopoverValueChanged == true)
+            if(itemTitle != "" && self.getParameters()["AMOUNT"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && isPopoverValueChanged == true)
             {
                 let objAPI = API()
                 

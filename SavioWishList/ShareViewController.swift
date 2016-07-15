@@ -65,17 +65,23 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 }
                 else{
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
-                        let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        
+                        var dict : Dictionary<String,AnyObject> = [:]
+                        if let image =  self.imageView.image
+                        {
+                            let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
+                            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                            var newDict : Dictionary<String,AnyObject> = [:]
+                            newDict["imageName.jpg"] = base64String
+                            dict["IMAGEURL"] = newDict
+                        }
                         let data = defaults.valueForKey("userInfo") as! NSData
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
-                        var dict : Dictionary<String,AnyObject> = [:]
+                        
                         dict["TITLE"] = self.textView.text
                         dict["AMOUNT"] = self.priceTextField.text
                         dict["PARTYID"] = userDict!["partyId"]
-                        var newDict : Dictionary<String,AnyObject> = [:]
-                        newDict["imageName.jpg"] = base64String
-                        dict["IMAGEURL"] = newDict
+                        
                         dict["SHAREDSAVINGPLANID"] = ""
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)
@@ -151,10 +157,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             self.view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
-
+        
         return true
     }
-
+    
     @IBAction func rightButtonPressed(sender: AnyObject) {
         let imgString = self.dictGlobal["image"] as! String
         let arrayImgUrl:  Array? = imgString.componentsSeparatedByString("#~@")   // #~@ taken from ShareExtensio.js file
@@ -172,8 +178,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        self.bgView.layer.borderColor = UIColor.grayColor().CGColor
-//        self.bgView.layer.borderWidth = 2.0
+        //        self.bgView.layer.borderColor = UIColor.grayColor().CGColor
+        //        self.bgView.layer.borderWidth = 2.0
         //self.bgView.layer.cornerRadius = 5.0
         
         
@@ -204,7 +210,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
         
         customToolBar!.items = [acceptButton]
-   
+        
         
         bgView.layer.cornerRadius = 5
         bgView.layer.masksToBounds = true
@@ -212,7 +218,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         let leftView = UILabel()
         leftView.frame = CGRectMake(10, 0, 17, 30)
         leftView.text = " £"
-       // leftView.backgroundColor = UIColor.blueColor()
+        // leftView.backgroundColor = UIColor.blueColor()
         leftView.font = UIFont(name: "GothamRounded-Medium", size: 16)
         leftView.textColor = UIColor.blackColor()
         self.priceTextField.leftView = leftView

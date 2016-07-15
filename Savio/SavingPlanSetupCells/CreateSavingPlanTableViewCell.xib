@@ -49,7 +49,7 @@
             <connections>
                 <outlet property="createSavingPlanButton" destination="nPM-64-FpA" id="y77-hn-F8o"/>
             </connections>
-            <point key="canvasLocation" x="682" y="354.5"/>
+            <point key="canvasLocation" x="416" y="314.5"/>
         </tableViewCell>
     </objects>
 </document>

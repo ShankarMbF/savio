@@ -608,7 +608,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             else
             {
-                let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
                 objAnimView.removeFromSuperview()
             }
@@ -632,7 +632,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+        let flag = "GroupSaving PlanExist"
+        NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "SavingPlanPresent")
         NSUserDefaults.standardUserDefaults().synchronize()
+        
+        
+        NSUserDefaults.standardUserDefaults().synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         
         let objSummaryview = SASavingSummaryViewController()
         var newDict = self.getParameters()

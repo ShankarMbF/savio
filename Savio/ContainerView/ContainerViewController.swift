@@ -20,17 +20,23 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if isShowingProgress == "PartySavingPlanExist" {
+        
+//        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+//        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+//        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        isShowingProgress = NSUserDefaults.standardUserDefaults().valueForKey("ShowProgress") as? String
+        
+        if isShowingProgress == "individualPlan" {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
         }
-        else if(isShowingProgress == "GroupSaving PlanExist")
+        else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
         {
             self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
         }
         else {
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
         }
-        
         
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
@@ -46,7 +52,7 @@ class ContainerViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
-        
+       
     }
     
     func ToggleCentreView() {
@@ -96,7 +102,9 @@ class ContainerViewController: UIViewController {
         case "SAOfferListViewController":
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
-            self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            obj.hideAddOfferButton = true
+            self.centreVC = obj
             centreVC.hidesBottomBarWhenPushed = true
             self.replaceViewController()
             
@@ -108,10 +116,10 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
 
-            if isShowingProgress == "PartySavingPlanExist" {
+            if isShowingProgress == "individualPlan" {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
-            else if(isShowingProgress == "GroupSaving PlanExist")
+            else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
             {
                 self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
             }

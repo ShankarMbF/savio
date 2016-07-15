@@ -646,7 +646,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
                 request.HTTPMethod = "PUT"
                 
                 
@@ -686,7 +686,7 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
                 request.HTTPMethod = "POST"
                 
                 
@@ -775,7 +775,6 @@ class API: UIView {
         else{
             self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
         }
-        
     }
     
     
@@ -891,9 +890,9 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/?party_ID=%@",baseURL,partyID))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlan?input=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            //            print(request)
+            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1106,7 +1105,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/wlid?input=wishid",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)
             request.HTTPMethod = "POST"
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
@@ -1153,5 +1152,8 @@ class API: UIView {
             }
         }
     }
+    
+    
+
     
 }

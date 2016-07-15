@@ -19,10 +19,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="453"/>
+                    <rect key="frame" x="30" y="0.0" width="540" height="453"/>
                     <subviews>
                         <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
-                            <rect key="frame" x="200" y="127" width="200" height="200"/>
+                            <rect key="frame" x="170" y="127" width="200" height="200"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
                                     <rect key="frame" x="10" y="10" width="180" height="180"/>
@@ -123,9 +123,9 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Agg-pt-vbP" secondAttribute="trailing" id="Bxh-Dh-sYa"/>
+                <constraint firstAttribute="trailing" secondItem="Agg-pt-vbP" secondAttribute="trailing" constant="30" id="Bxh-Dh-sYa"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Twb-Ly-yMV"/>
-                <constraint firstItem="Agg-pt-vbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WSn-B8-dfY"/>
+                <constraint firstItem="Agg-pt-vbP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="WSn-B8-dfY"/>
                 <constraint firstAttribute="bottom" secondItem="Agg-pt-vbP" secondAttribute="bottom" id="uZW-qW-TZk"/>
                 <constraint firstItem="Agg-pt-vbP" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uum-Wj-hvV"/>
             </constraints>

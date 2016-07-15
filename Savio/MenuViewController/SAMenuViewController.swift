@@ -10,17 +10,57 @@ import UIKit
 
 class SAMenuViewController: UIViewController {
 
+    @IBOutlet weak var menuTable: UITableView?
     var arrMenu: Array<Dictionary<String,AnyObject>> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
+        self.setUpUI()
+
+    }
+    
+    func methodOfReceivedNotification(notification: NSNotification){
+        //Take Action on Notification
+        arrMenu.removeAll()
+        self.setUpUI()
+        menuTable?.reloadData()
+    }
+    
+    func setUpUI() {
         let fileUrl: NSURL = NSBundle.mainBundle().URLForResource("Menu", withExtension: "json")!
         let jsonData: NSData = NSData(contentsOfURL: fileUrl)!
         let arr: NSArray = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSArray
-        arrMenu = arr as! Array<Dictionary<String,AnyObject>>
+        
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
 
-        // Do any additional setup after loading the view.
+        
+        for var i = 0; i < arr.count; i++ {
+            var dict = arr[i] as! Dictionary<String,AnyObject>
+            if dict["className"]!.isEqualToString("SAProgressViewController") {
+                                dict["showInMenu"] = "No"
+                if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){
+                    dict["showInMenu"] = "Yes"
+                    arrMenu.append(dict)
+                }
+            }
+           else if dict["className"]!.isEqualToString("SASavingPlanViewController") {
+                dict["showInMenu"] = "No"
+                if(individualFlag == 1)
+                {
+                    dict["showInMenu"] = "Yes"
+                    arrMenu.append(dict)
+                }
+            }
+            else{
+                arrMenu.append(dict)
+            }
+        }
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

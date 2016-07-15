@@ -261,7 +261,7 @@
                             </connections>
                         </slider>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.99215686274509807" green="0.95294117647058818" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Zx6-CM-USF" secondAttribute="trailing" constant="20" id="FNm-dv-SaZ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="20" id="HwE-hE-bib"/>

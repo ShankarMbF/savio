@@ -647,7 +647,8 @@ class API: UIView {
             if(self.isConnectedToNetwork())
             {
                 let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-                request.HTTPMethod = "PUT"
+//                request.HTTPMethod = "PUT"
+                request.HTTPMethod = "POST"
                 
                 
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
@@ -668,7 +669,6 @@ class API: UIView {
                         }
                         else
                         {
-                            //                            print(response?.description)
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -890,7 +890,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlan?input=%@",baseURL,partyID))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=i",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             print(request)
             

@@ -42,7 +42,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData"), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -359,7 +359,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             })
         }
         
-        
         return cell
     }
     
@@ -369,14 +368,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
-        {
-            if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
-            { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
-            else
-            {
+//        if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
+//        {
+//            if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
+//            { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+//                alert.show()
+//            }
+//            else
+//            {
                 NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 if(indexPath.row == 0)
@@ -389,10 +388,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
                     self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
                 }
-            }
-            
-        }
+//            }
+//        }
     }
+    
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){
             tblView!.separatorInset = UIEdgeInsetsZero

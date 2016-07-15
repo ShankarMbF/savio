@@ -191,40 +191,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "455"
             endingLineNumber = "455"
-            landmarkName = "SACreateSavingPlanViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Savio.SACreateSavingPlanViewController.errorResponseForGetWishlistAPI (Swift.String) -&gt; ()"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/SACreateSavingPlanViewController/SACreateSavingPlanViewController.swift"
-                  timestampString = "490267210.446107"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "456"
-                  endingLineNumber = "456"
-                  offsetFromSymbolStart = "38">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "protocol witness for Savio.GetWishlistDelegate.errorResponseForGetWishlistAPI (Swift.String) -&gt; () in conformance Savio.SACreateSavingPlanViewController : Savio.GetWishlistDelegate in Savio"
-                  moduleName = "Savio"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/SACreateSavingPlanViewController/SACreateSavingPlanViewController.swift"
-                  timestampString = "490267210.446267"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "455"
-                  endingLineNumber = "455"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
+            landmarkName = "errorResponseForGetWishlistAPI(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -32,20 +32,23 @@ class SAMenuViewController: UIViewController {
         let jsonData: NSData = NSData(contentsOfURL: fileUrl)!
         let arr: NSArray = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSArray
         
-        let flag = NSUserDefaults.standardUserDefaults().valueForKey("SavingPlanPresent") as! String
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+
         
         for var i = 0; i < arr.count; i++ {
             var dict = arr[i] as! Dictionary<String,AnyObject>
             if dict["className"]!.isEqualToString("SAProgressViewController") {
-                dict["showInMenu"] = "No"
-                if flag == "PartySavingPlanExist" {
+                                dict["showInMenu"] = "No"
+                if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){
                     dict["showInMenu"] = "Yes"
                     arrMenu.append(dict)
                 }
             }
            else if dict["className"]!.isEqualToString("SASavingPlanViewController") {
                 dict["showInMenu"] = "No"
-                if(flag == "GroupSaving PlanExist")
+                if(individualFlag == 1)
                 {
                     dict["showInMenu"] = "Yes"
                     arrMenu.append(dict)

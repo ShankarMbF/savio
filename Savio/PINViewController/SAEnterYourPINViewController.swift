@@ -229,16 +229,40 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
     userInfoDict["cookie"] = udidArray["COOKIE"] as! String
     objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
     print(userInfoDict)
-    let flag = objResponse["isPartySavingpersent"] as! String
     
-    NSUserDefaults.standardUserDefaults().setObject(flag, forKey: "SavingPlanPresent")
+    let groupPlan = objResponse["G"] as! NSNumber
+    let individualPlan = objResponse["I"] as! NSNumber
+    let groupMemberPlan = objResponse["GM"] as! NSNumber
+    
+    print(groupPlan)
+    print(individualPlan)
+    print(groupMemberPlan)
+    
+    NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: "groupPlan")
+    NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: "individualPlan")
+    NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
     NSUserDefaults.standardUserDefaults().synchronize()
     //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
-    
+    self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
    let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-    objHurrrayView.isSavingPresent = flag
     self.navigationController?.pushViewController(objHurrrayView, animated: true)
 }
+    
+    func setUpMenu(group:NSNumber,individual:NSNumber,member:NSNumber)  {
+        var className :String = ""
+        
+        if individual == 1 {
+            className = "individualPlan"
+        }
+        else if group == 1 {
+            className = "groupPlan"
+        }
+        else if member == 1 {
+            className = "groupMemberPlan"
+        }
+        NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
 
 func errorResponseForOTPLogInAPI(error: String) {
     objAnimView.removeFromSuperview()

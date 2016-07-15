@@ -74,7 +74,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         dict["AMOUNT"] = self.priceTextField.text
                         dict["PARTYID"] = userDict!["partyId"]
                         var newDict : Dictionary<String,AnyObject> = [:]
-                        newDict["imageName"] = base64String
+                        newDict["imageName.jpg"] = base64String
                         dict["IMAGEURL"] = newDict
                         dict["SHAREDSAVINGPLANID"] = ""
                         objAPI.shareExtensionDelegate = self

@@ -10,6 +10,7 @@ import UIKit
 
 class InviteFriendsButtonTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var bottomBorderLabel: UILabel!
     @IBOutlet weak var orginisersLabel: UILabel!
     @IBOutlet weak var inviteButton: UIButton!
@@ -18,6 +19,14 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         let objAPI = API()
    
+ 
+        //************************************* cornerradious start
+        let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.TopRight, .TopLeft], cornerRadii: CGSizeMake(05,05))
+        let costmaskLayer = CAShapeLayer()
+        costmaskLayer.path = costpath.CGPath
+        BGContentView.layer.mask = costmaskLayer
+        //************************************* cornerradious end
+        
         let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
         

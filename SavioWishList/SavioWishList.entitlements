@@ -4,8 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.extension-demo</string>
-		<string>group.com.mbf.savio</string>
+		<string>group.web.share.extention</string>
 	</array>
 </dict>
 </plist>

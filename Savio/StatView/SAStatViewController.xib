@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAStatViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="GraphContentView" destination="3pJ-dh-CAm" id="F9i-IR-izP"/>
                 <outlet property="contentView" destination="jmE-Ve-npa" id="heM-hi-hby"/>
                 <outlet property="graphSliderView" destination="fnS-6P-Qus" id="OdD-en-XP1"/>
                 <outlet property="makeImpulseBtn" destination="3mQ-sn-Pop" id="Xu9-RX-bKs"/>
@@ -174,10 +175,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9v4-mA-xGM">
-                            <rect key="frame" x="30" y="73" width="540" height="45"/>
+                            <rect key="frame" x="30" y="73" width="540" height="42"/>
                             <color key="backgroundColor" red="0.96862745100000003" green="0.58039215690000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="45" id="5pI-ou-GhH"/>
+                                <constraint firstAttribute="height" constant="42" id="5pI-ou-GhH"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -305,7 +306,7 @@
                     <exclude reference="mcH-tC-hQr"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="263" y="202"/>
+            <point key="canvasLocation" x="171" y="189"/>
         </view>
     </objects>
     <resources>

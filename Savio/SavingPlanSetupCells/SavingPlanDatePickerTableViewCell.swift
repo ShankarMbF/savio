@@ -14,6 +14,7 @@ protocol SavingPlanDatePickerCellDelegate {
 }
 class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,SegmentBarChangeDelegate {
     
+    @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var calenderImageView: UIImageView!
     @IBOutlet weak var datePickerTextField: UITextField!
     weak var tblView : UITableView?
@@ -44,6 +45,10 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         
         datePickerTextField.text = dateFormatter.stringFromDate(date)
+        
+        // cornerRadius changes
+        datePickerTextField.layer.cornerRadius = 5
+        BGContentView.layer.cornerRadius = 5
         
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))

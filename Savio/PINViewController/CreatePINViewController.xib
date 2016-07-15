@@ -42,10 +42,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekf-PI-tkm">
-                            <rect key="frame" x="30" y="379" width="540" height="43"/>
+                            <rect key="frame" x="30" y="379" width="540" height="42"/>
                             <color key="backgroundColor" red="0.96862745100000003" green="0.58039215690000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="43" id="X3J-y8-rel"/>
+                                <constraint firstAttribute="height" constant="42" id="X3J-y8-rel"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

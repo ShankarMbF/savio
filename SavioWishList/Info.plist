@@ -50,13 +50,13 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
 	</dict>
-	<key>UILaunchStoryboardName</key>
-	<string>MainInterface</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>GothamRounded-Light.otf</string>
 		<string>GothamRounded-Medium.otf</string>
 		<string>gotham-rounded-book-2.otf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>MainInterface</string>
 </dict>
 </plist>

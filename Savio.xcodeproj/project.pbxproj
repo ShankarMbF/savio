@@ -330,6 +330,7 @@
 		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
 		A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */; };
 		A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */; };
+		BAB4F64B3935786B4F4229DB /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -616,6 +617,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
+		A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -1198,6 +1201,7 @@
 		CA0F6D571D2CEA8A005CC750 /* slider-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon.png"; sourceTree = "<group>"; };
 		CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@2x.png"; sourceTree = "<group>"; };
 		CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@3x.png"; sourceTree = "<group>"; };
+		DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		E7451B943A5B44BA7D90C483 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1208,6 +1212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A86681EE1CFEE91F0014DB59 /* MobileCoreServices.framework in Frameworks */,
+				BAB4F64B3935786B4F4229DB /* libPods-SavioWishList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,6 +1244,7 @@
 			children = (
 				A86B73041D3612240075F501 /* SafariServices.framework */,
 				E7451B943A5B44BA7D90C483 /* libPods-Savio.a */,
+				A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1248,6 +1254,8 @@
 			children = (
 				F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */,
 				B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */,
+				DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */,
+				9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2037,24 +2045,13 @@
 		C9E5259F1CE986F9000FD01E = {
 			isa = PBXGroup;
 			children = (
-				A86B73021D3601890075F501 /* MediaPlayer.framework */,
-				A86B72FE1D36017B0075F501 /* CoreGraphics.framework */,
-				A86B72FF1D36017B0075F501 /* CoreText.framework */,
-				A86B72FC1D36016B0075F501 /* CoreMotion.framework */,
-				A86B72FA1D3601620075F501 /* CoreLocation.framework */,
-				A86B72F81D36015D0075F501 /* Foundation.framework */,
-				A86B72F61D3601520075F501 /* AssetsLibrary.framework */,
-				A86B72F41D36014E0075F501 /* AddressBook.framework */,
-				C9295A0D1D33863E004C2F5C /* Social.framework */,
-				A86681ED1CFEE91F0014DB59 /* MobileCoreServices.framework */,
 				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
 				C97A35191CF6CC7900BEB441 /* icon.png */,
 				C97A351A1CF6CC7900BEB441 /* icon@2x.png */,
-				A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */,
-				C9E525C81CE9D29D000FD01E /* Security.framework */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
 				A86681DE1CFEC26D0014DB59 /* SavioWishList */,
 				C9E525A91CE986FA000FD01E /* Products */,
+				CEBCEB051D37B2A800432221 /* lib */,
 				65354D1AA6A68A07E4FC6719 /* Pods */,
 				08100F54AE2E7E9D7C66644D /* Frameworks */,
 			);
@@ -2257,6 +2254,25 @@
 			path = ContactList;
 			sourceTree = "<group>";
 		};
+		CEBCEB051D37B2A800432221 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				A86B73021D3601890075F501 /* MediaPlayer.framework */,
+				A86B72FE1D36017B0075F501 /* CoreGraphics.framework */,
+				A86B72FF1D36017B0075F501 /* CoreText.framework */,
+				A86B72FC1D36016B0075F501 /* CoreMotion.framework */,
+				A86B72FA1D3601620075F501 /* CoreLocation.framework */,
+				A86B72F81D36015D0075F501 /* Foundation.framework */,
+				A86B72F61D3601520075F501 /* AssetsLibrary.framework */,
+				A86B72F41D36014E0075F501 /* AddressBook.framework */,
+				C9295A0D1D33863E004C2F5C /* Social.framework */,
+				A86681ED1CFEE91F0014DB59 /* MobileCoreServices.framework */,
+				A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */,
+				C9E525C81CE9D29D000FD01E /* Security.framework */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2264,9 +2280,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A86681E81CFEC26D0014DB59 /* Build configuration list for PBXNativeTarget "SavioWishList" */;
 			buildPhases = (
+				887C2698D67A536D47E30164 /* 📦 Check Pods Manifest.lock */,
 				A86681D91CFEC26D0014DB59 /* Sources */,
 				A86681DA1CFEC26D0014DB59 /* Frameworks */,
 				A86681DB1CFEC26D0014DB59 /* Resources */,
+				CCB45227A312A6A00D813DA5 /* 📦 Embed Pods Frameworks */,
+				CF8EEF952F61404BD2B29027 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2281,13 +2300,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9E525BA1CE986FA000FD01E /* Build configuration list for PBXNativeTarget "Savio" */;
 			buildPhases = (
-				E2F915913F8F3980949F4DD2 /* Check Pods Manifest.lock */,
+				E2F915913F8F3980949F4DD2 /* 📦 Check Pods Manifest.lock */,
 				C9E525A41CE986FA000FD01E /* Sources */,
 				C9E525A51CE986FA000FD01E /* Frameworks */,
 				C9E525A61CE986FA000FD01E /* Resources */,
 				A86681EB1CFEC26D0014DB59 /* Embed App Extensions */,
-				F6E8A53B9DA1C55F601C72CF /* Embed Pods Frameworks */,
-				A9BBB90D7FF164B8A45DC6CE /* Copy Pods Resources */,
+				F6E8A53B9DA1C55F601C72CF /* 📦 Embed Pods Frameworks */,
+				A9BBB90D7FF164B8A45DC6CE /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2311,7 +2330,7 @@
 				TargetAttributes = {
 					A86681DC1CFEC26D0014DB59 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -2323,7 +2342,7 @@
 					};
 					C9E525A71CE986FA000FD01E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -2851,29 +2870,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A9BBB90D7FF164B8A45DC6CE /* Copy Pods Resources */ = {
+		887C2698D67A536D47E30164 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E2F915913F8F3980949F4DD2 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2881,14 +2885,74 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F6E8A53B9DA1C55F601C72CF /* Embed Pods Frameworks */ = {
+		A9BBB90D7FF164B8A45DC6CE /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCB45227A312A6A00D813DA5 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF8EEF952F61404BD2B29027 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2F915913F8F3980949F4DD2 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F6E8A53B9DA1C55F601C72CF /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3025,17 +3089,18 @@
 /* Begin XCBuildConfiguration section */
 		A86681E91CFEC26D0014DB59 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -3043,17 +3108,18 @@
 		};
 		A86681EA1CFEC26D0014DB59 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4a43c85-e2fd-44e0-bd9a-88b6f3b2c876";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3153,8 +3219,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3164,9 +3230,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a8e045ea-39a5-481c-883b-2644134b3088";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3178,8 +3244,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3188,9 +3254,9 @@
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a8e045ea-39a5-481c-883b-2644134b3088";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};

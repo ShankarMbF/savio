@@ -136,8 +136,17 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         savingPlanTitleLabel.attributedText = attrText
  
-        totalAmount = savingPlanDetailsDict["amount"]!.floatValue
-        paidAmount = savingPlanDetailsDict["totalPaidAmount"]!.floatValue
+        if let amount = savingPlanDetailsDict["amount"] as? NSNumber
+        {
+             totalAmount = amount.floatValue
+        }
+        
+        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
+        {
+       
+            paidAmount = totalPaidAmount.floatValue
+            
+        }
    
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
@@ -153,7 +162,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
             circularView.roundedCorners = true
-            circularView.angle = 180//Double((paidAmount * 360)/totalAmount)
+            circularView.angle = Double((paidAmount * 360)/totalAmount)
             
              let labelOne = circularProgress.viewWithTag(3) as! UILabel
             
@@ -161,9 +170,20 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
         
-         //   let data :NSData = NSData(base64EncodedString: savingPlanDetailsDict["imageURL"] as! String, options: //NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            
-          //  imgView.image = UIImage(data: data)
+            if let imageDict = savingPlanDetailsDict["image"] as? Dictionary<String,AnyObject>
+            {
+                let url = NSURL(string:imageDict["imageURL"] as! String)
+                
+                let request: NSURLRequest = NSURLRequest(URL: url!)
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    let image = UIImage(data: data!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        imgView.image = image
+                    })
+                })
+                
+
+            }
             
             if(i == 0)
             {
@@ -267,7 +287,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         {
             if(message == "SUCCESS")
             {
-                savingPlanDetailsDict = objResponse["getPartySavingPlan"] as! Dictionary<String,AnyObject>
+                savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }
             else

@@ -72,7 +72,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let objAPI = API()
         objAPI.getofferlistDelegate = self
         objAPI.getOfferListForSavingId()
-
+        
     }
     
     func callWishListAPI()
@@ -207,13 +207,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 let request: NSURLRequest = NSURLRequest(URL: url!)
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     let image = UIImage(data: data!)
-    
+                    
                     dispatch_async(dispatch_get_main_queue(), {
                         bgImageView.image = image
                     })
                 })
-
-           
+                
+                
                 let imgEuro = testView.viewWithTag(6)! as! UIImageView
                 imgEuro.hidden = false
                 
@@ -278,7 +278,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         pageControl!.currentPage = 0
     }
     
-
+    
     // MARK: UIScrollViewDelegate method implementation
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
@@ -368,29 +368,29 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
+        
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("SavingPlanPresent") as? String
         {
-           if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
-           { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-           }
-           else
-           {
-            NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            if(indexPath.row == 0)
-            {
-                let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
-                self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
+            if(str == "PartySavingPlanExist" || str == "GroupSaving PlanExist")
+            { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
             }
             else
             {
-                let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-                self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+                NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                if(indexPath.row == 0)
+                {
+                    let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
+                    self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
+                }
+                else
+                {
+                    let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+                    self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+                }
             }
-            }
-        
+            
         }
     }
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -414,7 +414,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
-
+        
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray
@@ -446,10 +446,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
             self.setUpView()
-            
         }
         objAnimView.removeFromSuperview()
-        
     }
     
     func errorResponseForGetWishlistAPI(error: String) {
@@ -460,37 +458,24 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
-        print(objResponse)
+        //print(objResponse)
         objAnimView.removeFromSuperview()
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
-//        if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
-            print(offerArr)
-//            if NSThread.isMainThread(){
         var arr: Array<Dictionary<String,AnyObject>> = []
         for var i = 0; i < offerArr.count; i++ {
-           let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
-            print(dict)
+            let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
             arr.append(dict)
-           
         }
-        print(arr)
-                NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
-                NSUserDefaults.standardUserDefaults().synchronize()
+        NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
+        NSUserDefaults.standardUserDefaults().synchronize()
 
-//            }
-//        }
-        
     }
-    
-    
-    
-    
-    
+
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         for var key:String in Array(dict.keys) {
-           let ob = dict[key]! as? AnyObject
+            let ob = dict[key]! as? AnyObject
             
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
@@ -507,21 +492,21 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     
     
-//    const NSMutableDictionary *replaced = [NSMutableDictionary dictionaryWithDictionary:self];
-//    const id nul = [NSNull null];
-//    const NSString *blank = @"";
-//    
-//    for (NSString *key in self.allKeys) {
-//    const id object = [self objectForKey:key];
-//    if (object == nul) {
-//    [replaced setObject:blank forKey:key];
-//    } else if ([object isKindOfClass:[NSDictionary class]]) {
-//    [replaced setObject:[(NSDictionary *)object dictionaryByReplacingNullsWithStrings] forKey:key];
-//    } else if ([object isKindOfClass:[NSArray class]]) {
-//    
-//    }
-//    }
-
+    //    const NSMutableDictionary *replaced = [NSMutableDictionary dictionaryWithDictionary:self];
+    //    const id nul = [NSNull null];
+    //    const NSString *blank = @"";
+    //
+    //    for (NSString *key in self.allKeys) {
+    //    const id object = [self objectForKey:key];
+    //    if (object == nul) {
+    //    [replaced setObject:blank forKey:key];
+    //    } else if ([object isKindOfClass:[NSDictionary class]]) {
+    //    [replaced setObject:[(NSDictionary *)object dictionaryByReplacingNullsWithStrings] forKey:key];
+    //    } else if ([object isKindOfClass:[NSArray class]]) {
+    //
+    //    }
+    //    }
+    
     
     
     func errorResponseForGetOfferlistAPI(error:String){
@@ -539,7 +524,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     
-
+    
     /*
      // MARK: - Navigation
      

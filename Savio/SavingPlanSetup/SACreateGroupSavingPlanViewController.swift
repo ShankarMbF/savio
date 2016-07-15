@@ -608,7 +608,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             else
             {
-                let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
                 objAnimView.removeFromSuperview()
             }

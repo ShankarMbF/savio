@@ -33,7 +33,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-
         // Do any additional setup after loading the view.
     }
 
@@ -238,13 +237,21 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         return cell
     }
     
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
+                    if hideAddOfferButton{
+                        return 260.0
+                    }
                     return rowHT + 310.0
                 }
             }
+        }
+        
+        if hideAddOfferButton{
+            return 260.0
         }
         return 310.0
     }

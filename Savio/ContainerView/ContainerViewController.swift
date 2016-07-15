@@ -96,7 +96,9 @@ class ContainerViewController: UIViewController {
         case "SAOfferListViewController":
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
-            self.centreVC = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
+            obj.hideAddOfferButton = true
+            self.centreVC = obj
             centreVC.hidesBottomBarWhenPushed = true
             self.replaceViewController()
             

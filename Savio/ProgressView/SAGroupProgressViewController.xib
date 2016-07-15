@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="gotham-rounded-book-2.otf">
@@ -19,6 +19,7 @@
                 <outlet property="offersButton" destination="cpn-zq-oTz" id="EG3-Tu-V54"/>
                 <outlet property="pageControl" destination="gf6-nN-cap" id="OPg-Ly-F8B"/>
                 <outlet property="planButton" destination="D7a-fw-i33" id="lOQ-Hl-CtK"/>
+                <outlet property="savingPlanTitleLabel" destination="Rxj-TM-ht8" id="0E5-VJ-Z7Z"/>
                 <outlet property="spendButton" destination="OGV-x5-hXK" id="vk7-1r-eNw"/>
                 <outlet property="statsButton" destination="1lY-ph-r2K" id="kNQ-5m-EPO"/>
                 <outlet property="tblHt" destination="P6A-uP-4hQ" id="tvS-ag-Mmf"/>

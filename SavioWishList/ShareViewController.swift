@@ -20,7 +20,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     @IBOutlet var bgView: UIView!
     var spinner =  UIActivityIndicatorView()
     var currentImagePosition: Int = 0;
-    var dictGlobal: Dictionary = [String: AnyObject]()
+    var dictGlobal : Dictionary  <String,AnyObject> = [:]
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
     }

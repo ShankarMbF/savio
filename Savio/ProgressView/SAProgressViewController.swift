@@ -47,7 +47,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.view.addSubview(objAnimView)
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
-        objAPI.getUsersSavingPlan()
+        objAPI.getUsersSavingPlan("i")
        
     }
     

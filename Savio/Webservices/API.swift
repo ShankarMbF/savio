@@ -877,7 +877,7 @@ class API: UIView {
     
     //MARK: Get users saving plan
     
-    func getUsersSavingPlan()
+    func getUsersSavingPlan(str:String)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
@@ -890,7 +890,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlan?input=%@",baseURL,partyID))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             print(request)
             

@@ -15,7 +15,7 @@ class SAMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
         self.setUpUI()
 
     }

@@ -91,13 +91,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JCO-vR-97N">
                                 <rect key="frame" x="20" y="20" width="60" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="£3000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96G-PJ-u75">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="£3000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96G-PJ-u75">
                                         <rect key="frame" x="0.0" y="13" width="60" height="16"/>
-                                        <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="per month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvQ-9g-wrz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="per month" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hvQ-9g-wrz">
                                         <rect key="frame" x="2" y="29" width="55" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="FQu-tS-KhP"/>
@@ -264,11 +264,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="cellTotalAmountLabel" destination="96G-PJ-u75" id="Gsw-fX-Twt"/>
                 <outlet property="makeImpulseSavingButton" destination="EP8-wH-ddb" id="ZcG-EU-4Cx"/>
                 <outlet property="nameLabel" destination="h8L-fW-YVl" id="Agf-Nd-UGT"/>
                 <outlet property="planView" destination="JCO-vR-97N" id="zRG-31-WhJ"/>
+                <outlet property="remainingAmountLabel" destination="cgK-bv-HJt" id="z8K-A2-bFb"/>
                 <outlet property="remainingProgress" destination="Qax-Yd-Psa" id="R6i-S2-xqD"/>
                 <outlet property="saveProgress" destination="kH9-e5-Vk2" id="t3n-tm-mP7"/>
+                <outlet property="savedAmountLabel" destination="oZB-kP-ilR" id="P91-W6-icQ"/>
                 <outlet property="topSpaceProfilePic" destination="7Rb-Da-C98" id="tAU-71-I0d"/>
                 <outlet property="topVw" destination="NFY-GW-7rZ" id="Y8q-mk-KUQ"/>
                 <outlet property="topVwHt" destination="fLi-4J-hlN" id="IbN-xw-7nZ"/>

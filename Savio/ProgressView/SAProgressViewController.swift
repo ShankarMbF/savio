@@ -195,9 +195,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "%0.2f%%",String(paidAmount))
+                labelOne.text = String(format: "%0.2f%%",paidAmount)
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
+                labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
                 imgView.hidden = true
                
             }

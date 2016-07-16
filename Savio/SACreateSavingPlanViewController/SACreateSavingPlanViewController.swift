@@ -389,11 +389,20 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
             else
             {
-                let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
-                self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
-            }
-             }
-        
+                NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                if(indexPath.row == 0)
+                {
+                    let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
+                    self.navigationController?.pushViewController(objGroupSavingPlanViewController, animated: true)
+                }
+                else
+                {
+                    let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
+                    self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
+                }
+           }
+        }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

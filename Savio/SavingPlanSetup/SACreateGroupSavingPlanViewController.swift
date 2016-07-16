@@ -640,6 +640,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         print(objResponse)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
         
+        
         let flag = 1
         NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "individualPlan")
         NSUserDefaults.standardUserDefaults().synchronize()

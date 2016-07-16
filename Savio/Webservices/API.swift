@@ -912,11 +912,8 @@ class API: UIView {
                         dispatch_async(dispatch_get_main_queue()){
                             self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI((response?.description)!)
                         }
-                        
-                        
                     }
                 }
-                
             }
             dataTask.resume()
         }
@@ -929,6 +926,7 @@ class API: UIView {
     //MARK: Update saving plan
     func updateSavingPlan(dict:Dictionary<String,AnyObject>)
     {
+        print(dict)
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
@@ -953,7 +951,7 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
+                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue()){

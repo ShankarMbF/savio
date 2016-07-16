@@ -981,12 +981,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if(itemDetailsDataDict["title"] == nil)
                 {
-//                    objAPI.partySavingPlanDelegate = self
-//                    print(self.getParameters())
-//                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
-
-                    
-                   
+                    objAPI.partySavingPlanDelegate = self
+                    print(self.getParameters())
+                    objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                     
                 }
                 else if(isUpdatePlan)
@@ -1005,12 +1002,50 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
                     
-                    newDict["TITLE"] = itemTitle
+//                    newDict["TITLE"] = itemTitle
+//                    newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+//                    newDict["WISHLIST_ID"] = ""
+//                    newDict["SAV_PLAN_ID"] = self.getParameters()["SAV_PLAN_ID"]
+//                    newDict["PAY_TYPE"] = self.getParameters()["PAY_TYPE"]
+//                    if(newDict["PAY_TYPE"] as! String == "Month")
+//                    {
+//                        dateString = "date"
+//                    }
+//                    else
+//                    {
+//                        dateString = "day"
+//                    }
+//                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+//                    newDict["title"] = itemTitle
+//                    newDict["AMOUNT"] = cost
+//                    if(self.getParameters()["imageURL"] != nil)
+//                    {
+//                        let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+//                        let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//                        let dict = ["imageName.jpg":base64String]
+//                        
+//                        newDict["imageURL"] = dict
+//                    }
+//                    else
+//                    {
+//                        
+//                        let dict = ["imageName.jpg":""]
+//                        newDict["IMAGE"] = dict
+//                    }
+//                    
+//                    newDict["PARTY_ID"] = self.getParameters()["pty_id"]
+//                    newDict["offer_List"] = self.getParameters()["offer_List"]
+//                    newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
+                    
+                    
+                    
+                    
+                    newDict["title"] = itemTitle
                     newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-                    newDict["WISHLIST_ID"] = ""
-                    newDict["SAV_PLAN_ID"] = self.getParameters()["SAV_PLAN_ID"]
-                    newDict["PAY_TYPE"] = self.getParameters()["PAY_TYPE"]
-                    if(newDict["PAY_TYPE"] as! String == "Month")
+                    newDict["wishList_ID"] = ""
+                    newDict["sav_id"] = self.getParameters()["SAV_PLAN_ID"]
+                    newDict["payType"] = self.getParameters()["PAY_TYPE"]
+                    if(newDict["payType"] as! String == "Month")
                     {
                         dateString = "date"
                     }
@@ -1018,9 +1053,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         dateString = "day"
                     }
-                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+                    newDict["payDate"] = self.getParameters()["PAY_DATE"]
                     newDict["title"] = itemTitle
-                    newDict["AMOUNT"] = cost
+                    newDict["amount"] = cost
                     if(self.getParameters()["imageURL"] != nil)
                     {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
@@ -1033,12 +1068,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         
                         let dict = ["imageName.jpg":""]
-                        newDict["IMAGE"] = dict
+                        newDict["imageURL"] = dict
                     }
                     
-                    newDict["PARTY_ID"] = self.getParameters()["pty_id"]
+                    newDict["user_ID"] = self.getParameters()["pty_id"]
                     newDict["offer_List"] = self.getParameters()["offer_List"]
                     newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
+                    
+                    
                     
                     
                     objAPI.updateSavingPlan(newDict)
@@ -1107,7 +1144,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             obj.delegate = self
             if(isUpdatePlan)
             {
-                obj.savID = itemDetailsDataDict["sav_id"] as! NSNumber
+                obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
             }
             else
             {
@@ -1198,19 +1235,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
       
-                
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
-                let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["image"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-                topBackgroundImageView.image = UIImage(data: data)
+                if let imageDict = itemDetailsDataDict["image"] as? Dictionary<String,AnyObject>
+                {
+                    let url = NSURL(string:imageDict["imageURL"] as! String)
+                    
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.topBackgroundImageView.image = image
+                        })
+                    })
+                    
+                    
+                }
+                
+//                let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["image"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+//                topBackgroundImageView.image = UIImage(data: data)
                 
                 //offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 tblView.reloadData()
-                
             }
             else
             {
-                
                 let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
                 
@@ -1253,6 +1302,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else if(message == "Party Saving Plan is succesfully added")
             {
+                
                 var dict :  Dictionary<String,AnyObject> = [:]
                 dict["title"] = self.getParameters()["TITLE"]
                 dict["amount"] = self.getParameters()["AMOUNT"]
@@ -1289,8 +1339,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     dict["offers"] = offerArr
                 }
                 
-                let flag = "PartySavingPlanExist"
-                NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "SavingPlanPresent")
+                let flag = 1
+                NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
                 

@@ -329,8 +329,9 @@ class SASavingSummaryViewController: UIViewController {
         
         if (itemDataDict["imageURL"] != nil) {
             
-            let data :NSData = NSData(base64EncodedString: itemDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            if let data :NSData = NSData(base64EncodedString: (itemDataDict["imageURL"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
             topBgImageView.image = UIImage(data: data)
+            }
         }
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"

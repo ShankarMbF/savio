@@ -83,7 +83,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-        GraphContentView.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+//        GraphContentView.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
         
     }

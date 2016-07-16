@@ -128,9 +128,13 @@ public class Piechart: UIControl {
         
     }
     
-    func click(index:Int) {
+    
+    func click()
+    {
         
-        print(index)
+    }
+    func click(index:Int) {
+   
         activeSlice = index
         
         setNeedsDisplay()

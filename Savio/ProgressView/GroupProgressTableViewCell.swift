@@ -10,6 +10,9 @@ import UIKit
 
 class GroupProgressTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var remainingAmountLabel: UILabel!
+    @IBOutlet weak var savedAmountLabel: UILabel!
+    @IBOutlet weak var cellTotalAmountLabel: UILabel!
     @IBOutlet weak var remainingProgress: KDCircularProgress!
     @IBOutlet weak var saveProgress: KDCircularProgress!
     @IBOutlet weak var planView: UIView!

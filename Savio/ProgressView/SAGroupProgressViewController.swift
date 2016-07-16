@@ -9,6 +9,9 @@
 import UIKit
 
 class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate {
+    
+    @IBOutlet weak var groupMembersLabel: UILabel!
+    
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var horizontalScrollView: UIScrollView!
     @IBOutlet weak var spendButton: UIButton!
@@ -29,7 +32,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
      var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     var piechart : Piechart?
     var planTitle = ""
-    var totalAmount : Float = 0.0
+    var totalAmount : Int = 0
     var paidAmount : Float = 0.0
     var ht:CGFloat = 0.0
   var objAnimView = ImageViewAnimation()
@@ -152,7 +155,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
-            totalAmount = amount.floatValue
+            totalAmount = amount.integerValue
         }
         
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
@@ -171,10 +174,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
 //        tblHt.constant = (5 * 55) + 220
 //        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
+        groupMembersLabel.text = String(format:"Group members (%d)",participantsArr.count)
+        
         for(var i=0; i<participantsArr.count; i++)
         {
             var error = Piechart.Slice()
-            error.value = 4
+            error.value = 0
             error.color = chartColors[i]
             error.text = "Success"
             
@@ -213,36 +218,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             
             let labelTwo = circularProgress.viewWithTag(5) as! UILabel
             
-            
-            /*
-            let chart = VBPieChart()
-            
-            chart.frame = CGRectMake(xValue,-5, side, side)
-            circularProgress.addSubview(chart)
-            
-            chart.enableStrokeColor = true;
-            chart.holeRadiusPrecent = 0.75;
-            
-            chart.layer.shadowOffset = CGSizeMake(2, 2);
-            chart.layer.shadowRadius = 3;
-            chart.layer.shadowColor = UIColor.blackColor().CGColor;
-            chart.layer.shadowOpacity = 0.7
-            chart.startAngle = Float(M_PI+M_PI_2)
-            self.chartValues = [
-                ["name":"", "value": 20, "color":UIColor(red:237/255,green:182/255,blue:242/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:181/255,green:235/255,blue:157/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:247/255,green:184/255,blue:183/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:118/255,green:229/255,blue:224/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:238/255,green:234/255,blue:108/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:170/255,green:234/255,blue:184/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:193/255,green:198/255,blue:227/255,alpha:1)],
-                ["name":"", "value": 20, "color":UIColor(red:246/255,green:197/255,blue:124/255,alpha:1)],
-                ["name":"", "value": 100, "color":UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)],
-                
-            ];
-            
-            chart.setChartValues(self.chartValues as [AnyObject], animation:true);
- */
+            circularView.angle = Double((paidAmount * 360)/Float(totalAmount))
+   
             
             if(i == 0)
             {
@@ -250,8 +227,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelTwo.hidden = true
    
                 circularView.hidden = true
-                
-        
                 
                 piechart = Piechart()
                 piechart!.frame = CGRectMake(xValue,0, side, side)
@@ -271,17 +246,17 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = "0.0%"
+                labelOne.text = String(format: "%0.2f%%",paidAmount)
                 labelTwo.hidden = false
-                labelTwo.text = "£ 0.0 saved"
+                labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
                 circularView.hidden = false
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = "£ 0"
+                labelOne.text = String(format: "£ %0.2f",Float(totalAmount) - Float(paidAmount))
                 labelTwo.hidden = false
-                labelTwo.text = "0 days to go"
+                labelTwo.text = String(format: "%0.0f days to go",Float(totalAmount) - Float(paidAmount))
                 circularView.hidden = false
             }
  
@@ -402,8 +377,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.topSpaceProfilePic.constant = -3
 //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
-        tblHt.constant = (2 * 50) + ht
+        tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         cell?.nameLabel.text = cellDict["partyName"] as? String
+        cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount)
+        cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
+        cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+        
+        cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
+        cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+        
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
 
         return cell!
@@ -493,19 +475,22 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
                 
                 var userDict : Dictionary<String,AnyObject> = [:]
-                userDict["partyName"] = savingPlanDetailsDict["partyName"]
-                userDict["partyImageUrl"] = savingPlanDetailsDict["partyImageUrl"]
-                userDict["savingPlanTransactionList"] = savingPlanDetailsDict["savingPlanTransactionList"]
+                userDict["partyName"] = objResponse["partyName"]
+                userDict["partyImageUrl"] = objResponse["partyImageUrl"]
+                userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
                 
                 participantsArr.append(userDict)
+                
+               participantsArr = participantsArr.reverse()
+                
                 self.setUpView()
-          
+                
                 self.tblView.reloadData()
             }
             else
             {
                 pageControl.hidden = true
-                let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }

@@ -15,6 +15,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAGroupProgressViewController" customModule="Savio" customModuleProvider="target">
             <connections>
                 <outlet property="contentVwHt" destination="gqc-Mi-sis" id="2ik-c0-mLR"/>
+                <outlet property="groupMembersLabel" destination="Jc8-Fd-CSw" id="Ktd-F9-IfF"/>
                 <outlet property="horizontalScrollView" destination="c4S-KN-7rD" id="MMB-Yl-5Ac"/>
                 <outlet property="offersButton" destination="cpn-zq-oTz" id="EG3-Tu-V54"/>
                 <outlet property="pageControl" destination="gf6-nN-cap" id="OPg-Ly-F8B"/>
@@ -214,7 +215,7 @@
                 <constraint firstItem="EvH-8r-1Fh" firstAttribute="width" secondItem="1lY-ph-r2K" secondAttribute="width" id="loD-ub-yVd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="558" y="366"/>
+            <point key="canvasLocation" x="343" y="328"/>
         </view>
     </objects>
 </document>

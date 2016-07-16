@@ -293,7 +293,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else
             {
             pageControl.hidden = true
-            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             }
         }

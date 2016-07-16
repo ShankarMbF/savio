@@ -214,7 +214,7 @@
                 <constraint firstItem="EvH-8r-1Fh" firstAttribute="width" secondItem="1lY-ph-r2K" secondAttribute="width" id="loD-ub-yVd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="558" y="366"/>
+            <point key="canvasLocation" x="343" y="328"/>
         </view>
     </objects>
 </document>

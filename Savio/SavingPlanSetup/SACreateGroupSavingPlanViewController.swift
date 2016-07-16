@@ -639,9 +639,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-//        let flag = "GroupSaving PlanExist"
-//        NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "SavingPlanPresent")
-//        NSUserDefaults.standardUserDefaults().synchronize()
         
         let flag = 1
         NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "individualPlan")

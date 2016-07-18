@@ -141,12 +141,14 @@ class ContactViewController: UIViewController {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
                 dict["mobile_number"] = mobileNum
                 dict["email_id"] = ""
+                 dict["NOMID"] = "4"
                 text = mobileNum
             }
             else{
                 if let emailStr: String = contactDict["email"] as? String {
                     dict["email_id"] = emailStr
                     dict["mobile_number"] = ""
+                    dict["NOMID"] = "6"
                     text = emailStr
                 }
             }

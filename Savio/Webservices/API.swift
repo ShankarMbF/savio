@@ -105,6 +105,12 @@ protocol GetUserInfoDelegate
     func errorResponseForGetUserInfoAPI(error:String)
 }
 
+protocol UpdateUserInfoDelegate
+{
+    func successResponseForUpdateUserInfoAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForUpdateUserInfoAPI(error:String)
+}
+
 protocol CancelSavingPlanDelegate
 {
     func successResponseForCancelSavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
@@ -134,6 +140,7 @@ class API: UIView {
     var getUserInfoDelegate : GetUserInfoDelegate?
     var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
     var inviteMemberDelegate : InviteMembersDelegate?
+    var updateUserInfodelegate : UpdateUserInfoDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -227,7 +234,7 @@ class API: UIView {
                     {
                         //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
-                            self.delegate?.errorResponseForRegistrationAPI("Error")
+                            self.delegate?.errorResponseForRegistrationAPI((response?.description)!)
                         }
                     }
                 }
@@ -537,7 +544,7 @@ class API: UIView {
                     //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print(dict)
+                       // print(dict)
                         
                         if(dict["errorCode"] as! String == "200")
                         {
@@ -1029,6 +1036,61 @@ class API: UIView {
         }
     }
     
+    
+    
+    //MARK:Update user Info
+    
+    func updateUserInfo(dict:Dictionary<String,AnyObject>)
+    {
+        print(dict)
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        if(self.isConnectedToNetwork())
+        {
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers",baseURL))!)
+            request.HTTPMethod = "PUT"
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            //            print(request)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.updateUserInfodelegate?.successResponseForUpdateUserInfoAPI(dict)
+                        }
+                    }
+                    else
+                    {
+                        //                        print(response?.description)
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.updateUserInfodelegate?.errorResponseForUpdateUserInfoAPI((response?.description)!)
+                        }
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else{
+            self.updateUserInfodelegate?.errorResponseForUpdateUserInfoAPI("Network not available")
+        }
+        
+    }
+
     //MARK: Cancel saving plan
     func cancelSavingPlan()
     {
@@ -1151,7 +1213,7 @@ class API: UIView {
         }
     }
     
-    
 
+    
     
 }

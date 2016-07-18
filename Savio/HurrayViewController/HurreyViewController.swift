@@ -36,7 +36,7 @@ class HurreyViewController: UIViewController {
 
     @IBAction func createPlanPressed(sender: AnyObject) {
         let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
-        objContainer.isShowingProgress = isSavingPresent
+
         self.navigationController?.pushViewController(objContainer, animated: true)
     }
 }

@@ -67,13 +67,15 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         
                         var dict : Dictionary<String,AnyObject> = [:]
-                        if let image =  self.imageView.image
+                        
+                        if(self.imageView.image != nil)
                         {
-                            let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
-                            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                            var newDict : Dictionary<String,AnyObject> = [:]
-                            newDict["imageName.jpg"] = base64String
-                            dict["IMAGEURL"] = newDict
+                        let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
+                 
+                        let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        var newDict : Dictionary<String,AnyObject> = [:]
+                        newDict["imageName.jpg"] = base64String
+                        dict["IMAGEURL"] = newDict
                         }
                         let data = defaults.valueForKey("userInfo") as! NSData
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)

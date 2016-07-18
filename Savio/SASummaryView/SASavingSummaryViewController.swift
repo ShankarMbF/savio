@@ -152,9 +152,6 @@ class SASavingSummaryViewController: UIViewController {
         if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
         {
             
-            
-            
-            
             //        let ct:CGFloat = 2
             if arr.count > 0 {
                 let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
@@ -329,7 +326,9 @@ class SASavingSummaryViewController: UIViewController {
         
         if (itemDataDict["imageURL"] != nil) {
             
-            if let data :NSData = NSData(base64EncodedString: (itemDataDict["imageURL"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
+           let newDict =  itemDataDict["imageURL"]
+        
+            if let data :NSData = NSData(base64EncodedString: (newDict!["imageName.jpg"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
             topBgImageView.image = UIImage(data: data)
             }
         }

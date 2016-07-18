@@ -1215,8 +1215,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
         objAnimView?.removeFromSuperview()
         print("\(objResponse)")
-        
-        
+
        
         if(objResponse["message"] as! String == "All field are match")
         {

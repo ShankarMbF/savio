@@ -21,16 +21,15 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-//        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-//        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-//        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+
         
-        isShowingProgress = NSUserDefaults.standardUserDefaults().valueForKey("ShowProgress") as? String
-        
-        if isShowingProgress == "individualPlan" {
+        if individualFlag == 1 {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
         }
-        else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
+        else if(groupFlag == 1 || groupMemberFlag == 1)
         {
             self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
         }
@@ -100,7 +99,13 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SAOfferListViewController":
+            
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
+            
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
             NSUserDefaults.standardUserDefaults().synchronize()
             let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             obj.hideAddOfferButton = true
@@ -116,10 +121,10 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
 
-            if isShowingProgress == "individualPlan" {
+            if isShowingProgress == "I" {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
-            else if(isShowingProgress == "groupPlan" || isShowingProgress == "groupMemberPlan")
+            else if(isShowingProgress == "G" || isShowingProgress == "GM")
             {
                 self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
             }

@@ -239,8 +239,24 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 //imgView.layer.borderWidth = 1
                 imgView.frame = CGRectMake(40,40,side-80,side-80)
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
-                imgView.image = UIImage(named: "cycle.png")
+               // imgView.image = UIImage(named: "cycle.png")
+                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+                {
+   
+                    let request: NSURLRequest = NSURLRequest(URL: url)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            imgView.image = image
+                        })
+                    })
+                    
+                    
+                }
+
                 piechart!.addSubview(imgView)
+                
+                
                 
             }
             else if(i == 1)

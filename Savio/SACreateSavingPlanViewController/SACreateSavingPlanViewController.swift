@@ -374,12 +374,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? String == "individualPlan" || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? String == "groupPlan")
-        { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        else
-        {
+//        if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? String == "I" || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? String == "G")
+//        { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
+//        }
+//        else
+//        {
             NSUserDefaults.standardUserDefaults().setObject(tblArr[indexPath.row], forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -402,7 +402,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
                 }
            }
-        }
+       // }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

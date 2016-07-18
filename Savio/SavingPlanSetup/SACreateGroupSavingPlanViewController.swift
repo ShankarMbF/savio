@@ -641,8 +641,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
         
         
-        let flag = 1
-        NSUserDefaults.standardUserDefaults().setValue(flag, forKey: "individualPlan")
+        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
         NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         
@@ -653,7 +652,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["amount"] = self.getParameters()["AMOUNT"]
         newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
         let dict = self.getParameters()["IMAGE"]
-        newDict["imageURL"] = dict!["imageName.jpg"]
+        newDict["imageURL"] = dict
   
         newDict["day"] = dateString
         let dateParameter = NSDateFormatter()

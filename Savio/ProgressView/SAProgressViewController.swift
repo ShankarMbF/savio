@@ -190,9 +190,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             if(i == 0)
             {
+            
                 labelOne.hidden = true
                 labelTwo.hidden = true
                 imgView.hidden = false
+                imgView.layer.cornerRadius = imgView.frame.width/2 
                
             }
             else if(i == 1)

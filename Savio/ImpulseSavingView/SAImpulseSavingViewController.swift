@@ -6,7 +6,18 @@
 //  Copyright © 2016 Prashant. All rights reserved.
 //
 
+extension String {
+    func chopPrefix(count: Int = 1) -> String {
+        return self.substringFromIndex(self.startIndex.advancedBy(count))
+    }
+    
+    func chopSuffix(count: Int = 1) -> String {
+        return self.substringFromIndex(self.endIndex.advancedBy(-count))
+    }
+}
+
 import UIKit
+
 
 class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var addFundsButton: UIButton!
@@ -59,6 +70,7 @@ class SAImpulseSavingViewController: UIViewController {
         
     }
     
+    
     private func buildCircleSlider() {
         
         self.circleSlider = CircleSlider(frame: CGRectMake(0, 0, circularView.frame.size.width, circularView.frame.size.height), options: self.sliderOptions)
@@ -72,16 +84,19 @@ class SAImpulseSavingViewController: UIViewController {
         circularView.addSubview(circleSlider)
     }
     
+    
     func valueChange(sender: CircleSlider) {
-        
-        priceTextField.text = String(format:"%d",Int(sender.value))
-       messagePopUpView.hidden = true
+        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+        messagePopUpView.hidden = true
+        let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
+        priceTextField.attributedText = attrString2
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func setUpView(){
         
@@ -150,15 +165,15 @@ class SAImpulseSavingViewController: UIViewController {
         customToolBar!.items = [acceptButton]
         
         
-        let leftView = UILabel()
-        leftView.frame = CGRectMake(10, 0, 17, 50)
-        leftView.text = "£"
-        leftView.font = UIFont(name: "GothamRounded-Medium", size: 34)
-     
-        leftView.textAlignment = NSTextAlignment.Right
-        self.priceTextField.leftView = leftView
-        
-        self.priceTextField.leftViewMode = .Always
+//        let leftView = UILabel()
+//        leftView.frame = CGRectMake(10, 0, 17, 50)
+//        leftView.text = "£"
+//        leftView.font = UIFont(name: "GothamRounded-Medium", size: 34)
+//     
+//        leftView.textAlignment = NSTextAlignment.Right
+//        self.priceTextField.leftView = leftView
+//        
+//        self.priceTextField.leftViewMode = .Always
         
         priceTextField.inputAccessoryView = customToolBar
         priceTextField.layer.borderColor = UIColor.blackColor().CGColor
@@ -169,6 +184,7 @@ class SAImpulseSavingViewController: UIViewController {
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
+    
     
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
@@ -221,8 +237,12 @@ class SAImpulseSavingViewController: UIViewController {
     
 
     func doneBarButtonPressed(){
+        var tfString: String = priceTextField.text!
+
+        tfString = tfString.chopPrefix(1)
+        
         priceTextField.resignFirstResponder()
-        circleSlider.value = (priceTextField.text! as NSString).floatValue
+        circleSlider.value =  Float(tfString)!
         
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
@@ -230,7 +250,7 @@ class SAImpulseSavingViewController: UIViewController {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
         else if(UIScreen.mainScreen().bounds.size.height == 568)
@@ -240,7 +260,7 @@ class SAImpulseSavingViewController: UIViewController {
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+150), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+60), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
             
         }

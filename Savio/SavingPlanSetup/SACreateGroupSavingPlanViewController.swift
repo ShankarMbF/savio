@@ -511,12 +511,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             
-            //            print(self.getParameters())
+
             if(isDateChanged)
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                //                print(getParameters())
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
             }

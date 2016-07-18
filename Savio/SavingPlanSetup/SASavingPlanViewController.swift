@@ -112,28 +112,28 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
         //set Navigation left button
-  
-            if (isUpdatePlan) {
-                let leftBtnName = UIButton()
-                leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-                leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-                
-                let leftBarButton = UIBarButtonItem()
-                leftBarButton.customView = leftBtnName
-                self.navigationItem.leftBarButtonItem = leftBarButton
-                
-            } else  {
         
-                let leftBtnName = UIButton()
-                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-                leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
-                
-                let leftBarButton = UIBarButtonItem()
-                leftBarButton.customView = leftBtnName
-                self.navigationItem.leftBarButtonItem = leftBarButton
-            }
+        if (isUpdatePlan) {
+            let leftBtnName = UIButton()
+            leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+            
+        } else  {
+            
+            let leftBtnName = UIButton()
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+            leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+            
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+        }
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
@@ -174,11 +174,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                 let image = UIImage(data: data!)
                 dispatch_async(dispatch_get_main_queue(), {
-                self.topBackgroundImageView.image = UIImage(data: data!)
+                    self.topBackgroundImageView.image = UIImage(data: data!)
                 })
             })
-
-          
+            
+            
             cameraButton.hidden = true
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
@@ -227,7 +227,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //MARK: Bar button action
     func menuButtonClicked(){
-               NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     
@@ -319,7 +319,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
     
-
+    
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         
         
@@ -794,7 +794,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func cancelSavingButtonPressed(sender:UIButton)
     {
-       let obj  = SACancelSavingViewController()
+        let obj  = SACancelSavingViewController()
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
@@ -877,25 +877,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
-        if(itemDetailsDataDict["imageURL"] != nil)
+        if(itemDetailsDataDict["image"] != nil)
         {
-             let newDict = ["imageName.jpg":itemDetailsDataDict["imageURL"] as! String]
+            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let newDict = ["imageName.jpg":base64String]
+            
+            parameterDict["IMAGE"] = newDict
+        }
+        else  if(isImageClicked)
+        {
+            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let newDict = ["imageName.jpg":base64String]
             
             parameterDict["IMAGE"] = newDict
         }
         else{
-            if(isImageClicked)
-            {
-                let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                let newDict = ["imageName.jpg":base64String]
-
-                parameterDict["IMAGE"] = newDict
-            }
-            else{
-                let newDict = ["imageName.jpg":""]
-                parameterDict["IMAGE"] = newDict
-            }
+            let newDict = ["imageName.jpg":""]
+            parameterDict["IMAGE"] = newDict
+            
         }
         
         if(datePickerDate != "")
@@ -956,7 +957,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             parameterDict["OFFERS"] = newOfferArray
         }
-
+        
         parameterDict["PARTY_SAVINGPLAN_TYPE"] = "Individual"
         parameterDict["STATUS"] = "Active"
         
@@ -984,7 +985,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                     
-       
+                    
                     
                 }
                 else if(isUpdatePlan)
@@ -1002,8 +1003,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
- 
-           
+                    
+                    
                     newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                     newDict["WISHLIST_ID"] = ""
                     newDict["SAV_PLAN_ID"] = self.getParameters()["SAV_PLAN_ID"]
@@ -1023,7 +1024,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-
+                        
                         
                         let dict = ["imageName.jpg":base64String]
                         newDict["IMAGE"] = dict
@@ -1033,7 +1034,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         let dict = ["imageName.jpg":""]
                         newDict["IMAGE"] = dict
                     }
-                     newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
+                    newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
                     
                     newDict["PARTY_ID"] = self.getParameters()["PARTY_ID"]
                     newDict["OFFERS"] = self.getParameters()["OFFERS"]
@@ -1067,8 +1068,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
                     newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
                     newDict["STATUS"] = "Active"
-
-
+                    
+                    
                     print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                     
@@ -1199,12 +1200,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")
                 
                 datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-      
+                
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
                 if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                 {
- 
+                    
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         let image = UIImage(data: data!)
@@ -1216,7 +1217,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                 }
                 
-
+                
                 tblView.reloadData()
             }
             else
@@ -1299,7 +1300,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if offerArr.count>0{
                     dict["offers"] = offerArr
                 }
-
+                
                 NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)

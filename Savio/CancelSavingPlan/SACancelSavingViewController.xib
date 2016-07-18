@@ -57,7 +57,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="54" id="eMy-IQ-a6e"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -162,7 +162,7 @@
                                 <constraint firstAttribute="width" constant="450" id="qZe-ls-FiL"/>
                                 <constraint firstAttribute="height" constant="40" id="td4-P7-nIz"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
@@ -172,17 +172,17 @@
                             </variation>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to start a new saving plan?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msI-DK-VFj">
-                            <rect key="frame" x="150" y="370" width="300" height="40"/>
+                            <rect key="frame" x="150" y="327" width="300" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="4tc-IA-Ejh"/>
                                 <constraint firstAttribute="width" constant="300" id="VPE-3T-2Ry"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLv-21-PrS">
-                            <rect key="frame" x="30" y="458" width="540" height="45"/>
+                            <rect key="frame" x="30" y="415" width="540" height="45"/>
                             <color key="backgroundColor" red="0.94117647058823528" green="0.64313725490196072" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="JUh-a9-ih9"/>
@@ -194,7 +194,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKj-8R-VCW">
-                            <rect key="frame" x="10" y="458" width="580" height="40"/>
+                            <rect key="frame" x="30" y="415" width="540" height="40"/>
                             <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="ZHQ-h6-R4H"/>
@@ -223,14 +223,14 @@
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="32" id="QB1-Ar-IvF"/>
                         <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="50" id="VXI-aY-Ryk"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="Ybv-Vk-HWp"/>
-                        <constraint firstAttribute="trailing" secondItem="lKj-8R-VCW" secondAttribute="trailing" constant="10" id="dMX-ag-lUg"/>
+                        <constraint firstAttribute="trailing" secondItem="lKj-8R-VCW" secondAttribute="trailing" constant="30" id="dMX-ag-lUg"/>
                         <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="65" id="dax-Mb-zNA"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="lpF-Uk-Mmo"/>
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="nRt-zZ-40g"/>
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="50" id="vhM-Xj-4EW"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="vil-cd-lWv"/>
-                        <constraint firstItem="lKj-8R-VCW" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="10" id="wAa-uX-vWs"/>
-                        <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="133" id="xvk-Pb-K2H"/>
+                        <constraint firstItem="lKj-8R-VCW" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="wAa-uX-vWs"/>
+                        <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="90" id="xvk-Pb-K2H"/>
                     </constraints>
                 </view>
             </subviews>

@@ -138,7 +138,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setUpView(){
         
         
-        planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
         
         var attrText = NSMutableAttributedString(string: planTitle)
         
@@ -179,7 +179,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         for(var i=0; i<participantsArr.count; i++)
         {
             var error = Piechart.Slice()
-            error.value = 0
+            error.value = 1
             error.color = chartColors[i]
             error.text = "Success"
             
@@ -190,7 +190,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         if(pieChartSliceArray.count < 8)
         {
             var error = Piechart.Slice()
-            error.value = 4
+            error.value = 360.0 - CGFloat(pieChartSliceArray.count)
             error.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
             error.text = "Error"
             

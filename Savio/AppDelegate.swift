@@ -9,7 +9,7 @@
 import UIKit
 
 struct Device {
-    static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
+    static var udid =  UIDevice.currentDevice().identifierForVendor!.UUIDString
 }
 
 @UIApplicationMain
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
          //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
    
-         UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         //Check if keychain has encrypted pin value
         let objApi = API()
         //        objApi.deleteKeychainValue("myPasscode")

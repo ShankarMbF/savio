@@ -140,7 +140,7 @@ class API: UIView {
     var getUserInfoDelegate : GetUserInfoDelegate?
     var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
     var inviteMemberDelegate : InviteMembersDelegate?
-    var updateUserInfodelegate : UpdateUserInfoDelegate?
+    var updateUserInfoDelegate : UpdateUserInfoDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -933,7 +933,6 @@ class API: UIView {
     //MARK: Update saving plan
     func updateSavingPlan(dict:Dictionary<String,AnyObject>)
     {
-        print(dict)
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
@@ -945,7 +944,7 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
             request.HTTPMethod = "PUT"
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -1042,7 +1041,6 @@ class API: UIView {
     
     func updateUserInfo(dict:Dictionary<String,AnyObject>)
     {
-        print(dict)
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
@@ -1071,14 +1069,14 @@ class API: UIView {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue()){
-                            self.updateUserInfodelegate?.successResponseForUpdateUserInfoAPI(dict)
+                            self.updateUserInfoDelegate?.successResponseForUpdateUserInfoAPI(dict)
                         }
                     }
                     else
                     {
                         //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
-                            self.updateUserInfodelegate?.errorResponseForUpdateUserInfoAPI((response?.description)!)
+                            self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI((response?.description)!)
                         }
                     }
                 }
@@ -1086,7 +1084,7 @@ class API: UIView {
             dataTask.resume()
         }
         else{
-            self.updateUserInfodelegate?.errorResponseForUpdateUserInfoAPI("Network not available")
+            self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI("Network not available")
         }
         
     }

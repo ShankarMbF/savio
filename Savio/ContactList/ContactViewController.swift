@@ -158,6 +158,7 @@ class ContactViewController: UIViewController {
             if let emailStr: String = contactDict["email"] as? String {
                 dict["email_id"] = emailStr
                 dict["mobile_number"] = ""
+                dict["NOMID"] = "6"
                 text = emailStr
             }
         }

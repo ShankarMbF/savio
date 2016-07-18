@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GetUserInfoDelegate{
+class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GetUserInfoDelegate,UpdateUserInfoDelegate{
     
     @IBOutlet weak var scrlView: UIScrollView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -31,7 +31,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var dateOfBirth = ""
     var phoneNumber = ""
     var editUser = true
+    
+    var isImageClicked = false
+    
+    var image1 = UIImage(named: "img1")
+    
     var getUserInfoDelegate = GetUserInfoDelegate.self
+    
     var imagePicker = UIImagePickerController()
     
     var userInfoDict : Dictionary<String,AnyObject> = [:]
@@ -58,7 +64,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAPI.getUserInfo()
         self.setUPNavigation()
         
-       
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -578,6 +584,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
+        isImageClicked = true
+        image1 = info[UIImagePickerControllerEditedImage] as? UIImage
         
         addProfilePictureButton.setImage((info[UIImagePickerControllerEditedImage] as? UIImage), forState: .Normal)
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2.0
@@ -623,7 +631,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         }
         if titleCell.tfName?.text?.characters.count>0{
             dictForTextFieldValue.updateValue((titleCell.tfName?.text)!, forKey: "name")
-            userInfoDict.updateValue((titleCell.tfName?.text)!, forKey: "first-name")
+            userInfoDict.updateValue((titleCell.tfName?.text)!, forKey: "first_name")
         }
         print("\(dictForTextFieldValue)")
     }
@@ -754,9 +762,46 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
             }
             else{
+                
+                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+                objAnimView!.frame = self.view.frame
+                objAnimView?.animate()
+                self.view.addSubview(objAnimView!)
+
+                
+                let objAPI = API()
+
+                let dict = objAPI.getValueFromKeychainOfKey("userInfo")
+                userInfoDict["ptyid"] = dict["partyId"]
+                if(isImageClicked)
+                {
+                    let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
+                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    let newDict = ["imageName.jpg":base64String]
+                    
+                    userInfoDict["imageurl"] = newDict
+                }
+                else{
+                    let newDict = ["imageName.jpg":""]
+                    userInfoDict["imageurl"] = newDict
+                }
+                
+                userInfoDict.removeValueForKey("date_of_birth")
+                userInfoDict.removeValueForKey("pass_code")
+                userInfoDict.removeValueForKey("email")
+                userInfoDict.removeValueForKey("confirm_pin")
+                userInfoDict.removeValueForKey("imageURL")
+                userInfoDict.removeValueForKey("partyId")
+                userInfoDict.removeValueForKey("deviceRegistration")
+                userInfoDict.removeValueForKey("phone_number")
+                userInfoDict.removeValueForKey("pin")
+                userInfoDict.removeValueForKey("Surname")
+                
                 print(userInfoDict)
-                let alert = UIAlertView(title: "Alert", message: "Work in Progress", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                
+                
+                objAPI.updateUserInfoDelegate = self
+                objAPI.updateUserInfo(userInfoDict)
             }
         }
         else{
@@ -1319,7 +1364,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     
-  
+    
     
     
     //PostCode Verification Delegate Method
@@ -1367,7 +1412,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         
     }
     func errorResponseForRegistrationAPI(error:String){
-  
+        
     }
     
     
@@ -1415,7 +1460,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     // MARK: - GetUserInfoDelegate
     func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
-     print(objResponse)
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Party Found")
@@ -1440,6 +1485,27 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView!.removeFromSuperview()
     }
     
+    
+    func successResponseForUpdateUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView?.removeFromSuperview()
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "UserData Updated Successfully")
+            {
+                let alert = UIAlertView(title: "Alert", message: "User info updated successfully", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+
+            }
+        }
+        
+        print(objResponse)
+    }
+    func errorResponseForUpdateUserInfoAPI(error: String) {
+        objAnimView?.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        print(error)
+    }
     /*
      // MARK: - Navigation
      

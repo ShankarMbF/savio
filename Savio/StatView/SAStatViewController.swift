@@ -244,6 +244,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     
+    @IBAction func makeImpulseSavingPressed(sender: AnyObject) {
+        
+        let objImpulseSave = SAImpulseSavingViewController()
+        self.navigationController?.pushViewController(objImpulseSave, animated: true)
+    }
     /*
      // MARK: - Navigation
      

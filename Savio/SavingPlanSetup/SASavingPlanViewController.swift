@@ -34,6 +34,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isPopoverValueChanged = false
     var isClearPressed = false
     var isUpdatePlan = false
+    var isImageClicked = false
     
     var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
@@ -883,7 +884,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             parameterDict["IMAGE"] = newDict
         }
         else{
-            if(cameraButton.hidden == true)
+            if(isImageClicked)
             {
                 let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -1002,12 +1003,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var pathComponents2 : NSArray!
                     pathComponents2 = dateStr.componentsSeparatedByString("-")
  
-                    newDict["title"] = itemTitle
+           
                     newDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-                    newDict["wishList_ID"] = ""
-                    newDict["sav_id"] = self.getParameters()["SAV_PLAN_ID"]
-                    newDict["payType"] = self.getParameters()["PAY_TYPE"]
-                    if(newDict["payType"] as! String == "Month")
+                    newDict["WISHLIST_ID"] = ""
+                    newDict["SAV_PLAN_ID"] = self.getParameters()["SAV_PLAN_ID"]
+                    newDict["PAY_TYPE"] = self.getParameters()["PAY_TYPE"]
+                    if(newDict["PAY_TYPE"] as! String == "Month")
                     {
                         dateString = "date"
                     }
@@ -1015,28 +1016,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         dateString = "day"
                     }
-                    newDict["payDate"] = self.getParameters()["PAY_DATE"]
-                    newDict["title"] = itemTitle
-                    newDict["amount"] = cost
-                    if(self.getParameters()["imageURL"] != nil || topBackgroundImageView.image != nil)
+                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+                    newDict["TITLE"] = itemTitle
+                    newDict["AMOUNT"] = cost
+                    if(topBackgroundImageView.image != nil)
                     {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
 
                         
-                        newDict["imageURL"] = base64String
+                        let dict = ["imageName.jpg":base64String]
+                        newDict["IMAGE"] = dict
                     }
                     else
                     {
-                        
-
-                        newDict["imageURL"] = ""
+                        let dict = ["imageName.jpg":""]
+                        newDict["IMAGE"] = dict
                     }
+                     newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
                     
-                    newDict["user_ID"] = self.getParameters()["pty_id"]
-                    newDict["offer_List"] = self.getParameters()["offer_List"]
-                    newDict["partySavingPlanID"] = itemDetailsDataDict["partySavingPlanID"]
-                    
+                    newDict["PARTY_ID"] = self.getParameters()["PARTY_ID"]
+                    newDict["OFFERS"] = self.getParameters()["OFFERS"]
+                    newDict["PARTY_SAVINGPLAN_ID"] = itemDetailsDataDict["partySavingPlanID"]
+                    newDict["STATUS"] = "Active"
                     
                     print(newDict)
                     
@@ -1152,7 +1154,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
-        
+        isImageClicked = true
         if(isUpdatePlan)
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
@@ -1266,8 +1268,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["title"] = self.getParameters()["TITLE"]
                 dict["amount"] = self.getParameters()["AMOUNT"]
                 dict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
-               let newDict = self.getParameters()["IMAGE"]
-                 dict["imageURL"] = newDict
+                let newDict = self.getParameters()["IMAGE"]
+                dict["imageURL"] = newDict
                 
                 dict["id"] = itemDetailsDataDict["id"]
                 dict["day"] = dateString
@@ -1337,14 +1339,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-       // print(objResponse)
+        print(objResponse)
         
         if let message = objResponse["message"] as? String
         {
             var dict :  Dictionary<String,AnyObject> = [:]
             dict["title"] = itemTitle
             dict["amount"] = String(format:"%d",cost)
-            dict["PAY_DATE"] = self.getParameters()["PAYDATE"]
+            dict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
             let newDict = self.getParameters()["IMAGE"]
             dict["imageURL"] = newDict
             dict["id"] = self.getParameters()["partySavingPlanID"]

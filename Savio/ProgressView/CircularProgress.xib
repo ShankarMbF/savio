@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,11 +21,11 @@
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-pt-vbP" customClass="KDCircularProgress" customModule="Savio" customModuleProvider="target">
                     <rect key="frame" x="30" y="0.0" width="540" height="453"/>
                     <subviews>
-                        <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
+                        <view tag="5" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
                             <rect key="frame" x="170" y="127" width="200" height="200"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
-                                    <rect key="frame" x="10" y="10" width="180" height="180"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
+                                    <rect key="frame" x="15" y="15" width="170" height="170"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
                                     <rect key="frame" x="25" y="101" width="150" height="50"/>
@@ -67,14 +67,14 @@
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="24N-FK-d7V"/>
                                 <constraint firstAttribute="width" constant="200" id="2Bd-JI-oi1"/>
                                 <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="3BS-tp-p0d"/>
-                                <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="10" id="9UP-7I-eAb"/>
+                                <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="15" id="9UP-7I-eAb"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
                                 <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="lBD-XE-gZN" secondAttribute="centerX" id="JvZ-Ki-mAz"/>
                                 <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="Mzw-jC-dHU"/>
-                                <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="10" id="VSq-oH-jvA"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="15" id="VSq-oH-jvA"/>
                                 <constraint firstAttribute="width" secondItem="kwY-gp-AnE" secondAttribute="height" multiplier="1:1" id="ZeF-Xz-74Q"/>
-                                <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="10" id="aDM-ZD-8qJ"/>
-                                <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="10" id="dzj-Q2-bwV"/>
+                                <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="15" id="aDM-ZD-8qJ"/>
+                                <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="15" id="dzj-Q2-bwV"/>
                                 <constraint firstAttribute="height" constant="200" id="pyA-So-dWZ"/>
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="21" id="xyF-bG-Tio"/>
                             </constraints>

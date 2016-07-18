@@ -239,6 +239,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 //imgView.layer.borderWidth = 1
                 imgView.frame = CGRectMake(40,40,side-80,side-80)
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
+                imgView.clipsToBounds = true
+                imgView.contentMode = UIViewContentMode.ScaleAspectFill
                // imgView.image = UIImage(named: "cycle.png")
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
@@ -251,7 +253,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                         })
                     })
                     
-                    
+            
                 }
 
                 piechart!.addSubview(imgView)

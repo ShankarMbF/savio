@@ -58,7 +58,7 @@ public class LineChart: UIView {
         public var visible: Bool = true
         // #607d8b
         public var color: UIColor = UIColor(red: 96/255.0, green: 125/255.0, blue: 139/255.0, alpha: 1)
-        public var inset: CGFloat = 25
+        public var inset: CGFloat = 30
     }
     
     public struct Coordinate {
@@ -98,6 +98,8 @@ public class LineChart: UIView {
     public var y: Coordinate = Coordinate()
     public var graphView: UIView = UIView()
     public var graphHeight: CGFloat = 0
+    public var maximumValue: CGFloat = 0
+    public var minimumValue: CGFloat = 0
     
     // values calculated on init
     private var drawingHeight: CGFloat = 0 {
@@ -227,9 +229,11 @@ public class LineChart: UIView {
             let rounded = Int(round(Double(inverted)))
             setProgressForCircularFloatingProgressBar(rounded)
             let yValues: [CGFloat] = getYValuesForXValue(rounded)
-            let stringValue: String = String.init(format: "%.0f", yValues.first!)
-            self.valueLabel.text = stringValue
-
+            var firstValue = yValues.first
+            if firstValue >= 0 {
+                let stringValue: String = String.init(format: "%.0f", firstValue!)
+                self.valueLabel.text = stringValue
+            }
         }
     }
     
@@ -317,12 +321,13 @@ public class LineChart: UIView {
     func setProgressForCircularFloatingProgressBar(index: Int)  {
         var data: [CGFloat] = self.dataStore[0]
         if data.count > 0 {
+            
             let currentValue: CGFloat = data[index] as CGFloat
-            let maxValue: CGFloat = data.last! as CGFloat
-            let progressValue = (360.0  / maxValue) * currentValue
-            progress.angle = Double(progressValue)
+            if currentValue >= 0 {
+                let progressValue = (360.0  / self.maximumValue) * currentValue
+                progress.angle = Double(progressValue)
+            }
         }
-        
     }
     /**
      * Draw small dot at every data point.
@@ -333,6 +338,10 @@ public class LineChart: UIView {
         
         self.setProgressForCircularFloatingProgressBar(0)
         for index in 0..<data.count {
+            
+            if data[index] < 0 {
+                return
+            }
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - dots.outerRadius/2
             let yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset - dots.outerRadius/2
             
@@ -376,10 +385,15 @@ public class LineChart: UIView {
         
         graphView = UIView(frame: CGRect(x: a1 - widthOfScrollingLineView / 2.0, y: x.axis.inset, width: 40, height: self.drawingHeight ))
         graphView.backgroundColor = UIColor.clearColor()
-        var data = self.dataStore[0]
+        let data = self.dataStore[0]
 
+        
         self.valueLabel.frame = CGRect(x: 4.0 , y: widthOfScrollingLineView / 2.0 - 2.0, width: widthOfScrollingLineView - 10.0, height: 10)
-        let stringValue: String = String.init(format: "%.0f", data.first!)
+        var firstValue = data.first
+        if firstValue < 0 {
+            firstValue = 0
+        }
+        let stringValue: String = String.init(format: "%.0f", firstValue!)
 
         self.valueLabel.text = stringValue
         self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 7)
@@ -461,14 +475,14 @@ public class LineChart: UIView {
      * Get maximum value in all arrays in data store.
      */
     private func getMaximumValue() -> CGFloat {
-        var max: CGFloat = 1
-        for data in dataStore {
-            let newMax = data.maxElement()!
-            if newMax > max {
-                max = newMax
-            }
-        }
-        return max
+//        var max: CGFloat = 1
+//        for data in dataStore {
+//            let newMax = data.maxElement()!
+//            if newMax > max {
+//                max = newMax
+//            }
+//        }
+        return self.maximumValue
     }
     
     
@@ -477,14 +491,14 @@ public class LineChart: UIView {
      * Get maximum value in all arrays in data store.
      */
     private func getMinimumValue() -> CGFloat {
-        var min: CGFloat = 0
-        for data in dataStore {
-            let newMin = data.minElement()!
-            if newMin < min {
-                min = newMin
-            }
-        }
-        return min
+//        var min: CGFloat = 0
+//        for data in dataStore {
+//            let newMin = data.minElement()!
+//            if newMin < min {
+//                min = newMin
+//            }
+//        }
+        return self.minimumValue
     }
     
     
@@ -494,15 +508,19 @@ public class LineChart: UIView {
     private func drawLine(lineIndex: Int) {
         
         var data = self.dataStore[lineIndex]
+        
+
         let path = UIBezierPath()
         
         var xValue = self.x.scale(0) + x.axis.inset
         var yValue = graphHeight - self.y.scale(data[0]) - y.axis.inset
         path.moveToPoint(CGPoint(x: xValue, y: yValue))
         for index in 1..<data.count {
-            xValue = self.x.scale(CGFloat(index)) + x.axis.inset
-            yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset
-            path.addLineToPoint(CGPoint(x: xValue, y: yValue))
+            if data[index]  >= 0 {
+                xValue = self.x.scale(CGFloat(index)) + x.axis.inset
+                yValue = graphHeight - self.y.scale(data[index]) - y.axis.inset
+                path.addLineToPoint(CGPoint(x: xValue, y: yValue))
+            }
         }
         
         let layer = CAShapeLayer()
@@ -544,13 +562,17 @@ public class LineChart: UIView {
         // add line to first data point
         path.addLineToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(data[0]) - y.axis.inset))
         // draw whole line chart
+        var lastIndex = 0
         for index in 1..<data.count {
-            let x1 = self.x.scale(CGFloat(index)) + x.axis.inset
-            let y1 = graphHeight - self.y.scale(data[index]) - y.axis.inset
-            path.addLineToPoint(CGPoint(x: x1, y: y1))
+            if data[index]  >= 0 {
+                let x1 = self.x.scale(CGFloat(index)) + x.axis.inset
+                let y1 = graphHeight - self.y.scale(data[index]) - y.axis.inset
+                path.addLineToPoint(CGPoint(x: x1, y: y1))
+                lastIndex = index
+            }
         }
         // move down to x axis
-        path.addLineToPoint(CGPoint(x: self.x.scale(CGFloat(data.count - 1)) + x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
+        path.addLineToPoint(CGPoint(x: self.x.scale(CGFloat(lastIndex)) + x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         // move to origin
         path.addLineToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         path.fill()
@@ -608,12 +630,37 @@ public class LineChart: UIView {
     /**
      * Draw x labels.
      */
-    private func createXLabelText (index: Int) -> String {
-        var label: String
+    private func createXLabelText (index: Int) -> NSMutableAttributedString {
+        let text = x.labels.values[index]
+        let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!]
+        let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
+        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
+
+        switch index {
+        case 0:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            attString.appendAttributedString(superscript)
+            break
+            
+        case 1:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            attString.appendAttributedString(superscript)
+            break
+            
+        case 2:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            attString.appendAttributedString(superscript)
+            break
+            
+        default:
+            let superscript = NSMutableAttributedString(string: "th", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            attString.appendAttributedString(superscript)
+            break
+            
+        }
+        attString.appendAttributedString(NSAttributedString(string: " month", attributes: attributes))
         
-        label = String()
-        
-        return label
+        return attString
     }
     
     private func drawXLabels() {
@@ -637,19 +684,19 @@ public class LineChart: UIView {
             }
             
             if (x.labels.values.count != 0) {
-                text = x.labels.values[index]
+                label.attributedText =  createXLabelText(index) //x.labels.values[index]
             } else {
-                text = String(index)
+                label.text = String(index)
             }
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!])
-           
-            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
-
-            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5], range: NSRange(location:1,length:2))
-            
-            
-        
-            label.attributedText = attString
+//            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!])
+//           
+//            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
+//
+//            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5], range: NSRange(location:1,length:2))
+//            
+//            
+//        
+//            label.attributedText = attString
             self.addSubview(label)
         }
     }
@@ -665,8 +712,8 @@ public class LineChart: UIView {
         step *= drawIndex
         for var i: CGFloat = start; i <= stop; i += step {
             yValue = graphHeight - self.y.scale(i) - (y.axis.inset * 1.5)
-            let label = UILabel(frame: CGRect(x: 2.0, y: yValue, width: y.axis.inset - 4.0, height: y.axis.inset))
-            label.font = UIFont(name: "GothamRounded-Medium", size: 8)
+            let label = UILabel(frame: CGRect(x: 2.0, y: yValue, width: y.axis.inset - 8.0, height: y.axis.inset))
+            label.font = UIFont(name: "GothamRounded-Light", size: 6)
             label.textAlignment = .Right
             label.text = String(Int(round(i)))
             label.backgroundColor = UIColor.clearColor()

@@ -21,6 +21,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
     var itemTitle = ""
+    var endDate = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
@@ -49,11 +50,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         //        self.contentView!.addSubview(label)
         lineChart = LineChart()
         lbl?.text = itemTitle
+        lineChart.maximumValue = 3000
+        lineChart.minimumValue = 0
         
-        let data: [CGFloat] = [3000]//[10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
+        let data: [CGFloat] = [0,600,600,-1,-1]
         
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","6st Month","7nd Month","8rd Month","9th Month","10th Month","11th Month","12nd Month","13rd Month","14th Month","15th Month","16th Month","17th Month","18nd Month","19rd Month","20th Month"]
+        xLabels = ["1","2","3","4","5"]
         
         
         lineChart.animation.enabled = true

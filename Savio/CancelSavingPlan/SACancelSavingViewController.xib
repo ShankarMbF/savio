@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -43,7 +43,7 @@
                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel your savings plan?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5v-1W-cps">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel your savings plan?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5v-1W-cps">
                             <rect key="frame" x="10" y="189" width="580" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="UC1-nH-DAR"/>
@@ -157,7 +157,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your money will returned to your bank in the next 5-10 working days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-m4-mN9">
-                            <rect key="frame" x="50" y="197" width="500" height="40"/>
+                            <rect key="frame" x="30" y="197" width="540" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="450" id="qZe-ls-FiL"/>
                                 <constraint firstAttribute="height" constant="40" id="td4-P7-nIz"/>
@@ -221,13 +221,13 @@
                         <constraint firstItem="DLv-21-PrS" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="N1c-ek-4lc"/>
                         <constraint firstAttribute="trailing" secondItem="DLv-21-PrS" secondAttribute="trailing" constant="30" id="NaS-Zt-AU4"/>
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="32" id="QB1-Ar-IvF"/>
-                        <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="50" id="VXI-aY-Ryk"/>
+                        <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="30" id="VXI-aY-Ryk"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="Ybv-Vk-HWp"/>
                         <constraint firstAttribute="trailing" secondItem="lKj-8R-VCW" secondAttribute="trailing" constant="30" id="dMX-ag-lUg"/>
                         <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="65" id="dax-Mb-zNA"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="lpF-Uk-Mmo"/>
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="nRt-zZ-40g"/>
-                        <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="50" id="vhM-Xj-4EW"/>
+                        <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="vhM-Xj-4EW"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="vil-cd-lWv"/>
                         <constraint firstItem="lKj-8R-VCW" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="wAa-uX-vWs"/>
                         <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="90" id="xvk-Pb-K2H"/>

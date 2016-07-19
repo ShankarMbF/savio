@@ -130,7 +130,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
             {
                 NSUserDefaults.standardUserDefaults().setValue(0, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
-
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
                 view1.hidden = true
                 view2.hidden = false
             }

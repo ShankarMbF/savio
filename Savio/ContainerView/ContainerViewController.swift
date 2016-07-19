@@ -120,18 +120,22 @@ class ContainerViewController: UIViewController {
         case "SAProgressViewController":
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
-
-            if isShowingProgress == "I" {
+            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+            let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+            let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+            
+            
+            if individualFlag == 1 {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
-            else if(isShowingProgress == "G" || isShowingProgress == "GM")
+            else if(groupFlag == 1 || groupMemberFlag == 1)
             {
                 self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
             }
             else {
                 self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
             }
-            
+
             self.replaceViewController()
             
         case "SASavingPlanViewController":

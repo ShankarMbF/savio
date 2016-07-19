@@ -374,8 +374,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
-        if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? String == "I" || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? String == "G")
-        { let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
+        if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 1)
+        {
+            let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

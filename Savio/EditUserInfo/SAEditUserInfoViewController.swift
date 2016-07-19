@@ -796,10 +796,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 userInfoDict.removeValueForKey("phone_number")
                 userInfoDict.removeValueForKey("pin")
                 userInfoDict.removeValueForKey("Surname")
-                
-                print(userInfoDict)
-                
-                
+  
                 objAPI.updateUserInfoDelegate = self
                 objAPI.updateUserInfo(userInfoDict)
             }

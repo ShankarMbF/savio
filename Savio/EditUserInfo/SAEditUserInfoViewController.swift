@@ -1464,9 +1464,33 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             {
                 userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
                 //Get Registration UI Json data
+      
+                if let urlString = userInfoDict["imageURL"] as? String
+                {
+                    let url = NSURL(string:urlString)
+                    
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    if(urlString != "")
+                    {
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            
+                            let image = UIImage(data: data!)
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.addProfilePictureButton.setImage(image, forState: .Normal)
+                                  self.addProfilePictureButton.layer.cornerRadius = self.addProfilePictureButton.frame.size.height/2.0
+                                self.addProfilePictureButton.clipsToBounds = true
+                            })
+                        })
+                    }
+                }
+
+                
                 self.getJSONForUI()
                 //Setup Registration UI
                 self.createCells()
+                
+                
             }
             else{
                 let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")

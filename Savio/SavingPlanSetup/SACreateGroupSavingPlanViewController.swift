@@ -73,8 +73,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func setUpView(){
         //set Navigation left button
         
-        
-        
+
         
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -138,6 +137,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             isDateChanged = true
         }
         
+        
+        print(parameterDict)
         
     }
     
@@ -409,28 +410,34 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         //        newDict["INIVITED_DATE"] = parameterDict["INIVITED_DATE"]
         newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
-        newDict["title"] = parameterDict["title"]
-        newDict["amount"] = parameterDict["amount"]
-        newDict["payDate"] = parameterDict["payDate"]
-        newDict["user_ID"] = parameterDict["pty_id"]
-        newDict["partySavingPlanID"] = parameterDict["sharedPartySavingPlan"]
-        newDict["imageURL"] = parameterDict["imageURL"]
-        newDict["payType"] = parameterDict["payType"]
-        newDict["wishList_ID"] = parameterDict["wishList_ID"] as! NSNumber
+        newDict["TITLE"] = parameterDict["title"]
+        newDict["AMOUNT"] = parameterDict["amount"]
+        newDict["PARTY_ID"] = parameterDict["pty_id"]
+        newDict["PARTY_SAVINGPLAN_ID"] = parameterDict["sharedPartySavingPlan"]
+    
+        if(parameterDict["imageURL"] as! String != "")
+        {
+        let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
+        
+        newDict["IMAGE"] = dict
+        }
+        
+        newDict["WISHLIST_ID"] = parameterDict["wishList_ID"] as! NSNumber
         
         
-        newDict["sav_id"] = parameterDict["sav_id"] as! NSNumber
-        
-        newDict["payDate"] = selectedStr
-        parameterDict["payDate"] = selectedStr
+        newDict["PAY_DATE"] = selectedStr
+
         if(dateString == "date")
         {
-            newDict["payType"] = "Month"
+            newDict["PAY_TYPE"] = "Month"
         }
         else
         {
-            newDict["payType"] = "Week"
+            newDict["PAY_TYPE"] = "Week"
         }
+        
+        newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
+        newDict["STATUS"] = "Active"
         
         var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0{
@@ -440,11 +447,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            newDict["offer_List"] = newOfferArray
+            newDict["OFFERS"] = newOfferArray
         }
         else
         {
-            newDict["offer_List"] = newOfferArray
+            newDict["OFFERS"] = newOfferArray
+            
+            
         }
         //        print(newDict)
         return newDict
@@ -515,6 +524,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             if(isDateChanged)
             {
                 let objAPI = API()
+                print(self.getParameters())
                 objAPI.partySavingPlanDelegate = self
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
@@ -529,7 +539,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let obj = SAOfferListViewController()
             obj.delegate = self
-            obj.savID = parameterDict["sav_id"] as! NSNumber
+            if let savId = parameterDict["sav_id"] as? String
+            {
+                obj.savID = Int(savId)!
+            }
+            else if let savId = parameterDict["sav_id"] as? NSNumber
+            {
+                obj.savID = savId
+            }
+
             self.navigationController?.pushViewController(obj, animated: true)
         }
     }
@@ -579,7 +597,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let obj = SAOfferListViewController()
             obj.delegate = self
-            obj.savID = parameterDict["sav_id"] as! NSNumber
+            if let savId = parameterDict["sav_id"] as? String
+            {
+                   obj.savID = Int(savId)!
+            }
+            else if let savId = parameterDict["sav_id"] as? NSNumber
+            {
+                obj.savID = savId
+            }
             self.navigationController?.pushViewController(obj, animated: true)
         }
     }
@@ -623,7 +648,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
         }
         else
-        {
+        {       let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+            
             objAnimView.removeFromSuperview()
         }
         
@@ -640,12 +667,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        
-        
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-        
  
-        
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+
         let objSummaryview = SASavingSummaryViewController()
         var newDict : Dictionary<String,AnyObject> = [:]
         

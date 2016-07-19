@@ -798,12 +798,15 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"]
         }
         else{
-            if((imageDataDict["savPlanID"]) != nil)
+            if((imageDataDict["sav-id"]) != nil)
+            {
+                parameterDict["sav_id"] = imageDataDict["sav-id"]
+            }
+            else if(imageDataDict["savPlanID"] != nil)
             {
                 parameterDict["sav_id"] = imageDataDict["savPlanID"]
             }
-            else
-            {
+           else {
                 parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
             }
         }

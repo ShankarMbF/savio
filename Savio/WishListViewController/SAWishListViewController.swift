@@ -189,12 +189,14 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(urlString != "")
             {
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    
+                    if data?.length > 0
+                    {
                     let image = UIImage(data: data!)
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.imgView.image = image
                     })
+                    }
                 })
             }
         }

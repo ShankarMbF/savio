@@ -272,6 +272,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             // Add the test view as a subview to the scrollview.
             scrlView!.addSubview(testView)
         }
+        
+   
     }
     
     
@@ -434,6 +436,19 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             self.setUpView()
             tblView?.scrollsToTop = true
             tblView?.reloadData()
+            
+            if(tblArr.count != 0)
+            {
+                for i in 0 ..< tblArr.count {
+                    let dict = tblArr[i] as Dictionary<String,AnyObject>
+                    if(dict["title"] as! String == "Group Save")
+                    {
+                        NSUserDefaults.standardUserDefaults().setObject(dict["savPlanID"], forKey: "savPlanID")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                    }
+                }
+            }
+            
             self.callGetOfferListAPI()
         }
         

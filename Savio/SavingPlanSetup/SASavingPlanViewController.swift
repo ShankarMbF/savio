@@ -172,10 +172,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let url = NSURL(string:itemDetailsDataDict["imageURL"] as! String)
             let request: NSURLRequest = NSURLRequest(URL: url!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                if(data?.length > 0)
+                {
                 let image = UIImage(data: data!)
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.topBackgroundImageView.image = UIImage(data: data!)
+                    self.topBackgroundImageView.image = image
                 })
+                }
             })
             
             

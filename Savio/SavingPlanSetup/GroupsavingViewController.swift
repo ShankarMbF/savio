@@ -36,12 +36,13 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     var addressBook: ABPeoplePickerNavigationController?
     var isFromWishList = false
     var imagePicker = UIImagePickerController()
+    
     @IBOutlet weak var scrlView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-//        print(itemDetailsDataDict)
+        //        print(itemDetailsDataDict)
         self.title = "Savings plan setup"
         let font = UIFont(name: "GothamRounded-Book", size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
@@ -119,16 +120,35 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        if(itemDetailsDataDict["imageURL"] != nil)
+        if let urlString = itemDetailsDataDict["imageURL"] as? String
         {
-            let data :NSData = NSData(base64EncodedString: itemDetailsDataDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-          //  print(itemDetailsDataDict)
-            if data.length > 0{
-            topBackgroundImageView.image = UIImage(data: data)
+            let url = NSURL(string:urlString)
+            
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            if(urlString != "")
+            {
+//                let spinner =  UIActivityIndicatorView()
+//                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
+//                spinner.hidesWhenStopped = true
+//                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+//                topBackgroundImageView.addSubview(spinner)
+//                spinner.startAnimating()
+                
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    
+                    let image = UIImage(data: data!)
+                    if(data?.length > 0)
+                    {
+                    dispatch_async(dispatch_get_main_queue(), {
+                      //  spinner.hidden = true
+                        self.topBackgroundImageView.image = image
+                    })
+                    }
+                })
             }
             else {
                 imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-
+                
             }
             cameraButton.hidden = true
             isFromWishList = true
@@ -146,7 +166,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
-                
+        
     }
     func backButtonClicked()
     {
@@ -251,7 +271,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-              
+                
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
                 self.imagePicker.allowsEditing = true
@@ -292,7 +312,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
         var contactDict: Dictionary<String,AnyObject> = [:]
         //Get person's first name
-     
+        
         //Get person's last name
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
@@ -300,7 +320,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
                 contactDict["name"] = firstName as! String
             }
-        
+            
             
             if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
                 contactDict["lastName"] = lastName as! String
@@ -330,7 +350,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             } else {
                 phoneNumber = "Phone Number is empty!";
             }
-//            print(phoneNumber)
+            //            print(phoneNumber)
         }
         
         //Get person's email id
@@ -341,7 +361,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 let emailAddress = ABMultiValueCopyValueAtIndex(emails, index).takeRetainedValue() as! String
                 contactDict["email"] = emailAddress
                 
-//                print(emailAddress)
+                //                print(emailAddress)
             } else {
                 print("No email address")
             }
@@ -353,11 +373,11 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         var pic: UIImage? //= UIImage(named: "default-pic.png")!
         let picTemp1 = ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail)
         if picTemp1 == nil{
-//            print("NIL FOUND")
+            //            print("NIL FOUND")
             pic = nil
         }
         else{
-//            print("PICTURE FOUND")
+            //            print("PICTURE FOUND")
             let picTemp2: NSObject? = Unmanaged<NSObject>.fromOpaque(picTemp1!.toOpaque()).takeRetainedValue()
             if picTemp2 != nil {
                 pic = UIImage(data: picTemp2! as! NSData)!
@@ -373,7 +393,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
-     print(contactDict)
+        print(contactDict)
         
         participantsArr.append(contactDict)
         
@@ -546,7 +566,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
-  
+                
                 cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell1
             }
@@ -713,16 +733,16 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         var parameterDict : Dictionary<String,AnyObject> = [:]
         if(itemDetailsDataDict["id"] != nil){
             let str = Int (itemDetailsDataDict["id"] as! NSNumber)
-//            print(str)
-        parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
+            //            print(str)
+            parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
         if(itemDetailsDataDict["savingId"] != nil){
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"] as! NSNumber
         }
         
-        if(itemDetailsDataDict["savingId"] != nil){
-            parameterDict["sharedPartySavingPlan"] = itemDetailsDataDict["sharedPartySavingPlan"] as! NSNumber
+        if(itemDetailsDataDict["sharedPtySavingPlanId"] != nil){
+            parameterDict["sharedPtySavingPlanId"] = itemDetailsDataDict["sharedPtySavingPlanId"] as! NSNumber
         }
         
         if(itemDetailsDataDict["title"] != nil)
@@ -738,9 +758,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if(itemDetailsDataDict["amount"] != nil)
         {
-    
-                parameterDict["amount"]  = String(format: "%d", cost)
-   
+            
+            parameterDict["amount"]  = String(format: "%d", cost)
+            
         }
         else{
             
@@ -786,7 +806,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             }
         }
         
-//        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+        //        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
         parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
         
         parameterDict["pty_id"] = userInfoDict["partyId"]
@@ -806,14 +826,14 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             {
                 parameterDict["sav_id"] = imageDataDict["savPlanID"]
             }
-           else {
+            else {
                 parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
             }
         }
         
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
         parameterDict["participantsArr"] = participantsArr
-         parameterDict["payDate"] = itemDetailsDataDict["payDate"]
+        parameterDict["payDate"] = itemDetailsDataDict["payDate"]
         
         
         return parameterDict
@@ -832,7 +852,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         cost = Int(txtFldCell.slider.value)
     }
     func datePickerText(date: Int,dateStr:String) {
-//        print(date)
+        //        print(date)
         dateDiff = date
         datePickerDate = dateStr
     }
@@ -984,5 +1004,5 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
     
-
+    
 }

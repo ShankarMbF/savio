@@ -1120,7 +1120,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     obj.savID = Int(imageDataDict["savPlanID"] as! String)!
                 }
-                
             }
             self.navigationController?.pushViewController(obj, animated: true)
         }

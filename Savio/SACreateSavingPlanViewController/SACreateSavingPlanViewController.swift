@@ -436,13 +436,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             tblView?.reloadData()
             self.callGetOfferListAPI()
         }
-        
-        
     }
+    
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
     }
     
     

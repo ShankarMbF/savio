@@ -1110,7 +1110,7 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
+//                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())

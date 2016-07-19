@@ -258,6 +258,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let obj = SAStatViewController()//savingPlanDetailsDict
         let str = String(format: "My %@ saving plan £%@",savingPlanDetailsDict["title"] as! String, savingPlanDetailsDict["amount"] as! NSNumber)
         obj.itemTitle = str
+        obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
         self.navigationController?.pushViewController(obj, animated: false)
     }
     

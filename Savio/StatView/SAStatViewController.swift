@@ -21,6 +21,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
     var itemTitle = ""
+    var endDate = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!

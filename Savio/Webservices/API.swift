@@ -244,7 +244,6 @@ class API: UIView {
                         self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
                     }
                 }
-                
             }
             dataTask.resume()
         }

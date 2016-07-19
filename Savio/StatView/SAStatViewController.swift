@@ -31,13 +31,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     @IBOutlet var graphSliderView: UISlider!
     
     @IBOutlet weak var sharingVw: UIView?
-    
+    @IBOutlet weak var lbl: UILabel?
     
     var xLabels: [String] = []
     var documentInteractionController = UIDocumentInteractionController()
     var shareImg: UIImage?
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +48,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         //        label.textAlignment = NSTextAlignment.Center
         //        self.contentView!.addSubview(label)
         lineChart = LineChart()
+        lbl?.text = itemTitle
         
-        let data: [CGFloat] = [10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
+        let data: [CGFloat] = [3000]//[10,25,30,45,55,                                                                                                                                                                                                                                                                                                                   10,25,30,45,55,10,25,30,45,55,65,75,86,98,100]
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1st Month","2nd Month","3rd Month","4th Month","5th Month","6st Month","7nd Month","8rd Month","9th Month","10th Month","11th Month","12nd Month","13rd Month","14th Month","15th Month","16th Month","17th Month","18nd Month","19rd Month","20th Month"]
@@ -138,7 +137,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
         }
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

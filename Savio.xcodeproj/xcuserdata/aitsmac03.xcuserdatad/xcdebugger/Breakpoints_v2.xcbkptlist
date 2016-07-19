@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489482057.878739"
+            timestampString = "490600516.925468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
+            startingLineNumber = "604"
+            endingLineNumber = "604"
             landmarkName = "successResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/Webservices/API.swift"
-            timestampString = "489388641.168218"
+            timestampString = "490616102.490391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
+            landmarkName = "deleteWishList(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(deleteWishList (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "490616590.363123"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "607"
+                  endingLineNumber = "607"
+                  offsetFromSymbolStart = "41">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(deleteWishList (Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "490616590.363305"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "607"
+                  endingLineNumber = "607"
+                  offsetFromSymbolStart = "110">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/Webservices/API.swift"
+            timestampString = "490616102.490391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
             landmarkName = "deleteWishList(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,27 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/Webservices/API.swift"
-            timestampString = "489388641.168218"
+            timestampString = "490616102.490391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "597"
-            endingLineNumber = "597"
-            landmarkName = "deleteWishList(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/Webservices/API.swift"
-            timestampString = "490299005.597398"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "664"
-            endingLineNumber = "664"
+            startingLineNumber = "663"
+            endingLineNumber = "663"
             landmarkName = "createPartySavingPlan(_:isFromWishList:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "489476920.584277"
+            timestampString = "490600516.925468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "601"
-            endingLineNumber = "601"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
             landmarkName = "successResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,13 +234,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/Webservices/API.swift"
-            timestampString = "490299005.597398"
+            timestampString = "490616102.490391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "824"
-            endingLineNumber = "824"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
             landmarkName = "getCategoriesForSavingPlan()"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(getCategoriesForSavingPlan () -&gt; ()).(closure #1)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "490616590.3701"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "823"
+                  endingLineNumber = "823"
+                  offsetFromSymbolStart = "1525">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Savio.API.(getCategoriesForSavingPlan () -&gt; ()).(closure #1).(closure #2)"
+                  moduleName = "Savio"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aitsmac03/Desktop/Prashant/Project/Savio/Working%20Copy/SavioIOS-master/Savio/Webservices/API.swift"
+                  timestampString = "490616590.37025"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "823"
+                  endingLineNumber = "823"
+                  offsetFromSymbolStart = "408">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
+            <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
         </mutableArray>
         <mutableArray key="gotham-rounded-book-2.otf">
@@ -19,6 +20,7 @@
                 <outlet property="GraphContentView" destination="3pJ-dh-CAm" id="F9i-IR-izP"/>
                 <outlet property="contentView" destination="jmE-Ve-npa" id="heM-hi-hby"/>
                 <outlet property="graphSliderView" destination="fnS-6P-Qus" id="OdD-en-XP1"/>
+                <outlet property="lbl" destination="8iP-Zg-J9h" id="T6B-8C-lxJ"/>
                 <outlet property="makeImpulseBtn" destination="3mQ-sn-Pop" id="Xu9-RX-bKs"/>
                 <outlet property="offersButton" destination="mdv-PT-ZyN" id="Wbd-ea-MVQ"/>
                 <outlet property="planButton" destination="XTi-lU-zpW" id="TgB-XS-I2r"/>
@@ -264,16 +266,28 @@
                                 <action selector="graphSliderValueChanged:" destination="-1" eventType="valueChanged" id="ZlD-NH-eyc"/>
                             </connections>
                         </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iP-Zg-J9h">
+                            <rect key="frame" x="30" y="8" width="540" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="psi-qo-MNr"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.99215686274509807" green="0.95294117647058818" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Zx6-CM-USF" secondAttribute="trailing" constant="20" id="FNm-dv-SaZ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="20" id="HwE-hE-bib"/>
                         <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="30" id="IzM-aA-TWe"/>
+                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="30" id="K5b-7f-5DY"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="-20" id="KFv-Q4-CFP"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="50" id="WPU-nr-MhQ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="30" id="WjE-nc-Mpk"/>
                         <constraint firstAttribute="bottom" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="15" id="g9p-Gu-KQU"/>
+                        <constraint firstAttribute="trailing" secondItem="8iP-Zg-J9h" secondAttribute="trailing" constant="30" id="gUT-iO-gQf"/>
+                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="8" id="vaH-SC-8Cm"/>
                         <constraint firstAttribute="bottom" secondItem="fnS-6P-Qus" secondAttribute="bottom" id="xrV-xc-lhk"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="centerX" secondItem="3pJ-dh-CAm" secondAttribute="centerX" id="ynT-8E-K1s"/>
                     </constraints>

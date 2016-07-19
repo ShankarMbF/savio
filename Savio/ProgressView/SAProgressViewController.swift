@@ -255,8 +255,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     @IBAction func clickOnStatButton(sender:UIButton){
-        let obj = SAStatViewController()
-        obj.itemTitle = planTitle
+        let obj = SAStatViewController()//savingPlanDetailsDict
+        let str = String(format: "My %@ saving plan £%@",savingPlanDetailsDict["title"] as! String, savingPlanDetailsDict["amount"] as! NSNumber)
+        obj.itemTitle = str
         self.navigationController?.pushViewController(obj, animated: false)
     }
     

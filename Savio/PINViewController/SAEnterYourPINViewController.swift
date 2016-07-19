@@ -144,8 +144,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         lblForgottonYourPasscode.hidden = true
         btnCancel.hidden = true
         registerButton.hidden = true
-        registerButton .setTitle("Register", forState: UIControlState.Normal)
         
+        registerButton .setTitle("Register", forState: UIControlState.Normal)
+        registerButtonBackgroundView.hidden = true
         forgotPasscodeButton.hidden = false
         loginButton.hidden = false
         btnVwBg.hidden = false

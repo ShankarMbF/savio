@@ -9,26 +9,26 @@
 import UIKit
 
 class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishListDelegate {
-
+    
     @IBOutlet var wishListTable: UITableView?
-     var objAnimView = ImageViewAnimation()
+    var objAnimView = ImageViewAnimation()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.callWishListData()
+        //        self.callWishListData()
         self.setUpView()
         self.wishListAPI()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     func setUpView(){
         self.title = "My Wish List"
         NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData"), name: UIApplicationWillEnterForegroundNotification, object: nil)
-
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -56,7 +56,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-        
+            
             if(wishListArray!.count > 0)
             {
                 
@@ -69,7 +69,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 
                 
             }
-         
+            
         }
         else
         {
@@ -110,13 +110,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-     // MARK: - Tableview Delegate & Datasource
+    // MARK: - Tableview Delegate & Datasource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
         return 1;
     }
@@ -141,19 +141,45 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
         }
-        if let sharedPartySavingPlan =  cellDict["sharedPartySavingPlan"] as? NSNumber
+        if let sharedPartySavingPlan =  cellDict["sharedPtySavingPlanId"] as? NSNumber
         {
-                cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
-                cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+            if(sharedPartySavingPlan == 0)
+            {
+                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                {
+                    cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+                    cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                else
+                {
+                    cell.btnSavingPlan?.hidden = true
+                }
+            }
+            else
+            {
+                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                {
+                    cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
+                    cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                else
+                {
+                    cell.btnSavingPlan?.hidden = true
+                }
+                
+            }
+            
         }
         else
         {
-            cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
-            cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+            if (NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+                cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+                cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+            }
         }
-        
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
-
+        
+        
         
         if let urlString = cellDict["imageURL"] as? String
         {
@@ -173,7 +199,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             }
         }
         cell.btnSavingPlan?.tag = indexPath.row
-     
+        
         
         cell.btnDelete?.tag = indexPath.row
         return cell
@@ -182,7 +208,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 310.0
     }
-
+    
     func navigateToSetUpSavingPlan(sender:UIButton) {
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
@@ -233,17 +259,17 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
             
             NSUserDefaults.standardUserDefaults().synchronize()
-
+            
             
             })
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-        //MARK: DELETE Wishlist delegate
+    //MARK: DELETE Wishlist delegate
     
     func successResponseForDeleteWishListAPI(objResponse: Dictionary<String, AnyObject>) {
-     
+        
         print(objResponse)
         objAnimView.removeFromSuperview()
         self.setUpView()
@@ -260,23 +286,23 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     
     func heartBtnClicked(){
-//        let objSAWishListViewController = SAWishListViewController()
-//        self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+        //        let objSAWishListViewController = SAWishListViewController()
+        //        self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         self.navigationController?.popViewControllerAnimated(true)
     }
-
+    
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-     
-      print(objResponse)
-       if wishListArray.count > 0 {
+        
+        print(objResponse)
+        if wishListArray.count > 0 {
             wishListArray.removeAll()
         }
         
         if let obj = objResponse["wishListList"] as? Array<Dictionary<String,AnyObject>>{
-        wishListArray = obj
-        objAnimView.removeFromSuperview()
-        self.setUpView()
-        wishListTable?.reloadData()
+            wishListArray = obj
+            objAnimView.removeFromSuperview()
+            self.setUpView()
+            wishListTable?.reloadData()
         }
         
     }
@@ -285,15 +311,15 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         print(error)
         objAnimView.removeFromSuperview()
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

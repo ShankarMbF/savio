@@ -266,7 +266,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        print(imageDataDict)
+        //print(imageDataDict)
         if(imageDataDict["title"] as! String == "Group Save")
         {
             red = 161/255
@@ -982,7 +982,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(itemDetailsDataDict["title"] == nil)
                 {
                     objAPI.partySavingPlanDelegate = self
-                    print(self.getParameters())
+                    //print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                     
                     
@@ -1041,7 +1041,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PARTY_SAVINGPLAN_ID"] = itemDetailsDataDict["partySavingPlanID"]
                     newDict["STATUS"] = "Active"
                     
-                    print(newDict)
+                    //print(newDict)
                     
                     objAPI.updateSavingPlan(newDict)
                     
@@ -1070,7 +1070,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["STATUS"] = "Active"
                     
                     
-                    print(newDict)
+                    //print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                     
                     
@@ -1252,7 +1252,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         
-        print(objResponse)
+        //print(objResponse)
         objAnimView.removeFromSuperview()
         
         if let message = objResponse["message"] as? String
@@ -1340,7 +1340,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       // print(objResponse)
         
         if let message = objResponse["message"] as? String
         {

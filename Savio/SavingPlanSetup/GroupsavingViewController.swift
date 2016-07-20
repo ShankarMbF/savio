@@ -1,4 +1,4 @@
-//
+ //
 //  GroupsavingViewController.swift
 //  Savio
 //
@@ -768,7 +768,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         if(itemDetailsDataDict["imageURL"] != nil)
         {
-            parameterDict["imageURL"] = itemDetailsDataDict["imageURL"]
+            parameterDict["imageURL"] = nil//itemDetailsDataDict["imageURL"]
+//            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+//            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//            parameterDict["imageURL"] = base64String
         }
         else{
             if(cameraButton.hidden == true)
@@ -787,8 +790,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
         }
         else {
-            
-            
             if(datePickerDate != "")
             {
                 

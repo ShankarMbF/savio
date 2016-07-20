@@ -473,7 +473,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             colors = objResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
             self.setUpView()
         }
-        objAnimView.removeFromSuperview()
+        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+            if arr.count > 0{
+                objAnimView.removeFromSuperview()
+            }
+        }
     }
     
     func errorResponseForGetWishlistAPI(error: String) {
@@ -485,7 +489,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         //print(objResponse)
-        objAnimView.removeFromSuperview()
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
         for var i = 0; i < offerArr.count; i++ {
@@ -494,6 +497,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
+        objAnimView.removeFromSuperview()
+
         
     }
     

@@ -487,12 +487,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else
         {
             newDict["OFFERS"] = newOfferArray
-            
-            
         }
-        //        print(newDict)
         return newDict
-        
     }
     
     
@@ -617,9 +613,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                print(self.getParametersForUpdate())
+//                print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
-                
             }
             else
             {
@@ -776,7 +771,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
         let dict = self.getParameters()["IMAGE"]
         newDict["imageURL"] = dict
-        
+        newDict["INIVITED_USER_LIST"] = participantsArr
         newDict["day"] = dateString
         let dateParameter = NSDateFormatter()
         dateParameter.dateFormat = "yyyy-MM-dd"
@@ -798,14 +793,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             newDict["offers"] = offerArr
         }
         
-        
         NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
         NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-        
-        let objSummaryView = SASavingSummaryViewController()
-        objSummaryView.itemDataDict =  newDict
-        self.navigationController?.pushViewController(objSummaryView, animated: true)
         
         if(dateString == "day")
         {
@@ -814,11 +804,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else{
             newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
         }
-        objSummaryview.itemDataDict = newDict
-        self.navigationController?.pushViewController(objSummaryview, animated: true)
-        
-        
-        
+        let objSummaryView = SASavingSummaryViewController()
+        objSummaryView.itemDataDict =  newDict
+        self.navigationController?.pushViewController(objSummaryView, animated: true)
         objAnimView.removeFromSuperview()
     }
     

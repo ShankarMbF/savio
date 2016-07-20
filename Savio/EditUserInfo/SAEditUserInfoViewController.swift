@@ -254,11 +254,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     if (str!.isEqualToString("Wow, that’s such a long name we can’t save it")){
                         cell.tf?.textColor = UIColor.redColor()
                         cell.tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
-                        
                     }
                 }
-                
-                
                 
                 if (dictForTextFieldValue["errorFirstAddress"] != nil && cell.tf?.placeholder == "First Address Line") {
                     
@@ -378,16 +375,17 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
+                cell.tfPostCode?.text = userInfoDict["post_code"] as? String
                 //                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
                 //                cell.tfPostCode?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tfPostCode?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 let tfPostcodeDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tfPostCode!.attributedPlaceholder = NSAttributedString(string:(tfPostcodeDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 
-                if(editUser)
-                {
-                    cell.tfPostCode?.text = userInfoDict["post_code"] as? String
-                }
+//                if(editUser)
+//                {
+//                    cell.tfPostCode?.text = userInfoDict["post_code"] as? String
+//                }
                 if (dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] != nil){
                     cell.tfPostCode?.text = dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] as? String
                     
@@ -430,17 +428,18 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
-                
+                cell.tf!.userInteractionEnabled = false
+                cell.tf?.text = userInfoDict["phone_number"] as? String
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 
                 
-                if(editUser)
-                {
-                    cell.tf!.userInteractionEnabled = false
-                    cell.tf?.text = userInfoDict["phone_number"] as? String
-                }
+//                if(editUser)
+//                {
+//                    cell.tf!.userInteractionEnabled = false
+//                    cell.tf?.text = userInfoDict["phone_number"] as? String
+//                }
                 
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
@@ -470,16 +469,18 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tblView = tblView
                 cell.tf?.textColor = UIColor.blackColor()
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
+                cell.tf?.text = userInfoDict["email"] as? String
+                cell.tf?.userInteractionEnabled = false
                 
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 
-                if(editUser)
-                {
-                    cell.tf?.text = userInfoDict["email"] as? String
-                    cell.tf?.userInteractionEnabled = false
-                }
+//                if(editUser)
+//                {
+//                    cell.tf?.text = userInfoDict["email"] as? String
+//                    cell.tf?.userInteractionEnabled = false
+//                }
                 
                 
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
@@ -743,7 +744,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         if (checkTextFiledValidation() == false && dictForTextFieldValue["errorPostcodeValid"]==nil){
             //call term and condition screen
             var dict = self.getAllValuesFromTxtFild()
-            if(firstName.characters.count>0 && lastName.characters.count>0 && dateOfBirth.characters.count>0)
+            if(firstName.characters.count>0 && lastName.characters.count>0 )
             {
                 for i in 0 ..< arrRegistrationFields.count {
                     //            var  dict : NSMutableDictionary = NSMutableDictionary()
@@ -768,6 +769,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 objAnimView?.animate()
                 self.view.addSubview(objAnimView!)
 
+                var param = userInfoDict as Dictionary<String,AnyObject>
                 
                 let objAPI = API()
 
@@ -786,19 +788,19 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     userInfoDict["imageurl"] = newDict
                 }
                 
-                userInfoDict.removeValueForKey("date_of_birth")
-                userInfoDict.removeValueForKey("pass_code")
-                userInfoDict.removeValueForKey("email")
-                userInfoDict.removeValueForKey("confirm_pin")
-                userInfoDict.removeValueForKey("imageURL")
-                userInfoDict.removeValueForKey("partyId")
-                userInfoDict.removeValueForKey("deviceRegistration")
-                userInfoDict.removeValueForKey("phone_number")
-                userInfoDict.removeValueForKey("pin")
-                userInfoDict.removeValueForKey("Surname")
+                param.removeValueForKey("date_of_birth")
+                param.removeValueForKey("pass_code")
+                param.removeValueForKey("email")
+                param.removeValueForKey("confirm_pin")
+                param.removeValueForKey("imageURL")
+                param.removeValueForKey("partyId")
+                param.removeValueForKey("deviceRegistration")
+                param.removeValueForKey("phone_number")
+                param.removeValueForKey("pin")
+                param.removeValueForKey("Surname")
   
                 objAPI.updateUserInfoDelegate = self
-                objAPI.updateUserInfo(userInfoDict)
+                objAPI.updateUserInfo(param)
             }
         }
         else{

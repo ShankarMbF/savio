@@ -92,8 +92,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         else{
              GraphContentView.backgroundColor = UIColor(red: 239/255,green:247/255,blue:253/255,alpha:1)
         }
-    
-        
     }
     
     // MARK: - Delegates and functions for  line chart
@@ -104,7 +102,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let trackImage = UIImage(named: "stats-slider-bar")
         self.graphSliderView.setMinimumTrackImage(trackImage, forState: UIControlState.Normal)
         self.graphSliderView.setMaximumTrackImage(trackImage, forState: .Normal)
-        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
+        if planType == "Individual" {
+            self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
+        }
+        else{
+            self.graphSliderView.setThumbImage(UIImage(named: "group-save-stats-slider-tab"), forState: UIControlState.Normal)
+        }
+//        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
     

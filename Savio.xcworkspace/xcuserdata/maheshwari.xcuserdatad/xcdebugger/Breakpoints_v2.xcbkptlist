@@ -93,7 +93,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "780"
             endingLineNumber = "780"
-            landmarkName = "successResponseForPartySavingPlanAPI(_:)"
+            landmarkName = "errorResponseForPartySavingPlanAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

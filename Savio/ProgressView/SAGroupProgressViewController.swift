@@ -238,11 +238,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 circularView.hidden = true
                 
                 piechart = Piechart()
+
+                
                 piechart!.frame = CGRectMake(0,0, horizontalScrollView.frame.width, horizontalScrollView.frame.height)
                 if(UIScreen.mainScreen().bounds.width == 320)
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 185
                     piechart?.radius.inner = horizontalScrollView.frame.width - 210
+                  
                 }
                 else  if(UIScreen.mainScreen().bounds.width == 414)
                 {
@@ -253,6 +256,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 227
                     piechart?.radius.inner = horizontalScrollView.frame.width - 255
+ 
                 }
                 else
                 {
@@ -265,27 +269,28 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 piechart!.slices = pieChartSliceArray
                 circularProgress.addSubview(piechart!)
                 
+
                 let imgView = UIImageView()
-                //imgView.layer.borderWidth = 1
-                imgView.frame = CGRectMake(40,40,horizontalScrollView.frame.width-80,horizontalScrollView.frame.height-80)
+
+                imgView.frame = CGRectMake(70,70,horizontalScrollView.frame.width-140,horizontalScrollView.frame.height-140)
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
-                // imgView.image = UIImage(named: "cycle.png")
+                 imgView.image = UIImage(named: "cycle.png")
                 
-                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
-                {
-                    
-                    let request: NSURLRequest = NSURLRequest(URL: url)
-                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            imgView.image = image
-                        })
-                    })
-                    
-                    
-                }
+//                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+//                {
+//                    
+//                    let request: NSURLRequest = NSURLRequest(URL: url)
+//                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//                        let image = UIImage(data: data!)
+//                        dispatch_async(dispatch_get_main_queue(), {
+//                            imgView.image = image
+//                        })
+//                    })
+//                    
+//                    
+//                }
                 
                 piechart!.addSubview(imgView)
                 

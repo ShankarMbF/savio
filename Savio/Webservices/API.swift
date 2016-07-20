@@ -1174,18 +1174,20 @@ class API: UIView {
                     //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print(dict)
                         
-                        if(dict["errorCode"] as! String == "200")
+                        if let errorcode = dict["errorCode"] as? String
                         {
+                            if(errorcode == "200")
+                            {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.inviteMemberDelegate?.successResponseForInviteMembersAPI(dict)
                             }
+                            }
                         }
-                        else
+                        else if let errorcode = dict["error"] as? String
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("Please login to Savio first.")
+                                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI(errorcode)
                             }
                         }
                     }

@@ -151,13 +151,21 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             
         }
-        else if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("No"))
+        else if let image = parameterDict["imageURL"] as? String
         {
-            let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
-            
-            topBgImageView.image = UIImage(data: data)
-            cameraButton.hidden = true
-            
+            if(image == "")
+            {
+                self.cameraButton.hidden = false
+                topBgImageView.image = UIImage(named: "groupsave-setup-bg.png")
+            }
+            else
+            {
+                let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                
+                topBgImageView.image = UIImage(data: data)
+                cameraButton.hidden = true
+
+            }
         }
         else
             
@@ -454,6 +462,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let dict = ["imageName.jpg":base64String]
             newDict["IMAGE"] = dict
         }
+        else
+        {
+            let dict = ["imageName.jpg":""]
+            newDict["IMAGE"] = dict
+        }
         
         
         newDict["SAV_PLAN_ID"] = NSUserDefaults.standardUserDefaults().objectForKey("savPlanID")
@@ -508,10 +521,20 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["PARTY_ID"] = parameterDict["pty_id"]
         newDict["SAV_PLAN_ID"] = parameterDict["sav_id"]
         
+        if(parameterDict["imageURL"] as! String != "")
+        {
+            let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
+                newDict["IMAGE"] = dict
+        }
+        else
+        {
+            let dict = ["imageName.jpg":""]
+            newDict["IMAGE"] = dict
+        }
+
+
         
-        let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
-        
-        newDict["IMAGE"] = dict
+   
         
         
         newDict["PAY_DATE"] = selectedStr as String
@@ -803,9 +826,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         NSUserDefaults.standardUserDefaults().synchronize()
         NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         
-        let objSummaryView = SASavingSummaryViewController()
-        objSummaryView.itemDataDict =  newDict
-        self.navigationController?.pushViewController(objSummaryView, animated: true)
+      
         
         if(dateString == "day")
         {
@@ -814,10 +835,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else{
             newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
         }
-        objSummaryview.itemDataDict = newDict
-        self.navigationController?.pushViewController(objSummaryview, animated: true)
         
-        
+        let objSummaryView = SASavingSummaryViewController()
+        objSummaryView.itemDataDict =  newDict
+        self.navigationController?.pushViewController(objSummaryView, animated: true)
         
         objAnimView.removeFromSuperview()
     }

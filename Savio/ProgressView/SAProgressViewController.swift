@@ -200,18 +200,20 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "%0.2f%%",paidAmount)
+                labelOne.text = "0.0%%"
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
+               // labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
+                labelTwo.text = "£ 0 saved"
                 imgView.hidden = true
                
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "£ %0.2f",String(totalAmount - paidAmount))
+                //labelOne.text = String(format: "£ %0.2f",String(totalAmount - paidAmount))
+                  labelOne.text = "£ 0"
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "%0.0f days to go",String(totalAmount - paidAmount))
+                labelTwo.text = "0 days to go"
                 imgView.hidden = true
             }
         }

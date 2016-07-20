@@ -347,6 +347,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func statsButtonPressed(btn:UIButton)
     {
         let obj = SAStatViewController()
+        obj.planType = "Group"
         self.navigationController?.pushViewController(obj, animated: false)
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {

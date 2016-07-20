@@ -15,6 +15,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     @IBOutlet weak var GraphContentView: UIView!
     @IBOutlet weak var scrHt: NSLayoutConstraint!
+    var planType = ""
     var lineChart: LineChart!
     var label = UILabel()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -48,6 +49,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         //        label.textAlignment = NSTextAlignment.Center
         //        self.contentView!.addSubview(label)
         lineChart = LineChart()
+        lineChart.planTitle = self.planType
+
         lbl?.text = itemTitle
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
@@ -83,9 +86,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-//        GraphContentView.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        
-        
+        if planType == "Individual" {
+        GraphContentView.backgroundColor = UIColor(red: 252/255,green:246/255,blue:236/255,alpha:1)
+    }
+        else{
+             GraphContentView.backgroundColor = UIColor(red: 239/255,green:247/255,blue:253/255,alpha:1)
+        }
     }
     
     // MARK: - Delegates and functions for  line chart
@@ -96,7 +102,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let trackImage = UIImage(named: "stats-slider-bar")
         self.graphSliderView.setMinimumTrackImage(trackImage, forState: UIControlState.Normal)
         self.graphSliderView.setMaximumTrackImage(trackImage, forState: .Normal)
-        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
+        if planType == "Individual" {
+            self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
+        }
+        else{
+            self.graphSliderView.setThumbImage(UIImage(named: "group-save-stats-slider-tab"), forState: UIControlState.Normal)
+        }
+//        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
     

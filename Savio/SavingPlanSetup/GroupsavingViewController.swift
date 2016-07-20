@@ -233,7 +233,6 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         self.scrlView.contentOffset = CGPointMake(0, 20)
         self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
         self.tblView.reloadData()
-        
     }
     /*
      // MARK: - Navigation

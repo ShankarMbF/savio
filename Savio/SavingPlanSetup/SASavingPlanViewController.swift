@@ -35,6 +35,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isClearPressed = false
     var isUpdatePlan = false
     var isImageClicked = false
+    var isDateChanged = false
     
     var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
@@ -614,6 +615,41 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(isUpdatePlan)
             {
+                if(isDateChanged)
+                {
+                    if(dateString == "day")
+                    {
+                        if((dateDiff/168) == 1)
+                        {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                        }
+                        else if ((dateDiff/168) == 0)
+                        {
+                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                        }
+                        else
+                        {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
+                        }
+                        
+                    }
+                    else{
+                        if((dateDiff/168)/4 == 1)
+                        {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        }
+                        else if ((dateDiff/168)/4 == 0)
+                        {
+                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                        }
+                        else{
+                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        }
+                    }
+                }
+
+                else
+                {
                 if let payType = itemDetailsDataDict["payType"] as? NSString
                 {
                     let date  = itemDetailsDataDict["planEndDate"] as? String
@@ -647,7 +683,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
                         }
                         
-                        
+                    }
                     }
                     
                 }
@@ -793,6 +829,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(date)
         dateDiff = date
         datePickerDate = dateStr
+        isDateChanged = true
     }
     
     func cancelSavingButtonPressed(sender:UIButton)
@@ -880,7 +917,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
-        if(itemDetailsDataDict["image"] != nil)
+        if(itemDetailsDataDict["imageURL"] != nil)
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -1207,16 +1244,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                 {
-                    
+         
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        if(data?.length > 0)
+                        {
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
                             self.topBackgroundImageView.image = image
                         })
+                        }
                     })
-                    
-                    
+            
+                
                 }
                 
                 

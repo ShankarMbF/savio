@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="3000" translatesAutoresizingMaskIntoConstraints="NO" id="ISQ-4m-YEC" customClass="slider" customModule="Savio" customModuleProvider="target">
-                        <rect key="frame" x="36" y="73" width="248" height="31"/>
+                        <rect key="frame" x="36" y="77" width="248" height="31"/>
                         <color key="minimumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="maximumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="deviceRGB"/>
                         <color key="thumbTintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
@@ -43,7 +43,7 @@
                         </connections>
                     </slider>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQR-uk-sx8">
-                        <rect key="frame" x="18" y="82" width="12" height="12"/>
+                        <rect key="frame" x="18" y="85" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="Wc5-Uh-IDe"/>
@@ -58,7 +58,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW5-xP-CdE">
-                        <rect key="frame" x="290" y="82" width="12" height="12"/>
+                        <rect key="frame" x="290" y="85" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="AmK-fY-xMm"/>
@@ -117,15 +117,15 @@
                 </subviews>
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="ISQ-4m-YEC" secondAttribute="top" constant="9" id="07h-ob-R3p"/>
+                    <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="ISQ-4m-YEC" secondAttribute="top" constant="8" id="07h-ob-R3p"/>
                     <constraint firstItem="smW-fd-VOu" firstAttribute="baseline" secondItem="ukx-QD-x5v" secondAttribute="baseline" id="3PE-9k-f2C"/>
                     <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="34" id="7mf-TW-UF3"/>
                     <constraint firstItem="ukx-QD-x5v" firstAttribute="width" secondItem="smW-fd-VOu" secondAttribute="width" constant="27" id="BAs-Uw-02X"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="-9" id="D8h-LA-5SQ"/>
+                    <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="-10" id="D8h-LA-5SQ"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="QW5-xP-CdE" secondAttribute="top" id="Dxe-kg-P81"/>
                     <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="H7v-Sp-nig"/>
                     <constraint firstItem="smW-fd-VOu" firstAttribute="bottom" secondItem="ukx-QD-x5v" secondAttribute="bottom" id="Iw6-vU-r9h"/>
-                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="9.5" id="J2E-HN-SIl"/>
+                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="6" id="J2E-HN-SIl"/>
                     <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="8" id="L6j-iS-dy6"/>
                     <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="4.5" id="NMo-NW-l8h"/>
                     <constraint firstItem="smW-fd-VOu" firstAttribute="top" secondItem="ukx-QD-x5v" secondAttribute="top" id="Q9J-5t-3ZX"/>

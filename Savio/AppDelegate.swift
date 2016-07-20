@@ -9,7 +9,7 @@
 import UIKit
 
 struct Device {
-    static var udid =  UIDevice.currentDevice().identifierForVendor!.UUIDString
+    static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
 }
 
 @UIApplicationMain

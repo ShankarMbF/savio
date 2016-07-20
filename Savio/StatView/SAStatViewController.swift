@@ -40,7 +40,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setUpView()
         
         //        label.text = itemTitle
@@ -57,7 +56,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1","2","3","4","5"]
-        
         
         lineChart.animation.enabled = true
         lineChart.area = true
@@ -141,6 +139,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

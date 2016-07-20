@@ -82,8 +82,8 @@ public class LineChart: UIView {
     public struct Dots {
         public var visible: Bool = true
         public var color: UIColor = UIColor.whiteColor()
-        public var innerRadius: CGFloat = 8
-        public var outerRadius: CGFloat = 12
+        public var innerRadius: CGFloat = 6
+        public var outerRadius: CGFloat = 10
         public var innerRadiusHighlighted: CGFloat = 8
         public var outerRadiusHighlighted: CGFloat = 12
     }
@@ -92,7 +92,46 @@ public class LineChart: UIView {
     public var area: Bool = true
     public var animation: Animation = Animation()
     public var dots: Dots = Dots()
-    public var lineWidth: CGFloat = 2
+    public var lineWidth: CGFloat = 1
+    
+
+    private var colorGraphLine: UIColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+    private var colorGraphDot: UIColor = UIColor.init(red: 242.0/255.0, green: 173.0/255.0, blue: 52.0/255.0, alpha: 1.0)
+    private var colorGraphUnderArea: UIColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+    private var colorGraphScrollLine: UIColor = UIColor.init(red: 242.0/255.0, green: 173.0/255.0, blue: 52.0/255.0, alpha: 1.0)
+    private var colorGraphProgressView: UIColor = UIColor.init(red: 242.0/255.0, green: 173.0/255.0, blue: 52.0/255.0, alpha: 1.0)
+    
+    
+    public var _planTitle: String = ""
+
+    
+    public var planTitle: String {
+        get {
+            return _planTitle
+        }
+        set(newValue) {
+            _planTitle = newValue
+            
+            if _planTitle == "Group" {
+                
+                let blueColor: UIColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
+                self.colorGraphLine = blueColor
+                self.colorGraphDot = blueColor
+                self.colorGraphUnderArea = blueColor
+                self.colorGraphScrollLine = blueColor
+                self.colorGraphProgressView = blueColor
+                
+            } else {
+                
+                let brownColor: UIColor = UIColor(red: 242.0/255.0, green: 173.0/255.0, blue: 52.0/255.0, alpha: 1.0)
+                self.colorGraphLine = brownColor
+                self.colorGraphDot = brownColor
+                self.colorGraphUnderArea = brownColor
+                self.colorGraphScrollLine = brownColor
+                self.colorGraphProgressView = brownColor
+            }
+        }
+    }
     
     public var x: Coordinate = Coordinate()
     public var y: Coordinate = Coordinate()
@@ -147,8 +186,8 @@ public class LineChart: UIView {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(colorLiteralRed: 2536.0/256.0, green: 246.0/256.0, blue: 235.0/256.0, alpha: 1)
-
+//        self.backgroundColor = UIColor(colorLiteralRed: 2536.0/255.0, green: 246.0/255.0, blue: 235.0/255.0, alpha: 1)
+        self.backgroundColor = UIColor.clearColor()
     }
 
     convenience init() {
@@ -347,13 +386,13 @@ public class LineChart: UIView {
             
             // draw custom layer with another layer in the center
             let dotLayer = DotCALayer()
-            dotLayer.dotInnerColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)//colors[lineIndex]
+            dotLayer.dotInnerColor = self.colorGraphDot//colors[lineIndex]
             dotLayer.innerRadius = dots.innerRadius
             
             if index % 2 == 0  {
-                dotLayer.backgroundColor = dots.color.CGColor
+                dotLayer.backgroundColor = UIColor.clearColor().CGColor
             } else {
-                dotLayer.backgroundColor = UIColor(colorLiteralRed: 85.0/256.0, green: 87.0/256.0, blue: 86.0/256.0, alpha: 1).CGColor
+                dotLayer.backgroundColor = UIColor(colorLiteralRed: 85.0/255.0, green: 87.0/255.0, blue: 86.0/255.0, alpha: 1).CGColor
 
             }
             
@@ -399,7 +438,7 @@ public class LineChart: UIView {
         self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 7)
         self.valueLabel.textAlignment = .Center
         let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.drawingHeight))
-        line.backgroundColor = UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0)
+        line.backgroundColor = self.colorGraphScrollLine
         graphView.addSubview(line)
         self.addSubview(graphView)
         
@@ -427,8 +466,8 @@ public class LineChart: UIView {
         progress.gradientRotateSpeed = 2
         progress.roundedCorners = true
         progress.glowMode = .NoGlow
-        progress.setColors(UIColor.init(red: 242.0/256.0, green: 173.0/256.0, blue: 52.0/256.0, alpha: 1.0) )
-        progress.trackColor = UIColor.init(red: 232.0/256.0, green: 236.0/256.0, blue: 237.0/256.0, alpha: 1.0)
+        progress.setColors(self.colorGraphProgressView)
+        progress.trackColor = UIColor.init(red: 232.0/255.0, green: 236.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         graphView.addSubview(progress)
         progress.addSubview(valueLabel)
 
@@ -526,7 +565,7 @@ public class LineChart: UIView {
         let layer = CAShapeLayer()
         layer.frame = self.bounds
         layer.path = path.CGPath
-        layer.strokeColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor //colors[lineIndex].CGColor
+        layer.strokeColor = self.colorGraphLine.CGColor //colors[lineIndex].CGColor
         layer.fillColor = nil
         layer.lineWidth = lineWidth
         self.layer.addSublayer(layer)
@@ -556,7 +595,7 @@ public class LineChart: UIView {
         
        
 //        colors[lineIndex].colorWithAlphaComponent(0.2).setFill()
-         UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).colorWithAlphaComponent(0.2).setFill()
+        self.colorGraphUnderArea.colorWithAlphaComponent(0.2).setFill()
         // move to origin
         path.moveToPoint(CGPoint(x: x.axis.inset, y: graphHeight - self.y.scale(0) - y.axis.inset))
         // add line to first data point

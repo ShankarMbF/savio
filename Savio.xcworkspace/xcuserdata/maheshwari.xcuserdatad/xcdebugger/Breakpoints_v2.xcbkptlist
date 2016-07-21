@@ -10,11 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/SACreateSavingPlanViewController/SACreateSavingPlanViewController.swift"
-            timestampString = "490625353.393429"
+            timestampString = "490771782.78358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "567"
-            endingLineNumber = "567">
+            startingLineNumber = "568"
+            endingLineNumber = "568"
+            landmarkName = "SACreateSavingPlanViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -39,29 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Savio/Webservices/API.swift"
-            timestampString = "490687298.506581"
+            filePath = "Savio/SACreateSavingPlanViewController/SACreateSavingPlanViewController.swift"
+            timestampString = "490771439.60504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1175"
-            endingLineNumber = "1175"
-            landmarkName = "sendInviteMembersList(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Savio/SavingPlanSetup/SACreateGroupSavingPlanViewController.swift"
-            timestampString = "490713728.256173"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "618"
-            endingLineNumber = "618"
-            landmarkName = "joinGroupButtonPressed(_:)"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

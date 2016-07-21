@@ -141,30 +141,36 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
         }
+        
         if let sharedPartySavingPlan =  cellDict["sharedPtySavingPlanId"] as? NSNumber
         {
             if(sharedPartySavingPlan == 0)
             {
-                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
                 {
                     cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.deleteButtonTopSpace.constant = 60
+                    
                 }
                 else
                 {
                     cell.btnSavingPlan?.hidden = true
+                    cell.deleteButtonTopSpace.constant = 20
                 }
             }
             else
             {
-                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                if(NSUserDefaults.standardUserDefaults().objectForKey("groupMemberPlan") as? NSNumber == 0)
                 {
                     cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.deleteButtonTopSpace.constant = 60
                 }
                 else
                 {
                     cell.btnSavingPlan?.hidden = true
+                    cell.deleteButtonTopSpace.constant = 20
                 }
                 
             }
@@ -172,9 +178,17 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         else
         {
-            if (NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+            if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+            {
                 cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
                 cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.deleteButtonTopSpace.constant = 60
+                
+            }
+            else
+            {
+                cell.btnSavingPlan?.hidden = true
+                cell.deleteButtonTopSpace.constant = 20
             }
         }
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -208,7 +222,48 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 310.0
+       
+        let cellDict = wishListArray[indexPath.row]
+        if let sharedPartySavingPlan =  cellDict["sharedPtySavingPlanId"] as? NSNumber
+        {
+            if(sharedPartySavingPlan == 0)
+            {
+                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                {
+                   return 310.0
+                }
+                else
+                {
+                    return 280.0
+                }
+            }
+            else
+            {
+                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+                {
+                   return 310.0
+                }
+                else
+                {
+                   return 280.0
+                }
+                
+            }
+            
+        }
+        else
+        {
+            if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
+            {
+               return 310.0
+                
+            }
+            else
+            {
+               return 280.0
+            }
+        }
+
     }
     
     func navigateToSetUpSavingPlan(sender:UIButton) {

@@ -127,12 +127,12 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
             let request: NSURLRequest = NSURLRequest(URL: url!)
             if(urlString != "")
             {
-//                let spinner =  UIActivityIndicatorView()
-//                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
-//                spinner.hidesWhenStopped = true
-//                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-//                topBackgroundImageView.addSubview(spinner)
-//                spinner.startAnimating()
+                let spinner =  UIActivityIndicatorView()
+                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                topBackgroundImageView.addSubview(spinner)
+                spinner.startAnimating()
                 
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     
@@ -140,7 +140,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                     if(data?.length > 0)
                     {
                     dispatch_async(dispatch_get_main_queue(), {
-                      //  spinner.hidden = true
+                        spinner.hidden = true
                         self.topBackgroundImageView.image = image
                     })
                     }

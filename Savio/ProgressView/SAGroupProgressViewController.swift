@@ -173,7 +173,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             paidAmount = totalPaidAmount.floatValue
         }
         
-        prevIndxArr.append(0)
+        
+        //prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3

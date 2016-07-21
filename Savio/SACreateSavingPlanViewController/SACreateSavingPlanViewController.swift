@@ -116,7 +116,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         btnVwBg.layer.cornerRadius = 5
         
-        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -448,7 +447,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     }
                 }
             }
-            
             self.callGetOfferListAPI()
         }
     }
@@ -457,7 +455,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
-    
     
     //MARK: GetWishlist Delegate and Datasource method
     
@@ -498,8 +495,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
         objAnimView.removeFromSuperview()
-
-        
     }
     
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {

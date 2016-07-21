@@ -176,16 +176,21 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
             if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
             {
-
+                
                 let request: NSURLRequest = NSURLRequest(URL: url)
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    let image = UIImage(data: data!)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        imgView.image = image
-                    })
+                    if data?.length > 0 {
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            imgView.image = image
+                        })
+                    }
+                    else {
+                       
+                    }
                 })
                 
-
+                
             }
             
             if(i == 0)

@@ -122,34 +122,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             if let urlString = parameterDict["imageURL"] as? String
             {
-                let url = NSURL(string:urlString)
+                let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 
-                let request: NSURLRequest = NSURLRequest(URL: url!)
-                if(urlString != "")
-                {
-                    //                    let spinner =  UIActivityIndicatorView()
-                    //                    spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
-                    //                    spinner.hidesWhenStopped = true
-                    //                    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-                    //                    topBgImageView.addSubview(spinner)
-                    //                    spinner.startAnimating()
-                    
-                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        
-                        let image = UIImage(data: data!)
-                        if(data?.length > 0)
-                        {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                //spinner.hidden = true
-                                self.topBgImageView.image = image
-                            })
-                        }
-                        
-                    })
-                }
-                
+                topBgImageView.image = UIImage(data: data)
             }
-            
         }
         else if let image = parameterDict["imageURL"] as? String
         {
@@ -639,7 +615,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-//                print(self.getParametersForUpdate())
+               print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
             }
             else

@@ -767,10 +767,10 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         if(itemDetailsDataDict["imageURL"] != nil)
         {
-            parameterDict["imageURL"] = nil//itemDetailsDataDict["imageURL"]
-//            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-//            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-//            parameterDict["imageURL"] = base64String
+
+            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            parameterDict["imageURL"] = base64String
         }
         else{
             if(cameraButton.hidden == true)

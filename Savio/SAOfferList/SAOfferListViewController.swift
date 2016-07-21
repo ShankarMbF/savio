@@ -95,16 +95,22 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             tblView?.reloadData()
         }
         else {
-        
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-        objAnimView.frame = self.view.frame
-        objAnimView.animate()
-        
-        self.view.addSubview(objAnimView)
-         let objAPI = API()
-        objAPI.getofferlistDelegate = self
-        objAPI.getOfferListForSavingId()
-      
+            let objAPI = API()
+            
+            if objAPI.isConnectedToNetwork() {
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            
+            self.view.addSubview(objAnimView)
+           
+                objAPI.getofferlistDelegate = self
+                objAPI.getOfferListForSavingId()
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
         }
     }
     /*
@@ -188,16 +194,20 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         print(cellDict)
         if let urlStr = cellDict!["offImage"] as? String {
+            if urlStr != "" {
         let url = NSURL(string: urlStr)
         
         let request: NSURLRequest = NSURLRequest(URL: url!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            if data != nil && data?.length > 0 {
             let image = UIImage(data: data!)
             //                self.imageCache[unwrappedImage] = image
             dispatch_async(dispatch_get_main_queue(), {
                 cell.offerImage?.image = image
             })
+            }
         })
+        }
         }
         
         let attributes = [
@@ -320,13 +330,40 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             offerArr.removeAll()
         }
         if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
-        offerArr = obj
+            
+            for var i = 0; i < obj.count; i++ {
+                let dict = self.checkNullDataFromDict(obj[i] as Dictionary<String,AnyObject>)
+                offerArr.append(dict)
+            }
+            
+//        offerArr = obj
         tblView?.reloadData()
         }
         
     }
+    
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
     }
+    
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        for var key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+
     
 }

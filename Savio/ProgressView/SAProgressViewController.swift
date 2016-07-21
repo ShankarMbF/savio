@@ -186,7 +186,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
             if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
             {
-
+                
                 let request: NSURLRequest = NSURLRequest(URL: url)
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if(data?.length > 0){
@@ -205,7 +205,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                     }
                 })
                 
-
+                
             }
             
             if(i == 0)

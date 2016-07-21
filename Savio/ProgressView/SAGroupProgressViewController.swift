@@ -170,11 +170,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
-            
             paidAmount = totalPaidAmount.floatValue
-            
         }
-        
         
         prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
@@ -194,7 +191,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             error.text = "Success"
             
             pieChartSliceArray.append(error)
-            
         }
         
         if(pieChartSliceArray.count < 8)
@@ -229,7 +225,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             
             circularView.angle = Double((paidAmount * 360)/Float(totalAmount))
             
-            
             if(i == 0)
             {
                 labelOne.hidden = true
@@ -238,14 +233,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 circularView.hidden = true
                 
                 piechart = Piechart()
-
+                
                 
                 piechart!.frame = CGRectMake(0,0, horizontalScrollView.frame.width, horizontalScrollView.frame.height)
                 if(UIScreen.mainScreen().bounds.width == 320)
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 185
                     piechart?.radius.inner = horizontalScrollView.frame.width - 210
-                  
                 }
                 else  if(UIScreen.mainScreen().bounds.width == 414)
                 {
@@ -256,7 +250,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 227
                     piechart?.radius.inner = horizontalScrollView.frame.width - 255
- 
                 }
                 else
                 {
@@ -269,14 +262,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 piechart!.slices = pieChartSliceArray
                 circularProgress.addSubview(piechart!)
                 
-
+                
                 let imgView = UIImageView()
-
+                
                 imgView.frame = CGRectMake(70,70,horizontalScrollView.frame.width-140,horizontalScrollView.frame.height-140)
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
-               //  imgView.image = UIImage(named: "cycle.png")
+                //  imgView.image = UIImage(named: "cycle.png")
                 
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
@@ -288,13 +281,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                             imgView.image = image
                         })
                     })
-                    
-                    
                 }
                 
                 piechart!.addSubview(imgView)
-                
-                
                 
             }
             else if(i == 1)
@@ -317,10 +306,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             
             horizontalScrollView.addSubview(circularProgress)
-            
         }
-        
-        
     }
     
     //MARK: Bar button action
@@ -329,9 +315,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     func heartBtnClicked(){
-        
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             //objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -434,6 +418,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.topSpaceProfilePic.constant = -3
             //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
+        
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         cell?.nameLabel.text = cellDict["partyName"] as? String
         cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount)
@@ -442,6 +427,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
         cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+      
         
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         

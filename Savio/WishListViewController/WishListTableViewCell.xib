@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -82,6 +82,7 @@
                             <constraint firstAttribute="trailing" secondItem="0lB-gg-S8l" secondAttribute="trailing" constant="60" id="5Nw-AO-4WI"/>
                             <constraint firstItem="O9T-JD-z7u" firstAttribute="height" secondItem="FRn-Ud-mTf" secondAttribute="height" id="8km-mR-cgu"/>
                             <constraint firstItem="0lB-gg-S8l" firstAttribute="leading" secondItem="FRn-Ud-mTf" secondAttribute="leading" constant="60" id="9Yb-EN-DlJ"/>
+                            <constraint firstItem="O9T-JD-z7u" firstAttribute="top" secondItem="FRn-Ud-mTf" secondAttribute="top" id="DfE-HO-IRR"/>
                             <constraint firstItem="0lB-gg-S8l" firstAttribute="top" secondItem="FRn-Ud-mTf" secondAttribute="top" constant="35" id="H8v-cS-fq9"/>
                             <constraint firstItem="O9T-JD-z7u" firstAttribute="centerY" secondItem="FRn-Ud-mTf" secondAttribute="centerY" id="Qff-bC-udh"/>
                             <constraint firstAttribute="bottom" secondItem="0lB-gg-S8l" secondAttribute="bottom" constant="40" id="TtA-RB-PTI"/>
@@ -117,8 +118,8 @@
                     <constraint firstItem="FRn-Ud-mTf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="WSv-Xw-E3y"/>
                     <constraint firstAttribute="trailingMargin" secondItem="FRn-Ud-mTf" secondAttribute="trailing" constant="-8" id="Xdd-WF-GFW"/>
                     <constraint firstItem="LNt-fg-IkF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="30" id="aFH-Rb-ClN"/>
+                    <constraint firstItem="HNN-yJ-4tU" firstAttribute="top" secondItem="FRn-Ud-mTf" secondAttribute="bottom" constant="60" id="hba-BP-1iG"/>
                     <constraint firstItem="LNt-fg-IkF" firstAttribute="top" secondItem="FRn-Ud-mTf" secondAttribute="bottom" constant="15" id="oKf-T8-bbJ"/>
-                    <constraint firstItem="HNN-yJ-4tU" firstAttribute="top" secondItem="LNt-fg-IkF" secondAttribute="bottom" constant="5" id="pcz-ut-i49"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LNt-fg-IkF" secondAttribute="trailing" constant="30" id="sRM-2B-lyP"/>
                     <constraint firstItem="HNN-yJ-4tU" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="vif-h1-ggW"/>
                 </constraints>
@@ -126,6 +127,7 @@
             <connections>
                 <outlet property="btnDelete" destination="HNN-yJ-4tU" id="vLP-QX-Frv"/>
                 <outlet property="btnSavingPlan" destination="LNt-fg-IkF" id="qjO-Zh-rum"/>
+                <outlet property="deleteButtonTopSpace" destination="hba-BP-1iG" id="JJR-bi-bbU"/>
                 <outlet property="imgView" destination="O9T-JD-z7u" id="6wv-kC-x7B"/>
                 <outlet property="lblPrice" destination="Z5s-Ui-gQN" id="gza-Za-gcz"/>
                 <outlet property="lblTitle" destination="lmj-W7-aCP" id="yLh-FC-QdQ"/>

@@ -155,7 +155,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         
         
-        print(parameterDict)
+        //print(parameterDict)
         
     }
     
@@ -615,7 +615,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-               print(self.getParametersForUpdate())
+               //print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
             }
             else

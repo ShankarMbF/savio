@@ -16,6 +16,7 @@ class WishListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblPrice: UILabel!
     
+    @IBOutlet weak var deleteButtonTopSpace: NSLayoutConstraint!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
     override func awakeFromNib() {

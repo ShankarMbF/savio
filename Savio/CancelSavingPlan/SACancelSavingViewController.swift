@@ -14,10 +14,36 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     
+    @IBOutlet weak var wouldYouLikeToStartNewSavingPlanLabel: UILabel!
+    @IBOutlet weak var yourMoneyWillBeReturnLabel: UILabel!
+    @IBOutlet weak var cancelDetailLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
+        paragraphStyle.alignment = NSTextAlignment.Center
+        
+        let attrString = NSMutableAttributedString(string: "Cancelling your savings plan will withdraw any money you have saved from Savio back into your account.")
+        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+ 
+        cancelDetailLabel.attributedText = attrString
+        
+        
+        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Your money will returned to your bank in the next 5-10 working days.")
+        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        
+        wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
+        
+        
+        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "Would you like to start a new saving plan?")
+        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+        
+        yourMoneyWillBeReturnLabel.attributedText = attrStringForYourMoneyWillBeReturnLabelLabel
+        
+        
         self.setUpView()
         
     }

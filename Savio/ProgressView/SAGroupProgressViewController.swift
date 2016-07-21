@@ -70,14 +70,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        if(groupFlag == 1 )
-        {
+//        if(groupFlag == 1 )
+//        {
             objAPI.getUsersSavingPlan("g")
-        }
-        else if(groupMemberFlag == 1)
-        {
-            objAPI.getUsersSavingPlan("gm")
-        }
+//        }
+//        else if(groupMemberFlag == 1)
+//        {
+//            objAPI.getUsersSavingPlan("gm")
+//        }
         
         
         
@@ -157,7 +157,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                                 name: "GothamRounded-Medium",
                                 size: 16.0)!,
                               range: NSRange(
-                                location: 3,
+                                location: 4,
                                 length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
         
@@ -289,7 +289,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text =  "0%%"
+                labelOne.text =  "0%"
                 labelTwo.hidden = false
                 // labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
                 labelTwo.text = "£ 0 saved"

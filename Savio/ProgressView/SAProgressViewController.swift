@@ -200,7 +200,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else if(i == 1)
             {
                 labelOne.hidden = false
-                labelOne.text = "0.0%%"
+                labelOne.text = "0.0%"
                 labelTwo.hidden = false
                // labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
                 labelTwo.text = "£ 0 saved"

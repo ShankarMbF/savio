@@ -140,7 +140,9 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                     if(data?.length > 0)
                     {
                     dispatch_async(dispatch_get_main_queue(), {
+                        spinner.stopAnimating()
                         spinner.hidden = true
+                         self.cameraButton.hidden = true
                         self.topBackgroundImageView.image = image
                     })
                     }
@@ -730,6 +732,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
+    
         if(itemDetailsDataDict["id"] != nil){
             let str = Int (itemDetailsDataDict["id"] as! NSNumber)
             //            print(str)

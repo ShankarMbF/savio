@@ -170,17 +170,35 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if(itemDetailsDataDict["imageURL"] != nil)
         {
+            
             let url = NSURL(string:itemDetailsDataDict["imageURL"] as! String)
-            let request: NSURLRequest = NSURLRequest(URL: url!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                if(data?.length > 0)
-                {
-                let image = UIImage(data: data!)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.topBackgroundImageView.image = image
+            if(url != "")
+            {
+                let spinner =  UIActivityIndicatorView()
+                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                topBackgroundImageView.addSubview(spinner)
+                spinner.startAnimating()
+                
+                let request: NSURLRequest = NSURLRequest(URL: url!)
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    if(data?.length > 0)
+                    {
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                             spinner.stopAnimating()
+                            spinner.hidden = true
+                           
+                            self.topBackgroundImageView.image = image
+                        })
+                    }
                 })
-                }
-            })
+            }
+            else
+            {
+                
+            }
             
             
             cameraButton.hidden = true
@@ -647,43 +665,43 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                     }
                 }
-
+                    
                 else
                 {
-                if let payType = itemDetailsDataDict["payType"] as? NSString
-                {
-                    let date  = itemDetailsDataDict["planEndDate"] as? String
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
-                    
-                    dateDiff = Int(timeDifference/3600)
-                    
-                    
-                    if(payType == "Month")
+                    if let payType = itemDetailsDataDict["payType"] as? NSString
                     {
-                        if((dateDiff/168) == 1)
+                        let date  = itemDetailsDataDict["planEndDate"] as? String
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
+                        
+                        dateDiff = Int(timeDifference/3600)
+                        
+                        
+                        if(payType == "Month")
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            if((dateDiff/168) == 1)
+                            {
+                                cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            }
+                            else
+                            {
+                                cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            }
+                            
                         }
                         else
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            if((dateDiff/168)/4 == 1)
+                            {
+                                cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                            }
+                            else
+                            {
+                                cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
+                            }
+                            
                         }
-                        
-                    }
-                    else
-                    {
-                        if((dateDiff/168)/4 == 1)
-                        {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
-                        }
-                        else
-                        {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
-                        }
-                        
-                    }
                     }
                     
                 }
@@ -1218,6 +1236,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             if(message == "Success")
             {
+                let spinner =  UIActivityIndicatorView()
+                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, (self.topBackgroundImageView.frame.size.height/2)+20)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                self.topBackgroundImageView.addSubview(spinner)
+                spinner.startAnimating()
+                
                 itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
                 tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
@@ -1244,19 +1269,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                 {
-         
+                    
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data?.length > 0)
                         {
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.topBackgroundImageView.image = image
-                        })
+   
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                spinner.stopAnimating()
+                                spinner.hidden = true
+                                self.topBackgroundImageView.image = image
+                                
+                            })
                         }
                     })
-            
-                
+                    
+                    
                 }
                 
                 
@@ -1382,7 +1411,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: update saving plan methods
     
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-       // print(objResponse)
+        // print(objResponse)
         
         if let message = objResponse["message"] as? String
         {

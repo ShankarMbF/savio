@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Savio/SACreateSavingPlanViewController/SACreateSavingPlanViewController.swift"
-            timestampString = "490771439.60504"
+            filePath = "Savio/RegistrationViewController/SARegistrationViewController.swift"
+            timestampString = "490799255.351912"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            startingLineNumber = "1217"
+            endingLineNumber = "1217"
+            landmarkName = "successResponseForRegistrationAPI(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

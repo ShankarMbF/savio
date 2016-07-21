@@ -614,11 +614,25 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue((txtFldCell.tfDatePicker?.text)!, forKey: (txtFldCell.tfDatePicker?.placeholder)!)
     }
     
+
+    func switchKey<T, U>(inout myDict: [T:U], fromKey: T, toKey: T) {
+        if let entry = myDict.removeValueForKey(fromKey) {
+            myDict[toKey] = entry
+        }
+    }
     
     func txtFieldCellText(txtFldCell:TxtFieldTableViewCell){
         if txtFldCell.tf?.text?.characters.count>0{
+            
             dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+            if(txtFldCell.tf?.placeholder == "Surname")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "second_name")
+            }
+            else
+            {
             userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+            }
         }
         else{
             dictForTextFieldValue.removeValueForKey((txtFldCell.tf?.placeholder)!)
@@ -838,19 +852,24 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 //                }
                 if cell.tf?.placeholder == "Surname"{
                     dict["second_name"] = cell.tf?.text
+     
                 }
                 if cell.tf?.placeholder == "First Address Line"{
                     dict["address_1"] = cell.tf?.text
+
                 }
                 if cell.tf?.placeholder == "Second Address Line"{
                     dict["address_2"] = cell.tf?.text
+ 
                 }
                 if cell.tf?.placeholder == "Third Address Line"{
                     dict["address_3"] = cell.tf?.text
+
                 }
                 
                 if cell.tf?.placeholder == "Town"{
                     dict["town"] = cell.tf?.text
+
                 }
                 
                 if cell.tf?.placeholder == "Mobile number"{
@@ -858,10 +877,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 if cell.tf?.placeholder == "County"{
                     dict["county"] = cell.tf?.text
+
                 }
                 
                 if cell.tf?.placeholder == "Email"{
                     dict["email"] = cell.tf?.text
+                    
                 }
             }
             
@@ -1464,9 +1485,17 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         {
             if(message == "Party Found")
             {
+                
                 userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
                 //Get Registration UI Json data
-      
+                
+                let spinner =  UIActivityIndicatorView()
+                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, self.addProfilePictureButton.frame.size.height/2)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                self.addProfilePictureButton.addSubview(spinner)
+                spinner.startAnimating()
+                
                 if let urlString = userInfoDict["imageURL"] as? String
                 {
                     let url = NSURL(string:urlString)
@@ -1482,6 +1511,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                                 self.addProfilePictureButton.setImage(image, forState: .Normal)
                                   self.addProfilePictureButton.layer.cornerRadius = self.addProfilePictureButton.frame.size.height/2.0
                                 self.addProfilePictureButton.clipsToBounds = true
+                                spinner.stopAnimating()
+                                spinner.hidden = true
                             })
                         })
                     }
@@ -1519,6 +1550,16 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 alert.show()
 
             }
+            else
+            {
+                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }
+        else if let message = objResponse["message"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         
         print(objResponse)

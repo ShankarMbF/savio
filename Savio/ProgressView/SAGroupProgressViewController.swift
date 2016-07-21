@@ -35,6 +35,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     var totalAmount : Int = 0
     var paidAmount : Float = 0.0
     var ht:CGFloat = 0.0
+    let spinner =  UIActivityIndicatorView()
     var objAnimView = ImageViewAnimation()
     let chartColors = [
         UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
@@ -70,14 +71,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-//        if(groupFlag == 1 )
-//        {
-            objAPI.getUsersSavingPlan("g")
-//        }
-//        else if(groupMemberFlag == 1)
-//        {
-//            objAPI.getUsersSavingPlan("gm")
-//        }
+        //        if(groupFlag == 1 )
+        //        {
+        objAPI.getUsersSavingPlan("g")
+        //        }
+        //        else if(groupMemberFlag == 1)
+        //        {
+        //            objAPI.getUsersSavingPlan("gm")
+        //        }
         
         
         
@@ -146,6 +147,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func setUpView(){
+        
+        
+        spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2)
+        spinner.hidesWhenStopped = true
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        self.view.addSubview(spinner)
+        spinner.startAnimating()
         
         
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
@@ -277,10 +285,20 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        if(data!.length>0)
+                        {
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
                             imgView.image = image
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
                         })
+                        }
+                        else
+                        {
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
+                        }
                     })
                 }
                 
@@ -428,7 +446,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
         cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
-      
+        
         
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
@@ -534,6 +552,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             else
             {
                 pageControl.hidden = true
+                groupMembersLabel.hidden = true
                 let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }

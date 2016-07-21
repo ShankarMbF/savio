@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
    
 
+        self.setStatusBarBackgroundColor(UIColor.blackColor())
+         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         //Check if keychain has encrypted pin value
         let objApi = API()
         //        objApi.deleteKeychainValue("myPasscode")
@@ -89,6 +91,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func setStatusBarBackgroundColor(color: UIColor) {
+        
+        guard  let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as? UIView else {
+            return
+        }
+        
+        statusBar.backgroundColor = color
     }
     
     func applicationWillResignActive(application: UIApplication) {

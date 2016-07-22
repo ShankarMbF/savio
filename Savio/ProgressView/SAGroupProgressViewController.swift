@@ -289,11 +289,19 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        if data != nil && data?.length > 0 {
-                            let image = UIImage(data: data!)
-                            dispatch_async(dispatch_get_main_queue(), {
-                                imgView.image = image
-                            })
+                        if(data!.length>0)
+                        {
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            imgView.image = image
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
+                        })
+                        }
+                        else
+                        {
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
                         }
                     })
                 }
@@ -545,12 +553,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             if(message == "Success")
             {
-                savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
-                if objResponse["partySavingPlanMembers"] is NSNull {
+                savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
+                if objResponse["partySavingPlanMembers"] is NSNull
+                {
+                 
                 }
-                else{
-                     participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
+                else
+                {
+                    participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
                 }
+                
                 
                 var userDict : Dictionary<String,AnyObject> = [:]
                 userDict["partyName"] = objResponse["partyName"]

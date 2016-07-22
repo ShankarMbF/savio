@@ -780,22 +780,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
             }
             
-            /*
-            
+       
             let urlStr = dict["offImage"] as! String
             let url = NSURL(string: urlStr)
             
             let request: NSURLRequest = NSURLRequest(URL: url!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell1.offerImageView?.image = image
-                })
+                if (data != nil && data?.length > 0) {
+                    let image = UIImage(data: data!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell1.offerImageView?.image = image
+                    })
+                }
             })
-            */
-            
+                
             return cell1
         }
     }
@@ -1409,7 +1407,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                 }
                 
+                if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
+                    offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+                }
                 tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 100)
+                
+                
                 
                 tblView.reloadData()
             }

@@ -59,13 +59,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         self.setUPNavigation()
-        
+        let objAPI = API()
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         
         self.view.addSubview(objAnimView)
-        let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
@@ -272,20 +271,19 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
                 //  imgView.image = UIImage(named: "cycle.png")
                 
-                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+                if let url = NSURL(string:(savingPlanDetailsDict["image"] as? String)!)
                 {
-                    
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            imgView.image = image
-                        })
+                        if data != nil && data?.length > 0 {
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                imgView.image = image
+                            })
+                        }
                     })
                 }
-                
                 piechart!.addSubview(imgView)
-                
             }
             else if(i == 1)
             {
@@ -305,7 +303,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelTwo.text = "%0 days to go"
                 circularView.hidden = false
             }
-            
             horizontalScrollView.addSubview(circularProgress)
         }
     }
@@ -516,7 +513,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             if(message == "Success")
             {
                 savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
-                participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
+                if objResponse["partySavingPlanMembers"] is NSNull {
+                }
+                else{
+                     participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
+                }
                 
                 var userDict : Dictionary<String,AnyObject> = [:]
                 userDict["partyName"] = objResponse["partyName"]

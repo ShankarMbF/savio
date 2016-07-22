@@ -74,7 +74,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             return false;
         }
         
-
         return true;
     }
     

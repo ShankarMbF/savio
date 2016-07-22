@@ -544,6 +544,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         return newDict
         
     }
+    
+    
+    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    }
+    
     func createSavingPlanButtonPressed()
     {
         

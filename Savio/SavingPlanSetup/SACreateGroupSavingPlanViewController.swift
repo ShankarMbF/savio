@@ -14,7 +14,7 @@ protocol SACreateGroupSavingPlanDelegate {
     func clearAll()
 }
 
-class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate,InviteMembersDelegate {
+class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate,InviteMembersDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
@@ -33,7 +33,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var isOfferShow = false
     var objAnimView = ImageViewAnimation()
     var delegate : SACreateGroupSavingPlanDelegate?
-    
+    var imagePicker = UIImagePickerController()
     var userInfoDict  : Dictionary<String,AnyObject> = [:]
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
@@ -125,7 +125,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 
                 topBgImageView.image = UIImage(data: data)
-                 cameraButton.hidden = true
+                cameraButton.hidden = true
             }
         }
         else if let image = parameterDict["imageURL"] as? String
@@ -141,7 +141,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 
                 topBgImageView.image = UIImage(data: data)
                 cameraButton.hidden = true
-
+                
             }
         }
         else
@@ -432,24 +432,24 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["PARTY_ID"] = parameterDict["pty_id"]
         
         newDict["PARTY_SAVINGPLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
-      //  newDict["SHARED_SAVING_PLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
+        //  newDict["SHARED_SAVING_PLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
         
         if (parameterDict["imageURL"] != nil) {
             
-      
-        
-        if(parameterDict["imageURL"] as! String != "")
-        {
-            let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
-            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            let dict = ["imageName.jpg":base64String]
-            newDict["IMAGE"] = dict
-        }
-        else
-        {
-            let dict = ["imageName.jpg":""]
-            newDict["IMAGE"] = dict
-        }
+            
+            
+            if(parameterDict["imageURL"] as! String != "")
+            {
+                let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
+                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                let dict = ["imageName.jpg":base64String]
+                newDict["IMAGE"] = dict
+            }
+            else
+            {
+                let dict = ["imageName.jpg":""]
+                newDict["IMAGE"] = dict
+            }
         }
         
         newDict["SAV_PLAN_ID"] = NSUserDefaults.standardUserDefaults().objectForKey("savPlanID")
@@ -503,14 +503,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["imageURL"] as! String != "")
         {
             let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
-                newDict["IMAGE"] = dict
+            newDict["IMAGE"] = dict
         }
         else
         {
             let dict = ["imageName.jpg":""]
             newDict["IMAGE"] = dict
         }
-
+        
         
         newDict["PAY_DATE"] = selectedStr as String
         
@@ -547,6 +547,46 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     
     @IBAction func cameraButtonPressed(sender: AnyObject) {
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
+        
+        alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            })
+        alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            
+            })
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func createSavingPlanButtonPressed()
@@ -620,7 +660,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-               print(self.getParametersForUpdate())
+                print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
             }
             else
@@ -669,60 +709,60 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
                     alert.show()
                     
-//                    let objSummaryview = SASavingSummaryViewController()
-//                    var newDict : Dictionary<String,AnyObject> = [:]
-//                    
-//                    newDict["title"] = self.getParameters()["TITLE"]
-//                    newDict["amount"] = self.getParameters()["AMOUNT"]
-//                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
-//                    let dict = self.getParameters()["IMAGE"]
-//                    newDict["imageURL"] = dict
-//                    
-//                    newDict["day"] = dateString
-//                    let dateParameter = NSDateFormatter()
-//                    dateParameter.dateFormat = "yyyy-MM-dd"
-//                    var pathComponents : NSArray!
-//                    
-//                    
-//                    newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
-//                    if(dateString == "day")
-//                    {
-//                        newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
-//                        newDict["payType"] = "Weekly"
-//                    }
-//                    else{
-//                        newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-//                        newDict["payType"] = "Monthly"
-//                    }
-//                    
-//                    if offerArr.count>0{
-//                        newDict["offers"] = offerArr
-//                    }
+                    //                    let objSummaryview = SASavingSummaryViewController()
+                    //                    var newDict : Dictionary<String,AnyObject> = [:]
+                    //
+                    //                    newDict["title"] = self.getParameters()["TITLE"]
+                    //                    newDict["amount"] = self.getParameters()["AMOUNT"]
+                    //                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+                    //                    let dict = self.getParameters()["IMAGE"]
+                    //                    newDict["imageURL"] = dict
+                    //
+                    //                    newDict["day"] = dateString
+                    //                    let dateParameter = NSDateFormatter()
+                    //                    dateParameter.dateFormat = "yyyy-MM-dd"
+                    //                    var pathComponents : NSArray!
+                    //
+                    //
+                    //                    newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
+                    //                    if(dateString == "day")
+                    //                    {
+                    //                        newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                    //                        newDict["payType"] = "Weekly"
+                    //                    }
+                    //                    else{
+                    //                        newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                    //                        newDict["payType"] = "Monthly"
+                    //                    }
+                    //
+                    //                    if offerArr.count>0{
+                    //                        newDict["offers"] = offerArr
+                    //                    }
                     
                     
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
                     
-//                    let objSummaryView = SAProgressViewController()
-////                    objSummaryView.itemDataDict =  newDict
-//                    self.navigationController?.pushViewController(objSummaryView, animated: true)
-//                    
-//                    if(dateString == "day")
-//                    {
-//                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
-//                    }
-//                    else{
-//                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
-//                    }
-//                    objSummaryview.itemDataDict = newDict
-//                    self.navigationController?.pushViewController(objSummaryview, animated: true)
+                    //                    let objSummaryView = SAProgressViewController()
+                    ////                    objSummaryView.itemDataDict =  newDict
+                    //                    self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    //
+                    //                    if(dateString == "day")
+                    //                    {
+                    //                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
+                    //                    }
+                    //                    else{
+                    //                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
+                    //                    }
+                    //                    objSummaryview.itemDataDict = newDict
+                    //                    self.navigationController?.pushViewController(objSummaryview, animated: true)
                     
                     objAnimView.removeFromSuperview()
                 }
                 else {
-                let alert = UIAlertView(title: "Alert", message: "Internal Server Error", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                    let alert = UIAlertView(title: "Alert", message: "Internal Server Error", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
                 }
             }
             else{

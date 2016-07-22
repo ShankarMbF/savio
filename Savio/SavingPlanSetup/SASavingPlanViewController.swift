@@ -36,7 +36,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isUpdatePlan = false
     var isImageClicked = false
     var isDateChanged = false
-    
+    var isOfferDetailPressed = false
+    var offerDetailHeight : CGFloat = 0.0
+    var offerDetailTag = 0
+    var prevOfferDetailTag = 0
     var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
@@ -187,9 +190,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
-                             spinner.stopAnimating()
+                            spinner.stopAnimating()
                             spinner.hidden = true
-                           
+                            
                             self.topBackgroundImageView.image = image
                         })
                     }
@@ -564,25 +567,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(isClearPressed)
             {
+                
                 if(isUpdatePlan)
                 {
-                    if(isUpdatePlan)
+                    if let payType = itemDetailsDataDict["payType"] as? NSString
                     {
-                        if let payType = itemDetailsDataDict["payType"] as? NSString
+                        if(payType == "Week")
                         {
-                            if(payType == "Week")
-                            {
-                                let button = UIButton()
-                                button.tag = 0
-                                cell1.segmentBar.toggleButton(button)
-                            }
-                            
+                            let button = UIButton()
+                            button.tag = 0
+                            cell1.segmentBar.toggleButton(button)
                         }
-                        if let payDate = itemDetailsDataDict["payDate"] as? String
-                        {
-                            cell1.dayDateTextField.text = payDate
-                            
-                        }
+                        
+                    }
+                    if let payDate = itemDetailsDataDict["payDate"] as? String
+                    {
+                        cell1.dayDateTextField.text = payDate
                         
                     }
                     
@@ -740,26 +740,103 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
+            cell1.blankLabel.hidden = true
+            
+            if(isUpdatePlan)
+            {
+                
+                cell1.offerDetailsButton.hidden = false
+                cell1.offerDetailsButton.tag = indexPath.section
+                cell1.offerDetailsButton.addTarget(self, action: Selector("offerDetailsButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                if(isOfferDetailPressed == true)
+                {
+                    if(indexPath.section == offerDetailTag)
+                    {
+                        offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                        cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                        cell1.detailOfferLabel.hidden = false
+                        cell1.detailOfferLabel.text = dict["offDesc"] as? String
+                        cell1.blankLabel.hidden = false
+                    }
+                    else
+                    {
+                        cell1.detailOfferLabel.hidden = true
+                        cell1.blankLabel.hidden = false
+                    }
+                }
+                else
+                {
+                    cell1.detailOfferLabel.hidden = true
+                     cell1.blankLabel.hidden = false
+                }
+                
+            }
             
             /*
-             let urlStr = dict["offImage"] as! String
-             let url = NSURL(string: urlStr)
-             
-             let request: NSURLRequest = NSURLRequest(URL: url!)
-             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-             let image = UIImage(data: data!)
-             
-             //                self.imageCache[unwrappedImage] = image
-             dispatch_async(dispatch_get_main_queue(), {
-             cell1.offerImageView?.image = image
-             })
-             })
-             */
+            
+            let urlStr = dict["offImage"] as! String
+            let url = NSURL(string: urlStr)
+            
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                let image = UIImage(data: data!)
+                
+                //                self.imageCache[unwrappedImage] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell1.offerImageView?.image = image
+                })
+            })
+            */
             
             return cell1
         }
     }
     
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
+    
+    
+    func offerDetailsButtonPressed(sender:UIButton)
+    {
+        
+        if(isOfferDetailPressed == true)
+        {
+            if(prevOfferDetailTag != sender.tag)
+            {
+                offerDetailTag = sender.tag
+                prevOfferDetailTag = offerDetailTag
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100) + offerDetailHeight
+                
+                
+            }
+            else
+            {
+                isOfferDetailPressed = false
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100)
+            }
+        }
+        else
+        {
+            
+            isOfferDetailPressed = true
+            offerDetailTag = sender.tag
+            prevOfferDetailTag = offerDetailTag
+            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100) + offerDetailHeight
+            
+        }
+        
+        
+        self.tblView.reloadData()
+    }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -813,7 +890,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
         }
         else {
-            return 60
+            if(isUpdatePlan)
+            {
+                if(isOfferDetailPressed)
+                {
+                    if(offerDetailTag == indexPath.section)
+                    {
+                        return CGFloat(100 + offerDetailHeight)
+                    }
+                    else
+                    {
+                        return 100
+                    }
+                    
+                }
+                else
+                {
+                    return 100
+                }
+            }
+            else
+            {
+                return 65
+            }
         }
         
     }
@@ -1164,7 +1263,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else {
             
             let obj = SAOfferListViewController()
+            isOfferDetailPressed = false
             obj.delegate = self
+            
             if(isUpdatePlan)
             {
                 obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
@@ -1200,6 +1301,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
+        if(isUpdatePlan)
+        {
+            isDateChanged = true
+            tblView.beginUpdates()
+            let indexPathSections = NSMutableIndexSet()
+            indexPathSections.addIndex(1)
+            indexPathSections.addIndex(4)
+            tblView.reloadSections(indexPathSections, withRowAnimation: .None)
+            tblView.endUpdates()
+            
+            //self.tblView.reloadData()
+        }
         
     }
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -1249,7 +1362,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cameraButton.backgroundColor = UIColor.blackColor()
                 cameraButton.alpha = 0.5
                 cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
-                
+                offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 cameraButton.setImage(UIImage(named: ""), forState: UIControlState.Normal)
                 
                 let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
@@ -1274,7 +1387,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data?.length > 0)
                         {
-   
                             let image = UIImage(data: data!)
                             dispatch_async(dispatch_get_main_queue(), {
                                 spinner.stopAnimating()
@@ -1283,11 +1395,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 
                             })
                         }
+                        else
+                        {
+                            spinner.stopAnimating()
+                            spinner.hidden = true
+                        }
                     })
                     
                     
                 }
                 
+                tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 100)
                 
                 tblView.reloadData()
             }

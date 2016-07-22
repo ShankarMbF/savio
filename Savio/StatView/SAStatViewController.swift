@@ -23,6 +23,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     @IBOutlet weak var contentView: UIView?
     var itemTitle = ""
     var endDate = ""
+    var cost = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
@@ -51,7 +52,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart = LineChart()
         lineChart.planTitle = self.planType
 
-        lbl?.text = itemTitle
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
         
@@ -215,6 +215,43 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        
+        if(planType == "Individual")
+        {
+        let attrText = NSMutableAttributedString(string: String(format: "My %@ saving plan target is £%@",itemTitle,cost))
+        
+        attrText.addAttribute(NSFontAttributeName,
+                              value: UIFont(
+                                name: "GothamRounded-Medium",
+                                size: 16.0)!,
+                              range: NSRange(
+                                location: 3,
+                                length: itemTitle.characters.count))
+        
+        
+        lbl!.attributedText = attrText
+        }
+        else
+        {
+            /*
+            let attrText = NSMutableAttributedString(string: String(format: "Our target is %@",cost))
+            
+            attrText.addAttribute(NSFontAttributeName,
+                                  value: UIFont(
+                                    name: "GothamRounded-Medium",
+                                    size: 15.0)!,
+                                  range: NSRange(
+                                    location: 4,
+                                    length: itemTitle.characters.count))
+            */
+            
+            
+            lbl!.text = String(format: "Our target is £%@",cost)
+            lbl?.textColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
+            self.view.bringSubviewToFront(lbl!)
+        }
+
     }
     
     func menuButtonClicked(){

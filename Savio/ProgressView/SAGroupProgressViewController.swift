@@ -316,15 +316,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelOne.hidden = false
                 labelOne.text =  "0%"
                 labelTwo.hidden = false
-                // labelTwo.text = String(format: "£ %0.2f saved",String(paidAmount))
-                labelTwo.text = "£ 0 saved"
+                labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
+                //labelTwo.text = "£ 0 saved"
                 circularView.hidden = false
             }
             else
             {
                 labelOne.hidden = false
-                // labelOne.text = String(format: "£ %0.2f",Float(totalAmount) - Float(paidAmount))
-                labelOne.text = "£ 0"
+                labelOne.text = String(format: "£ %0.2f",Float(totalAmount) - paidAmount)
+                //labelOne.text = "£ 0"
                 labelTwo.hidden = false
                 labelTwo.text = "%0 days to go"
                 circularView.hidden = false
@@ -356,7 +356,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func statsButtonPressed(btn:UIButton)
     {
         let obj = SAStatViewController()
+        obj.itemTitle = savingPlanDetailsDict["title"] as! String
         obj.planType = "Group"
+        obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
+        obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
         self.navigationController?.pushViewController(obj, animated: false)
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -373,11 +376,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         horizontalScrollView!.scrollRectToVisible(newFrame, animated: true)
     }
     
-    @IBAction func clickOnStatButton(sender:UIButton){
-        let obj = SAStatViewController()
-        self.navigationController?.pushViewController(obj, animated: false)
-    }
-    
+
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
@@ -574,7 +573,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
                 
-                participantsArr.append(userDict)
+                participantsArr.insert(userDict, atIndex: 0)
                 
                 participantsArr = participantsArr.reverse()
                 

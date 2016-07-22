@@ -278,9 +278,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     @IBAction func clickOnStatButton(sender:UIButton){
         let obj = SAStatViewController()//savingPlanDetailsDict
-        let str = String(format: "My %@ saving plan £%@",savingPlanDetailsDict["title"] as! String, savingPlanDetailsDict["amount"] as! NSNumber)
-        obj.itemTitle = str
+//        let str = String(format: "My %@ saving plan £%@",savingPlanDetailsDict["title"] as! String, savingPlanDetailsDict["amount"] as! NSNumber)
+        obj.itemTitle = savingPlanDetailsDict["title"] as! String
+        
         obj.planType = "Individual"
+        obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
         obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
         self.navigationController?.pushViewController(obj, animated: false)
     }

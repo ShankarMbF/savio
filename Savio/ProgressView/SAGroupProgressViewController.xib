@@ -122,13 +122,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="444"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My saving plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxj-TM-ht8">
-                                    <rect key="frame" x="20" y="0.0" width="560" height="20"/>
+                                    <rect key="frame" x="20" y="0.0" width="560" height="40"/>
                                     <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4S-KN-7rD">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="362"/>
+                                    <rect key="frame" x="0.0" y="40" width="600" height="342"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="190" id="XOO-Gc-ITl"/>
                                     </constraints>
@@ -176,7 +176,7 @@
                             <constraints>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="centerX" secondItem="alJ-QQ-JNZ" secondAttribute="centerX" id="DJv-40-i6d"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="20" id="DMd-oH-uuv"/>
-                                <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" constant="20" id="KqT-kH-iey"/>
+                                <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" constant="40" id="KqT-kH-iey"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="Mqf-nw-hP3"/>
                                 <constraint firstItem="Ihf-ot-vbi" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="P98-5D-6MP"/>
                                 <constraint firstAttribute="trailing" secondItem="Ihf-ot-vbi" secondAttribute="trailing" id="UWB-xs-JGP"/>

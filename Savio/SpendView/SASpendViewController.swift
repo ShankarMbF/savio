@@ -112,10 +112,9 @@ class SASpendViewController: UIViewController {
     }
 
     @IBAction func planButtonPressed(sender: AnyObject) {
-        let objPlan = SAProgressViewController(nibName: "SAProgressViewController",bundle: nil)
-        
-        self.navigationController?.pushViewController(objPlan, animated: false)
+        self.navigationController?.popViewControllerAnimated(false)
     }
+    
     @IBAction func offersButtonPressed(sender: AnyObject) {
         
         let obj = SAOfferListViewController()

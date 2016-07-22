@@ -128,7 +128,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     func heartBtnClicked(){
-        
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>

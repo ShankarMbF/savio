@@ -171,7 +171,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         
-        if(itemDetailsDataDict["imageURL"] != nil)
+        if(itemDetailsDataDict["imageURL"] != nil && !(itemDetailsDataDict["imageURL"] is NSNull))
         {
             
             let url = NSURL(string:itemDetailsDataDict["imageURL"] as! String)
@@ -196,6 +196,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             self.topBackgroundImageView.image = image
                         })
                     }
+                    else{
+                        spinner.stopAnimating()
+                        spinner.hidden = true
+                    }
                 })
             }
             else
@@ -212,42 +216,50 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            if(imageDataDict["title"] as! String == "Group Save")
-            {
-                topBackgroundImageView.image = UIImage(named: "groupsave-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Wedding")
-            {
-                topBackgroundImageView.image = UIImage(named: "wdding-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Baby")
-            {
-                topBackgroundImageView.image = UIImage(named: "baby-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Holiday")
-            {
-                topBackgroundImageView.image = UIImage(named: "holiday-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Ride")
-            {
-                topBackgroundImageView.image = UIImage(named: "ride-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Home")
-            {
-                topBackgroundImageView.image = UIImage(named: "home-setup-bg.png")
-            }
-            else if(imageDataDict["title"] as! String == "Gadget")
-            {
-                topBackgroundImageView.image = UIImage(named: "gadget-setup-bg.png")
-            }
-            else
-            {
-                topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
-            }
+            
+           topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
+            
             self.cameraButton.hidden = false
         }
         
         
+    }
+    
+    func setTopImageAsPer(dict:Dictionary<String,AnyObject>) -> UIImage{
+        
+        if(imageDataDict["title"] as! String == "Group Save")
+        {
+            return UIImage(named: "groupsave-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Wedding")
+        {
+            return UIImage(named: "wdding-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Baby")
+        {
+            return UIImage(named: "baby-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Holiday")
+        {
+            return UIImage(named: "holiday-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Ride")
+        {
+            return UIImage(named: "ride-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Home")
+        {
+            return UIImage(named: "home-setup-bg.png")!
+        }
+        else if(imageDataDict["title"] as! String == "Gadget")
+        {
+            return UIImage(named: "gadget-setup-bg.png")!
+        }
+        else
+        {
+            return UIImage(named: "generic-setup-bg.png")!
+        }
+
     }
     
     //MARK: Bar button action
@@ -417,7 +429,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemTitle
-                
             }
             
             if(isClearPressed)
@@ -510,7 +521,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
             
-            
             if(isClearPressed)
             {
                 if(isUpdatePlan)
@@ -555,9 +565,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         button.tag = 0
                         cell1.segmentBar.toggleButton(button)
                     }
-                    
                 }
-                
             }
             
             if(popOverSelectedStr != "")
@@ -1177,11 +1185,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
                     newDict["TITLE"] = itemTitle
                     newDict["AMOUNT"] = cost
-                    if(topBackgroundImageView.image != nil)
+                    if(topBackgroundImageView.image != nil && topBackgroundImageView.image != self.setTopImageAsPer(imageDataDict))
                     {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                        
                         
                         let dict = ["imageName.jpg":base64String]
                         newDict["IMAGE"] = dict
@@ -1201,7 +1208,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     //print(newDict)
                     
                     objAPI.updateSavingPlan(newDict)
-                    
                 }
                 else
                 {
@@ -1229,8 +1235,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     //print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
-                    
-                    
                 }
                 
             }

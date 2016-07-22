@@ -125,6 +125,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 
                 topBgImageView.image = UIImage(data: data)
+                 cameraButton.hidden = true
             }
         }
         else if let image = parameterDict["imageURL"] as? String
@@ -429,7 +430,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         newDict["TITLE"] = parameterDict["title"]
         newDict["AMOUNT"] = parameterDict["amount"]
         newDict["PARTY_ID"] = parameterDict["pty_id"]
+        
         newDict["PARTY_SAVINGPLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
+      //  newDict["SHARED_SAVING_PLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
+        
         if (parameterDict["imageURL"] != nil) {
             
       
@@ -507,10 +511,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             newDict["IMAGE"] = dict
         }
 
-
-        
-   
-        
         
         newDict["PAY_DATE"] = selectedStr as String
         
@@ -544,6 +544,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         return newDict
         
     }
+    
+    
+    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    }
+    
     func createSavingPlanButtonPressed()
     {
         
@@ -615,7 +620,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-               //print(self.getParametersForUpdate())
+               print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
             }
             else

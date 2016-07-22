@@ -382,7 +382,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         else
         {
-           
+        
             NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -405,7 +405,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
                 }
            }
-        }
+       }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

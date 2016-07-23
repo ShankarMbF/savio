@@ -25,6 +25,11 @@
                                     <constraint firstAttribute="width" secondItem="mz1-s8-RAU" secondAttribute="height" multiplier="115:128" id="d95-dI-fGD"/>
                                     <constraint firstAttribute="width" constant="115" id="ffe-XQ-abo"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="d95-dI-fGD"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.63137254901960782" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
@@ -37,7 +42,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="312" y="369"/>
+            <point key="canvasLocation" x="209" y="182"/>
         </scene>
     </scenes>
     <resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,9 +7,9 @@
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
         </mutableArray>
         <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
         </mutableArray>
@@ -235,10 +235,10 @@
                     <rect key="frame" x="0.0" y="104" width="600" height="313"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-CM-USF">
-                            <rect key="frame" x="15" y="30" width="570" height="268"/>
+                            <rect key="frame" x="15" y="40" width="570" height="258"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmE-Ve-npa" userLabel="ContentView">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="268"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="258"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="600" id="dvW-Ub-t8M"/>
@@ -266,12 +266,12 @@
                                 <action selector="graphSliderValueChanged:" destination="-1" eventType="valueChanged" id="ZlD-NH-eyc"/>
                             </connections>
                         </slider>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iP-Zg-J9h">
-                            <rect key="frame" x="30" y="8" width="540" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iP-Zg-J9h">
+                            <rect key="frame" x="10" y="0.0" width="580" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="21" id="psi-qo-MNr"/>
+                                <constraint firstAttribute="height" constant="40" id="psi-qo-MNr"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -280,13 +280,13 @@
                         <constraint firstAttribute="trailing" secondItem="Zx6-CM-USF" secondAttribute="trailing" constant="15" id="FNm-dv-SaZ"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="15" id="HwE-hE-bib"/>
                         <constraint firstAttribute="trailing" secondItem="fnS-6P-Qus" secondAttribute="trailing" constant="30" id="IzM-aA-TWe"/>
-                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="30" id="K5b-7f-5DY"/>
+                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="10" id="K5b-7f-5DY"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="-20" id="KFv-Q4-CFP"/>
                         <constraint firstItem="fnS-6P-Qus" firstAttribute="leading" secondItem="3pJ-dh-CAm" secondAttribute="leading" constant="40" id="WPU-nr-MhQ"/>
-                        <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="30" id="WjE-nc-Mpk"/>
+                        <constraint firstItem="Zx6-CM-USF" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="40" id="WjE-nc-Mpk"/>
                         <constraint firstAttribute="bottom" secondItem="Zx6-CM-USF" secondAttribute="bottom" constant="15" id="g9p-Gu-KQU"/>
-                        <constraint firstAttribute="trailing" secondItem="8iP-Zg-J9h" secondAttribute="trailing" constant="30" id="gUT-iO-gQf"/>
-                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" constant="8" id="vaH-SC-8Cm"/>
+                        <constraint firstAttribute="trailing" secondItem="8iP-Zg-J9h" secondAttribute="trailing" constant="10" id="gUT-iO-gQf"/>
+                        <constraint firstItem="8iP-Zg-J9h" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="top" id="vaH-SC-8Cm"/>
                         <constraint firstAttribute="bottom" secondItem="fnS-6P-Qus" secondAttribute="bottom" id="xrV-xc-lhk"/>
                         <constraint firstItem="Zx6-CM-USF" firstAttribute="centerX" secondItem="3pJ-dh-CAm" secondAttribute="centerX" id="ynT-8E-K1s"/>
                     </constraints>

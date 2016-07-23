@@ -24,7 +24,7 @@ class ContainerViewController: UIViewController {
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-
+        
         
         if individualFlag == 1 {
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
@@ -51,7 +51,7 @@ class ContainerViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
-       
+        
     }
     
     func ToggleCentreView() {
@@ -78,17 +78,17 @@ class ContainerViewController: UIViewController {
             self.ToggleCentreView()
             return
         }
-//        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
-//        {
-//            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
-//           self.ToggleCentreView()
-//            return
-//        }
-
+        //        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
+        //        {
+        //            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
+        //            alert.show()
+        //           self.ToggleCentreView()
+        //            return
+        //        }
+        
         self.navController.view.removeFromSuperview()
         self.navController.removeFromParentViewController()
-
+        
         switch className {
         case "SACreateSavingPlanViewController":
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
@@ -135,27 +135,21 @@ class ContainerViewController: UIViewController {
             else {
                 self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
             }
-
+            
             self.replaceViewController()
             
         case "SASavingPlanViewController":
             
-//            if isShowingProgress == "PartySavingPlanExist" {
-                let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
-                obj.isUpdatePlan = true
-                let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
-                NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                self.centreVC = obj
-                
-                self.replaceViewController()
-//            }
-//            else  {
-//                
-//            }
+            let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
+            obj.isUpdatePlan = true
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.centreVC = obj
+            
+            self.replaceViewController()
             
             
-       
         case "SASettingsViewController":
             self.centreVC = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
             self.replaceViewController()

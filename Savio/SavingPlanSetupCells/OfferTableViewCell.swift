@@ -10,6 +10,11 @@ import UIKit
 
 class OfferTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var offerDetailsButton: UIButton!
+    
+    @IBOutlet weak var blankLabel: UILabel!
+    @IBOutlet weak var detailOfferLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var detailOfferLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var offerDetailLabel: UILabel!

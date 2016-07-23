@@ -10,7 +10,9 @@ import UIKit
 
 class SASavingSummaryViewController: UIViewController {
     
-    
+    @IBOutlet weak var continueButtonBackgroundView: UIView!
+    @IBOutlet weak var topSpaceContonueView: NSLayoutConstraint!
+
     @IBOutlet weak var vwCongrats : UIView?
     @IBOutlet weak var vwScrContent : UIView?
     @IBOutlet weak var vwSummary : UIView?
@@ -100,15 +102,17 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     func setUpView(){
-        //print(itemDataDict)
+      print(itemDataDict)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
 
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
-        btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
-        btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
-        btnContinue!.layer.shadowOpacity = 1
+        continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
+        continueButtonBackgroundView.layer.cornerRadius = 5
+//        btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
+//        btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
+//        btnContinue!.layer.shadowOpacity = 1
         btnContinue!.layer.cornerRadius = 5
         
         //set Navigation left button
@@ -266,6 +270,8 @@ class SASavingSummaryViewController: UIViewController {
         
         lblOffer?.hidden = true
         topSpaceForContinue.constant = 30
+        topSpaceContonueView.constant = 30
+        self.view.bringSubviewToFront(btnContinue!)
         htOfferView.constant = 0
         if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
             //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
@@ -284,6 +290,8 @@ class SASavingSummaryViewController: UIViewController {
                 htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
                 htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
                 topSpaceForContinue.constant = 80
+                topSpaceContonueView.constant = 80
+                self.view.bringSubviewToFront(btnContinue!)
                 scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
                 let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
                 let lblTitle = testView.viewWithTag(1)! as! UILabel

@@ -289,7 +289,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        if(data!.length>0)
+                        if(data != nil && data!.length>0)
                         {
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
@@ -568,7 +568,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
                 
-                participantsArr.insert(userDict, atIndex: 0)
+                participantsArr.append(userDict)
                 
                 participantsArr = participantsArr.reverse()
                 

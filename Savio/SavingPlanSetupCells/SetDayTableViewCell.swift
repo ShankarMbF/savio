@@ -51,6 +51,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         leftView.backgroundColor = UIColor.clearColor()
         
         dayDateTextField.leftView = leftView
+        dayDateTextField.layer.cornerRadius = 3
         dayDateTextField.leftViewMode = UITextFieldViewMode.Always
         
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
@@ -67,7 +68,11 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dayDateTextField.inputView = dayPickerView
         dayDateTextField.inputAccessoryView = customToolBar
         
-
+        let maskPath2: UIBezierPath = UIBezierPath(roundedRect: dropDownImageView!.bounds, byRoundingCorners: ([.TopRight, .BottomRight]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer2: CAShapeLayer = CAShapeLayer()
+        maskLayer2.frame = dropDownImageView!.bounds
+        maskLayer2.path = maskPath2.CGPath
+        dropDownImageView?.layer.mask = maskLayer2
         
         dropDownImageView.backgroundColor = self.setUpColor()
         

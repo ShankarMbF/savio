@@ -323,18 +323,19 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
+            cell1.blankLabel.hidden = true
             
             let urlStr = dict["offImage"] as! String
             let url = NSURL(string: urlStr)
             
             let request: NSURLRequest = NSURLRequest(URL: url!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                let image = UIImage(data: data!)
-                
-                //                self.imageCache[unwrappedImage] = image
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell1.offerImageView?.image = image
-                })
+                if (data != nil && data?.length > 0) {
+                    let image = UIImage(data: data!)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell1.offerImageView?.image = image
+                    })
+                }
             })
             return cell1
             

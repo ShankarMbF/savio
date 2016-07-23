@@ -34,18 +34,18 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         
         // corner Radius of costTextField, currencyLabel And BGContentView *************************
-//        BGContentView.layer.cornerRadius = 5
-//        
-//        let costpath = UIBezierPath(roundedRect:costTextField.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
-//        let costmaskLayer = CAShapeLayer()
-//        costmaskLayer.path = costpath.CGPath
-//        costTextField.layer.mask = costmaskLayer
-//        
-//        let Currentpath = UIBezierPath(roundedRect:currencyLabel.bounds, byRoundingCorners:[ .TopLeft, .BottomLeft], cornerRadii: CGSizeMake(5, 5))
-//        let maskLayer = CAShapeLayer()
-//        maskLayer.path = Currentpath.CGPath
-//        currencyLabel.layer.mask = maskLayer
-//        costTextField.layer.cornerRadius = 4
+        //BGContentView.layer.cornerRadius = 5
+        
+        let costpath = UIBezierPath(roundedRect:costTextField.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
+        let costmaskLayer = CAShapeLayer()
+        costmaskLayer.path = costpath.CGPath
+        costTextField.layer.mask = costmaskLayer
+        
+        let Currentpath = UIBezierPath(roundedRect:currencyLabel.bounds, byRoundingCorners:[ .TopLeft, .BottomLeft], cornerRadii: CGSizeMake(5, 5))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = Currentpath.CGPath
+        currencyLabel.layer.mask = maskLayer
+        costTextField.layer.cornerRadius = 4
         // Corner Radius of End *************************
         
         

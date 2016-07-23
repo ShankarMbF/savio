@@ -405,7 +405,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
                 }
            }
-       }
+      }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

@@ -4,7 +4,7 @@
 //
 //  Created by Prashant on 16/05/16.
 //  Copyright © 2016 Prashant. All rights reserved.
-//
+//savio123 - exposrt certificate P12 CertificatesAPNS
 
 import UIKit
 
@@ -29,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         registerForPushNotifications(application)
+        
+        // Check if launched from notification
+        // 1
+        if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+           // Do the stuff after geting Notification when app is not running mode
+        }
         
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)

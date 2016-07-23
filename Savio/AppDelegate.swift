@@ -4,7 +4,7 @@
 //
 //  Created by Prashant on 16/05/16.
 //  Copyright © 2016 Prashant. All rights reserved.
-//
+//savio123 - exposrt certificate P12 CertificatesAPNS
 
 import UIKit
 
@@ -27,6 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        registerForPushNotifications(application)
+        
+        // Check if launched from notification
+        // 1
+        if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+           // Do the stuff after geting Notification when app is not running mode
+        }
+        
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
          //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
@@ -124,6 +133,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    
+    func registerForPushNotifications(application: UIApplication) {
+        let notificationSettings = UIUserNotificationSettings(
+            forTypes: [.Badge, .Sound, .Alert], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if notificationSettings.types != .None {
+            application.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        print("Device Token:", tokenString)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Failed to register:", error)
+    }
+    
+    // MARK: Handle notifications
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        let aps = userInfo["aps"] as! [String: AnyObject]
+        
+        // 1
+        if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
+            // Refresh App with new Content
+            // 2
+
+        } else  {
+            //
+            // 4
+        }
+    }
     
 }
 

@@ -12,6 +12,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     @IBOutlet weak var groupMembersLabel: UILabel!
     
+    @IBOutlet weak var toolBarView: UIView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var horizontalScrollView: UIScrollView!
     @IBOutlet weak var spendButton: UIButton!
@@ -49,6 +50,18 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
     ];
     
+    
+    
+    let topLabelColors = [
+        UIColor(red:231/255,green:177/255,blue:235/255,alpha:1),
+        UIColor(red:156/255,green:208/255,blue:133/255,alpha:1),
+        UIColor(red:244/255,green:177/255,blue:176/255,alpha:1),
+        UIColor(red:87/255,green:221/255,blue:215/255,alpha:1),
+        UIColor(red:237/255,green:185/255,blue:82/255,alpha:1),
+        UIColor(red:159/255,green:223/255,blue:181/255,alpha:1),
+        UIColor(red:180/255,green:178/255,blue:209/255,alpha:1),
+        UIColor(red:245/255,green:189/255,blue:104/255,alpha:1)
+    ];
     var  prevIndxArr: Array<Int> = []
     
     
@@ -72,7 +85,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
         //        if(groupFlag == 1 )
         //        {
-        objAPI.getUsersSavingPlan("g")
+        objAPI.getUsersSavingPlan("gm")
         //        }
         //        else if(groupMemberFlag == 1)
         //        {
@@ -146,15 +159,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func setUpView(){
-        
-        
+
         spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2)
         spinner.hidesWhenStopped = true
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.view.addSubview(spinner)
         spinner.startAnimating()
-        
-        
+
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
         
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -179,8 +190,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             paidAmount = totalPaidAmount.floatValue
         }
-        
-        
+
         //prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
@@ -211,8 +221,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             pieChartSliceArray.append(error)
             
         }
-        
-        
+
         for var i=0; i<3; i++
         {
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
@@ -231,6 +240,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             
             let labelTwo = circularProgress.viewWithTag(5) as! UILabel
             
+            let labelThree = circularProgress.viewWithTag(6) as! UILabel
+            
             circularView.angle = Double((paidAmount * 360)/Float(totalAmount))
             
             if(i == 0)
@@ -241,7 +252,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 circularView.hidden = true
                 
                 piechart = Piechart()
-                             let imgView = UIImageView()
+                let imgView = UIImageView()
                 
                 piechart!.frame = CGRectMake(0,0, horizontalScrollView.frame.width, horizontalScrollView.frame.height)
                 
@@ -249,7 +260,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 185
                     piechart?.radius.inner = horizontalScrollView.frame.width - 210
-                    imgView.frame = CGRectMake(50,70,220,220)
+                    imgView.frame = CGRectMake(50,62,220,220)
                     
                 }
                 else  if(UIScreen.mainScreen().bounds.width == 414)
@@ -268,18 +279,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 300
                     piechart?.radius.inner = horizontalScrollView.frame.width - 325
-                     imgView.frame = CGRectMake(67,40,300,300)
+                    imgView.frame = CGRectMake(67,40,300,300)
                 }
                 piechart!.delegate = self
                 
                 piechart?.backgroundColor = UIColor.clearColor()
                 piechart!.slices = pieChartSliceArray
                 circularProgress.addSubview(piechart!)
-                
-                
-   
-                
-      
+    
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -291,12 +298,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data != nil && data!.length>0)
                         {
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            imgView.image = image
-                            self.spinner.stopAnimating()
-                            self.spinner.hidden = true
-                        })
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                imgView.image = image
+                                self.spinner.stopAnimating()
+                                self.spinner.hidden = true
+                            })
                         }
                         else
                         {
@@ -304,6 +311,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                             self.spinner.hidden = true
                         }
                     })
+                    
+                    
                 }
                 piechart!.addSubview(imgView)
             }
@@ -312,6 +321,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelOne.hidden = false
                 labelOne.text =  "0%"
                 labelTwo.hidden = false
+                
                 labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
                 //labelTwo.text = "£ 0 saved"
                 circularView.hidden = false
@@ -319,14 +329,34 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             else
             {
                 labelOne.hidden = false
-                labelOne.text = String(format: "£ %0.2f",Float(totalAmount) - paidAmount)
+                labelOne.text = "You saved"
                 //labelOne.text = "£ 0"
+                labelThree.text = String(format: "%d",totalAmount)
+//                let text = labelThree.text
+//                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!]
+//                let attString:NSMutableAttributedString = NSMutableAttributedString(string: text!, attributes: attributes)
+//                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
+//                let superscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+//                let newAttrText : NSAttributedString = superscript.appendAttributedString(attString)
+
                 labelTwo.hidden = false
-                labelTwo.text = "%0 days to go"
+                labelTwo.text = String(format:"%d%% of your part",totalAmount/participantsArr.count)
                 circularView.hidden = false
             }
             horizontalScrollView.addSubview(circularProgress)
         }
+        
+        
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.planButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.planButton?.layer.mask = maskLayer
+        
+        self.view.bringSubviewToFront(tblView)
+        tblView.layer.zPosition = 1
+        
+        self.view.bringSubviewToFront(toolBarView)
     }
     
     //MARK: Bar button action
@@ -371,7 +401,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         horizontalScrollView!.scrollRectToVisible(newFrame, animated: true)
     }
     
-
+    
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
@@ -438,15 +468,69 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
         
+        cell?.topShadowView.backgroundColor = topLabelColors[indexPath.row]
+        if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+        {
+            
+            for var i in 0 ..< transactionArray.count {
+                let transactionDict = transactionArray[i]
+                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+                
+                cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
+                cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+                
+                cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
+                cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+            }
+        }
+        else
+        {
+            cell?.savedAmountLabel.text = "£0"
+            cell?.saveProgress.angle = 0
+            
+            cell?.remainingAmountLabel.text = "£0"
+            cell?.remainingProgress.angle = 0
+        }
+        
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         cell?.nameLabel.text = cellDict["partyName"] as? String
-        cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount)
-        cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
-        cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+        cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount/participantsArr.count)
         
-        cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
-        cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
         
+        let spinner =  UIActivityIndicatorView()
+        spinner.center = CGPointMake((cell?.userProfile.frame.width)!/2, (cell?.userProfile.frame.height)!/2)
+        spinner.hidesWhenStopped = true
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        cell?.userProfile.addSubview(spinner)
+        
+        if let urlString = cellDict["partyImageUrl"] as? String
+        {
+            let url = NSURL(string:urlString)
+            let request: NSURLRequest = NSURLRequest(URL: url!)
+            
+            if(urlString != "")
+            {
+                spinner.startAnimating()
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    if data?.length > 0
+                    {
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            cell?.userProfile.image = image
+                            spinner.hidden = true
+                            spinner.stopAnimating()
+                        })
+                    }
+                    else
+                    {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            spinner.hidden = true
+                            spinner.stopAnimating()
+                        })
+                    }
+                })
+            }
+        }
         
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
         
@@ -555,7 +639,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {
-                 
+                    
                 }
                 else
                 {

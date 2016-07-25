@@ -1,16 +1,16 @@
  //
-//  GroupsavingViewController.swift
-//  Savio
-//
-//  Created by Maheshwari on 22/06/16.
-//  Copyright © 2016 Prashant. All rights reserved.
-//
-
-import UIKit
-import AddressBook
-import AddressBookUI
-
-class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource,SACreateGroupSavingPlanDelegate {
+ //  GroupsavingViewController.swift
+ //  Savio
+ //
+ //  Created by Maheshwari on 22/06/16.
+ //  Copyright © 2016 Prashant. All rights reserved.
+ //
+ 
+ import UIKit
+ import AddressBook
+ import AddressBookUI
+ 
+ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource,SACreateGroupSavingPlanDelegate {
     
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     
@@ -136,15 +136,21 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
                 
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     
-                    let image = UIImage(data: data!)
                     if(data?.length > 0)
                     {
-                    dispatch_async(dispatch_get_main_queue(), {
+                        let image = UIImage(data: data!)
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            spinner.stopAnimating()
+                            spinner.hidden = true
+                            self.cameraButton.hidden = true
+                            self.topBackgroundImageView.image = image
+                        })
+                    }
+                    else
+                    {
                         spinner.stopAnimating()
                         spinner.hidden = true
-                         self.cameraButton.hidden = true
-                        self.topBackgroundImageView.image = image
-                    })
                     }
                 })
             }
@@ -318,21 +324,32 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
             
-            if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                contactDict["name"] = firstName as! String
+            if  (ABRecordCopyValue(person, kABPersonFirstNameProperty) != nil){
+                if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                    contactDict["name"] = firstName as! String
+                }
             }
-            
+            else
+            {
+                contactDict["name"] = ""
+            }
             
             if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
                 contactDict["lastName"] = lastName as! String
             }
         }
         else{
-            if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                print(firstName)
-                contactDict["name"] = firstName as! String
+            if  (ABRecordCopyValue(person, kABPersonFirstNameProperty) != nil){
+                if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                    print(firstName)
+                    contactDict["name"] = firstName as! String
+                }
+            }
+            else{
+                contactDict["name"] = ""
             }
             contactDict["lastName"] = ""
+            
         }
         
         //Get Phone Number
@@ -732,7 +749,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
-    
+        
         if(itemDetailsDataDict["id"] != nil){
             let str = Int (itemDetailsDataDict["id"] as! NSNumber)
             //            print(str)
@@ -770,7 +787,7 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
         }
         if(itemDetailsDataDict["imageURL"] != nil)
         {
-
+            
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             parameterDict["imageURL"] = base64String
@@ -1008,4 +1025,4 @@ class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDe
     }
     
     
-}
+ }

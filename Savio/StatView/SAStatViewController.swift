@@ -251,6 +251,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             lbl?.textColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
             self.view.bringSubviewToFront(lbl!)
         }
+        
+        
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.planButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.planButton?.layer.mask = maskLayer
 
     }
     

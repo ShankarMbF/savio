@@ -221,8 +221,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             self.cameraButton.hidden = false
         }
-        
-        
+     
     }
     
     func setTopImageAsPer(dict:Dictionary<String,AnyObject>) -> UIImage{
@@ -809,13 +808,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     else
                     {
                         cell1.detailOfferLabel.hidden = true
-                        cell1.blankLabel.hidden = false
+                        cell1.blankLabel.hidden = true
                     }
                 }
                 else
                 {
                     cell1.detailOfferLabel.hidden = true
-                     cell1.blankLabel.hidden = false
+                     cell1.blankLabel.hidden = true
                 }
                 
             }
@@ -860,14 +859,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 offerDetailTag = sender.tag
                 prevOfferDetailTag = offerDetailTag
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100) + offerDetailHeight
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110) + offerDetailHeight
                 
                 
             }
             else
             {
                 isOfferDetailPressed = false
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100)
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110)
             }
         }
         else
@@ -876,7 +875,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isOfferDetailPressed = true
             offerDetailTag = sender.tag
             prevOfferDetailTag = offerDetailTag
-            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 100) + offerDetailHeight
+            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110) + offerDetailHeight
             
         }
         
@@ -942,17 +941,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if(offerDetailTag == indexPath.section)
                     {
-                        return CGFloat(100 + offerDetailHeight)
+                        return CGFloat(110 + offerDetailHeight)
                     }
                     else
                     {
-                        return 100
+                        return 90
                     }
                     
                 }
                 else
                 {
-                    return 100
+                    return 90
                 }
             }
             else
@@ -1038,7 +1037,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.setUpView()
                 self.isClearPressed = true
-                self.tblViewHt.constant = 560
+                self.tblViewHt.constant = 600
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()

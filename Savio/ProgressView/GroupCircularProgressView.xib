@@ -8,6 +8,7 @@
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
+            <string>GothamRounded-Medium</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -24,7 +25,7 @@
                             <rect key="frame" x="50" y="55" width="500" height="490"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEs-gA-dA9">
-                                    <rect key="frame" x="128" y="195" width="244" height="40"/>
+                                    <rect key="frame" x="128" y="175" width="244" height="40"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="128" id="FTs-op-UVl"/>
@@ -32,7 +33,7 @@
                                         <constraint firstAttribute="height" constant="40" id="gSv-PW-sKI"/>
                                         <constraint firstAttribute="width" constant="244" id="jkx-HE-aNq"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="20"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
@@ -43,14 +44,14 @@
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRm-Zv-QiR">
-                                    <rect key="frame" x="128" y="265" width="244" height="30"/>
+                                    <rect key="frame" x="128" y="285" width="244" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Lul-pv-sVa"/>
                                         <constraint firstAttribute="width" constant="200" id="Tyh-5f-45r"/>
                                         <constraint firstAttribute="width" constant="244" id="qhF-Sl-zQu"/>
                                         <constraint firstAttribute="height" constant="30" id="rlh-XN-2XW"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="18"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="default">
@@ -59,6 +60,16 @@
                                             <exclude reference="Tyh-5f-45r"/>
                                         </mask>
                                     </variation>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2DQ-vI-lkG">
+                                    <rect key="frame" x="128" y="225" width="244" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="244" id="1jr-SE-9ZO"/>
+                                        <constraint firstAttribute="height" constant="40" id="5hW-eg-D3a"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="24"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <constraints>
@@ -70,8 +81,8 @@
                                 <constraint firstItem="VEs-gA-dA9" firstAttribute="top" secondItem="3Mf-lu-a8L" secondAttribute="top" constant="138" id="CZb-hs-NAT"/>
                                 <constraint firstAttribute="width" constant="100" id="G8e-Bl-UfF"/>
                                 <constraint firstItem="VEs-gA-dA9" firstAttribute="centerX" secondItem="3Mf-lu-a8L" secondAttribute="centerX" id="JJc-Fr-eXR"/>
-                                <constraint firstItem="VEs-gA-dA9" firstAttribute="centerY" secondItem="3Mf-lu-a8L" secondAttribute="centerY" constant="-30" id="Jcq-Ns-Dyb"/>
-                                <constraint firstItem="oRm-Zv-QiR" firstAttribute="top" secondItem="VEs-gA-dA9" secondAttribute="bottom" constant="30" id="KAx-so-oNB"/>
+                                <constraint firstItem="VEs-gA-dA9" firstAttribute="centerY" secondItem="3Mf-lu-a8L" secondAttribute="centerY" constant="-50" id="Jcq-Ns-Dyb"/>
+                                <constraint firstItem="oRm-Zv-QiR" firstAttribute="top" secondItem="VEs-gA-dA9" secondAttribute="bottom" constant="70" id="KAx-so-oNB"/>
                                 <constraint firstItem="VEs-gA-dA9" firstAttribute="top" secondItem="3Mf-lu-a8L" secondAttribute="top" constant="15" id="T7W-SI-fhi"/>
                                 <constraint firstItem="oRm-Zv-QiR" firstAttribute="centerX" secondItem="3Mf-lu-a8L" secondAttribute="centerX" id="VRf-pZ-dxw"/>
                                 <constraint firstItem="oRm-Zv-QiR" firstAttribute="top" secondItem="VEs-gA-dA9" secondAttribute="bottom" constant="20" id="Wh0-9C-ArJ"/>
@@ -80,10 +91,12 @@
                                 <constraint firstItem="VEs-gA-dA9" firstAttribute="top" secondItem="3Mf-lu-a8L" secondAttribute="top" constant="138" id="a3x-KM-tKL"/>
                                 <constraint firstAttribute="bottom" secondItem="oRm-Zv-QiR" secondAttribute="bottom" constant="20" id="bwE-PL-Vkm"/>
                                 <constraint firstItem="oRm-Zv-QiR" firstAttribute="top" secondItem="VEs-gA-dA9" secondAttribute="bottom" constant="5" id="eQN-v7-kO1"/>
+                                <constraint firstItem="2DQ-vI-lkG" firstAttribute="centerY" secondItem="3Mf-lu-a8L" secondAttribute="centerY" id="fty-wP-W6Z"/>
                                 <constraint firstAttribute="height" constant="100" id="me1-lo-dJS"/>
                                 <constraint firstAttribute="width" constant="100" id="nae-VR-Rry"/>
                                 <constraint firstItem="VEs-gA-dA9" firstAttribute="leading" secondItem="3Mf-lu-a8L" secondAttribute="leading" id="p0D-lD-7DL"/>
                                 <constraint firstAttribute="trailing" secondItem="oRm-Zv-QiR" secondAttribute="trailing" id="qpC-bp-DwQ"/>
+                                <constraint firstItem="2DQ-vI-lkG" firstAttribute="centerX" secondItem="3Mf-lu-a8L" secondAttribute="centerX" id="yi0-EO-idi"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">

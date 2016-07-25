@@ -11,20 +11,15 @@ MyExtensionJavaScriptClass.prototype = {
         }
         return metaContents;
     },
-    getDescription: function() {
-        var metas = document.getElementsByTagName('a');
-        for (i=0; i<metas.length; i++) {
-            if (metas[i].getAttribute("name") == "background-image") {
-
-                return metas[i].getAttribute("background-image");
-            }
-        }
-        return "xyz";
+    getPrice: function() {
+        var str = document.body.innerText;
+        var price = str.match(/£\S+/g)[0];
+        price = price.replace('£', '')
+        return price.replace(/\s/g,'');
     },
-    
     run: function(arguments) {
     // Pass the baseURI of the webpage to the extension.
-        arguments.completionFunction({"url": document.baseURI, "host": document.location.hostname, "title": document.title, "description":this.getDescription(), "image": this.getImage()});
+        arguments.completionFunction({"url": document.baseURI, "host": document.location.hostname, "title": document.title, "price":this.getPrice(), "image": this.getImage()});
     },
 // Note that the finalize function is only available in iOS.
     finalize: function(arguments) {

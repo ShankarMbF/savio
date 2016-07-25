@@ -183,30 +183,35 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             
-        
-            if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
-            {
-                
-                let request: NSURLRequest = NSURLRequest(URL: url)
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if(data?.length > 0){
-                    let image = UIImage(data: data!)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        imgView.image = image
-                        self.spinner.stopAnimating()
-                        self.spinner.hidden = true
+            if !(savingPlanDetailsDict["image"] is NSNull) {
+                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+                {
+                    
+                    let request: NSURLRequest = NSURLRequest(URL: url)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        if(data?.length > 0){
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                imgView.image = image
+                                self.spinner.stopAnimating()
+                                self.spinner.hidden = true
+                            })
+                        }
+                        else
+                        {
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
+                            
+                        }
                     })
-                    }
-                    else
-                    {
-                        self.spinner.stopAnimating()
-                        self.spinner.hidden = true
-
-                    }
-                })
-                
-                
+                }
             }
+            else {
+                self.spinner.stopAnimating()
+                self.spinner.hidden = true
+            }
+        
+            
             
             if(i == 0)
             {

@@ -292,7 +292,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func backButtonClicked()
     {
+        if isOfferDetailPressed == false {
+            let obj = SAOfferListViewController()
+            isOfferDetailPressed = false
+            obj.delegate = self
+            
+            if(isUpdatePlan)
+            {
+                obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
+            }
+            else
+            {
+                if let  str = imageDataDict["savPlanID"] as? NSNumber{
+                    obj.savID = imageDataDict["savPlanID"] as! NSNumber
+                }
+                else
+                {
+                    obj.savID = Int(imageDataDict["savPlanID"] as! String)!
+                }
+            }
+            self.navigationController?.pushViewController(obj, animated: true)
+
+        }
+        else {
         self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     
@@ -753,8 +777,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
-            
-            let dict = offerArr[indexPath.row]
+            let ind = indexPath.section - 5
+//            if isUpdatePlan {
+//                ind = indexPath.section - 8
+//            }
+//            else {
+//                ind = indexPath.section - 7
+//            }
+            let dict = offerArr[ind]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
@@ -1012,7 +1042,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
-                
             }
             
             })
@@ -1304,7 +1333,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func closeOfferButtonPressed(sender:UIButton)
     {
-        offerArr.removeAtIndex(0)
+        let indx = sender.tag - 5
+        offerArr.removeAtIndex(indx)
         tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
         tblView.reloadData()
     }
@@ -1392,30 +1422,37 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 
-                if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
-                {
-                    
-                    let request: NSURLRequest = NSURLRequest(URL: url)
-                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        if(data?.length > 0)
-                        {
-                            let image = UIImage(data: data!)
-                            dispatch_async(dispatch_get_main_queue(), {
+                 if !(itemDetailsDataDict["image"] is NSNull) {
+                    if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
+                    {
+                        
+                        let request: NSURLRequest = NSURLRequest(URL: url)
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            if(data?.length > 0)
+                            {
+                                let image = UIImage(data: data!)
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    spinner.stopAnimating()
+                                    spinner.hidden = true
+                                    self.topBackgroundImageView.image = image
+                                    
+                                })
+                            }
+                            else
+                            {
                                 spinner.stopAnimating()
                                 spinner.hidden = true
-                                self.topBackgroundImageView.image = image
-                                
-                            })
-                        }
-                        else
-                        {
-                            spinner.stopAnimating()
-                            spinner.hidden = true
-                        }
-                    })
-                    
-                    
+                            }
+                        })
+                        
+                        
+                    }
                 }
+                 else {
+                    spinner.stopAnimating()
+                    spinner.hidden = true
+                }
+
                 
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>

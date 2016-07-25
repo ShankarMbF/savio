@@ -10,8 +10,12 @@ import UIKit
 import SystemConfiguration
 import Foundation
 
+//===========UAT===========
+let baseURL = "http://54.229.66.32:8080/SavioAPI/V1"
 
-let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
+//============DEV===============
+//let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
+
 //let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
 let custom_message = "Your Savio phone verification code is {{code}}"
@@ -232,14 +236,14 @@ class API: UIView {
                     }
                     else
                     {
-                        //                        print(response?.description)
+                          print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI((response?.description)!)
                         }
                     }
                 }
                 else {
-                    
+                    print(response?.description)
                     dispatch_async(dispatch_get_main_queue()){
                         self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
                     }

@@ -193,7 +193,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
         
-        
+        let spinner =  UIActivityIndicatorView()
+        spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, cell.imgView.frame.size.height/2)
+        spinner.hidesWhenStopped = true
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        cell.imgView.addSubview(spinner)
+        spinner.startAnimating()
+
         
         if let urlString = cellDict["imageURL"] as? String
         {
@@ -209,7 +215,15 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         cell.imgView.image = image
+                        spinner.hidden = true
+                        spinner.stopAnimating()
+                        
                     })
+                    }
+                    else
+                    {
+                        spinner.hidden = true
+                        spinner.stopAnimating()
                     }
                 })
             }

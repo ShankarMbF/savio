@@ -1561,7 +1561,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        
+        else if let message = objResponse["internalMessage"] as? String
+        {
+            let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
         print(objResponse)
     }
     func errorResponseForUpdateUserInfoAPI(error: String) {

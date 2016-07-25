@@ -449,6 +449,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else if(indexPath.section == 1){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier", forIndexPath: indexPath) as! SavingPlanCostTableViewCell
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.delegate = self
             cell1.view = self.view
@@ -490,6 +492,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else if(indexPath.section == 2){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier", forIndexPath: indexPath) as! SavingPlanDatePickerTableViewCell
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.view
@@ -550,6 +554,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else if(indexPath.section == 3){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier", forIndexPath: indexPath) as! SetDayTableViewCell
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.view = self.view
             cell1.segmentDelegate = self
@@ -606,6 +612,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else if(indexPath.section == 4){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCalculationIdentifier", forIndexPath: indexPath) as! CalculationTableViewCell
             cell1.tblView = tblView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             if(isPopoverValueChanged)
             {
                 if(dateString == "day")
@@ -740,6 +748,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)

@@ -36,6 +36,12 @@ class CustomSegmentBar: UIView {
         self.leftButton?.backgroundColor = self.setUpColor()
         self.leftButton?.frame = CGRectMake(self.sideOffset, self.topOffset, widthActBtn, heightActBtn)
         self.leftButton?.setTitle(leftTitle, forState: UIControlState.Normal)
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.leftButton!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.leftButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.leftButton?.layer.mask = maskLayer
+        
         self.leftButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.leftButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.leftButton?.tag = 1
@@ -45,6 +51,12 @@ class CustomSegmentBar: UIView {
         self.rightButton?.backgroundColor = self.setUpColor()
         self.rightButton?.frame = CGRectMake(self.midOfToggleView!, self.topOffset, widthActBtn, heightActBtn)
         self.rightButton?.setTitle(rightTitle, forState: UIControlState.Normal)
+        let maskPath2: UIBezierPath = UIBezierPath(roundedRect: self.rightButton!.bounds, byRoundingCorners: ([.TopRight, .BottomRight]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer2: CAShapeLayer = CAShapeLayer()
+        maskLayer2.frame = self.rightButton!.bounds
+        maskLayer2.path = maskPath2.CGPath
+        self.rightButton?.layer.mask = maskLayer2
+        
         self.rightButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.rightButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.rightButton?.tag = 0
@@ -54,6 +66,12 @@ class CustomSegmentBar: UIView {
         self.activeButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
         self.activeButton?.setTitle(leftTitle, forState: UIControlState.Normal)
         self.activeButton?.frame = CGRectMake(self.sideOffset, self.sideOffset , widthActBtn , heightActBtn)
+        let maskPath3: UIBezierPath = UIBezierPath(roundedRect: self.activeButton!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer3: CAShapeLayer = CAShapeLayer()
+        maskLayer3.frame = self.activeButton!.bounds
+        maskLayer3.path = maskPath3.CGPath
+        self.activeButton?.layer.mask = maskLayer3
+
         self.activeButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
 //        self.activeButton?.addTarget(self, action:#selector(toggleButton), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(self.activeButton!)
@@ -67,6 +85,11 @@ class CustomSegmentBar: UIView {
                 let widthActBtn = (self.frame.width - 2 * self.sideOffset ) / 2
                 let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
                 self.activeButton?.frame = CGRectMake(self.sideOffset, self.sideOffset , widthActBtn , heightActBtn)
+            let maskPath3: UIBezierPath = UIBezierPath(roundedRect: self.activeButton!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+            let maskLayer3: CAShapeLayer = CAShapeLayer()
+            maskLayer3.frame = self.activeButton!.bounds
+            maskLayer3.path = maskPath3.CGPath
+            self.activeButton?.layer.mask = maskLayer3
                 self.activeButton?.setTitle(self.leftTitle, forState: UIControlState.Normal)
 
           //  })
@@ -76,6 +99,11 @@ class CustomSegmentBar: UIView {
                 let widthActBtn = (self.frame.width - 2 * self.sideOffset ) / 2
                 let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
                 self.activeButton?.frame = CGRectMake(self.midOfToggleView!, self.sideOffset , widthActBtn , heightActBtn)
+            let maskPath3: UIBezierPath = UIBezierPath(roundedRect: self.activeButton!.bounds, byRoundingCorners: ([.TopRight, .BottomRight]), cornerRadii: CGSizeMake(3.0, 3.0))
+            let maskLayer3: CAShapeLayer = CAShapeLayer()
+            maskLayer3.frame = self.activeButton!.bounds
+            maskLayer3.path = maskPath3.CGPath
+            self.activeButton?.layer.mask = maskLayer3
                 self.activeButton?.setTitle(self.rightTitle, forState: UIControlState.Normal)
 
           //  })

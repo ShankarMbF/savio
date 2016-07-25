@@ -38,6 +38,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         // Do any additional setup after loading the view.
         //change the border color and placeholder color of UITextField
         enterPasscodeTextField.layer.borderWidth = 1
+        enterPasscodeTextField.layer.cornerRadius = 2
+        enterPasscodeTextField.layer.masksToBounds = true
         enterPasscodeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         enterPasscodeTextField.attributedPlaceholder = NSAttributedString(string:"Enter 4 digit passcode",
                                                                           attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])

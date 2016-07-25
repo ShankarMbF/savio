@@ -30,6 +30,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
         // Do any additional setup after loading the view.
         //change the border color of UITextField
+        fiveDigitTextField.layer.cornerRadius = 2
+        fiveDigitTextField.layer.masksToBounds = true
         fiveDigitTextField.layer.borderWidth = 1
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         //Set input accessory view to the UITextfield

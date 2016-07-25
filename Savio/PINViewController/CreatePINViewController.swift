@@ -31,12 +31,17 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         
         //Add borderWidth and borderColor to UITextFields
         enterFourDigitPIN.layer.borderWidth = 1
+        enterFourDigitPIN.layer.cornerRadius = 2
+        enterFourDigitPIN.layer.masksToBounds = true
         enterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         enterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"Enter 4 digit passcode",
                                                                      attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])
         //Set input accessory view to the UITextfield
         enterFourDigitPIN.inputAccessoryView = toolBar
         
+        
+        reEnterFourDigitPIN.layer.cornerRadius = 2
+        reEnterFourDigitPIN.layer.masksToBounds = true
         reEnterFourDigitPIN.layer.borderWidth = 1
         reEnterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         reEnterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"Re-enter 4 digit passcode",

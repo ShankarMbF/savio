@@ -83,15 +83,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        //        if(groupFlag == 1 )
-        //        {
-        objAPI.getUsersSavingPlan("gm")
-        //        }
-        //        else if(groupMemberFlag == 1)
-        //        {
-        //            objAPI.getUsersSavingPlan("gm")
-        //        }
-        
+                if(groupFlag == 1 )
+                {
+        objAPI.getUsersSavingPlan("g")
+                }
+                else if(groupMemberFlag == 1)
+                {
+                    objAPI.getUsersSavingPlan("gm")
+                }
+    
         
         
         // Do any additional setup after loading the view.

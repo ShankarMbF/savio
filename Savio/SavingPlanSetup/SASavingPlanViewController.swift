@@ -1027,7 +1027,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if self.offerArr.count>0{
                     self.offerArr.removeAll()
                 }
-                self.tblViewHt.constant = 400
+                self.tblViewHt.constant = 600
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()

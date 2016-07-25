@@ -62,7 +62,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         if(isFromForgotPasscode == true)
         {
             isFromForgotPasscode = false
-            yourCodeSentLabel.text = String(format:"Enter your verification code")
+            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
             
             fiveDigitTextField.hidden = false
             resentCodeButton.hidden = false

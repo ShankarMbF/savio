@@ -23,13 +23,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Savio/PINViewController/CreatePINViewController.swift"
-            timestampString = "490628146.877744"
+            filePath = "Savio/RegistrationViewController/SARegistrationViewController.swift"
+            timestampString = "491117194.526094"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "errorResponseForOTPResetPasscodeAPI(_:)"
+            startingLineNumber = "1217"
+            endingLineNumber = "1217"
+            landmarkName = "successResponseForRegistrationAPI(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/Webservices/API.swift"
+            timestampString = "491117597.291907"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "648"
+            endingLineNumber = "648"
+            landmarkName = "createPartySavingPlan(_:isFromWishList:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

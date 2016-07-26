@@ -685,7 +685,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //            dict["device_ID"] = NSUUID().UUIDString
             
             
-            let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString) //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN"))//NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! String
+            let apnsDeviceToken = "" //NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString) //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN"))//NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! String
             
             let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
             

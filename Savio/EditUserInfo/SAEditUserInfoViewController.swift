@@ -812,6 +812,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("phone_number")
                 param.removeValueForKey("pin")
                 param.removeValueForKey("Surname")
+                param.removeValueForKey("party_role")
+                param.removeValueForKey("partyRole")
   
                 objAPI.updateUserInfoDelegate = self
                 objAPI.updateUserInfo(param)

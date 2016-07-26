@@ -84,15 +84,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-                if(groupFlag == 1 )
-                {
-        objAPI.getUsersSavingPlan("g")
-                }
-                else if(groupMemberFlag == 1)
-                {
-                    objAPI.getUsersSavingPlan("gm")
-                }
-    
+        if(groupFlag == 1 )
+        {
+            objAPI.getUsersSavingPlan("g")
+        }
+        else if(groupMemberFlag == 1)
+        {
+            objAPI.getUsersSavingPlan("gm")
+        }
+        
         
         
         // Do any additional setup after loading the view.
@@ -160,13 +160,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func setUpView(){
-
+        
         spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2)
         spinner.hidesWhenStopped = true
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         self.view.addSubview(spinner)
         spinner.startAnimating()
-
+        
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
         
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -191,7 +191,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             paidAmount = totalPaidAmount.floatValue
         }
-
+        
         //prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
@@ -222,7 +222,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             pieChartSliceArray.append(error)
             
         }
-
+        
         for var i=0; i<3; i++
         {
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
@@ -261,7 +261,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFive.hidden = true
                 circularView.hidden = true
                 
-              
+                
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
@@ -304,7 +304,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 piechart?.backgroundColor = UIColor.clearColor()
                 piechart!.slices = pieChartSliceArray
                 circularProgress.addSubview(piechart!)
-    
+                
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -345,9 +345,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelSix.hidden = false
                 
                 labelFour.text = String(format: "£ %0.2f saved",paidAmount)
-
+                
                 circularView.hidden = false
- 
+                
                 let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
@@ -368,14 +368,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelSix.attributedText = attString
                 let timeSince :[Int] = self.timeBetween(NSDate(), endDate: planEnddate)
                 labelFive.text = String(format :"%d months to go",timeSince[0])
-
+                
             }
             else
             {
                 labelOne.hidden = false
                 labelTwo.hidden = false
                 labelTwo.text = " You saved"
-                 labelThree.hidden = false
+                labelThree.hidden = false
                 
                 labelFour.hidden = true
                 labelFive.hidden = true
@@ -396,7 +396,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     for var i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
                         paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-               
+                        
                     }
                 }
                 

@@ -32,11 +32,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
         ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
         ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
-        ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
-        ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
-        ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
-        ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
-        ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
+         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
+         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
+         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
+         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
+         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
     override func viewDidLoad() {
@@ -157,90 +157,184 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         scrlView!.scrollsToTop = false
         
         // Set the scrollview content size.
-        scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
+        if(colors.count >= 5)
+        {
+            scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 5, 0)
+        }
+        else
+        {
+            scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
+        }
         // Load the PageView view from the TestView.xib file and configure it properly.
         
         
         if colors.count > 0{
-            for i in 0 ..< colors.count {
-                heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-                let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
-                
-                NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                
-                // Load the TestView view.
-                let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
-                // Set its frame and data to pageview
-                testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
-                let vw = testView.viewWithTag(2)! as UIView
-                vw.layer.borderWidth = 1
-                vw.layer.borderColor = UIColor.whiteColor().CGColor
-                
-                let objDict = colors[i] as Dictionary<String,AnyObject>
-                
-                let lblNoWishList = testView.viewWithTag(5)! as! UILabel
-                lblNoWishList.hidden = true
-                
-                let lblTitle = testView.viewWithTag(3)! as! UILabel
-                lblTitle.text = objDict["title"] as? String
-                lblTitle.hidden = false
-                
-                let lblCost = testView.viewWithTag(4)! as! UILabel
-                
-                if(objDict["amount"] is String)
-                {
-                    lblCost.text = objDict["amount"] as? String
-                }
-                else
-                {
-                    lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
-                }
-                
-                
-                let bgImageView = testView.viewWithTag(1) as! UIImageView
-                if let urlString = objDict["imageURL"] as? String
-                {
-                    let url = NSURL(string:urlString)
+            
+            if(colors.count >= 5)
+            {
+                for i in 0 ..< 5 {
+                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                    heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
-                    let request: NSURLRequest = NSURLRequest(URL: url!)
-                    if(urlString != "")
+                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    // Load the TestView view.
+                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
+                    // Set its frame and data to pageview
+                    testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                    let vw = testView.viewWithTag(2)! as UIView
+                    vw.layer.borderWidth = 1
+                    vw.layer.borderColor = UIColor.whiteColor().CGColor
+                    
+                    let objDict = colors[i] as Dictionary<String,AnyObject>
+                    
+                    let lblNoWishList = testView.viewWithTag(5)! as! UILabel
+                    lblNoWishList.hidden = true
+                    
+                    let lblTitle = testView.viewWithTag(3)! as! UILabel
+                    lblTitle.text = objDict["title"] as? String
+                    lblTitle.hidden = false
+                    
+                    let lblCost = testView.viewWithTag(4)! as! UILabel
+                    
+                    if(objDict["amount"] is String)
                     {
-                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                            if(data != nil && data?.length > 0)
-                            {
-                            let image = UIImage(data: data!)
-                            
-                            dispatch_async(dispatch_get_main_queue(), {
-                                bgImageView.image = image
-                            })
-                            }
-                        })
+                        lblCost.text = objDict["amount"] as? String
                     }
+                    else
+                    {
+                        lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
+                    }
+                    
+                    
+                    let bgImageView = testView.viewWithTag(1) as! UIImageView
+                    if let urlString = objDict["imageURL"] as? String
+                    {
+                        let url = NSURL(string:urlString)
+                        
+                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        if(urlString != "")
+                        {
+                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                                if(data != nil && data?.length > 0)
+                                {
+                                    let image = UIImage(data: data!)
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        bgImageView.image = image
+                                    })
+                                }
+                            })
+                        }
+                    }
+                    
+                    let imgEuro = testView.viewWithTag(6)! as! UIImageView
+                    imgEuro.hidden = false
+                    
+                    suggestedHt.constant = 113.0
+                    suggestedTop.constant = 16.0
+                    btnWishList?.hidden = false
+                    pageControl?.hidden = false
+                    btnVwBg.hidden = false
+                    if(colors.count >= 5)
+                    {
+                        pageControl?.numberOfPages = 5
+                    }
+                    else{
+                        pageControl?.numberOfPages = colors.count
+                    }
+                    
+                    lblLine?.hidden = false
+                    
+                    // Add the test view as a subview to the scrollview.
+                    scrlView!.addSubview(testView)
                 }
-                
-                let imgEuro = testView.viewWithTag(6)! as! UIImageView
-                imgEuro.hidden = false
-                
-                suggestedHt.constant = 113.0
-                suggestedTop.constant = 16.0
-                btnWishList?.hidden = false
-                pageControl?.hidden = false
-                btnVwBg.hidden = false
-                if(colors.count >= 5)
-                {
-                    pageControl?.numberOfPages = 5
-                }
-                else{
-                    pageControl?.numberOfPages = colors.count
-                }
-                
-                lblLine?.hidden = false
-                
-                // Add the test view as a subview to the scrollview.
-                scrlView!.addSubview(testView)
             }
+            else{
+                for i in 0 ..< colors.count {
+                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                    heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
+                    
+                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    // Load the TestView view.
+                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
+                    // Set its frame and data to pageview
+                    testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                    let vw = testView.viewWithTag(2)! as UIView
+                    vw.layer.borderWidth = 1
+                    vw.layer.borderColor = UIColor.whiteColor().CGColor
+                    
+                    let objDict = colors[i] as Dictionary<String,AnyObject>
+                    
+                    let lblNoWishList = testView.viewWithTag(5)! as! UILabel
+                    lblNoWishList.hidden = true
+                    
+                    let lblTitle = testView.viewWithTag(3)! as! UILabel
+                    lblTitle.text = objDict["title"] as? String
+                    lblTitle.hidden = false
+                    
+                    let lblCost = testView.viewWithTag(4)! as! UILabel
+                    
+                    if(objDict["amount"] is String)
+                    {
+                        lblCost.text = objDict["amount"] as? String
+                    }
+                    else
+                    {
+                        lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
+                    }
+                    
+                    
+                    let bgImageView = testView.viewWithTag(1) as! UIImageView
+                    if let urlString = objDict["imageURL"] as? String
+                    {
+                        let url = NSURL(string:urlString)
+                        
+                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        if(urlString != "")
+                        {
+                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                                if(data != nil && data?.length > 0)
+                                {
+                                    let image = UIImage(data: data!)
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        bgImageView.image = image
+                                    })
+                                }
+                            })
+                        }
+                    }
+                    
+                    let imgEuro = testView.viewWithTag(6)! as! UIImageView
+                    imgEuro.hidden = false
+                    
+                    suggestedHt.constant = 113.0
+                    suggestedTop.constant = 16.0
+                    btnWishList?.hidden = false
+                    pageControl?.hidden = false
+                    btnVwBg.hidden = false
+                    if(colors.count >= 5)
+                    {
+                        pageControl?.numberOfPages = 5
+                    }
+                    else{
+                        pageControl?.numberOfPages = colors.count
+                    }
+                    
+                    lblLine?.hidden = false
+                    
+                    // Add the test view as a subview to the scrollview.
+                    scrlView!.addSubview(testView)
+                }
+
+            }
+            
         }
         else{
             NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
@@ -274,7 +368,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.addSubview(testView)
         }
         
-   
+        
     }
     
     
@@ -384,7 +478,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         else
         {
-        
+            
             NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -406,8 +500,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
                     self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
                 }
-           }
-      }
+            }
+        }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -555,13 +649,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     
     /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }

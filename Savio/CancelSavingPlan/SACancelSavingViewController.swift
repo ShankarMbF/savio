@@ -32,13 +32,13 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         cancelDetailLabel.attributedText = attrString
         
         
-        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Your money will returned to your bank in the next 5-10 working days.")
+        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new saving plan?")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
         wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
         
         
-        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "Would you like to start a new saving plan?")
+        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "Your money will returned to your bank in the next 5-10 working days.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
         yourMoneyWillBeReturnLabel.attributedText = attrStringForYourMoneyWillBeReturnLabelLabel

@@ -200,12 +200,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     else{
                         spinner.stopAnimating()
                         spinner.hidden = true
+                        self.topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
                     }
                 })
             }
             else
             {
-                
+                self.topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
             }
             
             
@@ -217,9 +218,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else
         {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            
            topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
-            
             self.cameraButton.hidden = false
         }
      
@@ -292,7 +291,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func backButtonClicked()
     {
-        if isOfferDetailPressed == false {
+        if isOfferShow == false && offerArr.count > 0 {
             let obj = SAOfferListViewController()
             isOfferDetailPressed = false
             obj.delegate = self
@@ -1093,13 +1092,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
-        if(itemDetailsDataDict["imageURL"] != nil)
+        if(itemDetailsDataDict["imageURL"] != nil && !(itemDetailsDataDict["imageURL"] is NSNull))
         {
+            if (topBackgroundImageView.image != nil) {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             let newDict = ["imageName.jpg":base64String]
             
             parameterDict["IMAGE"] = newDict
+            }
+            else{
+                let newDict = ["imageName.jpg":""]
+                parameterDict["IMAGE"] = newDict
+            }
         }
         else  if(isImageClicked)
         {
@@ -1112,7 +1117,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else{
             let newDict = ["imageName.jpg":""]
             parameterDict["IMAGE"] = newDict
-            
         }
         
         if(datePickerDate != "")
@@ -1200,9 +1204,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.partySavingPlanDelegate = self
                     //print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
-                    
-                    
-                    
                 }
                 else if(isUpdatePlan)
                 {
@@ -1280,10 +1281,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PARTY_ID"] = userInfoDict["partyId"]
                     newDict["SAV_PLAN_ID"] = "0"
                     
+                    if (topBackgroundImageView.image != nil) {
+                    
                     let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                     let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                     let dict = ["imageName.jpg":base64String]
+                    
                     newDict["IMAGE"] = dict
+                    }
+                    else {
+                        let dict = ["imageName.jpg":""]
+                        newDict["IMAGE"] = dict
+                    }
                     
                     newDict["AMOUNT"] = self.getParameters()["AMOUNT"]
                     newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
@@ -1675,6 +1684,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func skipOffers(){
         isOfferShow = false
+        
     }
     
 }

@@ -290,7 +290,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func backButtonClicked()
     {
-        if isOfferDetailPressed == false {
+        if isOfferShow == false && offerArr.count > 0 {
             let obj = SAOfferListViewController()
             isOfferDetailPressed = false
             obj.delegate = self
@@ -1189,9 +1189,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.partySavingPlanDelegate = self
                     //print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
-                    
-                    
-                    
                 }
                 else if(isUpdatePlan)
                 {

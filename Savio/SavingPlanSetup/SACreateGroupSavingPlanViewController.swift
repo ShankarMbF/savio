@@ -162,7 +162,23 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func backButtonClicked()
     {
-        self.navigationController?.popViewControllerAnimated(true)
+        if isOfferShow == true && offerArr.count > 0
+        {
+            let obj = SAOfferListViewController()
+            obj.delegate = self
+            if let savId = parameterDict["sav_id"] as? String
+            {
+                obj.savID = Int(savId)!
+            }
+            else if let savId = parameterDict["sav_id"] as? NSNumber
+            {
+                obj.savID = savId
+            }
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
+        else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     
@@ -319,7 +335,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             
-            let dict = offerArr[indexPath.row ]
+            let dict = offerArr[indexPath.section - 2]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
@@ -338,9 +354,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
             })
             return cell1
-            
         }
-        
         
     }
     
@@ -407,7 +421,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func closeOfferButtonPressed(sender:UIButton)
     {
-        offerArr.removeAtIndex(0)
+        let indx = sender.tag - 2
+        offerArr.removeAtIndex(indx)
         tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
         tblView.reloadData()
     }
@@ -695,7 +710,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func skipOffers(){
         tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
-        isOfferShow = true
+        isOfferShow = false
     }
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)

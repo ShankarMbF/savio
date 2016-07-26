@@ -25,6 +25,7 @@
                 <outlet property="statsButton" destination="1lY-ph-r2K" id="kNQ-5m-EPO"/>
                 <outlet property="tblHt" destination="87z-12-CaR" id="Q1y-Ee-1km"/>
                 <outlet property="tblView" destination="Ihf-ot-vbi" id="X4u-VU-2M3"/>
+                <outlet property="toolBarView" destination="FFb-Rt-XbG" id="UJN-fi-Gup"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -76,11 +77,6 @@
                             <rect key="frame" x="200" y="0.0" width="200" height="52"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="planButtonPressed:" destination="-1" eventType="touchUpInside" id="3EW-bt-15A"/>
                             </connections>
@@ -96,7 +92,8 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="cpn-zq-oTz" secondAttribute="trailing" id="1Md-Eo-Xtr"/>
                         <constraint firstItem="D7a-fw-i33" firstAttribute="top" secondItem="FFb-Rt-XbG" secondAttribute="top" id="27r-8t-3Hp"/>
@@ -116,10 +113,10 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kg-fA-cco">
-                    <rect key="frame" x="0.0" y="104" width="600" height="444"/>
+                    <rect key="frame" x="0.0" y="104" width="600" height="446"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alJ-QQ-JNZ">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="444"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My saving plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxj-TM-ht8">
                                     <rect key="frame" x="20" y="0.0" width="560" height="40"/>
@@ -128,7 +125,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4S-KN-7rD">
-                                    <rect key="frame" x="0.0" y="40" width="600" height="342"/>
+                                    <rect key="frame" x="0.0" y="40" width="600" height="348"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="190" id="XOO-Gc-ITl"/>
                                     </constraints>
@@ -142,7 +139,7 @@
                                     </connections>
                                 </scrollView>
                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="gf6-nN-cap">
-                                    <rect key="frame" x="281" y="370" width="39" height="37"/>
+                                    <rect key="frame" x="281" y="376" width="39" height="37"/>
                                     <color key="tintColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="37" id="JoY-cQ-PtG"/>
@@ -152,7 +149,7 @@
                                     <color key="currentPageIndicatorTintColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </pageControl>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Members (8)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-Fd-CSw">
-                                    <rect key="frame" x="30" y="400" width="540" height="21"/>
+                                    <rect key="frame" x="30" y="406" width="540" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="W23-ZN-F9C"/>
                                     </constraints>
@@ -161,10 +158,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ihf-ot-vbi">
-                                    <rect key="frame" x="0.0" y="424" width="600" height="20"/>
+                                    <rect key="frame" x="0.0" y="430" width="600" height="25"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="87z-12-CaR"/>
+                                        <constraint firstAttribute="height" constant="25" id="87z-12-CaR"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="bSN-xX-w5Z"/>
@@ -172,7 +169,7 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="centerX" secondItem="alJ-QQ-JNZ" secondAttribute="centerX" id="DJv-40-i6d"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="20" id="DMd-oH-uuv"/>
@@ -184,11 +181,11 @@
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="Rxj-TM-ht8" secondAttribute="bottom" id="apf-kq-z7i"/>
                                 <constraint firstAttribute="trailing" secondItem="c4S-KN-7rD" secondAttribute="trailing" id="cnA-4G-Nla"/>
                                 <constraint firstAttribute="trailing" secondItem="Rxj-TM-ht8" secondAttribute="trailing" constant="20" id="dgt-Qf-DZV"/>
-                                <constraint firstAttribute="height" constant="444" id="gqc-Mi-sis"/>
+                                <constraint firstAttribute="height" constant="450" id="gqc-Mi-sis"/>
                                 <constraint firstItem="Jc8-Fd-CSw" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="30" id="jBd-pY-nZd"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" id="mhJ-aS-s5H"/>
                                 <constraint firstItem="Ihf-ot-vbi" firstAttribute="top" secondItem="Jc8-Fd-CSw" secondAttribute="bottom" constant="3" id="rw7-CC-x2r"/>
-                                <constraint firstAttribute="bottom" secondItem="Ihf-ot-vbi" secondAttribute="bottom" id="s4v-hM-dfI"/>
+                                <constraint firstAttribute="bottom" secondItem="Ihf-ot-vbi" secondAttribute="bottom" constant="-5" id="s4v-hM-dfI"/>
                                 <constraint firstItem="Ihf-ot-vbi" firstAttribute="top" secondItem="gf6-nN-cap" secondAttribute="bottom" constant="17" id="xJ8-b1-8x2"/>
                                 <constraint firstAttribute="trailing" secondItem="Jc8-Fd-CSw" secondAttribute="trailing" constant="30" id="xW1-Tg-Ngd"/>
                                 <constraint firstItem="Jc8-Fd-CSw" firstAttribute="top" secondItem="c4S-KN-7rD" secondAttribute="bottom" constant="18" id="xhb-gx-4iT"/>
@@ -200,7 +197,7 @@
                         <constraint firstItem="alJ-QQ-JNZ" firstAttribute="width" secondItem="6kg-fA-cco" secondAttribute="width" id="Mdl-Zo-BfJ"/>
                         <constraint firstItem="alJ-QQ-JNZ" firstAttribute="leading" secondItem="6kg-fA-cco" secondAttribute="leading" id="ohT-d4-UKM"/>
                         <constraint firstAttribute="trailing" secondItem="alJ-QQ-JNZ" secondAttribute="trailing" id="qcV-ZQ-19o"/>
-                        <constraint firstAttribute="bottom" secondItem="alJ-QQ-JNZ" secondAttribute="bottom" id="yWF-5Q-Rck"/>
+                        <constraint firstAttribute="bottom" secondItem="alJ-QQ-JNZ" secondAttribute="bottom" constant="-2" id="yWF-5Q-Rck"/>
                     </constraints>
                 </scrollView>
             </subviews>
@@ -209,7 +206,7 @@
                 <constraint firstAttribute="bottom" secondItem="FFb-Rt-XbG" secondAttribute="bottom" id="6kG-jY-sBM"/>
                 <constraint firstItem="FFb-Rt-XbG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="94N-vl-eIe"/>
                 <constraint firstItem="1lY-ph-r2K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="EBx-FT-Jat"/>
-                <constraint firstItem="FFb-Rt-XbG" firstAttribute="top" secondItem="6kg-fA-cco" secondAttribute="bottom" id="Gir-QY-zUM"/>
+                <constraint firstItem="FFb-Rt-XbG" firstAttribute="top" secondItem="6kg-fA-cco" secondAttribute="bottom" constant="-2" id="Gir-QY-zUM"/>
                 <constraint firstAttribute="trailing" secondItem="1lY-ph-r2K" secondAttribute="trailing" id="Pjz-vW-gIe"/>
                 <constraint firstItem="EvH-8r-1Fh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="U13-tj-PVU"/>
                 <constraint firstAttribute="trailing" secondItem="6kg-fA-cco" secondAttribute="trailing" id="Y3j-l2-iU0"/>

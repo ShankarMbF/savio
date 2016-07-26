@@ -195,8 +195,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             
         }
     }
-    
-    //
+
     func success(addressArray:Array<String>){
     }
     
@@ -232,7 +231,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
@@ -252,9 +250,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
             self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
         }
-        
-        
-        
+
     }
     func errorResponseForRegistrationAPI(error:String){
         objAnimView.removeFromSuperview()

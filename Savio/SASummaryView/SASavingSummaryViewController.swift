@@ -307,18 +307,21 @@ class SASavingSummaryViewController: UIViewController {
                 
                 if let urlStr = objDict["offImage"] as? String
                 {
-                let urlStr = urlStr
-                let url = NSURL(string: urlStr)
-                let bgImageView = testView.viewWithTag(4) as! UIImageView
-                let request: NSURLRequest = NSURLRequest(URL: url!)
-                //            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                //                let image = UIImage(data: data!)
-                //                //                self.imageCache[unwrappedImage] = image
-                //                dispatch_async(dispatch_get_main_queue(), {
-                //                    bgImageView.image = image
-                //                })
-                //            })
-            }
+                    let urlStr = urlStr
+                    let url = NSURL(string: urlStr)
+                    let bgImageView = testView.viewWithTag(4) as! UIImageView
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        let image = UIImage(data: data!)
+                        //                self.imageCache[unwrappedImage] = image
+                        if (data != nil && data?.length > 0) {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                bgImageView.image = image
+                            })
+                        }
+                    })
+                    
+                }
             }
         }
         lblTitle.text = itemDataDict["title"] as? String

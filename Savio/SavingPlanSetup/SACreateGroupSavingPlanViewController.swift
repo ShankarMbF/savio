@@ -251,7 +251,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             if(isDateChanged)
             {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",CGFloat(100)/CGFloat(participantsArr.count),cost/(participantsArr.count + 1),cost)
+                cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",CGFloat(100)/CGFloat(participantsArr.count),cost/(participantsArr.count),cost)
                 if(dateString == "day")
                 {
                     if((dateDiff/168) == 1)
@@ -319,7 +319,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             
-            let dict = offerArr[indexPath.row]
+            let dict = offerArr[indexPath.section ]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String

@@ -118,6 +118,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         makeImpulseSavingButton!.layer.cornerRadius = 5
+        
+   
+
+        
     }
     
     
@@ -183,30 +187,35 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             
-        
-            if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
-            {
-                
-                let request: NSURLRequest = NSURLRequest(URL: url)
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if(data?.length > 0){
-                    let image = UIImage(data: data!)
-                    dispatch_async(dispatch_get_main_queue(), {
-                        imgView.image = image
-                        self.spinner.stopAnimating()
-                        self.spinner.hidden = true
+            if !(savingPlanDetailsDict["image"] is NSNull) {
+                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+                {
+                    
+                    let request: NSURLRequest = NSURLRequest(URL: url)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        if(data?.length > 0){
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), {
+                                imgView.image = image
+                                self.spinner.stopAnimating()
+                                self.spinner.hidden = true
+                            })
+                        }
+                        else
+                        {
+                            self.spinner.stopAnimating()
+                            self.spinner.hidden = true
+                            
+                        }
                     })
-                    }
-                    else
-                    {
-                        self.spinner.stopAnimating()
-                        self.spinner.hidden = true
-
-                    }
-                })
-                
-                
+                }
             }
+            else {
+                self.spinner.stopAnimating()
+                self.spinner.hidden = true
+            }
+        
+            
             
             if(i == 0)
             {
@@ -237,6 +246,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 imgView.hidden = true
             }
         }
+        
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.planButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.planButton?.layer.mask = maskLayer
         
     }
     

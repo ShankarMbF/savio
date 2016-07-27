@@ -688,13 +688,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //            dict["device_ID"] = NSUUID().UUIDString
             
             
-            let apnsDeviceToken = "" //NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString) //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN"))//NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! String
-            
-            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
-            
-            let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
-            dict["deviceRegistration"] =  udidArray
-            dict["party_role"] =  4
+        }
+        
+        let udidDict : Dictionary<String,AnyObject>
+        if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+        {
+            udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
             
         } else {
             udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]

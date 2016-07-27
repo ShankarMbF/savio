@@ -42,8 +42,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
 //        gotItButton.layer.shadowOpacity = 1
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
         
     }
     

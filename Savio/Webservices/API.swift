@@ -11,10 +11,10 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-let baseURL = "http://54.229.66.32:8080/SavioAPI/V1"
+//let baseURL = "http://54.229.66.32:8080/SavioAPI/V1"
 
 //============DEV===============
-//let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
+let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
 
 //let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
@@ -129,6 +129,7 @@ protocol InviteMembersDelegate
 
 class API: UIView {
     let session = NSURLSession.sharedSession()
+    
     var delegate: PostCodeVerificationDelegate?
     var otpSentDelegate : OTPSentDelegate?
     var otpVerificationDelegate : OTPVerificationDelegate?
@@ -218,7 +219,7 @@ class API: UIView {
         {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
             request.HTTPMethod = "POST"
-            
+           // request.timeoutInterval  = 30
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -248,7 +249,7 @@ class API: UIView {
                 else {
                     print(response?.description)
                     dispatch_async(dispatch_get_main_queue()){
-                        self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        self.delegate?.errorResponseForRegistrationAPI("Internal server error")
                     }
                 }
             }

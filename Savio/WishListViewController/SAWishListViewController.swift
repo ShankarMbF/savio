@@ -27,7 +27,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     func setUpView(){
         self.title = "My Wish List"
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData"), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -92,6 +92,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     
     func wishListAPI(){
+        
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
@@ -199,7 +200,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         cell.imgView.addSubview(spinner)
         spinner.startAnimating()
-
+        
         
         if let urlString = cellDict["imageURL"] as? String
         {
@@ -211,19 +212,21 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if data?.length > 0
                     {
-                    let image = UIImage(data: data!)
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        cell.imgView.image = image
-                        spinner.hidden = true
-                        spinner.stopAnimating()
+                        let image = UIImage(data: data!)
                         
-                    })
+                        dispatch_async(dispatch_get_main_queue(), {
+                            cell.imgView.image = image
+                            spinner.hidden = true
+                            spinner.stopAnimating()
+                            
+                        })
                     }
                     else
                     {
-                        spinner.hidden = true
-                        spinner.stopAnimating()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            spinner.hidden = true
+                            spinner.stopAnimating()
+                        })
                     }
                 })
             }
@@ -236,7 +239,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-       
+        
         let cellDict = wishListArray[indexPath.row]
         if let sharedPartySavingPlan =  cellDict["sharedPtySavingPlanId"] as? NSNumber
         {
@@ -244,7 +247,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             {
                 if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
                 {
-                   return 310.0
+                    return 310.0
                 }
                 else
                 {
@@ -255,11 +258,11 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             {
                 if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
                 {
-                   return 310.0
+                    return 310.0
                 }
                 else
                 {
-                   return 280.0
+                    return 280.0
                 }
                 
             }
@@ -269,15 +272,15 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0)
             {
-               return 310.0
+                return 310.0
                 
             }
             else
             {
-               return 280.0
+                return 280.0
             }
         }
-
+        
     }
     
     func navigateToSetUpSavingPlan(sender:UIButton) {
@@ -364,23 +367,33 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
         
+        
         print(objResponse)
         if wishListArray.count > 0 {
             wishListArray.removeAll()
         }
         
         if let obj = objResponse["wishListList"] as? Array<Dictionary<String,AnyObject>>{
-            wishListArray = obj
-            objAnimView.removeFromSuperview()
+            self.wishListArray = obj
+            self.objAnimView.removeFromSuperview()
             self.setUpView()
-            wishListTable?.reloadData()
+            self.wishListTable?.reloadData()
         }
+        
+        
         
     }
     
     func errorResponseForGetWishlistAPI(error: String) {
         print(error)
         objAnimView.removeFromSuperview()
+    }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+         objAnimView.removeFromSuperview()
+        NSNotificationCenter.defaultCenter().removeObserver(self)//addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     /*

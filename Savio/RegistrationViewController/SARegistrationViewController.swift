@@ -51,7 +51,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if arrRegistrationFields.count>0{
             arrRegistrationFields.removeAll()
         }
-        for var i=0; i<arrRegistration.count; i++ {
+        for i in 0 ..< arrRegistration.count {
             // dictionary to identifying cell and its properies
             let dict = arrRegistration[i] as Dictionary<String,AnyObject>
             //get tableviewCell as per the classtype
@@ -548,10 +548,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
     }
     
-    func buttonClicked(sender:UIButton){
+    
+    
+    func buttonOnCellClicked(sender:UIButton){
         
-        if (checkTextFiledValidation() == false && dictForTextFieldValue["errorPostcodeValid"]==nil){
+        if (checkTextFieldValidation() == false && dictForTextFieldValue["errorPostcodeValid"]==nil){
             //call term and condition screen
+            
             var dict = self.getAllValuesFromTxtFild()
             if(firstName.characters.count>0 && lastName.characters.count>0 && dateOfBirth.characters.count>0)
             {
@@ -685,15 +688,22 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //            dict["device_ID"] = NSUUID().UUIDString
             
             
-            let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString) //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN"))//NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! String
-            
-            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
-            
-            let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
-            dict["deviceRegistration"] =  udidArray
-            dict["party_role"] =  4
-            
         }
+        
+        let udidDict : Dictionary<String,AnyObject>
+        if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+        {
+            udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
+            
+        } else {
+            udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
+        }
+        
+        
+        let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
+        dict["deviceRegistration"] =  udidArray
+        dict["party_role"] =  4
+
         return dict
     }
     
@@ -765,7 +775,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
     }
     
-    func checkTextFiledValidation()->Bool{
+    func checkTextFieldValidation()->Bool{
         var returnFlag = false
         self.getJSONForUI()
         var idx = 0

@@ -547,7 +547,11 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func emailCellText(txtFldCell:EmailTxtTableViewCell){
         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
     }
-    
+    func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String) {
+        dictForTextFieldValue.updateValue(text, forKey: (txtFldCell.tf?.placeholder)!)
+
+    }
+
     
     
     func buttonOnCellClicked(sender:UIButton){

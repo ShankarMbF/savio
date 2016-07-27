@@ -753,7 +753,10 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
         userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "email")
     }
-    
+    func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String) {
+        
+    }
+
     func buttonOnCellClicked(sender:UIButton){
         
         if (checkTextFiledValidation() == false && dictForTextFieldValue["errorPostcodeValid"]==nil){

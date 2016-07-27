@@ -150,6 +150,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
         }
+        
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.planButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.planButton?.layer.mask = maskLayer
     }
     
     override func didReceiveMemoryWarning() {
@@ -251,13 +257,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             lbl?.textColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
             self.view.bringSubviewToFront(lbl!)
         }
-        
-        
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
-        let maskLayer: CAShapeLayer = CAShapeLayer()
-        maskLayer.frame = self.planButton!.bounds
-        maskLayer.path = maskPath.CGPath
-        self.planButton?.layer.mask = maskLayer
 
     }
     
@@ -335,8 +334,17 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
-        vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        shareImg = UIImage(named: "generic-streak-popup.png")
+        if(planType == "Individual")
+        {
+            vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            shareImg = UIImage(named: "generic-streak-popup.png")
+        }
+        else
+        {
+            vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+            shareImg = UIImage(named: "generic-streak-popup.png")
+        }
+       
         let imgVw = testView.viewWithTag(10) as! UIImageView
         imgVw.image = shareImg
         

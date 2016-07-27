@@ -38,6 +38,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     var ht:CGFloat = 0.0
     let spinner =  UIActivityIndicatorView()
     var objAnimView = ImageViewAnimation()
+    var planEnddate = NSDate()
     let chartColors = [
         UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
         UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),
@@ -232,6 +233,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             
+            let middleView = circularProgress.viewWithTag(2)
+            
             circularView.startAngle = -90
             circularView.roundedCorners = true
             circularView.lerpColorMode = true
@@ -242,14 +245,29 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             
             let labelThree = circularProgress.viewWithTag(6) as! UILabel
             
+            let labelFour = circularProgress.viewWithTag(7) as! UILabel
+            
+            let labelFive = circularProgress.viewWithTag(8) as! UILabel
+            let labelSix = circularProgress.viewWithTag(9) as! UILabel
+            
             circularView.angle = Double((paidAmount * 360)/Float(totalAmount))
             
             if(i == 0)
             {
                 labelOne.hidden = true
                 labelTwo.hidden = true
-                
+                labelThree.hidden = true
+                labelFour.hidden = true
+                labelFive.hidden = true
                 circularView.hidden = true
+                
+              
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                planEnddate = dateFormatter.dateFromString(savingPlanDetailsDict["planEndDate"] as! String)!
+                
+                let timeDifference : NSTimeInterval = planEnddate.timeIntervalSinceDate(NSDate())
                 
                 piechart = Piechart()
                 let imgView = UIImageView()
@@ -318,29 +336,71 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             else if(i == 1)
             {
-                labelOne.hidden = false
-                labelOne.text =  "0%"
-                labelTwo.hidden = false
+                labelOne.hidden = true
+                labelTwo.hidden = true
+                labelThree.hidden = true
                 
-                labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
-                //labelTwo.text = "£ 0 saved"
+                labelFive.hidden = false
+                labelFour.hidden = false
+                labelSix.hidden = false
+                
+                labelFour.text = String(format: "£ %0.2f saved",paidAmount)
+
                 circularView.hidden = false
+ 
+                let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
+                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+                {
+                    
+                    for var i in 0 ..< transactionArray.count {
+                        let transactionDict = transactionArray[i]
+                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+                        
+                    }
+                }
+                
+                let text = String(format: "%d",Int(paidAmount * 100)/totalAmount)
+                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
+                let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
+                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)
+                let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
+                attString.appendAttributedString(superscript)
+                labelSix.attributedText = attString
+                let timeSince :[Int] = self.timeBetween(NSDate(), endDate: planEnddate)
+                labelFive.text = String(format :"%d months to go",timeSince[0])
+
             }
             else
             {
                 labelOne.hidden = false
-                labelOne.text = "You saved"
-                //labelOne.text = "£ 0"
-                labelThree.text = String(format: "%d",totalAmount)
-//                let text = labelThree.text
-//                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!]
-//                let attString:NSMutableAttributedString = NSMutableAttributedString(string: text!, attributes: attributes)
-//                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
-//                let superscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-//                let newAttrText : NSAttributedString = superscript.appendAttributedString(attString)
-
                 labelTwo.hidden = false
-                labelTwo.text = String(format:"%d%% of your part",totalAmount/participantsArr.count)
+                labelTwo.text = " You saved"
+                 labelThree.hidden = false
+                
+                labelFour.hidden = true
+                labelFive.hidden = true
+                labelSix.hidden = true
+                
+                let text = String(format: "%d",totalAmount)
+                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
+                let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
+                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)
+                let superscript = NSMutableAttributedString(string: "£ ", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
+                superscript.appendAttributedString(attString)
+                labelThree.attributedText = superscript
+                
+                let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
+                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+                {
+                    
+                    for var i in 0 ..< transactionArray.count {
+                        let transactionDict = transactionArray[i]
+                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+               
+                    }
+                }
+                
+                labelOne.text = String(format:"%d%% of your part",Int(paidAmount * 100)/totalAmount)
                 circularView.hidden = false
             }
             horizontalScrollView.addSubview(circularProgress)
@@ -358,6 +418,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         self.view.bringSubviewToFront(toolBarView)
     }
+    func timeBetween(startDate: NSDate, endDate: NSDate) -> [Int]
+    {
+        let calendar = NSCalendar.currentCalendar()
+        
+        let components = calendar.components([.Day, .Month, .Year], fromDate: startDate, toDate: endDate, options: [])
+        
+        return [components.day, components.hour, components.minute]
+    }
+    
     
     //MARK: Bar button action
     func menuButtonClicked(){

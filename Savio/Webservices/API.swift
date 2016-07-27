@@ -126,6 +126,7 @@ protocol InviteMembersDelegate
     func successResponseForInviteMembersAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForInviteMembersAPI(error:String)
 }
+
 class API: UIView {
     let session = NSURLSession.sharedSession()
     var delegate: PostCodeVerificationDelegate?
@@ -221,6 +222,8 @@ class API: UIView {
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            print(dictParam)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if data != nil

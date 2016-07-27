@@ -570,6 +570,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 //Webservice call
                 if(firstName == dict["first_name"] as! String || lastName == dict["second_name"] as! String || dateOfBirth == dict["date_of_birth"] as! String)
                 {
+                   
                     objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                     objAnimView!.frame = self.view.frame
                     objAnimView?.animate()
@@ -683,11 +684,14 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //            dict["deviceRegistration"] = udidDict
             //            dict["device_ID"] = NSUUID().UUIDString
             
-            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid]
+            
+            let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! NSString) //String(format: "%@", NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN"))//NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as! String
+            
+            let udidDict : Dictionary<String,AnyObject> = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
             
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             dict["deviceRegistration"] =  udidArray
-            
+            dict["party_role"] =  4
             
         }
         return dict
@@ -1031,13 +1035,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     else if(str?.characters.count < 10)
                     {
                         errorFLag = true
-                        errorMsg = "That mobile number should be greater than 10 digits"
+                        errorMsg = "That mobile number should not be less than 10 digits"
                         dictForTextFieldValue["errorMobileValidation"] = errorMsg
                     }
                     else if(str?.characters.count > 16)
                     {
                         errorFLag = true
-                        errorMsg = "That mobile number should be of 15 digits"
+                        errorMsg = "That mobile number should not be more than 15 digits"
                         dictForTextFieldValue["errorMobileValidation"] = errorMsg
                     }
                     else{
@@ -1215,7 +1219,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
         objAnimView?.removeFromSuperview()
         print("\(objResponse)")
-
        
         if(objResponse["message"] as! String == "All field are match")
         {

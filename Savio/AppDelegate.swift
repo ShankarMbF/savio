@@ -155,6 +155,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         print("Device Token:", tokenString)
+        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "APNSTOKEN")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

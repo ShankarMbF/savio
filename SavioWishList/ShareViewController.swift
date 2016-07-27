@@ -198,6 +198,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
                                 self.textView.text = self.dictGlobal["title"] as! String
+                                self.priceTextField.text = self.dictGlobal["price"] as! String
                             });
                             self.showImage(self.currentImagePosition)
                             

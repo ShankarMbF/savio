@@ -8,7 +8,7 @@
 
 import UIKit
 protocol ButtonCellDelegate {
-    func buttonClicked(sender:UIButton)
+    func buttonOnCellClicked(sender:UIButton)
 }
 class ButtonTableViewCell: UITableViewCell {
     
@@ -32,7 +32,7 @@ class ButtonTableViewCell: UITableViewCell {
     }
     
   @IBAction func btnClicked(sender:UIButton){
-        delegate?.buttonClicked(sender)
+        delegate?.buttonOnCellClicked(sender)
     }
     
 }

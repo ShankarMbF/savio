@@ -374,6 +374,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         
         if let obj = objResponse["wishListList"] as? Array<Dictionary<String,AnyObject>>{
+             NSNotificationCenter.defaultCenter().removeObserver(self)
             self.wishListArray = obj
             self.objAnimView.removeFromSuperview()
             self.setUpView()
@@ -393,7 +394,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
          objAnimView.removeFromSuperview()
-        NSNotificationCenter.defaultCenter().removeObserver(self)//addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
+       //addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     /*

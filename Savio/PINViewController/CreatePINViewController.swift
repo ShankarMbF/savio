@@ -237,6 +237,11 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         print(objResponse)
         objAnimView.removeFromSuperview()
         //Store the passcode in Keychain
+        
+        if let message = objResponse["message"]
+        {
+            if(message as! String == "User sucessfully register")
+            {
         objAPI.storeValueInKeychainForKey("myPasscode", value: reEnterFourDigitPIN.text!.MD5())
         objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
         if(changePhoneNumber == true)
@@ -249,6 +254,17 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             //Navigate user to HurrayViewController to start Saving plan
             let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
             self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
+        }
+            }
+            else{
+                let alert = UIAlertView(title: "Warning", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Warning", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
 
     }

@@ -7,6 +7,8 @@
 //savio123 - exposrt certificate P12 CertificatesAPNS
 
 import UIKit
+import Fabric
+import Crashlytics
 
 struct Device {
     static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
@@ -28,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)
         
         // Check if launched from notification

@@ -75,18 +75,18 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
     func setDateToTextField(){
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        previousDate = tfDatePicker.text!
         tfDatePicker.text = dateFormatter.stringFromDate(datePickerView.date)
+        previousDate = tfDatePicker.text!
+        delegate?.selectedDate(self)
+
+
     }
 
     func datePickerValueChanged(sender:UIDatePicker) {
-       
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         tfDatePicker.text = dateFormatter.stringFromDate(datePickerView.date)
-
-        
        self.setDateToTextField()
     }
     
@@ -112,7 +112,7 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
     
     @IBAction func toolBarCancleBtnClicked(){
         tfDatePicker.resignFirstResponder()
-        tfDatePicker.text = previousDate
+        previousDate = tfDatePicker.text!
         delegate?.selectedDate(self)
 
 //        delegate?.cancleToSelectDate(self)

@@ -1430,7 +1430,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 100
                 cameraButton.backgroundColor = UIColor.blackColor()
                 cameraButton.alpha = 0.5
                 cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
@@ -1489,9 +1489,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 updateOfferArr = offerArr
                 tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 100)
-                
-                
-                
+
                 tblView.reloadData()
             }
             else

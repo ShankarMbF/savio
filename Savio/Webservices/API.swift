@@ -742,6 +742,7 @@ class API: UIView {
     
     func getWishListForUser(userId : String)
     {
+        
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String

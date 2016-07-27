@@ -10,6 +10,8 @@ import UIKit
 
 protocol EmailTxtTableViewCellDelegate {
     func emailCellText(txtFldCell:EmailTxtTableViewCell)
+    func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String)
+
 }
 
 class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -86,6 +88,9 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
         let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
+        prevStr = (tf?.text)!
+        self.delegate?.emailCellText(self)
+
     }
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
@@ -106,6 +111,9 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
             
         }
         
+        let email = textField.text! + string
+        prevStr = email
+        self.delegate?.emailCellTextImmediate(self, text: email)
         return true;
     }
     //    func textFieldShouldEndEditing(textField: UITextField) -> Bool{

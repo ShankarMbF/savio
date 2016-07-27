@@ -339,8 +339,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
-            cell1.blankLabel.hidden = true
-            
+        
             let urlStr = dict["offImage"] as! String
             let url = NSURL(string: urlStr)
             
@@ -710,7 +709,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func skipOffers(){
         tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
-        isOfferShow = false
+        isOfferShow = true
     }
     
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)

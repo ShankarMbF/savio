@@ -586,6 +586,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
         isImageClicked = true
+        
         image1 = info[UIImagePickerControllerEditedImage] as? UIImage
         
         addProfilePictureButton.setImage((info[UIImagePickerControllerEditedImage] as? UIImage), forState: .Normal)
@@ -783,7 +784,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 objAnimView?.animate()
                 self.view.addSubview(objAnimView!)
 
-                var param = userInfoDict as Dictionary<String,AnyObject>
+               
                 
                 let objAPI = API()
 
@@ -802,6 +803,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     userInfoDict["imageurl"] = newDict
                 }
                 
+                var param = userInfoDict as Dictionary<String,AnyObject>
+                
                 param.removeValueForKey("date_of_birth")
                 param.removeValueForKey("pass_code")
                 param.removeValueForKey("email")
@@ -815,6 +818,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("party_role")
                 param.removeValueForKey("partyRole")
   
+                
+                print(param)
                 objAPI.updateUserInfoDelegate = self
                 objAPI.updateUserInfo(param)
             }

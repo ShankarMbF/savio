@@ -782,8 +782,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
-            cell1.layer.cornerRadius = 5
-            cell1.layer.masksToBounds = true
+           
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -798,7 +797,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
-            cell1.blankLabel.hidden = true
+      
             
             if(isUpdatePlan)
             {
@@ -814,18 +813,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
                         cell1.detailOfferLabel.hidden = false
                         cell1.detailOfferLabel.text = dict["offDesc"] as? String
-                        cell1.blankLabel.hidden = false
+    
                     }
                     else
                     {
                         cell1.detailOfferLabel.hidden = true
-                        cell1.blankLabel.hidden = true
+
                     }
                 }
                 else
                 {
                     cell1.detailOfferLabel.hidden = true
-                     cell1.blankLabel.hidden = true
+    
                 }
                 
             }

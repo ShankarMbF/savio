@@ -288,7 +288,7 @@ class SASavingSummaryViewController: UIViewController {
                 testView.layer.borderWidth = 1.0
                 testView.backgroundColor = UIColor.lightGrayColor()
                 htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
-                htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 200
+                htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 220
                 topSpaceForContinue.constant = 80
                 topSpaceContonueView.constant = 80
                 self.view.bringSubviewToFront(btnContinue!)

@@ -562,7 +562,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
-        cell?.nameLabel.text = cellDict["partyName"] as? String
+        if(cellDict["memberType"] as! String == "Owner")
+        {
+            cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
+        }
+        else
+        {
+            cell?.nameLabel.text = cellDict["partyName"] as? String
+        }
+        
         cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount/participantsArr.count)
         
         
@@ -571,7 +579,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         spinner.hidesWhenStopped = true
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         cell?.userProfile.addSubview(spinner)
-        
+        cell?.userProfile.layer.cornerRadius = (cell?.userProfile.frame.width)! / 2
+        cell?.userProfile.clipsToBounds = true
         if let urlString = cellDict["partyImageUrl"] as? String
         {
             let url = NSURL(string:urlString)
@@ -586,6 +595,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
                             cell?.userProfile.image = image
+                            
                             spinner.hidden = true
                             spinner.stopAnimating()
                         })
@@ -701,6 +711,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
+        var memberTypeArray : Array<String> = []
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")
@@ -716,11 +727,27 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 }
                 
                 
+                
                 var userDict : Dictionary<String,AnyObject> = [:]
                 userDict["partyName"] = objResponse["partyName"]
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
                 
+                for(var i=0; i<participantsArr.count; i++)
+                {
+                    let memberTypeDict = participantsArr[i] as Dictionary<String,AnyObject>
+                    memberTypeArray.append(memberTypeDict["memberType"] as! String)
+           
+                }
+           
+                
+                if memberTypeArray.contains("Owner")
+                {
+                    userDict["memberType"] = "Member"
+                }
+                else{
+                    userDict["memberType"] = "Owner"
+                }
                 participantsArr.append(userDict)
                 
                 participantsArr = participantsArr.reverse()

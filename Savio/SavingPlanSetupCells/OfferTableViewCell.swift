@@ -11,8 +11,8 @@ import UIKit
 class OfferTableViewCell: UITableViewCell {
 
     @IBOutlet weak var offerDetailsButton: UIButton!
-    
-    @IBOutlet weak var blankLabel: UILabel!
+
+    @IBOutlet weak var offerView: UIView!
     @IBOutlet weak var detailOfferLabelHeight: NSLayoutConstraint!
     @IBOutlet weak var detailOfferLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
@@ -24,7 +24,11 @@ class OfferTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        offerImageView.layer.cornerRadius = 5
+
+      offerView.layer.cornerRadius = 5
+      offerView.layer.masksToBounds = true
+        offerView.clipsToBounds = true
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -81,6 +81,7 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
+          prevStr = (tf?.text)!
         
         let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
         tblView?.contentInset = contentInsets;
@@ -94,6 +95,7 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     func textFieldDidEndEditing(textField: UITextField){
         //        self.removeKeyboardNotification()
+       prevStr = (tf?.text)!
         self.delegate?.emailCellText(self)
     }
     
@@ -113,6 +115,7 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
     //    }
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        prevStr = (tf?.text)!
         self.delegate?.emailCellText(self)
         return true
     }

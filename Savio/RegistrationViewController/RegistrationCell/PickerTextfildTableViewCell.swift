@@ -75,6 +75,7 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
     func setDateToTextField(){
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
+        previousDate = tfDatePicker.text!
         tfDatePicker.text = dateFormatter.stringFromDate(datePickerView.date)
     }
 

@@ -892,7 +892,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
-        topBgImageView.contentMode = UIViewContentMode.Center
+        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBgImageView.layer.masksToBounds = true
         topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         //savingPlanTitleLabel.hidden = true

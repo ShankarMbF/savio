@@ -654,7 +654,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if((dateDiff/168) == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0)
                     {
@@ -662,21 +662,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
                         cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                 }
             }
@@ -689,7 +689,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         if((dateDiff/168) == 1)
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0)
                         {
@@ -697,21 +697,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                         else
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                         }
                         
                     }
                     else{
                         if((dateDiff/168)/4 == 1)
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0)
                         {
                             cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                         }
                         else{
-                            cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d months",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                     }
                 }
@@ -732,11 +732,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         {
                             if((dateDiff/168) == 1)
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             else
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%d per month for %d month",(cost/((dateDiff/168)/4)),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             
                         }
@@ -744,11 +744,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         {
                             if((dateDiff/168)/4 == 1)
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d week",cost/(dateDiff/168),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                             }
                             else
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%d per week for %d weeks",cost/(dateDiff/168),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
                             }
                             
                         }
@@ -1394,7 +1394,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
-        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        topBackgroundImageView.contentMode = UIViewContentMode.Center
+        topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
         isImageClicked = true
@@ -1430,7 +1431,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 100
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
                 cameraButton.backgroundColor = UIColor.blackColor()
                 cameraButton.alpha = 0.5
                 cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
@@ -1524,7 +1525,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         
-        //print(objResponse)
+        print(objResponse)
         objAnimView.removeFromSuperview()
         
         if let message = objResponse["message"] as? String

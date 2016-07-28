@@ -184,6 +184,15 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             print(userDict)
             var param = Dictionary<String,AnyObject>()
             param["userID"] = userDict["partyId"]
+         
+            if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+            {
+                param["PNS_DEVICE_ID"] =  apnsDeviceToken
+                
+            } else {
+                param["PNS_DEVICE_ID"] =  ""
+            }
+ 
             param["pin"] = enterPasscodeTextField.text?.MD5()
             print(param)
             objAPI.logInWithUserID(param)

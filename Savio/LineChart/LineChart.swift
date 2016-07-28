@@ -645,7 +645,7 @@ public class LineChart: UIView {
         self.y.grid.color.setStroke()
         let path = UIBezierPath()
         let x1: CGFloat = x.axis.inset
-        let x2: CGFloat = self.bounds.width - x.axis.inset
+        let x2: CGFloat = self.bounds.width
         var y1: CGFloat
         var (start, stop, step) = self.y.ticks
         let drawIndex: CGFloat =  floor(( (stop - start) / step ) / 5.0)

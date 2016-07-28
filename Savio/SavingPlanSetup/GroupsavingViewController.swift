@@ -36,7 +36,7 @@
     var addressBook: ABPeoplePickerNavigationController?
     var isFromWishList = false
     var imagePicker = UIImagePickerController()
-    
+    var isContactAdded = false
     @IBOutlet weak var scrlView: UIScrollView!
     
     override func viewDidLoad() {
@@ -412,7 +412,7 @@
     
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
         print(contactDict)
-        
+        isContactAdded = true
         participantsArr.append(contactDict)
         
         NSUserDefaults.standardUserDefaults().setObject(participantsArr, forKey:"InviteGroupArray")
@@ -435,7 +435,7 @@
     }
     
     func skipContact(){
-        
+         isContactAdded = true
     }
     
     // MARK: - UITableViewDelegate methods
@@ -510,6 +510,13 @@
                 cell1.slider.userInteractionEnabled = false
                 cell1.minusButton.userInteractionEnabled = false
                 cell1.plusButton.userInteractionEnabled = false
+                cost = Int(cell1.slider.value)
+            }
+            else if( isContactAdded == true)
+            {
+                let amountString = "£" + String(format: "%d", cost)
+                cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                cell1.slider.value =  Float(cost)
                 cost = Int(cell1.slider.value)
             }
             else {

@@ -485,7 +485,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cell1.slider.value =  Float(cost)
                 cost = Int(cell1.slider.value)
             }
-            else{
+            else if(isPopoverValueChanged){
+                let amountString = "£" + String(format: "%d", cost)
+                cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                cell1.slider.value =  Float(cost)
+                cost = Int(cell1.slider.value)
+            }
+            else
+            {
                 cell1.costTextField.attributedText = cell1.createAttributedString("£0")
                 cell1.slider.value = 0
                 cost = 0

@@ -25,7 +25,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     @IBOutlet weak var plusButton: UIButton!
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
-    @IBOutlet weak var currencyLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         costTextField.delegate = self
@@ -36,15 +35,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         // corner Radius of costTextField, currencyLabel And BGContentView *************************
         //BGContentView.layer.cornerRadius = 5
         
-        let costpath = UIBezierPath(roundedRect:costTextField.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
-        let costmaskLayer = CAShapeLayer()
-        costmaskLayer.path = costpath.CGPath
-        costTextField.layer.mask = costmaskLayer
-        
-        let Currentpath = UIBezierPath(roundedRect:currencyLabel.bounds, byRoundingCorners:[ .TopLeft, .BottomLeft], cornerRadii: CGSizeMake(5, 5))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = Currentpath.CGPath
-        currencyLabel.layer.mask = maskLayer
         costTextField.layer.cornerRadius = 4
         // Corner Radius of End *************************
         
@@ -62,13 +52,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         slider.setThumbImage(self.setUpImage(), forState: UIControlState.Normal)
         slider.setThumbImage(self.setUpImage(), forState: UIControlState.Highlighted)
         
-        currencyLabel.textColor = self.setUpColor()
-        let leftView = UIView()
-        leftView.frame = CGRectMake(0, 0, 5, 26)
-        leftView.backgroundColor = UIColor.clearColor()
-        
-        costTextField.leftView = leftView
-        costTextField.leftViewMode = UITextFieldViewMode.Always
         
         var customToolBar : UIToolbar?
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
@@ -88,7 +71,9 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     func doneBarButtonPressed() {
         costTextField.resignFirstResponder()
-        slider.value = (costTextField.text! as NSString).floatValue
+        var textFieldValue: String  = (costTextField?.text)!
+        textFieldValue = textFieldValue.chopPrefix(1)
+        slider.value = Float(textFieldValue)!
         delegate?.txtFieldCellText(self)
         
         
@@ -112,7 +97,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             UIView.commitAnimations()
             
         }
-        if((costTextField.text! as NSString).floatValue > 3000)
+        if(Float(textFieldValue)! > 3000)
         {
             let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -231,8 +216,9 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         
         //set the slider value
-        costTextField.text = String(format: "%d",Int(sender.value))
-        costTextField.textColor = UIColor.whiteColor()
+        self.costTextField.attributedText = self.createAttributedString("£" + String(format: "%d",Int(sender.value)))
+
+//        costTextField.textColor = UIColor.whiteColor()
         delegate?.txtFieldCellText(self)
     }
     
@@ -255,9 +241,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         else{
             slider.value = slider.value + 10;
         }
-        
-        costTextField.text = String(format: "%d",Int(slider.value))
-        costTextField.textColor = UIColor.whiteColor()
+        self.costTextField.attributedText = self.createAttributedString("£" + String(format: "%d",Int(slider.value)))
+
         delegate?.txtFieldCellText(self)
     }
     @IBAction func minusButtonPressed(sender: AnyObject) {
@@ -271,7 +256,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         
         costTextField.text = String(format: " %d",Int(slider.value))
-        costTextField.textColor = UIColor.whiteColor()
+        self.costTextField.attributedText = self.createAttributedString("£" + String(format: "%d",Int(slider.value)))
+
         delegate?.txtFieldCellText(self)
     }
     
@@ -305,8 +291,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        
-        textField.textColor = UIColor.whiteColor()
         //If the UIScreen size is 480 move the View little bit up so the UITextField will not be hidden
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
@@ -338,23 +322,44 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     //UITextfieldDelegate method
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
-        let currentCharacterCount = textField.text?.characters.count ?? 0
-        if (range.length + range.location > currentCharacterCount){
+        if textField.text?.characters.count > 1  && string == "" {
+            return true
+        }
+        let combinedString = textField.text! + string
+        let valueString = combinedString.chopPrefix(1)
+        if valueString.characters.count == 0 {
+            return false 
+        }
+        if(Float(valueString)! > 3000)
+        {
+             self.costTextField.attributedText = self.createAttributedString("£3000")
+            slider.value = 3000
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
             return false
         }
-        let newLength = currentCharacterCount + string.characters.count - range.length
-        if (newLength > 4) {
-            return false;
+
+        if combinedString.characters.count < 6 {
+        self.costTextField.attributedText = self.createAttributedString(combinedString)
+            slider.value = Float(valueString)!
         }
-        return true;
+        return false
     }
     
+    func createAttributedString(string: String) -> NSAttributedString {
+        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([NSFontAttributeName : UIFont.boldSystemFontOfSize(15)], range: NSRange(location: 0, length: 1))
+        attributedString.addAttributes([NSForegroundColorAttributeName : self.setUpColor()], range: NSRange(location: 0, length: 1))
+        return attributedString
+    }
+
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        var textFieldValue: String  = (costTextField?.text)!
+        textFieldValue = textFieldValue.chopPrefix(1)
         
-        slider.value = (costTextField.text! as NSString).floatValue
+        slider.value = Float(textFieldValue)!
         delegate?.txtFieldCellText(self)
         
         if(UIScreen.mainScreen().bounds.size.height == 480)
@@ -378,8 +383,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             
         }
         
-        
-        if((costTextField.text! as NSString).floatValue > 3000)
+
+        if(Float(textFieldValue) > 3000)
         {
             let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()

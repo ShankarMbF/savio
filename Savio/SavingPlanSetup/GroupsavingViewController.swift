@@ -488,17 +488,21 @@
             cell1.tblView = tblView
             cell1.delegate = self
             cell1.view = self.view
+            
             if(itemDetailsDataDict["amount"] != nil)
             {
                 if(itemDetailsDataDict["amount"] is String)
                 {
-                    cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
-                    cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                    let amountString = "£" + String(itemDetailsDataDict["amount"])
+
+                    cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                    cell1.slider.value = (itemDetailsDataDict["amount"] as! NSString).floatValue
                     cost = Int(cell1.slider.value)
                 }
                 else
                 {
-                    cell1.costTextField.text = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                    let amountString = "£" + String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                    cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = (itemDetailsDataDict["amount"] as! NSNumber).floatValue
                     cost = Int(cell1.slider.value)
                 }
@@ -506,14 +510,16 @@
                 cell1.slider.userInteractionEnabled = false
                 cell1.minusButton.userInteractionEnabled = false
                 cell1.plusButton.userInteractionEnabled = false
-                cell1.costTextField.textColor = UIColor.whiteColor()
-                cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
                 cost = Int(cell1.slider.value)
+            }
+            else {
+                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
+                cell1.slider.value = 0
+                cost = 0
             }
             if(isClearPressed)
             {
-                cell1.costTextField.text = "0"
-                cell1.costTextField.textColor = UIColor.whiteColor()
+                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
                 cell1.slider.value = 0
                 cost = 0
             }

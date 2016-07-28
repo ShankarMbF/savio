@@ -480,10 +480,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["amount"] != nil)
             {
                 
-                cell1.costTextField.text = String(format: "%d",cost)
-                cell1.costTextField.textColor = UIColor.whiteColor()
-                cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                let amountString = "£" + String(format: "%d", cost)
+                cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                cell1.slider.value =  Float(cost)
                 cost = Int(cell1.slider.value)
+            }
+            else{
+                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
+                cell1.slider.value = 0
+                cost = 0
             }
             if(isClearPressed)
             {
@@ -491,9 +496,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if(isDateChanged)
                     {
-                        cell1.costTextField.text = String(format: "%d", cost)
-                        cell1.costTextField.textColor = UIColor.whiteColor()
-                        cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                        let amountString = "£" + String(format: "%d", cost)
+                        cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                        cell1.slider.value = Float(cost)
+                        
                         cost = Int(cell1.slider.value)
                         
                     }
@@ -501,22 +507,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                     if(itemDetailsDataDict["amount"] is String)
                     {
-                        cell1.costTextField.text = itemDetailsDataDict["amount"] as? String
+                        let amountString = "£" + String(itemDetailsDataDict["amount"])
+                        cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                        cell1.slider.value = Float(itemDetailsDataDict["amount"] as! String)!
                     }
                     else
                     {
-                        cell1.costTextField.text = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                        let amountString = "£" + String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                        cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
+                        cell1.slider.value = (itemDetailsDataDict["amount"] as! NSNumber).floatValue
+
                     }
-                    cell1.costTextField.textColor = UIColor.whiteColor()
-                    cell1.slider.value = (cell1.costTextField.text! as NSString).floatValue
+                    
                     cost = Int(cell1.slider.value)
                     }
                     
                 }
                 else
                 {
-                    cell1.costTextField.text = "0"
-                    cell1.costTextField.textColor = UIColor.whiteColor()
+                    let amountString = "£0"
+                    cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = 0
                     cost = 0
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -25,9 +25,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which costs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owe-f5-37h">
-                        <rect key="frame" x="8" y="5" width="304" height="21"/>
+                        <rect key="frame" x="8" y="5" width="304" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="i9d-Mn-AaA"/>
+                            <constraint firstAttribute="height" constant="20" id="aLd-h1-lzZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -35,6 +35,9 @@
                     </label>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="3000" translatesAutoresizingMaskIntoConstraints="NO" id="ISQ-4m-YEC" customClass="slider" customModule="Savio" customModuleProvider="target">
                         <rect key="frame" x="36" y="72" width="248" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="nCU-wL-0T2"/>
+                        </constraints>
                         <color key="minimumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="maximumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="deviceRGB"/>
                         <color key="thumbTintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,8 +49,8 @@
                         <rect key="frame" x="18" y="80" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="Wc5-Uh-IDe"/>
-                            <constraint firstAttribute="width" constant="12" id="qQ1-le-6PN"/>
+                            <constraint firstAttribute="width" constant="12" id="PHG-xa-5nx"/>
+                            <constraint firstAttribute="height" constant="12" id="Suh-qw-DYa"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="-">
@@ -61,8 +64,8 @@
                         <rect key="frame" x="290" y="80" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="AmK-fY-xMm"/>
-                            <constraint firstAttribute="height" constant="12" id="LaW-Wn-Mms"/>
+                            <constraint firstAttribute="height" constant="12" id="HHa-N4-AVN"/>
+                            <constraint firstAttribute="width" constant="12" id="axb-fi-fVB"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="+">
@@ -72,44 +75,15 @@
                             <action selector="plusButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="T44-9P-AOY"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smW-fd-VOu">
-                        <rect key="frame" x="34" y="30" width="114" height="26"/>
-                        <color key="backgroundColor" red="0.25490196078431371" green="0.25490196078431371" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="130" id="Be9-sN-mh9"/>
-                            <constraint firstAttribute="height" constant="26" id="J1T-tP-TYp"/>
-                            <constraint firstAttribute="height" constant="26" id="Mko-aR-gqg"/>
-                            <constraint firstAttribute="height" constant="26" id="YMP-OX-foy"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                        <color key="textColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Be9-sN-mh9"/>
-                                <exclude reference="J1T-tP-TYp"/>
-                                <exclude reference="Mko-aR-gqg"/>
-                                <exclude reference="YMP-OX-foy"/>
-                            </mask>
-                        </variation>
-                    </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
-                        <rect key="frame" x="145" y="30" width="141" height="26"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
+                        <rect key="frame" x="30" y="30" width="260" height="25"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="26" id="78s-de-v0U"/>
-                            <constraint firstAttribute="width" constant="130" id="KUE-cq-gsZ"/>
-                            <constraint firstAttribute="height" constant="26" id="niK-Sj-e4O"/>
+                            <constraint firstAttribute="height" constant="25" id="FLJ-62-dYM"/>
                         </constraints>
-                        <color key="textColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="78s-de-v0U"/>
-                                <exclude reference="KUE-cq-gsZ"/>
-                            </mask>
-                        </variation>
                         <connections>
                             <outlet property="delegate" destination="-1" id="D0H-zM-UGm"/>
                         </connections>
@@ -117,45 +91,30 @@
                 </subviews>
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="ISQ-4m-YEC" secondAttribute="top" constant="8" id="07h-ob-R3p"/>
-                    <constraint firstItem="smW-fd-VOu" firstAttribute="baseline" secondItem="ukx-QD-x5v" secondAttribute="baseline" constant="4.5" id="3PE-9k-f2C"/>
-                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="34" id="7mf-TW-UF3"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="width" secondItem="smW-fd-VOu" secondAttribute="width" constant="27" id="BAs-Uw-02X"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="-10" id="D8h-LA-5SQ"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="QW5-xP-CdE" secondAttribute="top" id="Dxe-kg-P81"/>
-                    <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="H7v-Sp-nig"/>
-                    <constraint firstItem="smW-fd-VOu" firstAttribute="bottom" secondItem="ukx-QD-x5v" secondAttribute="bottom" id="Iw6-vU-r9h"/>
-                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="11.5" id="J2E-HN-SIl"/>
-                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="8" id="L6j-iS-dy6"/>
-                    <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="4.5" id="NMo-NW-l8h"/>
-                    <constraint firstItem="smW-fd-VOu" firstAttribute="top" secondItem="ukx-QD-x5v" secondAttribute="top" id="Q9J-5t-3ZX"/>
-                    <constraint firstItem="smW-fd-VOu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="34" id="XTI-os-fsj"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="esR-jk-i6L"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="smW-fd-VOu" secondAttribute="trailing" constant="-3" id="hyU-TU-CH1"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" id="hz8-fp-aIZ"/>
-                    <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="18" id="t1p-i4-YP7"/>
-                    <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="8" id="to6-FI-Ms4"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="4" id="vIj-U3-q3y"/>
-                    <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="vbe-nO-OQX"/>
-                    <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="viL-BQ-Ofz"/>
-                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="top" secondItem="smW-fd-VOu" secondAttribute="bottom" constant="11" id="wnC-96-ScD"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="5" id="55o-zx-Xif"/>
+                    <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="5av-P2-Y77"/>
+                    <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Brt-qU-jYI"/>
+                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="11" id="D90-MX-w0I"/>
+                    <constraint firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" constant="11" id="ELS-Jr-V7C"/>
+                    <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="1" id="IXQ-HT-FFM"/>
+                    <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="JKC-4P-fqx"/>
+                    <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="18" id="RQF-ZE-H0h"/>
+                    <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="8" id="SDm-5G-xbf"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bx1-ke-hRY"/>
+                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="8" id="egE-HQ-bmZ"/>
+                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="30" id="tdz-BW-WGf"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="tvm-TV-Kaa"/>
+                    <constraint firstItem="DQR-uk-sx8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="v5h-ZX-JFh"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="NMo-NW-l8h"/>
-                        <exclude reference="wnC-96-ScD"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="BGContentView" destination="H2p-sc-9uM" id="vnc-J2-rH6"/>
                 <outlet property="costTextField" destination="ukx-QD-x5v" id="a5P-4f-Fvz"/>
-                <outlet property="currencyLabel" destination="smW-fd-VOu" id="McL-RI-zuJ"/>
                 <outlet property="minusButton" destination="DQR-uk-sx8" id="3MZ-wC-H7s"/>
                 <outlet property="plusButton" destination="QW5-xP-CdE" id="Z3f-ee-QVs"/>
                 <outlet property="slider" destination="ISQ-4m-YEC" id="fyY-2H-QRh"/>
             </connections>
-            <point key="canvasLocation" x="-10" y="142"/>
+            <point key="canvasLocation" x="1" y="240"/>
         </tableViewCell>
     </objects>
 </document>

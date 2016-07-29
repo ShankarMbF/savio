@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -150,45 +150,46 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aid-gQ-1Sd">
                     <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your savings      plan has been cancelled" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHp-XT-doJ">
-                            <rect key="frame" x="150" y="32" width="300" height="100"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="lLC-on-afh"/>
-                                <constraint firstAttribute="width" constant="300" id="nkM-wC-32d"/>
-                            </constraints>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your savings plan has been cancelled" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHp-XT-doJ">
+                            <rect key="frame" x="35" y="30" width="530" height="66"/>
                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your money will returned to your bank in the next 5-10 working days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-m4-mN9">
-                            <rect key="frame" x="30" y="142" width="540" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="450" id="qZe-ls-FiL"/>
-                                <constraint firstAttribute="height" constant="40" id="td4-P7-nIz"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
-                            <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="qZe-ls-FiL"/>
-                                </mask>
-                            </variation>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to start a new saving plan?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msI-DK-VFj">
-                            <rect key="frame" x="150" y="272" width="300" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="4tc-IA-Ejh"/>
-                                <constraint firstAttribute="width" constant="300" id="VPE-3T-2Ry"/>
-                            </constraints>
+                            <rect key="frame" x="40" y="266" width="520" height="15"/>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLv-21-PrS">
-                            <rect key="frame" x="30" y="360" width="540" height="45"/>
+                            <rect key="frame" x="30" y="289" width="540" height="40"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKj-8R-VCW">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="35"/>
+                                    <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="43K-gq-gAr"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                                    <state key="normal" title="Start a new saving plan">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="startNewSavingPlanButtonPressed:" destination="-1" eventType="touchUpInside" id="Raz-Ak-x7c"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                             <color key="backgroundColor" red="0.94117647058823528" green="0.64313725490196072" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="45" id="JUh-a9-ih9"/>
+                                <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="DLv-21-PrS" secondAttribute="top" id="Ft7-iE-A0S"/>
+                                <constraint firstAttribute="trailing" secondItem="lKj-8R-VCW" secondAttribute="trailing" id="aNK-yl-rhb"/>
+                                <constraint firstAttribute="height" constant="40" id="pRO-8U-tYP"/>
+                                <constraint firstItem="lKj-8R-VCW" firstAttribute="leading" secondItem="DLv-21-PrS" secondAttribute="leading" id="qkk-9z-1oq"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -196,44 +197,27 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKj-8R-VCW">
-                            <rect key="frame" x="30" y="360" width="540" height="40"/>
-                            <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="ZHQ-h6-R4H"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
-                            <state key="normal" title="Start a new saving plan">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="startNewSavingPlanButtonPressed:" destination="-1" eventType="touchUpInside" id="Raz-Ak-x7c"/>
-                            </connections>
-                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your money will returned to your bank in the next 5-10 working days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-m4-mN9">
+                            <rect key="frame" x="20" y="111" width="560" height="15"/>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
+                            <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="DLv-21-PrS" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="29c-qf-Xwa"/>
-                        <constraint firstItem="msI-DK-VFj" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="LLg-Vh-V54"/>
-                        <constraint firstItem="jHp-XT-doJ" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="Mg6-dR-Vf6"/>
-                        <constraint firstItem="DLv-21-PrS" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="N1c-ek-4lc"/>
-                        <constraint firstAttribute="trailing" secondItem="DLv-21-PrS" secondAttribute="trailing" constant="30" id="NaS-Zt-AU4"/>
-                        <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="10" id="QB1-Ar-IvF"/>
-                        <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="30" id="VXI-aY-Ryk"/>
-                        <constraint firstItem="lKj-8R-VCW" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="Ybv-Vk-HWp"/>
-                        <constraint firstAttribute="trailing" secondItem="lKj-8R-VCW" secondAttribute="trailing" constant="30" id="dMX-ag-lUg"/>
-                        <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="32" id="dax-Mb-zNA"/>
-                        <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="lpF-Uk-Mmo"/>
-                        <constraint firstItem="gxF-m4-mN9" firstAttribute="centerX" secondItem="aid-gQ-1Sd" secondAttribute="centerX" id="nRt-zZ-40g"/>
-                        <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="vhM-Xj-4EW"/>
-                        <constraint firstItem="lKj-8R-VCW" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="48" id="vil-cd-lWv"/>
-                        <constraint firstItem="lKj-8R-VCW" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="wAa-uX-vWs"/>
-                        <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="90" id="xvk-Pb-K2H"/>
+                        <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="140" id="6iv-uG-FXa"/>
+                        <constraint firstItem="DLv-21-PrS" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="8" id="8N6-l5-1Tj"/>
+                        <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="30" id="RSl-lz-Phs"/>
+                        <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="20" id="SCi-Vi-9dC"/>
+                        <constraint firstItem="jHp-XT-doJ" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="35" id="XaW-6b-sfj"/>
+                        <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="20" id="biX-WI-RFs"/>
+                        <constraint firstAttribute="trailing" secondItem="jHp-XT-doJ" secondAttribute="trailing" constant="35" id="fVe-QZ-28M"/>
+                        <constraint firstAttribute="trailing" secondItem="msI-DK-VFj" secondAttribute="trailing" constant="40" id="iUy-w7-0Bd"/>
+                        <constraint firstItem="DLv-21-PrS" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="oFp-Vc-OSo"/>
+                        <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="15" id="sBk-bC-Xfh"/>
+                        <constraint firstAttribute="trailing" secondItem="DLv-21-PrS" secondAttribute="trailing" constant="30" id="vOn-Xk-WDj"/>
+                        <constraint firstItem="msI-DK-VFj" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="40" id="xDy-Uv-7Q4"/>
                     </constraints>
                 </view>
             </subviews>

@@ -323,28 +323,33 @@ func errorResponseForOTPSentAPI(error:String){
     self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     
 }
+    
+    
+    
     func customizeTextFields() {
         self.setAllPinEntryFieldsToColor( UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         
-        textFieldOne.layer.borderWidth = 1
-        textFieldOne.layer.cornerRadius = 5
-        textFieldOne.layer.masksToBounds = true
+        let borderWidth: CGFloat = 1
+        let cornerRadius: CGFloat = 3
+        
+        textFieldOne.layer.borderWidth = borderWidth
+        textFieldOne.layer.cornerRadius = cornerRadius
         //        textFieldOne.userInteractionEnabled = false
         
         
-        textFieldTwo.layer.borderWidth = 1
-        textFieldTwo.layer.cornerRadius = 5
+        textFieldTwo.layer.borderWidth = borderWidth
+        textFieldTwo.layer.cornerRadius = cornerRadius
         textFieldTwo.layer.masksToBounds = true
         //        textFieldTwo.userInteractionEnabled = false
         
-        textFieldThree.layer.borderWidth = 1
-        textFieldThree.layer.cornerRadius = 5
+        textFieldThree.layer.borderWidth = borderWidth
+        textFieldThree.layer.cornerRadius = cornerRadius
         textFieldThree.layer.masksToBounds = true
         //        textFieldThree.userInteractionEnabled = false
         
         
-        textFieldFour.layer.borderWidth = 1
-        textFieldFour.layer.cornerRadius = 5
+        textFieldFour.layer.borderWidth = borderWidth
+        textFieldFour.layer.cornerRadius = cornerRadius
         textFieldFour.layer.masksToBounds = true
         //        textFieldFour.userInteractionEnabled = false
         

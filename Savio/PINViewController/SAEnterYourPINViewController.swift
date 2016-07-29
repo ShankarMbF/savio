@@ -207,7 +207,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                 param["PNS_DEVICE_ID"] =  ""
             }
  
-            param["pin"] = enterPasscodeTextField.text?.MD5()
             print(param)
             objAPI.logInWithUserID(param)
             
@@ -409,5 +408,4 @@ func errorResponseForOTPSentAPI(error:String){
             }
         }
     }
-
 }

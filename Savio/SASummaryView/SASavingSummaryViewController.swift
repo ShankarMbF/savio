@@ -284,8 +284,6 @@ class SASavingSummaryViewController: UIViewController {
                 // Set its frame and data to pageview
                 testView.frame = CGRectMake(0, (CGFloat(i) * testView.frame.size.height) + 30, testView.frame.size.width - 60, testView.frame.size.height)
                 vwOffer?.addSubview(testView)
-                testView.layer.borderColor = UIColor.blackColor().CGColor
-                testView.layer.borderWidth = 1.0
                 testView.backgroundColor = UIColor.lightGrayColor()
                 htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
                 htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 220

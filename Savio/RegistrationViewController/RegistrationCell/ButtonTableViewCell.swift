@@ -21,7 +21,7 @@ class ButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        btn?.layer.cornerRadius = 2.0
+        btn?.layer.cornerRadius = 3.0
         btn?.layer.masksToBounds = true
     }
 

@@ -57,6 +57,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             //get tableviewCell as per the classtype
             let bundleArr : Array = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)
             
+            if dict["classType"]!.isEqualToString("SavioLogoTableViewCell"){
+                let cell = bundleArr[0] as! SavioLogoTableViewCell
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                arrRegistrationFields.append(cell)
+            }
+            
             //Setup all error message lable tableViewCell
             if dict["classType"]!.isEqualToString("ErrorTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
@@ -81,7 +87,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tblView = tblView
                 cell.dict = dict
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
-//                cell.tfTitle?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
+                //                cell.tfTitle?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tfTitle?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 cell.tfName?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 
@@ -125,7 +131,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tf?.textColor = UIColor.blackColor()
                 
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
-
+                
                 
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
@@ -208,7 +214,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tblView = tblView
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tfDatePicker!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
-//                cell.tfDatePicker?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
+                //                cell.tfDatePicker?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tfDatePicker?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 if (dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] != nil){
                     cell.tfDatePicker?.text = dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] as? String
@@ -223,8 +229,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
-//                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
-//                cell.tfPostCode?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
+                //                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+                //                cell.tfPostCode?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tfPostCode?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 let tfPostcodeDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tfPostCode!.attributedPlaceholder = NSAttributedString(string:(tfPostcodeDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
@@ -307,7 +313,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                     }
                 }
-                 arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell)
             }
             
             if dict["classType"]!.isEqualToString("EmailTxtTableViewCell"){
@@ -350,8 +356,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.dict = dict
-//                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
-//                cell.tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
+                //                (red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+                //                cell.tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 let tfTitleDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
@@ -388,17 +394,21 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        for var i=0; i<arrRegistrationFields.count; i++ {
-//            let cell = arrRegistrationFields[i] //as Dictionary<String,AnyObject>
-//            
-//            if cell.isKindOfClass(ErrorTableViewCell)          {
-//                return 35
-//            }
-//            else {
-//                40
-//            }
-//        }
-        if(indexPath.row == arrRegistrationFields.count - 2){
+        //        for var i=0; i<arrRegistrationFields.count; i++ {
+        //            let cell = arrRegistrationFields[i] //as Dictionary<String,AnyObject>
+        //
+        //            if cell.isKindOfClass(ErrorTableViewCell)          {
+        //                return 35
+        //            }
+        //            else {
+        //                40
+        //            }
+        //        }
+        if(indexPath.row == 0)
+        {
+            return 120
+        }
+        else if(indexPath.row == arrRegistrationFields.count - 2){
             return 60.0
         }
         
@@ -541,7 +551,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func numericCellText(txtFldCell: NumericTextTableViewCell) {
-         dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+        dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
     }
     
     func emailCellText(txtFldCell:EmailTxtTableViewCell){
@@ -549,9 +559,9 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     }
     func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String) {
         dictForTextFieldValue.updateValue(text, forKey: (txtFldCell.tf?.placeholder)!)
-
+        
     }
-
+    
     
     
     func buttonOnCellClicked(sender:UIButton){
@@ -577,7 +587,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 //Webservice call
                 if(firstName == dict["first_name"] as! String || lastName == dict["second_name"] as! String || dateOfBirth == dict["date_of_birth"] as! String)
                 {
-                   
+                    
                     objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                     objAnimView!.frame = self.view.frame
                     objAnimView?.animate()
@@ -707,7 +717,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
         dict["deviceRegistration"] =  udidArray
         dict["party_role"] =  4
-
+        
         return dict
     }
     
@@ -727,7 +737,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         var dict = self.getAllValuesFromTxtFild()
         let objAPI = API()
         print("DictPara:\(dict)")
-       // objAPI.storeValueInKeychainForKey("myUserInfo", value: dict)
+        // objAPI.storeValueInKeychainForKey("myUserInfo", value: dict)
         
         if(changePhoneNumber == false)
         {
@@ -800,8 +810,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
                 }
-                
-               else if checkTextFieldContentSpecialChar(str!){
+                    
+                else if checkTextFieldContentSpecialChar(str!){
                     errorMsg = "Name should not contain special characters"
                     if cell.tfTitle?.text?.characters.count==0 {
                         errorMsg = "Please select a title and name should not contain special characters"
@@ -809,8 +819,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
                 }
-                
-               else if str?.characters.count > 50{
+                    
+                else if str?.characters.count > 50{
                     errorMsg = "Wow, that’s such a long name we can’t save it"
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
@@ -840,8 +850,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     
                 }
                 
-                dict = arrRegistration[0] as Dictionary<String,AnyObject>
-                idx = 0
+                dict = arrRegistration[1] as Dictionary<String,AnyObject>
+                idx = 1
             }
             
             if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell){
@@ -879,8 +889,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorSurname")
                     }
                     
-                    dict = arrRegistration[2]as Dictionary<String,AnyObject>
-                    idx = 2
+                    dict = arrRegistration[3]as Dictionary<String,AnyObject>
+                    idx = 3
                 }
                 
                 if cell.tf?.placeholder == "First Address Line"{
@@ -895,8 +905,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorFirstAddress")
                     }
                     
-                    dict = arrRegistration[9]as Dictionary<String,AnyObject>
-                    idx = 9
+                    dict = arrRegistration[10]as Dictionary<String,AnyObject>
+                    idx = 10
                 }
                 
                 if cell.tf?.placeholder == "Town"{
@@ -911,8 +921,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorTown")
                     }
                     
-                    dict = arrRegistration[13]as Dictionary<String,AnyObject>
-                    idx = 13
+                    dict = arrRegistration[14]as Dictionary<String,AnyObject>
+                    idx = 14
                 }
                 
                 if cell.tf?.placeholder == "County"{
@@ -927,8 +937,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorCounty")
                     }
                     
-                    dict = arrRegistration[15]as Dictionary<String,AnyObject>
-                    idx = 15
+                    dict = arrRegistration[16]as Dictionary<String,AnyObject>
+                    idx = 16
                 }
                 
                 if cell.tf?.placeholder == "Mobile number"{
@@ -941,11 +951,11 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         
                     }
                         
-//                    else{
-//                        dictForTextFieldValue.removeValueForKey("errorMobile")
-//                    }
-                    
-                  else  if(self.checkTextFieldContentCharacters(str!) == true || self.phoneNumberValidation(str!)==false){
+                        //                    else{
+                        //                        dictForTextFieldValue.removeValueForKey("errorMobile")
+                        //                    }
+                        
+                    else  if(self.checkTextFieldContentCharacters(str!) == true || self.phoneNumberValidation(str!)==false){
                         errorFLag = true
                         errorMsg = "That mobile number doesn’t look right"
                         dictForTextFieldValue["errorMobileValidation"] = errorMsg
@@ -966,8 +976,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorMobileValidation")
                     }
                     
-                    dict = arrRegistration[18]as Dictionary<String,AnyObject>
-                    idx = 18
+                    dict = arrRegistration[19]as Dictionary<String,AnyObject>
+                    idx = 19
                 }
                 
                 if cell.tf?.placeholder == "Email"{
@@ -993,8 +1003,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     else{
                         dictForTextFieldValue.removeValueForKey("errorEmailValid")
                     }
-                    dict = arrRegistration[20]as Dictionary<String,AnyObject>
-                    idx = 20
+                    dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                    idx = 21
                 }
                 
                 
@@ -1019,53 +1029,53 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 else{
                     dictForTextFieldValue.removeValueForKey("errorPostcode")
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
-
+                    
                 }
-                dict = arrRegistration[6]as Dictionary<String,AnyObject>
-                idx = 6
+                dict = arrRegistration[7]as Dictionary<String,AnyObject>
+                idx = 7
             }
             
             if arrRegistrationFields[i].isKindOfClass(NumericTextTableViewCell){
                 let cell = arrRegistrationFields[i] as! NumericTextTableViewCell
                 let str = cell.tf?.text
                 
-                    if str==""{
-                        errorFLag = true
-                        errorMsg = "Don't forget your mobile number"
-                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
-                        //                        dictForTextFieldValue["errorTxt"] = errorMsg
-                        
-                    }
-                        
-                        //                    else{
-                        //                        dictForTextFieldValue.removeValueForKey("errorMobile")
-                        //                    }
-                        
-                    else  if(self.checkTextFieldContentCharacters(str!) == true || self.phoneNumberValidation(str!)==false){
-                        errorFLag = true
-                        errorMsg = "That mobile number doesn’t look right"
-                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
-                    }
-                    else if(str?.characters.count < 10)
-                    {
-                        errorFLag = true
-                        errorMsg = "That mobile number should not be less than 10 digits"
-                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
-                    }
-                    else if(str?.characters.count > 16)
-                    {
-                        errorFLag = true
-                        errorMsg = "That mobile number should not be more than 15 digits"
-                        dictForTextFieldValue["errorMobileValidation"] = errorMsg
-                    }
-                    else{
-                        dictForTextFieldValue.removeValueForKey("errorMobileValidation")
-                    }
+                if str==""{
+                    errorFLag = true
+                    errorMsg = "Don't forget your mobile number"
+                    dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                    //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     
-                    dict = arrRegistration[18]as Dictionary<String,AnyObject>
-                    idx = 18
+                }
+                    
+                    //                    else{
+                    //                        dictForTextFieldValue.removeValueForKey("errorMobile")
+                    //                    }
+                    
+                else  if(self.checkTextFieldContentCharacters(str!) == true || self.phoneNumberValidation(str!)==false){
+                    errorFLag = true
+                    errorMsg = "That mobile number doesn’t look right"
+                    dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                }
+                else if(str?.characters.count < 10)
+                {
+                    errorFLag = true
+                    errorMsg = "That mobile number should not be less than 10 digits"
+                    dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                }
+                else if(str?.characters.count > 16)
+                {
+                    errorFLag = true
+                    errorMsg = "That mobile number should not be more than 15 digits"
+                    dictForTextFieldValue["errorMobileValidation"] = errorMsg
+                }
+                else{
+                    dictForTextFieldValue.removeValueForKey("errorMobileValidation")
+                }
                 
-        }
+                dict = arrRegistration[19]as Dictionary<String,AnyObject>
+                idx = 19
+                
+            }
             if arrRegistrationFields[i].isKindOfClass(EmailTxtTableViewCell){
                 let cell = arrRegistrationFields[i] as! EmailTxtTableViewCell
                 let str = cell.tf?.text
@@ -1089,10 +1099,10 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 else{
                     dictForTextFieldValue.removeValueForKey("errorEmailValid")
                 }
-                dict = arrRegistration[20]as Dictionary<String,AnyObject>
-                idx = 20
+                dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                idx = 21
             }
-
+            
             
             if arrRegistrationFields[i].isKindOfClass(PickerTextfildTableViewCell){
                 let cell = arrRegistrationFields[i] as! PickerTextfildTableViewCell
@@ -1106,8 +1116,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 else{
                     dictForTextFieldValue.removeValueForKey("errorDOB")
                 }
-                dict = arrRegistration[4]as Dictionary<String,AnyObject>
-                idx = 4
+                dict = arrRegistration[5]as Dictionary<String,AnyObject>
+                idx = 5
             }
             
             print("\(idx)")
@@ -1171,7 +1181,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         return result
     }
     
-
+    
     
     //OTP Verification Delegate Method
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
@@ -1233,7 +1243,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
         objAnimView?.removeFromSuperview()
         print("\(objResponse)")
-       
+        
         if(objResponse["message"] as! String == "All field are match")
         {
             let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1292,7 +1302,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
             
         else{
-             checkString = "Register"
+            checkString = "Register"
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
@@ -1304,10 +1314,10 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func errorResponseForRegistrationAPI(error:String){
         objAnimView?.removeFromSuperview()
         
-      
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
- 
+        
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        
         
     }
     

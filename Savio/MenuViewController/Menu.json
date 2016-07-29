@@ -42,10 +42,24 @@
   "showInMenu": "Yes"
   },
   {
+  "title": "Spend savings",
+  "image": "menu-spend.png",
+  "activeImage": "menu-active-spend.png",
+  "className": "SASpendViewController",
+  "showInMenu": "Yes"
+  },
+  {
   "title": "Settings",
   "image": "menu-settings.png",
   "activeImage": "menu-active-settings.png",
   "className": "SASettingsViewController",
+  "showInMenu": "Yes"
+  },
+  {
+  "title": "Logout",
+  "image": "menu-logout.png",
+  "activeImage": "menu-active-logout.png",
+  "className": "SignOut",
   "showInMenu": "Yes"
   }
   ]

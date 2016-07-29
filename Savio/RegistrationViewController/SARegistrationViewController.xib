@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,15 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KrR-W3-iqx">
-                    <rect key="frame" x="280" y="50" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="VyU-lj-Fz1"/>
-                        <constraint firstAttribute="height" constant="40" id="e3m-MG-ukj"/>
-                    </constraints>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SEh-U8-9LS">
-                    <rect key="frame" x="0.0" y="120" width="600" height="480"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="bZP-pR-2FF"/>
@@ -34,17 +27,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="KrR-W3-iqx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5WI-NF-9oN"/>
                 <constraint firstAttribute="trailing" secondItem="SEh-U8-9LS" secondAttribute="trailing" id="6q6-Cm-dA0"/>
                 <constraint firstItem="SEh-U8-9LS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="90L-Wj-4Nl"/>
-                <constraint firstItem="KrR-W3-iqx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="cnX-qa-nrK"/>
-                <constraint firstItem="SEh-U8-9LS" firstAttribute="top" secondItem="KrR-W3-iqx" secondAttribute="bottom" constant="30" id="iMc-zu-BQT"/>
+                <constraint firstItem="SEh-U8-9LS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Qpv-m5-qGf"/>
                 <constraint firstAttribute="bottom" secondItem="SEh-U8-9LS" secondAttribute="bottom" id="orD-cB-igV"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
         </view>
     </objects>
-    <resources>
-        <image name="savivo-logo.png" width="85" height="85"/>
-    </resources>
 </document>

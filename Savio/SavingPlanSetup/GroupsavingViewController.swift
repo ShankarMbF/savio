@@ -1026,7 +1026,8 @@
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
-        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true

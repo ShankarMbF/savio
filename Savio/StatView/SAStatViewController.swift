@@ -334,21 +334,82 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
-        if(planType == "Individual")
-        {
-            vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            shareImg = UIImage(named: "generic-streak-popup.png")
+   
+        switch sender.tag {
+        case 0:
+            if(planType == "Individual")
+            {
+                vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+                shareImg = UIImage(named: "generic-streak-popup.png")
+            }
+            else
+            {
+                vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+                shareImg = UIImage(named: "group-save-streak-popup.png")
+            }
+
+        case 1:
+            if(planType == "Individual")
+            {
+                vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+                shareImg = UIImage(named: "stats-achievement-smiley-popup.png")
+            }
+            else
+            {
+                vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+                shareImg = UIImage(named: "group-stats-achievement-smiley-popup.png")
+            }
+
+        case 2:
+            if(planType == "Individual")
+            {
+                vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+                shareImg = UIImage(named: "stats-achievement-popup.png")
+            }
+            else
+            {
+                vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+                shareImg = UIImage(named: "group-stats-achievement-badge-popup.png")
+            }
+
+        case 3:
+            if(planType == "Individual")
+            {
+                vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+                shareImg = UIImage(named: "stats-achievement-money-popup.png")
+            }
+            else
+            {
+                vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+                shareImg = UIImage(named: "group-stats-achievement-money-popup.png")
+            }
+
+        default:
+            if(planType == "Individual")
+            {
+                vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+                shareImg = UIImage(named: "generic-streak-popup.png")
+            }
+            else
+            {
+                vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
+                shareImg = UIImage(named: "group-save-streak-popup.png")
+            }
         }
-        else
-        {
-            vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
-            shareImg = UIImage(named: "generic-streak-popup.png")
-        }
-       
+        
         let imgVw = testView.viewWithTag(10) as! UIImageView
         imgVw.image = shareImg
         
         let btnClose = testView.viewWithTag(6)! as! UIButton
+        if(planType == "Individual")
+        {
+            btnClose.setImage(UIImage(named:"social-pop-up-close.png"), forState: .Normal)
+        }
+        else
+        {
+            btnClose.setImage(UIImage(named:"Group-social-pop-up-close.png"), forState: .Normal)
+        }
+        
         btnClose.addTarget(self, action: Selector("closeSharePopup:"), forControlEvents: UIControlEvents.TouchUpInside)
         
         let fbBtn = testView.viewWithTag(2) as! UIButton

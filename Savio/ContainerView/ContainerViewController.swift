@@ -153,10 +153,14 @@ class ContainerViewController: UIViewController {
         case "SASettingsViewController":
             self.centreVC = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
             self.replaceViewController()
+            
+        case "SASpendViewController":
+            self.centreVC = SASpendViewController(nibName: "SASpendViewController", bundle: nil)
+            self.replaceViewController()
+            
         case "SignOut":
-            self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                
-            })
+            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
         default:
             print("Default Line Reached")
             let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
@@ -166,7 +170,7 @@ class ContainerViewController: UIViewController {
     
     func replaceViewController() {
         self.navController = UINavigationController(rootViewController: self.centreVC)
-        //        self.navController.navigationBar.hidden = true
+        //self.navController.navigationBar.hidden = true
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navController.view.frame = self.view.frame

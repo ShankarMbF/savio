@@ -888,6 +888,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         
         objAnimView.removeFromSuperview()
     }
+    
+    //MARK: UIImagePickerControllerDelegate methods
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        picker .dismissViewControllerAnimated(true, completion: nil)
+        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBgImageView.layer.masksToBounds = true
+        topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
+        //savingPlanTitleLabel.hidden = true
+        cameraButton.hidden = true
+        
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker .dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
         NSUserDefaults.standardUserDefaults().synchronize()

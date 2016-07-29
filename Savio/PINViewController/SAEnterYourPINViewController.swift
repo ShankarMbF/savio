@@ -10,6 +10,7 @@ import UIKit
 
 class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate {
     @IBOutlet weak var btnVwBg: UIView!
+    @IBOutlet weak var pinTextFieldsContainerView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
@@ -20,8 +21,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var forgotPasscodeButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var enterPasscodeTextField: UITextField!
-    
+    @IBOutlet weak var textFieldOne: UITextField!
+    @IBOutlet weak var textFieldTwo: UITextField!
+    @IBOutlet weak var textFieldThree: UITextField!
+    @IBOutlet weak var textFieldFour: UITextField!
+
     
     @IBOutlet weak var registerButtonBackgroundView: UIView!
     var objAnimView = ImageViewAnimation()
@@ -33,18 +37,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.customizeTextFields()
         
         // Do any additional setup after loading the view.
         //change the border color and placeholder color of UITextField
-        enterPasscodeTextField.layer.borderWidth = 1
-        enterPasscodeTextField.layer.cornerRadius = 2
-        enterPasscodeTextField.layer.masksToBounds = true
-        enterPasscodeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        enterPasscodeTextField.attributedPlaceholder = NSAttributedString(string:"Enter 4 digit passcode",
-                                                                          attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])
-        //Set input accessory view to the UITextfield
-        enterPasscodeTextField.inputAccessoryView = toolBar
         
         //Add shadowcolor to UIButtons
    
@@ -64,14 +60,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     //UITextField delegate method
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        
-        enterPasscodeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        enterPasscodeTextField.textColor = UIColor.blackColor()
         errorLabel.hidden = true
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
+        errorLabel.hidden = true
+        textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         let currentCharacterCount = textField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
@@ -107,7 +101,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             //Add animation of logo
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
-            enterPasscodeTextField.resignFirstResponder()
             
             objAnimView.animate()
             self.view.addSubview(objAnimView)
@@ -126,19 +119,21 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         forgotPasscodeButton.hidden = true
         loginButton.hidden = true
         btnVwBg.hidden = true
-        enterPasscodeTextField.hidden = true
         checkString = "ForgotPasscode"
         errorLabel.hidden = true
-        enterPasscodeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        enterPasscodeTextField.textColor = UIColor.blackColor()
-        enterPasscodeTextField.resignFirstResponder()
+        pinTextFieldsContainerView.hidden = true
         
+        textFieldOne.resignFirstResponder()
+        textFieldTwo.resignFirstResponder()
+        textFieldThree.resignFirstResponder()
+        textFieldFour.resignFirstResponder()
+        textFieldOne.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldTwo.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldThree.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldFour.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+
     }
     
-    @IBAction func toolBarDoneButtonPressed(sender: AnyObject) {
-        enterPasscodeTextField.resignFirstResponder()
-        
-    }
     
     @IBAction func onClickCancelButton(sender: AnyObject) {
         
@@ -152,29 +147,46 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         forgotPasscodeButton.hidden = false
         loginButton.hidden = false
         btnVwBg.hidden = false
-        enterPasscodeTextField.hidden = false
+        pinTextFieldsContainerView.hidden = false
+
     }
+
     @IBAction func clickOnLoginButton(sender: AnyObject) {
         //LogInButton click
-        if(enterPasscodeTextField.text == "")
+        if(textFieldOne.text == "" || textFieldTwo.text == ""  || textFieldThree.text == ""  || textFieldFour.text == ""  )
         {
             //Show error when field is empty
-            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
+            
             errorLabel.hidden = false
             errorLabel.text = "Please enter passcode"
+            
+            if  textFieldOne.text == "" {
+                textFieldOne.layer.borderColor = UIColor.redColor().CGColor
+            }
+            if  textFieldTwo.text == "" {
+                textFieldTwo.layer.borderColor = UIColor.redColor().CGColor
+            }
+            if  textFieldThree.text == "" {
+                textFieldThree.layer.borderColor = UIColor.redColor().CGColor
+            }
+            if  textFieldFour.text == "" {
+                textFieldFour.layer.borderColor = UIColor.redColor().CGColor
+            }
+            
         }
-        else if(enterPasscodeTextField.text?.characters.count < 4)
-        {
-            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
-            errorLabel.hidden = false
-            errorLabel.text = "Passcode should be of 4 digits"
-        }
+            
+//        else if(enterPasscodeTextField.text?.characters.count < 4)
+//        {
+//            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
+//            errorLabel.hidden = false
+//            errorLabel.text = "Passcode should be of 4 digits"
+//        }
         else
         {
             
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
-            enterPasscodeTextField.resignFirstResponder()
+    
             
             objAPI.logInDelegate = self;
             objAnimView.animate()
@@ -184,7 +196,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             print(userDict)
             var param = Dictionary<String,AnyObject>()
             param["userID"] = userDict["partyId"]
-            param["pin"] = enterPasscodeTextField.text?.MD5()
+            let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
+            param["pin"] = pinPassword.MD5()
             print(param)
             objAPI.logInWithUserID(param)
             
@@ -218,6 +231,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     }
 }
 
+    func setAllPinEntryFieldsToColor(color: UIColor) {
+        textFieldOne.layer.borderColor = color.CGColor
+        textFieldTwo.layer.borderColor = color.CGColor
+        textFieldThree.layer.borderColor = color.CGColor
+        textFieldFour.layer.borderColor = color.CGColor
+    }
 
 //LogIn Delegate Methods
 
@@ -282,6 +301,11 @@ func errorResponseForOTPLogInAPI(error: String) {
     {
         errorLabel.hidden = false
         errorLabel.text = "Passcode is not correct"
+        textFieldOne.text = ""
+        textFieldTwo.text = ""
+        textFieldThree.text = ""
+        textFieldFour.text = ""
+        self.setAllPinEntryFieldsToColor( UIColor.redColor())
     }
     
 }
@@ -299,6 +323,76 @@ func errorResponseForOTPSentAPI(error:String){
     self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     
 }
-
+    func customizeTextFields() {
+        self.setAllPinEntryFieldsToColor( UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
+        
+        textFieldOne.layer.borderWidth = 1
+        textFieldOne.layer.cornerRadius = 5
+        textFieldOne.layer.masksToBounds = true
+        //        textFieldOne.userInteractionEnabled = false
+        
+        
+        textFieldTwo.layer.borderWidth = 1
+        textFieldTwo.layer.cornerRadius = 5
+        textFieldTwo.layer.masksToBounds = true
+        //        textFieldTwo.userInteractionEnabled = false
+        
+        textFieldThree.layer.borderWidth = 1
+        textFieldThree.layer.cornerRadius = 5
+        textFieldThree.layer.masksToBounds = true
+        //        textFieldThree.userInteractionEnabled = false
+        
+        
+        textFieldFour.layer.borderWidth = 1
+        textFieldFour.layer.cornerRadius = 5
+        textFieldFour.layer.masksToBounds = true
+        //        textFieldFour.userInteractionEnabled = false
+        
+        textFieldFour.keyboardType = UIKeyboardType.NumberPad
+        
+        textFieldOne.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldTwo.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldThree.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldFour.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+    }
+    
+    func textFieldDidChange(textField: UITextField){
+        
+        let text = textField.text
+        
+        //        var restrictedLength: Int = 1
+        //        var temp: String = textField.text!
+        //        if textField.text.length() > restrictedLength {
+        //            textField.text = temp.substringToIndex(temp.startIndex.advancedBy(temp.length() - 1))
+        //        }
+        
+        if text?.utf16.count==1{
+            switch textField{
+            case textFieldOne:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldFour.becomeFirstResponder()
+            case textFieldFour:
+                textFieldFour.resignFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
+            }
+        }else{
+            switch textField{
+            case textFieldFour:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldOne.becomeFirstResponder()
+            case textFieldOne:
+                textFieldOne.resignFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
+            }
+        }
+    }
 
 }

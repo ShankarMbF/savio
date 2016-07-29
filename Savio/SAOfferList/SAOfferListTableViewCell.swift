@@ -44,13 +44,13 @@ class SAOfferListTableViewCell: UITableViewCell {
 //        btnAddOffer!.layer.shadowOffset = CGSizeMake(0, 2)
 //        btnAddOffer!.layer.shadowOpacity = 1
         btnAddOffer!.layer.cornerRadius = 5
-        
-        let attributes = [
-            NSForegroundColorAttributeName : self.setUpColor(),
-            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
-        ]
-        let attributedString = NSAttributedString(string: "Offer detail V", attributes: attributes)
-        btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        btnOfferDetail?.tintColor = self.setUpColor()
+//        let attributes = [
+//            NSForegroundColorAttributeName : self.setUpColor(),
+//            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
+//        ]
+//        let attributedString = NSAttributedString(string: "Offer detail V", attributes: attributes)
+//        btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
 
         
 //        var attrs = [ NSFontAttributeName : UIFont(name: "GothamRounded-Book", size: 14.0),NSForegroundColorAttributeName : UIColor.redColor(),NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]

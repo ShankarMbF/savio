@@ -209,11 +209,16 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         }
         
-        let attributes = [
-            NSForegroundColorAttributeName :cell.setUpColor(),
-            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
-        ]
-        var attributedString = NSAttributedString(string: "Offer details v", attributes: attributes)
+        cell.btnOfferDetail?.titleEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.imageView?.frame.size.width)!, 0, -(((cell.btnOfferDetail!.imageView?.frame.size.width)!-30)))
+        
+        cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-down.png"), forState: .Normal)
+        cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
+        
+//        let attributes = [
+//            NSForegroundColorAttributeName :cell.setUpColor(),
+//            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
+//        ]
+//        var attributedString = NSAttributedString(string: "Offer details v", attributes: attributes)
         
         if prevIndxArr.count > 0 {
             var ht: CGFloat = 0.0
@@ -222,11 +227,14 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             for var i in 0 ..< prevIndxArr.count {
                 
                 if prevIndxArr[i] == indexPath.row {
-                    attributedString = NSAttributedString(string: "Offer details ^", attributes: attributes)
-                    if let str1 = cellDict!["offDesc"] as? String  {
-                    str = str1
-                    ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
-                    }
+                    
+                    cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
+                    cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
+//                    attributedString = NSAttributedString(string: "Offer details ^", attributes: attributes)
+//                    if let str1 = cellDict!["offDesc"] as? String  {
+//                    str = str1
+//                    ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
+//                    }
                 }
                 else{
                     str = ""
@@ -241,7 +249,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             cell.lblProductOffer?.text = ""
         }
         
-        cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        //cell.btnOfferDetail?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
         //        cell.lblHT.constant = 20.0
         return cell
     }

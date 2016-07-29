@@ -118,28 +118,26 @@
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zlr-nO-JeO">
-                        <rect key="frame" x="113" y="270" width="94" height="21"/>
+                        <rect key="frame" x="20" y="270" width="280" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="94" id="15Q-dO-TRt"/>
                             <constraint firstAttribute="height" constant="21" id="y3T-ZL-2Bt"/>
                         </constraints>
                         <state key="normal">
                             <attributedString key="attributedTitle">
-                                <fragment content="Offer details ">
+                                <fragment content="Offer details">
                                     <attributes>
-                                        <color key="NSColor" red="0.56470588235294117" green="0.87058823529411766" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
-                                        <font key="NSFont" metaFont="cellTitle"/>
+                                        <font key="NSFont" size="12" name=".AppleSystemUIFont"/>
                                         <integer key="NSUnderline" value="1"/>
-                                    </attributes>
-                                </fragment>
-                                <fragment content="v">
-                                    <attributes>
-                                        <color key="NSColor" red="0.56470588235294117" green="0.87058823529411766" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
-                                        <font key="NSFont" metaFont="cellTitle"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="15Q-dO-TRt"/>
+                            </mask>
+                        </variation>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNg-Kv-Haw">
                         <rect key="frame" x="38" y="303" width="244" height="13"/>
@@ -157,10 +155,12 @@
                     <constraint firstItem="XmZ-h8-1JZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="FcT-TL-ike"/>
                     <constraint firstAttribute="trailingMargin" secondItem="eNg-Kv-Haw" secondAttribute="trailing" constant="30" id="H3h-Fa-q2u"/>
                     <constraint firstItem="eNg-Kv-Haw" firstAttribute="top" secondItem="Zlr-nO-JeO" secondAttribute="bottom" constant="12" id="N7h-sK-Hhn"/>
+                    <constraint firstItem="Zlr-nO-JeO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Q5c-YI-ufh"/>
                     <constraint firstItem="eNg-Kv-Haw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Twq-v5-Ifk"/>
                     <constraint firstItem="XmZ-h8-1JZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Uby-hZ-Nm8"/>
                     <constraint firstItem="ZVB-3Q-ELu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="30" id="Ypr-cC-JZp"/>
                     <constraint firstItem="Zlr-nO-JeO" firstAttribute="top" secondItem="682-Zc-T1z" secondAttribute="bottom" constant="72" id="ZSs-r1-AmF"/>
+                    <constraint firstAttribute="trailing" secondItem="Zlr-nO-JeO" secondAttribute="trailing" constant="20" id="e9W-VG-0i4"/>
                     <constraint firstItem="ZVB-3Q-ELu" firstAttribute="top" secondItem="XmZ-h8-1JZ" secondAttribute="bottom" constant="12" id="fYW-Z8-q4d"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ZVB-3Q-ELu" secondAttribute="trailing" constant="30" id="lra-uc-qcZ"/>
                     <constraint firstItem="Zlr-nO-JeO" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="tBa-zq-XkN"/>
@@ -178,7 +178,7 @@
                 <outlet property="offerImage" destination="682-Zc-T1z" id="pHl-gu-4Ob"/>
                 <outlet property="suggestedHt" destination="ZSs-r1-AmF" id="XSR-0X-du9"/>
             </connections>
-            <point key="canvasLocation" x="756" y="232.5"/>
+            <point key="canvasLocation" x="454" y="204.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -998,7 +998,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else
             {
-                return 65
+                return 72
             }
         }
         
@@ -1013,8 +1013,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         popOverSelectedStr = str
         isPopoverValueChanged = true
         
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 40
-        
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 72) + 50
+        scrlView.contentSize = CGSizeMake(0, tblViewHt.constant)
         tblView.reloadData()
     }
     
@@ -1420,6 +1420,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         
     }
+    
+    func ceil(f: CFloat) -> CFloat {
+        return ceilf(f)
+    }
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
@@ -1522,8 +1527,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
                 updateOfferArr = offerArr
-                tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 80)
-                
+                tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 85)
+                scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant + CGFloat(offerArr.count * 85))
                 tblView.reloadData()
             }
             else
@@ -1708,7 +1713,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: Offer delegate methods
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 72)
         tblView.reloadData()
         isOfferShow = false
     }

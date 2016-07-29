@@ -285,7 +285,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 250
                     piechart?.radius.inner = horizontalScrollView.frame.width - 275
-                    imgView.frame = CGRectMake(67,40,280,280)
+                    imgView.frame = CGRectMake(67,35,280,280)
                 }
                 else   if(UIScreen.mainScreen().bounds.width == 375)
                 {

@@ -12,7 +12,7 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var continueButtonBackgroundView: UIView!
     @IBOutlet weak var topSpaceContonueView: NSLayoutConstraint!
-
+    
     @IBOutlet weak var vwCongrats : UIView?
     @IBOutlet weak var vwScrContent : UIView?
     @IBOutlet weak var vwSummary : UIView?
@@ -102,17 +102,17 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     func setUpView(){
-      print(itemDataDict)
+        print(itemDataDict)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
-
+        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
-//        btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
-//        btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
-//        btnContinue!.layer.shadowOpacity = 1
+        //        btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
+        //        btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
+        //        btnContinue!.layer.shadowOpacity = 1
         btnContinue!.layer.cornerRadius = 5
         
         //set Navigation left button
@@ -313,7 +313,7 @@ class SASavingSummaryViewController: UIViewController {
                     let request: NSURLRequest = NSURLRequest(URL: url!)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if (data != nil && data?.length > 0) {
-                                 let image = UIImage(data: data!)
+                            let image = UIImage(data: data!)
                             dispatch_async(dispatch_get_main_queue(), {
                                 
                                 bgImageView.image = image
@@ -337,13 +337,16 @@ class SASavingSummaryViewController: UIViewController {
         
         if (itemDataDict["imageURL"] != nil) {
             
-           let newDict =  itemDataDict["imageURL"]
+            let newDict =  itemDataDict["imageURL"]
             
             if newDict!["imageName.jpg"] != nil {
-        
-            if let data :NSData = NSData(base64EncodedString: (newDict!["imageName.jpg"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
-            topBgImageView.image = UIImage(data: data)
-            }
+                
+                if let data :NSData = NSData(base64EncodedString: (newDict!["imageName.jpg"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
+                    topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+                    topBgImageView.layer.masksToBounds = true
+                    
+                    topBgImageView.image = UIImage(data: data)
+                }
             }
         }
         let dateFormatter = NSDateFormatter()
@@ -366,8 +369,8 @@ class SASavingSummaryViewController: UIViewController {
             
             var pathComponents2 : NSArray!
             pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
-
-//            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+            
+            //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
             lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
         }
         else{
@@ -377,9 +380,9 @@ class SASavingSummaryViewController: UIViewController {
             var pathComponents2 : NSArray!
             pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString("-")
             
-//            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+            //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
             lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
-
+            
         }
     }
     

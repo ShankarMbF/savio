@@ -117,6 +117,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
+        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBgImageView.layer.masksToBounds = true
+        
         if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
             

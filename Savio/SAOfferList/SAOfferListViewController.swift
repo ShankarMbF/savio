@@ -47,7 +47,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
         
@@ -124,7 +124,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     */
     // MARK: - Navigation Bar Button Action
     func backButtonPress()  {
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func heartBtnClicked(){

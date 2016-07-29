@@ -478,15 +478,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.tblView = tblView
             cell1.delegate = self
             cell1.view = self.view
-            if(itemDetailsDataDict["amount"] != nil)
+            if(itemDetailsDataDict["amount"] != nil || isPopoverValueChanged || isOfferShow )
             {
                 
-                let amountString = "£" + String(format: "%d", cost)
-                cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
-                cell1.slider.value =  Float(cost)
-                cost = Int(cell1.slider.value)
-            }
-            else if(isPopoverValueChanged){
                 let amountString = "£" + String(format: "%d", cost)
                 cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                 cell1.slider.value =  Float(cost)

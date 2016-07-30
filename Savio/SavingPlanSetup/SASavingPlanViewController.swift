@@ -104,14 +104,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var ht : CGFloat = 0.0
         if(isPopoverValueChanged)
         {
-            ht = 40 + CGFloat(offerArr.count * 65)
+            ht = 40 + CGFloat(offerArr.count * 90)
         }
         else
         {
-            ht = CGFloat(offerArr.count * 65)
+            ht = CGFloat(offerArr.count * 90)
         }
         
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant + ht)
     }
     
     func setUpView(){
@@ -1008,7 +1008,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         isPopoverValueChanged = true
         
         tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 72) + 50
-        scrlView.contentSize = CGSizeMake(0, tblViewHt.constant)
+        scrlView.contentSize = CGSizeMake(0, tblViewHt.constant+300)
         tblView.reloadData()
     }
     
@@ -1391,7 +1391,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     {
         let indx = sender.tag - 5
         offerArr.removeAtIndex(indx)
-        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 90)
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant )
         tblView.reloadData()
     }
     
@@ -1463,7 +1464,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65) + 120
+             
                 cameraButton.backgroundColor = UIColor.blackColor()
                 cameraButton.alpha = 0.5
                 cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
@@ -1521,8 +1522,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
                 updateOfferArr = offerArr
-                tblViewHt.constant = tblViewHt.constant + CGFloat(offerArr.count * 85)
-                scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant + CGFloat(offerArr.count * 85))
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 90) + 120
+               // scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant)
                 tblView.reloadData()
             }
             else

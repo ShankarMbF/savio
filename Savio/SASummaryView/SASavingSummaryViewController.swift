@@ -275,7 +275,7 @@ class SASavingSummaryViewController: UIViewController {
         htOfferView.constant = 0
         if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
             //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
-            let offerCount = 0
+
             for var i=0; i<arrOff.count; i++ {
                 
                 lblOffer?.hidden = false
@@ -284,14 +284,10 @@ class SASavingSummaryViewController: UIViewController {
                 // Set its frame and data to pageview
                 testView.frame = CGRectMake(0, (CGFloat(i) * testView.frame.size.height) + 30, testView.frame.size.width - 60, testView.frame.size.height)
                 vwOffer?.addSubview(testView)
+             
                 testView.backgroundColor = UIColor.lightGrayColor()
-                htOfferView.constant = (CGFloat(i) * testView.frame.size.height) + 30
-                htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 220
-                topSpaceForContinue.constant = 80
-                topSpaceContonueView.constant = 80
-                self.view.bringSubviewToFront(btnContinue!)
-                scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
                 let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
+                
                 let lblTitle = testView.viewWithTag(1)! as! UILabel
                 lblTitle.text = objDict["offCompanyName"] as? String
                 lblTitle.hidden = false
@@ -320,7 +316,16 @@ class SASavingSummaryViewController: UIViewController {
                     })
                     
                 }
+              
+
             }
+            
+            htOfferView.constant = CGFloat(arrOff.count * 55)
+            htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 220
+            topSpaceForContinue.constant = CGFloat(arrOff.count * 55)
+            topSpaceContonueView.constant = CGFloat(arrOff.count * 55)
+            self.view.bringSubviewToFront(btnContinue!)
+            scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
         }
         lblTitle.text = itemDataDict["title"] as? String
         if let amount = itemDataDict["amount"] as? String

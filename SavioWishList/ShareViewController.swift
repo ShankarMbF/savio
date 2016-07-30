@@ -218,6 +218,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         bgView.layer.cornerRadius = 5
         bgView.layer.masksToBounds = true
         
+        /*
         let leftView = UILabel()
         leftView.frame = CGRectMake(10, 0, 17, 30)
         leftView.text = " £"
@@ -226,6 +227,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         leftView.textColor = UIColor.blackColor()
         self.priceTextField.leftView = leftView
         self.priceTextField.leftViewMode = .Always
+        */
         
         priceTextField.inputAccessoryView = customToolBar
         

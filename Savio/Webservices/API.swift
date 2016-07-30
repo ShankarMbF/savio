@@ -562,7 +562,7 @@ class API: UIView {
                         else
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("Please login to Savio first.")
+                                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("Internal server error")
                             }
                         }
                     }

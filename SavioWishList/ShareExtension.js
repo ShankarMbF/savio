@@ -14,7 +14,7 @@ MyExtensionJavaScriptClass.prototype = {
     getPrice: function() {
         var str = document.body.innerText;
         var price = str.match(/£\S+/g)[0];
-        price = price.replace('£', '')
+       // price = price.replace('£', '')
         return price.replace(/\s/g,'');
     },
     run: function(arguments) {

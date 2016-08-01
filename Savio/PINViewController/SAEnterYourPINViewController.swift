@@ -199,8 +199,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
             
-            param["ptystatus"] = "ENABLE"
-            
             if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 param["PNS_DEVICE_ID"] =  apnsDeviceToken
@@ -304,6 +302,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         objAnimView.removeFromSuperview()
         print(error)
         if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if (error == "Internal Server Error")
         {
             let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()

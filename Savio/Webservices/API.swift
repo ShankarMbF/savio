@@ -458,7 +458,7 @@ class API: UIView,NSURLSessionDelegate {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-          
+            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -468,15 +468,37 @@ class API: UIView,NSURLSessionDelegate {
                     {
                         
                         print("\(dict)")
-                        if(dict["errorCode"] as! NSString == "200")
+                        if let code = dict["errorCode"] as? NSString
                         {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.logInDelegate?.successResponseForLogInAPI(dict)
+                            if(code == "200")
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.logInDelegate?.successResponseForLogInAPI(dict)
+                                }
+                            }
+                            else
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.logInDelegate?.errorResponseForOTPLogInAPI("Internal Server Error")
+                                }
                             }
                         }
                         else{
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.logInDelegate?.errorResponseForOTPLogInAPI("Password is incorrect")
+                            if let code = dict["error"] as? NSString
+                            {
+                                if(code == "Internal Server Error")
+                                {
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        self.logInDelegate?.errorResponseForOTPLogInAPI("Internal Server Error")
+                                    }
+                                }
+                                    
+                                else
+                                {
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        self.logInDelegate?.errorResponseForOTPLogInAPI("Passcode is incorrect")
+                                    }
+                                }
                             }
                         }
                     }

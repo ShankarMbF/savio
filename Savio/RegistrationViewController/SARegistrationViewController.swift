@@ -717,8 +717,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
         dict["deviceRegistration"] =  udidArray
         dict["party_role"] =  4
-        
-        dict["ptystatus"] = "ENABLE"
+
         
         return dict
     }

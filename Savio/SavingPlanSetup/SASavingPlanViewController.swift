@@ -111,7 +111,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             ht = CGFloat(offerArr.count * 90)
         }
         
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant + ht)
+   scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
     }
     
     func setUpView(){

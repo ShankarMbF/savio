@@ -127,8 +127,9 @@ protocol InviteMembersDelegate
     func errorResponseForInviteMembersAPI(error:String)
 }
 
-class API: UIView {
-    let session = NSURLSession.sharedSession()
+class API: UIView,NSURLSessionDelegate {
+    let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+    
     
     var delegate: PostCodeVerificationDelegate?
     var otpSentDelegate : OTPSentDelegate?
@@ -177,6 +178,10 @@ class API: UIView {
             let url = NSURL(string: urlString)
             let request = NSURLRequest(URL: url!)
             
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -219,12 +224,14 @@ class API: UIView {
         {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
             request.HTTPMethod = "POST"
-           // request.timeoutInterval  = 30
+            // request.timeoutInterval  = 30
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            print(dictParam)
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if data != nil
@@ -240,7 +247,7 @@ class API: UIView {
                     }
                     else
                     {
-                          print(response?.description)
+                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI((response?.description)!)
                         }
@@ -248,8 +255,22 @@ class API: UIView {
                 }
                 else {
                     print(response?.description)
+                    if let error = error
+                    {
+                        if(error.code == NSURLErrorTimedOut)
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                            }
+                        }
+                        print(error.localizedDescription)
+                        
+                    }
+                    else
+                    {
                     dispatch_async(dispatch_get_main_queue()){
                         self.delegate?.errorResponseForRegistrationAPI("Internal server error")
+                    }
                     }
                 }
             }
@@ -279,7 +300,11 @@ class API: UIView {
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            //print(request)
+            
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -306,9 +331,23 @@ class API: UIView {
                     }
                     else
                     {
+                        if let error = error
+                        {
+                            if(error.code == NSURLErrorTimedOut)
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.otpSentDelegate?.errorResponseForOTPSentAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                                }
+                            }
+                            print(error.localizedDescription)
+                            
+                        }
+                        else
+                        {
                         //send error
                         dispatch_async(dispatch_get_main_queue()){
                             self.otpSentDelegate?.errorResponseForOTPSentAPI((error?.localizedDescription)!)
+                        }
                         }
                     }
                 }
@@ -337,7 +376,10 @@ class API: UIView {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //Start a session
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://sandbox-api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
                 if let data = data
                 {
@@ -367,9 +409,23 @@ class API: UIView {
                     }
                     else
                     {
-                        //send error
+                        if let error = error
+                        {
+                            if(error.code == NSURLErrorTimedOut)
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                                }
+                            }
+                            print(error.localizedDescription)
+                            
+                        }
+                        else
+                        {
+
                         dispatch_async(dispatch_get_main_queue()){
                             self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI((error?.localizedDescription)!)
+                        }
                         }
                     }
                 }
@@ -398,9 +454,13 @@ class API: UIView {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
+            
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/Login",baseURL))!)
             request.HTTPMethod = "POST"
-            
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -410,7 +470,7 @@ class API: UIView {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
+                    
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         
@@ -435,6 +495,17 @@ class API: UIView {
                         }
                     }
                 }
+                else if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.logInDelegate?.errorResponseForOTPLogInAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
             }
             dataTask.resume()
         }
@@ -453,9 +524,12 @@ class API: UIView {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/ForgotPIN",baseURL))!)
             request.HTTPMethod = "POST"
-            
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -481,6 +555,18 @@ class API: UIView {
                         }
                     }
                 }
+                else if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -535,6 +621,9 @@ class API: UIView {
         print(dict)
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
             request.HTTPMethod = "POST"
@@ -551,7 +640,7 @@ class API: UIView {
                     //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                       // print(dict)
+                        // print(dict)
                         
                         if(dict["errorCode"] as! String == "200")
                         {
@@ -568,12 +657,24 @@ class API: UIView {
                     }
                     else
                     {
-                            print(response?.description)
+                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.shareExtensionDelegate?.errorResponseForShareExtensionAPI((response?.description)!)
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -602,10 +703,13 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
             request.HTTPMethod = "DELETE"
             
-            //            print(request)
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -630,7 +734,20 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.deleteWishList?.errorResponseForDeleteWishListAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
+            
             dataTask.resume()
         }
         else{
@@ -652,15 +769,18 @@ class API: UIView {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-
+        
         if(isFromWishList == "FromWishList")
         {
             if(self.isConnectedToNetwork())
             {
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-//                request.HTTPMethod = "PUT"
-                request.HTTPMethod = "POST"
                 
+                urlconfig.timeoutIntervalForRequest = 30
+                urlconfig.timeoutIntervalForResource = 30
+                let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+                
+                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
+                request.HTTPMethod = "POST"
                 
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -685,6 +805,18 @@ class API: UIView {
                             }
                         }
                     }
+                    else  if let error = error
+                    {
+                        if(error.code == NSURLErrorTimedOut)
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                            }
+                        }
+                        print(error.localizedDescription)
+                        
+                    }
+
                 }
                 dataTask.resume()
             }
@@ -697,9 +829,12 @@ class API: UIView {
         {
             if(self.isConnectedToNetwork())
             {
+                urlconfig.timeoutIntervalForRequest = 30
+                urlconfig.timeoutIntervalForResource = 30
+                let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+                
                 let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
                 request.HTTPMethod = "POST"
-                
                 
                 request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -725,6 +860,18 @@ class API: UIView {
                             }
                         }
                     }
+                    else  if let error = error
+                    {
+                        if(error.code == NSURLErrorTimedOut)
+                        {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                            }
+                        }
+                        print(error.localizedDescription)
+                        
+                    }
+
                 }
                 dataTask.resume()
             }
@@ -753,11 +900,12 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/partyid?input=%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            //            print(request)
-            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -780,6 +928,18 @@ class API: UIView {
                         
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
                 
             }
             dataTask.resume()
@@ -804,10 +964,12 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/savingplan",baseURL))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -829,6 +991,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -851,10 +1025,12 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/offers",baseURL))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -878,6 +1054,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -901,10 +1089,12 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -926,7 +1116,20 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
+            
             dataTask.resume()
         }
         else{
@@ -948,6 +1151,10 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
             request.HTTPMethod = "PUT"
@@ -955,8 +1162,6 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            
-            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -977,6 +1182,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -1001,13 +1218,15 @@ class API: UIView {
         if(self.isConnectedToNetwork())
         {
             
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/id/%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -1029,6 +1248,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
                 
             }
             dataTask.resume()
@@ -1056,6 +1287,9 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers",baseURL))!)
             request.HTTPMethod = "PUT"
@@ -1063,8 +1297,6 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            
-            //            print(request)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1085,6 +1317,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -1093,7 +1337,7 @@ class API: UIView {
         }
         
     }
-
+    
     //MARK: Cancel saving plan
     func cancelSavingPlan()
     {
@@ -1107,6 +1351,9 @@ class API: UIView {
         
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/savings/%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
@@ -1114,12 +1361,11 @@ class API: UIView {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-//                    print(json)
+                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())
@@ -1137,6 +1383,18 @@ class API: UIView {
                         
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
                 
             }
             dataTask.resume()
@@ -1163,10 +1421,11 @@ class API: UIView {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-        // print(dict)
-        //Check if network is present
         if(self.isConnectedToNetwork())
         {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)
             request.HTTPMethod = "POST"
@@ -1188,9 +1447,9 @@ class API: UIView {
                         {
                             if(errorcode == "200")
                             {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.inviteMemberDelegate?.successResponseForInviteMembersAPI(dict)
-                            }
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.inviteMemberDelegate?.successResponseForInviteMembersAPI(dict)
+                                }
                             }
                         }
                         else if let errorcode = dict["error"] as? String
@@ -1208,6 +1467,18 @@ class API: UIView {
                         }
                     }
                 }
+                else  if let error = error
+                {
+                    if(error.code == NSURLErrorTimedOut)
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("It looks like you don’t have a data connection right now. Please check and try again")
+                        }
+                    }
+                    print(error.localizedDescription)
+                    
+                }
+
             }
             dataTask.resume()
         }
@@ -1218,7 +1489,7 @@ class API: UIView {
         }
     }
     
-
+    
     
     
 }

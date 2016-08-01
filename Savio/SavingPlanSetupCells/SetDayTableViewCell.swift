@@ -94,7 +94,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     func doneBarButtonPressed(){
         dayDateTextField.resignFirstResponder()
-       
+        
+//        UIView.animateWithDuration(2.0, animations: {
+//            self.dropDownImageView.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
+//        })
         if(dayPickerView.selectedRowInComponent(0) == 0){
             if(dayDateLabel.text == "date")
             {

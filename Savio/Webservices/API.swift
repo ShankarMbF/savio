@@ -16,8 +16,8 @@ import Foundation
 //============DEV===============
 let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
 
-//let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
-let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
+//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
 let custom_message = "Your Savio phone verification code is {{code}}"
 var checkString = ""
 var changePhoneNumber : Bool = false
@@ -257,20 +257,18 @@ class API: UIView,NSURLSessionDelegate {
                     print(response?.description)
                     if let error = error
                     {
-                        if(error.code == NSURLErrorTimedOut)
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.delegate?.errorResponseForRegistrationAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                            }
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.delegate?.errorResponseForRegistrationAPI(error.localizedDescription)
                         }
-                        print(error.localizedDescription)
+                        
                         
                     }
                     else
                     {
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.delegate?.errorResponseForRegistrationAPI("Internal server error")
-                    }
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.delegate?.errorResponseForRegistrationAPI("Internal server error")
+                        }
                     }
                 }
             }
@@ -291,7 +289,7 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            let request = NSMutableURLRequest(URL: NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!)
+            let request = NSMutableURLRequest(URL: NSURL(string:"http://api.authy.com/protected/json/phones/verification/start")!)
             
             request.HTTPMethod = "POST"
             
@@ -333,21 +331,19 @@ class API: UIView,NSURLSessionDelegate {
                     {
                         if let error = error
                         {
-                            if(error.code == NSURLErrorTimedOut)
-                            {
-                                dispatch_async(dispatch_get_main_queue()){
-                                    self.otpSentDelegate?.errorResponseForOTPSentAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                                }
+                            
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.otpSentDelegate?.errorResponseForOTPSentAPI(error.localizedDescription)
                             }
-                            print(error.localizedDescription)
+                            
                             
                         }
                         else
                         {
-                        //send error
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.otpSentDelegate?.errorResponseForOTPSentAPI((error?.localizedDescription)!)
-                        }
+                            //send error
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.otpSentDelegate?.errorResponseForOTPSentAPI((error?.localizedDescription)!)
+                            }
                         }
                     }
                 }
@@ -376,11 +372,11 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            urlconfig.timeoutIntervalForRequest = 10
+            urlconfig.timeoutIntervalForResource = 10
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://sandbox-api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
+            let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
@@ -411,21 +407,17 @@ class API: UIView,NSURLSessionDelegate {
                     {
                         if let error = error
                         {
-                            if(error.code == NSURLErrorTimedOut)
-                            {
-                                dispatch_async(dispatch_get_main_queue()){
-                                    self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                                }
-                            }
-                            print(error.localizedDescription)
                             
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI(error.localizedDescription)
+                            }
                         }
                         else
                         {
-
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI((error?.localizedDescription)!)
-                        }
+                            
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI((error?.localizedDescription)!)
+                            }
                         }
                     }
                 }
@@ -497,12 +489,10 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.logInDelegate?.errorResponseForOTPLogInAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.logInDelegate?.errorResponseForOTPLogInAPI(error.localizedDescription)
                     }
+                    
                     print(error.localizedDescription)
                     
                 }
@@ -557,16 +547,14 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI(error.localizedDescription)
                     }
                     print(error.localizedDescription)
                     
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -665,16 +653,13 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.shareExtensionDelegate?.errorResponseForShareExtensionAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
+                    
                     
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -736,16 +721,13 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.deleteWishList?.errorResponseForDeleteWishListAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.deleteWishList?.errorResponseForDeleteWishListAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
                     
                 }
-
+                
             }
             
             dataTask.resume()
@@ -807,16 +789,14 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else  if let error = error
                     {
-                        if(error.code == NSURLErrorTimedOut)
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                            }
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
                         }
-                        print(error.localizedDescription)
+                        
                         
                     }
-
+                    
                 }
                 dataTask.resume()
             }
@@ -862,16 +842,14 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else  if let error = error
                     {
-                        if(error.code == NSURLErrorTimedOut)
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                            }
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
                         }
-                        print(error.localizedDescription)
+                        
                         
                     }
-
+                    
                 }
                 dataTask.resume()
             }
@@ -930,16 +908,13 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getWishlistDelegate?.errorResponseForGetWishlistAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
                     
                 }
-
+                
                 
             }
             dataTask.resume()
@@ -993,16 +968,14 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
+                    
                     
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -1056,16 +1029,15 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(error.localizedDescription)
                     }
+                    
                     print(error.localizedDescription)
                     
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -1118,16 +1090,13 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
                     
                 }
-
+                
             }
             
             dataTask.resume()
@@ -1184,16 +1153,12 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
-                    }
-                    print(error.localizedDescription)
                     
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI(error.localizedDescription)
+                    }
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -1250,16 +1215,14 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
+                    
                     
                 }
-
+                
                 
             }
             dataTask.resume()
@@ -1319,16 +1282,14 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
+                    
                     
                 }
-
+                
             }
             dataTask.resume()
         }
@@ -1385,16 +1346,14 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
+                    
                     
                 }
-
+                
                 
             }
             dataTask.resume()
@@ -1469,16 +1428,12 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    if(error.code == NSURLErrorTimedOut)
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("It looks like you don’t have a data connection right now. Please check and try again")
-                        }
-                    }
-                    print(error.localizedDescription)
                     
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.inviteMemberDelegate?.errorResponseForInviteMembersAPI(error.localizedDescription)
+                    }
                 }
-
+                
             }
             dataTask.resume()
         }

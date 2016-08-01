@@ -718,6 +718,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         dict["deviceRegistration"] =  udidArray
         dict["party_role"] =  4
         
+        dict["ptystatus"] = "ENABLE"
+        
         return dict
     }
     

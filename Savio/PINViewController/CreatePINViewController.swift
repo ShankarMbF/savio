@@ -168,7 +168,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     self.view.addSubview(objAnimView)
                     
                     userInfoDict["pass_code"] = enterFourDigitPIN.text?.MD5()
-                    
+                    userInfoDict["ptystatus"] = "ENABLE"
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     print(newUserInfoDict)

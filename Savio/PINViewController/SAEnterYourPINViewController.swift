@@ -25,7 +25,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var textFieldTwo: UITextField!
     @IBOutlet weak var textFieldThree: UITextField!
     @IBOutlet weak var textFieldFour: UITextField!
-
+    
     
     @IBOutlet weak var registerButtonBackgroundView: UIView!
     var objAnimView = ImageViewAnimation()
@@ -43,14 +43,14 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         //change the border color and placeholder color of UITextField
         
         //Add shadowcolor to UIButtons
-   
+        
         registerButton.layer.cornerRadius = 5
         btnVwBg.layer.cornerRadius = 5
         
         
-//        loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        loginButton.layer.shadowOffset = CGSizeMake(0, 4)
-//        loginButton.layer.shadowOpacity = 1
+        //        loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        //        loginButton.layer.shadowOffset = CGSizeMake(0, 4)
+        //        loginButton.layer.shadowOpacity = 1
         loginButton.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -131,7 +131,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldTwo.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         textFieldThree.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         textFieldFour.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-
+        
     }
     
     
@@ -148,9 +148,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         loginButton.hidden = false
         btnVwBg.hidden = false
         pinTextFieldsContainerView.hidden = false
-
+        
     }
-
+    
     @IBAction func clickOnLoginButton(sender: AnyObject) {
         //LogInButton click
         if(textFieldOne.text == "" || textFieldTwo.text == ""  || textFieldThree.text == ""  || textFieldFour.text == ""  )
@@ -175,18 +175,18 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             
         }
             
-//        else if(enterPasscodeTextField.text?.characters.count < 4)
-//        {
-//            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
-//            errorLabel.hidden = false
-//            errorLabel.text = "Passcode should be of 4 digits"
-//        }
+            //        else if(enterPasscodeTextField.text?.characters.count < 4)
+            //        {
+            //            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
+            //            errorLabel.hidden = false
+            //            errorLabel.text = "Passcode should be of 4 digits"
+            //        }
         else
         {
             
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
-    
+            
             
             objAPI.logInDelegate = self;
             objAnimView.animate()
@@ -198,7 +198,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             param["userID"] = userDict["partyId"]
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
-         
+            
+            param["ptystatus"] = "ENABLE"
+            
             if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 param["PNS_DEVICE_ID"] =  apnsDeviceToken
@@ -206,7 +208,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             } else {
                 param["PNS_DEVICE_ID"] =  ""
             }
- 
+            
             print(param)
             objAPI.logInWithUserID(param)
             
@@ -220,64 +222,64 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
              print(param)
              objAPI.logInWithUserID(param)
              
+             }
+             
+             if NSUserDefaults.standardUserDefaults().valueForKey("pin") as! String == enterPasscodeTextField.text
+             {
+             objAnimView.removeFromSuperview()
+             
+             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+             self.navigationController?.pushViewController(objHurrrayView, animated: true)
+             }
+             else{
+             objAnimView.removeFromSuperview()
+             errorLabel.hidden = false
+             errorLabel.text = "Passcode do not match"
+             }
+             
+             */
+            
         }
-    
-         if NSUserDefaults.standardUserDefaults().valueForKey("pin") as! String == enterPasscodeTextField.text
-         {
-         objAnimView.removeFromSuperview()
-         
-         let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-         self.navigationController?.pushViewController(objHurrrayView, animated: true)
-         }
-         else{
-         objAnimView.removeFromSuperview()
-         errorLabel.hidden = false
-         errorLabel.text = "Passcode do not match"
-         }
-         
-         */
-        
     }
-}
-
+    
     func setAllPinEntryFieldsToColor(color: UIColor) {
         textFieldOne.layer.borderColor = color.CGColor
         textFieldTwo.layer.borderColor = color.CGColor
         textFieldThree.layer.borderColor = color.CGColor
         textFieldFour.layer.borderColor = color.CGColor
     }
-
-//LogIn Delegate Methods
-
-func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
-    objAnimView.removeFromSuperview()
-    print(objResponse)
-    let dict = objResponse["party"]
-    let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-    print(udidDict)
-    let udidArray = udidDict[0]
-    print(udidArray)
-    userInfoDict["cookie"] = udidArray["COOKIE"] as! String
-    objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
-    print(userInfoDict)
     
-    let groupPlan = objResponse["G"] as! NSNumber
-    let individualPlan = objResponse["I"] as! NSNumber
-    let groupMemberPlan = objResponse["GM"] as! NSNumber
+    //LogIn Delegate Methods
     
-    print(groupPlan)
-    print(individualPlan)
-    print(groupMemberPlan)
-    
-    NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: "groupPlan")
-    NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: "individualPlan")
-    NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
-    NSUserDefaults.standardUserDefaults().synchronize()
-    //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
-    self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
-   let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-    self.navigationController?.pushViewController(objHurrrayView, animated: true)
-}
+    func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        print(objResponse)
+        let dict = objResponse["party"]
+        let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
+        print(udidDict)
+        let udidArray = udidDict[0]
+        print(udidArray)
+        userInfoDict["cookie"] = udidArray["COOKIE"] as! String
+        objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
+        print(userInfoDict)
+        
+        let groupPlan = objResponse["G"] as! NSNumber
+        let individualPlan = objResponse["I"] as! NSNumber
+        let groupMemberPlan = objResponse["GM"] as! NSNumber
+        
+        print(groupPlan)
+        print(individualPlan)
+        print(groupMemberPlan)
+        
+        NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: "groupPlan")
+        NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: "individualPlan")
+        NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+        self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
+        let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+        self.navigationController?.pushViewController(objHurrrayView, animated: true)
+    }
     
     func setUpMenu(group:NSNumber,individual:NSNumber,member:NSNumber)  {
         var className :String = ""
@@ -297,41 +299,41 @@ func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
         NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
-
-func errorResponseForOTPLogInAPI(error: String) {
-    objAnimView.removeFromSuperview()
-  print(error)
-    if(error == "No network found")
-    {
-        let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
-    }
-    else
-    {
-        errorLabel.hidden = false
-        errorLabel.text = "Passcode is not correct"
-        textFieldOne.text = ""
-        textFieldTwo.text = ""
-        textFieldThree.text = ""
-        textFieldFour.text = ""
-        self.setAllPinEntryFieldsToColor( UIColor.redColor())
+    
+    func errorResponseForOTPLogInAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        print(error)
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
+            errorLabel.hidden = false
+            errorLabel.text = "Passcode is not correct"
+            textFieldOne.text = ""
+            textFieldTwo.text = ""
+            textFieldThree.text = ""
+            textFieldFour.text = ""
+            self.setAllPinEntryFieldsToColor( UIColor.redColor())
+        }
+        
     }
     
-}
-
-//OTP Verification Delegate Method
-func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
-{
-    objAnimView.removeFromSuperview()
-    let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-    self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-}
-func errorResponseForOTPSentAPI(error:String){
-    objAnimView.removeFromSuperview()
-    let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-    self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-    
-}
+    //OTP Verification Delegate Method
+    func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
+    {
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+    }
+    func errorResponseForOTPSentAPI(error:String){
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+        
+    }
     
     
     

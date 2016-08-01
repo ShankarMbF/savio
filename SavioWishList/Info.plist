@@ -38,7 +38,7 @@
 				<key>NSExtensionActivationSupportsMovieWithMaxCount</key>
 				<integer>0</integer>
 				<key>NSExtensionActivationSupportsWebPageWithMaxCount</key>
-				<string>1</string>
+				<integer>1</integer>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
 				<integer>1</integer>
 			</dict>

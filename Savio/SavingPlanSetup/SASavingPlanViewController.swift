@@ -78,6 +78,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
+        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBackgroundImageView.layer.masksToBounds = true
+        
+        
         self.setUpView()
         if(self.isUpdatePlan)
         {
@@ -111,7 +115,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             ht = CGFloat(offerArr.count * 90)
         }
         
-   scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        if(isUpdatePlan)
+        {
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+        }
+        else
+        {
+             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        }
     }
     
     func setUpView(){

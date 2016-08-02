@@ -68,6 +68,10 @@
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
+        
+        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBackgroundImageView.layer.masksToBounds = true
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -120,9 +124,7 @@
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        topBackgroundImageView.layer.masksToBounds = true
+       
         
         if let urlString = itemDetailsDataDict["imageURL"] as? String
         {

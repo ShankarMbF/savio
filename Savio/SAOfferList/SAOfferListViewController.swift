@@ -22,7 +22,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var hideAddOfferButton : Bool = false
     var  offerArr: Array<Dictionary<String,AnyObject>> = []
 
-    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
+    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var bottomview: UIView!
     
     @IBOutlet weak var tblView : UITableView?
@@ -61,7 +61,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
             bottomview.hidden = true
-            tblViewHt.constant = UIScreen.mainScreen().bounds.height
+            tblViewBottomSpace.constant = 0
         }
         else
         {
@@ -74,7 +74,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
             bottomview.hidden = false
-            tblViewHt.constant = UIScreen.mainScreen().bounds.height - 40
+            tblViewBottomSpace.constant = 40
         }
      
         

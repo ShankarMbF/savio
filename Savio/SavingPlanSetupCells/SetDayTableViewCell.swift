@@ -74,7 +74,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         maskLayer2.path = maskPath2.CGPath
         dropDownImageView?.layer.mask = maskLayer2
         
-        dropDownImageView.backgroundColor = self.setUpColor()
+        dropDownImageView.image = self.setDownWordImage()
         
         segmentBar.segmentSelected =  { (idx: Int)  in
             if(idx == 1)
@@ -95,6 +95,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     func doneBarButtonPressed(){
         dayDateTextField.resignFirstResponder()
         
+        dropDownImageView.image = self.setUpWordImage()
 //        UIView.animateWithDuration(2.0, animations: {
 //            self.dropDownImageView.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
 //        })
@@ -196,6 +197,84 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         // Configure the view for the selected state
     }
     
+    func setUpWordImage()->UIImage
+    {
+        var imageName = ""
+        if(colorDataDict["title"] as! String == "Group Save")
+        {
+            imageName = "group-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Wedding")
+        {
+            imageName = "wedding-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Baby")
+        {
+            imageName = "baby-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Holiday")
+        {
+            imageName = "holiday-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Ride")
+        {
+            imageName = "ride-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Home")
+        {
+            imageName = "home-updown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Gadget")
+        {
+            imageName = "gadget-updown.png"
+        }
+        else
+        {
+            imageName = "generic-updown.png"
+        }
+        return UIImage(named:imageName)!
+
+    }
+
+    func setDownWordImage()->UIImage
+    {
+        var imageName = ""
+        if(colorDataDict["title"] as! String == "Group Save")
+        {
+            imageName = "group-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Wedding")
+        {
+            imageName = "wedding-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Baby")
+        {
+            imageName = "baby-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Holiday")
+        {
+            imageName = "holiday-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Ride")
+        {
+            imageName = "ride-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Home")
+        {
+            imageName = "home-dropdown.png"
+        }
+        else if(colorDataDict["title"] as! String == "Gadget")
+        {
+            imageName = "gadget-dropdown.png"
+        }
+        else
+        {
+            imageName = "generic-dropdown.png"
+        }
+        return UIImage(named:imageName)!
+        
+    }
+
     func setUpColor()-> UIColor
     {
         var red : CGFloat = 0.0
@@ -282,15 +361,13 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             y = 120
         }
         dayPickerView.selectRow(0, inComponent: 0, animated: true)
-       
-        view?.contentOffset = CGPointMake(0, y)
-     
-//        UIView.beginAnimations(nil, context: nil)
-//        UIView.setAnimationDelegate(self)
-//        UIView.setAnimationDuration(0.5)
-//        UIView.setAnimationBeginsFromCurrentState(true)
-//        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
-//        UIView.commitAnimations()
+   
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDelegate(self)
+        UIView.setAnimationDuration(0.5)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
+        UIView.commitAnimations()
         return true
     }
 }

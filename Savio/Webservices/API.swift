@@ -205,6 +205,16 @@ class API: UIView,NSURLSessionDelegate {
                         }
                     }
                 }
+                if let error = error
+                {
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.delegate?.error(error.localizedDescription)
+                    }
+                    
+                    
+                }
+
                 
             }
             dataTask.resume()
@@ -786,8 +796,8 @@ class API: UIView,NSURLSessionDelegate {
             if(self.isConnectedToNetwork())
             {
                 
-                urlconfig.timeoutIntervalForRequest = 30
-                urlconfig.timeoutIntervalForResource = 30
+                urlconfig.timeoutIntervalForRequest = 60
+                urlconfig.timeoutIntervalForResource = 60
                 let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
                 
                 let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
@@ -1411,8 +1421,8 @@ class API: UIView,NSURLSessionDelegate {
         
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            urlconfig.timeoutIntervalForRequest = 60
+            urlconfig.timeoutIntervalForResource = 60
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)

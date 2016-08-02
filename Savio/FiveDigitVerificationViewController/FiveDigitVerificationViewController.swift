@@ -217,8 +217,15 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     func errorResponseForOTPVerificationAPI(error:String){
         print(error)
         objAnimView.removeFromSuperview()
-        
+        if(error == "Verification code is incorrect")
+        {
         codeDoesNotMatchLabel.text = error
         codeDoesNotMatchLabel.hidden = false;
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
 }

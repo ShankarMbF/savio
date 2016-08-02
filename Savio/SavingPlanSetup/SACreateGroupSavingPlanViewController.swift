@@ -61,6 +61,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         
+        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBgImageView.layer.masksToBounds = true
+        
         self.setUpView()
     }
     
@@ -117,8 +120,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        topBgImageView.layer.masksToBounds = true
+
         
         if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {

@@ -334,8 +334,22 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     }
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if (error == "The request timed out")
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
+        
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+        }
         
     }
     

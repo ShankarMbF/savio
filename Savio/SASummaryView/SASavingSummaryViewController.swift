@@ -33,6 +33,7 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var paymentLastDate: UILabel!
     
+    @IBOutlet weak var superContainerView: UIView!
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
@@ -58,6 +59,7 @@ class SASavingSummaryViewController: UIViewController {
     @IBOutlet weak var lblName7: UILabel?
     @IBOutlet weak var lblContact7: UILabel?
     
+    @IBOutlet weak var htDescriptionContentView: NSLayoutConstraint!
     
     //    @IBOutlet weak var lblName1: UILabel?
     //    @IBOutlet weak var lblContact1: UILabel?
@@ -269,33 +271,47 @@ class SASavingSummaryViewController: UIViewController {
         vwSummary?.layer.borderWidth = 1.5
         
         lblOffer?.hidden = true
-        topSpaceForContinue.constant = 30
-        topSpaceContonueView.constant = 30
+//        topSpaceForContinue.constant = 30
+//        topSpaceContonueView.constant = 30
         self.view.bringSubviewToFront(btnContinue!)
         htOfferView.constant = 0
+        
         if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
             //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
-
+            var topMargin: CGFloat = 0.0
             for var i=0; i<arrOff.count; i++ {
                 
                 lblOffer?.hidden = false
                 // Load the TestView view.
-                let testView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
+                
+                let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
+                summaryPageView.backgroundColor = UIColor.grayColor()
                 // Set its frame and data to pageview
-                testView.frame = CGRectMake(0, (CGFloat(i) * testView.frame.size.height) + 30, testView.frame.size.width - 60, testView.frame.size.height)
-                vwOffer?.addSubview(testView)
-             
-                testView.backgroundColor = UIColor.lightGrayColor()
+                topMargin = CGFloat(i) * 60 + 30
+                htOfferView.constant = topMargin + 60
+
+//                testView.frame = CGRectMake(0, topMargin, (vwOffer?.frame.size.width)!, 55)
+                vwOffer?.addSubview(summaryPageView)
+
+                summaryPageView.translatesAutoresizingMaskIntoConstraints = false
+
+                let topConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Top, relatedBy: .Equal, toItem: vwOffer!, attribute: .Top, multiplier: 1, constant: topMargin)
+                
+                let leadingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Leading, relatedBy: .Equal, toItem: vwOffer!, attribute: .Leading, multiplier: 1, constant: 0)
+                let trailingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Trailing, relatedBy: .Equal, toItem: vwOffer!, attribute: .Trailing, multiplier: 1, constant: 0)
+                let htConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 55)
+                vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
+
                 let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
                 
-                let lblTitle = testView.viewWithTag(1)! as! UILabel
+                let lblTitle = summaryPageView.viewWithTag(1)! as! UILabel
                 lblTitle.text = objDict["offCompanyName"] as? String
                 lblTitle.hidden = false
                 
-                let lblDetail = testView.viewWithTag(2)! as! UILabel
+                let lblDetail = summaryPageView.viewWithTag(2)! as! UILabel
                 lblDetail.text = objDict["offTitle"] as? String
                 
-                let lblOfferDetail = testView.viewWithTag(3)! as! UILabel
+                let lblOfferDetail = summaryPageView.viewWithTag(3)! as! UILabel
                 lblOfferDetail.text = objDict["offDesc"] as? String
                 
                 
@@ -303,7 +319,7 @@ class SASavingSummaryViewController: UIViewController {
                 {
                     let urlStr = urlStr
                     let url = NSURL(string: urlStr)
-                    let bgImageView = testView.viewWithTag(4) as! UIImageView
+                    let bgImageView = summaryPageView.viewWithTag(4) as! UIImageView
                     let request: NSURLRequest = NSURLRequest(URL: url!)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if (data != nil && data?.length > 0) {
@@ -316,16 +332,14 @@ class SASavingSummaryViewController: UIViewController {
                     })
                     
                 }
-              
-
             }
             
-            htOfferView.constant = CGFloat(arrOff.count * 55)
-            htContentView.constant = (vwOffer?.frame.origin.y)! + htOfferView.constant + 220
-            topSpaceForContinue.constant = CGFloat(arrOff.count * 55)
-            topSpaceContonueView.constant = CGFloat(arrOff.count * 55)
+            htContentView.constant = htContentView.constant + htOfferView.constant
+            htDescriptionContentView.constant = htDescriptionContentView.constant + htOfferView.constant
+//            topSpaceForContinue.constant = CGFloat(arrOff.count * 55)
+//            topSpaceContonueView.constant = CGFloat(arrOff.count * 55)
             self.view.bringSubviewToFront(btnContinue!)
-            scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
+            scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
         }
         lblTitle.text = itemDataDict["title"] as? String
         if let amount = itemDataDict["amount"] as? String
@@ -392,7 +406,7 @@ class SASavingSummaryViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrlVw?.contentSize = CGSizeMake(0, (vwScrContent?.frame.size.height)!)
+        scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
     }
     
     /*

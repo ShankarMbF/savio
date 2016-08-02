@@ -808,6 +808,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 var param = userInfoDict as Dictionary<String,AnyObject>
                 
+                param["ptystatus"] = "ENABLE"
+                
                 param.removeValueForKey("date_of_birth")
                 param.removeValueForKey("pass_code")
                 param.removeValueForKey("email")
@@ -820,7 +822,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("Surname")
                 param.removeValueForKey("party_role")
                 param.removeValueForKey("partyRole")
-  
+                param.removeValueForKey("partyStatus")
                 
                 print(param)
                 objAPI.updateUserInfoDelegate = self

@@ -168,7 +168,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     self.view.addSubview(objAnimView)
                     
                     userInfoDict["pass_code"] = enterFourDigitPIN.text?.MD5()
-                    
+
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     print(newUserInfoDict)
@@ -225,12 +225,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     func errorResponseForOTPResetPasscodeAPI(error:String){
         objAnimView.removeFromSuperview()
-        print("error")
-        if(error == "No network found")
-        {
-            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
+
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }
+    
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
@@ -270,6 +268,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     func errorResponseForRegistrationAPI(error:String){
         objAnimView.removeFromSuperview()
+        
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        
     }
     
     

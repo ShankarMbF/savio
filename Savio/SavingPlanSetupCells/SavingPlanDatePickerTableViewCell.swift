@@ -18,7 +18,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     @IBOutlet weak var calenderImageView: UIImageView!
     @IBOutlet weak var datePickerTextField: UITextField!
     weak var tblView : UITableView?
-    weak var view : UIView?
+    weak var view : UIScrollView?
     var customToolBar : UIToolbar?
     var datePickerView:UIDatePicker = UIDatePicker()
     var savingPlanDatePickerDelegate : SavingPlanDatePickerCellDelegate?
@@ -195,6 +195,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
         var y : Float = 0.0
+        
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             y = 220

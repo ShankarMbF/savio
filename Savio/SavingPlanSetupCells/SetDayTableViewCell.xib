@@ -74,10 +74,10 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PP-vq-H1I" customClass="CustomSegmentBar" customModule="Savio" customModuleProvider="target">
-                        <rect key="frame" x="10" y="35" width="105" height="22"/>
+                        <rect key="frame" x="10" y="34" width="105" height="24"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="22" id="Q9h-bU-yY8"/>
+                            <constraint firstAttribute="height" constant="24" id="Q9h-bU-yY8"/>
                             <constraint firstAttribute="width" constant="105" id="aLy-Xs-j0W"/>
                         </constraints>
                     </view>
@@ -87,7 +87,7 @@
                     <constraint firstItem="zoB-ec-eUM" firstAttribute="leading" secondItem="kC2-NW-yLo" secondAttribute="trailing" constant="55" id="JyC-Ws-jZN"/>
                     <constraint firstItem="yeh-6F-lio" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Lo6-xE-cuk"/>
                     <constraint firstItem="kC2-NW-yLo" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="SG7-tH-wgY"/>
-                    <constraint firstItem="6PP-vq-H1I" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="7" id="TvS-jX-Cdu"/>
+                    <constraint firstItem="6PP-vq-H1I" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="6" id="TvS-jX-Cdu"/>
                     <constraint firstItem="6PP-vq-H1I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="UDj-I9-T9F"/>
                     <constraint firstItem="yeh-6F-lio" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Xyt-nC-cIg"/>
                     <constraint firstItem="VFk-f7-AHB" firstAttribute="top" secondItem="yeh-6F-lio" secondAttribute="bottom" constant="9" id="Y5A-fq-j4y"/>

@@ -32,7 +32,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     var segmentDelegate : SegmentBarChangeDelegate?
     var customToolBar : UIToolbar?
-    weak var view : UIView?
+    weak var view : UIScrollView?
     var dateStr : String = ""
     
     weak var tblView : UITableView?
@@ -267,7 +267,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        var y : Float = 0.0
+        print(view?.contentOffset)
+        var y : CGFloat = 0.0
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
             y = 250
@@ -282,12 +283,14 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
         dayPickerView.selectRow(0, inComponent: 0, animated: true)
        
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDelegate(self)
-        UIView.setAnimationDuration(0.5)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
-        UIView.commitAnimations()
+        view?.contentOffset = CGPointMake(0, y)
+     
+//        UIView.beginAnimations(nil, context: nil)
+//        UIView.setAnimationDelegate(self)
+//        UIView.setAnimationDuration(0.5)
+//        UIView.setAnimationBeginsFromCurrentState(true)
+//        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
+//        UIView.commitAnimations()
         return true
     }
 }

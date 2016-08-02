@@ -26,9 +26,9 @@ class ImageViewAnimation: UIView {
     }
     func animate() {
         //adding image names to array
-        for i in 1 ..< 35
+        for i in 1 ..< 9
         {
-            imageArray.append(UIImage(named:String(format: "pre-loader@1x%d",i))!)
+            imageArray.append(UIImage(named:String(format: "%d.png",i))!)
         }
        
         //UIImageview animation

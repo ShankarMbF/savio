@@ -22,6 +22,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var hideAddOfferButton : Bool = false
     var  offerArr: Array<Dictionary<String,AnyObject>> = []
 
+    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
+    @IBOutlet weak var bottomview: UIView!
     
     @IBOutlet weak var tblView : UITableView?
     @IBOutlet weak var closeLbl : UILabel?
@@ -43,17 +45,38 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func setUpView(){
         self.title = "Partner offers"
+        
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         //set Navigation left button
-        let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
         
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = leftBtnName
-        self.navigationItem.leftBarButtonItem = leftBarButton
+        if(hideAddOfferButton)
+        {
+            let leftBtnName = UIButton()
+            leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+            bottomview.hidden = true
+            tblViewHt.constant = UIScreen.mainScreen().bounds.height
+        }
+        else
+        {
+            let leftBtnName = UIButton()
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+            leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
+            
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+            bottomview.hidden = false
+            tblViewHt.constant = UIScreen.mainScreen().bounds.height - 40
+        }
+     
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
@@ -123,6 +146,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     */
     // MARK: - Navigation Bar Button Action
+    
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+    }
+    
     func backButtonPress()  {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -351,6 +379,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {

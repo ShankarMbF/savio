@@ -476,6 +476,12 @@ class API: UIView,NSURLSessionDelegate {
                                     self.logInDelegate?.successResponseForLogInAPI(dict)
                                 }
                             }
+                            else if(code == "204")
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.logInDelegate?.errorResponseForOTPLogInAPI("Passcode is incorrect")
+                                }
+                            }
                             else
                             {
                                 dispatch_async(dispatch_get_main_queue()){

@@ -470,7 +470,10 @@
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
-            cell1.view = self.view
+            cell1.view = self.scrlView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
+            
             cell1.savingPlanTitleDelegate = self
             if(itemDetailsDataDict["title"] != nil)
             {
@@ -491,7 +494,9 @@
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier", forIndexPath: indexPath) as! SavingPlanCostTableViewCell
             cell1.tblView = tblView
             cell1.delegate = self
-            cell1.view = self.view
+            cell1.view = self.scrlView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             
             if(itemDetailsDataDict["amount"] != nil)
             {
@@ -540,8 +545,9 @@
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier", forIndexPath: indexPath) as! SavingPlanDatePickerTableViewCell
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
-            cell1.view = self.view
-            
+            cell1.view = self.scrlView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             
             if(itemDetailsDataDict["planEndDate"] != nil)
             {
@@ -581,7 +587,20 @@
             {
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
-                
+                if(participantsArr.count == 0)
+                {
+                cell1.layer.cornerRadius = 5
+                cell1.layer.masksToBounds = true
+                }
+                else
+                {
+                    cell1.layer.cornerRadius = 0
+                    let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(5.0, 5.0))
+                    let maskLayer: CAShapeLayer = CAShapeLayer()
+                    maskLayer.frame = cell1.bounds
+                    maskLayer.path = maskPath.CGPath
+                    cell1.layer.mask = maskLayer
+                }
                 if(itemDetailsDataDict["title"] != nil)
                 {
                     cell1.inviteButton.userInteractionEnabled = false
@@ -611,6 +630,8 @@
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
@@ -627,6 +648,8 @@
             
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.clearButton.userInteractionEnabled = false
@@ -637,6 +660,13 @@
             
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
+            
+            let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
+            let maskLayer: CAShapeLayer = CAShapeLayer()
+            maskLayer.frame = cell1.bounds
+            maskLayer.path = maskPath.CGPath
+            cell1.layer.mask = maskLayer
+            
             if(participantsArr.count != 0)
             {
                 let dict = participantsArr[indexPath.row]

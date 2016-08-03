@@ -344,11 +344,11 @@ class SASavingSummaryViewController: UIViewController {
         lblTitle.text = itemDataDict["title"] as? String
         if let amount = itemDataDict["amount"] as? String
         {
-            lblPrice.text =  String(format:"£ %@",(itemDataDict["amount"] as? String)!)
+            lblPrice.text =  String(format:"£%@",(itemDataDict["amount"] as? String)!)
         }
         else
         {
-            lblPrice.text =  String(format:"£ %d",(itemDataDict["amount"] as? NSNumber)!)
+            lblPrice.text =  String(format:"£%d",(itemDataDict["amount"] as? NSNumber)!)
         }
         
         

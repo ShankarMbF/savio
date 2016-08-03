@@ -11,6 +11,7 @@ import UIKit
 class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate {
     
     @IBOutlet weak var groupMembersLabel: UILabel!
+    @IBOutlet weak var topButtonView: UIView!
     
     @IBOutlet weak var toolBarView: UIView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -94,7 +95,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         
-        
+        self.view.bringSubviewToFront(topButtonView)
         // Do any additional setup after loading the view.
     }
     
@@ -108,6 +109,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         
         //set Navigation left button
         let leftBtnName = UIButton()

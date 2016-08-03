@@ -89,7 +89,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koD-Rh-BR2">
                             <rect key="frame" x="302" y="0.0" width="300" height="38"/>
-                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="joH-63-jc7"/>
                             </constraints>
@@ -122,6 +122,11 @@
                         <constraint firstItem="koD-Rh-BR2" firstAttribute="height" secondItem="85w-WV-poh" secondAttribute="height" id="tIo-xf-Xh4"/>
                         <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" constant="2" id="y01-1R-Emp"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="tIo-xf-Xh4"/>
+                        </mask>
+                    </variation>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My saving plan" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOE-MR-nos">
                     <rect key="frame" x="20" y="109" width="560" height="40"/>

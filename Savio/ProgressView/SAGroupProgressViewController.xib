@@ -26,6 +26,7 @@
                 <outlet property="tblHt" destination="87z-12-CaR" id="Q1y-Ee-1km"/>
                 <outlet property="tblView" destination="Ihf-ot-vbi" id="X4u-VU-2M3"/>
                 <outlet property="toolBarView" destination="FFb-Rt-XbG" id="UJN-fi-Gup"/>
+                <outlet property="topButtonView" destination="Zer-qR-OdC" id="edV-Kl-iK1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -47,10 +48,10 @@
                             <state key="normal" title="Progress"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lY-ph-r2K">
-                            <rect key="frame" x="302" y="0.0" width="300" height="38"/>
-                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="302" y="-5" width="300" height="43"/>
+                            <color key="backgroundColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="38" id="KhV-K4-uaa"/>
+                                <constraint firstAttribute="height" constant="43" id="KhV-K4-uaa"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,8 +71,13 @@
                         <constraint firstItem="EvH-8r-1Fh" firstAttribute="leading" secondItem="Zer-qR-OdC" secondAttribute="leading" id="ZPz-to-Bfw"/>
                         <constraint firstItem="1lY-ph-r2K" firstAttribute="leading" secondItem="EvH-8r-1Fh" secondAttribute="trailing" constant="2" id="e2e-Hz-I79"/>
                         <constraint firstItem="EvH-8r-1Fh" firstAttribute="height" secondItem="1lY-ph-r2K" secondAttribute="height" id="jf4-AW-i6o"/>
-                        <constraint firstItem="1lY-ph-r2K" firstAttribute="top" secondItem="Zer-qR-OdC" secondAttribute="top" id="vdC-if-Pl0"/>
+                        <constraint firstItem="1lY-ph-r2K" firstAttribute="top" secondItem="Zer-qR-OdC" secondAttribute="top" constant="-5" id="vdC-if-Pl0"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="jf4-AW-i6o"/>
+                        </mask>
+                    </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFb-Rt-XbG">
                     <rect key="frame" x="0.0" y="548" width="600" height="52"/>

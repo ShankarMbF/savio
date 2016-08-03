@@ -682,7 +682,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if((dateDiff/168) == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0)
                     {
@@ -690,21 +690,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     
                 }
                 else{
                     if((dateDiff/168)/4 == 1)
                     {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
                         cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                     }
                     else{
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                 }
             }
@@ -717,7 +717,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         if((dateDiff/168) == 1)
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0)
                         {
@@ -725,21 +725,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                         else
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                         }
                         
                     }
                     else{
                         if((dateDiff/168)/4 == 1)
                         {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0)
                         {
                             cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                         }
                         else{
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
                         }
                     }
                 }
@@ -760,11 +760,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         {
                             if((dateDiff/168) == 1)
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             else
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             
                         }
@@ -772,11 +772,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         {
                             if((dateDiff/168)/4 == 1)
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                             }
                             else
                             {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",CGFloat(cost)/CGFloat((dateDiff/168)),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                             }
                             
                         }
@@ -839,6 +839,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 cell1.offerDetailsButton.addTarget(self, action: Selector("offerDetailsButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
                 
+                if(isClearPressed)
+                {
+                     cell1.detailOfferLabel.hidden = true
+                }
+                else
+                {
                 if(isOfferDetailPressed == true)
                 {
                     if(indexPath.section == offerDetailTag)
@@ -863,6 +869,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     cell1.detailOfferLabel.hidden = true
                     
+                }
                 }
                 
             }
@@ -907,14 +914,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 offerDetailTag = sender.tag
                 prevOfferDetailTag = offerDetailTag
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110) + offerDetailHeight
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120) + offerDetailHeight
                 
                 
             }
             else
             {
                 isOfferDetailPressed = false
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110)
+                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120)
             }
         }
         else
@@ -923,7 +930,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isOfferDetailPressed = true
             offerDetailTag = sender.tag
             prevOfferDetailTag = offerDetailTag
-            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 110) + offerDetailHeight
+            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120) + offerDetailHeight
             
         }
         
@@ -1062,7 +1069,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
-                
+         
                 self.itemTitle = ""
                 
                 self.isClearPressed = true
@@ -1086,10 +1093,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.setUpView()
                 self.isDateChanged = false
+              self.isOfferDetailPressed = false
                 self.offerArr.removeAll()
                 self.offerArr = self.updateOfferArr
                 self.isClearPressed = true
-                self.tblViewHt.constant = 600 + CGFloat(self.offerArr.count * 65)
+                self.tblViewHt.constant = 600 + CGFloat(self.offerArr.count * 90)
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
@@ -1428,9 +1436,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
-    func ceil(f: CFloat) -> CFloat {
-        return ceilf(f)
-    }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None

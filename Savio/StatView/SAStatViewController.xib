@@ -82,28 +82,45 @@
                         <constraint firstItem="XTi-lU-zpW" firstAttribute="leading" secondItem="o4Q-gp-8E3" secondAttribute="trailing" id="yyV-1Y-HzL"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-hV-9o7">
-                    <rect key="frame" x="0.0" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.29019607843137257" green="0.29803921568627451" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utN-ZS-awE">
+                    <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4s-No-D8p">
+                            <rect key="frame" x="302" y="2" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="gNd-hd-fPJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Stats"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxh-hV-9o7">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="tVV-CI-yWP"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Progress"/>
+                            <connections>
+                                <action selector="clickOnProgressBtn:" destination="-1" eventType="touchUpInside" id="SKl-fP-Ncw"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="j3Q-uE-mWz"/>
+                        <constraint firstItem="C4s-No-D8p" firstAttribute="top" secondItem="utN-ZS-awE" secondAttribute="top" constant="2" id="5BO-H3-Ugr"/>
+                        <constraint firstItem="cxh-hV-9o7" firstAttribute="top" secondItem="utN-ZS-awE" secondAttribute="top" id="BbV-md-VZj"/>
+                        <constraint firstItem="C4s-No-D8p" firstAttribute="width" secondItem="cxh-hV-9o7" secondAttribute="width" id="MFv-3K-eCB"/>
+                        <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" constant="2" id="R63-Vb-XXC"/>
+                        <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" constant="2" id="RZ8-mN-t9M"/>
+                        <constraint firstItem="C4s-No-D8p" firstAttribute="height" secondItem="cxh-hV-9o7" secondAttribute="height" id="RwY-Fh-6Kw"/>
+                        <constraint firstItem="cxh-hV-9o7" firstAttribute="leading" secondItem="utN-ZS-awE" secondAttribute="leading" id="VfB-Kf-tIg"/>
+                        <constraint firstAttribute="height" constant="40" id="nVo-Q5-1G0"/>
+                        <constraint firstAttribute="trailing" secondItem="C4s-No-D8p" secondAttribute="trailing" constant="-2" id="rzc-AG-y9U"/>
                     </constraints>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Progress"/>
-                    <connections>
-                        <action selector="clickOnProgressBtn:" destination="-1" eventType="touchUpInside" id="SKl-fP-Ncw"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4s-No-D8p">
-                    <rect key="frame" x="300" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="kjQ-uf-2jT"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Stats"/>
-                </button>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsX-Nh-UJc">
                     <rect key="frame" x="0.0" y="417" width="600" height="130"/>
                     <subviews>
@@ -299,24 +316,20 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="cxh-hV-9o7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="1LE-bm-PMc"/>
-                <constraint firstItem="C4s-No-D8p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="AjR-B9-yoX"/>
-                <constraint firstItem="cxh-hV-9o7" firstAttribute="width" secondItem="C4s-No-D8p" secondAttribute="width" id="Ebb-5Z-HL5"/>
+                <constraint firstAttribute="trailing" secondItem="utN-ZS-awE" secondAttribute="trailing" id="Bh9-S6-6DR"/>
                 <constraint firstAttribute="trailing" secondItem="Rjy-iN-UVw" secondAttribute="trailing" id="HNq-Au-vqd"/>
-                <constraint firstItem="3pJ-dh-CAm" firstAttribute="top" secondItem="C4s-No-D8p" secondAttribute="bottom" id="INF-cB-b2C"/>
                 <constraint firstAttribute="trailing" secondItem="lsX-Nh-UJc" secondAttribute="trailing" id="Jo4-ZT-dw8"/>
-                <constraint firstAttribute="trailing" secondItem="C4s-No-D8p" secondAttribute="trailing" id="KaB-a4-8Pe"/>
                 <constraint firstItem="Rjy-iN-UVw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LLH-UA-fvt"/>
-                <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" id="NVb-Fg-Eee"/>
+                <constraint firstItem="3pJ-dh-CAm" firstAttribute="top" secondItem="utN-ZS-awE" secondAttribute="bottom" id="MIc-EQ-rEI"/>
+                <constraint firstItem="utN-ZS-awE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Q0K-mM-iit"/>
                 <constraint firstItem="3pJ-dh-CAm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ta5-mk-ftS"/>
                 <constraint firstAttribute="trailing" secondItem="3pJ-dh-CAm" secondAttribute="trailing" id="YrH-Xo-b15"/>
                 <constraint firstItem="lsX-Nh-UJc" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="bottom" id="fD2-dl-jAy"/>
+                <constraint firstItem="utN-ZS-awE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gNI-gt-TZp"/>
                 <constraint firstItem="lsX-Nh-UJc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gpd-Tf-RV5"/>
                 <constraint firstAttribute="bottom" secondItem="Rjy-iN-UVw" secondAttribute="bottom" id="lcn-AR-JRc"/>
                 <constraint firstItem="lsX-Nh-UJc" firstAttribute="top" secondItem="3pJ-dh-CAm" secondAttribute="bottom" constant="40" id="mcH-tC-hQr"/>
-                <constraint firstItem="C4s-No-D8p" firstAttribute="leading" secondItem="cxh-hV-9o7" secondAttribute="trailing" id="rvU-pg-MY8"/>
                 <constraint firstItem="Rjy-iN-UVw" firstAttribute="top" secondItem="lsX-Nh-UJc" secondAttribute="bottom" constant="1" id="va5-ap-YIA"/>
-                <constraint firstItem="cxh-hV-9o7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zV5-Co-ug3"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">

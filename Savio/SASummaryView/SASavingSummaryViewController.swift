@@ -445,51 +445,52 @@ class SASavingSummaryViewController: UIViewController {
         
         if(colorDataDict["title"] as! String == "Group Save")
         {
-            red = 114/255
-            green = 177/255
-            blue = 237/255
+            red = 122/255
+            green = 182/255
+            blue = 240/255
+            
         }
         else if(colorDataDict["title"] as! String == "Wedding")
         {
-            red = 153/255
-            green = 153/255
-            blue = 255/255
+            red = 138/255
+            green = 132/255
+            blue = 186/255
         }
         else if(colorDataDict["title"] as! String == "Baby")
         {
-            red = 133/255
-            green = 222/255
-            blue = 175/255
+            red = 135/255
+            green = 199/255
+            blue = 165/255
         }
         else if(colorDataDict["title"] as! String == "Holiday")
         {
-            red = 0/255
+            red = 86/255
             green = 153/255
-            blue = 153/255
+            blue = 146/255
         }
         else if(colorDataDict["title"] as! String == "Ride")
         {
-            red = 244/255
-            green = 87/255
-            blue = 95/255
+            red = 202/255
+            green = 60/255
+            blue = 65/255
         }
         else if(colorDataDict["title"] as! String == "Home")
         {
-            red = 251/255
-            green = 151/255
-            blue = 80/255
+            red = 231/255
+            green = 149/255
+            blue = 64/255
         }
         else if(colorDataDict["title"] as! String == "Gadget")
         {
-            red = 187/255
-            green = 211/255
-            blue = 54/255
+            red = 166/255
+            green = 180/255
+            blue = 60/255
         }
         else
         {
-            red = 240/255
-            green = 164/255
-            blue = 57/255
+            red = 244/255
+            green = 148/255
+            blue = 54/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }

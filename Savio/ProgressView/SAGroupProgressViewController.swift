@@ -11,6 +11,7 @@ import UIKit
 class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate {
     
     @IBOutlet weak var groupMembersLabel: UILabel!
+    @IBOutlet weak var topButtonView: UIView!
     
     @IBOutlet weak var toolBarView: UIView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -94,7 +95,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         
-        
+        self.view.bringSubviewToFront(topButtonView)
         // Do any additional setup after loading the view.
     }
     
@@ -108,6 +109,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -278,27 +280,22 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 185
                     piechart?.radius.inner = horizontalScrollView.frame.width - 210
-                    imgView.frame = CGRectMake(50,62,220,220)
+                    imgView.frame = CGRectMake(70,83,182,182)
                     
-                }
-                else  if(UIScreen.mainScreen().bounds.width == 414)
-                {
-                    piechart?.radius.outer = horizontalScrollView.frame.width - 250
-                    piechart?.radius.inner = horizontalScrollView.frame.width - 275
-                    imgView.frame = CGRectMake(67,35,280,280)
                 }
                 else   if(UIScreen.mainScreen().bounds.width == 375)
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 227
                     piechart?.radius.inner = horizontalScrollView.frame.width - 255
-                    imgView.frame = CGRectMake(68,60,240,240)
+                    imgView.frame = CGRectMake(85,72,205,205)
                 }
-                else
+                else  if(UIScreen.mainScreen().bounds.width == 414)
                 {
-                    piechart?.radius.outer = horizontalScrollView.frame.width - 300
-                    piechart?.radius.inner = horizontalScrollView.frame.width - 325
-                    imgView.frame = CGRectMake(67,40,300,300)
+                    piechart?.radius.outer = horizontalScrollView.frame.width - 250
+                    piechart?.radius.inner = horizontalScrollView.frame.width - 275
+                    imgView.frame = CGRectMake(87,53,240,240)
                 }
+          
                 piechart!.delegate = self
                 
                 piechart?.backgroundColor = UIColor.clearColor()

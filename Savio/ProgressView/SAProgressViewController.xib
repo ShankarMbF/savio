@@ -84,29 +84,50 @@
                         <constraint firstItem="1Le-GU-dfA" firstAttribute="width" secondItem="9Sk-mz-yVx" secondAttribute="width" id="sIB-3Z-Vxl"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85w-WV-poh">
-                    <rect key="frame" x="0.0" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MjK-1W-Tag">
+                    <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koD-Rh-BR2">
+                            <rect key="frame" x="302" y="0.0" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.3411764705882353" green="0.3411764705882353" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="joH-63-jc7"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Stats"/>
+                            <connections>
+                                <action selector="clickOnStatButton:" destination="-1" eventType="touchUpInside" id="Eha-xT-pmV"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85w-WV-poh">
+                            <rect key="frame" x="0.0" y="2" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="Hvy-PH-rKx"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Progress"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117647058818" green="0.56862745098039214" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="EiP-85-ckx"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="IEC-Ey-Af2"/>
+                        <constraint firstAttribute="height" constant="40" id="7cX-jJ-u5v"/>
+                        <constraint firstItem="koD-Rh-BR2" firstAttribute="top" secondItem="MjK-1W-Tag" secondAttribute="top" id="OsS-4t-Vhg"/>
+                        <constraint firstItem="85w-WV-poh" firstAttribute="leading" secondItem="MjK-1W-Tag" secondAttribute="leading" id="Sm5-o4-bsY"/>
+                        <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" constant="2" id="Vis-y6-tl4"/>
+                        <constraint firstItem="koD-Rh-BR2" firstAttribute="width" secondItem="85w-WV-poh" secondAttribute="width" id="kH1-DX-Xf3"/>
+                        <constraint firstItem="85w-WV-poh" firstAttribute="top" secondItem="MjK-1W-Tag" secondAttribute="top" constant="2" id="mkT-kl-hb9"/>
+                        <constraint firstAttribute="trailing" secondItem="koD-Rh-BR2" secondAttribute="trailing" constant="-2" id="pLg-yt-JyM"/>
+                        <constraint firstItem="koD-Rh-BR2" firstAttribute="height" secondItem="85w-WV-poh" secondAttribute="height" id="tIo-xf-Xh4"/>
+                        <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" constant="2" id="y01-1R-Emp"/>
                     </constraints>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Progress"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koD-Rh-BR2">
-                    <rect key="frame" x="300" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="Mz9-of-Gy6"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Stats"/>
-                    <connections>
-                        <action selector="clickOnStatButton:" destination="-1" eventType="touchUpInside" id="Eha-xT-pmV"/>
-                    </connections>
-                </button>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="tIo-xf-Xh4"/>
+                        </mask>
+                    </variation>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My saving plan" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOE-MR-nos">
                     <rect key="frame" x="20" y="109" width="560" height="40"/>
                     <constraints>
@@ -166,30 +187,22 @@
             <constraints>
                 <constraint firstItem="gfi-x6-Zkx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="0D3-64-a9I"/>
                 <constraint firstItem="4DY-Gb-RdS" firstAttribute="top" secondItem="NOE-MR-nos" secondAttribute="bottom" constant="5" id="3GT-Kr-IO0"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4Iu-sK-Cxn"/>
-                <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" id="5wr-C3-G9s"/>
-                <constraint firstAttribute="trailing" secondItem="koD-Rh-BR2" secondAttribute="trailing" id="7iD-iw-NSU"/>
                 <constraint firstItem="Ovz-Yp-HeJ" firstAttribute="top" secondItem="4DY-Gb-RdS" secondAttribute="bottom" constant="15" id="AVM-cc-fmt"/>
+                <constraint firstAttribute="trailing" secondItem="MjK-1W-Tag" secondAttribute="trailing" id="F8y-Xo-WcX"/>
                 <constraint firstAttribute="bottom" secondItem="HJQ-dA-Es5" secondAttribute="bottom" constant="-1" id="FFA-IH-p3p"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="height" secondItem="koD-Rh-BR2" secondAttribute="height" id="Grw-07-Rf7"/>
-                <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" id="Kqh-a7-53r"/>
                 <constraint firstItem="KCf-nP-6gP" firstAttribute="top" secondItem="NOE-MR-nos" secondAttribute="bottom" constant="343" id="LVV-iI-srM"/>
+                <constraint firstItem="MjK-1W-Tag" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Nwc-nG-2Qf"/>
                 <constraint firstAttribute="trailing" secondItem="NOE-MR-nos" secondAttribute="trailing" constant="20" id="NzE-DY-i1Y"/>
-                <constraint firstItem="koD-Rh-BR2" firstAttribute="leading" secondItem="85w-WV-poh" secondAttribute="trailing" id="OzQ-dC-ugk"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Pkx-l5-vs1"/>
                 <constraint firstItem="NOE-MR-nos" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="WkK-Pk-HPK"/>
                 <constraint firstAttribute="trailing" secondItem="4DY-Gb-RdS" secondAttribute="trailing" id="ZIq-4E-4HZ"/>
-                <constraint firstItem="koD-Rh-BR2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="bVY-W9-OZf"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="cHk-DL-u5n"/>
                 <constraint firstItem="gfi-x6-Zkx" firstAttribute="top" secondItem="4DY-Gb-RdS" secondAttribute="bottom" constant="15" id="e4L-TK-cy8"/>
-                <constraint firstItem="NOE-MR-nos" firstAttribute="top" secondItem="koD-Rh-BR2" secondAttribute="bottom" constant="5" id="eDv-J8-gcN"/>
                 <constraint firstItem="HJQ-dA-Es5" firstAttribute="top" secondItem="Ovz-Yp-HeJ" secondAttribute="bottom" constant="10" id="ew4-pL-nqW"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fIY-YH-eAB"/>
                 <constraint firstItem="HJQ-dA-Es5" firstAttribute="top" secondItem="KCf-nP-6gP" secondAttribute="bottom" constant="40" id="hxP-o1-LnA"/>
                 <constraint firstItem="HJQ-dA-Es5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="j34-0g-Fv4"/>
+                <constraint firstItem="NOE-MR-nos" firstAttribute="top" secondItem="MjK-1W-Tag" secondAttribute="bottom" constant="5" id="pXQ-gg-KrO"/>
                 <constraint firstAttribute="trailing" secondItem="gfi-x6-Zkx" secondAttribute="trailing" constant="30" id="qfR-ME-Ft3"/>
-                <constraint firstItem="85w-WV-poh" firstAttribute="width" secondItem="koD-Rh-BR2" secondAttribute="width" id="qor-nD-J9t"/>
                 <constraint firstItem="4DY-Gb-RdS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sDY-mP-OKe"/>
+                <constraint firstItem="MjK-1W-Tag" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="uIk-y5-JSL"/>
                 <constraint firstItem="Ovz-Yp-HeJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="wcF-F1-52V"/>
                 <constraint firstItem="KCf-nP-6gP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="y4d-pY-ViU"/>
                 <constraint firstAttribute="trailing" secondItem="Ovz-Yp-HeJ" secondAttribute="trailing" constant="30" id="yPt-AR-wZq"/>
@@ -198,7 +211,6 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="Pkx-l5-vs1"/>
                     <exclude reference="LVV-iI-srM"/>
                 </mask>
             </variation>

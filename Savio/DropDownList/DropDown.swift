@@ -262,7 +262,7 @@ private extension DropDown {
 	func setup() {
 		updateConstraintsIfNeeded()
 		setupUI()
-        self.layer.borderWidth = 2.0
+        self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue:120/256.0, alpha: 1.0).CGColor;
         self.layer.cornerRadius = 2.0
         self.layer.masksToBounds = true
@@ -293,7 +293,7 @@ private extension DropDown {
 		
 		backgroundColor = DPDConstant.UI.BackgroundColor
 		tableView.rowHeight = DPDConstant.UI.RowHeight
-        tableView.layer.borderWidth = 2.0
+        tableView.layer.borderWidth = 1.0
         tableView.layer.borderColor = UIColor(red: 255.0/256.0, green: 165.0/256.0, blue:0/256.0, alpha: 1.0).CGColor;
 
 		tableView.separatorColor = UIColor(red: 255.0/256.0, green: 165.0/256.0, blue:0/256.0, alpha: 1.0);//DPDConstant.UI.SeparatorColor

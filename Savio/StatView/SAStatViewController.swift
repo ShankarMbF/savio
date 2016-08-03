@@ -99,7 +99,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.graphSliderView.maximumValue = Float(max)
         self.graphSliderView.minimumValue = Float(min)
         self.lineChart.drawScrollLineForPoint(min)
-        let trackImage = UIImage(named: "stats-slider-bar")?.stretchableImageWithLeftCapWidth(5, topCapHeight: 0)
+        let myInsets : UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        let trackImage = UIImage(named: "stats-slider-bar")?.resizableImageWithCapInsets(myInsets)
         self.graphSliderView.setMinimumTrackImage(trackImage, forState: UIControlState.Normal)
         self.graphSliderView.setMaximumTrackImage(trackImage, forState: .Normal)
         if planType == "Individual" {

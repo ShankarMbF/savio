@@ -564,8 +564,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     
     
     
-    func buttonOnCellClicked(sender:UIButton){
-        
+    func registerationButtonTapped(sender:UIButton) {
         if (checkTextFieldValidation() == false && dictForTextFieldValue["errorPostcodeValid"]==nil){
             //call term and condition screen
             
@@ -627,6 +626,11 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 self.createCells()
             }
         }
+    }
+    
+    
+    func buttonOnCellClicked(sender:UIButton) {
+        self.registerationButtonTapped(sender)
     }
     
     
@@ -794,6 +798,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         var returnFlag = false
         self.getJSONForUI()
         var idx = 0
+        var firstErroIndex = -1
         for var i=0; i<arrRegistrationFields.count; i++ {
             var errorFLag = false
             var errorMsg = ""
@@ -810,10 +815,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     }
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                 }
                     
                 else if checkTextFieldContentSpecialChar(str!){
                     errorMsg = "Name should not contain special characters"
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                     if cell.tfTitle?.text?.characters.count==0 {
                         errorMsg = "Please select a title and name should not contain special characters"
                     }
@@ -825,6 +833,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     errorMsg = "Wow, that’s such a long name we can’t save it"
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                 }
                     
                 else if(cell.tfTitle?.text?.characters.count == 0 && cell.tfName?.text?.characters.count == 0){
@@ -833,18 +843,21 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     cell.tfTitle?.layer.borderColor = UIColor.redColor().CGColor
                     cell.tfName?.layer.borderColor = UIColor.redColor().CGColor
                     dictForTextFieldValue["errorTitle"] = errorMsg
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                 }
                 else if cell.tfTitle?.text == ""{
                     errorMsg = "Please select a title"
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
-                    
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                 }
                 else if str==""{
                     errorMsg = "We need to know what to call you"
                     errorFLag = true
                     dictForTextFieldValue["errorTitle"] = errorMsg
-                    
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                 }
                 else{
                     dictForTextFieldValue.removeValueForKey("errorTitle")
@@ -859,13 +872,14 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
                 if cell.tf?.placeholder == "Surname"{
                     let str = cell.tf?.text
-                    if str==""{
+                    if str=="" {
                         errorFLag = true
                         errorMsg = "We need to know your surname"
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                         dictForTextFieldValue["errorTxt"] = errorMsg
                         
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorTxt")
                     }
                     
@@ -899,6 +913,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     if str==""{
                         errorFLag = true
                         errorMsg = "Don’t forget your house number"
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                         dictForTextFieldValue["errorFirstAddress"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     }
@@ -914,6 +930,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     let str = cell.tf?.text
                     if str==""{
                         errorFLag = true
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                         errorMsg = "Don’t forget your town"
                         dictForTextFieldValue["errorTown"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
@@ -930,6 +947,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     let str = cell.tf?.text
                     if str==""{
                         errorFLag = true
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                         errorMsg = "Don’t forget your county"
                         dictForTextFieldValue["errorCounty"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
@@ -947,6 +965,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     if str==""{
                         errorFLag = true
                         errorMsg = "Don't forget your mobile number"
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
+
                         dictForTextFieldValue["errorMobileValidation"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                         
@@ -981,11 +1001,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     idx = 19
                 }
                 
-                if cell.tf?.placeholder == "Email"{
+                if cell.tf?.placeholder == "Email" {
                     let str = cell.tf?.text
                     if str==""{
                         errorFLag = true
                         errorMsg = "Don't forget your email address"
+                        firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                         dictForTextFieldValue["errorEmail"] = errorMsg
                     }
@@ -998,6 +1019,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     if str?.characters.count>0 && (self.isValidEmail(str!)==false){
                         errorFLag = true
                         errorMsg = "That email address doesn’t look right"
+                        
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                         dictForTextFieldValue["errorEmailValid"] = errorMsg
                     }
@@ -1022,6 +1044,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if str==""{
                     errorFLag = true
                     errorMsg = "Don’t forget your postcode"
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                     dictForTextFieldValue["errorPostcode"] = errorMsg
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     dictForTextFieldValue.removeValueForKey("Postcode")
@@ -1043,6 +1066,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if str==""{
                     errorFLag = true
                     errorMsg = "Don't forget your mobile number"
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                     dictForTextFieldValue["errorMobileValidation"] = errorMsg
                     //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     
@@ -1083,6 +1107,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if str==""{
                     errorFLag = true
                     errorMsg = "Don't forget your email address"
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                     //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     dictForTextFieldValue["errorEmail"] = errorMsg
                 }
@@ -1111,6 +1136,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if str==""{
                     errorFLag = true
                     errorMsg = "We need to know your date of birth"
+                    firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                     dictForTextFieldValue["errorDOB"] = errorMsg
                     
                 }
@@ -1140,6 +1166,9 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             }
         }
         self.createCells()
+        if  firstErroIndex >= 0 {
+            self.tblView.scrollToRowAtIndexPath(NSIndexPath(forRow: firstErroIndex, inSection: 0), atScrollPosition: .Middle, animated: true)
+        }
         return returnFlag
     }
     

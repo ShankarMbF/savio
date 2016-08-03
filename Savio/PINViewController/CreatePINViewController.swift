@@ -12,50 +12,37 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var backgroundScrollView: UIScrollView!
-    @IBOutlet weak var enterFiveDigitCodeLabel: UILabel!
-    @IBOutlet weak var reEnterFourDigitPIN: UITextField!
-    @IBOutlet weak var enterFourDigitPIN: UITextField!
+    @IBOutlet weak var enterFourDigitCodeLabel: UILabel!
     @IBOutlet weak var confirmPIN: UIButton!
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var subHeaderLabel: UILabel!
     
+    @IBOutlet weak var textFieldOne: UITextField!
+    @IBOutlet weak var textFieldTwo: UITextField!
+    @IBOutlet weak var textFieldThree: UITextField!
+    @IBOutlet weak var textFieldFour: UITextField!
+
+    @IBOutlet weak var textFieldReOne: UITextField!
+    @IBOutlet weak var textFieldReTwo: UITextField!
+    @IBOutlet weak var textFieldReThree: UITextField!
+    @IBOutlet weak var textFieldReFour: UITextField!
+
+    @IBOutlet weak var lblConfirmPasscode: UILabel!
+    @IBOutlet weak var confirmPasscodeView: UIView!
+    @IBOutlet weak var passcodeView: UIView!
     @IBOutlet weak var backButton: UIButton!
     var objAPI = API()
     var objAnimView = ImageViewAnimation()
     var userInfoDict  = Dictionary<String,AnyObject>()
+    var keyboardRect = CGRectZero
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
-        //Add borderWidth and borderColor to UITextFields
-        enterFourDigitPIN.layer.borderWidth = 1
-        enterFourDigitPIN.layer.cornerRadius = 2
-        enterFourDigitPIN.layer.masksToBounds = true
-        enterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        enterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"Enter 4 digit passcode",
-                                                                     attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])
-        //Set input accessory view to the UITextfield
-        enterFourDigitPIN.inputAccessoryView = toolBar
-        
-        
-        reEnterFourDigitPIN.layer.cornerRadius = 2
-        reEnterFourDigitPIN.layer.masksToBounds = true
-        reEnterFourDigitPIN.layer.borderWidth = 1
-        reEnterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        reEnterFourDigitPIN.attributedPlaceholder = NSAttributedString(string:"Re-enter 4 digit passcode",
-                                                                       attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1),NSFontAttributeName :UIFont(name: "GothamRounded-Light", size: 15)!])
-        //Set input accessory view to the UITextfield
-        reEnterFourDigitPIN.inputAccessoryView = toolBar
-        
-        //Add shadowcolor to confirmPIN
-//        confirmPIN.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        confirmPIN.layer.shadowOffset = CGSizeMake(0, 4)
-//        confirmPIN.layer.shadowOpacity = 1
-        confirmPIN.layer.cornerRadius = 5
-        
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
+        self.customizeTextFields()
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        self.registerForKeyboardNotifications()
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,10 +59,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
-        if (newLength == 5) {
+        if (newLength == 2) {
             
-            enterFourDigitPIN.resignFirstResponder()
-            reEnterFourDigitPIN.becomeFirstResponder()
             return false;
         }
         
@@ -84,33 +69,12 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     
     //UITextFieldDelegateMethods
     func textFieldDidBeginEditing(textField: UITextField){
-        
-        //Change the border color of UITextfields
-        enterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        reEnterFourDigitPIN.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        
-        enterFourDigitPIN.textColor = UIColor.blackColor()
-        reEnterFourDigitPIN.textColor = UIColor.blackColor()
-        
-        enterFiveDigitCodeLabel.hidden = true;
-        //Change the content offset of scrollview so UITextfield will not be hidden by keyboard
-        
-        if(UIScreen.mainScreen().bounds.size.height == 480 || UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            if(textField == enterFourDigitPIN)
-            {
-                backgroundScrollView.contentOffset = CGPointMake(0, 90)
-            }
-            else if(textField == reEnterFourDigitPIN)
-            {
-                backgroundScrollView.contentOffset = CGPointMake(0, 105)
-            }
-        }
+        self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
+        enterFourDigitCodeLabel.hidden = true
+
     }
     
     @IBAction func toolBarDoneButtonPressed(sender: AnyObject) {
-        enterFourDigitPIN.resignFirstResponder()
-        reEnterFourDigitPIN.resignFirstResponder()
         backgroundScrollView.contentOffset = CGPointMake(0, 0)
     }
     @IBAction func onclickBackButton(sender: AnyObject) {
@@ -119,42 +83,41 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     @IBAction func onClickConfirmButton(sender: UIButton) {
-        enterFourDigitPIN.resignFirstResponder()
-        reEnterFourDigitPIN.resignFirstResponder()
+
+        self.bgViewTapped("AnyObj")
         //Confirm button click
         
         if(sender.currentTitle == "Got It")
         {
+            self.removeKeyboardNotification()
             let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
             self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
         }
         else{
             
-            if(enterFourDigitPIN.text == "" || reEnterFourDigitPIN.text == "")
+            if(textFieldOne.text  ==  "" || textFieldReOne.text   ==  "" || textFieldTwo.text  ==  "" || textFieldReTwo.text   ==  "" || textFieldThree.text    ==  "" || textFieldReThree.text  ==  "" || textFieldFour.text   ==  "" || textFieldReFour.text   ==  "" )
             {
                 //Show error when field is empty
-                enterFiveDigitCodeLabel.hidden = false;
-                enterFourDigitPIN.layer.borderColor = UIColor.redColor().CGColor
-                reEnterFourDigitPIN.layer.borderColor = UIColor.redColor().CGColor
+                enterFourDigitCodeLabel.hidden = false;
+                self.setAllPinEntryFieldsToColor(UIColor.redColor())
+                
                 
             }
-            else if(enterFourDigitPIN.text  != reEnterFourDigitPIN.text)
+            else if(textFieldOne.text  != textFieldReOne.text || textFieldTwo.text  != textFieldReTwo.text || textFieldThree.text  != textFieldReThree.text || textFieldFour.text  != textFieldReFour.text)
             {
                 //Show error when fields are not same
                 
-                enterFiveDigitCodeLabel.hidden = false;
-                enterFiveDigitCodeLabel.text = "Passcode do not match"
-                
-                
-                enterFourDigitPIN.textColor = UIColor.redColor()
-                reEnterFourDigitPIN.textColor = UIColor.redColor()
+                enterFourDigitCodeLabel.hidden = false;
+                enterFourDigitCodeLabel.text = "Passcode do not match"
+                self.setAllPinEntryFieldsToColor(UIColor.redColor())
+                self.resetTextOnAllTextFields()
             }
             else
             {
-                if(enterFourDigitPIN.text?.characters.count < 4 || reEnterFourDigitPIN.text?.characters.count < 4)
+                if(textFieldOne.text?.characters.count < 1 || textFieldReOne.text?.characters.count < 1 || textFieldTwo.text?.characters.count < 1 || textFieldReTwo.text?.characters.count < 1 || textFieldThree.text?.characters.count < 1 || textFieldReThree.text?.characters.count < 1 || textFieldFour.text?.characters.count < 1 || textFieldReFour.text?.characters.count < 1)
                 {
-                    enterFiveDigitCodeLabel.hidden = false;
-                    enterFiveDigitCodeLabel.text = "Passcode should be of 4 digits"
+                    enterFourDigitCodeLabel.hidden = false;
+                    enterFourDigitCodeLabel.text = "Passcode should be of 4 digits"
                 }
                 else
                 {
@@ -162,20 +125,22 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     //Add animation of logo
                     objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                     objAnimView.frame = self.view.frame
-                    enterFourDigitPIN.resignFirstResponder()
                     
                     objAnimView.animate()
                     self.view.addSubview(objAnimView)
                     
-                    userInfoDict["pass_code"] = enterFourDigitPIN.text?.MD5()
+                    let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
+                    userInfoDict["pass_code"] = passcode.MD5()
 
+                    
+                    
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     print(newUserInfoDict)
                     //objAPI.storeValueInKeychainForKey("myUserInfo", value: userInfoDict)
                     var updatePasscodeDict = Dictionary<String,AnyObject>()
                     updatePasscodeDict["mobile_Number"] = userInfoDict["phone_number"]
-                    updatePasscodeDict["pin"] = enterFourDigitPIN.text?.MD5()
+                    updatePasscodeDict["pin"] = passcode.MD5()
                     
                    
                     if(checkString == "ForgotPasscode")
@@ -204,22 +169,26 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     
+    
     func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
     {
         objAnimView.removeFromSuperview()
         print(objResponse)
-        NSUserDefaults.standardUserDefaults().setObject(enterFourDigitPIN.text, forKey: "pin")
+        let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
+
+        NSUserDefaults.standardUserDefaults().setObject(passcode, forKey: "pin")
         NSUserDefaults.standardUserDefaults().synchronize()
         if(objResponse["message"] as! String == "Your PIN is updated Sucessfully")
         {
-            objAPI.storeValueInKeychainForKey("myPasscode", value: reEnterFourDigitPIN.text!.MD5())
+            objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
  
             headerLabel.text = "Your passcode has been reset"
-            enterFourDigitPIN.hidden = true
-            reEnterFourDigitPIN.hidden = true
             backButton.hidden = true
             confirmPIN .setTitle("Got It", forState: UIControlState.Normal)
             backgroundScrollView.contentOffset = CGPointMake(0, 0)
+            self.lblConfirmPasscode.hidden = true
+            self.confirmPasscodeView.hidden = true
+            self.passcodeView.hidden = true
         }
         
     }
@@ -235,12 +204,13 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         print(objResponse)
         objAnimView.removeFromSuperview()
         //Store the passcode in Keychain
-        
+        let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
+
         if let message = objResponse["message"]
         {
             if(message as! String == "User sucessfully register")
             {
-        objAPI.storeValueInKeychainForKey("myPasscode", value: reEnterFourDigitPIN.text!.MD5())
+        objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
         if(changePhoneNumber == true)
         {
@@ -266,13 +236,136 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         }
 
     }
+    
     func errorResponseForRegistrationAPI(error:String){
         objAnimView.removeFromSuperview()
-        
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
+    }
+    
+    func addTargetAndRadiusForTf(textField: UITextField) {
+        let borderWidth: CGFloat = 1
+        let cornerRadius: CGFloat = 3
+
+        textField.layer.borderWidth = borderWidth
+        textField.layer.cornerRadius = cornerRadius
+        textField.layer.masksToBounds = true
+        textField.addTarget(self, action: #selector(CreatePINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textField.keyboardType = UIKeyboardType.NumberPad
+        textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+
+    }
+    
+    func customizeTextFields() {
+        self.addTargetAndRadiusForTf(textFieldOne)
+        self.addTargetAndRadiusForTf(textFieldTwo)
+        self.addTargetAndRadiusForTf(textFieldThree)
+        self.addTargetAndRadiusForTf(textFieldFour)
+        self.addTargetAndRadiusForTf(textFieldReOne)
+        self.addTargetAndRadiusForTf(textFieldReTwo)
+        self.addTargetAndRadiusForTf(textFieldReThree)
+        self.addTargetAndRadiusForTf(textFieldReFour)
     }
     
     
+    
+    func textFieldDidChange(textField: UITextField) {
+        
+        let text = textField.text
+        if text?.utf16.count==1{
+            switch textField{
+            case textFieldOne:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldFour.becomeFirstResponder()
+            case textFieldFour:
+                textFieldReOne.becomeFirstResponder()
+            case textFieldReOne:
+                textFieldReTwo.becomeFirstResponder()
+            case textFieldReTwo:
+                textFieldReThree.becomeFirstResponder()
+            case textFieldReThree:
+                textFieldReFour.becomeFirstResponder()
+            case textFieldReFour:
+                textFieldReFour.resignFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
+            }
+        }else{
+            switch textField{
+            case textFieldFour:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldOne.becomeFirstResponder()
+            case textFieldOne:
+                textFieldOne.resignFirstResponder()
+            case textFieldReFour:
+                textFieldReThree.becomeFirstResponder()
+            case textFieldReThree:
+                textFieldReTwo.becomeFirstResponder()
+            case textFieldReTwo:
+                textFieldReOne.becomeFirstResponder()
+            case textFieldReOne:
+                textFieldReOne.resignFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
+            }
+        }
+    }
+    
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWasShown(notification: NSNotification) {
+        self.backgroundScrollView.contentOffset = CGPoint(x: 0, y: 50)
+        
+    }
+    
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        self.backgroundScrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
+    @IBAction func bgViewTapped(sender: AnyObject) {
+        textFieldReOne.resignFirstResponder()
+        textFieldReTwo.resignFirstResponder()
+        textFieldReThree.resignFirstResponder()
+        textFieldReFour.resignFirstResponder()
+        textFieldOne.resignFirstResponder()
+        textFieldTwo.resignFirstResponder()
+        textFieldThree.resignFirstResponder()
+        textFieldFour.resignFirstResponder()
+    }
+    
+    func setAllPinEntryFieldsToColor(color: UIColor) {
+        textFieldOne.layer.borderColor = color.CGColor
+        textFieldTwo.layer.borderColor = color.CGColor
+        textFieldThree.layer.borderColor = color.CGColor
+        textFieldFour.layer.borderColor = color.CGColor
+        textFieldReOne.layer.borderColor = color.CGColor
+        textFieldReTwo.layer.borderColor = color.CGColor
+        textFieldReThree.layer.borderColor = color.CGColor
+        textFieldReFour.layer.borderColor = color.CGColor
+    }
+    func resetTextOnAllTextFields() {
+        textFieldOne.text = ""
+        textFieldTwo.text = ""
+        textFieldThree.text = ""
+        textFieldFour.text = ""
+        textFieldReOne.text = ""
+        textFieldReTwo.text = ""
+        textFieldReThree.text = ""
+        textFieldReFour.text = ""
+    }
+
 }

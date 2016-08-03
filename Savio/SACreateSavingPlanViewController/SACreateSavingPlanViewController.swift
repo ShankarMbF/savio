@@ -549,6 +549,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
+        objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }

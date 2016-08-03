@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -27,16 +27,16 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which costs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="owe-f5-37h">
                         <rect key="frame" x="8" y="5" width="304" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="aLd-h1-lzZ"/>
+                            <constraint firstAttribute="height" constant="20" id="2eh-V9-p22"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="3000" translatesAutoresizingMaskIntoConstraints="NO" id="ISQ-4m-YEC" customClass="slider" customModule="Savio" customModuleProvider="target">
-                        <rect key="frame" x="36" y="72" width="248" height="31"/>
+                        <rect key="frame" x="36" y="71" width="248" height="31"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="nCU-wL-0T2"/>
+                            <constraint firstAttribute="height" constant="30" id="78T-fC-QRi"/>
                         </constraints>
                         <color key="minimumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="maximumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="deviceRGB"/>
@@ -46,11 +46,11 @@
                         </connections>
                     </slider>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQR-uk-sx8">
-                        <rect key="frame" x="18" y="80" width="12" height="12"/>
+                        <rect key="frame" x="15" y="80" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="PHG-xa-5nx"/>
-                            <constraint firstAttribute="height" constant="12" id="Suh-qw-DYa"/>
+                            <constraint firstAttribute="height" constant="12" id="Thk-1W-G6j"/>
+                            <constraint firstAttribute="width" constant="12" id="jRT-TO-VyK"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="-">
@@ -61,11 +61,11 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW5-xP-CdE">
-                        <rect key="frame" x="290" y="80" width="12" height="12"/>
+                        <rect key="frame" x="293" y="80" width="12" height="12"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="HHa-N4-AVN"/>
-                            <constraint firstAttribute="width" constant="12" id="axb-fi-fVB"/>
+                            <constraint firstAttribute="height" constant="12" id="AFM-bg-Wfd"/>
+                            <constraint firstAttribute="width" constant="12" id="PUx-Pn-tri"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="+">
@@ -76,10 +76,10 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
-                        <rect key="frame" x="30" y="30" width="260" height="25"/>
+                        <rect key="frame" x="35" y="30" width="250" height="25"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="FLJ-62-dYM"/>
+                            <constraint firstAttribute="height" constant="25" id="1m4-bi-4P2"/>
                         </constraints>
                         <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
@@ -91,21 +91,32 @@
                 </subviews>
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="5" id="55o-zx-Xif"/>
-                    <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="5av-P2-Y77"/>
-                    <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Brt-qU-jYI"/>
-                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="11" id="D90-MX-w0I"/>
-                    <constraint firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" constant="11" id="ELS-Jr-V7C"/>
-                    <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="1" id="IXQ-HT-FFM"/>
-                    <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="JKC-4P-fqx"/>
-                    <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="18" id="RQF-ZE-H0h"/>
-                    <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="8" id="SDm-5G-xbf"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bx1-ke-hRY"/>
-                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="8" id="egE-HQ-bmZ"/>
-                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="30" id="tdz-BW-WGf"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="tvm-TV-Kaa"/>
-                    <constraint firstItem="DQR-uk-sx8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="v5h-ZX-JFh"/>
+                    <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="60o-Q6-4NX"/>
+                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="Cgv-Sd-kt4"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="5" id="Dy4-UX-fRY"/>
+                    <constraint firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" constant="11" id="KZn-rf-bXp"/>
+                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="top" secondItem="ukx-QD-x5v" secondAttribute="bottom" constant="16" id="KzA-ez-r09"/>
+                    <constraint firstItem="DQR-uk-sx8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="MQr-N8-3Qy"/>
+                    <constraint firstAttribute="trailing" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="38" id="NAV-75-2Ot"/>
+                    <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Xwb-Sd-Prv"/>
+                    <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="YPR-rE-Gc3"/>
+                    <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="11" id="b0K-4K-lZJ"/>
+                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="35" id="eGV-De-Aeu"/>
+                    <constraint firstItem="QW5-xP-CdE" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="55" id="gRH-Pk-Agl"/>
+                    <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="2" id="gdQ-R7-cg9"/>
+                    <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="55" id="lhX-Ck-u50"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="mCj-kZ-D1q"/>
+                    <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="11" id="miL-1d-ybJ"/>
+                    <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="11" id="vsT-u0-ccU"/>
+                    <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="15" id="zy2-uD-OJr"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="KzA-ez-r09"/>
+                        <exclude reference="lhX-Ck-u50"/>
+                        <exclude reference="gRH-Pk-Agl"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="BGContentView" destination="H2p-sc-9uM" id="vnc-J2-rH6"/>

@@ -34,28 +34,45 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvH-8r-1Fh">
-                    <rect key="frame" x="0.0" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zer-qR-OdC">
+                    <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvH-8r-1Fh">
+                            <rect key="frame" x="0.0" y="2" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="z06-b9-g3J"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Progress"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lY-ph-r2K">
+                            <rect key="frame" x="302" y="0.0" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="KhV-K4-uaa"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Stats"/>
+                            <connections>
+                                <action selector="statsButtonPressed:" destination="-1" eventType="touchUpInside" id="cHf-05-Ipd"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="vV2-os-Xbh"/>
+                        <constraint firstAttribute="trailing" secondItem="1lY-ph-r2K" secondAttribute="trailing" constant="-2" id="39q-oS-3ER"/>
+                        <constraint firstAttribute="height" constant="40" id="9Fv-Ow-e8e"/>
+                        <constraint firstItem="1lY-ph-r2K" firstAttribute="leading" secondItem="EvH-8r-1Fh" secondAttribute="trailing" constant="2" id="NQK-OW-7oE"/>
+                        <constraint firstItem="EvH-8r-1Fh" firstAttribute="width" secondItem="1lY-ph-r2K" secondAttribute="width" id="OAZ-rj-kji"/>
+                        <constraint firstItem="EvH-8r-1Fh" firstAttribute="top" secondItem="Zer-qR-OdC" secondAttribute="top" constant="2" id="Wd8-qr-iTp"/>
+                        <constraint firstItem="EvH-8r-1Fh" firstAttribute="leading" secondItem="Zer-qR-OdC" secondAttribute="leading" id="ZPz-to-Bfw"/>
+                        <constraint firstItem="1lY-ph-r2K" firstAttribute="leading" secondItem="EvH-8r-1Fh" secondAttribute="trailing" constant="2" id="e2e-Hz-I79"/>
+                        <constraint firstItem="EvH-8r-1Fh" firstAttribute="height" secondItem="1lY-ph-r2K" secondAttribute="height" id="jf4-AW-i6o"/>
+                        <constraint firstItem="1lY-ph-r2K" firstAttribute="top" secondItem="Zer-qR-OdC" secondAttribute="top" id="vdC-if-Pl0"/>
                     </constraints>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Progress"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lY-ph-r2K">
-                    <rect key="frame" x="300" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="q5j-Ta-n8l"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Stats"/>
-                    <connections>
-                        <action selector="statsButtonPressed:" destination="-1" eventType="touchUpInside" id="cHf-05-Ipd"/>
-                    </connections>
-                </button>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FFb-Rt-XbG">
                     <rect key="frame" x="0.0" y="548" width="600" height="52"/>
                     <subviews>
@@ -203,20 +220,17 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="Zer-qR-OdC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="3V7-am-ZXB"/>
                 <constraint firstAttribute="bottom" secondItem="FFb-Rt-XbG" secondAttribute="bottom" id="6kG-jY-sBM"/>
                 <constraint firstItem="FFb-Rt-XbG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="94N-vl-eIe"/>
-                <constraint firstItem="1lY-ph-r2K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="EBx-FT-Jat"/>
                 <constraint firstItem="FFb-Rt-XbG" firstAttribute="top" secondItem="6kg-fA-cco" secondAttribute="bottom" constant="-2" id="Gir-QY-zUM"/>
-                <constraint firstAttribute="trailing" secondItem="1lY-ph-r2K" secondAttribute="trailing" id="Pjz-vW-gIe"/>
-                <constraint firstItem="EvH-8r-1Fh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="U13-tj-PVU"/>
+                <constraint firstItem="6kg-fA-cco" firstAttribute="top" secondItem="Zer-qR-OdC" secondAttribute="bottom" id="MJr-BS-joV"/>
+                <constraint firstAttribute="trailing" secondItem="Zer-qR-OdC" secondAttribute="trailing" id="Txp-t0-lUp"/>
                 <constraint firstAttribute="trailing" secondItem="6kg-fA-cco" secondAttribute="trailing" id="Y3j-l2-iU0"/>
-                <constraint firstItem="1lY-ph-r2K" firstAttribute="leading" secondItem="EvH-8r-1Fh" secondAttribute="trailing" id="ZVl-pB-x3T"/>
                 <constraint firstItem="6kg-fA-cco" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZZs-2D-1nO"/>
                 <constraint firstItem="6kg-fA-cco" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ciP-KR-zIZ"/>
                 <constraint firstAttribute="trailing" secondItem="FFb-Rt-XbG" secondAttribute="trailing" id="dXw-Np-dCl"/>
-                <constraint firstItem="6kg-fA-cco" firstAttribute="top" secondItem="1lY-ph-r2K" secondAttribute="bottom" id="djo-Ev-Zsv"/>
-                <constraint firstItem="EvH-8r-1Fh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="fqI-co-1u1"/>
-                <constraint firstItem="EvH-8r-1Fh" firstAttribute="width" secondItem="1lY-ph-r2K" secondAttribute="width" id="loD-ub-yVd"/>
+                <constraint firstItem="Zer-qR-OdC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lGL-jR-OvR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="343" y="328"/>

@@ -26,6 +26,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var textFieldThree: UITextField!
     @IBOutlet weak var textFieldFour: UITextField!
     
+    @IBOutlet weak var enterYourPasscodeLabel: UILabel!
     
     @IBOutlet weak var registerButtonBackgroundView: UIView!
     var objAnimView = ImageViewAnimation()
@@ -123,6 +124,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         errorLabel.hidden = true
         pinTextFieldsContainerView.hidden = true
         
+        enterYourPasscodeLabel.hidden = true
         textFieldOne.resignFirstResponder()
         textFieldTwo.resignFirstResponder()
         textFieldThree.resignFirstResponder()
@@ -148,6 +150,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         loginButton.hidden = false
         btnVwBg.hidden = false
         pinTextFieldsContainerView.hidden = false
+        enterYourPasscodeLabel.hidden = false
         
     }
     

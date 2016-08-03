@@ -27,25 +27,41 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHp-bU-JVN">
-                    <rect key="frame" x="0.0" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75a-bn-pNY">
+                    <rect key="frame" x="0.0" y="64" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHp-bU-JVN">
+                            <rect key="frame" x="0.0" y="2" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="isY-7d-0qr"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Profile"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-7r-4ja">
+                            <rect key="frame" x="302" y="0.0" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="XZl-iN-byG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Payment"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="CnY-kw-XVu"/>
+                        <constraint firstItem="Na9-7r-4ja" firstAttribute="leading" secondItem="dHp-bU-JVN" secondAttribute="trailing" constant="2" id="2HU-7h-pRn"/>
+                        <constraint firstItem="Na9-7r-4ja" firstAttribute="leading" secondItem="dHp-bU-JVN" secondAttribute="trailing" constant="2" id="ENx-6Q-63J"/>
+                        <constraint firstAttribute="trailing" secondItem="Na9-7r-4ja" secondAttribute="trailing" constant="-2" id="GKl-8e-UOB"/>
+                        <constraint firstItem="dHp-bU-JVN" firstAttribute="top" secondItem="75a-bn-pNY" secondAttribute="top" constant="2" id="O92-k7-Oiw"/>
+                        <constraint firstAttribute="height" constant="40" id="OCa-bY-8XF"/>
+                        <constraint firstItem="dHp-bU-JVN" firstAttribute="leading" secondItem="75a-bn-pNY" secondAttribute="leading" id="W3d-pI-wFD"/>
+                        <constraint firstItem="Na9-7r-4ja" firstAttribute="width" secondItem="dHp-bU-JVN" secondAttribute="width" id="cXX-Dc-Jmp"/>
+                        <constraint firstItem="Na9-7r-4ja" firstAttribute="top" secondItem="75a-bn-pNY" secondAttribute="top" id="yq1-yp-dxh"/>
                     </constraints>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Profile"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-7r-4ja">
-                    <rect key="frame" x="300" y="64" width="300" height="40"/>
-                    <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="olh-dc-guC"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Payment"/>
-                </button>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ibo-dK-tSI">
                     <rect key="frame" x="0.0" y="103" width="600" height="497"/>
                     <subviews>
@@ -117,22 +133,18 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="dHp-bU-JVN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EWD-pM-bWz"/>
+                <constraint firstItem="75a-bn-pNY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="36F-gf-L6z"/>
+                <constraint firstAttribute="trailing" secondItem="75a-bn-pNY" secondAttribute="trailing" id="8Al-35-a8y"/>
                 <constraint firstItem="Ibo-dK-tSI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="103" id="JId-1z-fco"/>
-                <constraint firstItem="dHp-bU-JVN" firstAttribute="width" secondItem="Na9-7r-4ja" secondAttribute="width" id="NnV-1s-Puk"/>
-                <constraint firstItem="Na9-7r-4ja" firstAttribute="leading" secondItem="dHp-bU-JVN" secondAttribute="trailing" id="Qd3-1D-LzC"/>
-                <constraint firstItem="dHp-bU-JVN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="SdV-10-lJG"/>
                 <constraint firstItem="Ibo-dK-tSI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wtn-km-svj"/>
+                <constraint firstItem="75a-bn-pNY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aaN-PY-UY1"/>
                 <constraint firstItem="Ibo-dK-tSI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="103" id="fXi-ey-ChV"/>
-                <constraint firstItem="Na9-7r-4ja" firstAttribute="leading" secondItem="dHp-bU-JVN" secondAttribute="trailing" id="gR0-vw-uYw"/>
                 <constraint firstAttribute="bottom" secondItem="Ibo-dK-tSI" secondAttribute="bottom" id="l5n-0X-sKe"/>
-                <constraint firstAttribute="trailing" secondItem="Na9-7r-4ja" secondAttribute="trailing" id="m7R-xi-vga"/>
                 <constraint firstAttribute="trailing" secondItem="Ibo-dK-tSI" secondAttribute="trailing" id="qYQ-LK-Pdt"/>
-                <constraint firstItem="Na9-7r-4ja" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="tkP-AL-v52"/>
                 <constraint firstAttribute="trailing" secondItem="Ibo-dK-tSI" secondAttribute="trailing" id="uXP-r7-dZJ"/>
                 <constraint firstItem="Ibo-dK-tSI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="x58-eq-j4M"/>
             </constraints>
-            <point key="canvasLocation" x="148" y="326"/>
+            <point key="canvasLocation" x="414" y="333"/>
         </view>
     </objects>
 </document>

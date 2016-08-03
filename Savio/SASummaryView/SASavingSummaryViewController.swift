@@ -443,9 +443,9 @@ class SASavingSummaryViewController: UIViewController {
         }
         else if(colorDataDict["title"] as! String == "Baby")
         {
-            red = 133/255
-            green = 222/255
-            blue = 175/255
+            red = 135/255
+            green = 199/255
+            blue = 165/255
         }
         else if(colorDataDict["title"] as! String == "Holiday")
         {

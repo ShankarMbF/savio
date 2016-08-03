@@ -61,6 +61,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         
+        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBgImageView.layer.masksToBounds = true
+        
         self.setUpView()
     }
     
@@ -117,8 +120,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        topBgImageView.layer.masksToBounds = true
+
         
         if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
@@ -227,8 +229,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier", forIndexPath: indexPath) as! SetDayTableViewCell
             cell1.tblView = tblView
-            cell1.view = self.view
+            cell1.view = self.scrlView
             cell1.segmentDelegate = self
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 if let payType = parameterDict["payType"] as? NSString
@@ -267,7 +271,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == 1){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupCalculationCellIdentifier", forIndexPath: indexPath) as! GroupCalculationTableViewCell
-            
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             if(isDateChanged)
             {
                 cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",CGFloat(100)/CGFloat(participantsArr.count),cost/(participantsArr.count),cost)
@@ -313,6 +318,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
         else if(indexPath.section == offerArr.count+2){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CreateSavingPlanTableViewCellIdentifier", forIndexPath: indexPath) as! CreateSavingPlanTableViewCell
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
                 cell1.createSavingPlanButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
@@ -327,6 +334,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
             
@@ -335,6 +344,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("OfferTableViewCellIdentifier", forIndexPath: indexPath) as! OfferTableViewCell
             cell1.tblView = tblView
+            cell1.layer.cornerRadius = 5
+            cell1.layer.masksToBounds = true
             cell1.closeButton.tag = indexPath.section
             cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             

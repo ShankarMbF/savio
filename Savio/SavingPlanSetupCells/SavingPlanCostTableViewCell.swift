@@ -12,7 +12,7 @@ protocol SavingPlanCostTableViewCellDelegate {
 }
 class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     weak var tblView : UITableView?
-    weak var view : UIView?
+    weak var view : UIScrollView?
     var delegate: SavingPlanCostTableViewCellDelegate?
   
     

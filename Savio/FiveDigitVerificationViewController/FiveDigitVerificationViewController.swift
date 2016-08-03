@@ -141,6 +141,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             else {
                 //Set the OTPVerificationDelegate
         
+                /*
                  objAPI.otpVerificationDelegate = self
                  
                  objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "91", OTP: fiveDigitTextField.text!)
@@ -150,9 +151,10 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
                  objAnimView.animate()
                  self.view.addSubview(objAnimView)
+ */
       
-//                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
-//                self.navigationController?.pushViewController(objCreatePINView, animated: true)
+                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
+                self.navigationController?.pushViewController(objCreatePINView, animated: true)
                 
             }
             
@@ -217,8 +219,15 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     func errorResponseForOTPVerificationAPI(error:String){
         print(error)
         objAnimView.removeFromSuperview()
-        
+        if(error == "Verification code is incorrect")
+        {
         codeDoesNotMatchLabel.text = error
         codeDoesNotMatchLabel.hidden = false;
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
 }

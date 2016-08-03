@@ -306,12 +306,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        else if (error == "Internal Server Error")
-        {
-            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        else
+
+        else if(error == "Passcode is incorrect")
         {
             errorLabel.hidden = false
             errorLabel.text = "Passcode is not correct"
@@ -320,6 +316,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             textFieldThree.text = ""
             textFieldFour.text = ""
             self.setAllPinEntryFieldsToColor( UIColor.redColor())
+        }
+        else
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         
     }
@@ -333,8 +334,22 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     }
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else if (error == "The request timed out")
+        {
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else
+        {
+        
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+        }
         
     }
     

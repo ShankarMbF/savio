@@ -15,8 +15,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAOfferListViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="bottomview" destination="UA4-gr-ZH8" id="kyT-m8-9h0"/>
                 <outlet property="closeLbl" destination="9Kl-A0-gsj" id="7jA-bX-RSu"/>
                 <outlet property="tblView" destination="5db-mO-Sls" id="lOH-aW-Ean"/>
+                <outlet property="tblViewBottomSpace" destination="sY6-CT-agj" id="euZ-dZ-i3d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -88,7 +90,15 @@
                 <constraint firstItem="UA4-gr-ZH8" firstAttribute="top" secondItem="5db-mO-Sls" secondAttribute="bottom" id="duz-Uk-Wil"/>
                 <constraint firstItem="UA4-gr-ZH8" firstAttribute="top" secondItem="5db-mO-Sls" secondAttribute="bottom" id="foV-Yj-Drv"/>
                 <constraint firstAttribute="bottom" secondItem="UA4-gr-ZH8" secondAttribute="bottom" constant="1" id="llI-yK-81W"/>
+                <constraint firstAttribute="bottom" secondItem="5db-mO-Sls" secondAttribute="bottom" constant="41" id="sY6-CT-agj"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="duz-Uk-Wil"/>
+                    <exclude reference="foV-Yj-Drv"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="232" y="261"/>
         </view>
     </objects>
 </document>

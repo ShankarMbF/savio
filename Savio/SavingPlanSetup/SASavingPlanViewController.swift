@@ -78,6 +78,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
+        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBackgroundImageView.layer.masksToBounds = true
+        
+        
         self.setUpView()
         if(self.isUpdatePlan)
         {
@@ -111,7 +115,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             ht = CGFloat(offerArr.count * 90)
         }
         
-   scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        if(isUpdatePlan)
+        {
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+        }
+        else
+        {
+             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        }
     }
     
     func setUpView(){
@@ -448,7 +459,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
-            cell1.view = self.view
+            cell1.view = self.scrlView
             cell1.savingPlanTitleDelegate = self
             if(itemDetailsDataDict["title"] != nil)
             {
@@ -477,7 +488,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.delegate = self
-            cell1.view = self.view
+            cell1.view = self.scrlView
             if(itemDetailsDataDict["amount"] != nil || isPopoverValueChanged || isOfferShow )
             {
                 
@@ -542,7 +553,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.layer.masksToBounds = true
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
-            cell1.view = self.view
+            cell1.view = self.scrlView
             
             if(datePickerDate == "")
             {
@@ -603,7 +614,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             cell1.tblView = tblView
-            cell1.view = self.view
+            cell1.view = self.scrlView
+            
             cell1.segmentDelegate = self
             
             

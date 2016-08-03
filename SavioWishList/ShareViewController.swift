@@ -81,7 +81,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
                         
                         dict["TITLE"] = self.textView.text
-                        dict["AMOUNT"] = self.priceTextField.text
+                        dict["AMOUNT"] = self.priceTextField.text?.stringByReplacingOccurrencesOfString("£", withString: "")
                         dict["PARTYID"] = userDict!["partyId"]
                         
                         dict["SHAREDSAVINGPLANID"] = ""
@@ -164,6 +164,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     @IBAction func rightButtonPressed(sender: AnyObject) {
+        
         let imgString = self.dictGlobal["image"] as! String
         let arrayImgUrl:  Array? = imgString.componentsSeparatedByString("#~@")   // #~@ taken from ShareExtensio.js file
         currentImagePosition += 1;

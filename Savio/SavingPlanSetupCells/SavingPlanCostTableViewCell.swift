@@ -60,6 +60,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         customToolBar!.items = [acceptButton]
         
         costTextField.inputAccessoryView = customToolBar
+
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -77,26 +78,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         delegate?.txtFieldCellText(self)
         
         
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+150), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-            
-        }
         if(Float(textFieldValue)! > 3000)
         {
             let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
@@ -227,10 +208,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
     
     
     @IBAction func plusButtonPressed(sender: AnyObject) {
@@ -262,62 +239,30 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     
+    var lastOffset: CGPoint?
     //Keyboard notification function
-    
     @objc func keyboardWasShown(notification: NSNotification){
         //do stuff
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+
         var info = notification.userInfo as! Dictionary<String,AnyObject>
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, (kbSize?.height)!, 0.0)
-        tblView?.contentInset = contentInsets
-        tblView?.scrollIndicatorInsets = contentInsets
-        
-        var aRect = costTextField?.frame
-        aRect?.size.height = (aRect?.size.height)! - (kbSize?.height)!
-        if !CGRectContainsPoint(aRect!, self.frame.origin) {
-            tblView?.scrollRectToVisible(self.frame, animated: true)
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        //        let visibleRect = CGRect(x: 0, y: 0, width:  UIScreen.mainScreen().bounds.width, height: height)
+        lastOffset = (view?.contentOffset)!
+        let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
+        let yOfTextField = costTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
+        if (yOfTextField - (lastOffset?.y)!) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            view?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
     }
     
+    //Keyboard notification function
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
-        
-        let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
-        tblView?.contentInset = contentInsets;
-        tblView?.scrollIndicatorInsets = contentInsets;
-    }
-    
-    //UITextfieldDelegate method
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
-    {
-        //If the UIScreen size is 480 move the View little bit up so the UITextField will not be hidden
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-100), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-150), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-            
-        }
-            
-        else{
-            self.registerForKeyboardNotifications()
-        }
-        return true
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        view?.setContentOffset(lastOffset!, animated: true)
     }
     
     //UITextfieldDelegate method
@@ -352,6 +297,13 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         attributedString.addAttributes([NSForegroundColorAttributeName : self.setUpColor()], range: NSRange(location: 0, length: 1))
         return attributedString
     }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    {
+        self.registerForKeyboardNotifications()
+        return true
+    }
+
 
     
     func textFieldShouldReturn(textField: UITextField) -> Bool{
@@ -361,28 +313,6 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         slider.value = Float(textFieldValue)!
         delegate?.txtFieldCellText(self)
-        
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+100), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+150), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-            
-        }
-        
 
         if(Float(textFieldValue) > 3000)
         {

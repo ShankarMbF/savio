@@ -119,6 +119,7 @@ class SAImpulseSavingViewController: UIViewController {
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
         self.title = "Add Extra funds"
         
         

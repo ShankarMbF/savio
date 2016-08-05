@@ -59,6 +59,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
         self.title = "Update saving plan"
         
         

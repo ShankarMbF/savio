@@ -28,7 +28,6 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         titleTextField.layer.cornerRadius = 5
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        print(colorDataDict)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -41,10 +40,6 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-    }
     
     
     //get the color for selected theme
@@ -105,90 +100,43 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
-    
+    var lastOffset: CGPoint?
     //Keyboard notification function
     @objc func keyboardWasShown(notification: NSNotification){
-        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, (kbSize?.height)!, 0.0)
-        tblView?.contentInset = contentInsets
-        tblView?.scrollIndicatorInsets = contentInsets
-        
-        var aRect = titleTextField?.frame
-        aRect?.size.height = (aRect?.size.height)! - (kbSize?.height)!
-        if !CGRectContainsPoint(aRect!, self.frame.origin) {
-            tblView?.scrollRectToVisible(self.frame, animated: true)
+        lastOffset = (view?.contentOffset)!
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 64 - (kbSize?.height)! //64 height of nav bar + status bar
+        let yOfTextField = titleTextField.frame.origin.y + (self.superview?.frame.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
+
+        if (yOfTextField - (lastOffset?.y)!) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            view?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
     }
+    
+    
+    
+    
     //Keyboard notification function
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
-        
-        let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
-        tblView?.contentInset = contentInsets;
-        tblView?.scrollIndicatorInsets = contentInsets;
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        view?.setContentOffset(lastOffset!, animated: true)
     }
     
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
         titleTextField.textColor = setUpColor()
-        //If the UIScreen size is 480 move the View little bit up so the UITextField will not be hidden
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-30), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-            {
-                //UIViewAnimation for moving screen little bit up
-                UIView.beginAnimations(nil, context: nil)
-                UIView.setAnimationDelegate(self)
-                UIView.setAnimationDuration(0.5)
-                UIView.setAnimationBeginsFromCurrentState(true)
-                view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-60), view!.frame.size.width, view!.frame.size.height)
-                UIView.commitAnimations()
-                
-            }
-            else{
-                self.registerForKeyboardNotifications()
-        }
+        self.registerForKeyboardNotifications()
         return true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         textField.resignFirstResponder()
-        titleTextField.textColor = setUpColor()
-        
-        //If the UIScreen size is 480 animate the screen
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+60), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-            
-        }
-        
         savingPlanTitleDelegate?.getTextFieldText(textField.text!)
 
     }
@@ -212,32 +160,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         titleTextField.textColor = setUpColor()
-        //If the UIScreen size is 480 animate the screen
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-            
-        }
-
-        savingPlanTitleDelegate?.getTextFieldText(textField.text!)
-        
         return true
     }
-    
     
 }

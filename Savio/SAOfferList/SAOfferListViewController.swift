@@ -48,6 +48,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
+
         //set Navigation left button
         
         if(hideAddOfferButton)

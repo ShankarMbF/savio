@@ -11,10 +11,10 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-//let baseURL = "http://54.229.66.32:8080/SavioAPI/V1"
+//let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-let baseURL = "http://54.191.188.214:8080/SavioAPI/V1"
+let baseURL = "http://54.171.91.134/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 

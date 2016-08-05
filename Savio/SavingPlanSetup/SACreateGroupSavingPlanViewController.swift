@@ -640,6 +640,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 self.objAnimView.removeFromSuperview()
                 self.displayAlert("Please select date/day")
             }
+            
+            
         }
         else {
             

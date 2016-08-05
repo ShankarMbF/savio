@@ -506,6 +506,7 @@ class SASavingSummaryViewController: UIViewController {
             red = 161/255
             green = 214/255
             blue = 248/255
+            
         }
         else if(colorDataDict["title"] as! String == "Wedding")
         {
@@ -515,9 +516,9 @@ class SASavingSummaryViewController: UIViewController {
         }
         else if(colorDataDict["title"] as! String == "Baby")
         {
-            red = 122/255
-            green = 223/255
-            blue = 172/255
+            red = 133/255
+            green = 227/255
+            blue = 177/255
         }
         else if(colorDataDict["title"] as! String == "Holiday")
         {
@@ -546,9 +547,10 @@ class SASavingSummaryViewController: UIViewController {
         else
         {
             red = 244/255
-            green = 176/255
+            green = 172/255
             blue = 58/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
+
 }

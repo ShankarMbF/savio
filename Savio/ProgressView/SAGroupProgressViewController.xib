@@ -196,6 +196,7 @@
                             <constraints>
                                 <constraint firstItem="gf6-nN-cap" firstAttribute="centerX" secondItem="alJ-QQ-JNZ" secondAttribute="centerX" id="DJv-40-i6d"/>
                                 <constraint firstItem="Rxj-TM-ht8" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" constant="20" id="DMd-oH-uuv"/>
+                                <constraint firstItem="Rxj-TM-ht8" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" id="FVE-6F-XZS"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="top" secondItem="alJ-QQ-JNZ" secondAttribute="top" constant="40" id="KqT-kH-iey"/>
                                 <constraint firstItem="c4S-KN-7rD" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="Mqf-nw-hP3"/>
                                 <constraint firstItem="Ihf-ot-vbi" firstAttribute="leading" secondItem="alJ-QQ-JNZ" secondAttribute="leading" id="P98-5D-6MP"/>
@@ -213,6 +214,11 @@
                                 <constraint firstAttribute="trailing" secondItem="Jc8-Fd-CSw" secondAttribute="trailing" constant="30" id="xW1-Tg-Ngd"/>
                                 <constraint firstItem="Jc8-Fd-CSw" firstAttribute="top" secondItem="c4S-KN-7rD" secondAttribute="bottom" constant="18" id="xhb-gx-4iT"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="mhJ-aS-s5H"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <constraints>
@@ -237,8 +243,14 @@
                 <constraint firstItem="6kg-fA-cco" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ciP-KR-zIZ"/>
                 <constraint firstAttribute="trailing" secondItem="FFb-Rt-XbG" secondAttribute="trailing" id="dXw-Np-dCl"/>
                 <constraint firstItem="Zer-qR-OdC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lGL-jR-OvR"/>
+                <constraint firstItem="6kg-fA-cco" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="104" id="v8P-Qk-bTy"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="MJr-BS-joV"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="343" y="328"/>
         </view>
     </objects>

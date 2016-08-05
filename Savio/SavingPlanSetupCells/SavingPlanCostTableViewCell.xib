@@ -76,7 +76,7 @@
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
-                        <rect key="frame" x="35" y="30" width="250" height="25"/>
+                        <rect key="frame" x="36" y="30" width="250" height="25"/>
                         <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="1m4-bi-4P2"/>
@@ -101,11 +101,11 @@
                     <constraint firstItem="owe-f5-37h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Xwb-Sd-Prv"/>
                     <constraint firstAttribute="trailing" secondItem="owe-f5-37h" secondAttribute="trailing" constant="8" id="YPR-rE-Gc3"/>
                     <constraint firstAttribute="bottom" secondItem="DQR-uk-sx8" secondAttribute="bottom" constant="11" id="b0K-4K-lZJ"/>
-                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="35" id="eGV-De-Aeu"/>
+                    <constraint firstAttribute="trailing" secondItem="ukx-QD-x5v" secondAttribute="trailing" constant="34" id="eGV-De-Aeu"/>
                     <constraint firstItem="QW5-xP-CdE" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="55" id="gRH-Pk-Agl"/>
                     <constraint firstAttribute="bottom" secondItem="ISQ-4m-YEC" secondAttribute="bottom" constant="2" id="gdQ-R7-cg9"/>
                     <constraint firstItem="DQR-uk-sx8" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="55" id="lhX-Ck-u50"/>
-                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="mCj-kZ-D1q"/>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="36" id="mCj-kZ-D1q"/>
                     <constraint firstItem="QW5-xP-CdE" firstAttribute="leading" secondItem="ISQ-4m-YEC" secondAttribute="trailing" constant="11" id="miL-1d-ybJ"/>
                     <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="DQR-uk-sx8" secondAttribute="trailing" constant="11" id="vsT-u0-ccU"/>
                     <constraint firstAttribute="trailing" secondItem="QW5-xP-CdE" secondAttribute="trailing" constant="15" id="zy2-uD-OJr"/>

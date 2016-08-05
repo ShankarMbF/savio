@@ -436,12 +436,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         let indx = sender.tag - 2
         offerArr.removeAtIndex(indx)
-        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant =  tblView.frame.size.height - 65
+         self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
         tblView.reloadData()
     }
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -716,13 +717,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant = tblView.frame.size.height + 65
+        self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
         tblView.reloadData()
         isOfferShow = true
     }
     
     func skipOffers(){
-        tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
+      //  tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
         isOfferShow = true
     }
     

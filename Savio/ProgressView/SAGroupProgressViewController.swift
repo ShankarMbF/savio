@@ -378,7 +378,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFive.hidden = true
                 labelSix.hidden = true
                 
-                let text = String(format: "%d",totalAmount)
+                let text = String(format: "%d",paidAmount)
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
                 let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)

@@ -536,6 +536,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             }
         }
         
+        tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count+5))
         scrlView.contentSize = CGSizeMake(0, CGFloat(35 * (arrRegistrationFields.count+5)))
         
         tblView.reloadData()
@@ -1535,6 +1536,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         self.spinner.hidden = true
                     }
                 }
+                else
+                {
+                    self.spinner.stopAnimating()
+                    self.spinner.hidden = true
+                }
 
                 
                 self.getJSONForUI()
@@ -1566,6 +1572,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             {
                 let alert = UIAlertView(title: "Alert", message: "User info updated successfully", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
+                self.createCells()
 
             }
             else

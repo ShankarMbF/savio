@@ -127,13 +127,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     func setUpView(){
 
-        
-        spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2)
-        spinner.hidesWhenStopped = true
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.view.addSubview(spinner)
-        spinner.startAnimating()
-        
+
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
 
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -187,6 +181,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             
+             let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
+  
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
@@ -197,22 +193,22 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                             let image = UIImage(data: data!)
                             dispatch_async(dispatch_get_main_queue(), {
                                 imgView.image = image
-                                self.spinner.stopAnimating()
-                                self.spinner.hidden = true
+                                activityIndicator.stopAnimating()
+                                activityIndicator.hidden = true
                             })
                         }
                         else
                         {
-                            self.spinner.stopAnimating()
-                            self.spinner.hidden = true
+                            activityIndicator.stopAnimating()
+                            activityIndicator.hidden = true
                             
                         }
                     })
                 }
             }
             else {
-                self.spinner.stopAnimating()
-                self.spinner.hidden = true
+                activityIndicator.stopAnimating()
+                activityIndicator.hidden = true
             }
         
             
@@ -223,7 +219,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelOne.hidden = true
                 labelTwo.hidden = true
                 imgView.hidden = false
-                imgView.layer.cornerRadius = imgView.frame.width/2 
+                imgView.layer.cornerRadius = imgView.frame.width/2
+                activityIndicator.hidden = false
                
             }
             else if(i == 1)
@@ -234,6 +231,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
                // labelTwo.text = "£ 0 saved"
                 imgView.hidden = true
+                activityIndicator.hidden = true
                
             }
             else
@@ -244,6 +242,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelTwo.hidden = false
                 labelTwo.text = "0 days to go"
                 imgView.hidden = true
+                activityIndicator.hidden = true
             }
         }
         

@@ -27,6 +27,9 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
                                     <rect key="frame" x="15" y="15" width="170" height="170"/>
                                 </imageView>
+                                <activityIndicatorView opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="We0-eo-g6b">
+                                    <rect key="frame" x="90" y="90" width="20" height="20"/>
+                                </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
                                     <rect key="frame" x="25" y="101" width="150" height="50"/>
                                     <constraints>
@@ -70,6 +73,7 @@
                                 <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="15" id="9UP-7I-eAb"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
                                 <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="lBD-XE-gZN" secondAttribute="centerX" id="JvZ-Ki-mAz"/>
+                                <constraint firstItem="We0-eo-g6b" firstAttribute="centerY" secondItem="kwY-gp-AnE" secondAttribute="centerY" id="MrW-3m-2F0"/>
                                 <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="Mzw-jC-dHU"/>
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="15" id="VSq-oH-jvA"/>
                                 <constraint firstAttribute="width" secondItem="kwY-gp-AnE" secondAttribute="height" multiplier="1:1" id="ZeF-Xz-74Q"/>
@@ -77,6 +81,7 @@
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="15" id="dzj-Q2-bwV"/>
                                 <constraint firstAttribute="height" constant="200" id="pyA-So-dWZ"/>
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="21" id="xyF-bG-Tio"/>
+                                <constraint firstItem="We0-eo-g6b" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="yIt-v1-8fi"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">

@@ -3118,7 +3118,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -3139,7 +3139,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3163,8 +3163,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -3187,7 +3187,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = ../Savio/BridgingHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3211,8 +3211,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Atul Deore (GDH82HZKLM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -3228,7 +3228,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = ../Savio/BridgingHeader.h;
 				VALIDATE_PRODUCT = YES;
@@ -3255,7 +3255,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3279,7 +3279,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};

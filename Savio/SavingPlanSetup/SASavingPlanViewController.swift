@@ -686,7 +686,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else if ((dateDiff/168) == 0)
                     {
-                        cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+ 
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for 1 week",cost)
                     }
                     else
                     {
@@ -701,7 +702,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
-                        cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                        let components: NSDateComponents = NSDateComponents()
+                        components.month = +1
+                        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
+                        
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let timeDifference : NSTimeInterval = minDate.timeIntervalSinceDate(NSDate())
+                        
+                        dateDiff = Int(timeDifference/3600)
+                        
+                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else{
                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
@@ -721,6 +733,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                         else if ((dateDiff/168) == 0)
                         {
+                            
                             cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
                         }
                         else
@@ -1540,11 +1553,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isDateChanged = true
             tblView.reloadData()
         }
-//        else
-//        {
-//            isPopoverValueChanged = true
-//            tblView.reloadData()
-//        }
+        else
+        {
+            isPopoverValueChanged = true
+            tblView.reloadData()
+        }
         
     }
     

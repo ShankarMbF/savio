@@ -35,6 +35,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var delegate : SACreateGroupSavingPlanDelegate?
     var imagePicker = UIImagePickerController()
     var userInfoDict  : Dictionary<String,AnyObject> = [:]
+    var isImageClicked = false
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -535,6 +536,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
             newDict["IMAGE"] = dict
         }
+        else if(isImageClicked)
+        {
+            let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let dict = ["imageName.jpg":base64String]
+            newDict["IMAGE"] = dict
+        }
         else
         {
             let dict = ["imageName.jpg":""]
@@ -915,6 +923,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
+        isImageClicked = true
         
     }
     

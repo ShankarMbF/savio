@@ -100,9 +100,6 @@
                             <rect key="frame" x="200" y="0.0" width="200" height="52"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="planButtonPressed:" destination="-1" eventType="touchUpInside" id="3EW-bt-15A"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpn-zq-oTz">
                             <rect key="frame" x="400" y="2" width="200" height="50"/>

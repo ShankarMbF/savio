@@ -13,6 +13,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var scrlView: UIScrollView!
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var addProfilePictureButton: UIButton!
     @IBOutlet weak var contentViewHt: NSLayoutConstraint!
@@ -535,6 +536,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             }
         }
         
+        tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count+5))
         scrlView.contentSize = CGSizeMake(0, CGFloat(35 * (arrRegistrationFields.count+5)))
         
         tblView.reloadData()
@@ -669,7 +671,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         let strCode = strPostCode
         print("\(strPostCode)")
         if strCode.characters.count == 0 {
-            var dict = arrRegistration[6] as Dictionary<String,AnyObject>
+            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
             let lableDict = metadataDict["lable"]!.mutableCopy()
             lableDict.setValue("Yes", forKey: "isErrorShow")
@@ -678,11 +680,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             
             metadataDict["lable"] = lableDict
             dict["metaData"] = metadataDict
-            arrRegistration[6] = dict
+            arrRegistration[7] = dict
             self.createCells()
         }
         else if checkTextFieldContentSpecialChar(strPostCode){
-            var dict = arrRegistration[6] as Dictionary<String,AnyObject>
+            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
             let lableDict = metadataDict["lable"]!.mutableCopy()
             lableDict.setValue("Yes", forKey: "isErrorShow")
@@ -690,7 +692,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             metadataDict["lable"] = lableDict
             dict["metaData"] = metadataDict
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right"
-            arrRegistration[6] = dict
+            arrRegistration[7] = dict
             self.createCells()
         }
         else{
@@ -1063,8 +1065,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     
                 }
                 
-                dict = arrRegistration[0] as Dictionary<String,AnyObject>
-                idx = 0
+                dict = arrRegistration[1] as Dictionary<String,AnyObject>
+                idx = 1
             }
             
             if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell){
@@ -1102,8 +1104,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorSurname")
                     }
                     
-                    dict = arrRegistration[2]as Dictionary<String,AnyObject>
-                    idx = 2
+                    dict = arrRegistration[3]as Dictionary<String,AnyObject>
+                    idx = 3
                 }
                 
                 if cell.tf?.placeholder == "First Address Line"{
@@ -1118,8 +1120,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorFirstAddress")
                     }
                     
-                    dict = arrRegistration[9]as Dictionary<String,AnyObject>
-                    idx = 9
+                    dict = arrRegistration[10]as Dictionary<String,AnyObject>
+                    idx = 10
                 }
                 
                 if cell.tf?.placeholder == "Town"{
@@ -1134,8 +1136,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorTown")
                     }
                     
-                    dict = arrRegistration[13]as Dictionary<String,AnyObject>
-                    idx = 13
+                    dict = arrRegistration[14]as Dictionary<String,AnyObject>
+                    idx = 14
                 }
                 
                 if cell.tf?.placeholder == "County"{
@@ -1150,8 +1152,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorCounty")
                     }
                     
-                    dict = arrRegistration[15]as Dictionary<String,AnyObject>
-                    idx = 15
+                    dict = arrRegistration[16]as Dictionary<String,AnyObject>
+                    idx = 16
                 }
                 
                 if cell.tf?.placeholder == "Mobile number"{
@@ -1189,8 +1191,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue.removeValueForKey("errorMobileValidation")
                     }
                     
-                    dict = arrRegistration[18]as Dictionary<String,AnyObject>
-                    idx = 18
+                    dict = arrRegistration[19]as Dictionary<String,AnyObject>
+                    idx = 19
                 }
                 
                 if cell.tf?.placeholder == "Email"{
@@ -1216,8 +1218,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     else{
                         dictForTextFieldValue.removeValueForKey("errorEmailValid")
                     }
-                    dict = arrRegistration[20]as Dictionary<String,AnyObject>
-                    idx = 20
+                    dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                    idx = 21
                 }
                 
                 
@@ -1244,8 +1246,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     
                 }
-                dict = arrRegistration[6]as Dictionary<String,AnyObject>
-                idx = 6
+                dict = arrRegistration[7]as Dictionary<String,AnyObject>
+                idx = 7
             }
             
             if arrRegistrationFields[i].isKindOfClass(NumericTextTableViewCell){
@@ -1285,8 +1287,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue.removeValueForKey("errorMobileValidation")
                 }
                 
-                dict = arrRegistration[18]as Dictionary<String,AnyObject>
-                idx = 18
+                dict = arrRegistration[19]as Dictionary<String,AnyObject>
+                idx = 19
                 
             }
             if arrRegistrationFields[i].isKindOfClass(EmailTxtTableViewCell){
@@ -1312,8 +1314,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 else{
                     dictForTextFieldValue.removeValueForKey("errorEmailValid")
                 }
-                dict = arrRegistration[20]as Dictionary<String,AnyObject>
-                idx = 20
+                dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                idx = 21
             }
             
             
@@ -1329,8 +1331,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 else{
                     dictForTextFieldValue.removeValueForKey("errorDOB")
                 }
-                dict = arrRegistration[4]as Dictionary<String,AnyObject>
-                idx = 4
+                dict = arrRegistration[5]as Dictionary<String,AnyObject>
+                idx = 5
             }
             
             print("\(idx)")
@@ -1500,14 +1502,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
                 //Get Registration UI Json data
-                
-                let spinner =  UIActivityIndicatorView()
-                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, self.addProfilePictureButton.frame.size.height/2)
-                spinner.hidesWhenStopped = true
-                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-                self.addProfilePictureButton.addSubview(spinner)
-                spinner.startAnimating()
-                
+       
                 if let urlString = userInfoDict["imageURL"] as? String
                 {
                     let url = NSURL(string:urlString)
@@ -1519,15 +1514,32 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                             
                             let image = UIImage(data: data!)
                             
+                            if(data?.length > 0)
+                            {
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.addProfilePictureButton.setImage(image, forState: .Normal)
                                   self.addProfilePictureButton.layer.cornerRadius = self.addProfilePictureButton.frame.size.height/2.0
                                 self.addProfilePictureButton.clipsToBounds = true
-                                spinner.stopAnimating()
-                                spinner.hidden = true
+                                self.spinner.stopAnimating()
+                                self.spinner.hidden = true
                             })
+                            }
+                            else{
+                                self.spinner.stopAnimating()
+                                self.spinner.hidden = true
+                            }
                         })
                     }
+                    else
+                    {
+                        self.spinner.stopAnimating()
+                        self.spinner.hidden = true
+                    }
+                }
+                else
+                {
+                    self.spinner.stopAnimating()
+                    self.spinner.hidden = true
                 }
 
                 
@@ -1560,6 +1572,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             {
                 let alert = UIAlertView(title: "Alert", message: "User info updated successfully", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
+                self.createCells()
 
             }
             else

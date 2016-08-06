@@ -35,6 +35,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var delegate : SACreateGroupSavingPlanDelegate?
     var imagePicker = UIImagePickerController()
     var userInfoDict  : Dictionary<String,AnyObject> = [:]
+    var isImageClicked = false
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -436,12 +437,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         let indx = sender.tag - 2
         offerArr.removeAtIndex(indx)
-        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant =  tblView.frame.size.height - 65
+         self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
         tblView.reloadData()
     }
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -532,6 +534,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["imageURL"] as! String != "")
         {
             let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
+            newDict["IMAGE"] = dict
+        }
+        else if(isImageClicked)
+        {
+            let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let dict = ["imageName.jpg":base64String]
             newDict["IMAGE"] = dict
         }
         else
@@ -718,13 +727,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 65)
+        tblViewHt.constant = tblView.frame.size.height + 65
+        self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
         tblView.reloadData()
         isOfferShow = true
     }
     
     func skipOffers(){
-        tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
+      //  tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
         isOfferShow = true
     }
     
@@ -913,6 +923,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
+        isImageClicked = true
         
     }
     

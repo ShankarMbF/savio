@@ -40,6 +40,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        confirmPasscodeView.layer.cornerRadius = 3
+        confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()

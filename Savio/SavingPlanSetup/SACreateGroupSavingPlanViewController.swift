@@ -121,7 +121,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-
+        
         
         if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes"))
         {
@@ -354,7 +354,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
-        
+            
             let urlStr = dict["offImage"] as! String
             let url = NSURL(string: urlStr)
             
@@ -438,7 +438,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let indx = sender.tag - 2
         offerArr.removeAtIndex(indx)
         tblViewHt.constant =  tblView.frame.size.height - 65
-         self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
+        self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
         tblView.reloadData()
     }
     func displayAlert(message:String)
@@ -589,37 +589,37 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            { action -> Void in
                 
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                self.imagePicker.allowsEditing = true
-                
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                    
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            { action -> Void in
                 
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                self.imagePicker.allowsEditing = true
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                    
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
                 
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
-            
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -673,13 +673,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            self.navigationController?.popViewControllerAnimated(true)
-            self.delegate?.clearAll()
-            
+            { action -> Void in
+                
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                self.navigationController?.popViewControllerAnimated(true)
+                self.delegate?.clearAll()
+                
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -734,7 +734,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func skipOffers(){
-      //  tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
+        //  tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
         isOfferShow = true
     }
     
@@ -859,52 +859,58 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-        
-        let objSummaryview = SASavingSummaryViewController()
-        var newDict : Dictionary<String,AnyObject> = [:]
-        
-        newDict["title"] = self.getParameters()["TITLE"]
-        newDict["amount"] = self.getParameters()["AMOUNT"]
-        newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
-        let dict = self.getParameters()["IMAGE"]
-        newDict["imageURL"] = dict
-        newDict["INIVITED_USER_LIST"] = participantsArr
-        newDict["day"] = dateString
-        let dateParameter = NSDateFormatter()
-        dateParameter.dateFormat = "yyyy-MM-dd"
-        var pathComponents : NSArray!
-        
-        
-        newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
-        if(dateString == "day")
+        if let message = objResponse["message"] as? String
         {
-            newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
-            newDict["payType"] = "Weekly"
+            if(message == "Invited user successfully")
+            {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+                
+                let objSummaryview = SASavingSummaryViewController()
+                var newDict : Dictionary<String,AnyObject> = [:]
+                
+                newDict["title"] = self.getParameters()["TITLE"]
+                newDict["amount"] = self.getParameters()["AMOUNT"]
+                newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
+                let dict = self.getParameters()["IMAGE"]
+                newDict["imageURL"] = dict
+                newDict["INIVITED_USER_LIST"] = participantsArr
+                newDict["day"] = dateString
+                let dateParameter = NSDateFormatter()
+                dateParameter.dateFormat = "yyyy-MM-dd"
+                var pathComponents : NSArray!
+                
+                
+                newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
+                if(dateString == "day")
+                {
+                    newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                    newDict["payType"] = "Weekly"
+                }
+                else{
+                    newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                    newDict["payType"] = "Monthly"
+                }
+                
+                if offerArr.count>0{
+                    newDict["offers"] = offerArr
+                }
+                
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                if(dateString == "day")
+                {
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
+                }
+                else{
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
+                }
+                let objSummaryView = SASavingSummaryViewController()
+                objSummaryView.itemDataDict =  newDict
+                self.navigationController?.pushViewController(objSummaryView, animated: true)
+            }
         }
-        else{
-            newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-            newDict["payType"] = "Monthly"
-        }
-        
-        if offerArr.count>0{
-            newDict["offers"] = offerArr
-        }
-        
-        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-        
-        if(dateString == "day")
-        {
-            newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
-        }
-        else{
-            newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
-        }
-        let objSummaryView = SASavingSummaryViewController()
-        objSummaryView.itemDataDict =  newDict
-        self.navigationController?.pushViewController(objSummaryView, animated: true)
         objAnimView.removeFromSuperview()
     }
     

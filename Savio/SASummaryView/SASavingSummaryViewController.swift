@@ -12,7 +12,7 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var continueButtonBackgroundView: UIView!
     @IBOutlet weak var topSpaceContonueView: NSLayoutConstraint!
-    
+    @IBOutlet weak var vwUpper : UIView?
     @IBOutlet weak var vwCongrats : UIView?
     @IBOutlet weak var vwScrContent : UIView?
     @IBOutlet weak var vwSummary : UIView?
@@ -157,7 +157,6 @@ class SASavingSummaryViewController: UIViewController {
         groupViewHt.constant = 0.0
         if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
         {
-            
             //        let ct:CGFloat = 2
             if arr.count > 0 {
                 let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
@@ -287,20 +286,24 @@ class SASavingSummaryViewController: UIViewController {
                 let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
                 summaryPageView.backgroundColor = UIColor.grayColor()
                 // Set its frame and data to pageview
-                topMargin = CGFloat(i) * 60 + 30
+                topMargin = CGFloat(i) * 60 + 35
                 htOfferView.constant = topMargin + 60
+                print("htOfferView = \(topMargin)")
 
-//                testView.frame = CGRectMake(0, topMargin, (vwOffer?.frame.size.width)!, 55)
+                summaryPageView.frame = CGRectMake(0, topMargin, (vwOffer?.frame.size.width)!, 55)
                 vwOffer?.addSubview(summaryPageView)
+                
+                summaryPageView.layer.borderColor = UIColor.whiteColor().CGColor
+                summaryPageView.layer.borderWidth = 2.0
 
-                summaryPageView.translatesAutoresizingMaskIntoConstraints = false
+//                summaryPageView.translatesAutoresizingMaskIntoConstraints = false
 
                 let topConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Top, relatedBy: .Equal, toItem: vwOffer!, attribute: .Top, multiplier: 1, constant: topMargin)
                 
                 let leadingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Leading, relatedBy: .Equal, toItem: vwOffer!, attribute: .Leading, multiplier: 1, constant: 0)
                 let trailingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Trailing, relatedBy: .Equal, toItem: vwOffer!, attribute: .Trailing, multiplier: 1, constant: 0)
                 let htConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 55)
-                vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
+//                vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
 
                 let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
                 
@@ -313,7 +316,6 @@ class SASavingSummaryViewController: UIViewController {
                 
                 let lblOfferDetail = summaryPageView.viewWithTag(3)! as! UILabel
                 lblOfferDetail.text = objDict["offDesc"] as? String
-                
                 
                 if let urlStr = objDict["offImage"] as? String
                 {
@@ -330,17 +332,23 @@ class SASavingSummaryViewController: UIViewController {
                             })
                         }
                     })
-                    
                 }
             }
             
-            htContentView.constant = htContentView.constant + htOfferView.constant
-            htDescriptionContentView.constant = htDescriptionContentView.constant + htOfferView.constant
+//            htDescriptionContentView.constant =  (vwSummary?.frame.origin.y)! + summaryViewHt.constant + htOfferView.constant + continueButtonBackgroundView.frame.size.height + 15
+           //            htDescriptionContentView.constant = htDescriptionContentView.constant + htOfferView.constant
 //            topSpaceForContinue.constant = CGFloat(arrOff.count * 55)
 //            topSpaceContonueView.constant = CGFloat(arrOff.count * 55)
             self.view.bringSubviewToFront(btnContinue!)
-            scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
+//            scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
         }
+        
+        htDescriptionContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)
+        
+        htContentView.constant = (vwUpper?.frame.size.height)! + htDescriptionContentView.constant  //htContentView.constant + htOfferView.constant
+
+        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant - 30)
+
         lblTitle.text = itemDataDict["title"] as? String
         if let amount = itemDataDict["amount"] as? String
         {
@@ -407,6 +415,7 @@ class SASavingSummaryViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
+//        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
     }
     
     /*
@@ -506,6 +515,7 @@ class SASavingSummaryViewController: UIViewController {
             red = 161/255
             green = 214/255
             blue = 248/255
+            
         }
         else if(colorDataDict["title"] as! String == "Wedding")
         {
@@ -515,9 +525,9 @@ class SASavingSummaryViewController: UIViewController {
         }
         else if(colorDataDict["title"] as! String == "Baby")
         {
-            red = 122/255
-            green = 223/255
-            blue = 172/255
+            red = 133/255
+            green = 227/255
+            blue = 177/255
         }
         else if(colorDataDict["title"] as! String == "Holiday")
         {
@@ -546,9 +556,10 @@ class SASavingSummaryViewController: UIViewController {
         else
         {
             red = 244/255
-            green = 176/255
+            green = 172/255
             blue = 58/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
+
 }

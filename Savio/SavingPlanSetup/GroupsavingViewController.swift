@@ -425,19 +425,10 @@
         NSUserDefaults.standardUserDefaults().setObject(participantsArr, forKey:"InviteGroupArray")
         NSUserDefaults.standardUserDefaults().synchronize()
         
-        var ht : CGFloat = 0.0
-        if(participantsArr.count == 0)
-        {
-            ht = 40 + CGFloat(participantsArr.count * 65)
-        }
-        else
-        {
-            ht = CGFloat(participantsArr.count * 65)
-        }
+        contentViewHt.constant = contentViewHt.constant + 40
+        tblViewHt.constant = tblViewHt.constant + 40
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + 40)
         
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
-        contentViewHt.constant = contentViewHt.constant + 35
-        tblViewHt.constant = tblViewHt.constant + 35
         tblView.reloadData()
     }
     
@@ -663,12 +654,23 @@
             
         else{
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
-            
+
+            if(indexPath.row  == (participantsArr.count - 1))
+            {
             let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
             let maskLayer: CAShapeLayer = CAShapeLayer()
             maskLayer.frame = cell1.bounds
             maskLayer.path = maskPath.CGPath
             cell1.layer.mask = maskLayer
+            }
+            else
+            {
+                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(0, 0))
+                let maskLayer: CAShapeLayer = CAShapeLayer()
+                maskLayer.frame = cell1.bounds
+                maskLayer.path = maskPath.CGPath
+                cell1.layer.mask = maskLayer
+            }
             
             if(participantsArr.count != 0)
             {
@@ -702,7 +704,9 @@
             
             self.participantsArr.removeAtIndex(sender.tag)
             
-            self.tblViewHt.constant = self.tblViewHt.constant - 35
+            self.contentViewHt.constant = self.contentViewHt.constant - 40
+            self.tblViewHt.constant = self.tblViewHt.constant - 40
+            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height - 40)
             self.tblView.reloadData()
             
             })
@@ -713,7 +717,7 @@
     {
         if(participantsArr.count == 7)
         {
-            self.displayAlert("You can't add more than 7 contacts into group saving plan")
+            self.displayAlert(" You can't add more than 7 contacts into group saving plan")
         }
         else
         {
@@ -985,26 +989,53 @@
             {
                 self.objAnimView.removeFromSuperview()
                 
+//                if(itemTitle == "")
+//                {
+//                    self.displayAlert("Please enter title for your saving plan")
+//                }
+//                else if(cost == 0 )
+//                {
+//                    self.displayAlert("Please enter amount for your saving plan")
+//                }
+//                else if(dateDiff == 0)
+//                {
+//                    self.displayAlert("Please select date for your saving plan")
+//                }
+//                else if(participantsArr.count == 0)
+//                {
+//                    self.displayAlert("You can not create group saving plan alone")
+//                }
+//                else
+//                {
+//                    self.displayAlert("Please enter all details")
+//                }
+                
+                
+                var array : Array<String> = []
+                self.objAnimView.removeFromSuperview()
+                
                 if(itemTitle == "")
                 {
-                    self.displayAlert("Please enter title for your saving plan")
+                    array.append("  Please enter title.")
+                    //self.displayAlert("Please enter title for your saving plan")
                 }
-                else if(cost == 0 )
+                if(cost == 0)
                 {
-                    self.displayAlert("Please enter amount for your saving plan")
+                    array.append("  Please enter amount.")
+                    //self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if(dateDiff == 0)
+                if(dateDiff == 0 )
                 {
-                    self.displayAlert("Please select date for your saving plan")
+                    array.append("  Please select date.")
+                    //self.displayAlert("Please select date for your saving plan")
                 }
-                else if(participantsArr.count == 0)
+                if(participantsArr.count == 0)
                 {
-                    self.displayAlert("You can not create group saving plan alone")
+                    array.append("  Please add atleast one contact.")
+                    //self.displayAlert("Please select monthly/weekly payment date")
                 }
-                else
-                {
-                    self.displayAlert("Please enter all details")
-                }
+                
+                self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
             }
         }
     }
@@ -1012,8 +1043,28 @@
     
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.headIndent = 10
+        paragraphStyle.alignment = NSTextAlignment.Left
+        
+        let messageText = NSMutableAttributedString(
+            string: message,
+            attributes: [
+                NSParagraphStyleAttributeName: paragraphStyle,
+                NSForegroundColorAttributeName : UIColor.blackColor()
+            ]
+        )
+        
+        let alert = UIAlertView(title: "Alert", message: "", delegate: nil, cancelButtonTitle: "Ok")
+        let label = UILabel()
+        label.sizeToFit()
+        label.attributedText = messageText
+        label.numberOfLines = 0
+        label.textAlignment = .Left
+        
+        alert.setValue(label, forKey: "accessoryView")
         alert.show()
+
     }
     func clearButtonPressed()
     {

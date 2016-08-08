@@ -109,20 +109,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var ht : CGFloat = 0.0
         if(isPopoverValueChanged)
         {
-            ht = 40 + CGFloat(offerArr.count * 90)
+            ht = 40 + CGFloat(offerArr.count * 65)
         }
         else
         {
-            ht = CGFloat(offerArr.count * 90)
+            ht = CGFloat(offerArr.count * 65)
         }
         
         if(isUpdatePlan)
         {
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
         }
         else
         {
-             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
         }
     }
     
@@ -687,7 +687,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else if ((dateDiff/168) == 0)
                     {
-                        cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+ 
+                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for 1 week",cost)
                     }
                     else
                     {
@@ -702,7 +703,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else if ((dateDiff/168)/4 == 0)
                     {
-                        cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                        let components: NSDateComponents = NSDateComponents()
+                        components.month = +1
+                        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
+                        
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        let timeDifference : NSTimeInterval = minDate.timeIntervalSinceDate(NSDate())
+                        
+                        dateDiff = Int(timeDifference/3600)
+                        
+                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else{
                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
@@ -722,6 +734,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                         else if ((dateDiff/168) == 0)
                         {
+                            
                             cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
                         }
                         else
@@ -826,7 +839,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
-     
+            
             
             if(isUpdatePlan)
             {
@@ -842,35 +855,35 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 if(isClearPressed)
                 {
-                     cell1.detailOfferLabel.hidden = true
+                    cell1.detailOfferLabel.hidden = true
                 }
                 else
                 {
-                if(isOfferDetailPressed == true)
-                {
-                    if(indexPath.section == offerDetailTag)
+                    if(isOfferDetailPressed == true)
                     {
-                        offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
-                        cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
-                        cell1.detailOfferLabel.hidden = false
-                        cell1.detailOfferLabel.text = dict["offDesc"] as? String
-                        cell1.offerDetailsButton.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
-                        cell1.offerDetailsButton.imageEdgeInsets = UIEdgeInsetsMake(0, (cell1.offerDetailsButton.titleLabel?.frame.size.width)!, 0,-(((cell1.offerDetailsButton.titleLabel?.frame.size.width)!+30)))
-                        
+                        if(indexPath.section == offerDetailTag)
+                        {
+                            offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                            cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                            cell1.detailOfferLabel.hidden = false
+                            cell1.detailOfferLabel.text = dict["offDesc"] as? String
+                            cell1.offerDetailsButton.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
+                            cell1.offerDetailsButton.imageEdgeInsets = UIEdgeInsetsMake(0, (cell1.offerDetailsButton.titleLabel?.frame.size.width)!, 0,-(((cell1.offerDetailsButton.titleLabel?.frame.size.width)!+30)))
+                            
+                        }
+                        else
+                        {
+                            cell1.detailOfferLabel.hidden = true
+                            
+                            
+                            
+                        }
                     }
                     else
                     {
                         cell1.detailOfferLabel.hidden = true
                         
-                        
-                        
                     }
-                }
-                else
-                {
-                    cell1.detailOfferLabel.hidden = true
-                    
-                }
                 }
                 
             }
@@ -908,21 +921,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func offerDetailsButtonPressed(sender:UIButton)
     {
-         isChangeSegment = true
+        
+        
+        let dict = offerArr[sender.tag - 5]
+
+        offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+        
+        isChangeSegment = true
         if(isOfferDetailPressed == true)
         {
             if(prevOfferDetailTag != sender.tag)
             {
+                let oldDict = offerArr[prevOfferDetailTag - 5]
+                let oldOfferDetailHeight = self.heightForView((oldDict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                
+                tblViewHt.constant = tblView.frame.size.height - oldOfferDetailHeight +  offerDetailHeight
+                
                 offerDetailTag = sender.tag
                 prevOfferDetailTag = offerDetailTag
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120) + offerDetailHeight
-                
                 
             }
             else
             {
                 isOfferDetailPressed = false
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120)
+                tblViewHt.constant = tblView.frame.size.height - (90 + offerDetailHeight)
+                scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width,scrlView.contentSize.height - (90 + offerDetailHeight))
+                
             }
         }
         else
@@ -931,10 +955,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isOfferDetailPressed = true
             offerDetailTag = sender.tag
             prevOfferDetailTag = offerDetailTag
-            tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 120) + offerDetailHeight
+            tblViewHt.constant = tblView.frame.size.height +  90 + offerDetailHeight
+            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width,scrlView.contentSize.height + 90 + offerDetailHeight)
             
         }
-        
         
         self.tblView.reloadData()
     }
@@ -997,7 +1021,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if(offerDetailTag == indexPath.section)
                     {
-                        return CGFloat(110 + offerDetailHeight)
+                        return CGFloat(120 + offerDetailHeight)
                     }
                     else
                     {
@@ -1025,9 +1049,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func getDateTextField(str: String) {
         popOverSelectedStr = str
+        if(isUpdatePlan)
+        {
+            if(isPopoverValueChanged == false)
+            {
+                tblViewHt.constant = tblView.frame.size.height  + 44
+            }
+            
+        }
+        else
+        {
+            tblViewHt.constant = tblView.frame.size.height  + 44
+        }
         isPopoverValueChanged = true
         
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 72) + 50
         scrlView.contentSize = CGSizeMake(0, tblViewHt.constant+300)
         tblView.reloadData()
     }
@@ -1070,7 +1105,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
-         
+                
                 self.itemTitle = ""
                 
                 self.isClearPressed = true
@@ -1081,10 +1116,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     self.itemDetailsDataDict.removeAll()
                 }
                 
+                self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
                 if self.offerArr.count>0{
                     self.offerArr.removeAll()
                 }
-                self.tblViewHt.constant = 600
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
@@ -1094,14 +1129,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 self.setUpView()
                 self.isDateChanged = false
-              self.isOfferDetailPressed = false
-                self.offerArr.removeAll()
-                self.offerArr = self.updateOfferArr
+                self.isOfferDetailPressed = false
+                
                 self.isClearPressed = true
-                self.tblViewHt.constant = 600 + CGFloat(self.offerArr.count * 90)
+                
+                let count = self.offerArr.count - self.updateOfferArr.count as Int
+                if(count > 0)
+                {
+                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
+                    self.offerArr.removeAll()
+                    self.offerArr = self.updateOfferArr
+                }
+                
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
+                
             }
             
             })
@@ -1139,19 +1182,40 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
-        if(itemDetailsDataDict["imageURL"] != nil && !(itemDetailsDataDict["imageURL"] is NSNull))
+        if let image = itemDetailsDataDict["imageURL"] as? String
         {
-            if (topBackgroundImageView.image != nil) {
-                let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                let newDict = ["imageName.jpg":base64String]
-                
-                parameterDict["IMAGE"] = newDict
+            if(image != "")
+            {
+                if (topBackgroundImageView.image != nil) {
+                    let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    let newDict = ["imageName.jpg":base64String]
+                    
+                    parameterDict["IMAGE"] = newDict
+                }
+                else{
+                    let newDict = ["imageName.jpg":""]
+                    parameterDict["IMAGE"] = newDict
+                }
             }
-            else{
-                let newDict = ["imageName.jpg":""]
-                parameterDict["IMAGE"] = newDict
+        }
+        else if let image = itemDetailsDataDict["image"] as? String
+        {
+            if(image != "")
+            {
+                if (topBackgroundImageView.image != nil) {
+                    let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                    let newDict = ["imageName.jpg":base64String]
+                    
+                    parameterDict["IMAGE"] = newDict
+                }
+                else{
+                    let newDict = ["imageName.jpg":""]
+                    parameterDict["IMAGE"] = newDict
+                }
             }
+            
         }
         else  if(isImageClicked)
         {
@@ -1235,6 +1299,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func nextButtonPressed(sender:UIButton)
     {
+        var dict : Dictionary<String,String> = [:]
+        dict["title"] = itemTitle
+        dict["cost"] = String(format:"%d",cost)
+        dict["dateDiff"] = String(format:"%d",dateDiff)
+        dict["datePickerDate"] = datePickerDate
+        
         if isOfferShow == false {
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
@@ -1354,34 +1424,44 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else
             {
+                
+                
+                var array : Array<String> = []
                 self.objAnimView.removeFromSuperview()
                 
                 if(itemTitle == "")
                 {
-                    self.displayAlert("Please enter title for your saving plan")
+                    array.append("  Please enter title.")
+                    //self.displayAlert("Please enter title for your saving plan")
                 }
-                else if(cost == 0)
+                if(cost == 0)
                 {
-                    self.displayAlert("Please enter amount for your saving plan")
+                    array.append("  Please enter amount.")
+                    //self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if(dateDiff == 0 )
+                if(dateDiff == 0 )
                 {
-                    self.displayAlert("Please select date for your saving plan")
+                    array.append("  Please select date.")
+                    //self.displayAlert("Please select date for your saving plan")
                 }
-                else if(datePickerDate == "")
+                if(datePickerDate == "")
                 {
-                    self.displayAlert("Please select monthly/weekly payment date")
+                    array.append("  Please select monthly/weekly payment date.")
+                    //self.displayAlert("Please select monthly/weekly payment date")
                 }
-                else
-                {
-                    self.displayAlert("Please enter all details")
-                }
+                
+                self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
             }
         }
         else {
             
             let obj = SAOfferListViewController()
-            isOfferDetailPressed = false
+            if(isOfferDetailPressed)
+            {
+                isOfferDetailPressed = false
+                tblViewHt.constant = tblView.frame.size.height - (90 + offerDetailHeight)
+                scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width,scrlView.contentSize.height - (90 + offerDetailHeight))
+            }
             obj.delegate = self
             
             if(isUpdatePlan)
@@ -1404,16 +1484,64 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func displayAlert(message:String)
     {
-        let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.headIndent = 10
+        paragraphStyle.alignment = NSTextAlignment.Left
+        
+        let messageText = NSMutableAttributedString(
+            string: message,
+            attributes: [
+                NSParagraphStyleAttributeName: paragraphStyle,
+                NSForegroundColorAttributeName : UIColor.blackColor()
+            ]
+        )
+        
+        let alert = UIAlertView(title: "Alert", message: "", delegate: nil, cancelButtonTitle: "Ok")
+        let label = UILabel()
+        label.sizeToFit()
+        label.attributedText = messageText
+        label.numberOfLines = 0
+        label.textAlignment = .Left
+        
+        alert.setValue(label, forKey: "accessoryView")
         alert.show()
     }
     
     func closeOfferButtonPressed(sender:UIButton)
     {
         let indx = sender.tag - 5
+        
+        if(isUpdatePlan)
+        {
+            if(isOfferDetailPressed)
+            {
+                if(indx != offerDetailTag - 5)
+                {
+                    let dict = offerArr[offerDetailTag - 5]
+                    
+                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                      tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
+                }
+                else
+                {
+                    let dict = offerArr[sender.tag - 5]
+                    
+                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
+                }
+            }
+            else
+            {
+                tblViewHt.constant =  tblView.frame.size.height - 90
+            }
+            isOfferDetailPressed = false
+        }
+        else
+        {
+            tblViewHt.constant =  tblView.frame.size.height - 80
+        }
         offerArr.removeAtIndex(indx)
-        tblViewHt.constant =  tblView.frame.size.height + CGFloat(offerArr.count * 90)
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant )
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
         tblView.reloadData()
     }
     
@@ -1425,14 +1553,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             isDateChanged = true
             tblView.reloadData()
-            //            tblView.beginUpdates()
-            //            let indexPathSections = NSMutableIndexSet()
-            //            indexPathSections.addIndex(1)
-            //            indexPathSections.addIndex(4)
-            //            tblView.reloadSections(indexPathSections, withRowAnimation: .None)
-            //           tblView.endUpdates()
-            
-            
+        }
+        else
+        {
+            isPopoverValueChanged = true
+            tblView.reloadData()
         }
         
     }
@@ -1482,7 +1607,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 itemDetailsDataDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 isPopoverValueChanged = true
-             
+                
                 cameraButton.backgroundColor = UIColor.blackColor()
                 cameraButton.alpha = 0.5
                 cameraButton.layer.cornerRadius = cameraButton.frame.size.width/2
@@ -1541,7 +1666,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 updateOfferArr = offerArr
                 tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 90) + 120
-               // scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant)
+                // scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant)
                 tblView.reloadData()
             }
             else
@@ -1726,7 +1851,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: Offer delegate methods
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>){
         offerArr.append(offerForSaveArr)
-        tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 72)
+        
+        if(isUpdatePlan)
+        {
+            tblViewHt.constant = tblView.frame.size.height + 120
+        }
+        else
+        {
+            tblViewHt.constant = tblView.frame.size.height + 80
+        }
         tblView.reloadData()
         isOfferShow = false
     }

@@ -163,13 +163,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func setUpView(){
-        
-        spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/2)
-        spinner.hidesWhenStopped = true
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.view.addSubview(spinner)
-        spinner.startAnimating()
-        
+ 
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
         
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -215,7 +209,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             pieChartSliceArray.append(error)
         }
         
-        if(pieChartSliceArray.count < 8)
+        if(pieChartSliceArray.count <= 8)
         {
             var error = Piechart.Slice()
             error.value = 360.0 - CGFloat(pieChartSliceArray.count)
@@ -263,8 +257,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.hidden = true
                 labelFive.hidden = true
                 circularView.hidden = true
-                
-                
+
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
@@ -296,6 +289,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     piechart?.radius.inner = horizontalScrollView.frame.width - 275
                     imgView.frame = CGRectMake(87,53,240,240)
                 }
+                
+                spinner.center = CGPointMake(imgView.frame.size.width/2, imgView.frame.size.height/2)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                imgView.addSubview(spinner)
+                spinner.startAnimating()
           
                 piechart!.delegate = self
                 
@@ -379,7 +378,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFive.hidden = true
                 labelSix.hidden = true
                 
-                let text = String(format: "%d",totalAmount)
+                let text = String(format: "%d",paidAmount)
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
                 let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)

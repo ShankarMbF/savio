@@ -40,7 +40,6 @@ class ContactViewController: UIViewController {
         if (contactDict["mobileNum"] != nil && contactDict["email"] != nil) {
             count = 3
         }
-        
         return count;
     }
     

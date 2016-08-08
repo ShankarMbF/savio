@@ -17,6 +17,7 @@
                 <outlet property="contentView" destination="hb0-2Z-sAF" id="2ei-nj-nkk"/>
                 <outlet property="contentViewHt" destination="p6B-Yr-N05" id="v1q-Ai-4rE"/>
                 <outlet property="scrlView" destination="Ibo-dK-tSI" id="gqD-F0-5b7"/>
+                <outlet property="spinner" destination="UIb-1l-X1j" id="PHM-y7-SbC"/>
                 <outlet property="tblView" destination="pUz-dl-sOh" id="T7J-Dw-R12"/>
                 <outlet property="tblViewHt" destination="dyN-JQ-byi" id="GHc-xI-gAs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -94,15 +95,25 @@
                                         <outlet property="delegate" destination="-1" id="K2e-xJ-t1y"/>
                                     </connections>
                                 </tableView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="UIb-1l-X1j">
+                                    <rect key="frame" x="290" y="55" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="1Ph-pz-ZCf"/>
+                                        <constraint firstAttribute="height" constant="20" id="ERE-OF-SK0"/>
+                                    </constraints>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="pUz-dl-sOh" firstAttribute="leading" secondItem="hb0-2Z-sAF" secondAttribute="leading" id="1zi-LP-J31"/>
+                                <constraint firstItem="pUz-dl-sOh" firstAttribute="top" secondItem="UIb-1l-X1j" secondAttribute="bottom" constant="55" id="C6b-NA-s4i"/>
                                 <constraint firstItem="hgs-bl-kqO" firstAttribute="centerX" secondItem="hb0-2Z-sAF" secondAttribute="centerX" id="Dr9-a3-mih"/>
                                 <constraint firstAttribute="height" constant="600" id="NzJ-LW-h1X"/>
+                                <constraint firstItem="UIb-1l-X1j" firstAttribute="top" secondItem="hb0-2Z-sAF" secondAttribute="top" constant="55" id="UTL-zh-T89"/>
                                 <constraint firstItem="hgs-bl-kqO" firstAttribute="top" secondItem="hb0-2Z-sAF" secondAttribute="top" constant="20" id="bGz-6Y-w32"/>
                                 <constraint firstItem="pUz-dl-sOh" firstAttribute="top" secondItem="hgs-bl-kqO" secondAttribute="bottom" constant="19" id="bem-po-GD1"/>
                                 <constraint firstAttribute="height" constant="700" id="p6B-Yr-N05"/>
+                                <constraint firstItem="UIb-1l-X1j" firstAttribute="centerX" secondItem="hb0-2Z-sAF" secondAttribute="centerX" id="zSl-aP-aEW"/>
                                 <constraint firstItem="hgs-bl-kqO" firstAttribute="centerX" secondItem="pUz-dl-sOh" secondAttribute="centerX" id="zUg-vU-lzc"/>
                             </constraints>
                             <variation key="default">

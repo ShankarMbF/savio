@@ -538,7 +538,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         }
         
         tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count+5))
-        scrlView.contentSize = CGSizeMake(0, CGFloat(35 * (arrRegistrationFields.count+5)))
+        let height: CGFloat = 35 * (CGFloat(arrRegistrationFields.count) + 5 ) + 130
+        scrlView.contentSize = CGSizeMake(0, height)
         
         tblView.reloadData()
     }

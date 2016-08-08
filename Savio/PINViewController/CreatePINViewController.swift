@@ -180,8 +180,11 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
 
         NSUserDefaults.standardUserDefaults().setObject(passcode, forKey: "pin")
         NSUserDefaults.standardUserDefaults().synchronize()
-        if(objResponse["message"] as! String == "Your PIN is updated Sucessfully")
+        
+        if let message = objResponse["message"] as? String
         {
+            if(message == "Your PIN is updated Sucessfully")
+            {
             objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
  
             headerLabel.text = "Your passcode has been reset"
@@ -191,6 +194,12 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             self.lblConfirmPasscode.hidden = true
             self.confirmPasscodeView.hidden = true
             self.passcodeView.hidden = true
+            }
+        }
+        else if let internalMessage = objResponse["internalMessage"] as? String
+        {
+            let alert = UIAlertView(title: "Warning", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         
     }
@@ -252,7 +261,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         textField.layer.borderWidth = borderWidth
         textField.layer.cornerRadius = cornerRadius
         textField.layer.masksToBounds = true
-        textField.addTarget(self, action: #selector(CreatePINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textField.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
         textField.keyboardType = UIKeyboardType.NumberPad
         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
 
@@ -320,8 +329,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){

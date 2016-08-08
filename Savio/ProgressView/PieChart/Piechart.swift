@@ -98,7 +98,7 @@ public class Piechart: UIControl {
             
             // create center donut hole
             let innerPath = UIBezierPath()
-            innerPath.moveToPoint(center)
+            //innerPath.moveToPoint(center)
             
             if index == activeSlice {
                 path.addArcWithCenter(center, radius: radius.outer + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)

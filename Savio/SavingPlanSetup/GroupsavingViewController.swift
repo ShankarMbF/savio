@@ -943,7 +943,7 @@
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
-        self.view.addSubview(self.objAnimView)
+        self.navigationController!.view.addSubview(self.objAnimView)
         
         if(isFromWishList)
         {

@@ -64,7 +64,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
+        
         tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
@@ -233,6 +233,53 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
             self.cameraButton.hidden = false
+        }
+        
+        if(isUpdatePlan)
+        {
+            if(isClearPressed)
+            {
+                
+                let spinner =  UIActivityIndicatorView()
+                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, (self.topBackgroundImageView.frame.size.height/2)+20)
+                spinner.hidesWhenStopped = true
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                self.topBackgroundImageView.addSubview(spinner)
+                spinner.startAnimating()
+                
+                if !(itemDetailsDataDict["image"] is NSNull) {
+                    if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
+                    {
+                        
+                        let request: NSURLRequest = NSURLRequest(URL: url)
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            if(data?.length > 0)
+                            {
+                                let image = UIImage(data: data!)
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    spinner.stopAnimating()
+                                    spinner.hidden = true
+                                    self.topBackgroundImageView.image = image
+                                    
+                                })
+                            }
+                            else
+                            {
+                                spinner.stopAnimating()
+                                spinner.hidden = true
+                            }
+                        })
+                        
+                        
+                    }
+                }
+                else {
+                    spinner.stopAnimating()
+                    spinner.hidden = true
+                }
+                
+            }
+            
         }
         
     }
@@ -687,7 +734,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else if ((dateDiff/168) == 0)
                     {
- 
+                        
                         cell1.calculationLabel.text = String(format: "You will need to save £%d per week for 1 week",cost)
                     }
                     else
@@ -714,7 +761,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         
                         dateDiff = Int(timeDifference/3600)
                         
-                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else{
                         cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
@@ -924,7 +971,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         
         let dict = offerArr[sender.tag - 5]
-
+        
         offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
         
         isChangeSegment = true
@@ -1127,12 +1174,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else
             {
-                self.setUpView()
                 self.isDateChanged = false
                 self.isOfferDetailPressed = false
                 
                 self.isClearPressed = true
-                
+                self.setUpView()
+
                 let count = self.offerArr.count - self.updateOfferArr.count as Int
                 if(count > 0)
                 {
@@ -1309,7 +1356,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
-            self.view.addSubview(self.objAnimView)
+            self.navigationController?.view.addSubview(self.objAnimView)
             
             
             if(itemTitle != "" && self.getParameters()["AMOUNT"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && isPopoverValueChanged == true)
@@ -1520,14 +1567,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     let dict = offerArr[offerDetailTag - 5]
                     
                     offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
-                      tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
+                    tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
                 }
                 else
                 {
                     let dict = offerArr[sender.tag - 5]
                     
                     offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
-                tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
+                    tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
                 }
             }
             else

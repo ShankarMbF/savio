@@ -55,7 +55,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-        self.view.addSubview(objAnimView)
+        self.navigationController!.view.addSubview(objAnimView)
         
         let objAPI = API()
         

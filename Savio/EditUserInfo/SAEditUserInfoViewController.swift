@@ -58,7 +58,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView!.frame = self.view.frame
         objAnimView!.animate()
         
-        self.view.addSubview(objAnimView!)
+        self.navigationController!.view.addSubview(objAnimView!)
         
         let objAPI = API()
         objAPI.getUserInfoDelegate = self
@@ -650,8 +650,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             dictForTextFieldValue.updateValue((titleCell.tfTitle?.text)!, forKey: "title")
         }
         if titleCell.tfName?.text?.characters.count>0{
-            dictForTextFieldValue.updateValue((titleCell.tfName?.text)!, forKey: "name")
-            userInfoDict.updateValue((titleCell.tfName?.text)!, forKey: "first_name")
+            dictForTextFieldValue.updateValue((titleCell.prevName), forKey: "name")
+            userInfoDict.updateValue((titleCell.prevName), forKey: "first_name")
         }
         print("\(dictForTextFieldValue)")
     }
@@ -789,7 +789,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
                 objAnimView?.animate()
-                self.view.addSubview(objAnimView!)
+                self.navigationController!.view.addSubview(objAnimView!)
 
                
                 

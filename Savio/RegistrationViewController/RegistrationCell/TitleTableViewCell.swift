@@ -20,6 +20,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
      var delegate: TitleTableViewCellDelegate?
     weak var dict: NSDictionary?
     let dropDown = DropDown()
+    var prevName = ""
 
     
     override func awakeFromNib() {
@@ -99,7 +100,8 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
-        
+        prevName = (tfName?.text)!
+          self.delegate?.titleCellText(self)
         let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
@@ -112,11 +114,13 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             self.showOrDismiss()
             return false
         }
+        
         self.registerForKeyboardNotifications()
         return true
     }
     func textFieldDidEndEditing(textField: UITextField){
         self.removeKeyboardNotification()
+        prevName = textField.text!
         self.delegate?.titleCellText(self)
     }
 //    func textFieldShouldEndEditing(textField: UITextField) -> Bool{
@@ -126,6 +130,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
 //    }
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+          prevName = textField.text!
         self.delegate?.titleCellText(self)
         return true
     }
@@ -140,6 +145,9 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             if (newLength > 50) {
                 return false;
             }
+             let firstName = textField.text! + string
+            prevName = firstName
+            self.delegate?.titleCellText(self)
         }
         
         return true;

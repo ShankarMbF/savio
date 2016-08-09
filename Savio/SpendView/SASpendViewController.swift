@@ -108,7 +108,6 @@ class SASpendViewController: UIViewController {
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -127,7 +126,7 @@ class SASpendViewController: UIViewController {
         
         let obj = SAOfferListViewController()
         obj.savID = 63
-        obj.hideAddOfferButton = true
+        obj.hideAddOfferButton = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
 

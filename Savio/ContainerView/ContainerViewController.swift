@@ -146,9 +146,7 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             self.centreVC = obj
-            
             self.replaceViewController()
-            
             
         case "SASettingsViewController":
             self.centreVC = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)

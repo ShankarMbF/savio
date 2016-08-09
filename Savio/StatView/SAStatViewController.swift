@@ -43,19 +43,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        
-        //        label.text = itemTitle
-        //        label.font = UIFont(name: "GothamRounded-Book", size: 16)
-        //        label.translatesAutoresizingMaskIntoConstraints = false
-        //        label.textAlignment = NSTextAlignment.Center
-        //        self.contentView!.addSubview(label)
         lineChart = LineChart()
         lineChart.planTitle = self.planType
 
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
         
-        let data: [CGFloat] = [0,600,600,-1,-1]
+        let data: [CGFloat] = [0,600,600-1,-1]
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1","2","3","4","5"]
@@ -75,6 +69,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.x.grid.color = UIColor.grayColor()
         lineChart.y.grid.count = CGFloat(xLabels.count)
         lineChart.y.grid.color = UIColor.grayColor()
+        lineChart.scrollViewReference = self.scrollViewForGraph
         
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
@@ -113,6 +108,19 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
     }
     
+    func scrollLineDragged(xValue: CGFloat) {
+        let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
+        let widthOfContentView: CGFloat = self.widthOfContentView.constant
+        if widthOfContentView > widthScrollView {
+            let fraction: CGFloat = (widthOfContentView - widthScrollView) / CGFloat (self.graphSliderView.maximumValue)
+            if xValue <= CGFloat(self.graphSliderView.minimumValue) {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
+            } else {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(xValue) * fraction ), y: 0  )
+            }
+        }
+    }
+
     @IBAction func graphSliderValueChanged(sender: UISlider) {
         let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
         let widthOfContentView: CGFloat = self.widthOfContentView.constant

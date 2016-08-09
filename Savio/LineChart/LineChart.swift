@@ -5,6 +5,7 @@ import QuartzCore
 public protocol LineChartDelegate {
     func didSelectDataPoint(x: CGFloat, yValues: [CGFloat])
     func setValuesForSlider(min: CGFloat, max: CGFloat)
+    func scrollLineDragged(x: CGFloat)
 }
 
 /**
@@ -139,6 +140,7 @@ public class LineChart: UIView {
     public var graphHeight: CGFloat = 0
     public var maximumValue: CGFloat = 0
     public var minimumValue: CGFloat = 0
+    var scrollViewReference: UIScrollView  = UIScrollView()
     
     // values calculated on init
     private var drawingHeight: CGFloat = 0 {
@@ -316,20 +318,20 @@ public class LineChart: UIView {
     /**
      * Listen on touch end event.
      */
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        handleTouchEvents(touches, event: event!)
-    }
+//    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        handleTouchEvents(touches, event: event!)
+//    }
     
     
     
     /**
      * Listen on touch move event
      */
-    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        handleTouchEvents(touches, event: event!)
-    }
-    
+//    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        
+//        handleTouchEvents(touches, event: event!)
+//    }
+//    
     
     
     /**
@@ -420,10 +422,48 @@ public class LineChart: UIView {
     let widthOfScrollingLineView: CGFloat = 34.0
 
     let progress = KDCircularProgress(frame: CGRect(x:  0, y: -17.0, width: 34, height: 34))
-    func drawScrollLineForPoint(a1: CGFloat) {
+    
+    
+    func scrollLineMoved(gesture: UIPanGestureRecognizer) {
+        let  transalation = gesture.locationInView(self)
+        if  CGFloat(transalation.x) >= x.axis.inset && CGFloat(transalation.x) <=  self.drawingWidth + x.axis.inset {
+            self.delegate?.scrollLineDragged(transalation.x)
+            moveScrollLineForPoint(CGFloat(transalation.x))
+            let xValue = CGFloat(transalation.x)
+            let inverted = self.x.invert(xValue - x.axis.inset)
+            let rounded = Int(round(Double(inverted)))
+            setProgressForCircularFloatingProgressBar(rounded)
+            let yValues: [CGFloat] = getYValuesForXValue(rounded)
+            let firstValue = yValues.first
+            if firstValue >= 0 {
+                let stringValue: String = String.init(format: "%.0f", firstValue!)
+                self.valueLabel.text = stringValue
+            }
+        }
+
+    
+        print(transalation.x)
+    }
+    
+    func drawSliderTrack() {
+        let myInsets : UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        let trackImage = UIImage(named: "stats-slider-bar")?.resizableImageWithCapInsets(myInsets)
+        let width = self.frame.size.width - 2 * x.axis.inset
         
-        graphView = UIView(frame: CGRect(x: a1 - widthOfScrollingLineView / 2.0, y: x.axis.inset, width: 40, height: self.drawingHeight ))
+        let trackImageView = UIImageView(frame: CGRect(x: x.axis.inset, y: self.frame.size.height , width: width, height: 4))
+        trackImageView.image = trackImage
+        self.addSubview(trackImageView)
+        
+
+    }
+    
+    func drawScrollLineForPoint(a1: CGFloat) {
+        //add track images
+        self.drawSliderTrack()
+
+        graphView = UIView(frame: CGRect(x: a1 - widthOfScrollingLineView / 2.0, y: x.axis.inset, width: 40, height: self.frame.size.height ))
         graphView.backgroundColor = UIColor.clearColor()
+        
         let data = self.dataStore[0]
 
         
@@ -437,11 +477,19 @@ public class LineChart: UIView {
         self.valueLabel.text = stringValue
         self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 7)
         self.valueLabel.textAlignment = .Center
-        let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.drawingHeight))
+        
+        //draw line
+        let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.frame.size.height - 30))
         line.backgroundColor = self.colorGraphScrollLine
         graphView.addSubview(line)
         self.addSubview(graphView)
         
+        //draw thumbImage 
+        let thumbImage = UIImage(named: "generic-stats-slider-tab")
+        let thumbImgView = UIImageView(frame: CGRect(x: 14, y: self.frame.size.height - 32.0, width: 8, height: 9))
+        thumbImgView.image = thumbImage
+        graphView.addSubview(thumbImgView)
+
 
         //white center view
         let cvRadius: CGFloat = 12.5
@@ -452,6 +500,8 @@ public class LineChart: UIView {
         centerView.backgroundColor = UIColor.whiteColor()
         progress.addSubview(centerView)
 
+        
+        
         //image view
         let imgHeight: CGFloat = 7
         let imageView: UIImageView = UIImageView(frame: CGRect(x: (widthOfScrollingLineView - imgHeight) / 2, y: imgHeight, width: imgHeight, height: imgHeight))
@@ -471,6 +521,13 @@ public class LineChart: UIView {
         graphView.addSubview(progress)
         progress.addSubview(valueLabel)
 
+        
+        // add getsture recogniszer
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.scrollLineMoved(_:) ))
+        graphView.addGestureRecognizer(gesture)
+     
+        
+        
     }
     
     func circlePathWithCenter(center: CGPoint, radius: CGFloat) -> UIBezierPath {
@@ -484,7 +541,7 @@ public class LineChart: UIView {
     }
 
      func moveScrollLineForPoint(a1: CGFloat) {
-        graphView.frame = CGRect(x: a1 - widthOfScrollingLineView / 2, y: x.axis.inset, width: 20, height: self.drawingHeight)
+        graphView.frame = CGRect(x: a1 - widthOfScrollingLineView / 2, y: x.axis.inset, width: self.graphView.frame.width, height: self.frame.size.height)
     }
 
     /**

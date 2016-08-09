@@ -91,15 +91,15 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     @IBAction func btnContinueClicked(sender: AnyObject) {
-        if(isUpdatePlan)
-        {
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is updated successfully", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        
+        let str = itemDataDict["planType"] as! String
+        if str == "group" {
+            let objGroupProgress = SAGroupProgressViewController()
+            self.navigationController?.pushViewController(objGroupProgress, animated: true)
         }
-        else
-        {
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        else {
+            let objProgress = SAProgressViewController()
+            self.navigationController?.pushViewController(objProgress, animated: true)
         }
     }
     

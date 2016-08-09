@@ -748,8 +748,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 if(message == "Party Saving Plan is succesfully added")
                 {
-                    let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
+//                    let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
+//                    alert.show()
                     
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
@@ -768,7 +768,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     //                    }
                     //                    objSummaryview.itemDataDict = newDict
                     //                    self.navigationController?.pushViewController(objSummaryview, animated: true)
-                    
+                    let objGroupProgress = SAGroupProgressViewController()
+                    self.navigationController?.pushViewController(objGroupProgress, animated: true)
                     objAnimView.removeFromSuperview()
                 }
                 else {
@@ -835,7 +836,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
                 
-                let objSummaryview = SASavingSummaryViewController()
                 var newDict : Dictionary<String,AnyObject> = [:]
                 
                 newDict["title"] = self.getParameters()["TITLE"]
@@ -876,6 +876,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 else{
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
                 }
+                    newDict["planType"] = "group"
+                
                 let objSummaryView = SASavingSummaryViewController()
                 objSummaryView.itemDataDict =  newDict
                 self.navigationController?.pushViewController(objSummaryView, animated: true)

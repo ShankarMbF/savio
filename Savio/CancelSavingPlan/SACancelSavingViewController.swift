@@ -59,6 +59,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
         self.title = "Update saving plan"
         
         
@@ -137,7 +138,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
-        self.view.addSubview(self.objAnimView)
+        self.navigationController!.view.addSubview(self.objAnimView)
 
         let objAPI = API()
    

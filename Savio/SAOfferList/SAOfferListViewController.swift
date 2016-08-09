@@ -48,6 +48,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
+
         //set Navigation left button
         
         if(hideAddOfferButton)
@@ -258,11 +260,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                     
                     cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
                     cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
-//                    attributedString = NSAttributedString(string: "Offer details ^", attributes: attributes)
-//                    if let str1 = cellDict!["offDesc"] as? String  {
-//                    str = str1
-//                    ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
-//                    }
+                    if let str1 = cellDict!["offDesc"] as? String  {
+                    str = str1
+                    ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
+                    }
                 }
                 else{
                     str = ""

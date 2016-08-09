@@ -46,6 +46,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
+
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         tblView?.separatorInset = UIEdgeInsetsZero
         self.setUpView()

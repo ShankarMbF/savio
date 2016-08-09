@@ -69,7 +69,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        
+        self.navigationController?.navigationBar.translucent = false
+
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)

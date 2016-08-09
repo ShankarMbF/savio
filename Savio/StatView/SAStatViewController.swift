@@ -168,6 +168,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
+
         self.title = "My Plan"
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         

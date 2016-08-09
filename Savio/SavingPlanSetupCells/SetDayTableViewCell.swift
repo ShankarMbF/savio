@@ -140,13 +140,6 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     func cancelBarButtonPressed(){
         dayDateTextField.resignFirstResponder()
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDelegate(self)
-        UIView.setAnimationDuration(0.5)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        view!.frame = CGRectMake(view!.frame.origin.x, 0, view!.frame.size.width, view!.frame.size.height)
-        UIView.commitAnimations()
-        
     }
     
     
@@ -346,28 +339,39 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        print(view?.contentOffset)
-        var y : CGFloat = 0.0
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            y = 250
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            y = 220
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 667)
-        {
-            y = 120
-        }
-        dayPickerView.selectRow(0, inComponent: 0, animated: true)
-   
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDelegate(self)
-        UIView.setAnimationDuration(0.5)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y - CGFloat(y) ), view!.frame.size.width, view!.frame.size.height)
-        UIView.commitAnimations()
+        self.registerForKeyboardNotifications()
         return true
     }
+    
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    var lastOffset: CGPoint?
+    //Keyboard notification function
+    @objc func keyboardWasShown(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        //        let visibleRect = CGRect(x: 0, y: 0, width:  UIScreen.mainScreen().bounds.width, height: height)
+        lastOffset = (view?.contentOffset)!
+        let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
+        
+        let yOfTextField = dayDateTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
+        if (yOfTextField - (lastOffset?.y)!) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            view?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
+        }
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        view?.setContentOffset(lastOffset!, animated: true)
+    }
+    
 }

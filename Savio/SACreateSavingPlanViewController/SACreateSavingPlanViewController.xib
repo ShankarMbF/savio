@@ -7,6 +7,7 @@
     <customFonts key="customFonts">
         <mutableArray key="gotham-rounded-book-2.otf">
             <string>GothamRounded-Book</string>
+            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -74,6 +75,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="NeU-Gg-880"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                                             <state key="normal" title="See wish list items">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             </state>

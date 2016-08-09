@@ -672,7 +672,7 @@ class API: UIView,NSURLSessionDelegate {
                     //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        // print(dict)
+                         print(dict)
                         
                         if(dict["errorCode"] as! String == "200")
                         {

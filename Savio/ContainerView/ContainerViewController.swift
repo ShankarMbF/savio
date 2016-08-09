@@ -41,6 +41,7 @@ class ContainerViewController: UIViewController {
         self.navController.view.frame = self.view.frame
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
         //        self.navController.navigationBar.hidden = true
         
         self.view.addSubview(self.menuVC!.view)
@@ -171,6 +172,7 @@ class ContainerViewController: UIViewController {
         //self.navController.navigationBar.hidden = true
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
         self.navController.view.frame = self.view.frame
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)

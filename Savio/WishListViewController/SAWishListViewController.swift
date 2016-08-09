@@ -21,7 +21,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         self.wishListAPI()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        
+        self.navigationController?.navigationBar.translucent = false
+
         // Do any additional setup after loading the view.
     }
     

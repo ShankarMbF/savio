@@ -26,6 +26,8 @@ var wishListArray : Array<Dictionary<String,AnyObject>> = []
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = false
+
         self.title = "Settings"
      
         

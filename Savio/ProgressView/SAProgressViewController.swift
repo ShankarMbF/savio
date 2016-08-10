@@ -183,7 +183,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             
              let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
-  
+           activityIndicator.hidden = false
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
@@ -206,6 +206,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                         }
                     })
                 }
+                else {
+                    activityIndicator.stopAnimating()
+                    activityIndicator.hidden = true
+                }
             }
             else {
                 activityIndicator.stopAnimating()
@@ -221,7 +225,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelTwo.hidden = true
                 imgView.hidden = false
                 imgView.layer.cornerRadius = imgView.frame.width/2
-                activityIndicator.hidden = false
+                
                
             }
             else if(i == 1)

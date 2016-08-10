@@ -43,15 +43,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        
- self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         lineChart = LineChart()
         lineChart.planTitle = self.planType
 
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
         
-        let data: [CGFloat] = [0,600,600,-1,-1]
+        let data: [CGFloat] = [0,600,600-1,-1]
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1","2","3","4","5"]
@@ -71,6 +69,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.x.grid.color = UIColor.grayColor()
         lineChart.y.grid.count = CGFloat(xLabels.count)
         lineChart.y.grid.color = UIColor.grayColor()
+        lineChart.scrollViewReference = self.scrollViewForGraph
         
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
@@ -82,46 +81,25 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-        if planType == "Individual" {
-        GraphContentView.backgroundColor = UIColor(red: 252/255,green:246/255,blue:236/255,alpha:1)
-    }
-        else{
-             GraphContentView.backgroundColor = UIColor(red: 239/255,green:247/255,blue:253/255,alpha:1)
-        }
+
+        
+        
     }
     
-    // MARK: - Delegates and functions for  line chart
-    func setValuesForSlider(min: CGFloat, max: CGFloat) {
-        self.graphSliderView.maximumValue = Float(max)
-        self.graphSliderView.minimumValue = Float(min)
-        self.lineChart.drawScrollLineForPoint(min)
-        let myInsets : UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        let trackImage = UIImage(named: "stats-slider-bar")?.resizableImageWithCapInsets(myInsets)
-        self.graphSliderView.setMinimumTrackImage(trackImage, forState: UIControlState.Normal)
-        self.graphSliderView.setMaximumTrackImage(trackImage, forState: .Normal)
+    func chartVerticalLineDrawingCompleted() {
         if planType == "Individual" {
-            self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
+            GraphContentView.backgroundColor = UIColor(red: 252/255,green:246/255,blue:236/255,alpha:1)
+            lineChart.thumbImgView.image = UIImage(named: "generic-stats-slider-tab")
+            lineChart.graphMovingVerticalLine.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         }
         else{
-            self.graphSliderView.setThumbImage(UIImage(named: "group-save-stats-slider-tab"), forState: UIControlState.Normal)
+            GraphContentView.backgroundColor = UIColor(red: 239/255,green:247/255,blue:253/255,alpha:1)
+            lineChart.thumbImgView.image = UIImage(named: "group-save-stats-slider-tab")
+            lineChart.graphMovingVerticalLine.backgroundColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
         }
-//        self.graphSliderView.setThumbImage(UIImage(named: "generic-stats-slider-tab"), forState: UIControlState.Normal)
-        self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(self.graphSliderView.minimumValue) / 2.0 ), y: 0  )
+
     }
-    
-    @IBAction func graphSliderValueChanged(sender: UISlider) {
-        let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
-        let widthOfContentView: CGFloat = self.widthOfContentView.constant
-        if widthOfContentView > widthScrollView {
-            let fraction: CGFloat = (widthOfContentView - widthScrollView) / CGFloat (self.graphSliderView.maximumValue)
-            if sender.value <= self.graphSliderView.minimumValue {
-                self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
-            } else {
-                self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(sender.value) * fraction ), y: 0  )
-            }
-        }
-        self.lineChart.sliderValueChanged(sender)
-    }
+
     
     //MARK: -
     

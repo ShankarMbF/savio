@@ -124,7 +124,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsX-Nh-UJc">
                     <rect key="frame" x="0.0" y="417" width="600" height="130"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your achievements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftd-KB-sgJ">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your achievements" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftd-KB-sgJ">
                             <rect key="frame" x="220" y="0.0" width="160" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="aFh-fL-neY"/>
@@ -251,7 +251,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3pJ-dh-CAm" userLabel="Graph">
                     <rect key="frame" x="0.0" y="40" width="600" height="377"/>
                     <subviews>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-CM-USF">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-CM-USF">
                             <rect key="frame" x="15" y="40" width="570" height="322"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmE-Ve-npa" userLabel="ContentView">
@@ -271,7 +271,7 @@
                                 <constraint firstItem="jmE-Ve-npa" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="top" id="m0D-Hy-vWK"/>
                             </constraints>
                         </scrollView>
-                        <slider opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
+                        <slider hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fnS-6P-Qus">
                             <rect key="frame" x="38" y="342" width="534" height="36"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>

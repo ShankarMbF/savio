@@ -141,7 +141,9 @@ public class LineChart: UIView {
     public var maximumValue: CGFloat = 0
     public var minimumValue: CGFloat = 0
     var scrollViewReference: UIScrollView  = UIScrollView()
-    
+     var thumbImgView = UIImageView()
+    var graphMovingVerticalLine = UIView()
+
     // values calculated on init
     private var drawingHeight: CGFloat = 0 {
         didSet {
@@ -300,20 +302,20 @@ public class LineChart: UIView {
     /**
      * Handle touch events.
      */
-    private func handleTouchEvents(touches: NSSet!, event: UIEvent) {
-        if (self.dataStore.isEmpty) {
-            return
-        }
-        let point: AnyObject! = touches.anyObject()
-        let xValue = point.locationInView(self).x
-        let inverted = self.x.invert(xValue - x.axis.inset)
-        let rounded = Int(round(Double(inverted)))
-        let yValues: [CGFloat] = getYValuesForXValue(rounded)
-        highlightDataPoints(rounded)
-        delegate?.didSelectDataPoint(CGFloat(rounded), yValues: yValues)
-    }
-    
-    
+//    private func handleTouchEvents(touches: NSSet!, event: UIEvent) {
+//        if (self.dataStore.isEmpty) {
+//            return
+//        }
+//        let point: AnyObject! = touches.anyObject()
+//        let xValue = point.locationInView(self).x
+//        let inverted = self.x.invert(xValue - x.axis.inset)
+//        let rounded = Int(round(Double(inverted)))
+//        let yValues: [CGFloat] = getYValuesForXValue(rounded)
+//        highlightDataPoints(rounded)
+//        delegate?.didSelectDataPoint(CGFloat(rounded), yValues: yValues)
+//    }
+//    
+//    
     
     /**
      * Listen on touch end event.
@@ -448,13 +450,11 @@ public class LineChart: UIView {
     func drawSliderTrack() {
         let myInsets : UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         let trackImage = UIImage(named: "stats-slider-bar")?.resizableImageWithCapInsets(myInsets)
-        let width = self.frame.size.width - 2 * x.axis.inset
+        let width = self.frame.size.width - x.axis.inset
         
         let trackImageView = UIImageView(frame: CGRect(x: x.axis.inset, y: self.frame.size.height , width: width, height: 4))
         trackImageView.image = trackImage
         self.addSubview(trackImageView)
-        
-
     }
     
     func drawScrollLineForPoint(a1: CGFloat) {
@@ -479,9 +479,9 @@ public class LineChart: UIView {
         self.valueLabel.textAlignment = .Center
         
         //draw line
-        let line: UIView  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.frame.size.height - 30))
-        line.backgroundColor = self.colorGraphScrollLine
-        graphView.addSubview(line)
+        graphMovingVerticalLine  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.frame.size.height - 30))
+        graphMovingVerticalLine.backgroundColor = self.colorGraphScrollLine
+        graphView.addSubview(graphMovingVerticalLine)
         self.addSubview(graphView)
         
         //draw thumbImage 
@@ -525,9 +525,6 @@ public class LineChart: UIView {
         // add getsture recogniszer
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.scrollLineMoved(_:) ))
         graphView.addGestureRecognizer(gesture)
-     
-        
-        
     }
     
     func circlePathWithCenter(center: CGPoint, radius: CGFloat) -> UIBezierPath {

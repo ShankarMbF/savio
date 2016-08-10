@@ -526,9 +526,6 @@ public class LineChart: UIView {
         // add getsture recogniszer
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.scrollLineMoved(_:) ))
         graphView.addGestureRecognizer(gesture)
-        thumbImgView.addGestureRecognizer(gesture)
-        progress.addGestureRecognizer(gesture)
-        graphMovingVerticalLine.addGestureRecognizer(gesture)
     }
     
     func circlePathWithCenter(center: CGPoint, radius: CGFloat) -> UIBezierPath {

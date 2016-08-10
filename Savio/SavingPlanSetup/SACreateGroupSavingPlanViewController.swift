@@ -39,9 +39,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.title = "Savings plan setup"
-        let font = UIFont(name: "GothamRounded-Book", size: 15)
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
+      
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -254,11 +254,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             else
             {
-                if(selectedStr != "")
-                {
-                    cell1.dayDateTextField.text = selectedStr
-                }
-                
+      
                 if(isClearPressed)
                 {
                     cell1.dayDateTextField.text = ""
@@ -638,7 +634,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.navigationController!.view.addSubview(self.objAnimView)
             
             
-            if(isDateChanged)
+            if(selectedStr != "")
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
@@ -748,39 +744,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 if(message == "Party Saving Plan is succesfully added")
                 {
-                    let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                    
-                    //                    let objSummaryview = SASavingSummaryViewController()
-                    //                    var newDict : Dictionary<String,AnyObject> = [:]
-                    //
-                    //                    newDict["title"] = self.getParameters()["TITLE"]
-                    //                    newDict["amount"] = self.getParameters()["AMOUNT"]
-                    //                    newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
-                    //                    let dict = self.getParameters()["IMAGE"]
-                    //                    newDict["imageURL"] = dict
-                    //
-                    //                    newDict["day"] = dateString
-                    //                    let dateParameter = NSDateFormatter()
-                    //                    dateParameter.dateFormat = "yyyy-MM-dd"
-                    //                    var pathComponents : NSArray!
-                    //
-                    //
-                    //                    newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
-                    //                    if(dateString == "day")
-                    //                    {
-                    //                        newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
-                    //                        newDict["payType"] = "Weekly"
-                    //                    }
-                    //                    else{
-                    //                        newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-                    //                        newDict["payType"] = "Monthly"
-                    //                    }
-                    //
-                    //                    if offerArr.count>0{
-                    //                        newDict["offers"] = offerArr
-                    //                    }
-                    
+//                    let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
+//                    alert.show()
                     
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
@@ -799,7 +764,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     //                    }
                     //                    objSummaryview.itemDataDict = newDict
                     //                    self.navigationController?.pushViewController(objSummaryview, animated: true)
-                    
+                    let objGroupProgress = SAGroupProgressViewController()
+                    self.navigationController?.pushViewController(objGroupProgress, animated: true)
                     objAnimView.removeFromSuperview()
                 }
                 else {
@@ -866,7 +832,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
                 
-                let objSummaryview = SASavingSummaryViewController()
                 var newDict : Dictionary<String,AnyObject> = [:]
                 
                 newDict["title"] = self.getParameters()["TITLE"]
@@ -907,6 +872,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 else{
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
                 }
+                    newDict["planType"] = "group"
+                
                 let objSummaryView = SASavingSummaryViewController()
                 objSummaryView.itemDataDict =  newDict
                 self.navigationController?.pushViewController(objSummaryView, animated: true)

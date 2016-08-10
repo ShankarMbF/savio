@@ -33,7 +33,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         // Do any additional setup after loading the view.
         
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
@@ -183,7 +183,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             
              let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
-  
+           activityIndicator.hidden = false
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
@@ -206,6 +206,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                         }
                     })
                 }
+                else {
+                    activityIndicator.stopAnimating()
+                    activityIndicator.hidden = true
+                }
             }
             else {
                 activityIndicator.stopAnimating()
@@ -221,7 +225,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelTwo.hidden = true
                 imgView.hidden = false
                 imgView.layer.cornerRadius = imgView.frame.width/2
-                activityIndicator.hidden = false
+                
                
             }
             else if(i == 1)
@@ -310,7 +314,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
-        obj.hideAddOfferButton = true
+        obj.hideAddOfferButton = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

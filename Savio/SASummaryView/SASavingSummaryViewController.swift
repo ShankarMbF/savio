@@ -82,7 +82,7 @@ class SASavingSummaryViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         
-        // Do any additional setup after loading the view.
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,15 +91,15 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     @IBAction func btnContinueClicked(sender: AnyObject) {
-        if(isUpdatePlan)
-        {
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is updated successfully", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        
+        let str = itemDataDict["planType"] as! String
+        if str == "group" {
+            let objGroupProgress = SAGroupProgressViewController()
+            self.navigationController?.pushViewController(objGroupProgress, animated: true)
         }
-        else
-        {
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        else {
+            let objProgress = SAProgressViewController()
+            self.navigationController?.pushViewController(objProgress, animated: true)
         }
     }
     
@@ -161,10 +161,10 @@ class SASavingSummaryViewController: UIViewController {
             if arr.count > 0 {
                 let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
                 //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
-                groupViewHt.constant = ht + 10
+                groupViewHt.constant = ht //+ 10
                 summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
                 htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
-                
+                print("invitee = \(arr)")
                 for i in 0 ..< arr.count {
                     let dict = arr[i] as Dictionary<String, AnyObject>
                     var contactStr = ""
@@ -174,7 +174,6 @@ class SASavingSummaryViewController: UIViewController {
                     else {
                         contactStr = dict["email_id"] as! String
                     }
-                    
                     
                     switch i {
                     case 0:
@@ -284,29 +283,26 @@ class SASavingSummaryViewController: UIViewController {
                 // Load the TestView view.
                 
                 let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
-                summaryPageView.backgroundColor = UIColor.grayColor()
                 // Set its frame and data to pageview
                 topMargin = CGFloat(i) * 60 + 35
-                htOfferView.constant = topMargin + 60
-                print("htOfferView = \(topMargin)")
-
-                summaryPageView.frame = CGRectMake(0, topMargin, (vwOffer?.frame.size.width)!, 55)
+              
+//                summaryPageView.frame = CGRectMake(0, topMargin + 10, (vwOffer?.frame.size.width)!, 55)
+ 
+                summaryPageView.layer.cornerRadius = 3.0
+                summaryPageView.layer.masksToBounds = true
                 vwOffer?.addSubview(summaryPageView)
-                
-                summaryPageView.layer.borderColor = UIColor.whiteColor().CGColor
-                summaryPageView.layer.borderWidth = 2.0
+                htOfferView.constant = topMargin + 60
 
-//                summaryPageView.translatesAutoresizingMaskIntoConstraints = false
+                summaryPageView.translatesAutoresizingMaskIntoConstraints = false
 
                 let topConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Top, relatedBy: .Equal, toItem: vwOffer!, attribute: .Top, multiplier: 1, constant: topMargin)
                 
                 let leadingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Leading, relatedBy: .Equal, toItem: vwOffer!, attribute: .Leading, multiplier: 1, constant: 0)
                 let trailingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Trailing, relatedBy: .Equal, toItem: vwOffer!, attribute: .Trailing, multiplier: 1, constant: 0)
                 let htConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 55)
-//                vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
+                vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
 
-                let objDict = arrOff[i]    //: Dictionary<String,AnyObject> = [:]
-                
+                let objDict = arrOff[i]
                 let lblTitle = summaryPageView.viewWithTag(1)! as! UILabel
                 lblTitle.text = objDict["offCompanyName"] as? String
                 lblTitle.hidden = false
@@ -335,12 +331,6 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
             
-//            htDescriptionContentView.constant =  (vwSummary?.frame.origin.y)! + summaryViewHt.constant + htOfferView.constant + continueButtonBackgroundView.frame.size.height + 15
-           //            htDescriptionContentView.constant = htDescriptionContentView.constant + htOfferView.constant
-//            topSpaceForContinue.constant = CGFloat(arrOff.count * 55)
-//            topSpaceContonueView.constant = CGFloat(arrOff.count * 55)
-            self.view.bringSubviewToFront(btnContinue!)
-//            scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
         }
         
         htDescriptionContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)

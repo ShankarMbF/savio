@@ -18,7 +18,7 @@ class SASpendViewController: UIViewController {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
         
@@ -109,7 +109,6 @@ class SASpendViewController: UIViewController {
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -128,7 +127,7 @@ class SASpendViewController: UIViewController {
         
         let obj = SAOfferListViewController()
         obj.savID = 63
-        obj.hideAddOfferButton = true
+        obj.hideAddOfferButton = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
 

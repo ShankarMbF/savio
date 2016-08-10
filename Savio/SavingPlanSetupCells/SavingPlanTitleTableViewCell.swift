@@ -100,7 +100,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
-    var lastOffset: CGPoint?
+    var lastOffset: CGPoint = CGPointZero
     //Keyboard notification function
     @objc func keyboardWasShown(notification: NSNotification){
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
@@ -111,7 +111,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 64 - (kbSize?.height)! //64 height of nav bar + status bar
         let yOfTextField = titleTextField.frame.origin.y + (self.superview?.frame.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
 
-        if (yOfTextField - (lastOffset?.y)!) > visibleAreaHeight {
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             view?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
@@ -124,7 +124,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        view?.setContentOffset(lastOffset!, animated: true)
+        view?.setContentOffset(lastOffset, animated: true)
     }
     
     //UITextfieldDelegate method

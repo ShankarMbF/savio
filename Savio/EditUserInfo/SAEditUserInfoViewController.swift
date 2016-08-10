@@ -47,6 +47,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        
         addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
         addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
         addProfilePictureButton.titleLabel?.textAlignment = .Center
@@ -58,7 +60,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView!.frame = self.view.frame
         objAnimView!.animate()
         
-        self.navigationController!.view.addSubview(objAnimView!)
+        self.view.addSubview(objAnimView!)
         
         let objAPI = API()
         objAPI.getUserInfoDelegate = self

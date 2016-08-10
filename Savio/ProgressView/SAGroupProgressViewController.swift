@@ -69,6 +69,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -474,7 +477,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
-        obj.hideAddOfferButton = true
+        obj.hideAddOfferButton = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

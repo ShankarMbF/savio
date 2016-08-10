@@ -254,11 +254,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             else
             {
-                if(selectedStr != "")
-                {
-                    cell1.dayDateTextField.text = selectedStr
-                }
-                
+      
                 if(isClearPressed)
                 {
                     cell1.dayDateTextField.text = ""
@@ -638,7 +634,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.navigationController!.view.addSubview(self.objAnimView)
             
             
-            if(isDateChanged)
+            if(selectedStr != "")
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self

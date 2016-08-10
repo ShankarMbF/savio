@@ -36,6 +36,8 @@
 		A82B9C981D06AAEA00BFD084 /* offer-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C951D06AAEA00BFD084 /* offer-close@2x.png */; };
 		A82B9C991D06AAEA00BFD084 /* offer-close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */; };
 		A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82B9C9A1D06DDDF00BFD084 /* slider.swift */; };
+		A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */; };
+		A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */; };
 		A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */; };
 		A833D0F61D49FF6B0098409E /* stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */; };
 		A833D0F71D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */; };
@@ -639,6 +641,8 @@
 		A82B9C951D06AAEA00BFD084 /* offer-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@2x.png"; sourceTree = "<group>"; };
 		A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@3x.png"; sourceTree = "<group>"; };
 		A82B9C9A1D06DDDF00BFD084 /* slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = slider.swift; sourceTree = "<group>"; };
+		A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenOneViewController.swift; sourceTree = "<group>"; };
+		A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenOneViewController.xib; sourceTree = "<group>"; };
 		A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPopOverViewController.swift; sourceTree = "<group>"; };
 		A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@2x.png"; sourceTree = "<group>"; };
@@ -1953,6 +1957,8 @@
 				C9905F901CED9EF700E63471 /* RegistrationCell */,
 				C9905F9B1CED9EF700E63471 /* SARegistrationViewController.swift */,
 				C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */,
+				A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */,
+				A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */,
 			);
 			path = RegistrationViewController;
 			sourceTree = "<group>";
@@ -2826,6 +2832,7 @@
 				A8900C181D2FAF5200D8CD0F /* info-box-arrow.png in Resources */,
 				A8978BDA1D49EDC5005F665A /* stats-achievement-money-popup@3x.png in Resources */,
 				A841DAB21D507F9E00846F46 /* 2@2x.png in Resources */,
+				A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */,
 				A859DD8D1D50ACD000932150 /* baby-dropdown@3x.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
 				C9ED80451D1BC38A00058A96 /* menu-offers@2x.png in Resources */,
@@ -3064,6 +3071,7 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
+				A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */,
 				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
 				C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */,

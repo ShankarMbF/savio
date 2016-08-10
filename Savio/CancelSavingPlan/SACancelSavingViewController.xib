@@ -171,7 +171,7 @@
                                         <constraint firstAttribute="height" constant="35" id="43K-gq-gAr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
-                                    <state key="normal" title="Start a new saving plan">
+                                    <state key="normal" title="Start new savings plan">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>

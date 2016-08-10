@@ -951,7 +951,10 @@
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
+               
+
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+                 objAnimView.removeFromSuperview()
             }
             else
             {
@@ -983,6 +986,8 @@
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
+                objAnimView.removeFromSuperview()
+
             }
             else
             {

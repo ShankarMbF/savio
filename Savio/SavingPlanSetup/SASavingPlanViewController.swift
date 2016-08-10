@@ -1907,6 +1907,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     dict["offers"] = offerArr
                 }
                 
+                dict["planType"] = "individual"
+                
                 NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
@@ -1986,6 +1988,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if offerArr.count>0{
                 dict["offers"] = offerArr
             }
+                dict["planType"] = "individual"
             //print(dict)
             
             let objSummaryView = SASavingSummaryViewController()

@@ -365,6 +365,7 @@
                                                             <rect key="frame" x="8" y="18" width="65" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="ReB-Gc-OYj"/>
+                                                                <constraint firstAttribute="width" constant="65" id="Rjs-n7-wYB"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -392,6 +393,7 @@
                                                             <rect key="frame" x="8" y="57" width="65" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="tOo-6w-Pzd"/>
+                                                                <constraint firstAttribute="width" constant="65" id="yEa-iF-RgA"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -409,6 +411,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prashant - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4k-9g-iwc">
                                                             <rect key="frame" x="8" y="76" width="65" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="Xqt-8i-wp4"/>
                                                                 <constraint firstAttribute="height" constant="21" id="rUe-XD-wyo"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
@@ -427,6 +430,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prashant - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gk4-DP-GEN">
                                                             <rect key="frame" x="8" y="96" width="65" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="RAs-Gg-eSV"/>
                                                                 <constraint firstAttribute="height" constant="21" id="Whi-eZ-FWD"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
@@ -445,6 +449,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prashant - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtD-Xb-EbM" userLabel="Prashant -">
                                                             <rect key="frame" x="8" y="115" width="65" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="Bfd-0b-2Cl"/>
                                                                 <constraint firstAttribute="height" constant="21" id="aqX-eM-t5a"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
@@ -463,6 +468,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prashant - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpH-aq-qeL">
                                                             <rect key="frame" x="8" y="135" width="65" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="2Rd-yL-Iot"/>
                                                                 <constraint firstAttribute="height" constant="21" id="V2b-JF-9rh"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
@@ -481,6 +487,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prashant - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-XV-efC">
                                                             <rect key="frame" x="8" y="37" width="65" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="3gA-r1-7cV"/>
                                                                 <constraint firstAttribute="height" constant="21" id="7MJ-0h-L7g"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>

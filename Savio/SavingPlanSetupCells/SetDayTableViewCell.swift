@@ -1,3 +1,4 @@
+
 //
 //  SetDayTableViewCell.swift
 //  Savio
@@ -17,7 +18,7 @@ protocol SegmentBarChangeDelegate {
 
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {
     @IBOutlet weak var setDayDateButton: UIButton!
-
+    
     @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var dayDateTextField: UITextField!
     @IBOutlet weak var dayDateLabel: UILabel!
@@ -51,8 +52,14 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         leftView.backgroundColor = UIColor.clearColor()
         
         dayDateTextField.leftView = leftView
-        dayDateTextField.layer.cornerRadius = 3
+        // dayDateTextField.layer.cornerRadius = 3
         dayDateTextField.leftViewMode = UITextFieldViewMode.Always
+        
+        let maskPath1: UIBezierPath = UIBezierPath(roundedRect: dayDateTextField!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer1: CAShapeLayer = CAShapeLayer()
+        maskLayer1.frame = dayDateTextField!.bounds
+        maskLayer1.path = maskPath1.CGPath
+        dayDateTextField?.layer.mask = maskLayer1
         
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
@@ -81,14 +88,65 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             {
                 self.dayDateLabel.text = "date"
                 self.segmentDelegate!.segmentBarChanged("date")
+                self.dayDateTextField.text = ""
+                
             }
             else
             {
                 self.dayDateLabel.text = "day"
                 self.segmentDelegate!.segmentBarChanged("day")
+                self.dayDateTextField.text = ""
             }
+            self.dayPickerView.reloadAllComponents()
         }
         
+    }
+    
+    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: "GothamRounded-Medium", size:10)
+        
+        let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
+        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
+        
+        switch index {
+        case 1:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 2:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 3:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 21:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 22:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 23:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        default:
+            let superscript = NSMutableAttributedString(string: "th", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        }
+        
+        return normalscript
     }
     
     
@@ -96,49 +154,42 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dayDateTextField.resignFirstResponder()
         
         dropDownImageView.image = self.setUpWordImage()
-//        UIView.animateWithDuration(2.0, animations: {
-//            self.dropDownImageView.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
-//        })
         if(dayPickerView.selectedRowInComponent(0) == 0){
             if(dayDateLabel.text == "date")
             {
                 
-                dayDateTextField.text = "     1"
+                dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
             }
             else
             {
                 dayDateTextField.text = "Mon"
+                dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
             }
-
-        }
-        else
-        {
-        if(dayDateLabel.text == "date")
-        {
             
-             dayDateTextField.text = String(format: "     %@",dateStr)
         }
         else
         {
-             dayDateTextField.text = dateStr
-        }
-      
-
+            if(dayDateLabel.text == "date")
+            {
+                dayDateTextField.attributedText = self.createXLabelText(Int(dateStr)!, text: String(format: "%@",dateStr))
+            }
+            else
+            {
+                dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
+                dayDateTextField.text = dateStr
+            }
+            
+            
         }
         dayPickerView.reloadAllComponents()
         
         segmentDelegate!.getDateTextField(dateStr)
         
-        UIView.beginAnimations(nil, context: nil)
-        UIView.setAnimationDelegate(self)
-        UIView.setAnimationDuration(0.5)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        view!.frame = CGRectMake(view!.frame.origin.x, 0, view!.frame.size.width, view!.frame.size.height)
-        UIView.commitAnimations()
         
     }
     
     func cancelBarButtonPressed(){
+        
         dayDateTextField.resignFirstResponder()
     }
     
@@ -226,9 +277,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             imageName = "generic-updown.png"
         }
         return UIImage(named:imageName)!
-
+        
     }
-
+    
     func setDownWordImage()->UIImage
     {
         var imageName = ""
@@ -267,7 +318,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         return UIImage(named:imageName)!
         
     }
-
+    
     func setUpColor()-> UIColor
     {
         var red : CGFloat = 0.0

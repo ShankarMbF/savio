@@ -44,11 +44,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         super.viewDidLoad()
         self.setUpView()
         
-        //        label.text = itemTitle
-        //        label.font = UIFont(name: "GothamRounded-Book", size: 16)
-        //        label.translatesAutoresizingMaskIntoConstraints = false
-        //        label.textAlignment = NSTextAlignment.Center
-        //        self.contentView!.addSubview(label)
+ self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         lineChart = LineChart()
         lineChart.planTitle = self.planType
 

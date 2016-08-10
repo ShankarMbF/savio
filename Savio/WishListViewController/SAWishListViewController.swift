@@ -19,6 +19,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //        self.callWishListData()
         self.setUpView()
         self.wishListAPI()
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false

@@ -3,9 +3,10 @@ import QuartzCore
 
 // delegate method
 public protocol LineChartDelegate {
-    func didSelectDataPoint(x: CGFloat, yValues: [CGFloat])
-    func setValuesForSlider(min: CGFloat, max: CGFloat)
-    func scrollLineDragged(x: CGFloat)
+//    func didSelectDataPoint(x: CGFloat, yValues: [CGFloat])
+//    func setValuesForSlider(min: CGFloat, max: CGFloat)
+//    func scrollLineDragged(x: CGFloat)
+    func chartVerticalLineDrawingCompleted()
 }
 
 /**
@@ -258,9 +259,10 @@ public class LineChart: UIView {
             if area { drawAreaBeneathLineChart(lineIndex) }
             
         }
-        //add slider
-        self.delegate?.setValuesForSlider(x.axis.inset, max: self.drawingWidth + x.axis.inset)
         
+        
+        //draw liner line
+        self.drawScrollLineForPoint(x.axis.inset)
     }
     
     func sliderValueChanged(slider: UISlider) {
@@ -429,7 +431,7 @@ public class LineChart: UIView {
     func scrollLineMoved(gesture: UIPanGestureRecognizer) {
         let  transalation = gesture.locationInView(self)
         if  CGFloat(transalation.x) >= x.axis.inset && CGFloat(transalation.x) <=  self.drawingWidth + x.axis.inset {
-            self.delegate?.scrollLineDragged(transalation.x)
+//            self.delegate?.scrollLineDragged(transalation.x)
             moveScrollLineForPoint(CGFloat(transalation.x))
             let xValue = CGFloat(transalation.x)
             let inverted = self.x.invert(xValue - x.axis.inset)
@@ -479,15 +481,13 @@ public class LineChart: UIView {
         self.valueLabel.textAlignment = .Center
         
         //draw line
-        graphMovingVerticalLine  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) - 0.5 , y: 0, width: 1, height: self.frame.size.height - 30))
+        graphMovingVerticalLine  = UIView(frame: CGRect(x: (widthOfScrollingLineView / 2.0) + 0.25                   , y: 0, width: 1, height: self.frame.size.height - 30))
         graphMovingVerticalLine.backgroundColor = self.colorGraphScrollLine
         graphView.addSubview(graphMovingVerticalLine)
         self.addSubview(graphView)
         
         //draw thumbImage 
-        let thumbImage = UIImage(named: "generic-stats-slider-tab")
-        let thumbImgView = UIImageView(frame: CGRect(x: 14, y: self.frame.size.height - 32.0, width: 8, height: 9))
-        thumbImgView.image = thumbImage
+        thumbImgView = UIImageView(frame: CGRect(x: 14, y: self.frame.size.height - 32.0, width: 8, height: 9))
         graphView.addSubview(thumbImgView)
 
 
@@ -521,6 +521,7 @@ public class LineChart: UIView {
         graphView.addSubview(progress)
         progress.addSubview(valueLabel)
 
+        delegate?.chartVerticalLineDrawingCompleted()
         
         // add getsture recogniszer
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.scrollLineMoved(_:) ))

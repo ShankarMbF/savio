@@ -39,9 +39,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.title = "Savings plan setup"
-        let font = UIFont(name: "GothamRounded-Book", size: 15)
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
+      
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -254,11 +254,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
             else
             {
-                if(selectedStr != "")
-                {
-                    cell1.dayDateTextField.text = selectedStr
-                }
-                
+      
                 if(isClearPressed)
                 {
                     cell1.dayDateTextField.text = ""
@@ -638,7 +634,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.navigationController!.view.addSubview(self.objAnimView)
             
             
-            if(isDateChanged)
+            if(selectedStr != "")
             {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self

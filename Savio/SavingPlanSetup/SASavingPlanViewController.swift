@@ -45,12 +45,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var imagePicker = UIImagePickerController()
     @IBOutlet weak var scrlView: UIScrollView!
     var isOfferShow: Bool = true
+    var payTypeStr = ""
+    var dateFromUpdatePlan = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         offerArr.removeAll()
+        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+
         if(isUpdatePlan)
         {
+            
             self.title = "Update Saving plan"
         }
         else
@@ -226,6 +232,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cameraButton.hidden = true
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
+            isPopoverValueChanged = true
             
         }
         else
@@ -666,10 +673,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             cell1.segmentDelegate = self
             
-            
             if(isUpdatePlan)
             {
-                
                 if(isChangeSegment == false)
                 {
                     if let payType = itemDetailsDataDict["payType"] as? NSString
@@ -679,19 +684,41 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             let button = UIButton()
                             button.tag = 0
                             cell1.segmentBar.toggleButton(button)
+                            payTypeStr = "day"
+                            popOverSelectedStr =  itemDetailsDataDict["payDate"] as! String
+                            dateFromUpdatePlan = popOverSelectedStr
                         }
+                        else{
+                            dateFromUpdatePlan = popOverSelectedStr
+                            payTypeStr = "date"
+                            
+                        }
+        
                     }
                 }
-            }
-            
-            if(popOverSelectedStr != "")
-            {
-                cell1.dayDateTextField.text = popOverSelectedStr
+                
+                if(popOverSelectedStr != "")
+                {
+                    if(dateString == "day")
+                    {
+                        cell1.dayDateTextField.text = self.popOverSelectedStr
+                    }
+                    else{
+                        
+                        cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.popOverSelectedStr)!, text: self.popOverSelectedStr)
+                        
+                    }
+                    
+                }
+                else
+                {
+                    cell1.dayDateTextField.text = ""
+                }
+
             }
             
             if(isClearPressed)
             {
-                
                 if(isUpdatePlan)
                 {
                     if let payType = itemDetailsDataDict["payType"] as? NSString
@@ -702,14 +729,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             button.tag = 0
                             cell1.segmentBar.toggleButton(button)
                         }
-                        
                     }
                     if let payDate = itemDetailsDataDict["payDate"] as? String
                     {
                         cell1.dayDateTextField.text = payDate
-                        
                     }
-                    
                 }
                 else
                 {
@@ -1096,12 +1120,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func getDateTextField(str: String) {
         popOverSelectedStr = str
+        
         if(isUpdatePlan)
         {
             if(isPopoverValueChanged == false)
             {
                 tblViewHt.constant = tblView.frame.size.height  + 44
             }
+            print(dateString)
+            dateFromUpdatePlan = ""
             
         }
         else
@@ -1115,15 +1142,45 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func segmentBarChanged(str: String) {
-        if(str == "date")
+        
+        if(isUpdatePlan)
         {
-            dateString = "date"
+            if(str == "date")
+            {
+                dateString = "date"
+            }
+            else
+            {
+                dateString = "day"
+            }
+            
+            
+            if(str == payTypeStr)
+            {
+         
+                    popOverSelectedStr = dateFromUpdatePlan
+       
+                tblView.reloadData()
+            }
+            else
+            {
+                popOverSelectedStr = ""
+                tblView.reloadData()
+            }
+            
         }
         else
         {
-            dateString = "day"
+            if(str == "date")
+            {
+                dateString = "date"
+            }
+            else
+            {
+                dateString = "day"
+            }
         }
-        isChangeSegment = false
+        isChangeSegment = true
         isPopoverValueChanged = true
     }
     func datePickerText(date: Int,dateStr:String) {
@@ -1179,7 +1236,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 self.isClearPressed = true
                 self.setUpView()
-
+                
                 let count = self.offerArr.count - self.updateOfferArr.count as Int
                 if(count > 0)
                 {
@@ -1359,7 +1416,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.navigationController?.view.addSubview(self.objAnimView)
             
             
-            if(itemTitle != "" && self.getParameters()["AMOUNT"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && isPopoverValueChanged == true)
+            if(itemTitle != "" && self.getParameters()["AMOUNT"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && popOverSelectedStr != "")
             {
                 let objAPI = API()
                 
@@ -1496,6 +1553,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     array.append("  Please select monthly/weekly payment date.")
                     //self.displayAlert("Please select monthly/weekly payment date")
                 }
+                if(popOverSelectedStr == "")
+                {
+                    array.append("  Please select payment date/day.")
+                    //self.displayAlert("Please select monthly/weekly payment date")
+                }
                 
                 self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
             }
@@ -1613,6 +1675,54 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
+    
+    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: "GothamRounded-Medium", size:10)
+        
+        let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
+        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
+        
+        switch index {
+        case 1:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 2:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 3:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 21:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 22:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 23:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        default:
+            let superscript = NSMutableAttributedString(string: "th", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        }
+        
+        return normalscript
+    }
+    
     
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {

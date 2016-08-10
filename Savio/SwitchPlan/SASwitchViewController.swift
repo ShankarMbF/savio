@@ -16,7 +16,7 @@ class SASwitchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.setUpView()
     }
 
@@ -27,6 +27,7 @@ class SASwitchViewController: UIViewController {
     
     
     func setUpView(){
+        
         
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()

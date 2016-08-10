@@ -18,7 +18,7 @@ class SASpendViewController: UIViewController {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
         

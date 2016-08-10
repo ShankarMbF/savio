@@ -42,10 +42,9 @@
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        //        print(itemDetailsDataDict)
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.title = "Savings plan setup"
-        let font = UIFont(name: "GothamRounded-Book", size: 15)
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
+       
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()

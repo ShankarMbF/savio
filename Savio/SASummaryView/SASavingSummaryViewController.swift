@@ -82,7 +82,7 @@ class SASavingSummaryViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         
-        // Do any additional setup after loading the view.
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
     }
     
     override func didReceiveMemoryWarning() {

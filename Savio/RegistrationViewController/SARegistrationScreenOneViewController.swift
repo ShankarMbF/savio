@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate {
+class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate{
     
     @IBOutlet weak var registerOneScrollView: UIScrollView!
     @IBOutlet weak var titleOrNameErrorLabel: UILabel!
@@ -27,6 +27,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     @IBOutlet weak var nextButton: UIButton!
     let dropDown = DropDown()
     
+    let datePickerView = UIDatePicker()
+    
     @IBOutlet weak var topSpaceForSurnameTextField: NSLayoutConstraint!
     
     @IBOutlet weak var topSpaceForMobileNumberTextField: NSLayoutConstraint!
@@ -42,10 +44,16 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     @IBOutlet weak var topspacefieldForEmailTextField: NSLayoutConstraint!
     @IBOutlet weak var topSpaceForDateOfBirthTextField: NSLayoutConstraint!
     @IBOutlet weak var nextButtonBgView: UIView!
+    
+    var activeTextField = UITextField()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.setUpView()
     }
     
@@ -68,9 +76,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dropDown.bottomOffset = CGPoint(x: 0, y:titleTextField!.bounds.height)
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.titleTextField?.text = item
+            self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
             
         }
-        
         
         nameTextField?.layer.cornerRadius = 2.0
         nameTextField?.layer.masksToBounds = true
@@ -93,12 +101,35 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dateOfBirthTextField?.attributedPlaceholder = placeholder3;
         dateOfBirthTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
+        
+        dateOfBirthTextField.inputView = datePickerView
+        dateOfBirthTextField.inputAccessoryView = customToolBar
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        
+        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let currentDate: NSDate = NSDate()
+        let components: NSDateComponents = NSDateComponents()
+        
+        components.year = -18
+        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        datePickerView.maximumDate = minDate
+        
         mobileNumberTextField?.layer.cornerRadius = 2.0
         mobileNumberTextField?.layer.masksToBounds = true
         mobileNumberTextField?.layer.borderWidth=1.0
         let placeholder4 = NSAttributedString(string:"Mobile number" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         mobileNumberTextField?.attributedPlaceholder = placeholder4;
         mobileNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar2.items = [flexibleSpace1,doneButton]
+        mobileNumberTextField.inputAccessoryView = customToolBar2
         
         emailTextField?.layer.cornerRadius = 2.0
         emailTextField?.layer.masksToBounds = true
@@ -115,6 +146,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         topSpaceForDateOfBirthTextField.constant = 5
         topSpaceForMobileNumberTextField.constant = 5
         
+        titleOrNameErrorLabel.text = ""
+        mobileNumberErrorLabel.text = ""
+        emailErrorLabel.text = ""
+        surnameErrorLabel.text = ""
+        dateOfBirthErrorLabel.text = ""
         
     }
     
@@ -127,57 +163,73 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 titleOrNameErrorLabel.text = "Please select a title and name should contain alphabets only"
                 errorFlag = true
             }
+            nameTextField.layer.borderColor = UIColor.redColor().CGColor
+            nameTextField.textColor = UIColor.redColor()
         }
         else if (self.checkTextFieldContentSpecialChar(nameTextField.text!)){
             titleOrNameErrorLabel.text = "Name should not contain special characters"
             titleOrNameErrorLabel.text = "Please select a title and name should not contain special characters"
+            registerOneScrollView.contentSize = CGSizeMake(0, registerOneScrollView.contentSize.height + 20)
             errorFlag = true
+            nameTextField.layer.borderColor = UIColor.redColor().CGColor
+            nameTextField.textColor = UIColor.redColor()
         }
             
         else if nameTextField.text?.characters.count > 50{
             titleOrNameErrorLabel.text = "Wow, that’s such a long name we can’t save it"
             errorFlag = true
+            nameTextField.layer.borderColor = UIColor.redColor().CGColor
+            nameTextField.textColor = UIColor.redColor()
         }
             
         else if(nameTextField.text?.characters.count == 0 && nameTextField.text?.characters.count == 0){
             titleOrNameErrorLabel.text = "We need to know your title and name"
+            titleTextField.layer.borderColor = UIColor.redColor().CGColor
             nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
+             nameTextField.textColor = UIColor.redColor()
             errorFlag = true
             
         }
         else if nameTextField.text == ""{
             titleOrNameErrorLabel.text = "Please select a title"
             errorFlag = true
-            
+            titleTextField.textColor = UIColor.redColor()
         }
         else if nameTextField.text == ""{
             titleOrNameErrorLabel.text = "We need to know what to call you"
             errorFlag = true
+            nameTextField.layer.borderColor = UIColor.redColor().CGColor
+            nameTextField.textColor = UIColor.redColor()
         }
-        
-        
         
         if surnameTextField.text=="" {
             
             surnameErrorLabel.text = "We need to know your surname"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
+            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
+            surnameTextField.textColor = UIColor.redColor()
         }
         else if(surnameTextField.text?.characters.count>50){
             surnameErrorLabel.text = "Wow, that’s such a long name we can’t save it"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
+            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
+            surnameTextField.textColor = UIColor.redColor()
         }
         else if(self.checkTextFieldContentOnlyNumber(surnameTextField.text!) == true){
             surnameErrorLabel.text = "Surname should contain alphabets only"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
+            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
+            surnameTextField.textColor = UIColor.redColor()
         }
         else if checkTextFieldContentSpecialChar(surnameTextField.text!){
             surnameErrorLabel.text = "Surname should not contain special characters"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
+            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
+            surnameTextField.textColor = UIColor.redColor()
         }
         
         
@@ -185,8 +237,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         if(dateOfBirthTextField.text == "")
         {
             topSpaceForDateOfBirthTextField.constant = 21
-            dateOfBirthErrorLabel.text = "Please enter DOB"
+            dateOfBirthErrorLabel.text = "We need to know your date of birth"
             errorFlag = true
+            dateOfBirthTextField.layer.borderColor = UIColor.redColor().CGColor
+            dateOfBirthTextField.textColor = UIColor.redColor()
         }
         
         
@@ -195,38 +249,50 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             mobileNumberErrorLabel.text = "Don't forget your mobile number"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
+            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+            mobileNumberTextField.textColor = UIColor.redColor()
         }
             
         else  if(self.checkTextFieldContentCharacters(mobileNumberTextField.text!) == true || self.phoneNumberValidation(mobileNumberTextField.text!)==false){
             mobileNumberErrorLabel.text = "That mobile number doesn’t look right"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
+            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+             mobileNumberTextField.textColor = UIColor.redColor()
         }
         else if(mobileNumberTextField.text?.characters.count < 10)
         {
             mobileNumberErrorLabel.text = "That mobile number should be greater than 10 digits"
-            topSpaceForMobileNumberTextField.constant = 21
+            topSpaceForMobileNumberTextField.constant = 40
+            mobileNumberErrorLabelHt.constant = 40
             errorFlag = true
+            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+             mobileNumberTextField.textColor = UIColor.redColor()
+            registerOneScrollView.contentSize = CGSizeMake(0, registerOneScrollView.contentSize.height + 20)
         }
         else if(mobileNumberTextField.text?.characters.count > 16)
         {
             mobileNumberErrorLabel.text = "That mobile number should be of 15 digits"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
+            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+             mobileNumberTextField.textColor = UIColor.redColor()
         }
-        
-        
         
         if emailTextField.text==""{
             
             topspacefieldForEmailTextField.constant = 21
             emailErrorLabel.text = "Don't forget your email address"
             errorFlag = true
+             emailTextField.textColor = UIColor.redColor()
+            emailTextField.layer.borderColor = UIColor.redColor().CGColor
         }
         else  if emailTextField.text?.characters.count>0 && (self.isValidEmail(emailTextField.text!)==false){
             topspacefieldForEmailTextField.constant = 21
             emailErrorLabel.text = "That email address doesn’t look right"
             errorFlag = true
+            emailTextField.layer.borderColor = UIColor.redColor().CGColor
+             emailTextField.textColor = UIColor.redColor()
             
         }
         
@@ -234,31 +300,93 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
     }
     
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    
+    
+    var lastOffset: CGPoint = CGPointZero
+    //Keyboard notification function
+    @objc func keyboardWasShown(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        lastOffset = (registerOneScrollView?.contentOffset)!
+        let yOfTextField = activeTextField.frame.origin.y
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            registerOneScrollView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
+        }
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        //do stuff
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        registerOneScrollView?.setContentOffset(lastOffset, animated: true)
+    }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
         
-        if(self.checkTextFieldValidation())
+        if(checkTextFieldValidation() == false)
         {
-            print("go to next")
-        }
-        else
-        {
-            print("error")
+            var userInfoDict : Dictionary<String,AnyObject> = [:]
+            userInfoDict["title"] = titleTextField.text
+            userInfoDict["first_name"] = nameTextField.text
+            userInfoDict["second_name"] = surnameTextField.text
+            userInfoDict["date_of_birth"] = dateOfBirthTextField.text
+            userInfoDict["phone_number"] = mobileNumberTextField.text
+            userInfoDict["email"] = emailTextField.text
+            
+            let registrationSecondView = SARegistrationScreenSecondViewController()
+            registrationSecondView.userInfoDict = userInfoDict
+            self.navigationController?.pushViewController(registrationSecondView, animated: true)
         }
     }
+    
     @IBAction func backButtonPressed(sender: AnyObject) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
+    
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
+        let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+        objimpInfo.lblHeader.text = "Why do we need this information?"
+        objimpInfo.frame = self.view.frame
+        self.view.addSubview(objimpInfo)
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        
+        activeTextField = textField
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        activeTextField.textColor = UIColor.blackColor()
+        self.registerForKeyboardNotifications()
+        
         if(textField == titleTextField)
         {
             self.showOrDismiss()
             return false
-            
         }
+        
         return true
+    }
+    
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        activeTextField.resignFirstResponder()
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        self.removeKeyboardNotification()
     }
     
     func showOrDismiss(){
@@ -269,6 +397,26 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
     }
     
+    func cancelBarButtonPressed()
+    {
+        dateOfBirthTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
+    
+    func doneBarButtonPressed()
+    {
+        if(activeTextField == dateOfBirthTextField)
+        {
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
+            dateOfBirthTextField.text = pickrDate
+        }
+        
+        activeTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
     @IBAction func clickeOnDropDownArrow(sender:UIButton){
         self.showOrDismiss()
     }
@@ -277,8 +425,30 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
+        self.removeKeyboardNotification()
         return true
     }
+    
+    func checkTextFieldTextLength(txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
+        let currentCharacterCount = txtField.text?.characters.count ?? 0
+        if (range.length + range.location > currentCharacterCount){
+            return false
+        }
+        let newLength = currentCharacterCount + string.characters.count - range.length
+        if (newLength > len) {
+            return false;
+        }
+        return true
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if(activeTextField == mobileNumberTextField){
+            return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
+        }
+        return true;
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -315,9 +485,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         var filtered:NSString!
         let inputString:NSArray = value.componentsSeparatedByCharactersInSet(charcter)
         filtered = inputString.componentsJoinedByString("")
-        
-        
-        
         return  value == filtered
     }
     

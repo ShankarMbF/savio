@@ -263,6 +263,8 @@
 		A8900C211D2FB27F00D8CD0F /* CircleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */; };
 		A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1F1D2FB27F00D8CD0F /* Math.swift */; };
 		A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */; };
+		A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */; };
+		A892E6031D5C364100155B05 /* SARegistrationScreenSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */; };
 		A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897514C1CEF099500F122AD /* CreatePINViewController.swift */; };
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
 		A8978BD81D49EDC5005F665A /* stats-achievement-money-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BD51D49EDC5005F665A /* stats-achievement-money-popup.png */; };
@@ -867,6 +869,8 @@
 		A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleSlider.swift; sourceTree = "<group>"; };
 		A8900C1F1D2FB27F00D8CD0F /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackLayer.swift; sourceTree = "<group>"; };
+		A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenSecondViewController.swift; sourceTree = "<group>"; };
+		A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenSecondViewController.xib; sourceTree = "<group>"; };
 		A897514C1CEF099500F122AD /* CreatePINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePINViewController.swift; sourceTree = "<group>"; };
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
 		A8978BD51D49EDC5005F665A /* stats-achievement-money-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-money-popup.png"; sourceTree = "<group>"; };
@@ -1959,6 +1963,8 @@
 				C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */,
 				A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */,
 				A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */,
+				A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */,
+				A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */,
 			);
 			path = RegistrationViewController;
 			sourceTree = "<group>";
@@ -2395,6 +2401,7 @@
 				A859DDE61D50B34A00932150 /* ride-dropup@2x.png in Resources */,
 				A8978BD91D49EDC5005F665A /* stats-achievement-money-popup@2x.png in Resources */,
 				C9ED80241D1BC38A00058A96 /* menu-active-logout@2x.png in Resources */,
+				A892E6031D5C364100155B05 /* SARegistrationScreenSecondViewController.xib in Resources */,
 				C975A9331D01952900184C8C /* holiday-category-icon.png in Resources */,
 				C9ED80311D1BC38A00058A96 /* menu-active-settings@3x.png in Resources */,
 				A858A5F41D08127C0097546F /* generic-circle@2x.png in Resources */,
@@ -3014,6 +3021,7 @@
 				A850454C1CF823D8002E8B47 /* SwitchTableViewCell.swift in Sources */,
 				C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */,
 				C95CD6181CF2C92100013200 /* DPDKeyboardListener.swift in Sources */,
+				A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
 				A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */,

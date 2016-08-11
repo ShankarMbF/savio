@@ -118,6 +118,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 }
             }
             tblView?.reloadData()
+            print(offerArr)
         }
         else {
             let objAPI = API()
@@ -224,19 +225,19 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         print(cellDict)
         if let urlStr = cellDict!["offImage"] as? String {
             if urlStr != "" {
-        let url = NSURL(string: urlStr)
-        
-        let request: NSURLRequest = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-            if data != nil && data?.length > 0 {
-            let image = UIImage(data: data!)
-            //                self.imageCache[unwrappedImage] = image
-            dispatch_async(dispatch_get_main_queue(), {
-                cell.offerImage?.image = image
-            })
+                let url = NSURL(string: urlStr)
+                
+                let request: NSURLRequest = NSURLRequest(URL: url!)
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                    if data != nil && data?.length > 0 {
+                        let image = UIImage(data: data!)
+                        //                self.imageCache[unwrappedImage] = image
+                        dispatch_async(dispatch_get_main_queue(), {
+                            cell.offerImage?.image = image
+                        })
+                    }
+                })
             }
-        })
-        }
         }
         
         cell.btnOfferDetail?.titleEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.imageView?.frame.size.width)!, 0, -(((cell.btnOfferDetail!.imageView?.frame.size.width)!-30)))

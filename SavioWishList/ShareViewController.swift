@@ -29,11 +29,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         priceTextField.resignFirstResponder()
         let objAPI = API()
         
-        self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
-        self.spinner.hidesWhenStopped = true
-        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        self.view.addSubview(self.spinner)
-        self.spinner.startAnimating()
+        
         
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
@@ -54,18 +50,43 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             }
             else
             {
-                if((priceTextField.text! as NSString).floatValue > 3000)
-                {
+                if self.textView.text.characters.count == 0 && self.priceTextField.text?.characters.count == 0 || self.imageView.image == nil {
+                    let alert = UIAlertController(title: "Warning", message: "Looks like required content is not scraped properly, please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else if self.textView.text.characters.count == 0 {
+                    let alert = UIAlertController(title: "Warning", message: "Please enter title for product", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else if self.priceTextField.text!.characters.count == 0 {
+                    
+                    let alert = UIAlertController(title: "Warning", message: "Please enter price for product", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                
+               else if((priceTextField.text! as NSString).floatValue > 3000)
+                {
+                
                     let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     
                     self.presentViewController(alert, animated: true, completion: nil)
                     
                 }
+                
                 else{
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                        
+                        self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
+                        self.spinner.hidesWhenStopped = true
+                        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                        self.view.addSubview(self.spinner)
+                        self.spinner.startAnimating()
                         var dict : Dictionary<String,AnyObject> = [:]
                         
                         if(self.imageView.image != nil)
@@ -233,7 +254,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         priceTextField.inputAccessoryView = customToolBar
         
     }
-    
     
     func doneBarButtonPressed() {
         priceTextField.resignFirstResponder()

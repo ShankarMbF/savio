@@ -215,7 +215,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 activityIndicator.stopAnimating()
                 activityIndicator.hidden = true
             }
-        
             
             
             if(i == 0)

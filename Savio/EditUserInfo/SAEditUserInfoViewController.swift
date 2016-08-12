@@ -776,14 +776,21 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         let cell = arrRegistrationFields[i] as! TitleTableViewCell
                         dict["title"] = cell.tfTitle?.text
                         dict["first_name"] = cell.tfName?.text
+                        
+                        if(cell.tfTitle!.text == "Mr")
+                        {
+                            dict["party_gender"] = "male"
+                        }
+                        else
+                        {
+                            dict["party_gender"] = "female"
+                        }
+
                     }
                     
                     if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell){
                     }
                 }
-                
-                //Webservice call
-                
                 
             }
             else{
@@ -815,6 +822,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 var param = userInfoDict as Dictionary<String,AnyObject>
                 
                 param["ptystatus"] = "ENABLE"
+  
                 
                 param.removeValueForKey("date_of_birth")
                 param.removeValueForKey("pass_code")
@@ -1498,11 +1506,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     // MARK: - GetUserInfoDelegate
     func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
-        if let message = objResponse["message"] as? String
-        {
-            if(message == "Party Found")
-            {
+        if let message = objResponse["message"] as? String {
+            if(message == "Party Found")  {
                 
                 userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
                 //Get Registration UI Json data
@@ -1595,7 +1600,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        print(objResponse)
     }
     func errorResponseForUpdateUserInfoAPI(error: String) {
         objAnimView?.removeFromSuperview()

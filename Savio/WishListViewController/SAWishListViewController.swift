@@ -345,8 +345,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //MARK: DELETE Wishlist delegate
     
     func successResponseForDeleteWishListAPI(objResponse: Dictionary<String, AnyObject>) {
-        
-        print(objResponse)
+   
         objAnimView.removeFromSuperview()
         self.setUpView()
     }
@@ -368,9 +367,6 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-        
-        
-        print(objResponse)
         if wishListArray.count > 0 {
             wishListArray.removeAll()
         }

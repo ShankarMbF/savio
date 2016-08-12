@@ -64,6 +64,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
     }
+    //set up navigation view
     
     func setUPNavigation()
     {
@@ -126,9 +127,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
+    //set up the UIView 
     func setUpView(){
-
-
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
 
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -332,8 +332,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
+    //get users plan dekegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")

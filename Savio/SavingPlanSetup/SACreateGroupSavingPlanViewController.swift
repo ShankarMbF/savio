@@ -632,17 +632,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.navigationController!.view.addSubview(self.objAnimView)
-            
-            
-            if(selectedStr != "")
-            {
+            if(selectedStr != "")  {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
                 objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 
             }
-            else
-            {
+            else {
                 self.objAnimView.removeFromSuperview()
                 self.displayAlert("Please select date/day")
             }
@@ -653,12 +649,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             
             let obj = SAOfferListViewController()
             obj.delegate = self
-            if let savId = parameterDict["sav_id"] as? String
-            {
+            if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
             }
-            else if let savId = parameterDict["sav_id"] as? NSNumber
-            {
+            else if let savId = parameterDict["sav_id"] as? NSNumber {
                 obj.savID = savId
             }
             
@@ -686,36 +680,30 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func joinGroupButtonPressed(sender:UIButton)
     {
-        
         if isOfferShow == true {
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.navigationController!.view.addSubview(self.objAnimView)
             
-            if(isDateChanged)
-            {
+            if(isDateChanged) {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
                 print(self.getParametersForUpdate())
                 objAPI .createPartySavingPlan(self.getParametersForUpdate(),isFromWishList: "FromWishList")
             }
-            else
-            {
+            else {
                 self.objAnimView.removeFromSuperview()
                 self.displayAlert("Please select date/day")
             }
         }
         else {
-            
             let obj = SAOfferListViewController()
             obj.delegate = self
-            if let savId = parameterDict["sav_id"] as? String
-            {
+            if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
             }
-            else if let savId = parameterDict["sav_id"] as? NSNumber
-            {
+            else if let savId = parameterDict["sav_id"] as? NSNumber {
                 obj.savID = savId
             }
             self.navigationController?.pushViewController(obj, animated: true)
@@ -731,39 +719,18 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func skipOffers(){
-        //  tblViewHt.constant = tblView.frame.size.height - CGFloat(offerArr.count * 65)
         isOfferShow = true
     }
     
+    //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
-        if(parameterDict["isUpdate"]!.isEqualToString("Yes"))
-        {
-            if let message = objResponse["message"] as? String
-            {
-                if(message == "Party Saving Plan is succesfully added")
-                {
-//                    let alert = UIAlertView(title: "Alert", message: "You have successfuly join this group", delegate: nil, cancelButtonTitle: "Ok")
-//                    alert.show()
-                    
+        if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
+            if let message = objResponse["message"] as? String {
+                if(message == "Party Saving Plan is succesfully added") {
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                    
-                    //                    let objSummaryView = SAProgressViewController()
-                    ////                    objSummaryView.itemDataDict =  newDict
-                    //                    self.navigationController?.pushViewController(objSummaryView, animated: true)
-                    //
-                    //                    if(dateString == "day")
-                    //                    {
-                    //                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
-                    //                    }
-                    //                    else{
-                    //                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
-                    //                    }
-                    //                    objSummaryview.itemDataDict = newDict
-                    //                    self.navigationController?.pushViewController(objSummaryview, animated: true)
                     let objGroupProgress = SAGroupProgressViewController()
                     self.navigationController?.pushViewController(objGroupProgress, animated: true)
                     objAnimView.removeFromSuperview()
@@ -773,67 +740,54 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     alert.show()
                 }
             }
-            else{
+            else {
                 let alert = UIAlertView(title: "Alert", message: "Internal Server Error", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             objAnimView.removeFromSuperview()
         }
-        else
-        {
-            if let message = objResponse["errorCode"] as? String
-            {
-                
-                if(message == "200")
-                {
+        else {
+            if let message = objResponse["errorCode"] as? String {
+                if(message == "200") {
                     participantsArr.removeLast()
-                    
                     var dict : Dictionary<String,AnyObject> = [:]
                     dict["INIVITED_USER_LIST"] = participantsArr
                     dict["PARTY_ID"] = parameterDict["pty_id"]
-                    
-                    print(dict)
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
                     objAPI.sendInviteMembersList(dict)
                 }
-                else
-                {
+                else {
                     let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                     alert.show()
                     objAnimView.removeFromSuperview()
                 }
             }
-            else
-            {       let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
+            else {
+                let alert = UIAlertView(title: "Warning", message: objResponse["error"] as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
-                
                 objAnimView.removeFromSuperview()
             }
         }
         
     }
     
-    func errorResponseForPartySavingPlanAPI(error:String){
-        
+    func errorResponseForPartySavingPlanAPI(error:String) {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
         objAnimView.removeFromSuperview()
     }
     
+    //Delegate methods of Invite members API
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
-        
+
         if let message = objResponse["message"] as? String
         {
             if(message == "Invited user successfully")
             {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-                
                 var newDict : Dictionary<String,AnyObject> = [:]
-                
                 newDict["title"] = self.getParameters()["TITLE"]
                 newDict["amount"] = self.getParameters()["AMOUNT"]
                 newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
@@ -843,33 +797,26 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 newDict["day"] = dateString
                 let dateParameter = NSDateFormatter()
                 dateParameter.dateFormat = "yyyy-MM-dd"
-                var pathComponents : NSArray!
-                
-                
                 newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
-                if(dateString == "day")
-                {
+                if(dateString == "day") {
                     newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
                     newDict["payType"] = "Weekly"
                 }
-                else{
+                else {
                     newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
                     newDict["payType"] = "Monthly"
                 }
-                
-                if offerArr.count>0{
+                if offerArr.count>0 {
                     newDict["offers"] = offerArr
                 }
-                
                 NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                
-                if(dateString == "day")
-                {
+
+                if(dateString == "day") {
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
                 }
-                else{
+                else {
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
                 }
                     newDict["planType"] = "group"
@@ -885,7 +832,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func errorResponseForInviteMembersAPI(error: String) {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
         objAnimView.removeFromSuperview()
     }
     
@@ -895,7 +841,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBgImageView.layer.masksToBounds = true
         topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
-        //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
         isImageClicked = true
         

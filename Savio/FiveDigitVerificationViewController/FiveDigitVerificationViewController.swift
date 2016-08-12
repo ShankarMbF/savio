@@ -182,10 +182,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     //OTP sent Delegate Method
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        
-        print(objResponse)
         objAnimView.removeFromSuperview()
-        
         fiveDigitTextField.hidden = true
         resentCodeButton.hidden = true
         backButton.hidden = true
@@ -212,7 +209,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     //OTP Verification Delegate Method
     func successResponseForOTPVerificationAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
         let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
         self.navigationController?.pushViewController(objCreatePINView, animated: true)
     }

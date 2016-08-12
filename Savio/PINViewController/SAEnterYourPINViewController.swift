@@ -254,12 +254,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
-        print(objResponse)
         let dict = objResponse["party"]
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-        print(udidDict)
         let udidArray = udidDict[0]
-        print(udidArray)
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
         print(userInfoDict)

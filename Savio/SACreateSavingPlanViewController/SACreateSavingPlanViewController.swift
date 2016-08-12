@@ -525,7 +525,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan Delegate and Datasource method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
@@ -561,7 +561,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetWishlist Delegate and Datasource method
     
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         if let error = objResponse["error"] as? String
         {
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -587,7 +586,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
-        //print(objResponse)
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
         for var i = 0; i < offerArr.count; i++ {

@@ -236,7 +236,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         customToolBar!.items = [acceptButton]
         
-        
         bgView.layer.cornerRadius = 5
         bgView.layer.masksToBounds = true
         

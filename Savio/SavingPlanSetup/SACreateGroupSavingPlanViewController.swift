@@ -725,6 +725,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
+        print(objResponse)
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
@@ -782,6 +783,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
 
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Invited user successfully")

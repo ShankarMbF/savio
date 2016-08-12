@@ -7,8 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="GothamRounded-Light.otf">
+            <string>GothamRounded-Light</string>
+        </mutableArray>
         <mutableArray key="gotham-rounded-book-2.otf">
-            <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
@@ -27,7 +29,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="237" id="cD6-pO-72o"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="11"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="11"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aOo-vc-KOf">

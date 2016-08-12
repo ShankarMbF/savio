@@ -36,6 +36,8 @@
 		A82B9C981D06AAEA00BFD084 /* offer-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C951D06AAEA00BFD084 /* offer-close@2x.png */; };
 		A82B9C991D06AAEA00BFD084 /* offer-close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */; };
 		A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82B9C9A1D06DDDF00BFD084 /* slider.swift */; };
+		A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */; };
+		A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */; };
 		A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */; };
 		A833D0F61D49FF6B0098409E /* stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */; };
 		A833D0F71D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */; };
@@ -261,6 +263,8 @@
 		A8900C211D2FB27F00D8CD0F /* CircleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */; };
 		A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C1F1D2FB27F00D8CD0F /* Math.swift */; };
 		A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */; };
+		A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */; };
+		A892E6031D5C364100155B05 /* SARegistrationScreenSecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */; };
 		A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A897514C1CEF099500F122AD /* CreatePINViewController.swift */; };
 		A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A897514D1CEF099500F122AD /* CreatePINViewController.xib */; };
 		A8978BD81D49EDC5005F665A /* stats-achievement-money-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BD51D49EDC5005F665A /* stats-achievement-money-popup.png */; };
@@ -639,6 +643,8 @@
 		A82B9C951D06AAEA00BFD084 /* offer-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@2x.png"; sourceTree = "<group>"; };
 		A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@3x.png"; sourceTree = "<group>"; };
 		A82B9C9A1D06DDDF00BFD084 /* slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = slider.swift; sourceTree = "<group>"; };
+		A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenOneViewController.swift; sourceTree = "<group>"; };
+		A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenOneViewController.xib; sourceTree = "<group>"; };
 		A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPopOverViewController.swift; sourceTree = "<group>"; };
 		A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@2x.png"; sourceTree = "<group>"; };
@@ -863,6 +869,8 @@
 		A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleSlider.swift; sourceTree = "<group>"; };
 		A8900C1F1D2FB27F00D8CD0F /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackLayer.swift; sourceTree = "<group>"; };
+		A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenSecondViewController.swift; sourceTree = "<group>"; };
+		A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenSecondViewController.xib; sourceTree = "<group>"; };
 		A897514C1CEF099500F122AD /* CreatePINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePINViewController.swift; sourceTree = "<group>"; };
 		A897514D1CEF099500F122AD /* CreatePINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreatePINViewController.xib; sourceTree = "<group>"; };
 		A8978BD51D49EDC5005F665A /* stats-achievement-money-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-money-popup.png"; sourceTree = "<group>"; };
@@ -1953,6 +1961,10 @@
 				C9905F901CED9EF700E63471 /* RegistrationCell */,
 				C9905F9B1CED9EF700E63471 /* SARegistrationViewController.swift */,
 				C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */,
+				A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */,
+				A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */,
+				A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */,
+				A892E6011D5C364100155B05 /* SARegistrationScreenSecondViewController.xib */,
 			);
 			path = RegistrationViewController;
 			sourceTree = "<group>";
@@ -2389,6 +2401,7 @@
 				A859DDE61D50B34A00932150 /* ride-dropup@2x.png in Resources */,
 				A8978BD91D49EDC5005F665A /* stats-achievement-money-popup@2x.png in Resources */,
 				C9ED80241D1BC38A00058A96 /* menu-active-logout@2x.png in Resources */,
+				A892E6031D5C364100155B05 /* SARegistrationScreenSecondViewController.xib in Resources */,
 				C975A9331D01952900184C8C /* holiday-category-icon.png in Resources */,
 				C9ED80311D1BC38A00058A96 /* menu-active-settings@3x.png in Resources */,
 				A858A5F41D08127C0097546F /* generic-circle@2x.png in Resources */,
@@ -2826,6 +2839,7 @@
 				A8900C181D2FAF5200D8CD0F /* info-box-arrow.png in Resources */,
 				A8978BDA1D49EDC5005F665A /* stats-achievement-money-popup@3x.png in Resources */,
 				A841DAB21D507F9E00846F46 /* 2@2x.png in Resources */,
+				A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */,
 				A859DD8D1D50ACD000932150 /* baby-dropdown@3x.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
 				C9ED80451D1BC38A00058A96 /* menu-offers@2x.png in Resources */,
@@ -3007,6 +3021,7 @@
 				A850454C1CF823D8002E8B47 /* SwitchTableViewCell.swift in Sources */,
 				C95CD60C1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.swift in Sources */,
 				C95CD6181CF2C92100013200 /* DPDKeyboardListener.swift in Sources */,
+				A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
 				A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */,
@@ -3064,6 +3079,7 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
+				A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */,
 				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
 				C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */,

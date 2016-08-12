@@ -35,6 +35,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     var customToolBar : UIToolbar?
     weak var view : UIScrollView?
     var dateStr : String = ""
+    var dayDateStr : String = ""
     
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
@@ -86,9 +87,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         segmentBar.segmentSelected =  { (idx: Int)  in
             if(idx == 1)
             {
-                self.dayDateLabel.text = "date"
+                self.dayDateLabel.text = "day"
                 self.segmentDelegate!.segmentBarChanged("date")
                 self.dayDateTextField.text = ""
+                self.dayDateStr = "date"
                 
             }
             else
@@ -96,6 +98,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 self.dayDateLabel.text = "day"
                 self.segmentDelegate!.segmentBarChanged("day")
                 self.dayDateTextField.text = ""
+                self.dayDateStr = "day"
             }
             self.dayPickerView.reloadAllComponents()
         }
@@ -155,7 +158,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         
         dropDownImageView.image = self.setUpWordImage()
         if(dayPickerView.selectedRowInComponent(0) == 0){
-            if(dayDateLabel.text == "date")
+            if(dayDateStr == "date")
             {
                 
                 dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
@@ -169,7 +172,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
         else
         {
-            if(dayDateLabel.text == "date")
+            if(dayDateStr == "date")
             {
                 dayDateTextField.attributedText = self.createXLabelText(Int(dateStr)!, text: String(format: "%@",dateStr))
             }
@@ -203,7 +206,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         
-        if(dayDateLabel.text == "day")
+        if(dayDateStr == "day")
         {
             return dayArray.count
         }
@@ -215,7 +218,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if(dayDateLabel.text == "day")
+        if(dayDateStr == "day")
         {
             return dayArray[row]
         }
@@ -226,7 +229,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(dayDateLabel.text == "day")
+        if(dayDateStr == "day")
         {
             dateStr =  dayArray[row]
         }

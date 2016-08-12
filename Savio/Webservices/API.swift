@@ -133,9 +133,8 @@ protocol InviteMembersDelegate
 }
 
 class API: UIView,NSURLSessionDelegate {
+    // Maintain
     let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-    
-    
     var delegate: PostCodeVerificationDelegate?
     var otpSentDelegate : OTPSentDelegate?
     var otpVerificationDelegate : OTPVerificationDelegate?
@@ -177,12 +176,12 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            
+            //Get Address API URL
             let urlString = String(format:"https://api.getaddress.io/v2/uk/%@?api-key=McuJM5nIIEqqGRVCRUBztQ4159",postcode)
             
             let url = NSURL(string: urlString)
             let request = NSURLRequest(URL: url!)
-            
+            //Set time out after requesting 30 second
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -204,7 +203,6 @@ class API: UIView,NSURLSessionDelegate {
                         {
                             //else return an error
                             dispatch_async(dispatch_get_main_queue()){
-                                //print(dict)
                                 self.delegate?.error("That postcode doesn't look right")
                             }
                         }
@@ -212,15 +210,10 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 if let error = error
                 {
-                    
                     dispatch_async(dispatch_get_main_queue()){
                         self.delegate?.error(error.localizedDescription)
                     }
-                    
-                    
                 }
-
-                
             }
             dataTask.resume()
         }
@@ -239,30 +232,31 @@ class API: UIView,NSURLSessionDelegate {
         {
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
             request.HTTPMethod = "POST"
-            // request.timeoutInterval  = 30
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
+             // request.timeoutInterval  = 30
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                //If data is not nil
                 if data != nil
                 {
+                    //Json serialization
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableLeaves)
-                    // print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        //print("\(dict)")
+                        //return success response to viewcontroller
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.successResponseForRegistrationAPI(dict)
                         }
                     }
                     else
                     {
-                        print(response?.description)
+                        //return error response to viewcontroller
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI((response?.description)!)
                         }
@@ -272,12 +266,10 @@ class API: UIView,NSURLSessionDelegate {
                     print(response?.description)
                     if let error = error
                     {
-                        
+                        //return error to viewcontroller
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI(error.localizedDescription)
                         }
-                        
-                        
                     }
                     else
                     {
@@ -295,11 +287,9 @@ class API: UIView,NSURLSessionDelegate {
                 self.delegate?.errorResponseForRegistrationAPI("No network found")
             }
         }
-        
     }
     
     //MARK: OTP generate and verification
-    
     func getOTPForNumber(phoneNumber:String,country_code:String) {
         //Check if network is present
         if(self.isConnectedToNetwork())
@@ -307,24 +297,23 @@ class API: UIView,NSURLSessionDelegate {
             let request = NSMutableURLRequest(URL: NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!)
             
             request.HTTPMethod = "POST"
-            
+            //collect requierd parameter in dictionary
             let params = ["api_key":APIKey,"via":"sms","phone_number":phoneNumber,"country_code":country_code] as Dictionary<String, String>
-            
+            //set request parameter to request body
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
+            // set time out interval
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
-            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        // print(dict)
                         if(dict["success"] as! Bool == true)
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -335,23 +324,19 @@ class API: UIView,NSURLSessionDelegate {
                         else
                         {
                             dispatch_async(dispatch_get_main_queue()){
-                                //send successResponse
+                                //send errorResponse
                                 self.otpSentDelegate?.errorResponseForOTPSentAPI(dict["message"] as! String)
                             }
-                            
                         }
-                        
                     }
                     else
                     {
                         if let error = error
                         {
-                            
+                            //send error occuring at request
                             dispatch_async(dispatch_get_main_queue()){
                                 self.otpSentDelegate?.errorResponseForOTPSentAPI(error.localizedDescription)
                             }
-                            
-                            
                         }
                         else
                         {
@@ -369,10 +354,8 @@ class API: UIView,NSURLSessionDelegate {
                         self.otpSentDelegate?.errorResponseForOTPSentAPI((error?.localizedDescription)!)
                     }
                 }
-                
             }
             dataTask.resume()
-            
         }
         else{
             //Give error no network found
@@ -380,8 +363,7 @@ class API: UIView,NSURLSessionDelegate {
         }
     }
     
-    
-    
+    //Function performing action to
     func verifyOTP(phoneNumber:String,country_code:String,OTP:String)
     {
         //Check if network is present

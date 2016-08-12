@@ -1303,9 +1303,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell)
                 {
                     let cell = arrRegistrationFields[i] as! TitleTableViewCell
-                    
                 }
-                
                 if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell)
                 {
                     let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
@@ -1316,7 +1314,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     }
                 }
             }
-            
         }
         else if(objResponse["message"] as! String == "Three Field is not match and Mobile number is match")
         {
@@ -1328,27 +1325,20 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: "Enter your firstname, lastname, date of birth as earlier", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
-            
         }
-            
         else{
             checkString = "Register"
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
             objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
-            
-            
         }
     }
     func errorResponseForRegistrationAPI(error:String){
         objAnimView?.removeFromSuperview()
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
-        
     }
-    
 }
 
 

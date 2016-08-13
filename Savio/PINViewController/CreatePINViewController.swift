@@ -274,9 +274,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         self.addTargetAndRadiusForTf(textFieldReTwo)
         self.addTargetAndRadiusForTf(textFieldReThree)
         self.addTargetAndRadiusForTf(textFieldReFour)
-    }
-    
-    
+    }    
     
     func textFieldDidChange(textField: UITextField) {
         

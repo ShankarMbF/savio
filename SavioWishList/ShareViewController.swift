@@ -66,7 +66,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     
                     let alert = UIAlertController(title: "Warning", message: "Please enter price for product", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                    
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 

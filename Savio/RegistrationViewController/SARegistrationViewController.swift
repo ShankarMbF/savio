@@ -1274,6 +1274,40 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView?.removeFromSuperview()
         print("\(objResponse)")
         
+        let errorCode = (objResponse["errorCode"] as! NSString).integerValue
+        
+        if errorCode == 200 {
+            checkString = "Register"
+            let objAPI = API()
+            objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+            objAPI.otpSentDelegate = self
+            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
+        }
+        else if errorCode == 201 {
+            let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
+                checkString = "ForgotPasscode"
+                let objAPI = API()
+                objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+                checkString = "ForgotPasscode"
+                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
+                self.navigationController?.pushViewController(objCreatePINView, animated: true)
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else if errorCode == 202 {
+            var dict = objResponse["party"] as! Dictionary<String,AnyObject>
+            firstName = dict["first_name"] as! String
+            lastName = dict["second_name"] as! String
+            dateOfBirth = dict["date_of_birth"] as! String
+            let msg = objResponse["message"] as! String
+            
+            let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }
+   /*
         if(objResponse["message"] as! String == "All field are match")
         {
             let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1333,6 +1367,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             objAPI.otpSentDelegate = self
             objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
         }
+ */
     }
     func errorResponseForRegistrationAPI(error:String){
         objAnimView?.removeFromSuperview()

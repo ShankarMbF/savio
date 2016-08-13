@@ -219,7 +219,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
 
         if let message = objResponse["message"]
         {
-            if(message as! String == "Updated Data Sucessfully")
+            if(message as! String == "User sucessfully register")
             {
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)

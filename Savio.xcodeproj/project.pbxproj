@@ -38,7 +38,6 @@
 		A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82B9C9A1D06DDDF00BFD084 /* slider.swift */; };
 		A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */; };
 		A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */; };
-		A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */; };
 		A833D0F61D49FF6B0098409E /* stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */; };
 		A833D0F71D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */; };
 		A833D0F81D49FF6B0098409E /* stats-achievement-smiley-popup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A833D0F51D49FF6B0098409E /* stats-achievement-smiley-popup@3x.png */; };
@@ -291,7 +290,6 @@
 		A8B5A50A1D4A2C5A005A607D /* SavioLogoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B5A5081D4A2C5A005A607D /* SavioLogoTableViewCell.xib */; };
 		A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B74C3A1CEDD13E003A5D9A /* DataProtectionPolicy.swift */; };
 		A8B74C3D1CEDD152003A5D9A /* DataProtectionPolicy.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B74C3C1CEDD152003A5D9A /* DataProtectionPolicy.xib */; };
-		A8BDCB851D053A0400D4C47B /* SAPopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */; };
 		A8BDCBD31D05557500D4C47B /* baby-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBA91D05557500D4C47B /* baby-calendar.png */; };
 		A8BDCBD41D05557500D4C47B /* baby-calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBAA1D05557500D4C47B /* baby-calendar@2x.png */; };
 		A8BDCBD51D05557500D4C47B /* baby-calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBAB1D05557500D4C47B /* baby-calendar@3x.png */; };
@@ -645,7 +643,6 @@
 		A82B9C9A1D06DDDF00BFD084 /* slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = slider.swift; sourceTree = "<group>"; };
 		A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenOneViewController.swift; sourceTree = "<group>"; };
 		A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenOneViewController.xib; sourceTree = "<group>"; };
-		A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPopOverViewController.swift; sourceTree = "<group>"; };
 		A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@2x.png"; sourceTree = "<group>"; };
 		A833D0F51D49FF6B0098409E /* stats-achievement-smiley-popup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@3x.png"; sourceTree = "<group>"; };
@@ -896,7 +893,6 @@
 		A8B5A5081D4A2C5A005A607D /* SavioLogoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavioLogoTableViewCell.xib; sourceTree = "<group>"; };
 		A8B74C3A1CEDD13E003A5D9A /* DataProtectionPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProtectionPolicy.swift; sourceTree = "<group>"; };
 		A8B74C3C1CEDD152003A5D9A /* DataProtectionPolicy.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataProtectionPolicy.xib; sourceTree = "<group>"; };
-		A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAPopOverViewController.xib; sourceTree = "<group>"; };
 		A8BDCBA91D05557500D4C47B /* baby-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-calendar.png"; sourceTree = "<group>"; };
 		A8BDCBAA1D05557500D4C47B /* baby-calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-calendar@2x.png"; sourceTree = "<group>"; };
 		A8BDCBAB1D05557500D4C47B /* baby-calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-calendar@3x.png"; sourceTree = "<group>"; };
@@ -1406,8 +1402,6 @@
 				A86681F41CFF019B0014DB59 /* SavingPlanSetupCells */,
 				A86681F01CFEF1220014DB59 /* SASavingPlanViewController.swift */,
 				A86681F11CFEF1220014DB59 /* SASavingPlanViewController.xib */,
-				A8308E8C1D015605003BE375 /* SAPopOverViewController.swift */,
-				A8BDCB841D053A0400D4C47B /* SAPopOverViewController.xib */,
 				A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */,
 				A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */,
 				A827961B1D1A71B300097E75 /* GroupsavingViewController.swift */,
@@ -2572,7 +2566,6 @@
 				A858A6031D08127C0097546F /* wedding-circle@2x.png in Resources */,
 				A8BDCBF21D05557500D4C47B /* ride-calendar@2x.png in Resources */,
 				C9361EBB1D30C18300605E1B /* social-tr.png in Resources */,
-				A8BDCB851D053A0400D4C47B /* SAPopOverViewController.xib in Resources */,
 				C9ED805D1D1BC38A00058A96 /* menu-whishlist@3x.png in Resources */,
 				C9F600551D17F8DF003155A2 /* SAMenuViewController.xib in Resources */,
 				A88E81E41D49EA0F00CAA00F /* stats-plan-tab-active.png in Resources */,
@@ -3040,7 +3033,6 @@
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
 				C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */,
-				A8308E8E1D015605003BE375 /* SAPopOverViewController.swift in Sources */,
 				A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */,
 				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,
@@ -3137,7 +3129,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -3158,7 +3150,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3274,7 +3266,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3298,7 +3290,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};

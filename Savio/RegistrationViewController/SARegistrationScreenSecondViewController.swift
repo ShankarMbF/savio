@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate {
+class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate {
     
     @IBOutlet weak var registerScrollViewSecond: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -27,64 +27,38 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var registerButtonBgView: UIView!
-    let dropDown = DropDown()
-    var arrayAddress = [String]()
     @IBOutlet weak var addressLineOneTopSpace: NSLayoutConstraint!
-    
     @IBOutlet weak var contentViewHt: NSLayoutConstraint!
     @IBOutlet weak var addressLineErrorLabelTopSpace: NSLayoutConstraint!
     @IBOutlet weak var countyTextFieldTopspace: NSLayoutConstraint!
     @IBOutlet weak var addressLineOneErrorLabelTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var addressDropDownButton: UIButton!
+    @IBOutlet weak var townTextFieldTopSpace: NSLayoutConstraint!
+    
+    let dropDown = DropDown()
+    var arrayAddress = [String]()
     var activeTextField = UITextField()
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     var objAnimView = ImageViewAnimation()
     
-    @IBOutlet weak var addressDropDownButton: UIButton!
-    
-    @IBOutlet weak var townTextFieldTopSpace: NSLayoutConstraint!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setUpView()
-        
-        dropDown.anchorView = selectAddressTextField
-        dropDown.backgroundColor = UIColor.whiteColor()
-        dropDown.bottomOffset = CGPoint(x: 0, y:selectAddressTextField!.bounds.height)
-        dropDown.selectionAction = { [unowned self] (index, item) in
-            let str = item
-            let fullNameArr = str.characters.split{$0 == ","}.map(String.init)
-            
-            self.addressLineOneTextField.text = fullNameArr[0]
-            self.addressLineTwoTextField.text = fullNameArr[1]
-            self.addressLineThreeTextField.text = fullNameArr[2]
-            self.townTextField.text = fullNameArr[fullNameArr.count-2]
-            self.countyTextField.text = fullNameArr[fullNameArr.count-1]
-            
-            self.addressLineOneTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.addressLineTwoTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.addressLineThreeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.townTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.countyTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        
-            self.townTextFieldTopSpace.constant = 5
-            self.countyTextFieldTopspace.constant = 5
-            
-            
-        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        //set the height on contentview and content size of UIScrollview
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
     }
     func setUpView()
     {
-
+        //set the height on contentview and content size of UIScrollview
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
         
+        //Customization of find address text field
         findAddressTextField?.layer.cornerRadius = 2.0
         findAddressTextField?.layer.masksToBounds = true
         findAddressTextField?.layer.borderWidth=1.0
@@ -92,7 +66,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         findAddressTextField?.attributedPlaceholder = placeholder1;
         findAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-        
+        //Customization of select address text field
         selectAddressTextField?.layer.cornerRadius = 2.0
         selectAddressTextField?.layer.masksToBounds = true
         selectAddressTextField?.layer.borderWidth=1.0
@@ -100,7 +74,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         selectAddressTextField?.attributedPlaceholder = placeholder2;
         selectAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-        
+        //Customization of address line one text field
         addressLineOneTextField?.layer.cornerRadius = 2.0
         addressLineOneTextField?.layer.masksToBounds = true
         addressLineOneTextField?.layer.borderWidth=1.0
@@ -108,6 +82,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineOneTextField?.attributedPlaceholder = placeholder3;
         addressLineOneTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        //Customization of address line two text field
         addressLineTwoTextField?.layer.cornerRadius = 2.0
         addressLineTwoTextField?.layer.masksToBounds = true
         addressLineTwoTextField?.layer.borderWidth=1.0
@@ -115,6 +90,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineTwoTextField?.attributedPlaceholder = placeholder4;
         addressLineTwoTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        //Customization of address line three text field
         addressLineThreeTextField?.layer.cornerRadius = 2.0
         addressLineThreeTextField?.layer.masksToBounds = true
         addressLineThreeTextField?.layer.borderWidth=1.0
@@ -122,6 +98,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineThreeTextField?.attributedPlaceholder = placeholder5;
         addressLineThreeTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        //Customization of town text field
         townTextField?.layer.cornerRadius = 2.0
         townTextField?.layer.masksToBounds = true
         townTextField?.layer.borderWidth=1.0
@@ -129,6 +106,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         townTextField?.attributedPlaceholder = placeholder6;
         townTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        //Customization of county text field
         countyTextField?.layer.cornerRadius = 2.0
         countyTextField?.layer.masksToBounds = true
         countyTextField?.layer.borderWidth=1.0
@@ -136,9 +114,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         countyTextField?.attributedPlaceholder = placeholder7;
         countyTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-        
         findAddressButton.layer.cornerRadius = 2.0
-        
         registerButtonBgView.layer.cornerRadius = 2.0
         registerButton.layer.cornerRadius = 2.0
         
@@ -152,16 +128,19 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func checkTextFieldValidation()->Bool{
         var errorFlag = false
         
-        if findAddressTextField.text==""{
+        //Validations for find address text field
+        if findAddressTextField.text=="" {
             errorFlag = true
             findAddressErrorLabel.text = "Don’t forget your postcode"
             findAddressTextField.layer.borderColor = UIColor.redColor().CGColor
             findAddressTextField.textColor = UIColor.redColor()
         }
         
+        //Validations for address line one text field
         if addressLineOneTextField.text == ""
         {
             errorFlag = true
@@ -174,6 +153,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             addressLineThreeTextField.layer.borderColor = UIColor.redColor().CGColor
         }
         
+        //Validations for town text field
         if townTextField.text == ""
         {
             errorFlag = true
@@ -182,6 +162,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             townTextField.layer.borderColor = UIColor.redColor().CGColor
         }
         
+        //Validations for county text field
         if countyTextField.text == ""
         {
             errorFlag = true
@@ -192,11 +173,12 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
-
+        
         return errorFlag
     }
     
     
+    //UITextfield delegate method
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
@@ -212,9 +194,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         {
             self.showOrDismiss()
             return false
-            
         }
-        
         return true
     }
     
@@ -223,41 +203,51 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         activeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
     }
     
-    
-    func showOrDismiss(){
-        if dropDown.hidden {
-            dropDown.show()
-        } else {
-            dropDown.hide()
-        }
-    }
-    
     @IBAction func findAddressButtonPressed(sender: AnyObject) {
         activeTextField.resignFirstResponder()
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
+        if(arrayAddress.count > 0)
+        {
+        self.dropDown.deselectRowAtIndexPath(0)
+        arrayAddress.removeAll()
+        dropDown.dataSource.removeAll()
+        }
         self.view.addSubview(objAnimView)
         findAddressErrorLabel.text = ""
         let objGetAddressAPI: API = API()
         objGetAddressAPI.delegate = self
         let trimmedString = findAddressTextField.text!.stringByReplacingOccurrencesOfString(" ", withString: "")
         objGetAddressAPI.verifyPostCode(trimmedString)
+        
+    }
+    
+    //Importanat information view delegate method
+    func acceptPolicy(obj:ImportantInformationView){
+            let objAPI = API()
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            self.view.addSubview(objAnimView)
+            objAPI.delegate = self
+            objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
     
     }
+
     
     @IBAction func registerButtonPressed(sender: AnyObject) {
         
-        if(self.checkTextFieldValidation())
+        //Check the text field validations to go further for registration
+        if(self.checkTextFieldValidation() == false)
         {
             userInfoDict["address_1"] = addressLineOneTextField.text
-             userInfoDict["address_2"] = addressLineOneTextField.text
-             userInfoDict["address_3"] = addressLineOneTextField.text
-             userInfoDict["town"] = addressLineOneTextField.text
-             userInfoDict["county"] = addressLineOneTextField.text
-             userInfoDict["post_code"] = findAddressTextField.text
-             let udidDict : Dictionary<String,AnyObject>
-            
+            userInfoDict["address_2"] = addressLineTwoTextField.text
+            userInfoDict["address_3"] = addressLineThreeTextField.text
+            userInfoDict["town"] = townTextField.text
+            userInfoDict["county"] = countyTextField.text
+            userInfoDict["post_code"] = findAddressTextField.text
+            let udidDict : Dictionary<String,AnyObject>
             if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
@@ -265,16 +255,21 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             } else {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
             }
-            
-            
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
-            
-            
-                    print(userInfoDict)
+            print(userInfoDict)
+        
+            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+            objimpInfo.lblHeader.text = "Why do we need this information?"
+            objimpInfo.frame = self.view.frame
+            objimpInfo.delegate = self
+            self.view.addSubview(objimpInfo)
         }
-
+        else
+        {
+            self.checkTextFieldValidation()
+        }
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
     }
@@ -322,17 +317,61 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     @IBAction func selectAddressArrowPressed(sender: AnyObject) {
         self.showOrDismiss()
     }
+    
+    func sortTwoString(value1: String, value2: String) -> Bool {
+        // One string is alphabetically first.
+        // ... True means value1 precedes value2.
+        return value1 < value2;
+    }
+    
+    func showOrDismiss(){
+        if dropDown.hidden {
+            dropDown.show()
+        } else {
+            dropDown.hide()
+        }
+    }
+    
+    //Set up drop down for address list
+    func setUpDropDown(){
+        arrayAddress.sortInPlace { sortTwoString($0, value2: $1) }
+        dropDown.dataSource = arrayAddress
+        // dropdown selection action
+        dropDown.selectionAction = { [unowned self] (index, item) in
+            let str = item
+            let fullNameArr = str.characters.split{$0 == ","}.map(String.init)
+            self.addressLineOneTextField.text = fullNameArr[0]
+            self.addressLineTwoTextField.text = fullNameArr[1]
+            self.addressLineThreeTextField.text = fullNameArr[2]
+            self.townTextField.text = fullNameArr[fullNameArr.count-2]
+            self.countyTextField.text = fullNameArr[fullNameArr.count-1]
+            
+            self.addressLineOneTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.addressLineTwoTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.addressLineThreeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.townTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.countyTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.townTextFieldTopSpace.constant = 5
+            self.countyTextFieldTopspace.constant = 5
+        }
+        //added bottom offset for dropdown
+        dropDown.anchorView = selectAddressTextField
+        dropDown.bottomOffset = CGPoint(x: 0, y:selectAddressTextField!.bounds.height)
+        dropDown.backgroundColor = UIColor.whiteColor()
+        
+    }
+    
+    //Post code verification delegate methods
     func success(addressArray: Array<String>) {
         objAnimView.removeFromSuperview()
-        dropDown.dataSource = addressArray
         arrayAddress = addressArray
         addressLineOneTopSpace.constant = 40
         selectAddressTextField.hidden = false
         addressDropDownButton.hidden = false
         addressLineOneErrolLabel.text = ""
-
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        self.setUpDropDown()
     }
     
     func error(error: String) {
@@ -354,12 +393,14 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             
         }
     }
-    
+    //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
         
     }
     
     func errorResponseForRegistrationAPI(error: String) {
-        
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
 }

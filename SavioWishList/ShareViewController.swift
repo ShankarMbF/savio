@@ -300,7 +300,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     func successResponseForShareExtensionAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         spinner.stopAnimating()
         spinner.hidden = true
         

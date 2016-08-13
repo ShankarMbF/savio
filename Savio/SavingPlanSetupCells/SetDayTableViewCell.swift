@@ -35,7 +35,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     var customToolBar : UIToolbar?
     weak var view : UIScrollView?
     var dateStr : String = ""
-    var dayDateStr : String = ""
+    var dayDateStr : String = "date"
     
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]

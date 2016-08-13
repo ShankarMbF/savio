@@ -346,22 +346,13 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
 
     func clickedOnAddOffer(sender: UIButton){
-//        let offerTitle = obj.lblOfferTitle?.text
-//        let  offerDiscount = obj.lblOfferDiscount?.text
-//        let offerSummary = obj.lblOfferSummary?.text
-//        print(offerTitle)
-//        print(offerDiscount)
-//        print(offerSummary)
-//        let  dict = ["offerTitle":offerTitle,"offerDiscount":offerDiscount,]
         
          let cellDict = offerArr[sender.tag]
-//        let arr : Array<Dictionary<String,AnyObject>> = [cellDict]
         delegate?.addedOffers(cellDict)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
-        print(objResponse)
         objAnimView.removeFromSuperview()
         if offerArr.count > 0 {
             offerArr.removeAll()

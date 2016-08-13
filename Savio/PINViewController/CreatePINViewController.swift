@@ -175,7 +175,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
     {
         objAnimView.removeFromSuperview()
-        print(objResponse)
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
 
         NSUserDefaults.standardUserDefaults().setObject(passcode, forKey: "pin")
@@ -212,7 +211,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
-        print(objResponse)
         objAnimView.removeFromSuperview()
         //Store the passcode in Keychain
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!

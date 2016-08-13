@@ -13,14 +13,14 @@
  class GroupsavingViewController: UIViewController,SavingPlanTitleTableViewCellDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ABPeoplePickerNavigationControllerDelegate,SAContactViewDelegate,UITableViewDelegate,UITableViewDataSource,SACreateGroupSavingPlanDelegate {
     
     @IBOutlet weak var topBackgroundImageView: UIImageView!
-    
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
-    
     @IBOutlet weak var contentViewHt: NSLayoutConstraint!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
+    @IBOutlet weak var scrlView: UIScrollView!
+    
     var cost : Int = 0
     var imageDataDict : Dictionary<String,AnyObject> = [:]
     var dateDiff : Int = 0
@@ -37,7 +37,7 @@
     var isFromWishList = false
     var imagePicker = UIImagePickerController()
     var isContactAdded = false
-    @IBOutlet weak var scrlView: UIScrollView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +78,6 @@
     }
     
     func setUpView(){
-        
-        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -100,20 +98,17 @@
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
-        {
+        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-            
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
-            if(wishListArray!.count > 0)
-            {
+            if(wishListArray!.count > 0) {
                 
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else{
+            else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
@@ -122,15 +117,13 @@
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-       
-        
-        if let urlString = itemDetailsDataDict["imageURL"] as? String
-        {
+
+        //Get image for the saving plan
+        if let urlString = itemDetailsDataDict["imageURL"] as? String {
             let url = NSURL(string:urlString)
             
             let request: NSURLRequest = NSURLRequest(URL: url!)
-            if(urlString != "")
-            {
+            if(urlString != "") {
                 let spinner =  UIActivityIndicatorView()
                 spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
                 spinner.hidesWhenStopped = true
@@ -139,11 +132,9 @@
                 spinner.startAnimating()
                 
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    
-                    if(data?.length > 0)
-                    {
+                    if(data?.length > 0) {
                         let image = UIImage(data: data!)
-                        
+
                         dispatch_async(dispatch_get_main_queue(), {
                             spinner.stopAnimating()
                             spinner.hidden = true
@@ -151,8 +142,7 @@
                             self.topBackgroundImageView.image = image
                         })
                     }
-                    else
-                    {
+                    else {
                         spinner.stopAnimating()
                         spinner.hidden = true
                     }
@@ -167,24 +157,23 @@
             itemTitle = itemDetailsDataDict["title"] as! String
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
         }
-        else
-        {
+        else {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
             isFromWishList = false
         }
         let ht : CGFloat = 100
-        
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
         
     }
+    
+    //Navigation bar button action methods
     func backButtonClicked()
     {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
     
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
@@ -192,18 +181,17 @@
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
-            if wishListArray!.count>0{
-                
+            if wishListArray!.count>0 {
                 let objSAWishListViewController = SAWishListViewController()
                 objSAWishListViewController.wishListArray = wishListArray!
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
             }
-            else{
+            else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -225,21 +213,15 @@
         self.cost = 0
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
         NSUserDefaults.standardUserDefaults().synchronize()
-        
         self.itemTitle = ""
-        
         self.isClearPressed = true
         self.popOverSelectedStr = ""
-        
-        if(participantsArr.count > 0)
-        {
+        if(participantsArr.count > 0) {
             participantsArr.removeAll()
         }
-        if(self.itemDetailsDataDict.keys.count > 0)
-        {
+        if(self.itemDetailsDataDict.keys.count > 0) {
             self.itemDetailsDataDict.removeAll()
         }
-        
         self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
         self.tblViewHt.constant = 500
         self.scrlView.contentOffset = CGPointMake(0, 20)
@@ -258,19 +240,14 @@
     
     
     @IBAction func cameraButtonPressed(sender: AnyObject) {
-        
-        
+        //Open camera or gallery as per users selection
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
-        
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
                 self.imagePicker.allowsEditing = true
-                
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
@@ -282,11 +259,9 @@
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
                 self.imagePicker.allowsEditing = true
-                
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
@@ -297,11 +272,7 @@
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        
         self.presentViewController(alertController, animated: true, completion: nil)
-        
-        
-        
     }
     
     //MARK: - Addressbook integration
@@ -322,8 +293,6 @@
     
     func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
         var contactDict: Dictionary<String,AnyObject> = [:]
-        //Get person's first name
-        
         //Get person's last name
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
@@ -333,8 +302,7 @@
                     contactDict["name"] = firstName as! String
                 }
             }
-            else
-            {
+            else {
                 contactDict["name"] = ""
             }
             
@@ -342,14 +310,13 @@
                 contactDict["lastName"] = lastName as! String
             }
         }
-        else{
+        else { //Get person's first name
             if  (ABRecordCopyValue(person, kABPersonFirstNameProperty) != nil){
                 if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                    print(firstName)
                     contactDict["name"] = firstName as! String
                 }
             }
-            else{
+            else {
                 contactDict["name"] = ""
             }
             contactDict["lastName"] = ""
@@ -372,7 +339,6 @@
             } else {
                 phoneNumber = "Phone Number is empty!";
             }
-            //            print(phoneNumber)
         }
         
         //Get person's email id
@@ -382,24 +348,17 @@
                 let index = 0 as CFIndex
                 let emailAddress = ABMultiValueCopyValueAtIndex(emails, index).takeRetainedValue() as! String
                 contactDict["email"] = emailAddress
-                
-                //                print(emailAddress)
             } else {
                 print("No email address")
             }
         }
-        
-        
-        
-        
-        var pic: UIImage? //= UIImage(named: "default-pic.png")!
+  
+        var pic: UIImage?
         let picTemp1 = ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail)
-        if picTemp1 == nil{
-            //            print("NIL FOUND")
+        if picTemp1 == nil {
             pic = nil
         }
-        else{
-            //            print("PICTURE FOUND")
+        else {
             let picTemp2: NSObject? = Unmanaged<NSObject>.fromOpaque(picTemp1!.toOpaque()).takeRetainedValue()
             if picTemp2 != nil {
                 pic = UIImage(data: picTemp2! as! NSData)!
@@ -413,19 +372,15 @@
         self.navigationController?.pushViewController(contactView, animated: true)
         
     }
-    
+    //Add contact delegate methods
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
-        print(contactDict)
         isContactAdded = true
         participantsArr.append(contactDict)
-        
         NSUserDefaults.standardUserDefaults().setObject(participantsArr, forKey:"InviteGroupArray")
         NSUserDefaults.standardUserDefaults().synchronize()
-        
         contentViewHt.constant = contentViewHt.constant + 40
         tblViewHt.constant = tblViewHt.constant + 40
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + 40)
-        
         tblView.reloadData()
     }
     
@@ -436,7 +391,7 @@
     // MARK: - UITableViewDelegate methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if itemDetailsDataDict["title"] != nil{
+        if itemDetailsDataDict["title"] != nil {
             return 4
         } else {
             return 7
@@ -444,38 +399,31 @@
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 4)
-        {
+        if(section == 4) {
             return participantsArr.count
             
         }
-        else
-        {
+        else {
             return 1
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
-        if(indexPath.section == 0)
-        {
+        if(indexPath.section == 0)  {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
             cell1.view = self.scrlView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            
             cell1.savingPlanTitleDelegate = self
-            if(itemDetailsDataDict["title"] != nil)
-            {
+            if(itemDetailsDataDict["title"] != nil) {
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 cell1.titleTextField.userInteractionEnabled = false
                 itemTitle = itemDetailsDataDict["title"] as! String
                 
             }
-            
-            if(isClearPressed)
-            {
+            if(isClearPressed) {
                 cell1.titleTextField.text = itemTitle
             }
             cell1.titleTextField.textColor = UIColor(red: 161/256, green: 214/256, blue: 248/256, alpha: 1.0)
@@ -512,8 +460,7 @@
                 cell1.plusButton.userInteractionEnabled = false
                 cost = Int(cell1.slider.value)
             }
-            else if( isContactAdded == true)
-            {
+            else if( isContactAdded == true) {
                 let amountString = "£" + String(format: "%d", cost)
                 cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                 cell1.slider.value =  Float(cost)
@@ -532,7 +479,7 @@
             }
             return cell1
         }
-        else if(indexPath.section == 2){
+        else if(indexPath.section == 2) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier", forIndexPath: indexPath) as! SavingPlanDatePickerTableViewCell
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
@@ -540,13 +487,10 @@
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             
-            if(itemDetailsDataDict["planEndDate"] != nil)
-            {
-                
+            if(itemDetailsDataDict["planEndDate"] != nil) {
                 cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
                 cell1.datePickerTextField.userInteractionEnabled = false
-                
                 let date  = itemDetailsDataDict["planEndDate"] as? String
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -555,36 +499,28 @@
                 dateDiff = Int(timeDifference/3600)
                 
             }
-            if(isClearPressed)
-            {
+            if(isClearPressed) {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                 let currentDate: NSDate = NSDate()
                 let components: NSDateComponents = NSDateComponents()
-                
                 components.day = +7
                 let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
                 let dateFormatter = NSDateFormatter()
-                
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                
                 cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
                 
             }
             return cell1
         }
-        else if(indexPath.section == 3)
-        {
-            if(itemDetailsDataDict["title"] == nil)
-            {
+        else if(indexPath.section == 3) {
+            if(itemDetailsDataDict["title"] == nil) {
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
-                if(participantsArr.count == 0)
-                {
+                if(participantsArr.count == 0) {
                 cell1.layer.cornerRadius = 5
                 cell1.layer.masksToBounds = true
                 }
-                else
-                {
+                else {
                     cell1.layer.cornerRadius = 0
                     let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(5.0, 5.0))
                     let maskLayer: CAShapeLayer = CAShapeLayer()
@@ -592,23 +528,19 @@
                     maskLayer.path = maskPath.CGPath
                     cell1.layer.mask = maskLayer
                 }
-                if(itemDetailsDataDict["title"] != nil)
-                {
+                if(itemDetailsDataDict["title"] != nil) {
                     cell1.inviteButton.userInteractionEnabled = false
                 }
                 cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
-                if(participantsArr.count > 0)
-                {
+                if(participantsArr.count > 0) {
                     cell1.bottomBorderLabel.hidden = false
                 }
-                else
-                {
+                else {
                     cell1.bottomBorderLabel.hidden = true
                 }
                 return cell1
             }
-            else{
-                
+            else {
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
                 
@@ -617,51 +549,44 @@
             }
             
         }
-        else if(indexPath.section == 5)
-        {
+        else if(indexPath.section == 5) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            if(itemDetailsDataDict["title"] != nil)
-            {
+            if(itemDetailsDataDict["title"] != nil) {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
                 cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             }
-            else
-            {
+            else {
                 cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
-        else if(indexPath.section ==  6)
-        {
+        else if(indexPath.section ==  6) {
             
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            if(itemDetailsDataDict["title"] != nil)
-            {
+            if(itemDetailsDataDict["title"] != nil) {
                 cell1.clearButton.userInteractionEnabled = false
             }
             cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
             
-        else{
+        else {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
 
-            if(indexPath.row  == (participantsArr.count - 1))
-            {
+            if(indexPath.row  == (participantsArr.count - 1)) {
             let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
             let maskLayer: CAShapeLayer = CAShapeLayer()
             maskLayer.frame = cell1.bounds
             maskLayer.path = maskPath.CGPath
             cell1.layer.mask = maskLayer
             }
-            else
-            {
+            else {
                 let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(0, 0))
                 let maskLayer: CAShapeLayer = CAShapeLayer()
                 maskLayer.frame = cell1.bounds
@@ -669,19 +594,15 @@
                 cell1.layer.mask = maskLayer
             }
             
-            if(participantsArr.count != 0)
-            {
+            if(participantsArr.count != 0) {
                 let dict = participantsArr[indexPath.row]
                 cell1.ParticipantsNameLabel.text = dict["first_name"] as? String
-                if (dict["email_id"] as? String != "")
-                {
+                if (dict["email_id"] as? String != "") {
                     cell1.phoneOrEmailLabel.text = dict["email_id"] as? String
                 }
-                else
-                {
+                else {
                     cell1.phoneOrEmailLabel.text = dict["mobile_number"] as? String
                 }
-                
                 cell1.deleteContactButton.addTarget(self, action:  Selector("deleteContactButtonPressed:"), forControlEvents: .TouchUpInside)
                 cell1.deleteContactButton.tag = indexPath.row
                 
@@ -691,16 +612,12 @@
         
     }
     
-    
-    
     func deleteContactButtonPressed(sender:UIButton)
     {
         let alert = UIAlertController(title: "Are you sure?", message: "You want to delete this person from list", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
             self.participantsArr.removeAtIndex(sender.tag)
-            
             self.contentViewHt.constant = self.contentViewHt.constant - 40
             self.tblViewHt.constant = self.tblViewHt.constant - 40
             self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height - 40)
@@ -710,87 +627,64 @@
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
     func inviteButtonPressed()
     {
-        if(participantsArr.count == 7)
-        {
+        if(participantsArr.count == 7) {
             self.displayAlert(" You can't add more than 7 contacts into group saving plan")
         }
-        else
-        {
+        else {
             self.showAddressBook()
         }
-        
     }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-        
-    }
-    
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let view : UIView = UIView()
         view.backgroundColor = UIColor.clearColor()
         return view
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if(section == 4)
-        {
-            if(participantsArr.count > 0)
-            {
+        if(section == 4) {
+            if(participantsArr.count > 0) {
                 return 0
                 
             }
-            else
-            {
+            else {
                 return 3
             }
         }
-        else
-        {
+        else {
             return 3
         }
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        if(indexPath.section == 0)
-        {
+        if(indexPath.section == 0) {
             return 44
         }
-        else if(indexPath.section == 1){
+        else if(indexPath.section == 1) {
             return 90
         }
-        else if(indexPath.section == 2){
+        else if(indexPath.section == 2) {
             return 70
         }
-            
-        else if(indexPath.section == 3)
-        {
+        else if(indexPath.section == 3) {
             return 118
         }
-        else if(indexPath.section ==   4)
-        {
+        else if(indexPath.section ==   4) {
             return 40
         }
-        else if(indexPath.section ==   5)
-        {
+        else if(indexPath.section ==   5) {
             return 65
         }
-        else if(indexPath.section ==   6)
-        {
+        else if(indexPath.section ==   6) {
             return 40
         }
-        else
-        {
-            if(participantsArr.count == 0)
-            {
+        else {
+            if(participantsArr.count == 0) {
                 return 0
             }
-            else
-            {
+            else {
                 return 35
             }
         }
@@ -801,185 +695,137 @@
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
         
-        if(itemDetailsDataDict["id"] != nil){
+        if(itemDetailsDataDict["id"] != nil) {
             let str = Int (itemDetailsDataDict["id"] as! NSNumber)
-            //            print(str)
             parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
-        if(itemDetailsDataDict["savingId"] != nil){
+        if(itemDetailsDataDict["savingId"] != nil) {
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"] as! NSNumber
         }
         
-        if(itemDetailsDataDict["sharedPtySavingPlanId"] != nil){
+        if(itemDetailsDataDict["sharedPtySavingPlanId"] != nil) {
             parameterDict["sharedPtySavingPlanId"] = itemDetailsDataDict["sharedPtySavingPlanId"] as! NSNumber
         }
         
-        if(itemDetailsDataDict["title"] != nil)
-        {
+        if(itemDetailsDataDict["title"] != nil) {
             parameterDict["title"] = itemDetailsDataDict["title"]
             parameterDict["isUpdate"] = "Yes"
         }
-        else{
-            
+        else {
             parameterDict["title"] = itemTitle
             parameterDict["isUpdate"] = "No"
         }
         
-        if(itemDetailsDataDict["amount"] != nil)
-        {
-            
+        if(itemDetailsDataDict["amount"] != nil) {
             parameterDict["amount"]  = String(format: "%d", cost)
-            
         }
-        else{
-            
+        else {
             parameterDict["amount"] = String(format:"%d",cost)
         }
-        if(itemDetailsDataDict["imageURL"] != nil)
-        {
+        
+        if(itemDetailsDataDict["imageURL"] != nil) {
             
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             parameterDict["imageURL"] = base64String
         }
-        else{
-            if(cameraButton.hidden == true)
-            {
+        else {
+            if(cameraButton.hidden == true) {
                 let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                 parameterDict["imageURL"] = base64String
             }
-            else{
+            else {
                 parameterDict["imageURL"] = ""
             }
         }
+        
         let dateParameter = NSDateFormatter()
         dateParameter.dateFormat = "yyyy-MM-dd"
         if(itemDetailsDataDict["planEndDate"] != nil) {
             parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
         }
         else {
-            if(datePickerDate != "")
-            {
-                
+            if(datePickerDate != "") {
                 var pathComponents : NSArray!
-                
                 pathComponents = (datePickerDate).componentsSeparatedByString(" ")
                 var dateStr = pathComponents.lastObject as! String
-                
                 dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
-                
                 var pathComponents2 : NSArray!
                 pathComponents2 = dateStr.componentsSeparatedByString("-")
-                
                 parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
             }
         }
-        
-        //        parameterDict["wishList_ID"] = itemDetailsDataDict["id"]
+    
         parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
-        
         parameterDict["pty_id"] = userInfoDict["partyId"]
-        
-        // parameterDict["payType"] = "cxvxc"
-        
-        if(itemDetailsDataDict["savingId"] != nil){
-            
+        if(itemDetailsDataDict["savingId"] != nil) {
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"]
         }
-        else{
-            if((imageDataDict["sav-id"]) != nil)
-            {
+        else {
+            if((imageDataDict["sav-id"]) != nil) {
                 parameterDict["sav_id"] = imageDataDict["sav-id"]
             }
-            else if(imageDataDict["savPlanID"] != nil)
-            {
+            else if(imageDataDict["savPlanID"] != nil) {
                 parameterDict["sav_id"] = imageDataDict["savPlanID"]
             }
             else {
                 parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
             }
         }
-        
         parameterDict["dateDiff"] = String(format:"%d",dateDiff)
         parameterDict["participantsArr"] = participantsArr
         parameterDict["payDate"] = itemDetailsDataDict["payDate"]
-        
-        
         return parameterDict
-        
     }
-    
-    
     
     func getTextFieldText(text: String) {
         itemTitle = text
-        
     }
-    
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
     }
+    
     func datePickerText(date: Int,dateStr:String) {
-        //        print(date)
         dateDiff = date
         datePickerDate = dateStr
     }
     
     
-    func nextButtonPressed(sender:UIButton)
-    {
-        
-        //        let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
-        //        objGroupSavingPlanView.parameterDict = self.getParameters()
-        //        objGroupSavingPlanView.delegate = self
-        //        self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
-        
+    func nextButtonPressed(sender:UIButton) {
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)
         
-        if(isFromWishList)
-        {
-            if(itemTitle != "" && cost != 0 && dateDiff != 0 && datePickerDate != "")
-            {
+        if(isFromWishList) {
+            if(itemTitle != "" && cost != 0 && dateDiff != 0 && datePickerDate != "") {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
-               
-
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
-                 objAnimView.removeFromSuperview()
+                objAnimView.removeFromSuperview()
             }
-            else
-            {
+            else {
                 self.objAnimView.removeFromSuperview()
-                
-                if(itemTitle == "")
-                {
+                if(itemTitle == "") {
                     self.displayAlert("Please enter title for your saving plan")
                 }
-                else if(cost == 0 )
-                {
+                else if(cost == 0 ) {
                     self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if(dateDiff == 0)
-                {
+                else if(dateDiff == 0) {
                     self.displayAlert("Please select date for your saving plan")
                 }
-                else
-                {
+                else  {
                     self.displayAlert("Please enter all details")
                 }
             }
         }
-        else
-        {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && participantsArr.count > 0)
-            {
+        else {
+            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && participantsArr.count > 0) {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
@@ -987,56 +833,23 @@
                 objAnimView.removeFromSuperview()
 
             }
-            else
-            {
+            else {
                 self.objAnimView.removeFromSuperview()
-                
-//                if(itemTitle == "")
-//                {
-//                    self.displayAlert("Please enter title for your saving plan")
-//                }
-//                else if(cost == 0 )
-//                {
-//                    self.displayAlert("Please enter amount for your saving plan")
-//                }
-//                else if(dateDiff == 0)
-//                {
-//                    self.displayAlert("Please select date for your saving plan")
-//                }
-//                else if(participantsArr.count == 0)
-//                {
-//                    self.displayAlert("You can not create group saving plan alone")
-//                }
-//                else
-//                {
-//                    self.displayAlert("Please enter all details")
-//                }
-                
-                
                 var array : Array<String> = []
                 self.objAnimView.removeFromSuperview()
                 
-                if(itemTitle == "")
-                {
+                if(itemTitle == "") {
                     array.append("  Please enter title.")
-                    //self.displayAlert("Please enter title for your saving plan")
                 }
-                if(cost == 0)
-                {
+                if(cost == 0) {
                     array.append("  Please enter amount.")
-                    //self.displayAlert("Please enter amount for your saving plan")
                 }
-                if(dateDiff == 0 )
-                {
+                if(dateDiff == 0 ) {
                     array.append("  Please select date.")
-                    //self.displayAlert("Please select date for your saving plan")
                 }
-                if(participantsArr.count == 0)
-                {
+                if(participantsArr.count == 0) {
                     array.append("  Please add atleast one contact.")
-                    //self.displayAlert("Please select monthly/weekly payment date")
                 }
-                
                 self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
             }
         }
@@ -1048,7 +861,6 @@
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.headIndent = 10
         paragraphStyle.alignment = NSTextAlignment.Left
-        
         let messageText = NSMutableAttributedString(
             string: message,
             attributes: [
@@ -1056,20 +868,17 @@
                 NSForegroundColorAttributeName : UIColor.blackColor()
             ]
         )
-        
         let alert = UIAlertView(title: "Alert", message: "", delegate: nil, cancelButtonTitle: "Ok")
         let label = UILabel()
         label.sizeToFit()
         label.attributedText = messageText
         label.numberOfLines = 0
         label.textAlignment = .Left
-        
         alert.setValue(label, forKey: "accessoryView")
         alert.show()
-
     }
-    func clearButtonPressed()
-    {
+    
+    func clearButtonPressed() {
         
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
@@ -1078,22 +887,15 @@
             self.setUpView()
             self.dateDiff = 0
             self.cost = 0
-            
-            
             self.itemTitle = ""
-            
             self.isClearPressed = true
             self.popOverSelectedStr = ""
-            
-            if(self.itemDetailsDataDict.keys.count > 0)
-            {
+            if(self.itemDetailsDataDict.keys.count > 0) {
                 self.itemDetailsDataDict.removeAll()
             }
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
             NSUserDefaults.standardUserDefaults().synchronize()
-            
-            if(self.participantsArr.count > 0)
-            {
+            if(self.participantsArr.count > 0) {
                 self.participantsArr.removeAll()
             }
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
@@ -1101,15 +903,10 @@
             self.scrlView.contentOffset = CGPointMake(0, 20)
             self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             self.tblView.reloadData()
-            
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-        
-        
-        
     }
     
     
@@ -1119,14 +916,10 @@
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
-        //savingPlanTitleLabel.hidden = true
         cameraButton.hidden = true
-        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
  }

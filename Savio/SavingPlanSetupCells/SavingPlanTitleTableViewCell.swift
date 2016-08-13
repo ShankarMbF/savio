@@ -15,32 +15,29 @@ protocol SavingPlanTitleTableViewCellDelegate {
 class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
+    
     weak var tblView : UITableView?
     weak var view : UIScrollView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     var savingPlanTitleDelegate: SavingPlanTitleTableViewCellDelegate?
+    var lastOffset: CGPoint = CGPointZero
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
         titleTextField.delegate = self
         titleTextField.layer.cornerRadius = 5
-        
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
         // Configure the view for the selected state
     }
-    func registerForKeyboardNotifications(){
+    func registerForKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
     }
-    
-    
     
     //get the color for selected theme
     func setUpColor()-> UIColor
@@ -49,58 +46,50 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         var green : CGFloat = 0.0
         var blue: CGFloat  = 0.0
         
-        if(colorDataDict["title"] as! String == "Group Save")
-        {
+        if(colorDataDict["title"] as! String == "Group Save") {
             red = 161/255
             green = 214/255
             blue = 248/255
-            
         }
-        else if(colorDataDict["title"] as! String == "Wedding")
-        {
+        else if(colorDataDict["title"] as! String == "Wedding") {
             red = 189/255
             green = 184/255
             blue = 235/255
         }
-        else if(colorDataDict["title"] as! String == "Baby")
-        {
+        else if(colorDataDict["title"] as! String == "Baby") {
             red = 122/255
             green = 223/255
             blue = 172/255
         }
-        else if(colorDataDict["title"] as! String == "Holiday")
-        {
+        else if(colorDataDict["title"] as! String == "Holiday") {
             red = 109/255
             green = 214/255
             blue = 200/255
         }
-        else if(colorDataDict["title"] as! String == "Ride")
-        {
+        else if(colorDataDict["title"] as! String == "Ride") {
             red = 242/255
             green = 104/255
             blue = 107/255
         }
-        else if(colorDataDict["title"] as! String == "Home")
-        {
+        else if(colorDataDict["title"] as! String == "Home") {
             red = 244/255
             green = 161/255
             blue = 111/255
         }
-        else if(colorDataDict["title"] as! String == "Gadget")
-        {
+        else if(colorDataDict["title"] as! String == "Gadget") {
             red = 205/255
             green = 220/255
             blue = 57/255
         }
-        else
-        {
+        else {
             red = 244/255
             green = 176/255
             blue = 58/255
         }
         return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
     }
-    var lastOffset: CGPoint = CGPointZero
+    
+  
     //Keyboard notification function
     @objc func keyboardWasShown(notification: NSNotification){
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
@@ -116,9 +105,6 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             view?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
     }
-    
-    
-    
     
     //Keyboard notification function
     @objc func keyboardWillBeHidden(notification: NSNotification){
@@ -138,14 +124,13 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         textField.resignFirstResponder()
         savingPlanTitleDelegate?.getTextFieldText(textField.text!)
-
     }
     
     //UITextfieldDelegate method
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         let currentCharacterCount = textField.text?.characters.count ?? 0
-        if (range.length + range.location > currentCharacterCount){
+        if (range.length + range.location > currentCharacterCount) {
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
@@ -156,7 +141,6 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //UITextfieldDelegate method
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         titleTextField.textColor = setUpColor()

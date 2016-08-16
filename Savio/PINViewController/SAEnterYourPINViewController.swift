@@ -72,7 +72,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
-        if (newLength > 4) {
+        if (newLength > 1) {
             return false;
         }
         return true;
@@ -384,21 +384,16 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         textFieldFour.keyboardType = UIKeyboardType.NumberPad
         
-        textFieldOne.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldTwo.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldThree.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldFour.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldOne.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldTwo.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldThree.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldFour.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
     }
     
     func textFieldDidChange(textField: UITextField){
         
         let text = textField.text
         
-        //        var restrictedLength: Int = 1
-        //        var temp: String = textField.text!
-        //        if textField.text.length() > restrictedLength {
-        //            textField.text = temp.substringToIndex(temp.startIndex.advancedBy(temp.length() - 1))
-        //        }
         
         if text?.utf16.count==1{
             switch textField{
@@ -428,7 +423,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             }
         }
     }
+    
+    @IBAction func bgViewTapped(sender: AnyObject) {
+        textFieldOne.resignFirstResponder()
+        textFieldTwo.resignFirstResponder()
+        textFieldThree.resignFirstResponder()
+        textFieldFour.resignFirstResponder()
+    }
+    
 }
-
-                                                            
-

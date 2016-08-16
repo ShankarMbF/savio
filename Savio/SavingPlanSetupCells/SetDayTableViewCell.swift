@@ -60,6 +60,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton]
+
         dayDateTextField.delegate = self
         dayDateTextField.inputView = dayPickerView
         dayDateTextField.inputAccessoryView = customToolBar

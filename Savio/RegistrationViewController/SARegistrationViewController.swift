@@ -1261,6 +1261,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             arrRegistration[7] = dict
             self.createCells()
         }
+      
         else{
             let alert = UIAlertController(title: error, message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))

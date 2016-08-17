@@ -524,7 +524,7 @@ public class LineChart: UIView {
         delegate?.chartVerticalLineDrawingCompleted()
         
         // add getsture recogniszer
-        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.scrollLineMoved(_:) ))
+        let gesture = UIPanGestureRecognizer(target: self, action: Selector("scrollLineMoved:"))
         graphView.addGestureRecognizer(gesture)
     }
     

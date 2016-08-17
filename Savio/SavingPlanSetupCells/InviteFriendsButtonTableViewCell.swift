@@ -18,18 +18,14 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let objAPI = API()
-   
- 
         //************************************* cornerradious start
         let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.TopRight, .TopLeft], cornerRadii: CGSizeMake(05,05))
         let costmaskLayer = CAShapeLayer()
         costmaskLayer.path = costpath.CGPath
         BGContentView.layer.mask = costmaskLayer
         //************************************* cornerradious end
-        
         let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
-        
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                      value: UIColor.whiteColor(),
                                      range: NSRange(
@@ -41,16 +37,11 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         range: NSRange(
         location:(userInfodict["first_name"] as! String).characters.count,
         length:12))
-        
         orginisersLabel.attributedText = attributedString
- 
         self.addShadowView()
     }
     func addShadowView(){
         inviteButton?.layer.cornerRadius = 5.0
-//        inviteButton!.layer.shadowColor = UIColor(red: 114/256, green: 177/256, blue: 237/256, alpha: 1.0).CGColor
-//        inviteButton!.layer.shadowOffset = CGSize(width: 0, height:3)
-//        inviteButton!.layer.shadowOpacity = 1
         inviteButton!.layer.masksToBounds = false
     }
     

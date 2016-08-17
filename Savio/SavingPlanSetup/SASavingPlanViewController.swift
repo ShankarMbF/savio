@@ -43,6 +43,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isOfferShow: Bool = true
     var payTypeStr = ""
     var dateFromUpdatePlan = ""
+    var isCostChanged = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             self.title = "Savings plan setup"
         }
-
+        
         let font = UIFont(name: "GothamRounded-Book", size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
         self.navigationController?.navigationBarHidden = false
@@ -231,7 +232,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if !(itemDetailsDataDict["image"] is NSNull) {
                     if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                     {
-
+                        
                         let request: NSURLRequest = NSURLRequest(URL: url)
                         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                             if(data?.length > 0)
@@ -296,7 +297,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
-
+    
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
@@ -352,36 +353,36 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            { action -> Void in
                 
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                self.imagePicker.allowsEditing = true
-                
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                    
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                self.imagePicker.allowsEditing = true
+            { action -> Void in
                 
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
-            
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
+                
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -469,11 +470,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else  {
-                    let amountString = "£0"
+                    
+                    let amountString =  "£" + String(format:"%d",cost)
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
-                    cell1.slider.value = 0
-                    cost = 0
+                    cell1.slider.value = Float(cost)
+                    
+                    
                 }
+                
             }
             return cell1
         }
@@ -580,7 +584,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                     }
                     if let payDate = itemDetailsDataDict["payDate"] as? String {
-                        cell1.dayDateTextField.text = payDate
+                        if(dateString == "day") {
+                            cell1.dayDateTextField.text = payDate
+                        }
+                        else{
+                            cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+                        }
+
                     }
                 }
                 else {
@@ -718,7 +728,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
-  
+            
             if(isUpdatePlan) {
                 cell1.offerDetailsButton.hidden = false
                 cell1.offerDetailsButton.tag = indexPath.section
@@ -778,7 +788,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         label.sizeToFit()
         return label.frame.height
     }
-
+    
     //action method of offer details button
     func offerDetailsButtonPressed(sender:UIButton)
     {
@@ -888,12 +898,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(isPopoverValueChanged == false) {
                 tblViewHt.constant = tblView.frame.size.height  + 44
             }
-            print(dateString)
             dateFromUpdatePlan = ""
             
         }
         else {
+            if(isPopoverValueChanged == false)
+            {
             tblViewHt.constant = tblView.frame.size.height  + 44
+            }
         }
         isPopoverValueChanged = true
         
@@ -918,6 +930,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 popOverSelectedStr = ""
                 tblView.reloadData()
             }
+            isClearPressed  = false
             
         }
         else {
@@ -933,7 +946,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func datePickerText(date: Int,dateStr:String) {
-        print(date)
         dateDiff = date
         datePickerDate = dateStr
         isDateChanged = true
@@ -949,50 +961,51 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if(self.isUpdatePlan == false) {
-                self.setUpView()
-                self.dateDiff = 0
-                self.cost = 0
-                self.isPopoverValueChanged = false
+            { action -> Void in
                 
-                self.itemTitle = ""
-                
-                self.isClearPressed = true
-                self.popOverSelectedStr = ""
-                
-                if(self.itemDetailsDataDict.keys.count > 0) {
-                    self.itemDetailsDataDict.removeAll()
+                if(self.isUpdatePlan == false) {
+                    self.setUpView()
+                    self.dateDiff = 0
+                    self.cost = 0
+                    self.isPopoverValueChanged = false
+                    
+                    self.itemTitle = ""
+                    
+                    self.isClearPressed = true
+                    self.popOverSelectedStr = ""
+                    
+                    if(self.itemDetailsDataDict.keys.count > 0) {
+                        self.itemDetailsDataDict.removeAll()
+                    }
+                    
+                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
+                    if self.offerArr.count>0 {
+                        self.offerArr.removeAll()
+                    }
+                    self.isCostChanged = false
+                    self.scrlView.contentOffset = CGPointMake(0, 20)
+                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                    self.tblView.reloadData()
+                }
+                else {
+                    self.isDateChanged = false
+                    self.isOfferDetailPressed = false
+                    self.isCostChanged = false
+                    self.isClearPressed = true
+                    self.setUpView()
+                    
+                    let count = self.offerArr.count - self.updateOfferArr.count as Int
+                    if(count > 0) {
+                        self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
+                        self.offerArr.removeAll()
+                        self.offerArr = self.updateOfferArr
+                    }
+                    self.scrlView.contentOffset = CGPointMake(0, 20)
+                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                    self.tblView.reloadData()
+                    
                 }
                 
-                self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
-                if self.offerArr.count>0 {
-                    self.offerArr.removeAll()
-                }
-                self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                self.tblView.reloadData()
-            }
-            else {
-                self.isDateChanged = false
-                self.isOfferDetailPressed = false
-                
-                self.isClearPressed = true
-                self.setUpView()
-                
-                let count = self.offerArr.count - self.updateOfferArr.count as Int
-                if(count > 0) {
-                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
-                    self.offerArr.removeAll()
-                    self.offerArr = self.updateOfferArr
-                }
-                self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                self.tblView.reloadData()
-                
-            }
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -1137,7 +1150,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let objAPI = API()
                 if(itemDetailsDataDict["title"] == nil) {
                     objAPI.partySavingPlanDelegate = self
-                    //print(self.getParameters())
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan) {
@@ -1236,7 +1248,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 if(popOverSelectedStr == "") {
                     array.append("  Please select payment date/day.")
-                    //self.displayAlert("Please select monthly/weekly payment date")
                 }
                 
                 self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
@@ -1326,12 +1337,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         cost = Int(txtFldCell.slider.value)
         if(isUpdatePlan) {
             isDateChanged = true
-            tblView.reloadData()
+            
         }
         else {
             isPopoverValueChanged = true
-            tblView.reloadData()
+            
         }
+        if(isCostChanged == false)
+        {
+            tblViewHt.constant = tblView.frame.size.height  + 40
+            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
+           
+            isCostChanged = true
+        }
+         tblView.reloadData()
     }
     
     //Add superscript to date text
@@ -1392,7 +1411,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            //itemDetailsDataDict["imageURL"] = base64String
         }
     }
     
@@ -1403,7 +1421,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: GetUsersSavingplanDelegate methods
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-
+        
         if let message = objResponse["message"] as? String {
             if(message == "Success") {
                 let spinner =  UIActivityIndicatorView()
@@ -1454,13 +1472,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
-
+                
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
                 updateOfferArr = offerArr
                 tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 90) + 120
-                // scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblViewHt.constant)
                 tblView.reloadData()
             }
             else {
@@ -1539,7 +1556,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 alert.show()
             }
         }
-        else if let message = objResponse["internalMessage"] as? String {
+        else if let message = objResponse["irnternalMessage"] as? String {
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -1589,7 +1606,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["offers"] = offerArr
             }
             dict["planType"] = "individual"
- 
+            
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
             objSummaryView.isUpdatePlan = true

@@ -14,9 +14,6 @@ class CancelButtonTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-//        cancelSavingPlanButton.layer.shadowColor = UIColor(red: 205/255,green:62/255,blue:56/255,alpha:1).CGColor
-//        cancelSavingPlanButton.layer.shadowOffset = CGSizeMake(0, 3)
-//        cancelSavingPlanButton.layer.shadowOpacity = 1
         cancelSavingPlanButton.layer.cornerRadius = 5
     }
     

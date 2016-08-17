@@ -385,11 +385,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tfPostCode?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 let tfPostcodeDict = metadataDict["textField1"]as! Dictionary<String,AnyObject>
                 cell.tfPostCode!.attributedPlaceholder = NSAttributedString(string:(tfPostcodeDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
-                
-//                if(editUser)
-//                {
-//                    cell.tfPostCode?.text = userInfoDict["post_code"] as? String
-//                }
+
                 if (dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] != nil){
                     cell.tfPostCode?.text = dictForTextFieldValue[(cell.tfPostCode?.placeholder)!] as? String
                     
@@ -662,7 +658,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     {
         if findAddrCell.tfPostCode?.text?.characters.count>0{
             dictForTextFieldValue.updateValue((findAddrCell.tfPostCode?.text)!, forKey: (findAddrCell.tfPostCode?.placeholder)!)
-            userInfoDict.updateValue((findAddrCell.tfPostCode?.text)!, forKey: "postcode")
+            userInfoDict.updateValue((findAddrCell.tfPostCode?.text)!, forKey: "post_code")
         }
     }
     
@@ -671,6 +667,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         
         let strPostCode = (findAddrCell.tfPostCode?.text)!
         dictForTextFieldValue.updateValue((findAddrCell.tfPostCode?.text)!, forKey: (findAddrCell.tfPostCode?.placeholder)!)
+         userInfoDict.updateValue((findAddrCell.tfPostCode?.text)!, forKey: "post_code")
         
         let strCode = strPostCode
         print("\(strPostCode)")
@@ -837,6 +834,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("party_role")
                 param.removeValueForKey("partyRole")
                 param.removeValueForKey("partyStatus")
+                param.removeValueForKey("partyGender")
                 
                 print(param)
                 objAPI.updateUserInfoDelegate = self
@@ -1417,9 +1415,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func success(addressArray:Array<String>){
         objAnimView?.removeFromSuperview()
         self.getJSONForUI()
-        //        arrAddress = addressArray
-        //        print("\(arrAddress)")
-        
         var dict = arrRegistration[8] as Dictionary<String,AnyObject>
         var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
         let lableDict = metadataDict["textField1"]!.mutableCopy()
@@ -1436,7 +1431,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView?.removeFromSuperview()
         print("\(error)")
         if(error == "That postcode doesn't look right"){
-            var dict = arrRegistration[6] as Dictionary<String,AnyObject>
+            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
             let lableDict = metadataDict["lable"]!.mutableCopy()
             lableDict.setValue("Yes", forKey: "isErrorShow")
@@ -1444,7 +1439,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             metadataDict["lable"] = lableDict
             dict["metaData"] = metadataDict
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right"
-            arrRegistration[6] = dict
+            arrRegistration[7] = dict
             self.createCells()
         }
         else{
@@ -1506,6 +1501,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     // MARK: - GetUserInfoDelegate
     func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         if let message = objResponse["message"] as? String {
             if(message == "Party Found")  {
                 

@@ -68,10 +68,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         errorLabel.hidden = true
         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         let currentCharacterCount = textField.text?.characters.count ?? 0
-        if (range.length + range.location > currentCharacterCount){
-            return false
-        }
-        let newLength = currentCharacterCount + string.characters.count - range.length
+        let newLength = currentCharacterCount + string.characters.count
         if (newLength > 1) {
             return false;
         }
@@ -393,9 +390,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     func textFieldDidChange(textField: UITextField){
         
         let text = textField.text
-        
-        
-        if text?.utf16.count==1{
+        if text?.characters.count==1{
             switch textField{
             case textFieldOne:
                 textFieldTwo.becomeFirstResponder()

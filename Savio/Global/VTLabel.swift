@@ -20,6 +20,7 @@ let lblStyleA5BD = "A5BD" // Typo For Industries  View in Dashboard Screen dark 
 
 class VTLabel: UILabel {
     
+    /*
     var style: String {
         get {
             return self.style
@@ -65,4 +66,5 @@ class VTLabel: UILabel {
             }
         }
     }    
+ */
 }

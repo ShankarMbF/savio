@@ -74,26 +74,26 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     func setUpImage()-> UIImage
     {
         var imageName = ""
-        if(colorDataDict["title"] as! String == "Group Save") {
+        if(colorDataDict["savPlanID"] as! Int == 85) {
             imageName = "group-save-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Wedding")
+        else if(colorDataDict["savPlanID"] as! Int == 86)
         {
             imageName = "wedding-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Baby") {
+        else if(colorDataDict["savPlanID"] as! Int == 87) {
             imageName = "baby-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Holiday") {
+        else if(colorDataDict["savPlanID"] as! Int == 88) {
             imageName = "holiday-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Ride") {
+        else if(colorDataDict["savPlanID"] as! Int == 89) {
             imageName = "ride-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Home") {
+        else if(colorDataDict["savPlanID"] as! Int == 90) {
             imageName = "home-circle.png"
         }
-        else if(colorDataDict["title"] as! String == "Gadget") {
+        else if(colorDataDict["savPlanID"] as! Int == 91) {
             imageName = "gadget-circle.png"
         }
         else {
@@ -105,50 +105,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     //get the color for selected theme
     func setUpColor()-> UIColor
     {
-        var red : CGFloat = 0.0
-        var green : CGFloat = 0.0
-        var blue: CGFloat  = 0.0
-        if(colorDataDict["title"] as! String == "Group Save") {
-            red = 161/255
-            green = 214/255
-            blue = 248/255
-        }
-        else if(colorDataDict["title"] as! String == "Wedding") {
-            red = 189/255
-            green = 184/255
-            blue = 235/255
-        }
-        else if(colorDataDict["title"] as! String == "Baby") {
-            red = 122/255
-            green = 223/255
-            blue = 172/255
-        }
-        else if(colorDataDict["title"] as! String == "Holiday") {
-            red = 109/255
-            green = 214/255
-            blue = 200/255
-        }
-        else if(colorDataDict["title"] as! String == "Ride") {
-            red = 242/255
-            green = 104/255
-            blue = 107/255
-        }
-        else if(colorDataDict["title"] as! String == "Home") {
-            red = 244/255
-            green = 161/255
-            blue = 111/255
-        }
-        else if(colorDataDict["title"] as! String == "Gadget") {
-            red = 205/255
-            green = 220/255
-            blue = 57/255
-        }
-        else {
-            red = 244/255
-            green = 176/255
-            blue = 58/255
-        }
-        return UIColor(red:red as CGFloat, green: green as CGFloat, blue: blue as CGFloat, alpha: 1)
+      return ColorCodes.colorForCode(colorDataDict["savPlanID"] as! Int)
     }
     
     //UISegmentcontrol value changed method

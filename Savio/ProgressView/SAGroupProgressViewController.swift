@@ -37,6 +37,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     var totalAmount : Int = 0
     var paidAmount : Float = 0.0
     var ht:CGFloat = 0.0
+    var timeSince = [0]
+    var dateDiff = 0
     let spinner =  UIActivityIndicatorView()
     var objAnimView = ImageViewAnimation()
     var planEnddate = NSDate()
@@ -77,6 +79,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        savingPlanTitleLabel.hidden = true
         self.setUPNavigation()
         let objAPI = API()
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
@@ -167,6 +170,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     func setUpView(){
  
+        savingPlanTitleLabel.hidden = false
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
         
         var attrText = NSMutableAttributedString(string: planTitle)
@@ -227,8 +231,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
-            
-            
+  
             let side =  horizontalScrollView.frame.height
             let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
@@ -366,8 +369,35 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
                 attString.appendAttributedString(superscript)
                 labelSix.attributedText = attString
-                let timeSince :[Int] = self.timeBetween(NSDate(), endDate: planEnddate)
-                labelFive.text = String(format :"%d months to go",timeSince[0])
+                timeSince = self.timeBetween(NSDate(), endDate: planEnddate)
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let timeDifference : NSTimeInterval = planEnddate.timeIntervalSinceDate(NSDate())
+                dateDiff = Int(timeDifference/3600)
+                if(savingPlanDetailsDict["payType"] as! String == "Month")
+                {
+                    if((dateDiff/168)/4 == 1)
+                    {
+                        labelFive.text = String(format :"%d month to go",(dateDiff/168)/4)
+                    }
+                    else
+                    {
+                        labelFive.text = String(format :"%d months to go",(dateDiff/168)/4)
+                    }
+                    
+                }
+                else
+                {
+                    if((dateDiff/168) == 1)
+                    {
+                        labelFive.text = String(format :"%d week to go",dateDiff/168)
+                    }
+                    else
+                    {
+                        labelFive.text = String(format :"%d weeks to go",dateDiff/168)
+                    }
+                }
+           
                 
             }
             else
@@ -474,7 +504,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = false
@@ -550,6 +580,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 
                 cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+                
+
+                
             }
         }
         else
@@ -557,8 +590,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
             
-            cell?.remainingAmountLabel.text = "£0"
-            cell?.remainingProgress.angle = 0
+            if(savingPlanDetailsDict["payType"] as! String == "Month")
+            {
+                cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/((dateDiff/168)/4) * ((dateDiff/168)/4)))
+            }
+            else
+            {
+                cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/(dateDiff/168) * (dateDiff/168)))
+            }
+           
+            cell?.remainingProgress.angle = 360
         }
         
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
@@ -571,8 +612,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.nameLabel.text = cellDict["partyName"] as? String
         }
         
-        cell?.cellTotalAmountLabel.text = String(format: "£%d",totalAmount/participantsArr.count)
-        
+ 
+        cell?.payTypeLabel.text = String(format: "per %@",savingPlanDetailsDict["payType"] as! String).lowercaseString
+        if(savingPlanDetailsDict["payType"] as! String == "Month")
+        {
+                   cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/((dateDiff/168)/4))
+        }
+        else
+        {
+                   cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/(dateDiff/168))
+        }
         
         let spinner =  UIActivityIndicatorView()
         spinner.center = CGPointMake((cell?.userProfile.frame.width)!/2, (cell?.userProfile.frame.height)!/2)
@@ -710,6 +759,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         var memberTypeArray : Array<String> = []
         if let message = objResponse["message"] as? String
         {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate{
+class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate,RegistrationViewErrorDelegate{
     
     @IBOutlet weak var registerOneScrollView: UIScrollView!
     @IBOutlet weak var titleOrNameErrorLabel: UILabel!
@@ -40,6 +40,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     let dropDown = DropDown()
     let datePickerView = UIDatePicker()
     var activeTextField = UITextField()
+    var fName = ""
+    var lName = ""
+    var dob = ""
     var lastOffset: CGPoint = CGPointZero
     
     override func viewDidLoad() {
@@ -49,7 +52,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        var errorFlag = false
+        errorFlag = false
         self.setUpView()
     }
     
@@ -362,10 +365,50 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         registerOneScrollView?.setContentOffset(lastOffset, animated: true)
     }
     
+    func validateForAlreadyRegisteredUser()-> Bool
+    {
+        var success = true
+        var message = ""
+        if(fName.characters.count == 0)
+        {
+            return true
+        }
+        if(fName.lowercaseString != nameTextField.text?.lowercaseString)
+        {
+            success = false
+            message = message + "name"
+        }
+        if(lName.lowercaseString != surnameTextField.text?.lowercaseString)
+        {
+            success = false
+            let fieldString = message.characters.count > 0 ? ",Surname" : "Surname"
+             message = message + fieldString
+        }
+        if(dob != dateOfBirthTextField.text)
+        {
+            success = false
+            let fieldString = message.characters.count > 0 ? ",date of birth" : "date of birth"
+            message = message + fieldString
+        }
+        
+        if(success == false)
+        {
+            message = "Enter your " + message + " as earlier"
+            let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        return success
+    }
+    
     @IBAction func nextButtonPressed(sender: AnyObject) {
         //check validation of textfield
+        
         if(checkTextFieldValidation() == false)
         {
+            if(validateForAlreadyRegisteredUser() == false)
+            {
+                return
+            }
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
             userInfoDict["title"] = titleTextField.text
@@ -385,8 +428,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             }
             
             let registrationSecondView = SARegistrationScreenSecondViewController()
+            registrationSecondView.registrationViewErrorDelegate = self
             registrationSecondView.userInfoDict = userInfoDict
             self.navigationController?.pushViewController(registrationSecondView, animated: true)
+        
         }
         else{
             errorFlag = false
@@ -552,6 +597,13 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             }
         }
         return result
+    }
+    
+    func getValues(firstName: String, lastName: String, dateOfBirth: String) {
+        errorFlag = false
+        fName = firstName
+        lName = lastName
+        dob = dateOfBirth
     }
     
 }

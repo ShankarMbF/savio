@@ -11,8 +11,10 @@ let btnStyleA1 = "A1"
 let btnStyleA2 = "A2" // Background Color Dark Blue and white circle border 1
 let btnStyleA3 = "A3" // Background Color white and dark blue circle border 1 
 
+
 class VTButton: UIButton {
     
+    /*
     var color: UIColor  {
         get {
             return self.color
@@ -35,6 +37,7 @@ class VTButton: UIButton {
             }
         }
     }
+    
     
     var style: String {
         get {
@@ -72,5 +75,7 @@ class VTButton: UIButton {
                 self.setTitleColor(UIColor.grayColor(), forState: UIControlState.Disabled)
             }
         }
+ 
     }
+ */
 }

@@ -24,6 +24,7 @@ class GroupProgressTableViewCell: UITableViewCell {
     @IBOutlet weak var topShadowView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var payTypeLabel: UILabel!
     @IBOutlet weak var topSpaceProfilePic: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()

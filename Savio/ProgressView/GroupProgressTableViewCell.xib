@@ -278,6 +278,7 @@
                 <outlet property="cellTotalAmountLabel" destination="96G-PJ-u75" id="Gsw-fX-Twt"/>
                 <outlet property="makeImpulseSavingButton" destination="EP8-wH-ddb" id="ZcG-EU-4Cx"/>
                 <outlet property="nameLabel" destination="h8L-fW-YVl" id="Agf-Nd-UGT"/>
+                <outlet property="payTypeLabel" destination="hvQ-9g-wrz" id="nuL-ZZ-Lvl"/>
                 <outlet property="planView" destination="JCO-vR-97N" id="zRG-31-WhJ"/>
                 <outlet property="remainingAmountLabel" destination="cgK-bv-HJt" id="z8K-A2-bFb"/>
                 <outlet property="remainingProgress" destination="Qax-Yd-Psa" id="R6i-S2-xqD"/>

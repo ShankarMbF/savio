@@ -363,6 +363,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         textFieldOne.layer.borderWidth = borderWidth
         textFieldOne.layer.cornerRadius = cornerRadius
+        textFieldOne.layer.masksToBounds = true
         //        textFieldOne.userInteractionEnabled = false
         
         

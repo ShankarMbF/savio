@@ -756,6 +756,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     dict["PARTY_ID"] = parameterDict["pty_id"]
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
+                
                     objAPI.sendInviteMembersList(dict)
                 }
                 else {

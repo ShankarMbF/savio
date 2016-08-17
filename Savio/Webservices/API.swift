@@ -1405,7 +1405,7 @@ class API: UIView,NSURLSessionDelegate {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        
+        print("dictParam = \(dict)")
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 60

@@ -1048,7 +1048,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue["errorPostcode"] = errorMsg
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     dictForTextFieldValue.removeValueForKey("Postcode")
-                    
                 }
                 else{
                     dictForTextFieldValue.removeValueForKey("errorPostcode")
@@ -1212,7 +1211,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     
-    
     //OTP Verification Delegate Method
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
     {
@@ -1252,7 +1250,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView?.removeFromSuperview()
         print("\(error)")
         if(error == "That postcode doesn't look right"){
-            var dict = arrRegistration[6] as Dictionary<String,AnyObject>
+            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
             let lableDict = metadataDict["lable"]!.mutableCopy()
             lableDict.setValue("Yes", forKey: "isErrorShow")
@@ -1260,7 +1258,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             metadataDict["lable"] = lableDict
             dict["metaData"] = metadataDict
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right"
-            arrRegistration[6] = dict
+            arrRegistration[7] = dict
             self.createCells()
         }
         else{

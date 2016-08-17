@@ -1048,7 +1048,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue["errorPostcode"] = errorMsg
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     dictForTextFieldValue.removeValueForKey("Postcode")
-                    
                 }
                 else{
                     dictForTextFieldValue.removeValueForKey("errorPostcode")
@@ -1210,7 +1209,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
         return result
     }
-    
     
     
     //OTP Verification Delegate Method

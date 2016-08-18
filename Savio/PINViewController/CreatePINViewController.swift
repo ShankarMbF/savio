@@ -317,7 +317,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             case textFieldReTwo:
                 textFieldReOne.becomeFirstResponder()
             case textFieldReOne:
-                textFieldReOne.resignFirstResponder()
+                textFieldFour.becomeFirstResponder()
             default:
                 textFieldOne.becomeFirstResponder()
             }

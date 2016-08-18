@@ -8,11 +8,13 @@
 
 import UIKit
 
-let kNotificationToggleMenuView = "ToggleCentreView"
-let kNotificationAddCentreView = "AddCentreView"
+let kNotificationToggleMenuView = "ToggleCentreView"   //NotificationIdentifier
+let kNotificationAddCentreView = "AddCentreView"       //NotificationIdentifier
 
 class ContainerViewController: UIViewController {
+    //Create object for mnuviewcontroller
     var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
+    //Create object for showing selected menu
     var centreVC: UIViewController! =  SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
     var navController: UINavigationController!
     var isShowingProgress:String?
@@ -20,23 +22,24 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        // Set all plan flag
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
         
-        
-        if individualFlag == 1 {
+        //As per flag show the plan progress
+        if individualFlag == 1 { //Individual plan
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
         }
-        else if(groupFlag == 1 || groupMemberFlag == 1)
+        else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
         {
             self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
         }
-        else {
+        else {//create saving plan if no plan exist
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
         }
         
+        //--------------Setting up navigation controller--------------------------------
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -49,12 +52,15 @@ class ContainerViewController: UIViewController {
         
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
+        //----------------------------------------------------------------------------------
         
+        //------Register notfication for menu toggel and menu selection-----------------------
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
-        
+        //---------------------------------------------------------------------------------------
     }
     
+    //function invoke on tapping menu button.
     func ToggleCentreView() {
         var destination = self.navController.view.frame;
         if (destination.origin.x > 0) {
@@ -73,6 +79,7 @@ class ContainerViewController: UIViewController {
         
     }
     
+    //Function invoke when
     func addCentreView(notification: NSNotification) {
         let className = notification.object as! String
         if self.centreVC.nibName == className {

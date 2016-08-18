@@ -369,30 +369,25 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     {
         var success = true
         var message = ""
-        if(fName.characters.count == 0)
-        {
+        if(fName.characters.count == 0) {
             return true
         }
-        if(fName.lowercaseString != nameTextField.text?.lowercaseString)
-        {
+        if(fName.lowercaseString != nameTextField.text?.lowercaseString) {
             success = false
             message = message + "name"
         }
-        if(lName.lowercaseString != surnameTextField.text?.lowercaseString)
-        {
+        if(lName.lowercaseString != surnameTextField.text?.lowercaseString) {
             success = false
             let fieldString = message.characters.count > 0 ? ",Surname" : "Surname"
              message = message + fieldString
         }
-        if(dob != dateOfBirthTextField.text)
-        {
+        if(dob != dateOfBirthTextField.text) {
             success = false
             let fieldString = message.characters.count > 0 ? ",date of birth" : "date of birth"
             message = message + fieldString
         }
         
-        if(success == false)
-        {
+        if(success == false)  {
             message = "Enter your " + message + " as earlier"
             let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()

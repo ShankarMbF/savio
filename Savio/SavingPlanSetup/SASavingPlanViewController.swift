@@ -210,6 +210,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             isPopoverValueChanged = true
+            tblViewHt.constant = tblView.frame.size.height  + 40
+            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
+            isCostChanged = true
+            
+            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+            topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
+            self.cameraButton.hidden = false
         }
         else
         {
@@ -474,10 +481,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     let amountString =  "£" + String(format:"%d",cost)
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = Float(cost)
-                    
-                    
                 }
-                
             }
             return cell1
         }
@@ -573,6 +577,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     cell1.dayDateTextField.text = ""
                 }
             }
+            else
+            {
+                if(popOverSelectedStr != "") {
+                    if(dateString == "day") {
+                        cell1.dayDateTextField.text = self.popOverSelectedStr
+                    }
+                    else{
+                        cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.popOverSelectedStr)!, text: self.popOverSelectedStr)
+                    }
+                }
+                else {
+                    cell1.dayDateTextField.text = ""
+                }
+
+            }
             
             if(isClearPressed)  {
                 if(isUpdatePlan) {
@@ -582,35 +601,61 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             button.tag = 0
                             cell1.segmentBar.toggleButton(button)
                         }
+                        else if(isChangeSegment){
+                            let button = UIButton()
+                            button.tag = 1
+                            cell1.segmentBar.toggleButton(button)
+                        }
                     }
                     if let payDate = itemDetailsDataDict["payDate"] as? String {
-                        if(dateString == "day") {
-                            cell1.dayDateTextField.text = payDate
+                        if(isPopoverValueChanged)
+                        {
+                            if(popOverSelectedStr != "") {
+                                if(dateString == "day") {
+                                    cell1.dayDateTextField.text = popOverSelectedStr
+                                }
+                                else{
+                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+                                }
+                            }
+                            else {
+                                if(dateString == "day") {
+                                    cell1.dayDateTextField.text = payDate
+                                }
+                                else{
+                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+                                }
+                            }
                         }
-                        else{
-                            cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+                        else {
+                            if(dateString == "day") {
+                                cell1.dayDateTextField.text = payDate
+                            }
+                            else{
+                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+                            }
                         }
-                        
                     }
                 }
                 else {
-                    if(isPopoverValueChanged)
-                    {
-                        if(dateString == "day") {
-                            cell1.dayDateTextField.text = popOverSelectedStr
+                    if(isPopoverValueChanged) {
+                        if(popOverSelectedStr != "") {
+                            if(dateString == "day") {
+                                cell1.dayDateTextField.text = popOverSelectedStr
+                            }
+                            else {
+                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+                            }
                         }
-                        else{
-                            cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+                        else {
+                            cell1.dayDateTextField.text = ""
                         }
                     }
-                    else
-                    {
+                    else {
                         cell1.dayDateTextField.text = ""
                     }
-                    
                 }
             }
-            
             return cell1
         }
         else if(indexPath.section == 4) {
@@ -981,12 +1026,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
-                
                 self.itemTitle = ""
-                
                 self.isClearPressed = true
                 self.popOverSelectedStr = ""
-                
+                self.isCostChanged = false
                 if(self.itemDetailsDataDict.keys.count > 0) {
                     self.itemDetailsDataDict.removeAll()
                 }
@@ -995,7 +1038,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if self.offerArr.count>0 {
                     self.offerArr.removeAll()
                 }
-                self.isCostChanged = false
+                
                 self.scrlView.contentOffset = CGPointMake(0, 20)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
@@ -1005,6 +1048,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.isOfferDetailPressed = false
                 self.isCostChanged = false
                 self.isClearPressed = true
+                self.isPopoverValueChanged = false
                 self.setUpView()
                 
                 let count = self.offerArr.count - self.updateOfferArr.count as Int

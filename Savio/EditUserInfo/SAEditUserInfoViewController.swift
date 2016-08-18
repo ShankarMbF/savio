@@ -774,53 +774,41 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         dict["title"] = cell.tfTitle?.text
                         dict["first_name"] = cell.tfName?.text
                         
-                        if(cell.tfTitle!.text == "Mr")
-                        {
+                        if(cell.tfTitle!.text == "Mr") {
                             dict["party_gender"] = "male"
                         }
-                        else
-                        {
+                        else  {
                             dict["party_gender"] = "female"
                         }
-
                     }
-                    
                     if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell){
                     }
                 }
-                
             }
-            else{
+            else {
                 
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
                 objAnimView?.animate()
                 self.navigationController!.view.addSubview(objAnimView!)
-
-               
                 
                 let objAPI = API()
-
                 let dict = objAPI.getValueFromKeychainOfKey("userInfo")
                 userInfoDict["ptyid"] = dict["partyId"]
-                if(isImageClicked)
-                {
+                if(isImageClicked) {
                     let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
                     let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                     let newDict = ["imageName.jpg":base64String]
                     
                     userInfoDict["imageurl"] = newDict
                 }
-                else{
+                else {
                     let newDict = ["imageName.jpg":""]
                     userInfoDict["imageurl"] = newDict
                 }
-                
+
                 var param = userInfoDict as Dictionary<String,AnyObject>
-                
                 param["ptystatus"] = "ENABLE"
-  
-                
                 param.removeValueForKey("date_of_birth")
                 param.removeValueForKey("pass_code")
                 param.removeValueForKey("email")

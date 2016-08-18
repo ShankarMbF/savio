@@ -25,9 +25,6 @@ class ImportantInformationView: UIView {
     override func drawRect(rect: CGRect) {
         // Drawing code
         btnVeBg.layer.cornerRadius = 5.0
-        //set the shadow color for accept button
-//        gotItButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        
         //set the content offset for textview so it,will begin at point(0,0)
         termsAndConditionTextView.contentOffset = CGPointMake(0, 0)
       }

@@ -13,7 +13,6 @@
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
 		A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B931CEDC4D5006366F7 /* ImportantInformationView.swift */; };
 		A8095B991CEDC4D5006366F7 /* ImportantInformationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B941CEDC4D5006366F7 /* ImportantInformationView.xib */; };
-		A8095B9C1CEDC52B006366F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */; };
 		A8095C751CEDC6A3006366F7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095C741CEDC6A3006366F7 /* API.swift */; };
 		A82796151D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82796131D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift */; };
 		A82796161D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A82796141D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib */; };
@@ -169,9 +168,6 @@
 		A86682041CFF07C80014DB59 /* SetDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682021CFF07C80014DB59 /* SetDayTableViewCell.xib */; };
 		A86682071CFF09940014DB59 /* CalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */; };
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
-		A86B72F51D36014E0075F501 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F41D36014E0075F501 /* AddressBook.framework */; };
-		A86B72F71D3601520075F501 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F61D3601520075F501 /* AssetsLibrary.framework */; };
-		A86B72F91D36015D0075F501 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F81D36015D0075F501 /* Foundation.framework */; };
 		A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FA1D3601620075F501 /* CoreLocation.framework */; };
 		A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FC1D36016B0075F501 /* CoreMotion.framework */; };
 		A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FE1D36017B0075F501 /* CoreGraphics.framework */; };
@@ -189,6 +185,15 @@
 		A870161A1D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */; };
 		A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */; };
 		A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = A87016221D1C0C2500E58A6A /* CircularProgress.xib */; };
+		A87802BB1D658CE70048EAE5 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372271D48D89D00FC5C1B /* Fabric.framework */; };
+		A87802CA1D658CF60048EAE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F81D36015D0075F501 /* Foundation.framework */; };
+		A87802CC1D658CF60048EAE5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F61D3601520075F501 /* AssetsLibrary.framework */; };
+		A87802CE1D658CF60048EAE5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72F41D36014E0075F501 /* AddressBook.framework */; };
+		A87802D01D658CF60048EAE5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9295A0D1D33863E004C2F5C /* Social.framework */; };
+		A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */; };
+		A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E525C81CE9D29D000FD01E /* Security.framework */; };
+		A87802DA1D658E6A0048EAE5 /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */; };
+		A87802DB1D65B2830048EAE5 /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7451B943A5B44BA7D90C483 /* libPods-Savio.a */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
@@ -374,7 +379,6 @@
 		C91E23FC1D02D0D700DC6D29 /* nav-heart.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F61D02D0D700DC6D29 /* nav-heart.png */; };
 		C91E23FD1D02D0D700DC6D29 /* nav-heart-fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F71D02D0D700DC6D29 /* nav-heart-fill@3x.png */; };
 		C91E23FE1D02D0D700DC6D29 /* nav-heart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C91E23F81D02D0D700DC6D29 /* nav-heart@3x.png */; };
-		C9295A0E1D33863E004C2F5C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9295A0D1D33863E004C2F5C /* Social.framework */; };
 		C9361EB21D30C18300605E1B /* social-fb.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA31D30C18300605E1B /* social-fb.png */; };
 		C9361EB31D30C18300605E1B /* social-fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA41D30C18300605E1B /* social-fb@2x.png */; };
 		C9361EB41D30C18300605E1B /* social-fb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9361EA51D30C18300605E1B /* social-fb@3x.png */; };
@@ -490,7 +494,6 @@
 		C9E525AC1CE986FA000FD01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E525AB1CE986FA000FD01E /* AppDelegate.swift */; };
 		C9E525B31CE986FA000FD01E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9E525B21CE986FA000FD01E /* Assets.xcassets */; };
 		C9E525B61CE986FA000FD01E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9E525B41CE986FA000FD01E /* LaunchScreen.storyboard */; };
-		C9E525C91CE9D29D000FD01E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E525C81CE9D29D000FD01E /* Security.framework */; };
 		C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E535F11CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift */; };
 		C9E535F41CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E535F21CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib */; };
 		C9E854E91CF43732006213BF /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E854E61CF43732006213BF /* arrow_down.png */; };
@@ -579,7 +582,6 @@
 		C9FB592F1D1ABCA800C9B6AE /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FB592D1D1ABCA800C9B6AE /* ContactTableViewCell.xib */; };
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
-		CA0372291D48D89D00FC5C1B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372271D48D89D00FC5C1B /* Fabric.framework */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
 		CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D571D2CEA8A005CC750 /* slider-icon.png */; };
 		CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */; };
@@ -793,6 +795,8 @@
 		A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateGroupSavingPlanViewController.xib; sourceTree = "<group>"; };
 		A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		A87016221D1C0C2500E58A6A /* CircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircularProgress.xib; sourceTree = "<group>"; };
+		A87802B61D6580E80048EAE5 /* libPods-Savio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Savio.a"; path = "../../Library/Developer/Xcode/DerivedData/Savio-edhpqnpuyhkfazdyqqhzvpvulpjb/Build/Products/Debug-iphonesimulator/libPods-Savio.a"; sourceTree = "<group>"; };
+		A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SavioWishList.a"; path = "Pods/../build/Release-iphoneos/libPods-SavioWishList.a"; sourceTree = "<group>"; };
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
 		A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
@@ -1199,6 +1203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A87802DB1D65B2830048EAE5 /* libPods-Savio.a in Frameworks */,
 				A86681EE1CFEE91F0014DB59 /* MobileCoreServices.framework in Frameworks */,
 				BAB4F64B3935786B4F4229DB /* libPods-SavioWishList.a in Frameworks */,
 			);
@@ -1208,20 +1213,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A87802DA1D658E6A0048EAE5 /* libPods-SavioWishList.a in Frameworks */,
 				A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */,
 				CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */,
 				A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */,
+				A87802D01D658CF60048EAE5 /* Social.framework in Frameworks */,
+				A87802CC1D658CF60048EAE5 /* AssetsLibrary.framework in Frameworks */,
+				A87802BB1D658CE70048EAE5 /* Fabric.framework in Frameworks */,
 				A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */,
 				A86B73011D36017B0075F501 /* CoreText.framework in Frameworks */,
+				A87802CA1D658CF60048EAE5 /* Foundation.framework in Frameworks */,
 				A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */,
 				A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */,
-				A86B72F91D36015D0075F501 /* Foundation.framework in Frameworks */,
-				CA0372291D48D89D00FC5C1B /* Fabric.framework in Frameworks */,
-				A86B72F71D3601520075F501 /* AssetsLibrary.framework in Frameworks */,
-				A86B72F51D36014E0075F501 /* AddressBook.framework in Frameworks */,
-				C9295A0E1D33863E004C2F5C /* Social.framework in Frameworks */,
-				A8095B9C1CEDC52B006366F7 /* SystemConfiguration.framework in Frameworks */,
-				C9E525C91CE9D29D000FD01E /* Security.framework in Frameworks */,
+				A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */,
+				A87802CE1D658CF60048EAE5 /* AddressBook.framework in Frameworks */,
+				A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */,
 				7771077AE6E6A1D17CBF2F85 /* libPods-Savio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1232,6 +1238,8 @@
 		08100F54AE2E7E9D7C66644D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */,
+				A87802B61D6580E80048EAE5 /* libPods-Savio.a */,
 				A86B73041D3612240075F501 /* SafariServices.framework */,
 				E7451B943A5B44BA7D90C483 /* libPods-Savio.a */,
 				A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */,
@@ -3126,7 +3134,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
@@ -3147,7 +3155,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks @loader_path/Frameworks $(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
@@ -3263,6 +3271,10 @@
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3288,6 +3300,10 @@
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";

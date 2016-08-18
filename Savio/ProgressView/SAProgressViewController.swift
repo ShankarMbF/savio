@@ -23,14 +23,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
+    
     var objAnimView = ImageViewAnimation()
     var totalAmount : Float = 0.0
     var paidAmount : Float = 0.0
     var planTitle = ""
-    
     let spinner =  UIActivityIndicatorView()
-    
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
@@ -48,6 +48,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         objAnimView.animate()
          savingPlanTitleLabel.hidden = true
         self.view.addSubview(objAnimView)
+        
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         objAPI.getUsersSavingPlan("i")
@@ -58,7 +59,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -104,11 +104,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else{
+            else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
@@ -120,10 +118,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         makeImpulseSavingButton!.layer.cornerRadius = 5
-        
-   
-
-        
+  
     }
     
     
@@ -159,8 +154,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
    
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
-        
-
         
         for var i=0; i<3; i++
         {
@@ -296,8 +289,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     @IBAction func clickOnStatButton(sender:UIButton){
-        let obj = SAStatViewController()//savingPlanDetailsDict
-//        let str = String(format: "My %@ saving plan £%@",savingPlanDetailsDict["title"] as! String, savingPlanDetailsDict["amount"] as! NSNumber)
+        let obj = SAStatViewController()
         obj.itemTitle = savingPlanDetailsDict["title"] as! String
         
         obj.planType = "Individual"

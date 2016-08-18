@@ -406,13 +406,17 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         print("\(objResponse)")
-        
+
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
         
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
+            {
+                objAPI.deleteKeychainValue("myPasscode")
+            }
             objAPI.otpSentDelegate = self
             objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "91")
         }

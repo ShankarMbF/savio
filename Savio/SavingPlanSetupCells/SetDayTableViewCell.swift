@@ -142,10 +142,12 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             if(dayDateStr == "date") {
                 
                 dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
+                 segmentDelegate!.getDateTextField("1")
             }
             else {
                 dayDateTextField.text = "Mon"
                 dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
+                 segmentDelegate!.getDateTextField("Mon")
             }
         }
         else {
@@ -156,9 +158,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
                 dayDateTextField.text = dateStr
             }
+             segmentDelegate!.getDateTextField(dateStr)
         }
         dayPickerView.reloadAllComponents()
-        segmentDelegate!.getDateTextField(dateStr)
+       
     }
     
     func cancelBarButtonPressed(){

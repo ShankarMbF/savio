@@ -19,7 +19,7 @@ struct Device {
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-
+    
     var window: UIWindow?
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomViewController?
@@ -36,53 +36,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check if launched from notification
         // 1
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
-           // Do the stuff after geting Notification when app is not running mode
+            // Do the stuff after geting Notification when app is not running mode
         }
         
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-         //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
-   
-
+        //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
+        
+        
         self.setStatusBarBackgroundColor(UIColor.blackColor())
-         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         //Check if keychain has encrypted pin value
         let objApi = API()
         //        objApi.deleteKeychainValue("myPasscode")
         //       objApi.deleteKeychainValue("myUserInfo")
         //        objApi.deleteKeychainValue("userInfo")
-      
+        
         //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
-   
+        
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
-            if let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as? Dictionary<String,AnyObject>
+            if(passcode != "")
             {
-                print(userInfoDict)
-                let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-                print(udidDict)
-                print(Device.udid)
-                
-                let udidArray = udidDict[0]
-                
-                if(udidArray["DEVICE_ID"] as! String  == Device.udid)
+                if let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as? Dictionary<String,AnyObject>
                 {
-                    //else Go to SAEnterYourPINViewController
-                    objEnterYourPinViewController = SAEnterYourPINViewController()
-                    //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController
-                    objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
-                    window?.rootViewController = objSANav
+                    print(userInfoDict)
+                    let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
+                    print(udidDict)
+                    print(Device.udid)
+                    
+                    let udidArray = udidDict[0]
+                    
+                    if(udidArray["DEVICE_ID"] as! String  == Device.udid)
+                    {
+                        //else Go to SAEnterYourPINViewController
+                        objEnterYourPinViewController = SAEnterYourPINViewController()
+                        //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController
+                        objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
+                        window?.rootViewController = objSANav
+                    }
+                    else{
+                        //If no then Go to SAWelcomViewController
+                        objSAWelcomViewController = SAWelcomViewController()
+                        //Set SAWelcomViewController as rootViewController of UINavigationViewController
+                        objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
+                        window?.rootViewController = objSANav
+                    }
                 }
-                else{
+                else {
                     //If no then Go to SAWelcomViewController
                     objSAWelcomViewController = SAWelcomViewController()
                     //Set SAWelcomViewController as rootViewController of UINavigationViewController
                     objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                     window?.rootViewController = objSANav
+
                 }
             }
-            else
-            {
+            else  {
                 //If no then Go to SAWelcomViewController
                 objSAWelcomViewController = SAWelcomViewController()
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController
@@ -100,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         objSANav!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 20)!]
         objSANav?.navigationBarHidden = true
-      
+        
         window?.makeKeyAndVisible()
         
         return true
@@ -176,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
             // Refresh App with new Content
             // 2
-
+            
         } else  {
             //
             // 4

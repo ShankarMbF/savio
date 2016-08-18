@@ -381,6 +381,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
         self.setUpDropDown()
+        selectAddressTextField.becomeFirstResponder()
     }
     
     func error(error: String) {

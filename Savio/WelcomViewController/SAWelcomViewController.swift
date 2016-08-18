@@ -67,7 +67,7 @@ class SAWelcomViewController: UIViewController {
     //This function invoke when user tapping on sign up to savio button
     @IBAction func clickOnSignUpButton(sender:UIButton){
         //create instance of SARegistrationViewController
-        let objSARegistarionViewController = SARegistrationViewController(nibName:"SARegistrationViewController",bundle: nil)
+        let objSARegistarionViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
         //Navigate to registration screen
         self.navigationController?.pushViewController(objSARegistarionViewController, animated: true)
     }

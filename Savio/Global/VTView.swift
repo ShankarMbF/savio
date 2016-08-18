@@ -14,7 +14,7 @@ let styleCircleBlueBorder = "S2" // Dark Blue Colour for corner radius
 let styleLeftSideWhiteRoundedCorners = "SLRW" //  (S)tyle (L)eft side (R)ounded corners (W)hite color
 let styleRightSideWhiteRoundedCorners = "SRRW" //  (S)tyle (R)ight side (R)ounded corners (W)hite color
 
-
+/*
 class VTView:  UIView {
     
     var style: String {
@@ -33,6 +33,7 @@ class VTView:  UIView {
         }
     }
     
+ 
     class func styleView(view: UIView, style: String) {
         
         switch style {
@@ -65,6 +66,7 @@ class VTView:  UIView {
             
         }
     }
+ 
 }
 
 class VTImageView: UIImageView {
@@ -79,3 +81,4 @@ class VTImageView: UIImageView {
     }
     
 }
+ */

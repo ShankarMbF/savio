@@ -266,25 +266,25 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //set top image as per selected category
     func setTopImageAsPer(dict:Dictionary<String,AnyObject>) -> UIImage{
         
-        if(imageDataDict["title"] as! String == "Group Save") {
+        if(imageDataDict["savPlanID"] as! Int == 85) {
             return UIImage(named: "groupsave-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Wedding") {
+        else if(imageDataDict["savPlanID"] as! Int == 86) {
             return UIImage(named: "wdding-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Baby") {
+        else if(imageDataDict["savPlanID"] as! Int == 87) {
             return UIImage(named: "baby-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Holiday") {
+        else if(imageDataDict["savPlanID"] as! Int == 88) {
             return UIImage(named: "holiday-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Ride") {
+        else if(imageDataDict["savPlanID"] as! Int == 89) {
             return UIImage(named: "ride-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Home") {
+        else if(imageDataDict["savPlanID"] as! Int == 90) {
             return UIImage(named: "home-setup-bg.png")!
         }
-        else if(imageDataDict["title"] as! String == "Gadget") {
+        else if(imageDataDict["savPlanID"] as! Int == 91) {
             return UIImage(named: "gadget-setup-bg.png")!
         }
         else {
@@ -353,36 +353,36 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
                 
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                    
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                    self.imagePicker.allowsEditing = true
-                    
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
+        { action -> Void in
+            
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
                 
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                    self.imagePicker.allowsEditing = true
-                    
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
-                
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -590,11 +590,24 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         else{
                             cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
                         }
-
+                        
                     }
                 }
                 else {
-                    cell1.dayDateTextField.text = ""
+                    if(isPopoverValueChanged)
+                    {
+                        if(dateString == "day") {
+                            cell1.dayDateTextField.text = popOverSelectedStr
+                        }
+                        else{
+                            cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+                        }
+                    }
+                    else
+                    {
+                        cell1.dayDateTextField.text = ""
+                    }
+                    
                 }
             }
             
@@ -904,7 +917,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else {
             if(isPopoverValueChanged == false)
             {
-            tblViewHt.constant = tblView.frame.size.height  + 44
+                tblViewHt.constant = tblView.frame.size.height  + 44
             }
         }
         isPopoverValueChanged = true
@@ -961,51 +974,51 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-            { action -> Void in
+        { action -> Void in
+            
+            if(self.isUpdatePlan == false) {
+                self.setUpView()
+                self.dateDiff = 0
+                self.cost = 0
+                self.isPopoverValueChanged = false
                 
-                if(self.isUpdatePlan == false) {
-                    self.setUpView()
-                    self.dateDiff = 0
-                    self.cost = 0
-                    self.isPopoverValueChanged = false
-                    
-                    self.itemTitle = ""
-                    
-                    self.isClearPressed = true
-                    self.popOverSelectedStr = ""
-                    
-                    if(self.itemDetailsDataDict.keys.count > 0) {
-                        self.itemDetailsDataDict.removeAll()
-                    }
-                    
-                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
-                    if self.offerArr.count>0 {
-                        self.offerArr.removeAll()
-                    }
-                    self.isCostChanged = false
-                    self.scrlView.contentOffset = CGPointMake(0, 20)
-                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                    self.tblView.reloadData()
-                }
-                else {
-                    self.isDateChanged = false
-                    self.isOfferDetailPressed = false
-                    self.isCostChanged = false
-                    self.isClearPressed = true
-                    self.setUpView()
-                    
-                    let count = self.offerArr.count - self.updateOfferArr.count as Int
-                    if(count > 0) {
-                        self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
-                        self.offerArr.removeAll()
-                        self.offerArr = self.updateOfferArr
-                    }
-                    self.scrlView.contentOffset = CGPointMake(0, 20)
-                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                    self.tblView.reloadData()
-                    
+                self.itemTitle = ""
+                
+                self.isClearPressed = true
+                self.popOverSelectedStr = ""
+                
+                if(self.itemDetailsDataDict.keys.count > 0) {
+                    self.itemDetailsDataDict.removeAll()
                 }
                 
+                self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
+                if self.offerArr.count>0 {
+                    self.offerArr.removeAll()
+                }
+                self.isCostChanged = false
+                self.scrlView.contentOffset = CGPointMake(0, 20)
+                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                self.tblView.reloadData()
+            }
+            else {
+                self.isDateChanged = false
+                self.isOfferDetailPressed = false
+                self.isCostChanged = false
+                self.isClearPressed = true
+                self.setUpView()
+                
+                let count = self.offerArr.count - self.updateOfferArr.count as Int
+                if(count > 0) {
+                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
+                    self.offerArr.removeAll()
+                    self.offerArr = self.updateOfferArr
+                }
+                self.scrlView.contentOffset = CGPointMake(0, 20)
+                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                self.tblView.reloadData()
+                
+            }
+            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -1347,10 +1360,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             tblViewHt.constant = tblView.frame.size.height  + 40
             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
-           
+            
             isCostChanged = true
         }
-         tblView.reloadData()
+        tblView.reloadData()
     }
     
     //Add superscript to date text

@@ -46,7 +46,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-        
+         savingPlanTitleLabel.hidden = true
         self.view.addSubview(objAnimView)
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
@@ -143,6 +143,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         
         savingPlanTitleLabel.attributedText = attrText
+        savingPlanTitleLabel.hidden = false
  
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
@@ -310,7 +311,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         let obj = SAOfferListViewController()
         obj.savID = 63
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = false

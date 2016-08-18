@@ -110,7 +110,7 @@ class ContainerViewController: UIViewController {
             
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             
@@ -150,7 +150,7 @@ class ContainerViewController: UIViewController {
             
             let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
             obj.isUpdatePlan = true
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :"63"]
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             self.centreVC = obj

@@ -8,7 +8,12 @@
 
 import UIKit
 
-class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate {
+protocol RegistrationViewErrorDelegate {
+    func getValues(firstName:String,lastName:String,dateOfBirth:String)
+    
+}
+
+class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate {
     
     @IBOutlet weak var registerScrollViewSecond: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -40,6 +45,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     var activeTextField = UITextField()
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     var objAnimView = ImageViewAnimation()
+
+    
+    var registrationViewErrorDelegate: RegistrationViewErrorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,6 +156,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             addressLineOneTopSpace.constant = 21
             addressLineOneErrorLabelTopSpace.constant = 5
             selectAddressTextField.hidden = true
+            addressDropDownButton.hidden = true
             addressLineOneTextField.layer.borderColor = UIColor.redColor().CGColor
             addressLineTwoTextField.layer.borderColor = UIColor.redColor().CGColor
             addressLineThreeTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -210,9 +219,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAnimView.animate()
         if(arrayAddress.count > 0)
         {
-        self.dropDown.deselectRowAtIndexPath(0)
-        arrayAddress.removeAll()
-        dropDown.dataSource.removeAll()
+            self.dropDown.deselectRowAtIndexPath(0)
+            arrayAddress.removeAll()
+            dropDown.dataSource.removeAll()
         }
         self.view.addSubview(objAnimView)
         findAddressErrorLabel.text = ""
@@ -225,16 +234,16 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     //Importanat information view delegate method
     func acceptPolicy(obj:ImportantInformationView){
-            let objAPI = API()
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-            objAnimView.frame = self.view.frame
-            objAnimView.animate()
-            self.view.addSubview(objAnimView)
-            objAPI.delegate = self
-            objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
-    
+        let objAPI = API()
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.view.addSubview(objAnimView)
+        objAPI.delegate = self
+        objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
+        
     }
-
+    
     
     @IBAction func registerButtonPressed(sender: AnyObject) {
         
@@ -259,7 +268,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
             print(userInfoDict)
-        
+            
             let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
@@ -395,12 +404,67 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        print("\(objResponse)")
         
+        let errorCode = (objResponse["errorCode"] as! NSString).integerValue
+        
+        if errorCode == 200 {
+            checkString = "Register"
+            let objAPI = API()
+            objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+            objAPI.otpSentDelegate = self
+            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "91")
+        }
+        else if errorCode == 201 {
+            let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
+                checkString = "ForgotPasscode"
+                let objAPI = API()
+                objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+                checkString = "ForgotPasscode"
+                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
+                self.navigationController?.pushViewController(objCreatePINView, animated: true)
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else if errorCode == 202 {
+            var dict = objResponse["party"] as! Dictionary<String,AnyObject>
+           let firstName = dict["first_name"] as! String
+           let lastName = dict["second_name"] as! String
+           let dateOfBirth = dict["date_of_birth"] as! String
+            let msg = objResponse["message"] as! String
+            
+            let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+            { action -> Void in
+                self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
+                self.navigationController?.popViewControllerAnimated(true)
+                })
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        }
     }
+    
     
     func errorResponseForRegistrationAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+    }
+    
+    //OTP Verification Delegate Method
+    func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
+    {
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+    }
+    func errorResponseForOTPSentAPI(error:String){
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+        
+        
     }
 }

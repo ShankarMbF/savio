@@ -15,7 +15,9 @@ class SAMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Setup Menu as per plan created
          NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
+        //Set up UI for Menu
         self.setUpUI()
 
     }
@@ -28,15 +30,18 @@ class SAMenuViewController: UIViewController {
     }
     
     func setUpUI() {
+        //Create Menu's JSON file URL
         let fileUrl: NSURL = NSBundle.mainBundle().URLForResource("Menu", withExtension: "json")!
+        //Getting FileData
         let jsonData: NSData = NSData(contentsOfURL: fileUrl)!
+        //Parsing Json file data
         let arr: NSArray = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSArray
-        
+        //setting individual, group and group member plan's flag
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
 
-        
+        //Set up number of menu as per plan created
         for var i = 0; i < arr.count; i++ {
             var dict = arr[i] as! Dictionary<String,AnyObject>
             if dict["className"]!.isEqualToString("SAProgressViewController") {
@@ -67,6 +72,8 @@ class SAMenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+         // MARK: - Tableview datasource and delegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.arrMenu.count
     }
@@ -79,7 +86,7 @@ class SAMenuViewController: UIViewController {
             var nibs: Array! =  NSBundle.mainBundle().loadNibNamed("MenuTableViewCell", owner: self, options: nil)
             cell = nibs[0] as? MenuTableViewCell
         }
-        
+        //got individual menu's info
         let dict =  self.arrMenu[indexPath.row]
         
         cell?.title?.text =  dict["title"] as? String
@@ -91,6 +98,7 @@ class SAMenuViewController: UIViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
          let dict =  self.arrMenu[indexPath.row]
+        // Identifying selected cell
         let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         let imageName =  dict["activeImage"] as! String
@@ -99,6 +107,7 @@ class SAMenuViewController: UIViewController {
        
         let className: String = dict["className"] as! String
         print(className)
+        //Brodcast the notification for navigating flow
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
     

@@ -246,7 +246,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     {
                         pageControl?.numberOfPages = 5
                     }
-                    else{
+                    else {
                         pageControl?.numberOfPages = colors.count
                     }
                     
@@ -256,7 +256,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     scrlView!.addSubview(testView)
                 }
             }
-            else{
+            else {
                 for i in 0 ..< colors.count {
                     heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                     heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -327,7 +327,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     {
                         pageControl?.numberOfPages = 5
                     }
-                    else{
+                    else {
                         pageControl?.numberOfPages = colors.count
                     }
                     
@@ -340,7 +340,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
             
         }
-        else{
+        else {
             NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
@@ -405,7 +405,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let objSAWishListViewController = SAWishListViewController()
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

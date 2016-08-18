@@ -101,7 +101,7 @@ class PickerTextfildTableViewCell: UITableViewCell,UITextFieldDelegate{
         if todayDate == pickrDate{
             let allarme = UIAlertView(title: "Warning", message: "Birthdate should not be today's date", delegate: nil, cancelButtonTitle: "Ok")
             allarme.show()
-        }else{
+        }else {
         self.setDateToTextField()
         tfDatePicker.resignFirstResponder()
         previousDate = tfDatePicker.text!

@@ -64,7 +64,7 @@ class ContactViewController: UIViewController {
             }
             return cell!
         }
-        else{
+        else {
             let cellID: String = "ContactCell"
             var cell: ContactTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactTableViewCell
             if cell == nil {
@@ -79,7 +79,7 @@ class ContactViewController: UIViewController {
                     cell?.headerLbl?.text = "mobile"
                     cell?.detailLable?.text = mobileNum
                 }
-                else{
+                else {
                     if let emailStr: String = contactDict["email"] as? String {
                         cell?.headerLbl?.text = "email"
                         cell?.detailLable?.text = emailStr
@@ -143,7 +143,7 @@ class ContactViewController: UIViewController {
                  dict["NOMID"] = "4"
                 text = mobileNum
             }
-            else{
+            else {
                 if let emailStr: String = contactDict["email"] as? String {
                     dict["email_id"] = emailStr
                     dict["mobile_number"] = ""

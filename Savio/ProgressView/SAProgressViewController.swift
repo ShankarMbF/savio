@@ -64,8 +64,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
     }
-    //set up navigation view
     
+    //set up navigation view
     func setUPNavigation()
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -95,9 +95,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-
             
             if(wishListArray.count > 0)
             {
@@ -116,18 +115,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
         makeImpulseSavingButton!.layer.cornerRadius = 5
-  
     }
     
     
     //set up the UIView 
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-
         var attrText = NSMutableAttributedString(string: planTitle)
-        
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
                                         name: "GothamRounded-Medium",
@@ -136,7 +131,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                                         location: 3,
                                         length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
-        
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
  
@@ -144,12 +138,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         {
              totalAmount = amount.floatValue
         }
-        
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
-       
             paidAmount = totalPaidAmount.floatValue
-            
         }
    
         pageControl.currentPage = 0
@@ -157,31 +148,27 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         for var i=0; i<3; i++
         {
+            //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  scrlView.frame.size.width, scrlView.frame.size.height)
             scrlView.addSubview(circularProgress)
             
+            //customization of KDCircularProgress
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
             circularView.startAngle = -90
             circularView.roundedCorners = true
-            print(paidAmount)
-            print(totalAmount)
-            print(Double((paidAmount * 360)/totalAmount))
-
             circularView.angle = Double((paidAmount * 360)/totalAmount)
             
-             let labelOne = circularProgress.viewWithTag(3) as! UILabel
-            
+            let labelOne = circularProgress.viewWithTag(3) as! UILabel
             let labelTwo = circularProgress.viewWithTag(2) as! UILabel
-            
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
-            
-             let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
-           activityIndicator.hidden = false
+            let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
+            activityIndicator.hidden = false
+            //check if plan has image
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
-                    
+
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data?.length > 0){
@@ -196,7 +183,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                         {
                             activityIndicator.stopAnimating()
                             activityIndicator.hidden = true
-                            
                         }
                     })
                 }
@@ -213,13 +199,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             
             if(i == 0)
             {
-            
                 labelOne.hidden = true
                 labelTwo.hidden = true
                 imgView.hidden = false
                 imgView.layer.cornerRadius = imgView.frame.width/2
-                
-               
             }
             else if(i == 1)
             {
@@ -227,16 +210,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelOne.text = "0.0%"
                 labelTwo.hidden = false
                 labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
-               // labelTwo.text = "£ 0 saved"
                 imgView.hidden = true
                 activityIndicator.hidden = true
-               
             }
             else
             {
                 labelOne.hidden = false
                 labelOne.text = String(format: "£ %0.2f",totalAmount - paidAmount)
-                //  labelOne.text = "£ 0"
                 labelTwo.hidden = false
                 labelTwo.text = "0 days to go"
                 imgView.hidden = true
@@ -244,6 +224,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             }
         }
         
+        //customization of plan button as per the psd
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.planButton!.bounds
@@ -258,40 +239,34 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     func heartBtnClicked(){
-        
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
-            //objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
-    
-    
-    
-    
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
-        
         // Set the new page index to the page control.
         pageControl!.currentPage = Int(currentPage)
     }
     
+    //UIPageView control method
     @IBAction func changePage(sender: AnyObject) {
         var newFrame = scrlView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
         scrlView!.scrollRectToVisible(newFrame, animated: true)
     }
     
+    //Goto stats tab
     @IBAction func clickOnStatButton(sender:UIButton){
         let obj = SAStatViewController()
         obj.itemTitle = savingPlanDetailsDict["title"] as! String
-        
         obj.planType = "Individual"
         obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
         obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
@@ -300,7 +275,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
-        
         let obj = SAOfferListViewController()
         obj.savID = 63
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
@@ -311,9 +285,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     @IBAction func spendButtonPressed(sender: AnyObject) {
-        
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
-        
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
@@ -324,7 +296,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
-    //get users plan dekegate methods
+    //get users plan delegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String
         {
@@ -346,9 +318,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-
          objAnimView.removeFromSuperview()
-        
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {

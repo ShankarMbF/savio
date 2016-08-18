@@ -162,7 +162,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else{
+            else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
@@ -194,7 +194,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             self.topBackgroundImageView.image = image
                         })
                     }
-                    else{
+                    else {
                         spinner.stopAnimating()
                         spinner.hidden = true
                         self.topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
@@ -315,12 +315,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 objSAWishListViewController.wishListArray = wishListArray!
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
             }
-            else{
+            else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -569,7 +569,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if(dateString == "day") {
                         cell1.dayDateTextField.text = self.popOverSelectedStr
                     }
-                    else{
+                    else {
                         cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.popOverSelectedStr)!, text: self.popOverSelectedStr)
                     }
                 }
@@ -583,7 +583,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if(dateString == "day") {
                         cell1.dayDateTextField.text = self.popOverSelectedStr
                     }
-                    else{
+                    else {
                         cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.popOverSelectedStr)!, text: self.popOverSelectedStr)
                     }
                 }
@@ -614,7 +614,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 if(dateString == "day") {
                                     cell1.dayDateTextField.text = popOverSelectedStr
                                 }
-                                else{
+                                else {
                                     cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
                                 }
                             }
@@ -622,7 +622,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 if(dateString == "day") {
                                     cell1.dayDateTextField.text = payDate
                                 }
-                                else{
+                                else {
                                     cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
                                 }
                             }
@@ -631,7 +631,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             if(dateString == "day") {
                                 cell1.dayDateTextField.text = payDate
                             }
-                            else{
+                            else {
                                 cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
                             }
                         }
@@ -721,7 +721,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         else if ((dateDiff/168)/4 == 0) {
                             cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
                         }
-                        else{
+                        else {
                             cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
                         }
                     }
@@ -921,7 +921,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 return 65
             }
-            else{
+            else {
                 return 0
             }
         }
@@ -1088,7 +1088,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 parameterDict["AMOUNT"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
             }
         }
-        else{
+        else {
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
@@ -1592,7 +1592,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
                     dict["payType"] = "Weekly"
                 }
-                else{
+                else {
                     dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
                     dict["payType"] = "Monthly"
                 }

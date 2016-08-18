@@ -92,7 +92,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             lineChart.thumbImgView.image = UIImage(named: "generic-stats-slider-tab")
             lineChart.graphMovingVerticalLine.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         }
-        else{
+        else {
             GraphContentView.backgroundColor = UIColor(red: 239/255,green:247/255,blue:253/255,alpha:1)
             lineChart.thumbImgView.image = UIImage(named: "group-save-stats-slider-tab")
             lineChart.graphMovingVerticalLine.backgroundColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
@@ -187,7 +187,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else{
+            else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
@@ -248,7 +248,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }

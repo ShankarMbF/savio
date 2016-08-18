@@ -1579,7 +1579,8 @@
 				A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */,
 				A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */,
 			);
-			path = SettingsView;
+			name = SettingsView;
+			path = ../SettingsView;
 			sourceTree = "<group>";
 		};
 		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
@@ -1732,6 +1733,7 @@
 		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
 			isa = PBXGroup;
 			children = (
+				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */,
 				A8900C1F1D2FB27F00D8CD0F /* Math.swift */,
 				A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */,
@@ -2064,7 +2066,6 @@
 				C9A807D11D33A3660053A07B /* EditUserInfo */,
 				A8F820261D2E7FA600BB7537 /* ImpulseSavingView */,
 				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
-				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				C94CB9871D213E7D0040E150 /* StatView */,
 				C94CB9841D2138740040E150 /* LineChart */,
 				A86F06401D1D15A600E1D821 /* SpendView */,
@@ -3137,7 +3138,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 			};
@@ -3158,7 +3159,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e158fb09-a84e-4b7b-b599-c3f192243379";
+				PROVISIONING_PROFILE = "022ffda2-6f63-4e9e-9555-79291d535868";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3278,7 +3279,7 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3306,7 +3307,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fb065339-01e6-4ce9-b7e3-ecb49ff9acb2";
+				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};

@@ -95,7 +95,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
             self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
         }
-        else{
+        else {
             
             if(textFieldOne.text  ==  "" || textFieldReOne.text   ==  "" || textFieldTwo.text  ==  "" || textFieldReTwo.text   ==  "" || textFieldThree.text    ==  "" || textFieldReThree.text  ==  "" || textFieldFour.text   ==  "" || textFieldReFour.text   ==  "" )
             {
@@ -151,7 +151,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                         objAPI.resetPasscodeDelegate = self
                         objAPI.resetPasscodeOfUserID(updatePasscodeDict)
                     }
-                    else{
+                    else {
                          print(userInfoDict)
                         objAPI.delegate = self
                         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
@@ -233,7 +233,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
         }
             }
-            else{
+            else {
                 let alert = UIAlertView(title: "Warning", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
@@ -300,7 +300,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             default:
                 textFieldOne.becomeFirstResponder()
             }
-        }else{
+        }else {
             switch textField{
             case textFieldFour:
                 textFieldThree.becomeFirstResponder()

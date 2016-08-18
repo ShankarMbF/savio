@@ -113,7 +113,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         if(sender.value >= 2000) {
             sender.value = sender.value + 30;
         }
-        else{
+        else {
             sender.value = sender.value + 10;
         }
         
@@ -131,7 +131,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         if(slider.value >= 2000) {
             slider.value = slider.value + 30;
         }
-        else{
+        else {
             slider.value = slider.value + 10;
         }
         self.costTextField.attributedText = self.createAttributedString("£" + String(format: "%d",Int(slider.value)))

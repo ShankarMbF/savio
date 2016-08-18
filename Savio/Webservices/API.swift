@@ -217,7 +217,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             delegate?.error("Network not available")
         }
@@ -281,7 +281,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             dispatch_async(dispatch_get_main_queue()){
                 self.delegate?.errorResponseForRegistrationAPI("No network found")
@@ -357,7 +357,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
         }
@@ -429,7 +429,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
         }
@@ -486,7 +486,7 @@ class API: UIView,NSURLSessionDelegate {
                                 }
                             }
                         }
-                        else{
+                        else {
                             if let code = dict["error"] as? NSString
                             {
                                 if(code == "Internal Server Error")
@@ -525,7 +525,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             logInDelegate?.errorResponseForOTPLogInAPI("No network found")
         }
@@ -584,7 +584,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             //Give error no network found
             self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
         }
@@ -608,7 +608,7 @@ class API: UIView,NSURLSessionDelegate {
         //        if (KeychainItemWrapper.load(key) as! String).isEmpty{
         //            return ""
         //        }
-        //        else{
+        //        else {
         //
         //
         //        }
@@ -689,7 +689,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
         }
         
@@ -758,7 +758,7 @@ class API: UIView,NSURLSessionDelegate {
             
             dataTask.resume()
         }
-        else{
+        else {
             self.deleteWishList?.errorResponseForDeleteWishListAPI("No network found")
         }
         
@@ -826,7 +826,7 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 dataTask.resume()
             }
-            else{
+            else {
                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
             }
             
@@ -879,7 +879,7 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 dataTask.resume()
             }
-            else{
+            else {
                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
             }
             
@@ -945,7 +945,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
         }
     }
@@ -1005,7 +1005,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("No network found")
         }
         
@@ -1067,7 +1067,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
         }
         
@@ -1127,7 +1127,7 @@ class API: UIView,NSURLSessionDelegate {
             
             dataTask.resume()
         }
-        else{
+        else {
             self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI("No network found")
         }
         
@@ -1188,7 +1188,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI("Network not available")
         }
         
@@ -1255,7 +1255,7 @@ class API: UIView,NSURLSessionDelegate {
             
             
         }
-        else{
+        else {
             self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("No network found")
         }
     }
@@ -1319,7 +1319,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI("Network not available")
         }
         
@@ -1384,7 +1384,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             dispatch_async(dispatch_get_main_queue()){
                 self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI("Network not available")
             }
@@ -1463,7 +1463,7 @@ class API: UIView,NSURLSessionDelegate {
             }
             dataTask.resume()
         }
-        else{
+        else {
             dispatch_async(dispatch_get_main_queue()){
                 self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("No network found")
             }

@@ -229,7 +229,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
              let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
              self.navigationController?.pushViewController(objHurrrayView, animated: true)
              }
-             else{
+             else {
              objAnimView.removeFromSuperview()
              errorLabel.hidden = false
              errorLabel.text = "Passcode do not match"
@@ -288,7 +288,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         else if member == 1 {
             className = "groupMemberPlan"
         }
-        else{
+        else {
             className = ""
         }
         NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
@@ -404,7 +404,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             default:
                 textFieldOne.becomeFirstResponder()
             }
-        }else{
+        }else {
             switch textField{
             case textFieldFour:
                 textFieldThree.becomeFirstResponder()

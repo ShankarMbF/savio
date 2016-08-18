@@ -246,7 +246,16 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
         else if checkTextFieldContentSpecialChar(surnameTextField.text!) {
             surnameErrorLabel.text = "Surname should not contain special characters"
-            topSpaceForSurnameTextField.constant = 21
+            if(UIScreen.mainScreen().bounds.width == 320)
+            {
+                topSpaceForSurnameTextField.constant = 40
+                surnameErrorLabelHt.constant = 40
+            }
+            else {
+                 topSpaceForSurnameTextField.constant = 21
+                surnameErrorLabelHt.constant = 21
+            }
+           
             errorFlag = true
             surnameTextField.layer.borderColor = UIColor.redColor().CGColor
             surnameTextField.textColor = UIColor.redColor()
@@ -286,8 +295,16 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
         else if(mobileNumberTextField.text?.characters.count < 10) {
             mobileNumberErrorLabel.text = "That mobile number should be greater than 10 digits"
+            if(UIScreen.mainScreen().bounds.width == 320)
+            {
             topSpaceForMobileNumberTextField.constant = 40
             mobileNumberErrorLabelHt.constant = 40
+            }
+            else
+            {
+                topSpaceForMobileNumberTextField.constant = 21
+                   mobileNumberErrorLabelHt.constant = 21
+            }
             errorFlag = true
             mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
             mobileNumberTextField.textColor = UIColor.redColor()
@@ -428,7 +445,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             self.navigationController?.pushViewController(registrationSecondView, animated: true)
         
         }
-        else{
+        else {
             errorFlag = false
         }
     }
@@ -539,7 +556,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         if (str.rangeOfCharacterFromSet(set) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -549,7 +566,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         if (str.rangeOfCharacterFromSet(set) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -570,7 +587,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         if (str.rangeOfCharacterFromSet(characterSet) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }

@@ -59,7 +59,7 @@ class SAMenuViewController: UIViewController {
                     arrMenu.append(dict)
                 }
             }
-            else{
+            else {
                 arrMenu.append(dict)
             }
         }

@@ -167,12 +167,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 objSAWishListViewController.wishListArray = wishListArray!
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
             }
-            else{
+            else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -266,7 +266,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                     }
                 }
-                else{
+                else {
                     str = ""
                     ht = 0.0
                 }
@@ -274,7 +274,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 cell.lblProductOffer?.text = str
             }
         }
-        else{
+        else {
             cell.lblHT.constant = 0.0
             cell.lblProductOffer?.text = ""
         }
@@ -326,7 +326,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 self.prevIndxArr.append(sender.tag)
             }
         }
-        else{
+        else {
             self.prevIndxArr.append(sender.tag)
         }
         self.tblView?.reloadData()

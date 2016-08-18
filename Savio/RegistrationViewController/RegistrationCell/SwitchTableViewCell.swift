@@ -32,7 +32,7 @@ class SwitchTableViewCell: UITableViewCell {
             otpLabel.text = "OTP will be send"
             delegate?.getStateOfSwitchClicked("OTP will be send")
         }
-        else{
+        else {
             otpLabel.text = "OTP will not be send"
             delegate?.getStateOfSwitchClicked("OTP will not be send")
         }

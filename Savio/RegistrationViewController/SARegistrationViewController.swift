@@ -434,7 +434,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if txtFldCell.tf?.text?.characters.count>0{
             dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
         }
-        else{
+        else {
             dictForTextFieldValue.removeValueForKey((txtFldCell.tf?.placeholder)!)
         }
         print("\(dictForTextFieldValue)")
@@ -490,7 +490,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             arrRegistration[6] = dict
             self.createCells()
         }
-        else{
+        else {
             //            NW1W 9BE
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView!.frame = self.view.frame
@@ -596,14 +596,14 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     objAPI.delegate = self
                     objAPI.registerTheUserWithTitle(dict,apiName: "Customers")
                 }
-                else{
+                else {
                     let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: "Enter your firstname, lastname, date of birth as earlier", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                     
                 }
             }
-            else{
+            else {
                 let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
                 objImpInfo.delegate = self
                 objImpInfo.lblHeader.text = "Terms & Conditions"
@@ -612,7 +612,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 self.view.addSubview(objImpInfo)
             }
         }
-        else{
+        else {
             if dictForTextFieldValue["errorPostcodeValid"] != nil{
                 var dict = arrRegistration[6] as Dictionary<String,AnyObject>
                 var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
@@ -733,7 +733,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if (str.rangeOfCharacterFromSet(characterSet) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -754,7 +754,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             objAPI.registerTheUserWithTitle(dict,apiName: "Customers")
             return
         }
-        else{
+        else {
             if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
             {
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
@@ -779,7 +779,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if (str.rangeOfCharacterFromSet(set) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -789,7 +789,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if (str.rangeOfCharacterFromSet(set) != nil) {
             return true
         }
-        else{
+        else {
             return false
         }
     }
@@ -859,7 +859,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue["errorTitle"] = errorMsg
                     firstErroIndex = (firstErroIndex < 0) ? i : firstErroIndex
                 }
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorTitle")
                     
                 }
@@ -900,7 +900,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         errorFLag = true
                         dictForTextFieldValue["errorSurname"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorSurname")
                     }
                     
@@ -918,7 +918,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue["errorFirstAddress"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorFirstAddress")
                     }
                     
@@ -935,7 +935,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue["errorTown"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorTown")
                     }
                     
@@ -952,7 +952,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue["errorCounty"] = errorMsg
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorCounty")
                     }
                     
@@ -972,7 +972,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         
                     }
                         
-                        //                    else{
+                        //                    else {
                         //                        dictForTextFieldValue.removeValueForKey("errorMobile")
                         //                    }
                         
@@ -993,7 +993,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         errorMsg = "That mobile number should be of 15 digits"
                         dictForTextFieldValue["errorMobileValidation"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorMobileValidation")
                     }
                     
@@ -1011,7 +1011,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         dictForTextFieldValue["errorEmail"] = errorMsg
                     }
                         
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorEmail")
                         
                     }
@@ -1023,7 +1023,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         //                        dictForTextFieldValue["errorTxt"] = errorMsg
                         dictForTextFieldValue["errorEmailValid"] = errorMsg
                     }
-                    else{
+                    else {
                         dictForTextFieldValue.removeValueForKey("errorEmailValid")
                     }
                     dict = arrRegistration[21]as Dictionary<String,AnyObject>
@@ -1049,7 +1049,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     dictForTextFieldValue.removeValueForKey("Postcode")
                 }
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorPostcode")
                     dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
                     
@@ -1071,7 +1071,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     
                 }
                     
-                    //                    else{
+                    //                    else {
                     //                        dictForTextFieldValue.removeValueForKey("errorMobile")
                     //                    }
                     
@@ -1092,7 +1092,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     errorMsg = "That mobile number should not be more than 15 digits"
                     dictForTextFieldValue["errorMobileValidation"] = errorMsg
                 }
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorMobileValidation")
                 }
                 
@@ -1111,7 +1111,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue["errorEmail"] = errorMsg
                 }
                     
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorEmail")
                 }
                 
@@ -1121,7 +1121,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     //                        dictForTextFieldValue["errorTxt"] = errorMsg
                     dictForTextFieldValue["errorEmailValid"] = errorMsg
                 }
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorEmailValid")
                 }
                 dict = arrRegistration[21]as Dictionary<String,AnyObject>
@@ -1139,7 +1139,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue["errorDOB"] = errorMsg
                     
                 }
-                else{
+                else {
                     dictForTextFieldValue.removeValueForKey("errorDOB")
                 }
                 dict = arrRegistration[5]as Dictionary<String,AnyObject>
@@ -1262,7 +1262,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             self.createCells()
         }
       
-        else{
+        else {
             let alert = UIAlertController(title: error, message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
@@ -1359,7 +1359,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
-        else{
+        else {
             checkString = "Register"
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)

@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
                         window?.rootViewController = objSANav
                     }
-                    else{
+                    else {
                         //If no then Go to SAWelcomViewController
                         objSAWelcomViewController = SAWelcomViewController()
                         //Set SAWelcomViewController as rootViewController of UINavigationViewController
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window?.rootViewController = objSANav
             }
         }
-        else{
+        else {
             //If no then Go to SAWelcomViewController
             objSAWelcomViewController = SAWelcomViewController()
             //Set SAWelcomViewController as rootViewController of UINavigationViewController

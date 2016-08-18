@@ -12,24 +12,22 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     @IBOutlet weak var groupMembersLabel: UILabel!
     @IBOutlet weak var topButtonView: UIView!
-    
     @IBOutlet weak var toolBarView: UIView!
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    @IBOutlet weak var contentVwHt: NSLayoutConstraint!
+    @IBOutlet weak var tblHt: NSLayoutConstraint!
+    @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var horizontalScrollView: UIScrollView!
     @IBOutlet weak var spendButton: UIButton!
-    
     @IBOutlet weak var planButton: UIButton!
-    
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var pagecontrol: UIPageControl!
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var participantsArr : Array<Dictionary<String,AnyObject>> = []
     var  pieChartSliceArray: Array<Piechart.Slice> = []
-    @IBOutlet weak var contentVwHt: NSLayoutConstraint!
-    @IBOutlet weak var tblHt: NSLayoutConstraint!
-    @IBOutlet weak var tblView: UITableView!
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     var piechart : Piechart?
@@ -54,8 +52,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
     ];
     
-    
-    
     let topLabelColors = [
         UIColor(red:231/255,green:177/255,blue:235/255,alpha:1),
         UIColor(red:156/255,green:208/255,blue:133/255,alpha:1),
@@ -67,15 +63,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         UIColor(red:245/255,green:189/255,blue:104/255,alpha:1)
     ];
     var  prevIndxArr: Array<Int> = []
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
-        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
@@ -85,10 +77,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-        
         self.view.addSubview(objAnimView)
-        objAPI.getSavingPlanDelegate = self
         
+        objAPI.getSavingPlanDelegate = self
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
         if(groupFlag == 1 )
@@ -99,8 +90,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             objAPI.getUsersSavingPlan("gm")
         }
-        
-        
         self.view.bringSubviewToFront(topButtonView)
         // Do any additional setup after loading the view.
     }
@@ -110,26 +99,23 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         // Dispose of any resources that can be recreated.
     }
     
-    
     func setUPNavigation()
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
 
-        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-        
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
         //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
@@ -143,38 +129,28 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
-            
             if(wishListArray.count > 0)
             {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else{
+            else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
-            
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            
         }
         
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
     }
     
-    
+    //set the UI for Group progress view
     func setUpView(){
- 
         savingPlanTitleLabel.hidden = false
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
-        
         var attrText = NSMutableAttributedString(string: planTitle)
-        
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(
                                 name: "GothamRounded-Medium",
@@ -183,9 +159,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                                 location: 4,
                                 length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
-        
         savingPlanTitleLabel.attributedText = attrText
-        
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
             totalAmount = amount.integerValue
@@ -196,14 +170,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             paidAmount = totalPaidAmount.floatValue
         }
         
-        //prevIndxArr.append(0)
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
-        
-        //        tblHt.constant = (5 * 55) + 220
-        //        contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
-        
         groupMembersLabel.text = String(format:"Group members (%d)",participantsArr.count)
         
         for(var i=0; i<participantsArr.count; i++)
@@ -229,32 +198,27 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         for var i=0; i<3; i++
         {
+             //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
-  
             let side =  horizontalScrollView.frame.height
             let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
+            
+            //customization of KDCircularProgress
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
-            
             let middleView = circularProgress.viewWithTag(2)
-            
             circularView.startAngle = -90
             circularView.roundedCorners = true
             circularView.lerpColorMode = true
-            
-            let labelOne = circularProgress.viewWithTag(4) as! UILabel
-            
-            let labelTwo = circularProgress.viewWithTag(5) as! UILabel
-            
-            let labelThree = circularProgress.viewWithTag(6) as! UILabel
-            
-            let labelFour = circularProgress.viewWithTag(7) as! UILabel
-            
-            let labelFive = circularProgress.viewWithTag(8) as! UILabel
-            let labelSix = circularProgress.viewWithTag(9) as! UILabel
-            
             circularView.angle = Double((paidAmount * 360)/Float(totalAmount))
             
+            let labelOne = circularProgress.viewWithTag(4) as! UILabel
+            let labelTwo = circularProgress.viewWithTag(5) as! UILabel
+            let labelThree = circularProgress.viewWithTag(6) as! UILabel
+            let labelFour = circularProgress.viewWithTag(7) as! UILabel
+            let labelFive = circularProgress.viewWithTag(8) as! UILabel
+            let labelSix = circularProgress.viewWithTag(9) as! UILabel
+
             if(i == 0)
             {
                 labelOne.hidden = true
@@ -263,19 +227,17 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.hidden = true
                 labelFive.hidden = true
                 circularView.hidden = true
-
+                
+                //calculate the time difference between plan end date and todays date
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
-                
                 planEnddate = dateFormatter.dateFromString(savingPlanDetailsDict["planEndDate"] as! String)!
-                
                 let timeDifference : NSTimeInterval = planEnddate.timeIntervalSinceDate(NSDate())
                 
+                //set the pie chart to show individual progress of each user
                 piechart = Piechart()
                 let imgView = UIImageView()
-                
                 piechart!.frame = CGRectMake(0,0, horizontalScrollView.frame.width, horizontalScrollView.frame.height)
-                
                 if(UIScreen.mainScreen().bounds.width == 320)
                 {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 185
@@ -283,14 +245,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     imgView.frame = CGRectMake(70,83,182,182)
                     
                 }
-                else   if(UIScreen.mainScreen().bounds.width == 375)
-                {
+                else if(UIScreen.mainScreen().bounds.width == 375) {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 227
                     piechart?.radius.inner = horizontalScrollView.frame.width - 255
                     imgView.frame = CGRectMake(85,72,205,205)
                 }
-                else  if(UIScreen.mainScreen().bounds.width == 414)
-                {
+                else if(UIScreen.mainScreen().bounds.width == 414) {
                     piechart?.radius.outer = horizontalScrollView.frame.width - 250
                     piechart?.radius.inner = horizontalScrollView.frame.width - 275
                     imgView.frame = CGRectMake(87,53,240,240)
@@ -311,8 +271,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
-                //  imgView.image = UIImage(named: "cycle.png")
-                
+              
+               //Check if plan has image
                 if let url = NSURL(string:(savingPlanDetailsDict["image"] as? String)!)
                 {
                     let request: NSURLRequest = NSURLRequest(URL: url)
@@ -326,49 +286,44 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                                 self.spinner.hidden = true
                             })
                         }
-                        else
-                        {
+                        else {
                             self.spinner.stopAnimating()
                             self.spinner.hidden = true
                         }
-                    })
-                    
-                    
+                })
                 }
                 piechart!.addSubview(imgView)
             }
-            else if(i == 1)
-            {
+            else if(i == 1) {
                 labelOne.hidden = true
                 labelTwo.hidden = true
                 labelThree.hidden = true
-                
                 labelFive.hidden = false
                 labelFour.hidden = false
                 labelSix.hidden = false
-                
                 labelFour.text = String(format: "£ %0.2f saved",paidAmount)
-                
                 circularView.hidden = false
                 
                 let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
+                
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
-                    
                     for var i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
                         paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                        
                     }
                 }
                 
                 let text = String(format: "%d",Int(paidAmount * 100)/totalAmount)
+             
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
                 let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)
                 let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
                 attString.appendAttributedString(superscript)
                 labelSix.attributedText = attString
+                
+                //calculate the time difference between todays date and plan end date
                 timeSince = self.timeBetween(NSDate(), endDate: planEnddate)
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -404,11 +359,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelTwo.hidden = false
                 labelTwo.text = " You saved"
                 labelThree.hidden = false
-                
                 labelFour.hidden = true
                 labelFive.hidden = true
                 labelSix.hidden = true
-                
                 let text = String(format: "%d",paidAmount)
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
@@ -420,32 +373,28 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
-                    
                     for var i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
                         paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                        
                     }
                 }
-                
                 labelOne.text = String(format:"%d%% of your part",Int(paidAmount * 100)/totalAmount)
                 circularView.hidden = false
             }
             horizontalScrollView.addSubview(circularProgress)
         }
         
-        
+        //customization of plan button as per the psd
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.planButton!.bounds
         maskLayer.path = maskPath.CGPath
         self.planButton?.layer.mask = maskLayer
-        
         self.view.bringSubviewToFront(tblView)
         tblView.layer.zPosition = 1
-        
         self.view.bringSubviewToFront(toolBarView)
     }
+    
     func timeBetween(startDate: NSDate, endDate: NSDate) -> [Int]
     {
         let calendar = NSCalendar.currentCalendar()
@@ -464,16 +413,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func heartBtnClicked(){
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
-            //objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
-        else{
+        else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
-    
-    
     
     func statsButtonPressed(btn:UIButton)
     {
@@ -492,12 +438,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         pageControl!.currentPage = Int(currentPage)
     }
     
+    //UIPagecontrol method
     @IBAction func changePage(sender: AnyObject) {
         var newFrame = horizontalScrollView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
         horizontalScrollView!.scrollRectToVisible(newFrame, animated: true)
     }
-    
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
@@ -515,7 +461,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
-    //MARK: TableView Delegate and Datasource method
+    //MARK: TableView Delegate and Datasource methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
         return 1;
     }
@@ -552,42 +498,35 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     }
                     break
                 }
-                else{
-                    cell?.topVwHt.constant = 50.0 //(cell?.userProfile.frame.size.height)! + 5.0
+                else {
+                    cell?.topVwHt.constant = 50.0
                     cell?.topSpaceProfilePic.constant = -3
                 }
             }
         }
-        else{
+        else {
             ht = 50.0
-            
             cell?.topVwHt.constant = 50.0
             cell?.topSpaceProfilePic.constant = -3
-            //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
         
         cell?.topShadowView.backgroundColor = topLabelColors[indexPath.row]
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
-            
             for var i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
                 paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                
                 cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
-                
                 cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
                 
             }
         }
-        else
-        {
+        else  {
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
-            
             if(savingPlanDetailsDict["payType"] as! String == "Month")
             {
                 cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/((dateDiff/168)/4) * ((dateDiff/168)/4)))
@@ -596,7 +535,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             {
                 cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/(dateDiff/168) * (dateDiff/168)))
             }
-           
             cell?.remainingProgress.angle = 360
         }
         
@@ -605,8 +543,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
         }
-        else
-        {
+        else {
             cell?.nameLabel.text = cellDict["partyName"] as? String
         }
         
@@ -616,8 +553,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
                    cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/((dateDiff/168)/4))
         }
-        else
-        {
+        else {
                    cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/(dateDiff/168))
         }
         
@@ -628,6 +564,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.userProfile.addSubview(spinner)
         cell?.userProfile.layer.cornerRadius = (cell?.userProfile.frame.width)! / 2
         cell?.userProfile.clipsToBounds = true
+        
         if let urlString = cellDict["partyImageUrl"] as? String
         {
             let url = NSURL(string:urlString)
@@ -659,7 +596,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
-        print(contentVwHt.constant)
         return cell!
     }
     
@@ -686,12 +622,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                     self.prevIndxArr.append(indexPath.row)
                 }
             }
-            else{
+            else {
                 selectedCell?.topVwHt.constant = 50.0
                 selectedCell?.topSpaceProfilePic.constant = -3
                 self.prevIndxArr.append(indexPath.row)
             }
-            //            self.tblView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             self.piechart!.click(indexPath.row)
             self.tblView.reloadData()
         }
@@ -724,10 +659,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         let objImpulseSave = SAImpulseSavingViewController()
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
-        
     }
-    
-    
+
     func setSubtitle(total: CGFloat, slice: Piechart.Slice) -> String {
         return "\(Int(slice.value / total * 100))% \(slice.text)"
     }
@@ -757,7 +690,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         var memberTypeArray : Array<String> = []
         if let message = objResponse["message"] as? String
         {
@@ -772,35 +704,26 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
                 }
-                
-                
-                
                 var userDict : Dictionary<String,AnyObject> = [:]
                 userDict["partyName"] = objResponse["partyName"]
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
-                
                 for(var i=0; i<participantsArr.count; i++)
                 {
                     let memberTypeDict = participantsArr[i] as Dictionary<String,AnyObject>
                     memberTypeArray.append(memberTypeDict["memberType"] as! String)
-           
                 }
-           
                 
                 if memberTypeArray.contains("Owner")
                 {
                     userDict["memberType"] = "Member"
                 }
-                else{
+                else {
                     userDict["memberType"] = "Owner"
                 }
                 participantsArr.append(userDict)
-                
                 participantsArr = participantsArr.reverse()
-                
                 self.setUpView()
-                
                 self.tblView.reloadData()
             }
             else
@@ -817,9 +740,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        
         objAnimView.removeFromSuperview()
-        
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {

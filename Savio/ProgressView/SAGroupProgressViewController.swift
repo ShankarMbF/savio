@@ -397,8 +397,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                         labelFive.text = String(format :"%d weeks to go",dateDiff/168)
                     }
                 }
-           
-                
             }
             else
             {
@@ -561,13 +559,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
         }
         else{
-            ht = 55.0
+            ht = 50.0
+            
             cell?.topVwHt.constant = 50.0
             cell?.topSpaceProfilePic.constant = -3
             //            cell?.topVwHt.constant = 55.0 //(cell?.userProfile.frame.size.height)! + 5.0
         }
         
         cell?.topShadowView.backgroundColor = topLabelColors[indexPath.row]
+        tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
             
@@ -580,8 +580,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 
                 cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
-                
-
                 
             }
         }
@@ -602,7 +600,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.remainingProgress.angle = 360
         }
         
-        tblHt.constant = CGFloat(participantsArr.count * 50) + ht
+       
         if(cellDict["memberType"] as! String == "Owner")
         {
             cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
@@ -661,7 +659,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         contentVwHt.constant = tblView.frame.origin.y + tblHt.constant
-        
+        print(contentVwHt.constant)
         return cell!
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,7 +11,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAWelcomViewController" customModule="Savio" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SAWelcomeViewController" customModule="Savio" customModuleProvider="target">
             <connections>
                 <outlet property="pageControl" destination="Jtq-Lk-shb" id="Gk8-zD-DeR"/>
                 <outlet property="scrollView" destination="4xE-XW-drk" id="Tx1-DG-6tZ"/>
@@ -31,6 +31,11 @@
                         <constraint firstAttribute="height" constant="40" id="hkz-0v-te1"/>
                         <constraint firstAttribute="width" constant="40" id="smM-64-uiZ"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="2q2-Hc-WP2"/>
+                        </mask>
+                    </variation>
                 </imageView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xE-XW-drk">
                     <rect key="frame" x="0.0" y="103" width="600" height="359"/>

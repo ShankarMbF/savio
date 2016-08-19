@@ -462,8 +462,8 @@
 		C97A351C1CF6CC7900BEB441 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351A1CF6CC7900BEB441 /* icon@2x.png */; };
 		C97A351E1CF6D55D00BEB441 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351D1CF6D55D00BEB441 /* icon@3x.png */; };
 		C9847A3B1D005F8A0074FDAC /* SavingPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9847A3A1D005F8A0074FDAC /* SavingPageView.xib */; };
-		C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */; };
-		C9854A9A1CED9A5000D09AB3 /* SAWelcomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */; };
+		C9854A991CED9A5000D09AB3 /* SAWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */; };
+		C9854A9A1CED9A5000D09AB3 /* SAWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */; };
 		C9905F9D1CED9EF700E63471 /* PageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F8F1CED9EF700E63471 /* PageView.xib */; };
 		C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9905F911CED9EF700E63471 /* ButtonTableViewCell.swift */; };
 		C9905F9F1CED9EF700E63471 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F921CED9EF700E63471 /* ButtonTableViewCell.xib */; };
@@ -1055,12 +1055,12 @@
 		C97949741CEC987900416BD5 /* VTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTButton.swift; sourceTree = "<group>"; };
 		C97949751CEC987900416BD5 /* VTLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTLabel.swift; sourceTree = "<group>"; };
 		C97949761CEC987900416BD5 /* VTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTView.swift; sourceTree = "<group>"; };
-		C97A35191CF6CC7900BEB441 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Savio/icon.png; sourceTree = "<group>"; };
-		C97A351A1CF6CC7900BEB441 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Savio/icon@2x.png"; sourceTree = "<group>"; };
-		C97A351D1CF6D55D00BEB441 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@3x.png"; path = "Savio/icon@3x.png"; sourceTree = "<group>"; };
+		C97A35191CF6CC7900BEB441 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
+		C97A351A1CF6CC7900BEB441 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
+		C97A351D1CF6D55D00BEB441 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@3x.png"; path = "../../icon@3x.png"; sourceTree = "<group>"; };
 		C9847A3A1D005F8A0074FDAC /* SavingPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavingPageView.xib; sourceTree = "<group>"; };
-		C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAWelcomViewController.swift; sourceTree = "<group>"; };
-		C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAWelcomViewController.xib; sourceTree = "<group>"; };
+		C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAWelcomeViewController.swift; sourceTree = "<group>"; };
+		C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAWelcomeViewController.xib; sourceTree = "<group>"; };
 		C9905F8F1CED9EF700E63471 /* PageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageView.xib; sourceTree = "<group>"; };
 		C9905F911CED9EF700E63471 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		C9905F921CED9EF700E63471 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
@@ -1475,6 +1475,16 @@
 				C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */,
 			);
 			path = splashLogo;
+			sourceTree = "<group>";
+		};
+		A86D2E5B1D673445000D7D8A /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
+				C97A35191CF6CC7900BEB441 /* icon.png */,
+				C97A351A1CF6CC7900BEB441 /* icon@2x.png */,
+			);
+			path = AppIcon;
 			sourceTree = "<group>";
 		};
 		A86F06401D1D15A600E1D821 /* SpendView */ = {
@@ -1950,12 +1960,13 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
-		C9854A891CED9A5000D09AB3 /* WelcomViewController */ = {
+		C9854A891CED9A5000D09AB3 /* WelcomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */,
-				C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */,
+				C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */,
+				C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */,
 			);
+			name = WelcomeViewController;
 			path = WelcomViewController;
 			sourceTree = "<group>";
 		};
@@ -2041,9 +2052,6 @@
 			children = (
 				CA0372271D48D89D00FC5C1B /* Fabric.framework */,
 				CA0372281D48D89D00FC5C1B /* Crashlytics.framework */,
-				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
-				C97A35191CF6CC7900BEB441 /* icon.png */,
-				C97A351A1CF6CC7900BEB441 /* icon@2x.png */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
 				A86681DE1CFEC26D0014DB59 /* SavioWishList */,
 				C9E525A91CE986FA000FD01E /* Products */,
@@ -2094,7 +2102,7 @@
 				A8095B8F1CEDC4D5006366F7 /* LogoAnimation */,
 				A8095B921CEDC4D5006366F7 /* TermsAndConditionView */,
 				C9905F8E1CED9EF700E63471 /* RegistrationViewController */,
-				C9854A891CED9A5000D09AB3 /* WelcomViewController */,
+				C9854A891CED9A5000D09AB3 /* WelcomeViewController */,
 				C97949711CEC987900416BD5 /* Global */,
 				C9E525C11CE9A480000FD01E /* Graphics */,
 				C9E525AB1CE986FA000FD01E /* AppDelegate.swift */,
@@ -2109,6 +2117,7 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				A86D2E5B1D673445000D7D8A /* AppIcon */,
 				A86D2E591D66CDF0000D7D8A /* ArrowImages */,
 				A86D2E5A1D66CDF0000D7D8A /* splashLogo */,
 				A841DA891D507F9E00846F46 /* preloader */,
@@ -2119,19 +2128,20 @@
 				C90D39B91D068D2000F285BB /* OfferList */,
 				A8BDCBA81D05557500D4C47B /* setupSavingPlan */,
 				C975A9071D01564D00184C8C /* CreateSavingPlan */,
-				C9E854FD1CF456CC006213BF /* logo */,
+				C9E854FD1CF456CC006213BF /* savio-logo */,
 				C979495E1CEC381C00416BD5 /* Welcome screen */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
 		};
-		C9E854FD1CF456CC006213BF /* logo */ = {
+		C9E854FD1CF456CC006213BF /* savio-logo */ = {
 			isa = PBXGroup;
 			children = (
 				C9E854FE1CF456CC006213BF /* savivo-logo.png */,
 				C9E854FF1CF456CC006213BF /* savivo-logo@2x.png */,
 				C9E855001CF456CC006213BF /* savivo-logo@3x.png */,
 			);
+			name = "savio-logo";
 			path = logo;
 			sourceTree = "<group>";
 		};
@@ -2582,7 +2592,7 @@
 				C9ED804D1D1BC38A00058A96 /* menu-settings.png in Resources */,
 				A858A5F61D08127C0097546F /* group-save-circle.png in Resources */,
 				A833D0F71D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png in Resources */,
-				C9854A9A1CED9A5000D09AB3 /* SAWelcomViewController.xib in Resources */,
+				C9854A9A1CED9A5000D09AB3 /* SAWelcomeViewController.xib in Resources */,
 				C9905FA71CED9EF700E63471 /* TxtFieldTableViewCell.xib in Resources */,
 				A88E81D01D49EA0F00CAA00F /* stats-achievement-badge@3x.png in Resources */,
 				A859DDE21D50AE7000932150 /* generic-updown@1x.png in Resources */,
@@ -3024,7 +3034,7 @@
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
-				C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */,
+				C9854A991CED9A5000D09AB3 /* SAWelcomeViewController.swift in Sources */,
 				A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */,
 				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,

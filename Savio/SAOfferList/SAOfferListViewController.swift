@@ -15,22 +15,20 @@ protocol SAOfferListViewDelegate {
 }
 
 class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
+    
+    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var bottomview: UIView!
+    @IBOutlet weak var tblView : UITableView?
+    @IBOutlet weak var closeLbl : UILabel?
+    
     var indx : Int = 0
     var  prevIndxArr: Array<Int> = []
     var rowHT : CGFloat = 310.0
     var savID : NSNumber = 0
     var hideAddOfferButton : Bool = false
     var  offerArr: Array<Dictionary<String,AnyObject>> = []
-
-    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint!
-    @IBOutlet weak var bottomview: UIView!
-    
-    @IBOutlet weak var tblView : UITableView?
-    @IBOutlet weak var closeLbl : UILabel?
-    
     var delegate : SAOfferListViewDelegate?
-    
-     var objAnimView = ImageViewAnimation()
+    var objAnimView = ImageViewAnimation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +43,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func setUpView(){
         self.title = "Partner offers"
-        
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
 
         //set Navigation left button
-        
+    
         if(hideAddOfferButton)
         {
             let leftBtnName = UIButton()
@@ -65,13 +62,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             bottomview.hidden = true
             tblViewBottomSpace.constant = 0
         }
-        else
-        {
+        else {
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
             leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
-            
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
@@ -93,7 +88,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-            
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
@@ -118,7 +112,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 }
             }
             tblView?.reloadData()
-            print(offerArr)
         }
         else {
             let objAPI = API()
@@ -205,8 +198,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             cell.btnAddOffer?.hidden = true
             cell.suggestedHt.constant = 10
         }
-        else
-        {
+        else {
             cell.btnAddOffer?.hidden = false
             cell.btnAddOffer?.addTarget(self, action: Selector("clickedOnAddOffer:"), forControlEvents: UIControlEvents.TouchUpInside)
             cell.btnAddOffer?.tag = indexPath.row
@@ -214,15 +206,13 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
 
         cell.btnOfferDetail?.addTarget(self, action: Selector("clickedOnOfferDetail:"), forControlEvents: UIControlEvents.TouchUpInside)
-        
         cell.btnOfferDetail?.tag = indexPath.row
         let cellDict:Dictionary? = offerArr[indexPath.row]
         cell.lblOfferTitle?.text = cellDict!["offCompanyName"] as? String
         cell.lblOfferDiscount?.text = cellDict!["offTitle"] as? String
         cell.lblOfferSummary?.text = cellDict!["offSummary"] as? String
         cell.lblProductOffer?.text = cellDict!["offDesc"] as? String
-        
-        print(cellDict)
+       
         if let urlStr = cellDict!["offImage"] as? String {
             if urlStr != "" {
                 let url = NSURL(string: urlStr)
@@ -302,13 +292,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         return 310.0
     }
-    
-//    func clickedOnAddOffer(sender:UIButton) {
-//        print(sender.tag)
-//    }
-    
+
     func clickedOnOfferDetail(sender:UIButton) {
-        print(sender.tag)
         dispatch_async(dispatch_get_main_queue()){
         self.indx = sender.tag
         var isVisible = false
@@ -359,7 +344,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
             
-            for var i = 0; i < obj.count; i++ {
+            for var i = 0; i < obj.count; i += 1 {
                 let dict = self.checkNullDataFromDict(obj[i] as Dictionary<String,AnyObject>)
                 offerArr.append(dict)
             }

@@ -13,12 +13,11 @@ class WishListTableViewCell: UITableViewCell {
     @IBOutlet weak var btnSavingPlan: UIButton?
     @IBOutlet weak var btnDelete: UIButton?
     @IBOutlet weak var vwProductDetail: UIView?
-    
     @IBOutlet weak var lblPrice: UILabel!
-    
     @IBOutlet weak var deleteButtonTopSpace: NSLayoutConstraint!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var lblTitle: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,10 +30,6 @@ class WishListTableViewCell: UITableViewCell {
         let attributedString = NSAttributedString(string: "Delete", attributes: attributes)
         btnDelete?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
         
-        //Set Shadow to saving plan button
-//        btnSavingPlan!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        btnSavingPlan!.layer.shadowOffset = CGSizeMake(0, 2)
-//        btnSavingPlan!.layer.shadowOpacity = 1
         btnSavingPlan!.layer.cornerRadius = 5
         
         //set border to uiview

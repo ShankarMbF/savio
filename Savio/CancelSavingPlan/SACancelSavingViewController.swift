@@ -9,7 +9,7 @@
 import UIKit
 
 class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
-  
+    
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var wouldYouLikeToStartNewSavingPlanLabel: UILabel!
@@ -22,7 +22,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         
         //
         let paragraphStyle = NSMutableParagraphStyle()
@@ -50,7 +50,6 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     
     func setUpView(){
-        
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -65,7 +64,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-      
+        
         //set Navigation right button nav-heart
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
@@ -113,7 +112,6 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         }
     }
     
-    
     @IBAction func keepSavingButtonPressed(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -123,7 +121,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)
-
+        
         let objAPI = API()
         objAPI.cancelSavingPlanDelegate = self
         objAPI .cancelSavingPlan()
@@ -147,7 +145,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     
     func errorResponseForCancelSavingPlanAPI(error: String) {
-         objAnimView.removeFromSuperview()
+        objAnimView.removeFromSuperview()
     }
     
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {

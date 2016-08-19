@@ -65,6 +65,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
         
+        //Register the UITableViewCell from xib
         tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
@@ -76,9 +77,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         //CancelSavingPlanIdentifier
         tblView!.registerNib(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
+        
         let objAPI = API()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -93,10 +94,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             objAPI.getSavingPlanDelegate = self
         }
         
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -327,13 +324,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
             }
-            else
-            {
+            else {
                 if let str = imageDataDict["savPlanID"] as? NSNumber{
                     obj.savID = str
                 }
-                else
-                {
+                else {
                     obj.savID = Int(imageDataDict["savPlanID"] as! String)!
                 }
             }
@@ -347,13 +342,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //action method of camera button
     @IBAction func cameraButtonPressed(sender: AnyObject) {
+        //show alert view controller to choose option from gallery and camera
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
-        
+        //alert view controll action method
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
         { action -> Void in
             
+            //Check if camera is available
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
                 self.imagePicker.allowsEditing = true
@@ -361,13 +357,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
+                //Give alert if camera is not available
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             })
+          //alert view controll action method
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
+            //check if Photolibrary available
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
                 self.imagePicker.delegate = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
@@ -376,6 +374,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             else {
+                //Give alert if camera is not available
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
@@ -386,7 +385,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    //MARK: UITableviewDelegate methods
+    //MARK: UITableviewDelegate and UITableviewDataSource methods
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(isUpdatePlan)
         {
@@ -403,7 +402,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        
         if(indexPath.section == 0) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
@@ -934,13 +932,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
     }
+    
     //Get title text field delegate methods
     func getTextFieldText(text: String) {
         itemTitle = text
     }
+    
     func getDateTextField(str: String) {
         popOverSelectedStr = str
-        
         if(isUpdatePlan) {
             if(isPopoverValueChanged == false) {
                 tblViewHt.constant = tblView.frame.size.height  + 44
@@ -998,6 +997,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         isDateChanged = true
     }
     
+    //This method navigates user to the cancelling saving plan.
     func cancelSavingButtonPressed(sender:UIButton)
     {
         let obj  = SACancelSavingViewController()
@@ -1179,6 +1179,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
+    //This method is used to send the users saving plan details to the server.
     func nextButtonPressed(sender:UIButton)
     {
         var dict : Dictionary<String,String> = [:]
@@ -1187,7 +1188,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         dict["dateDiff"] = String(format:"%d",dateDiff)
         dict["datePickerDate"] = datePickerDate
         
+        //Check if offers are already added or not
         if isOfferShow == false {
+            //if yes create the saving plan
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
@@ -1247,7 +1250,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.updateSavingPlan(newDict)
                 }
                 else  {
-                    
                     objAPI.partySavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     newDict["TITLE"] = self.getParameters()["TITLE"]
@@ -1278,6 +1280,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
             }
             else {
+                //Handle the warnigs of required fields
                 var array : Array<String> = []
                 self.objAnimView.removeFromSuperview()
                 if(itemTitle == "")  {
@@ -1300,6 +1303,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         else {
+            //Else go to SAOfferListViewController
             let obj = SAOfferListViewController()
             if(isOfferDetailPressed) {
                 isOfferDetailPressed = false
@@ -1323,6 +1327,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     
+    //This method is used to show the customized alert message to user
     func displayAlert(message:String)
     {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -1448,6 +1453,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picker .dismissViewControllerAnimated(true, completion: nil)
+        //set the selected/captured image to the UIImageview.
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
@@ -1460,9 +1466,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     //MARK: GetUsersSavingplanDelegate methods
-    
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-        
         if let message = objResponse["message"] as? String {
             if(message == "Success") {
                 let spinner =  UIActivityIndicatorView()
@@ -1544,7 +1548,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     //MARK: PartySavingplan methods
-    
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String {

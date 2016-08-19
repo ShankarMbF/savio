@@ -196,7 +196,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             
         }
         
-        for var i=0; i<3; i++
+        for i in 0 ..< 3
         {
              //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
@@ -705,7 +705,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 userDict["partyName"] = objResponse["partyName"]
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
-                for(var i=0; i<participantsArr.count; i++)
+                for(var i=0; i<participantsArr.count; i += 1)
                 {
                     let memberTypeDict = participantsArr[i] as Dictionary<String,AnyObject>
                     memberTypeArray.append(memberTypeDict["memberType"] as! String)

@@ -146,7 +146,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
-        for var i=0; i<3; i++
+        for i in 0 ..< 3
         {
             //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView

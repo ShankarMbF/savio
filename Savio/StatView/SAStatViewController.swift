@@ -15,27 +15,25 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     @IBOutlet weak var GraphContentView: UIView!
     @IBOutlet weak var scrHt: NSLayoutConstraint!
-    var planType = ""
-    var lineChart: LineChart!
-    var label = UILabel()
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     @IBOutlet weak var scrlView: UIScrollView?
     @IBOutlet weak var contentView: UIView?
-    var itemTitle = ""
-    var endDate = ""
-    var cost = ""
     @IBOutlet weak var offersButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var makeImpulseBtn: UIButton!
     @IBOutlet var scrollViewForGraph: UIScrollView!
-    
     @IBOutlet var widthOfContentView: NSLayoutConstraint!
     @IBOutlet var graphSliderView: UISlider!
-    
     @IBOutlet weak var sharingVw: UIView?
     @IBOutlet weak var lbl: UILabel?
     
+    var planType = ""
+    var lineChart: LineChart!
+    var label = UILabel()
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var itemTitle = ""
+    var endDate = ""
+    var cost = ""
     var xLabels: [String] = []
     var documentInteractionController = UIDocumentInteractionController()
     var shareImg: UIImage?
@@ -45,24 +43,20 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.setUpView()
         lineChart = LineChart()
         lineChart.planTitle = self.planType
-
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
-        
         let data: [CGFloat] = [0,600,600-1,-1]
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1","2","3","4","5"]
-        
+
         lineChart.animation.enabled = true
         lineChart.area = true
-        
         // hide grid line Visiblity
         lineChart.x.grid.visible = true
         lineChart.y.grid.visible = true
         
         // hide dots visiblety in line chart
-        // lineChart.dots.visible = false
         
         lineChart.x.labels.visible = true
         lineChart.x.grid.count = CGFloat(data.count)
@@ -73,17 +67,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
-        
         lineChart.addLine(data)
-        //  lineChart.addLine(data2)
-        
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-
-        
-        
     }
     
     func chartVerticalLineDrawingCompleted() {
@@ -106,10 +94,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var views: [String: AnyObject] = [:]
-        
-        //        views["label"] = label
-        //        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: [], metrics: nil, views: views))
-        //        self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[label]", options: [], metrics: nil, views: views))
         views["chart"] = lineChart
         if xLabels.count > 5 {
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
@@ -124,8 +108,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
-        }
         
+        }
+        //add rounded corners plan button
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.planButton!.bounds
@@ -144,32 +129,24 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
 
-        self.title = "My Plan"
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        
-        //        makeImpulseBtn!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        //        makeImpulseBtn!.layer.shadowOffset = CGSizeMake(0, 2)
-        //        makeImpulseBtn!.layer.shadowOpacity = 1
         makeImpulseBtn!.layer.cornerRadius = 5
-        
-        
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-        
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -181,7 +158,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
             if(wishListArray.count > 0)
             {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -198,7 +174,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
         
         if(planType == "Individual")
         {
@@ -217,19 +192,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
         else
         {
-            /*
-            let attrText = NSMutableAttributedString(string: String(format: "Our target is %@",cost))
-            
-            attrText.addAttribute(NSFontAttributeName,
-                                  value: UIFont(
-                                    name: "GothamRounded-Medium",
-                                    size: 15.0)!,
-                                  range: NSRange(
-                                    location: 4,
-                                    length: itemTitle.characters.count))
-            */
-            
-            
             lbl!.text = String(format: "Our target is £%@",cost)
             lbl?.textColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
             self.view.bringSubviewToFront(lbl!)
@@ -242,7 +204,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     func heartBtnClicked(){
-        
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
@@ -259,7 +220,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
-        
         let obj = SAOfferListViewController()
         obj.savID = 63
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
@@ -270,14 +230,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     @IBAction func spendButtonPressed(sender: AnyObject) {
-        
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
     
     @IBAction func makeImpulseSavingPressed(sender: AnyObject) {
-        
         let objImpulseSave = SAImpulseSavingViewController()
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
@@ -294,13 +252,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
         label.text = "\(yValues[0])"
     }
-    
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        //        if let chart = lineChart {
-        //            chart.setNeedsDisplay()
-        //        }
-    }
-    
     
     //Mark: - Social Sharing
     
@@ -319,8 +270,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "generic-streak-popup.png")
             }
-            else
-            {
+            else {
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-save-streak-popup.png")
             }
@@ -331,8 +281,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-smiley-popup.png")
             }
-            else
-            {
+            else {
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-smiley-popup.png")
             }
@@ -343,8 +292,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-popup.png")
             }
-            else
-            {
+            else {
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-badge-popup.png")
             }
@@ -355,8 +303,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-money-popup.png")
             }
-            else
-            {
+            else {
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-money-popup.png")
             }
@@ -367,8 +314,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "generic-streak-popup.png")
             }
-            else
-            {
+            else {
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-save-streak-popup.png")
             }
@@ -382,8 +328,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         {
             btnClose.setImage(UIImage(named:"social-pop-up-close.png"), forState: .Normal)
         }
-        else
-        {
+        else {
             btnClose.setImage(UIImage(named:"Group-social-pop-up-close.png"), forState: .Normal)
         }
         
@@ -410,12 +355,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     func clickedOnSocialMediaButton(sender: UIButton){
-        print(sender.tag)
-        
         switch sender.tag {
         case 2:
             self.shareOnFacebook(sender)
-            
         case 3:
             self.shareOnTwitter(sender)
         case 4:
@@ -432,10 +374,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook){
             let facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
             facebookSheet.setInitialText("Share on Facebook")
-            
             self.presentViewController(facebookSheet, animated: true, completion: nil)
-            
-            //        self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
@@ -496,7 +435,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         urlComponents.queryItems = [NSURLQueryItem(name: "url", value: "hello")]
         let url =  NSURL(string: "https://plus.google.com/share")
         
-        
         if #available(iOS 9.0, *) {
             let controller: SFSafariViewController = SFSafariViewController(URL: url!)
             controller.delegate = self
@@ -504,10 +442,5 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         } else {
            UIApplication.sharedApplication().openURL(url!)
         }
-        
-        
     }
 }
-
-
-

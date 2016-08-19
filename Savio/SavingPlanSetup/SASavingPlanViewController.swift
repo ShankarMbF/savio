@@ -101,16 +101,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        var ht : CGFloat = 0.0
-        if(isPopoverValueChanged)
-        {
-            ht = 40 + CGFloat(offerArr.count * 65)
-        }
-        else
-        {
-            ht = CGFloat(offerArr.count * 65)
-        }
-        
         if(isUpdatePlan)
         {
             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
@@ -154,7 +144,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             if(wishListArray?.count > 0)
@@ -307,7 +297,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
                 
@@ -339,8 +329,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else
             {
-                if let  str = imageDataDict["savPlanID"] as? NSNumber{
-                    obj.savID = imageDataDict["savPlanID"] as! NSNumber
+                if let str = imageDataDict["savPlanID"] as? NSNumber{
+                    obj.savID = str
                 }
                 else
                 {
@@ -592,7 +582,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
 
             }
-            
             if(isClearPressed)  {
                 if(isUpdatePlan) {
                     if let payType = itemDetailsDataDict["payType"] as? NSString {
@@ -1324,7 +1313,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else {
                 if let  str = imageDataDict["savPlanID"] as? NSNumber {
-                    obj.savID = imageDataDict["savPlanID"] as! NSNumber
+                    obj.savID = str
                 }
                 else {
                     obj.savID = Int(imageDataDict["savPlanID"] as! String)!
@@ -1464,11 +1453,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
         isImageClicked = true
-        if(isUpdatePlan)
-        {
-            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {

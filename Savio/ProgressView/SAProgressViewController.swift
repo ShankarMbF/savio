@@ -95,7 +95,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             if(wishListArray.count > 0)
@@ -122,7 +122,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     //set up the UIView 
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-        var attrText = NSMutableAttributedString(string: planTitle)
+        let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
                                         name: "GothamRounded-Medium",

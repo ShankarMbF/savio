@@ -91,8 +91,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
-            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave!) as? Array<Dictionary<String,AnyObject>>
+            let dataSave = str
+            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             if(wishListArray?.count > 0) {
                 
@@ -112,7 +112,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
 
         if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let urlString = parameterDict["imageURL"] as? String {
-                let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                let data :NSData = NSData(base64EncodedString: urlString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBgImageView.image = UIImage(data: data)
                 cameraButton.hidden = true
             }

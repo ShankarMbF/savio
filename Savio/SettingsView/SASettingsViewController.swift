@@ -54,7 +54,7 @@ var wishListArray : Array<Dictionary<String,AnyObject>> = []
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             if(wishListArray.count > 0)

@@ -58,7 +58,7 @@ class ContactViewController: UIViewController {
             {
                 if let lastName = contactDict["lastName"] as? String
                 {
-                    cell?.name?.text = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+                    cell?.name?.text = String(format: "%@ %@", name, lastName)
                 }
                 
             }

@@ -9,14 +9,16 @@
 import UIKit
 
 class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
- var  objAnimView = ImageViewAnimation()
+  
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
-    
     @IBOutlet weak var wouldYouLikeToStartNewSavingPlanLabel: UILabel!
     @IBOutlet weak var yourMoneyWillBeReturnLabel: UILabel!
     @IBOutlet weak var cancelDetailLabel: UILabel!
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var  objAnimView = ImageViewAnimation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

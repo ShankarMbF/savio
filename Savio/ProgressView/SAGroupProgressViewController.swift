@@ -127,7 +127,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             if(wishListArray.count > 0)
             {
@@ -150,7 +150,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setUpView(){
         savingPlanTitleLabel.hidden = false
         planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
-        var attrText = NSMutableAttributedString(string: planTitle)
+        let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(
                                 name: "GothamRounded-Medium",
@@ -201,12 +201,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
              //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
-            let side =  horizontalScrollView.frame.height
-            let xValue =  (UIScreen.mainScreen().bounds.width -  side)/2
-            
+ 
             //customization of KDCircularProgress
             let circularView = circularProgress.viewWithTag(1) as! KDCircularProgress
-            let middleView = circularProgress.viewWithTag(2)
+
             circularView.startAngle = -90
             circularView.roundedCorners = true
             circularView.lerpColorMode = true
@@ -232,7 +230,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 planEnddate = dateFormatter.dateFromString(savingPlanDetailsDict["planEndDate"] as! String)!
-                let timeDifference : NSTimeInterval = planEnddate.timeIntervalSinceDate(NSDate())
                 
                 //set the pie chart to show individual progress of each user
                 piechart = Piechart()
@@ -304,7 +301,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.text = String(format: "£ %0.2f saved",paidAmount)
                 circularView.hidden = false
                 
-                let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
+                let userDict = participantsArr[0]
                 
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
@@ -370,7 +367,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 superscript.appendAttributedString(attString)
                 labelThree.attributedText = superscript
                 
-                let userDict = participantsArr[0] as! Dictionary<String,AnyObject>
+                let userDict = participantsArr[0]
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
                     for var i in 0 ..< transactionArray.count {
@@ -484,7 +481,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.topVw.backgroundColor = chartColors[indexPath.row]
         cell?.makeImpulseSavingButton.addTarget(self, action: Selector("impulseSavingButtonPressed:"), forControlEvents: .TouchUpInside)
         
-        let cellDict = participantsArr[indexPath.row] as! Dictionary<String,AnyObject>
+        let cellDict = participantsArr[indexPath.row] 
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 

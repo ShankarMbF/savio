@@ -274,7 +274,7 @@ public class LineChart: UIView {
             let rounded = Int(round(Double(inverted)))
             setProgressForCircularFloatingProgressBar(rounded)
             let yValues: [CGFloat] = getYValuesForXValue(rounded)
-            var firstValue = yValues.first
+            let firstValue = yValues.first
             if firstValue >= 0 {
                 let stringValue: String = String.init(format: "%.0f", firstValue!)
                 self.valueLabel.text = stringValue
@@ -762,8 +762,7 @@ public class LineChart: UIView {
         let y = graphHeight - x.axis.inset + 4 // 4 added for giving space to supercript
         let (_, _, step) = x.linear.ticks(xAxisData.count)
         let width = x.scale(step)
-        
-        var text: String
+     
         for (index, _) in xAxisData.enumerate() {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - (width / 2)
             let label = UILabel(frame: CGRect(x: xValue, y: y, width: width, height: x.axis.inset))

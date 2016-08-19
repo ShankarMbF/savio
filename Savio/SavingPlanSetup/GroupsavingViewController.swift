@@ -99,7 +99,7 @@
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
@@ -178,7 +178,7 @@
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
             
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0 {
@@ -687,7 +687,6 @@
         var parameterDict : Dictionary<String,AnyObject> = [:]
         
         if(itemDetailsDataDict["id"] != nil) {
-            let str = Int (itemDetailsDataDict["id"] as! NSNumber)
             parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         

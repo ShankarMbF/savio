@@ -295,7 +295,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     func joinGroupSavingPlan(sender: UIButton)
     {
-        let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
+        let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","detail":"Set up savings goal between friends and family","savPlanID":85]
         
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()

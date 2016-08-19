@@ -276,8 +276,6 @@
 		A8978BDC1D49EFAF005F665A /* stats-achievement-smiley.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */; };
 		A8978BDE1D49F06B005F665A /* group-stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */; };
 		A89A28041D34B6A400722A19 /* Piechart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A28031D34B6A400722A19 /* Piechart.swift */; };
-		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
-		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
 		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
 		A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
@@ -875,8 +873,6 @@
 		A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley.png"; sourceTree = "<group>"; };
 		A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A89A28031D34B6A400722A19 /* Piechart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piechart.swift; sourceTree = "<group>"; };
-		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
-		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
 		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
 		A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAGroupProgressViewController.xib; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
@@ -1590,16 +1586,6 @@
 			path = PINViewController;
 			sourceTree = "<group>";
 		};
-		A8A0B1351D2A86CA001A6CB0 /* SettingsView */ = {
-			isa = PBXGroup;
-			children = (
-				A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */,
-				A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */,
-			);
-			name = SettingsView;
-			path = ../SettingsView;
-			sourceTree = "<group>";
-		};
 		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1750,7 +1736,6 @@
 		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
 			isa = PBXGroup;
 			children = (
-				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */,
 				A8900C1F1D2FB27F00D8CD0F /* Math.swift */,
 				A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */,
@@ -2511,7 +2496,6 @@
 				A859DDAD1D50AD1F00932150 /* group-updown@2x.png in Resources */,
 				A88E81DA1D49EA0F00CAA00F /* stats-achievement-smiley@3x.png in Resources */,
 				A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */,
-				A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
@@ -3026,7 +3010,6 @@
 				A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
-				A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */,
 				C97949781CEC987900416BD5 /* FontCodes.swift in Sources */,
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,

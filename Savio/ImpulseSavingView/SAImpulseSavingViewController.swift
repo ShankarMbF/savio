@@ -136,7 +136,7 @@ class SAImpulseSavingViewController: UIViewController {
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -148,10 +148,8 @@ class SAImpulseSavingViewController: UIViewController {
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
@@ -167,28 +165,14 @@ class SAImpulseSavingViewController: UIViewController {
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        
         var customToolBar : UIToolbar?
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
-        
         customToolBar!.items = [acceptButton]
-        
-        
-//        let leftView = UILabel()
-//        leftView.frame = CGRectMake(10, 0, 17, 50)
-//        leftView.text = "£"
-//        leftView.font = UIFont(name: "GothamRounded-Medium", size: 34)
-//     
-//        leftView.textAlignment = NSTextAlignment.Right
-//        self.priceTextField.leftView = leftView
-//        
-//        self.priceTextField.leftViewMode = .Always
-        
+
         priceTextField.inputAccessoryView = customToolBar
         priceTextField.layer.borderColor = UIColor.blackColor().CGColor
       
-        
     }
     
     func menuButtonClicked(){
@@ -223,7 +207,6 @@ class SAImpulseSavingViewController: UIViewController {
             UIView.commitAnimations()
             
         }
-     
         return true
     }
     
@@ -238,19 +221,14 @@ class SAImpulseSavingViewController: UIViewController {
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
-    
     @IBAction func spendButtonPressed(sender: AnyObject) {
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
-        
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
-    
 
     func doneBarButtonPressed(){
         var tfString: String = priceTextField.text!
-
         tfString = tfString.chopPrefix(1)
-        
         priceTextField.resignFirstResponder()
         circleSlider.value =  Float(tfString)!
         
@@ -279,7 +257,6 @@ class SAImpulseSavingViewController: UIViewController {
    
     
     @IBAction func addFundsButtonPressed(sender: AnyObject) {
-        
         if(addFundsButton.titleLabel?.text == "ADD FUNDS")
         {
             circularView.backgroundColor = UIColor(red : 244/255,

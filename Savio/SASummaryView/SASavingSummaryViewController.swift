@@ -10,7 +10,6 @@ import UIKit
 
 class SASavingSummaryViewController: UIViewController {
     //Set up IBoutlets
-    
     // BackgroundView of Continue button
     @IBOutlet weak var continueButtonBackgroundView: UIView!
     // Set up top space dynamicaly

@@ -9,25 +9,25 @@
 import UIKit
 
 class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate,CategoriesSavingPlan, GetOfferlistDelegate{
-    @IBOutlet weak var lblBoostedView: UIView?
-    @IBOutlet weak var tblView: UITableView?
-    @IBOutlet weak var scrlView: UIScrollView?
-    @IBOutlet weak var pageControl: UIPageControl?
-    @IBOutlet weak var btnWishList: UIButton?
+    //-------------Setup IBOutlets------------------------------------------------------------
+    @IBOutlet weak var tblView: UITableView?         //IBOutlet for tableview
+    @IBOutlet weak var scrlView: UIScrollView?       //IBOutlet for scrollview
+    @IBOutlet weak var pageControl: UIPageControl?  // IBOutlet for page control
+    @IBOutlet weak var btnWishList: UIButton?       //Iboutlet for wishlist button
     @IBOutlet weak var lblLine: UILabel?
+    @IBOutlet weak var suggestedTop: NSLayoutConstraint!    //IBOutlet for set top space from scrollview
+    @IBOutlet weak var suggestedY: NSLayoutConstraint!      //IBOutlet for set Y position of lable as per whishlist present
+    @IBOutlet weak var suggestedHt: NSLayoutConstraint!     //IBOutlet for set height of view as per wishlist available or not
+    @IBOutlet weak var verticalScrlView: UIScrollView!      //IBoutlet for wishlist scrollview
+    @IBOutlet weak var btnVwBg: UIView!                     //IBOutlet for button background view
+    @IBOutlet weak var contentView: UIView!                 //IBOutlet for scrollview container view
+    //-----------------------------------------------------------------------------------------
     
-    @IBOutlet weak var suggestedTop: NSLayoutConstraint!
-    @IBOutlet weak var suggestedY: NSLayoutConstraint!
-    @IBOutlet weak var suggestedHt: NSLayoutConstraint!
-    
-    @IBOutlet weak var verticalScrlView: UIScrollView!
-    var objAnimView = ImageViewAnimation()
-    
-    @IBOutlet weak var btnVwBg: UIView!
-    
-    @IBOutlet weak var contentView: UIView!
-    var heartBtn: UIButton = UIButton()
+    var objAnimView = ImageViewAnimation() //Object of custom loding indicator
+    var heartBtn: UIButton = UIButton()    //Heart button on navigation bar
     var colors:[Dictionary<String,AnyObject>] = []
+    
+    //Set default placeholder for all saving plan icon image
     var placeHolderImgArr: Array<String> = ["group-save-category-icon","wedding-category-icon","baby-category-icon","holiday-category-icon","ride-category-icon","home-category-icon","gadget-category-icon","generic-category-icon"]
     var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
         ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
@@ -37,54 +37,59 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
          ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
          ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
          ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
-    let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     
+    let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"] //Set up list of page on page controller
+  
+    // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //----------------------------------------Setting navigation Bar-------------------------------------------
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
+        //------------------------------------------------------------------------------------------------------------
+        //Register UIApplication Will Enter Foreground Notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
 
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         tblView?.separatorInset = UIEdgeInsetsZero
+        //Setting up UI
         self.setUpView()
-        
+        //Setting up animation loader
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
-        
+        //--------Call get saving plans and get wishlist API----------
         let objAPI = API()
-        
         objAPI.categorySavingPlanDelegate = self
         objAPI.getCategoriesForSavingPlan()
-        
         self.callWishListAPI()
-        
+        //------------------------------------------------------------
     }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpView()
     }
-    
+    //Function invoke for call get offer list API
     func callGetOfferListAPI() {
         let objAPI = API()
         objAPI.getofferlistDelegate = self
         objAPI.getOfferListForSavingId()
-        
     }
     
+    //Function invoke for call get wish list API
     func callWishListAPI()
     {
         let objAPI = API()
+        //get keychain values
         let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
+        //Call get method of wishlist API by providing partyID
         if(userDict["partyId"] is String)
         {
             objAPI.getWishListForUser(userDict["partyId"] as! String)
@@ -93,9 +98,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
         }
-        
     }
-    
+    //Function invoke when UIApplicationWillEnterForegroundNotification brodcast
     func getWishListData(notification:NSNotification)
     {
         self.callWishListAPI()
@@ -106,32 +110,29 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         // Dispose of any resources that can be recreated.
     }
     
+    //Called to notify the view controller that its view has just laid out its subviews.
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  scrlView!.frame.size.height + tblView!.frame.size.height + suggestedHt.constant)
     }
-    
-    
+
+    //Function invoke for Set up the UI
     func setUpView(){
-        //        btnWishList!.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        //        btnWishList!.layer.shadowOffset = CGSizeMake(0, 2)
-        //        btnWishList!.layer.shadowOpacity = 1
         btnWishList!.layer.cornerRadius = 5
-        
         btnVwBg.layer.cornerRadius = 5
         
-        //set Navigation left button
+        //--------set Navigation left button--------------------
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-        
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
+        //-------------------------------------------------------
         self.title = "Create a saving plan"
-        //set Navigation right button nav-heart
         
+        //---------------set Navigation right button nav-heart-------------------
         heartBtn.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         heartBtn.frame = CGRectMake(0, 0, 30, 30)
         heartBtn.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -139,19 +140,22 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         heartBtn.setTitle(heartCount, forState: UIControlState.Normal)
         heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         heartBtn.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
-        
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = heartBtn
         self.navigationItem.rightBarButtonItem = rightBarButton
+        //------------------------------------------------------------------------
         self.configureScrollView()
     }
     
+    //Set up scrollview as per the wishlist availability
     func configureScrollView() {
+        //--------Remove all subview from scrollview-----------
         if self.scrlView!.subviews.count > 0 {
             for subview in self.scrlView!.subviews{
                 subview.removeFromSuperview()
             }
         }
+        //------------------------------------------------------
         
         // Enable paging.
         scrlView!.pagingEnabled = true
@@ -169,9 +173,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
         }
-        // Load the PageView view from the TestView.xib file and configure it properly.
-        
-        
+        // Load the PageView view from the SavingPageView.xib file and configure it properly.
         if colors.count > 0{
             
             if(colors.count >= 5)
@@ -191,18 +193,18 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let vw = testView.viewWithTag(2)! as UIView
                     vw.layer.borderWidth = 1
                     vw.layer.borderColor = UIColor.whiteColor().CGColor
-                    
+                    //Get individual product from wishlist
                     let objDict = colors[i] as Dictionary<String,AnyObject>
                     
                     let lblNoWishList = testView.viewWithTag(5)! as! UILabel
                     lblNoWishList.hidden = true
-                    
+                    //----------show product title--------------------
                     let lblTitle = testView.viewWithTag(3)! as! UILabel
                     lblTitle.text = objDict["title"] as? String
                     lblTitle.hidden = false
-                    
+                    //-----------------------------------------------
+                    //-----------Show product cost-------------------
                     let lblCost = testView.viewWithTag(4)! as! UILabel
-                    
                     if(objDict["amount"] is String)
                     {
                         lblCost.text = objDict["amount"] as? String
@@ -211,21 +213,23 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     {
                         lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                     }
+                   //----------------------------------------------------
                     
-                    
+                    //------------------Showing image of wishlist product---------------
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
                     if let urlString = objDict["imageURL"] as? String
                     {
+                        //Get product URL
                         let url = NSURL(string:urlString)
-                        
                         let request: NSURLRequest = NSURLRequest(URL: url!)
                         if(urlString != "")
                         {
+                           // fetch image data from url
                             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                                 if(data != nil && data?.length > 0)
                                 {
+                                    //showing image if data available
                                     let image = UIImage(data: data!)
-                                    
                                     dispatch_async(dispatch_get_main_queue(), {
                                         bgImageView.image = image
                                     })
@@ -233,7 +237,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                             })
                         }
                     }
-                    
+                    //---------------------------------------------------------------------
                     let imgEuro = testView.viewWithTag(6)! as! UIImageView
                     imgEuro.hidden = false
                     
@@ -242,6 +246,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     btnWishList?.hidden = false
                     pageControl?.hidden = false
                     btnVwBg.hidden = false
+                    //---------show at most 5 latest products to scrollview---------
                     if(colors.count >= 5)
                     {
                         pageControl?.numberOfPages = 5
@@ -249,11 +254,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     else {
                         pageControl?.numberOfPages = colors.count
                     }
-                    
                     lblLine?.hidden = false
-                    
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
+                    //-------------------------------------------------------------
                 }
             }
             else {
@@ -341,6 +345,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             
         }
         else {
+            
+            //--------------If whishlist is empty setup UI--------------------------------------------
             NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
             
@@ -362,14 +368,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let imgEuro = testView.viewWithTag(6)! as! UIImageView
             imgEuro.hidden = true
             
+            //-----Set topspace and height of view if empty wishlist-----
             suggestedHt.constant = 50.0
             suggestedTop.constant = -52.0
+            //--------------------------------------------------------
             btnVwBg.hidden = true
             btnWishList?.hidden = true
             pageControl?.hidden = true
             lblLine?.hidden = true
-            // Add the test view as a subview to the scrollview.
+            // Add the SavingPageView as a subview to the scrollview.
             scrlView!.addSubview(testView)
+            //---------------------------------------------------------------------------------------
         }
         
         
@@ -384,7 +393,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         pageControl!.currentPage = 0
     }
     
-    
     // MARK: UIScrollViewDelegate method implementation
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
@@ -396,12 +404,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: Bar button action
     func menuButtonClicked(){
+        //Brodcast notification for toggle menu
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
         if colors.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
         }
@@ -409,9 +417,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        
-        //        let objSAWishListViewController = SAWishListViewController()
-        //        self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
     }
     
     // MARK: IBAction method implementation
@@ -473,8 +478,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
         if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 1)
         {
             let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
@@ -482,7 +485,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
         else
         {
-        
             NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -522,7 +524,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
     }
     
-    //MARK: GetCategorysavingPlan Delegate and Datasource method
+    //MARK: GetCategorysavingPlan Delegate method
     
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
 

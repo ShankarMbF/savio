@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var objSANav: UINavigationController?
-    var objSAWelcomViewController: SAWelcomViewController?
+    var objSAWelcomViewController: SAWelcomeViewController?
     var objEnterYourPinViewController: SAEnterYourPINViewController?
     var objRegisterViewController: SARegistrationViewController?
     var objCreateViewController: CreatePINViewController?
@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     else {
                         //If no then Go to SAWelcomViewController
-                        objSAWelcomViewController = SAWelcomViewController()
+                        objSAWelcomViewController = SAWelcomeViewController()
                         //Set SAWelcomViewController as rootViewController of UINavigationViewController
                         objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                         window?.rootViewController = objSANav
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 else {
                     //If no then Go to SAWelcomViewController
-                    objSAWelcomViewController = SAWelcomViewController()
+                    objSAWelcomViewController = SAWelcomeViewController()
                     //Set SAWelcomViewController as rootViewController of UINavigationViewController
                     objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                     window?.rootViewController = objSANav
@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else  {
                 //If no then Go to SAWelcomViewController
-                objSAWelcomViewController = SAWelcomViewController()
+                objSAWelcomViewController = SAWelcomeViewController()
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController
                 objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                 window?.rootViewController = objSANav
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             //If no then Go to SAWelcomViewController
-            objSAWelcomViewController = SAWelcomViewController()
+            objSAWelcomViewController = SAWelcomeViewController()
             //Set SAWelcomViewController as rootViewController of UINavigationViewController
             objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
             window?.rootViewController = objSANav

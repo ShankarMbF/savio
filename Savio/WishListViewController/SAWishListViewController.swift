@@ -16,6 +16,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     
     // MARK: - View life cycle
     override func viewDidLoad() {
+        // Do any additional setup after loading the view.
         super.viewDidLoad()
         // set up UI for wishlist
         self.setUpView()
@@ -58,7 +59,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //check if wishlist product is empty or not
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
@@ -69,13 +70,12 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else {
+            else  {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
         }
-        else
-        {
+        else {
             let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
             NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -288,8 +288,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //Function navigate when user tapping on join plan button and navigate to group setup plan screen
     func joinGroupSavingPlan(sender: UIButton)
     {
-        let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
-        
+        let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","detail":"Set up savings goal between friends and family","savPlanID":85]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         
@@ -323,10 +322,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             let dataNew = NSKeyedArchiver.archivedDataWithRootObject(self.wishListArray)
             
             NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
-            
             NSUserDefaults.standardUserDefaults().synchronize()
-            
-            
             })
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
@@ -340,7 +336,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     //If Delete Fail
     func errorResponseForDeleteWishListAPI(error: String) {
-        print(error)
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
         objAnimView.removeFromSuperview()
     }
     
@@ -370,24 +367,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     }
     //Fail response GetWishlist API
     func errorResponseForGetWishlistAPI(error: String) {
-        print(error)
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
         objAnimView.removeFromSuperview()
     }
-    
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         objAnimView.removeFromSuperview()
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

@@ -95,7 +95,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             if(wishListArray.count > 0)
@@ -122,7 +122,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     //set up the UIView 
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
-        var attrText = NSMutableAttributedString(string: planTitle)
+        let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
                                         name: "GothamRounded-Medium",
@@ -146,7 +146,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
-        for var i=0; i<3; i++
+        for i in 0 ..< 3
         {
             //load the CircularProgress.xib to create progress view
             let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView

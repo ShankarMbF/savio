@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SAWelcomViewController: UIViewController {
+class SAWelcomeViewController: UIViewController {
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,12 +23,6 @@ class SAWelcomViewController: UIViewController {
     var idx: Int = 0
     //pageArr is an array which holds animation pages
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-    }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +49,6 @@ class SAWelcomViewController: UIViewController {
         self.change()
         timer?.invalidate()
         timer = nil
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -96,7 +88,7 @@ class SAWelcomViewController: UIViewController {
         scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(pageArr.count), scrollView.frame.size.height)
         
         // Load the PageView view from the TestView.xib file and configure it properly.
-        for var i=0; i<pageArr.count; ++i {
+        for i in 0 ..< pageArr.count {
             // Load the TestView view.
             let testView = NSBundle.mainBundle().loadNibNamed("PageView", owner: self, options: nil)[0] as! UIView
             // Set its frame and the background color.
@@ -107,7 +99,6 @@ class SAWelcomViewController: UIViewController {
             // Add the test view as a subview to the scrollview.
             scrollView.addSubview(testView)
         }
-//        self.change()
         timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("change"), userInfo: nil, repeats: true)
     }
     
@@ -150,7 +141,7 @@ class SAWelcomViewController: UIViewController {
         scrollView.scrollRectToVisible(newFrame, animated: flag)
         //set timer for showing animation
        
-        idx++
+        idx += 1
     }
     
     
@@ -162,9 +153,9 @@ class SAWelcomViewController: UIViewController {
     
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
-        let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! UIView
-        objimpInfo.frame = self.view.frame
-        self.view.addSubview(objimpInfo)
+        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! UIView
+        objImpInfo.frame = self.view.frame
+        self.view.addSubview(objImpInfo)
     }
 }
 

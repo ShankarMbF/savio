@@ -129,12 +129,12 @@ public class CircleSlider: UIControl {
         let degree = Math.pointPairToBearingDegrees(self.center, endPoint: touch.locationInView(self))
         self.latestDegree = degree
         self.layout(degree)
-       
+        
         let value = Float(Math.adjustValue(self.startAngle, degree: degree, maxValue: self.maxValue, minValue: self.minValue))
         self.value = value
         let angle = ((value/self.maxValue) * 360) * Float(M_PI) / 180.0
         thumbImageView.transform = CGAffineTransformMakeRotation(CGFloat(angle));
-       
+        
         return true
     }
     
@@ -149,7 +149,7 @@ public class CircleSlider: UIControl {
         self.thumbView.removeFromSuperview()
         self.thumbView = UIView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
         self.thumbImageView.removeFromSuperview()
-  
+        
         self.thumbImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.thumbWidth, height: self.thumbWidth))
         self.layout(self.latestDegree)
     }

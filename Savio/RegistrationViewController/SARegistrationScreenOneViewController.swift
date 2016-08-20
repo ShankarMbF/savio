@@ -71,8 +71,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dropDown.backgroundColor = UIColor.whiteColor()
         dropDown.dataSource = [
             "Mr",
-            "Miss",
-            "Mrs"]
+            "Miss"]
         //added bottom offset for dropdown
         dropDown.bottomOffset = CGPoint(x: 0, y:titleTextField!.bounds.height)
         //Selection action of dropdown

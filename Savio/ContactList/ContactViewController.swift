@@ -58,9 +58,8 @@ class ContactViewController: UIViewController {
             {
                 if let lastName = contactDict["lastName"] as? String
                 {
-                    cell?.name?.text = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
+                    cell?.name?.text = String(format: "%@ %@", name, lastName)
                 }
-                
             }
             return cell!
         }
@@ -107,7 +106,6 @@ class ContactViewController: UIViewController {
         }
     }
     
-    
     func clickOnInviteButton(sender:UIButton){
         var text: String = ""
         var name : String = ""
@@ -133,7 +131,6 @@ class ContactViewController: UIViewController {
                     nameArray.append(first_name)
                 }
             }
-            
         }
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
@@ -152,7 +149,6 @@ class ContactViewController: UIViewController {
                 }
             }
         }
-            
         else {
             if let emailStr: String = contactDict["email"] as? String {
                 dict["email_id"] = emailStr
@@ -161,27 +157,18 @@ class ContactViewController: UIViewController {
                 text = emailStr
             }
         }
-        
         if let firstName = contactDict["name"] as? String
         {
-            
             dict["first_name"] = String(format: "%@", firstName)
-            
             name = String(format: "%@", contactDict["name"] as! String)
-            
-            
         }
         
         if let lastName = contactDict["lastName"] as? String
         {
             dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, lastName)
-            
             name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         }
-        
-        //dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
-        
-        
+  
         if(mobileArray.count > 0 || emailArray.count > 0)
         {
             if(mobileArray.contains(text) || nameArray.contains(name))
@@ -189,33 +176,18 @@ class ContactViewController: UIViewController {
                 let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            else if(emailArray.contains(text) || nameArray.contains(name))
-            {
+            else if(emailArray.contains(text) || nameArray.contains(name)) {
                 let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            else
-            {
+            else {
                 delegate?.addedContact(dict)
                 self.navigationController?.popViewControllerAnimated(true)
             }
         }
-        else
-        {
+        else {
             delegate?.addedContact(dict)
             self.navigationController?.popViewControllerAnimated(true)
         }
-        
-        
     }
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

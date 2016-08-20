@@ -258,7 +258,7 @@ class SASavingSummaryViewController: UIViewController {
         //--------showing wishlist count--------------------------------------------------------------
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             for i in 0 ..< wishListArray.count
@@ -300,7 +300,7 @@ class SASavingSummaryViewController: UIViewController {
         vwCongrats?.layer.borderWidth = 2.0
         vwScrContent?.layer.cornerRadius = 1.0
         vwScrContent?.layer.masksToBounds = true
-        var contentRect = CGRectZero;
+
         //Setup border to summary view
         vwSummary?.layer.borderColor = UIColor.blackColor().CGColor
         vwSummary?.layer.borderWidth = 1.5
@@ -387,7 +387,7 @@ class SASavingSummaryViewController: UIViewController {
         //Showing plan amount
         if let amount = itemDataDict["amount"] as? String
         {
-            lblPrice.text =  String(format:"£%@",(itemDataDict["amount"] as? String)!)
+            lblPrice.text =  String(format:"£%@",amount)
         }
         else
         {

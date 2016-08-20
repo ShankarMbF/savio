@@ -35,6 +35,7 @@
     var isClearPressed = false
     var addressBook: ABPeoplePickerNavigationController?
     var isFromWishList = false
+    var isImageclicked = false
     var imagePicker = UIImagePickerController()
     var isContactAdded = false
     
@@ -99,7 +100,7 @@
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
             
@@ -150,9 +151,9 @@
             }
             else {
                 imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+                cameraButton.hidden = false
                 
             }
-            cameraButton.hidden = true
             isFromWishList = true
             itemTitle = itemDetailsDataDict["title"] as! String
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
@@ -178,7 +179,7 @@
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
             
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0 {
@@ -687,7 +688,6 @@
         var parameterDict : Dictionary<String,AnyObject> = [:]
         
         if(itemDetailsDataDict["id"] != nil) {
-            let str = Int (itemDetailsDataDict["id"] as! NSNumber)
             parameterDict["wishList_ID"] = itemDetailsDataDict["id"] as! NSNumber
         }
         
@@ -715,7 +715,7 @@
             parameterDict["amount"] = String(format:"%d",cost)
         }
         
-        if(itemDetailsDataDict["imageURL"] != nil) {
+        if(itemDetailsDataDict["imageURL"] != nil && (itemDetailsDataDict["imageURL"] as! String).characters.count != 0) {
             
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -908,6 +908,7 @@
         topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
+        isImageclicked = true
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {

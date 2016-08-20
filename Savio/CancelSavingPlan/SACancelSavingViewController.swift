@@ -9,44 +9,38 @@
 import UIKit
 
 class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
- var  objAnimView = ImageViewAnimation()
+    
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
-    
     @IBOutlet weak var wouldYouLikeToStartNewSavingPlanLabel: UILabel!
     @IBOutlet weak var yourMoneyWillBeReturnLabel: UILabel!
     @IBOutlet weak var cancelDetailLabel: UILabel!
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var  objAnimView = ImageViewAnimation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         
+        //
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         paragraphStyle.alignment = NSTextAlignment.Center
-        
         let attrString = NSMutableAttributedString(string: "Cancelling your savings plan will withdraw any money you have saved from Savio back into your account.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
- 
         cancelDetailLabel.attributedText = attrString
-        
         
         let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new saving plan?")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        
         wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
-        
         
         let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "Your money will returned to your bank in the next 5-10 working days.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        
         yourMoneyWillBeReturnLabel.attributedText = attrStringForYourMoneyWillBeReturnLabelLabel
         
-        
         self.setUpView()
-        
     }
     
     
@@ -56,28 +50,23 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     
     func setUpView(){
-        
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
         self.title = "Update saving plan"
         
-        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-        
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-      
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -87,12 +76,10 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
@@ -107,7 +94,6 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
     }
     
     func menuButtonClicked(){
@@ -115,9 +101,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     
     func heartBtnClicked(){
-        
         if wishListArray.count>0{
-            
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -128,24 +112,19 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         }
     }
     
-    
     @IBAction func keepSavingButtonPressed(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    
     @IBAction func yesButtonPressed(sender: AnyObject) {
-        
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)
-
+        
         let objAPI = API()
-   
-            objAPI.cancelSavingPlanDelegate = self
-
-            objAPI .cancelSavingPlan()
+        objAPI.cancelSavingPlanDelegate = self
+        objAPI .cancelSavingPlan()
         
     }
     
@@ -163,17 +142,14 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
                 view2.hidden = false
             }
         }
-        
     }
     
     func errorResponseForCancelSavingPlanAPI(error: String) {
-         objAnimView.removeFromSuperview()
+        objAnimView.removeFromSuperview()
     }
     
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {
         let objSavingPlan = SACreateSavingPlanViewController()
         self.navigationController?.pushViewController(objSavingPlan, animated: true)
     }
-    
-    
 }

@@ -11,22 +11,19 @@ import UIKit
 class SASpendViewController: UIViewController {
     
     @IBOutlet weak var spendButton: UIButton!
-    
     @IBOutlet weak var planButton: UIButton!
-    
     @IBOutlet weak var offersButton: UIButton!
+    
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
-        
         spendButton.setImage(UIImage(named: "stats-spend-tab-active.png"), forState: UIControlState.Normal)
-        
         planButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
-
         self.setUpView()
         // Do any additional setup after loading the view.
     }
@@ -36,10 +33,7 @@ class SASpendViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     func setUpView(){
-        
-        
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
@@ -57,7 +51,6 @@ class SASpendViewController: UIViewController {
         //set Navigation right button nav-heart
         
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -67,9 +60,8 @@ class SASpendViewController: UIViewController {
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
+            let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
             if(wishListArray.count > 0)
             {
                 
@@ -79,18 +71,14 @@ class SASpendViewController: UIViewController {
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            
         }
         
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
- 
     }
     
     override func viewDidLayoutSubviews() {
@@ -107,7 +95,6 @@ class SASpendViewController: UIViewController {
     }
     
     func heartBtnClicked(){
-        
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
@@ -124,22 +111,9 @@ class SASpendViewController: UIViewController {
     }
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
-        
         let obj = SAOfferListViewController()
         obj.savID = 63
         obj.hideAddOfferButton = false
         self.navigationController?.pushViewController(obj, animated: true)
     }
-
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

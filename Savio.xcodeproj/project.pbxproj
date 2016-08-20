@@ -178,7 +178,6 @@
 		A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86CD6301CF47E8000222765 /* HurreyViewController.xib */; };
 		A86D629E1D20F26E00B2087D /* CancelButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86D629C1D20F26D00B2087D /* CancelButtonTableViewCell.swift */; };
 		A86D629F1D20F26E00B2087D /* CancelButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86D629D1D20F26D00B2087D /* CancelButtonTableViewCell.xib */; };
-		A86F063F1D1D0C8A00E1D821 /* cycle.png in Resources */ = {isa = PBXBuildFile; fileRef = A86F063E1D1D0C8A00E1D821 /* cycle.png */; };
 		A86F06431D1D15D700E1D821 /* SASpendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F06411D1D15D700E1D821 /* SASpendViewController.swift */; };
 		A86F06441D1D15D700E1D821 /* SASpendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86F06421D1D15D700E1D821 /* SASpendViewController.xib */; };
 		A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */; };
@@ -277,8 +276,6 @@
 		A8978BDC1D49EFAF005F665A /* stats-achievement-smiley.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */; };
 		A8978BDE1D49F06B005F665A /* group-stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */; };
 		A89A28041D34B6A400722A19 /* Piechart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A28031D34B6A400722A19 /* Piechart.swift */; };
-		A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */; };
-		A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */; };
 		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
 		A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
@@ -465,8 +462,8 @@
 		C97A351C1CF6CC7900BEB441 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351A1CF6CC7900BEB441 /* icon@2x.png */; };
 		C97A351E1CF6D55D00BEB441 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351D1CF6D55D00BEB441 /* icon@3x.png */; };
 		C9847A3B1D005F8A0074FDAC /* SavingPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9847A3A1D005F8A0074FDAC /* SavingPageView.xib */; };
-		C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */; };
-		C9854A9A1CED9A5000D09AB3 /* SAWelcomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */; };
+		C9854A991CED9A5000D09AB3 /* SAWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */; };
+		C9854A9A1CED9A5000D09AB3 /* SAWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */; };
 		C9905F9D1CED9EF700E63471 /* PageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F8F1CED9EF700E63471 /* PageView.xib */; };
 		C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9905F911CED9EF700E63471 /* ButtonTableViewCell.swift */; };
 		C9905F9F1CED9EF700E63471 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F921CED9EF700E63471 /* ButtonTableViewCell.xib */; };
@@ -583,9 +580,6 @@
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
-		CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D571D2CEA8A005CC750 /* slider-icon.png */; };
-		CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */; };
-		CA0F6D5C1D2CEA8A005CC750 /* slider-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -788,7 +782,6 @@
 		A86CD6301CF47E8000222765 /* HurreyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HurreyViewController.xib; sourceTree = "<group>"; };
 		A86D629C1D20F26D00B2087D /* CancelButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButtonTableViewCell.swift; sourceTree = "<group>"; };
 		A86D629D1D20F26D00B2087D /* CancelButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CancelButtonTableViewCell.xib; sourceTree = "<group>"; };
-		A86F063E1D1D0C8A00E1D821 /* cycle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cycle.png; sourceTree = "<group>"; };
 		A86F06411D1D15D700E1D821 /* SASpendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASpendViewController.swift; sourceTree = "<group>"; };
 		A86F06421D1D15D700E1D821 /* SASpendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASpendViewController.xib; sourceTree = "<group>"; };
 		A87016171D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateGroupSavingPlanViewController.swift; sourceTree = "<group>"; };
@@ -880,8 +873,6 @@
 		A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley.png"; sourceTree = "<group>"; };
 		A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A89A28031D34B6A400722A19 /* Piechart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piechart.swift; sourceTree = "<group>"; };
-		A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SASettingsViewController.swift; sourceTree = "<group>"; };
-		A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASettingsViewController.xib; sourceTree = "<group>"; };
 		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
 		A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAGroupProgressViewController.xib; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
@@ -998,9 +989,9 @@
 		C9361EB01D30C18300605E1B /* social-wa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-wa@2x.png"; sourceTree = "<group>"; };
 		C9361EB11D30C18300605E1B /* social-wa@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-wa@3x.png"; sourceTree = "<group>"; };
 		C9361EC11D30CD0E00605E1B /* SocialSharingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SocialSharingView.xib; sourceTree = "<group>"; };
-		C94A708A1CF55FA8002E9449 /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo.png"; sourceTree = "<group>"; };
-		C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@2x.png"; sourceTree = "<group>"; };
-		C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-logo@3x.png"; sourceTree = "<group>"; };
+		C94A708A1CF55FA8002E9449 /* splash-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo.png"; path = "../splash-logo.png"; sourceTree = "<group>"; };
+		C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo@2x.png"; path = "../splash-logo@2x.png"; sourceTree = "<group>"; };
+		C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splash-logo@3x.png"; path = "../splash-logo@3x.png"; sourceTree = "<group>"; };
 		C94CB9851D2138740040E150 /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		C94CB9881D213F040040E150 /* SAStatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAStatViewController.swift; sourceTree = "<group>"; };
 		C94CB9891D213F040040E150 /* SAStatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAStatViewController.xib; sourceTree = "<group>"; };
@@ -1064,12 +1055,12 @@
 		C97949741CEC987900416BD5 /* VTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTButton.swift; sourceTree = "<group>"; };
 		C97949751CEC987900416BD5 /* VTLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTLabel.swift; sourceTree = "<group>"; };
 		C97949761CEC987900416BD5 /* VTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTView.swift; sourceTree = "<group>"; };
-		C97A35191CF6CC7900BEB441 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Savio/icon.png; sourceTree = "<group>"; };
-		C97A351A1CF6CC7900BEB441 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "Savio/icon@2x.png"; sourceTree = "<group>"; };
-		C97A351D1CF6D55D00BEB441 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@3x.png"; path = "Savio/icon@3x.png"; sourceTree = "<group>"; };
+		C97A35191CF6CC7900BEB441 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
+		C97A351A1CF6CC7900BEB441 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
+		C97A351D1CF6D55D00BEB441 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@3x.png"; path = "../../icon@3x.png"; sourceTree = "<group>"; };
 		C9847A3A1D005F8A0074FDAC /* SavingPageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavingPageView.xib; sourceTree = "<group>"; };
-		C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAWelcomViewController.swift; sourceTree = "<group>"; };
-		C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAWelcomViewController.xib; sourceTree = "<group>"; };
+		C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAWelcomeViewController.swift; sourceTree = "<group>"; };
+		C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAWelcomeViewController.xib; sourceTree = "<group>"; };
 		C9905F8F1CED9EF700E63471 /* PageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageView.xib; sourceTree = "<group>"; };
 		C9905F911CED9EF700E63471 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		C9905F921CED9EF700E63471 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
@@ -1102,14 +1093,14 @@
 		C9E525C81CE9D29D000FD01E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C9E535F11CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAEnterYourPINViewController.swift; sourceTree = "<group>"; };
 		C9E535F21CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAEnterYourPINViewController.xib; sourceTree = "<group>"; };
-		C9E854E61CF43732006213BF /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
-		C9E854E71CF43732006213BF /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		C9E854E81CF43732006213BF /* down-arrow-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-arrow-1.png"; sourceTree = "<group>"; };
-		C9E854EC1CF43B25006213BF /* arrow_20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_20x20.png; sourceTree = "<group>"; };
-		C9E854ED1CF43B25006213BF /* arrow_30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_30x30.png; sourceTree = "<group>"; };
-		C9E854F01CF44B4A006213BF /* down-arrow-15x15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-arrow-15x15.png"; sourceTree = "<group>"; };
-		C9E854F11CF44B4A006213BF /* down-arrow-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-arrow-30x30.png"; sourceTree = "<group>"; };
-		C9E854F21CF44B4A006213BF /* down-arrow-45x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-arrow-45x45.png"; sourceTree = "<group>"; };
+		C9E854E61CF43732006213BF /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_down.png; path = ../arrow_down.png; sourceTree = "<group>"; };
+		C9E854E71CF43732006213BF /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = ../arrow.png; sourceTree = "<group>"; };
+		C9E854E81CF43732006213BF /* down-arrow-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "down-arrow-1.png"; path = "../down-arrow-1.png"; sourceTree = "<group>"; };
+		C9E854EC1CF43B25006213BF /* arrow_20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_20x20.png; path = ../arrow_20x20.png; sourceTree = "<group>"; };
+		C9E854ED1CF43B25006213BF /* arrow_30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_30x30.png; path = ../arrow_30x30.png; sourceTree = "<group>"; };
+		C9E854F01CF44B4A006213BF /* down-arrow-15x15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "down-arrow-15x15.png"; path = "../down-arrow-15x15.png"; sourceTree = "<group>"; };
+		C9E854F11CF44B4A006213BF /* down-arrow-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "down-arrow-30x30.png"; path = "../down-arrow-30x30.png"; sourceTree = "<group>"; };
+		C9E854F21CF44B4A006213BF /* down-arrow-45x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "down-arrow-45x45.png"; path = "../down-arrow-45x45.png"; sourceTree = "<group>"; };
 		C9E854FE1CF456CC006213BF /* savivo-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "savivo-logo.png"; sourceTree = "<group>"; };
 		C9E854FF1CF456CC006213BF /* savivo-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "savivo-logo@2x.png"; sourceTree = "<group>"; };
 		C9E855001CF456CC006213BF /* savivo-logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "savivo-logo@3x.png"; sourceTree = "<group>"; };
@@ -1190,9 +1181,6 @@
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		CA0372271D48D89D00FC5C1B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		CA0372281D48D89D00FC5C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		CA0F6D571D2CEA8A005CC750 /* slider-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon.png"; sourceTree = "<group>"; };
-		CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@2x.png"; sourceTree = "<group>"; };
-		CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-icon@3x.png"; sourceTree = "<group>"; };
 		DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		E7451B943A5B44BA7D90C483 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1464,6 +1452,41 @@
 			path = HurrayViewController;
 			sourceTree = "<group>";
 		};
+		A86D2E591D66CDF0000D7D8A /* ArrowImages */ = {
+			isa = PBXGroup;
+			children = (
+				C9E854F01CF44B4A006213BF /* down-arrow-15x15.png */,
+				C9E854F11CF44B4A006213BF /* down-arrow-30x30.png */,
+				C9E854F21CF44B4A006213BF /* down-arrow-45x45.png */,
+				C9E854EC1CF43B25006213BF /* arrow_20x20.png */,
+				C9E854ED1CF43B25006213BF /* arrow_30x30.png */,
+				C9E854E61CF43732006213BF /* arrow_down.png */,
+				C9E854E71CF43732006213BF /* arrow.png */,
+				C9E854E81CF43732006213BF /* down-arrow-1.png */,
+			);
+			path = ArrowImages;
+			sourceTree = "<group>";
+		};
+		A86D2E5A1D66CDF0000D7D8A /* splashLogo */ = {
+			isa = PBXGroup;
+			children = (
+				C94A708A1CF55FA8002E9449 /* splash-logo.png */,
+				C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */,
+				C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */,
+			);
+			path = splashLogo;
+			sourceTree = "<group>";
+		};
+		A86D2E5B1D673445000D7D8A /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
+				C97A35191CF6CC7900BEB441 /* icon.png */,
+				C97A351A1CF6CC7900BEB441 /* icon@2x.png */,
+			);
+			path = AppIcon;
+			sourceTree = "<group>";
+		};
 		A86F06401D1D15A600E1D821 /* SpendView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,16 +1594,6 @@
 				C9E535F21CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib */,
 			);
 			path = PINViewController;
-			sourceTree = "<group>";
-		};
-		A8A0B1351D2A86CA001A6CB0 /* SettingsView */ = {
-			isa = PBXGroup;
-			children = (
-				A8A0B1361D2A86E1001A6CB0 /* SASettingsViewController.swift */,
-				A8A0B1371D2A86E1001A6CB0 /* SASettingsViewController.xib */,
-			);
-			name = SettingsView;
-			path = ../SettingsView;
 			sourceTree = "<group>";
 		};
 		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
@@ -1733,7 +1746,6 @@
 		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
 			isa = PBXGroup;
 			children = (
-				A8A0B1351D2A86CA001A6CB0 /* SettingsView */,
 				A8900C1E1D2FB27F00D8CD0F /* CircleSlider.swift */,
 				A8900C1F1D2FB27F00D8CD0F /* Math.swift */,
 				A8900C201D2FB27F00D8CD0F /* TrackLayer.swift */,
@@ -1948,12 +1960,13 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
-		C9854A891CED9A5000D09AB3 /* WelcomViewController */ = {
+		C9854A891CED9A5000D09AB3 /* WelcomeViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C9854A8A1CED9A5000D09AB3 /* SAWelcomViewController.swift */,
-				C9854A8B1CED9A5000D09AB3 /* SAWelcomViewController.xib */,
+				C9854A8A1CED9A5000D09AB3 /* SAWelcomeViewController.swift */,
+				C9854A8B1CED9A5000D09AB3 /* SAWelcomeViewController.xib */,
 			);
+			name = WelcomeViewController;
 			path = WelcomViewController;
 			sourceTree = "<group>";
 		};
@@ -2039,9 +2052,6 @@
 			children = (
 				CA0372271D48D89D00FC5C1B /* Fabric.framework */,
 				CA0372281D48D89D00FC5C1B /* Crashlytics.framework */,
-				C97A351D1CF6D55D00BEB441 /* icon@3x.png */,
-				C97A35191CF6CC7900BEB441 /* icon.png */,
-				C97A351A1CF6CC7900BEB441 /* icon@2x.png */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
 				A86681DE1CFEC26D0014DB59 /* SavioWishList */,
 				C9E525A91CE986FA000FD01E /* Products */,
@@ -2092,7 +2102,7 @@
 				A8095B8F1CEDC4D5006366F7 /* LogoAnimation */,
 				A8095B921CEDC4D5006366F7 /* TermsAndConditionView */,
 				C9905F8E1CED9EF700E63471 /* RegistrationViewController */,
-				C9854A891CED9A5000D09AB3 /* WelcomViewController */,
+				C9854A891CED9A5000D09AB3 /* WelcomeViewController */,
 				C97949711CEC987900416BD5 /* Global */,
 				C9E525C11CE9A480000FD01E /* Graphics */,
 				C9E525AB1CE986FA000FD01E /* AppDelegate.swift */,
@@ -2107,42 +2117,31 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				A86D2E5B1D673445000D7D8A /* AppIcon */,
+				A86D2E591D66CDF0000D7D8A /* ArrowImages */,
+				A86D2E5A1D66CDF0000D7D8A /* splashLogo */,
 				A841DA891D507F9E00846F46 /* preloader */,
 				A88E817D1D49E9E800CAA00F /* ProgressBar */,
 				C9361EA21D30C18200605E1B /* Social Media */,
 				A8900C111D2FAF1400D8CD0F /* Impulse Save */,
-				CA0F6D571D2CEA8A005CC750 /* slider-icon.png */,
-				CA0F6D581D2CEA8A005CC750 /* slider-icon@2x.png */,
-				CA0F6D591D2CEA8A005CC750 /* slider-icon@3x.png */,
-				A86F063E1D1D0C8A00E1D821 /* cycle.png */,
 				C9ED7FE61D1BC38A00058A96 /* Burger Menu */,
 				C90D39B91D068D2000F285BB /* OfferList */,
 				A8BDCBA81D05557500D4C47B /* setupSavingPlan */,
 				C975A9071D01564D00184C8C /* CreateSavingPlan */,
-				C94A708A1CF55FA8002E9449 /* splash-logo.png */,
-				C94A708B1CF55FA8002E9449 /* splash-logo@2x.png */,
-				C94A708C1CF55FA8002E9449 /* splash-logo@3x.png */,
-				C9E854FD1CF456CC006213BF /* logo */,
-				C9E854F01CF44B4A006213BF /* down-arrow-15x15.png */,
-				C9E854F11CF44B4A006213BF /* down-arrow-30x30.png */,
-				C9E854F21CF44B4A006213BF /* down-arrow-45x45.png */,
-				C9E854EC1CF43B25006213BF /* arrow_20x20.png */,
-				C9E854ED1CF43B25006213BF /* arrow_30x30.png */,
-				C9E854E61CF43732006213BF /* arrow_down.png */,
-				C9E854E71CF43732006213BF /* arrow.png */,
-				C9E854E81CF43732006213BF /* down-arrow-1.png */,
+				C9E854FD1CF456CC006213BF /* savio-logo */,
 				C979495E1CEC381C00416BD5 /* Welcome screen */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
 		};
-		C9E854FD1CF456CC006213BF /* logo */ = {
+		C9E854FD1CF456CC006213BF /* savio-logo */ = {
 			isa = PBXGroup;
 			children = (
 				C9E854FE1CF456CC006213BF /* savivo-logo.png */,
 				C9E854FF1CF456CC006213BF /* savivo-logo@2x.png */,
 				C9E855001CF456CC006213BF /* savivo-logo@3x.png */,
 			);
+			name = "savio-logo";
 			path = logo;
 			sourceTree = "<group>";
 		};
@@ -2447,7 +2446,6 @@
 				A859DDAC1D50AD1F00932150 /* group-updown@1x.png in Resources */,
 				A859DDDE1D50AD4800932150 /* wedding-updown@3x.png in Resources */,
 				C975A9301D01952900184C8C /* group-save-category-icon.png in Resources */,
-				CA0F6D5B1D2CEA8A005CC750 /* slider-icon@2x.png in Resources */,
 				A859DD991D50ACDD00932150 /* gadget-dropdown@3x.png in Resources */,
 				A858A5FD1D08127C0097546F /* home-circle@2x.png in Resources */,
 				A8BDCBF11D05557500D4C47B /* ride-calendar.png in Resources */,
@@ -2508,7 +2506,6 @@
 				A859DDAD1D50AD1F00932150 /* group-updown@2x.png in Resources */,
 				A88E81DA1D49EA0F00CAA00F /* stats-achievement-smiley@3x.png in Resources */,
 				A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */,
-				A8A0B1391D2A86E1001A6CB0 /* SASettingsViewController.xib in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
@@ -2524,7 +2521,6 @@
 				C905719B1CFF020200ECC4FC /* SavingCategoryTableViewCell.xib in Resources */,
 				C95CD60F1CF2C7EE00013200 /* PickerTextfildTableViewCell.xib in Resources */,
 				A859DDE31D50AE7000932150 /* generic-updown@2x.png in Resources */,
-				CA0F6D5C1D2CEA8A005CC750 /* slider-icon@3x.png in Resources */,
 				C96D5E521D0EAE8A00CE248D /* NumericTextTableViewCell.xib in Resources */,
 				A859DDB71D50AD2B00932150 /* holiday-dropdown@3x.png in Resources */,
 				C9ED80291D1BC38A00058A96 /* menu-active-profile.png in Resources */,
@@ -2596,7 +2592,7 @@
 				C9ED804D1D1BC38A00058A96 /* menu-settings.png in Resources */,
 				A858A5F61D08127C0097546F /* group-save-circle.png in Resources */,
 				A833D0F71D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png in Resources */,
-				C9854A9A1CED9A5000D09AB3 /* SAWelcomViewController.xib in Resources */,
+				C9854A9A1CED9A5000D09AB3 /* SAWelcomeViewController.xib in Resources */,
 				C9905FA71CED9EF700E63471 /* TxtFieldTableViewCell.xib in Resources */,
 				A88E81D01D49EA0F00CAA00F /* stats-achievement-badge@3x.png in Resources */,
 				A859DDE21D50AE7000932150 /* generic-updown@1x.png in Resources */,
@@ -2817,7 +2813,6 @@
 				A88E81FB1D49ED0400CAA00F /* stats-achievement-popup@3x.png in Resources */,
 				C9ED80591D1BC38A00058A96 /* menu-update.png in Resources */,
 				A88E81E01D49EA0F00CAA00F /* stats-offers-tab-active@3x.png in Resources */,
-				A86F063F1D1D0C8A00E1D821 /* cycle.png in Resources */,
 				A841DAB71D507F9E00846F46 /* 7@2x.png in Resources */,
 				A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */,
 				A859DDD91D50AD4800932150 /* wedding-dropdown@1x.png in Resources */,
@@ -2848,7 +2843,6 @@
 				A88E81C61D49EA0F00CAA00F /* generic-streak-popup.png in Resources */,
 				A858A5FC1D08127C0097546F /* home-circle.png in Resources */,
 				C9361EBC1D30C18300605E1B /* social-tr@2x.png in Resources */,
-				CA0F6D5A1D2CEA8A005CC750 /* slider-icon.png in Resources */,
 				C975A9281D01952900184C8C /* baby-category-icon@2x.png in Resources */,
 				A859DDB91D50AD2B00932150 /* holiday-updown@2x.png in Resources */,
 				C97A351B1CF6CC7900BEB441 /* icon.png in Resources */,
@@ -3026,7 +3020,6 @@
 				A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
-				A8A0B1381D2A86E1001A6CB0 /* SASettingsViewController.swift in Sources */,
 				C97949781CEC987900416BD5 /* FontCodes.swift in Sources */,
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
@@ -3041,7 +3034,7 @@
 				A86681F71CFF01D70014DB59 /* SavingPlanTitleTableViewCell.swift in Sources */,
 				C95CD61B1CF2C92100013200 /* DropDownCell.swift in Sources */,
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
-				C9854A991CED9A5000D09AB3 /* SAWelcomViewController.swift in Sources */,
+				C9854A991CED9A5000D09AB3 /* SAWelcomeViewController.swift in Sources */,
 				A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */,
 				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,

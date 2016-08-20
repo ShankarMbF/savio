@@ -39,12 +39,12 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
          ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"] //Set up list of page on page controller
-  
+    
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //----------------------------------------Setting navigation Bar-------------------------------------------
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -52,7 +52,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         //------------------------------------------------------------------------------------------------------------
         //Register UIApplication Will Enter Foreground Notification
         NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
-
+        
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         tblView?.separatorInset = UIEdgeInsetsZero
         //Setting up UI
@@ -115,7 +115,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         super.viewDidLayoutSubviews()
         verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  scrlView!.frame.size.height + tblView!.frame.size.height + suggestedHt.constant)
     }
-
+    
     //Function invoke for Set up the UI
     func setUpView(){
         btnWishList!.layer.cornerRadius = 5
@@ -213,7 +213,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     {
                         lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
                     }
-                   //----------------------------------------------------
+                    //----------------------------------------------------
                     
                     //------------------Showing image of wishlist product---------------
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
@@ -224,7 +224,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                         let request: NSURLRequest = NSURLRequest(URL: url!)
                         if(urlString != "")
                         {
-                           // fetch image data from url
+                            // fetch image data from url
                             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                                 if(data != nil && data?.length > 0)
                                 {
@@ -340,7 +340,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
                 }
-
+                
             }
             
         }
@@ -397,7 +397,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
-        
         // Set the new page index to the page control.
         pageControl!.currentPage = Int(currentPage)
     }
@@ -478,13 +477,16 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //Check If any plan is created by login user
         if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 1)
         {
+            //if plan already created then restrict user to create all plan
             let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else
         {
+            //If plan is not created then allow user to create plan
             NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             if(indexPath.row == 0)
@@ -514,20 +516,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){
             tblView!.separatorInset = UIEdgeInsetsZero
         }
-        
         if( tblView!.respondsToSelector(Selector("setLayoutMargins:"))){
             tblView!.layoutMargins = UIEdgeInsetsZero
         }
-        
         if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
             cell.layoutMargins = UIEdgeInsetsZero
         }
     }
     
-    //MARK: GetCategorysavingPlan Delegate method
-    
+    //MARK: GetCategorysavingPlan API Delegate method
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
-
+        //setup UI and reload tableview
         self.setUpView()
         tblView?.scrollsToTop = true
         tblView?.reloadData()
@@ -538,7 +537,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             self.setUpView()
             tblView?.scrollsToTop = true
             tblView?.reloadData()
-            
             if(tblArr.count != 0)
             {
                 for i in 0 ..< tblArr.count {
@@ -550,18 +548,18 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     }
                 }
             }
+            //Call get method of offer list
             self.callGetOfferListAPI()
         }
     }
-    
+    //function invoke when GetCategorysavingPlan API request fail
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
-    //MARK: GetWishlist Delegate and Datasource method
-    
+    //MARK: GetWishlist Delegate method
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
         if let error = objResponse["error"] as? String
         {
@@ -579,7 +577,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
         }
     }
-    
+     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         print(error)
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -587,6 +585,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
     }
     
+    //MARK: GetOfferlistAPI Delegate method
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
@@ -599,12 +598,20 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
     }
     
+     //function invoke when GetOfferlist API request fail
+    func errorResponseForGetOfferlistAPI(error:String){
+        objAnimView.removeFromSuperview()
+    }
+
+    
+    //function checking any key is null and return not null values in dictionary
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
+        //check each key's value
         for var key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
-            
+            //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
             }
@@ -616,29 +623,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
         }
         return replaceDict
-    }
-    
-    
-    
-    //    const NSMutableDictionary *replaced = [NSMutableDictionary dictionaryWithDictionary:self];
-    //    const id nul = [NSNull null];
-    //    const NSString *blank = @"";
-    //
-    //    for (NSString *key in self.allKeys) {
-    //    const id object = [self objectForKey:key];
-    //    if (object == nul) {
-    //    [replaced setObject:blank forKey:key];
-    //    } else if ([object isKindOfClass:[NSDictionary class]]) {
-    //    [replaced setObject:[(NSDictionary *)object dictionaryByReplacingNullsWithStrings] forKey:key];
-    //    } else if ([object isKindOfClass:[NSArray class]]) {
-    //
-    //    }
-    //    }
-    
-    
-    
-    func errorResponseForGetOfferlistAPI(error:String){
-        objAnimView.removeFromSuperview()
     }
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{

@@ -76,6 +76,7 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
             self.tf?.text = item
             self.delegate?.dropDownTxtFieldCellText(self)
         }
+        dropDown.selectionBackgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         dropDown.anchorView = tf
         dropDown.bottomOffset = CGPoint(x: 0, y:tf!.bounds.height)
     }

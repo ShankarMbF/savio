@@ -1074,7 +1074,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 parameterDict["AMOUNT"] = itemDetailsDataDict["amount"]
             }
             else  {
-                parameterDict["AMOUNT"]  = String(format: " %d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                parameterDict["AMOUNT"]  = String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
             }
         }
         else {

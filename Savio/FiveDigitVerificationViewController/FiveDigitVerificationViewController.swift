@@ -25,9 +25,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         // Do any additional setup after loading the view.
         //change the border color of UITextField
         fiveDigitTextField.layer.cornerRadius = 2
@@ -91,8 +89,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-40), view!.frame.size.width, view!.frame.size.height)
             UIView.commitAnimations()
         }
-    
-
         codeDoesNotMatchLabel.hidden = true;
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         fiveDigitTextField.textColor = UIColor.blackColor()
@@ -107,6 +103,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
         codeDoesNotMatchLabel.hidden = true
     }
+    
     @IBAction func doneButtonToolBarPressed(sender: AnyObject) {
         if(UIScreen.mainScreen().bounds.size.height == 480)
         {
@@ -119,6 +116,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
         fiveDigitTextField.resignFirstResponder()
     }
+    
     @IBAction func clickOnGotItButton(sender: AnyObject) {
         
         if(yourCodeSentLabel.hidden == false)
@@ -141,6 +139,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             else {
                 //Set the OTPVerificationDelegate
         
+                //---------------Remove below comment while testing on live authy---------------//
+                
                 /*
                  objAPI.otpVerificationDelegate = self
                  
@@ -151,7 +151,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
                  objAnimView.animate()
                  self.view.addSubview(objAnimView)
- */
+                 */
       
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)

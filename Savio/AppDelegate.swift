@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomeViewController?
     var objEnterYourPinViewController: SAEnterYourPINViewController?
-    var objRegisterViewController: SARegistrationViewController?
+    var objRegisterViewController: SARegistrationScreenOneViewController?
     var objCreateViewController: CreatePINViewController?
     
     
@@ -48,11 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         //Check if keychain has encrypted pin value
         let objApi = API()
-        //        objApi.deleteKeychainValue("myPasscode")
-        //       objApi.deleteKeychainValue("myUserInfo")
-        //        objApi.deleteKeychainValue("userInfo")
-        
-        //  if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
@@ -93,11 +88,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             else  {
-                //If no then Go to SAWelcomViewController
-                objSAWelcomViewController = SAWelcomeViewController()
+                //If no then Go to SARegistrationScreenOneViewController
+                objRegisterViewController = SARegistrationScreenOneViewController()
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController
-                objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
+                objSANav = UINavigationController(rootViewController: objRegisterViewController!)
                 window?.rootViewController = objSANav
+            
             }
         }
         else {

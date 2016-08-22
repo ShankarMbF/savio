@@ -82,10 +82,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -93,6 +92,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
+        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
@@ -122,6 +122,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     //set up the UIView 
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
@@ -134,15 +135,18 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
  
+        //get the total amount of plan from the Dictionary
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
              totalAmount = amount.floatValue
         }
+         //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
             paidAmount = totalPaidAmount.floatValue
         }
    
+        //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
@@ -239,6 +243,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     func heartBtnClicked(){
+        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -260,6 +265,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBAction func changePage(sender: AnyObject) {
         var newFrame = scrlView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
+        //scroll the content view so that the area defined by newFrame will be visible inside the scroll view
         scrlView!.scrollRectToVisible(newFrame, animated: true)
     }
     
@@ -277,6 +283,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
+        //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()

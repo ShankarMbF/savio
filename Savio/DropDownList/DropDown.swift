@@ -687,7 +687,9 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 	
 		cell.optionLabel.textColor = textColor
 		cell.optionLabel.font = textFont
+        cell.optionLabel.highlightedTextColor = UIColor.whiteColor()
 		cell.selectedBackgroundColor = selectionBackgroundColor
+        
         cell.layoutMargins = UIEdgeInsetsZero
 		
 		if let cellConfiguration = cellConfiguration {

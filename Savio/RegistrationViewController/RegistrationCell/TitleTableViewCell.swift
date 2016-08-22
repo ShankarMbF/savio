@@ -43,7 +43,6 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         dropDown.dataSource = [
             "Mr.",
-            "Mrs.",
             "Miss."
         ]
 
@@ -59,6 +58,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         //		}
         
         dropDown.anchorView = tfTitle
+        dropDown.selectionBackgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         dropDown.bottomOffset = CGPoint(x: 0, y:tfTitle!.bounds.height)
         
     }

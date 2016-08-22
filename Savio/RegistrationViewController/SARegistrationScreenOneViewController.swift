@@ -69,6 +69,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         //Setting drop down list for titleTextField
         dropDown.anchorView = titleTextField
         dropDown.backgroundColor = UIColor.whiteColor()
+        self.dropDown.textColor = UIColor.blackColor()
+        self.dropDown.selectionBackgroundColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         dropDown.dataSource = [
             "Mr",
             "Miss"]
@@ -78,7 +80,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.titleTextField?.text = item
             self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            
+    
         }
         
          //Customization of name text field

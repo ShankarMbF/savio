@@ -14,8 +14,6 @@ public protocol LineChartDelegate {
  */
 public class LineChart: UIView {
     
-    
-
     /**
     * Helpers class
     */
@@ -30,7 +28,6 @@ public class LineChart: UIView {
             let blue = CGFloat((hex & 0xFF)) / 255.0
             return UIColor(red: red, green: green, blue: blue, alpha: 1)
         }
-        
         /**
         * Lighten color.
         */

@@ -202,6 +202,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         cell.imgView.addSubview(spinner)
         spinner.startAnimating()
+        
         if let urlString = cellDict["imageURL"] as? String
         {
             //get image URL from response dict

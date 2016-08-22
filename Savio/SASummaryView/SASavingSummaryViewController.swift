@@ -66,10 +66,7 @@ class SASavingSummaryViewController: UIViewController {
     //-----------------------------------------------------------------------------
     
     @IBOutlet weak var htDescriptionContentView: NSLayoutConstraint! // Set up hieght of plan's summary as per present subview
-    
-    //    @IBOutlet weak var lblName1: UILabel?
-    //    @IBOutlet weak var lblContact1: UILabel?
-    
+
     var indexId : Int = 0  // Variable for showing wishlist count
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     
@@ -81,7 +78,6 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var summaryViewHt: NSLayoutConstraint!  // Setup height of summary as per count of invited user
     var isUpdatePlan = false
-    
     @IBOutlet weak var groupViewHt: NSLayoutConstraint!   // Height assign for Invited user's view
     
     
@@ -100,7 +96,6 @@ class SASavingSummaryViewController: UIViewController {
     
     // Function invoke on tapping continue button
     @IBAction func btnContinueClicked(sender: AnyObject) {
-        
         // Navigate app as per plan type
         let str = itemDataDict["planType"] as! String
         if str == "group" {
@@ -126,9 +121,6 @@ class SASavingSummaryViewController: UIViewController {
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
-        //        btnContinue!.layer.shadowColor = self.setUpShadowColor().CGColor
-        //        btnContinue!.layer.shadowOffset = CGSizeMake(0, 2)
-        //        btnContinue!.layer.shadowOpacity = 1
         btnContinue!.layer.cornerRadius = 5
 //        ----------------------------------------------------
         
@@ -177,7 +169,6 @@ class SASavingSummaryViewController: UIViewController {
         if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
         {
             //Invited user list present
-            //        let ct:CGFloat = 2
             if arr.count > 0 {
                 
                 //----------------Set up height as per uinvited user count-----------------------

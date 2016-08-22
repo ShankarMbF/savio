@@ -8,8 +8,8 @@
 
 import UIKit
 
-let kNotificationToggleMenuView = "ToggleCentreView"   //NotificationIdentifier
-let kNotificationAddCentreView = "AddCentreView"       //NotificationIdentifier
+let kNotificationToggleMenuView = "ToggleCentreView"   //NotificationIdentifier for toggle menu
+let kNotificationAddCentreView = "AddCentreView"       //NotificationIdentifier for menu selection
 
 class ContainerViewController: UIViewController {
     //Create object for mnuviewcontroller
@@ -19,6 +19,7 @@ class ContainerViewController: UIViewController {
     var navController: UINavigationController!
     var isShowingProgress:String?
     
+     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -79,24 +80,19 @@ class ContainerViewController: UIViewController {
         
     }
     
-    //Function invoke when
+    //Function invoke when menu item selected and kNotificationAddCentreView notification is broadcast.
     func addCentreView(notification: NSNotification) {
         let className = notification.object as! String
+        //Check selected menu class and current class is same then close menu
         if self.centreVC.nibName == className {
             self.ToggleCentreView()
             return
         }
-        //        if(className == "SASavingPlanViewController" && isShowingProgress == "GroupSaving PlanExist")
-        //        {
-        //            let alert = UIAlertView(title: "Alert", message: "You do not have individual saving plan", delegate: nil, cancelButtonTitle: "Ok")
-        //            alert.show()
-        //           self.ToggleCentreView()
-        //            return
-        //        }
         
         self.navController.view.removeFromSuperview()
         self.navController.removeFromParentViewController()
         
+        //Identify selected menu class and as per class name replace viewcontroller with selected class
         switch className {
         case "SACreateSavingPlanViewController":
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
@@ -128,11 +124,11 @@ class ContainerViewController: UIViewController {
         case "SAProgressViewController":
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
+            //Assigning all plan flag
             let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
             let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
             let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-            
-            
+            //As per flag show the progress view of plan
             if individualFlag == 1 {
                 self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
@@ -174,9 +170,9 @@ class ContainerViewController: UIViewController {
         }
     }
     
+    //Function invoke for replace the current menu class with selected menu class
     func replaceViewController() {
         self.navController = UINavigationController(rootViewController: self.centreVC)
-        //self.navController.navigationBar.hidden = true
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false

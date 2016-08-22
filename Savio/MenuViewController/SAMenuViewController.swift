@@ -13,15 +13,16 @@ class SAMenuViewController: UIViewController {
     @IBOutlet weak var menuTable: UITableView?
     var arrMenu: Array<Dictionary<String,AnyObject>> = []
     
+     // MARK: - ViewController life cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup Menu as per plan created
          NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
         //Set up UI for Menu
         self.setUpUI()
-
     }
-    
+
+    //Function invoke when NotificationIdentifier notification brodcast
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
         arrMenu.removeAll()
@@ -29,6 +30,7 @@ class SAMenuViewController: UIViewController {
         menuTable?.reloadData()
     }
     
+    //Function invoking for setup the UI
     func setUpUI() {
         //Create Menu's JSON file URL
         let fileUrl: NSURL = NSBundle.mainBundle().URLForResource("Menu", withExtension: "json")!
@@ -42,7 +44,7 @@ class SAMenuViewController: UIViewController {
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
 
         //Set up number of menu as per plan created
-        for var i = 0; i < arr.count; i++ {
+        for i in 0 ..< arr.count {
             var dict = arr[i] as! Dictionary<String,AnyObject>
             if dict["className"]!.isEqualToString("SAProgressViewController") {
                                 dict["showInMenu"] = "No"
@@ -79,6 +81,7 @@ class SAMenuViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        //Create reusable custom cell from MenuTableViewCell.xib
         let cellIdentifier:String = "CustomFields"
         var cell:MenuTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? MenuTableViewCell
         
@@ -88,8 +91,9 @@ class SAMenuViewController: UIViewController {
         }
         //got individual menu's info
         let dict =  self.arrMenu[indexPath.row]
-        
+        //Showing Menu title
         cell?.title?.text =  dict["title"] as? String
+        //Showing menu icon
         let imageName =  dict["image"] as! String
         let imageIcon = UIImage(named: imageName)//?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         cell?.icon?.image = imageIcon
@@ -100,6 +104,7 @@ class SAMenuViewController: UIViewController {
          let dict =  self.arrMenu[indexPath.row]
         // Identifying selected cell
         let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        //Changing background color of selected row
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         let imageName =  dict["activeImage"] as! String
         let imageIcon = UIImage(named: imageName)
@@ -111,7 +116,6 @@ class SAMenuViewController: UIViewController {
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
     
-    // if tableView is set in attribute inspector with selection to multiple Selection it should work.
     
     // Just set it back in deselect
      func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {

@@ -13,34 +13,37 @@ import SafariServices
 
 class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInteractionControllerDelegate,SFSafariViewControllerDelegate {
     
-    @IBOutlet weak var GraphContentView: UIView!
-    @IBOutlet weak var scrHt: NSLayoutConstraint!
-    @IBOutlet weak var scrlView: UIScrollView?
+    @IBOutlet weak var GraphContentView: UIView! //IBOutlet for Graph container
+    @IBOutlet weak var scrHt: NSLayoutConstraint! //IBOutlet to set scrollview height
+    @IBOutlet weak var scrlView: UIScrollView?   //IBOutlet for scrollview
     @IBOutlet weak var contentView: UIView?
-    @IBOutlet weak var offersButton: UIButton!
-    @IBOutlet weak var planButton: UIButton!
-    @IBOutlet weak var spendButton: UIButton!
-    @IBOutlet weak var makeImpulseBtn: UIButton!
-    @IBOutlet var scrollViewForGraph: UIScrollView!
-    @IBOutlet var widthOfContentView: NSLayoutConstraint!
-    @IBOutlet var graphSliderView: UISlider!
-    @IBOutlet weak var sharingVw: UIView?
+    @IBOutlet weak var offersButton: UIButton!   //IBoutlet for offer tab button
+    @IBOutlet weak var planButton: UIButton!     //IBOutlet for plan tab button
+    @IBOutlet weak var spendButton: UIButton!    //IBOutlet for spend tab button
+    @IBOutlet weak var makeImpulseBtn: UIButton!  //IBOutlet for make impules button
+    @IBOutlet var scrollViewForGraph: UIScrollView!   //IBOutlet for scrollview to scroll graph hotizantal
+    @IBOutlet var widthOfContentView: NSLayoutConstraint!  //IBoutlet to set width of contentview
+    @IBOutlet var graphSliderView: UISlider!               //IBOutlet for slider view
+    @IBOutlet weak var sharingVw: UIView?                  //IBOutlet for social sharing popup.
     @IBOutlet weak var lbl: UILabel?
     
-    var planType = ""
-    var lineChart: LineChart!
+    var planType = ""   //Variable for identifying plan type
+    var lineChart: LineChart! //Object of LineChart class to draw Line chart
     var label = UILabel()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var itemTitle = ""
     var endDate = ""
     var cost = ""
-    var xLabels: [String] = []
-    var documentInteractionController = UIDocumentInteractionController()
+    var xLabels: [String] = [] //Array for holding x-axis lable
+    var documentInteractionController = UIDocumentInteractionController()  // UIDocumentInteractionController object for sharing data to whatsapp friends
     var shareImg: UIImage?
     
+    // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Setting up Stat view UI
         self.setUpView()
+        //--------------Draw Line chart on graph contentview----------------------------
         lineChart = LineChart()
         lineChart.planTitle = self.planType
         lineChart.maximumValue = 3000
@@ -49,7 +52,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         // simple line with custom x axis labels // hear need to pass json value
         xLabels = ["1","2","3","4","5"]
-
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity
@@ -57,7 +59,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.y.grid.visible = true
         
         // hide dots visiblety in line chart
-        
         lineChart.x.labels.visible = true
         lineChart.x.grid.count = CGFloat(data.count)
         lineChart.x.grid.color = UIColor.grayColor()
@@ -72,8 +73,10 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
+        //------------------------------------------------------------------------------------
     }
     
+    //Function invoke for formatting graph as per plan type.
     func chartVerticalLineDrawingCompleted() {
         if planType == "Individual" {
             GraphContentView.backgroundColor = UIColor(red: 252/255,green:246/255,blue:236/255,alpha:1)
@@ -85,9 +88,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             lineChart.thumbImgView.image = UIImage(named: "group-save-stats-slider-tab")
             lineChart.graphMovingVerticalLine.backgroundColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
         }
-
     }
-
     
     //MARK: -
     
@@ -108,7 +109,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
-        
+            
         }
         //add rounded corners plan button
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
@@ -123,17 +124,21 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         // Dispose of any resources that can be recreated.
     }
     
+    //Function invoke for set up the UI of stat view
     func setUpView(){
-        
+        //-------------------Set up navigation bar--------------------------------
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
+        //-------------------------------------------------------------------------
+        
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         makeImpulseBtn!.layer.cornerRadius = 5
+        //-----------------------------Set up tab buttons--------------------------------------------
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        //-------------------------------------------------------------------------------------------
         
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -154,6 +159,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
+        //Showing wishlist count
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
@@ -171,38 +177,34 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
         
+        //Setting right button of navigation bar
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        if(planType == "Individual")
-        {
-        let attrText = NSMutableAttributedString(string: String(format: "My %@ saving plan target is £%@",itemTitle,cost))
-        
-        attrText.addAttribute(NSFontAttributeName,
-                              value: UIFont(
-                                name: "GothamRounded-Medium",
-                                size: 16.0)!,
-                              range: NSRange(
-                                location: 3,
-                                length: itemTitle.characters.count))
-        
-        
-        lbl!.attributedText = attrText
+        if(planType == "Individual") {
+            let attrText = NSMutableAttributedString(string: String(format: "My %@ saving plan target is £%@",itemTitle,cost))
+            attrText.addAttribute(NSFontAttributeName,
+                                  value: UIFont(
+                                    name: "GothamRounded-Medium",
+                                    size: 16.0)!,
+                                  range: NSRange(
+                                    location: 3,
+                                    length: itemTitle.characters.count))
+            lbl!.attributedText = attrText
         }
-        else
-        {
+        else{
             lbl!.text = String(format: "Our target is £%@",cost)
             lbl?.textColor = UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
             self.view.bringSubviewToFront(lbl!)
         }
-
     }
     
+    //Function invoke when user tapping on menu button from navigation bar.
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
+    //Function invoke when user tapping on heart button from navigation bar.
     func heartBtnClicked(){
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
@@ -215,26 +217,31 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
     
+    //Function invoke when progress button clicked
     @IBAction func clickOnProgressBtn(sender:UIButton){
         self.navigationController?.popViewControllerAnimated(false)
     }
     
+    //Function invoke when offer tab button clicked
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
+        //Hide add offer button from offer list
         obj.hideAddOfferButton = false
+        //navigate to offer list
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
+    //Function invoke when offer tab button clicked
     @IBAction func spendButtonPressed(sender: AnyObject) {
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
-    
+    //Function invoke when make impulse button clicked for make extra payment
     @IBAction func makeImpulseSavingPressed(sender: AnyObject) {
         let objImpulseSave = SAImpulseSavingViewController()
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
@@ -249,24 +256,25 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
      }
      */
     
+    //function invoke when user select point from line chart
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
         label.text = "\(yValues[0])"
     }
     
-    //Mark: - Social Sharing
     
+    //Mark: - Social Sharing
+    //function invoke on tapping any achivement button for showing social media sharing option
     @IBAction func clickedOnAchivements(sender: UIButton){
+        //load SocialSharingView.xib for showing pop up
         let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
-        
         testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-        
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
-   
+        
+        //------------------------------Formatting popUp-----------------------------------------
         switch sender.tag {
         case 0:
-            if(planType == "Individual")
-            {
+            if(planType == "Individual") {
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "generic-streak-popup.png")
             }
@@ -274,10 +282,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-save-streak-popup.png")
             }
-
         case 1:
-            if(planType == "Individual")
-            {
+            if(planType == "Individual"){
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-smiley-popup.png")
             }
@@ -285,10 +291,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-smiley-popup.png")
             }
-
+            
         case 2:
-            if(planType == "Individual")
-            {
+            if(planType == "Individual") {
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-popup.png")
             }
@@ -296,10 +301,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-badge-popup.png")
             }
-
+            
         case 3:
-            if(planType == "Individual")
-            {
+            if(planType == "Individual") {
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "stats-achievement-money-popup.png")
             }
@@ -307,10 +311,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 vw.layer.borderColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1).CGColor
                 shareImg = UIImage(named: "group-stats-achievement-money-popup.png")
             }
-
+            
         default:
-            if(planType == "Individual")
-            {
+            if(planType == "Individual"){
                 vw.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
                 shareImg = UIImage(named: "generic-streak-popup.png")
             }
@@ -319,10 +322,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 shareImg = UIImage(named: "group-save-streak-popup.png")
             }
         }
-        
+        //----------------------------------------------------------------------------------------------------------------
+        //Showing image to be sharing
         let imgVw = testView.viewWithTag(10) as! UIImageView
         imgVw.image = shareImg
         
+        //Set up for close button
         let btnClose = testView.viewWithTag(6)! as! UIButton
         if(planType == "Individual")
         {
@@ -334,15 +339,19 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         btnClose.addTarget(self, action: Selector("closeSharePopup:"), forControlEvents: UIControlEvents.TouchUpInside)
         
+        //setup for facebook sharing button
         let fbBtn = testView.viewWithTag(2) as! UIButton
         fbBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
+        //setup for twitter sharing button
         let twBtn = testView.viewWithTag(3) as! UIButton
         twBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
+        //setup for google sharing button
         let glBtn = testView.viewWithTag(4) as! UIButton
         glBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
+        //setup for whatsapp sharing button
         let waBtn = testView.viewWithTag(5) as! UIButton
         waBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -354,6 +363,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         sender.superview?.superview!.removeFromSuperview()
     }
     
+    //function identifying social media for sharing
     func clickedOnSocialMediaButton(sender: UIButton){
         switch sender.tag {
         case 2:
@@ -367,9 +377,10 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         default:
             print("Nothing")
         }
-        self.shareOnFacebook(sender)
+        //        self.shareOnFacebook(sender)
     }
     
+    //Function invoke to open compose view for share content on facebook
     func shareOnFacebook(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook){
             let facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
@@ -382,7 +393,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
     
-    
+    //Function invoke to open compose view for share content on twitter
     func shareOnTwitter(sender: UIButton) {
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
             let twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
@@ -395,13 +406,15 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
     
+    //Function invoke for open whatsapp with content
     func shareOnWhatsApp(sender: UIButton) {
         let urlWhats = "whatsapp://app"
+        //Make URl for open whatsapp
         if let urlString = urlWhats.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()) {
             if let whatsappURL = NSURL(string: urlString) {
-                
+                //Open application if whatsapp is installed
                 if UIApplication.sharedApplication().canOpenURL(whatsappURL) {
-                    
+                    //Attached image to whatsapp dialog
                     if let image = shareImg {
                         if let imageData = UIImageJPEGRepresentation(image, 1.0) {
                             let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Documents/whatsAppTmp.wai")
@@ -415,8 +428,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                             }
                         }
                     }
-                    
                 } else {
+                    //Whatsapp not install in device
                     let alert = UIAlertController(title: "Accounts", message: "Your device has not WhatsApp installed.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -425,22 +438,19 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
     
-    
-    
-
+    //Function invoke for share content on twitter
     func shareOnGoogle(sender: UIButton)
     {
         let urlComponents = NSURLComponents()
         urlComponents.path = "https://plus.google.com/share"
         urlComponents.queryItems = [NSURLQueryItem(name: "url", value: "hello")]
         let url =  NSURL(string: "https://plus.google.com/share")
-        
         if #available(iOS 9.0, *) {
             let controller: SFSafariViewController = SFSafariViewController(URL: url!)
             controller.delegate = self
             self.presentViewController(controller, animated: true, completion: { _ in })
         } else {
-           UIApplication.sharedApplication().openURL(url!)
+            UIApplication.sharedApplication().openURL(url!)
         }
     }
 }

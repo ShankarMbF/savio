@@ -8,28 +8,29 @@
 
 import UIKit
 
+//----------Custom protocol for add or skip offerlist-----------------------
 protocol SAOfferListViewDelegate {
-    
     func addedOffers(offerForSaveDict:Dictionary<String,AnyObject>)
     func skipOffers()
 }
-
+//--------------------------------------------------------------------------
 class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
-    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint!
-    @IBOutlet weak var bottomview: UIView!
-    @IBOutlet weak var tblView : UITableView?
-    @IBOutlet weak var closeLbl : UILabel?
+    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint! //IBOutlet for setting bottom space of baleview
+    @IBOutlet weak var bottomview: UIView!                     //IBOutlet of UIView
+    @IBOutlet weak var tblView : UITableView?                  //IBOutlet for tableview
+    @IBOutlet weak var closeLbl : UILabel?                     //IBOutlet for UILable
     
     var indx : Int = 0
-    var  prevIndxArr: Array<Int> = []
-    var rowHT : CGFloat = 310.0
+    var  prevIndxArr: Array<Int> = []                          //Array for hold previous selected index
+    var rowHT : CGFloat = 310.0                                //set row height as per expand and collaps
     var savID : NSNumber = 0
     var hideAddOfferButton : Bool = false
-    var  offerArr: Array<Dictionary<String,AnyObject>> = []
+    var  offerArr: Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
     var delegate : SAOfferListViewDelegate?
     var objAnimView = ImageViewAnimation()
 
+    // MARK: - view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -41,14 +42,16 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         // Dispose of any resources that can be recreated.
     }
     
+    //Function invoke for set up UI
     func setUpView(){
+        //--------------Setting navigation bar-------------------------------
         self.title = "Partner offers"
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
-        //set Navigation left button
-    
+        //--------------------------------------------------------------------
+        
+        //set Navigation left button as per hideAddOfferButton flag
         if(hideAddOfferButton)
         {
             let leftBtnName = UIButton()
@@ -100,6 +103,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.borderWidth = 2.0
         closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
         
+        //filter the offerlist as per saving plan type
         if let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array {
             for var dict:Dictionary<String,AnyObject> in arr {
                 let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
@@ -114,19 +118,19 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             tblView?.reloadData()
         }
         else {
+            //Get fresh offerlist from API
             let objAPI = API()
-            
+            //Check Network rechability
             if objAPI.isConnectedToNetwork() {
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
-            
             self.view.addSubview(objAnimView)
-           
                 objAPI.getofferlistDelegate = self
                 objAPI.getOfferListForSavingId()
             }
             else {
+                //If network not found
                 let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
@@ -146,11 +150,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
-    
+    //function invoke when user tapping on back button
     func backButtonPress()  {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
+    //function invoke when user tapping on heart button from navigation bar
     func heartBtnClicked(){
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
@@ -187,12 +191,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        //        let cell = tableView.dequeueReusableCellWithIdentifier("SavingCategoryTableViewCell") as? SavingCategoryTableViewCell
-        
+        //Create custom cell from SAOfferListTableViewCell.xib
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! SAOfferListTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
+        //Showing Add offer button as per flag
         if(hideAddOfferButton)
         {
             cell.btnAddOffer?.hidden = true
@@ -208,11 +212,14 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         cell.btnOfferDetail?.addTarget(self, action: Selector("clickedOnOfferDetail:"), forControlEvents: UIControlEvents.TouchUpInside)
         cell.btnOfferDetail?.tag = indexPath.row
         let cellDict:Dictionary? = offerArr[indexPath.row]
+        //--------------Showing offer detail-----------------------------
         cell.lblOfferTitle?.text = cellDict!["offCompanyName"] as? String
         cell.lblOfferDiscount?.text = cellDict!["offTitle"] as? String
         cell.lblOfferSummary?.text = cellDict!["offSummary"] as? String
         cell.lblProductOffer?.text = cellDict!["offDesc"] as? String
-       
+       //----------------------------------------------------------------
+        
+        //Showing offer image
         if let urlStr = cellDict!["offImage"] as? String {
             if urlStr != "" {
                 let url = NSURL(string: urlStr)
@@ -221,7 +228,6 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if data != nil && data?.length > 0 {
                         let image = UIImage(data: data!)
-                        //                self.imageCache[unwrappedImage] = image
                         dispatch_async(dispatch_get_main_queue(), {
                             cell.offerImage?.image = image
                         })
@@ -234,32 +240,30 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
         cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-down.png"), forState: .Normal)
         cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
-        
-//        let attributes = [
-//            NSForegroundColorAttributeName :cell.setUpColor(),
-//            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
-//        ]
-//        var attributedString = NSAttributedString(string: "Offer details v", attributes: attributes)
-        
+        //Expand and collaps cell
         if prevIndxArr.count > 0 {
             var ht: CGFloat = 0.0
             var str = ""
-//            cellDict["offDesc"]!.isKindOfClass(String)
+            //Check any cell is expanded before
             for var i in 0 ..< prevIndxArr.count {
-                
+                //Check current cell call for expand
                 if prevIndxArr[i] == indexPath.row {
-                    
+                    //Expand cell and show offer  detail
                     cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
                     cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
+                    //Showing offer description
                     if let str1 = cellDict!["offDesc"] as? String  {
                     str = str1
+                    //Calculating height of lable as per the string
                     ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                     }
                 }
                 else {
+                    //Colapsing Cell
                     str = ""
                     ht = 0.0
                 }
+                //Set hieght as per string lenght
                 cell.lblHT.constant = ht
                 cell.lblProductOffer?.text = str
             }
@@ -274,32 +278,36 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         return cell
     }
     
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        //Calculating row height as per expanding and colapsing
         if prevIndxArr.count > 0 {
             for var i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
                     if hideAddOfferButton{
+                        //return height when add offer button is hide
                         return 260.0
                     }
                     return rowHT + 310.0
                 }
             }
         }
-        
         if hideAddOfferButton{
             return 260.0
         }
         return 310.0
     }
-
+    
+    //Function invoke for expanding the cell and showing offer detail
     func clickedOnOfferDetail(sender:UIButton) {
         dispatch_async(dispatch_get_main_queue()){
+            //Get cell index
         self.indx = sender.tag
         var isVisible = false
+            //Check cell is already expanded
         if self.prevIndxArr.count > 0{
             for i in 0 ..< self.prevIndxArr.count {
                let obj = self.prevIndxArr[i] as Int
+                //if cell is expanded then collaps it
                 if obj == sender.tag{
                   isVisible = true
                     self.prevIndxArr.removeAtIndex(i)
@@ -312,61 +320,64 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             }
         }
         else {
+            //add cell index in array for expanding
             self.prevIndxArr.append(sender.tag)
         }
         self.tblView?.reloadData()
         }
     }
 
+    //Function invoke for calculating height of lable as per given text, font and width
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.ByWordWrapping
         label.font = font
         label.text = text
-        
         label.sizeToFit()
         rowHT = label.frame.height
         return rowHT
     }
 
+    //Function invoke on tapping add offer button
     func clickedOnAddOffer(sender: UIButton){
-        
+        //collecting all detail of offer and send it to setup view
          let cellDict = offerArr[sender.tag]
         delegate?.addedOffers(cellDict)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    //get offerlist API's delegate method invoking when success response getting from API.
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         objAnimView.removeFromSuperview()
         if offerArr.count > 0 {
             offerArr.removeAll()
         }
+        //Check any value is coming Null or not
         if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
-            
             for var i = 0; i < obj.count; i += 1 {
+                //Replace dict's Null value with blanck.
                 let dict = self.checkNullDataFromDict(obj[i] as Dictionary<String,AnyObject>)
                 offerArr.append(dict)
             }
-            
-//        offerArr = obj
         tblView?.reloadData()
         }
-        
     }
     
+    //get offerlist API's delegate method invoking when fail or error response getting from API request.
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
+    //Function invoking for check null values in dictionary and replace null values with blank and return new dict
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         for var key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
-            
+            //Check any key is NULL or Nil and replace it vith blank value
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
             }
@@ -374,11 +385,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
             }
         }
         return replaceDict
     }
-
-    
 }

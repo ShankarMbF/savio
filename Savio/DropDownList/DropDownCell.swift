@@ -55,8 +55,10 @@ internal extension DropDownCell {
 			if let selectedBackgroundColor = self.selectedBackgroundColor {
 				if selected {
 					self.backgroundColor = selectedBackgroundColor
+                    self.optionLabel.textColor = UIColor.whiteColor()
 				} else {
 					self.backgroundColor = UIColor.clearColor()
+                    self.optionLabel.textColor = UIColor.blackColor()
 				}
 			}
 		}

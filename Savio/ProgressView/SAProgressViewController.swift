@@ -31,35 +31,31 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     let spinner =  UIActivityIndicatorView()
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
-        // Do any additional setup after loading the view.
-        
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
-        
         self.setUPNavigation()
+        
+        //Create obj of ImageViewAnimation to show user while  uploading/downloading something
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
          savingPlanTitleLabel.hidden = true
         self.view.addSubview(objAnimView)
         
+        //Create API class object to get usersSaving Plan
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         objAPI.getUsersSavingPlan("i")
        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    //This method is used to set the contentSize of UIScrollView
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
@@ -82,10 +78,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "My Plan"
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
-        //btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
@@ -93,6 +88,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
+        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
@@ -122,6 +118,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     //set up the UIView 
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                                      value: UIFont(
@@ -134,15 +131,18 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
  
+        //get the total amount of plan from the Dictionary
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
              totalAmount = amount.floatValue
         }
+        //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
             paidAmount = totalPaidAmount.floatValue
         }
    
+        //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         
@@ -168,12 +168,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
-
+                    //load image from url
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data?.length > 0){
                             let image = UIImage(data: data!)
                             dispatch_async(dispatch_get_main_queue(), {
+                                //Remove the activityIndicator after image load
                                 imgView.image = image
                                 activityIndicator.stopAnimating()
                                 activityIndicator.hidden = true
@@ -181,12 +182,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                         }
                         else
                         {
+                            //Remove the activityIndicator after image load
                             activityIndicator.stopAnimating()
                             activityIndicator.hidden = true
                         }
                     })
                 }
                 else {
+                    //Remove the activityIndicator if image is not present
                     activityIndicator.stopAnimating()
                     activityIndicator.hidden = true
                 }
@@ -239,6 +242,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     func heartBtnClicked(){
+        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -260,6 +264,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBAction func changePage(sender: AnyObject) {
         var newFrame = scrlView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
+        //scroll the content view so that the area defined by newFrame will be visible inside the scroll view
         scrlView!.scrollRectToVisible(newFrame, animated: true)
     }
     
@@ -277,6 +282,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
+        //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()

@@ -345,6 +345,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     func setUpDropDown(){
         arrayAddress.sortInPlace { sortTwoString($0, value2: $1) }
         dropDown.dataSource = arrayAddress
+        self.dropDown.selectionBackgroundColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         // dropdown selection action
         dropDown.selectionAction = { [unowned self] (index, item) in
             let str = item

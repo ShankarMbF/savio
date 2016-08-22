@@ -15,7 +15,7 @@ class SASpendViewController: UIViewController {
     @IBOutlet weak var offersButton: UIButton!
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-    
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
@@ -27,12 +27,8 @@ class SASpendViewController: UIViewController {
         self.setUpView()
         // Do any additional setup after loading the view.
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+ 
+    //Set up the NavigationBar
     func setUpView(){
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -48,8 +44,8 @@ class SASpendViewController: UIViewController {
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.title = "Spend money"
-        //set Navigation right button nav-heart
         
+        //set Navigation right button nav-heart
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
@@ -62,9 +58,9 @@ class SASpendViewController: UIViewController {
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if(wishListArray.count > 0)
             {
-                
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
@@ -72,7 +68,6 @@ class SASpendViewController: UIViewController {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
-            
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
         
@@ -81,8 +76,10 @@ class SASpendViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        //customization of spend button
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.spendButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.spendButton!.bounds
@@ -90,11 +87,13 @@ class SASpendViewController: UIViewController {
         self.spendButton?.layer.mask = maskLayer
     }
     
+    //MARK: Bar button actions
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
+        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
@@ -110,10 +109,16 @@ class SASpendViewController: UIViewController {
         self.navigationController?.popViewControllerAnimated(false)
     }
     
+    //Go to SAOffersViewController
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
-        obj.savID = 63
-        obj.hideAddOfferButton = false
+        obj.savID = 92
+        //save the Generic plan in NSUserDefaults, so it will show its specific offers
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
+        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        obj.hideAddOfferButton = true
         self.navigationController?.pushViewController(obj, animated: true)
+
     }
 }

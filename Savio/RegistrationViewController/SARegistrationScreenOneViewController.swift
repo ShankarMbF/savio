@@ -69,6 +69,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         //Setting drop down list for titleTextField
         dropDown.anchorView = titleTextField
         dropDown.backgroundColor = UIColor.whiteColor()
+        self.dropDown.textColor = UIColor.blackColor()
+        self.dropDown.selectionBackgroundColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         dropDown.dataSource = [
             "Mr",
             "Miss"]
@@ -78,7 +80,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.titleTextField?.text = item
             self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            
+    
         }
         
          //Customization of name text field
@@ -348,7 +350,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
     }
     //Register keyboard notification
-    
     func registerForKeyboardNotifications(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
@@ -536,13 +537,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         activeTextField.resignFirstResponder()
         self.removeKeyboardNotification()
     }
+    
     @IBAction func clickeOnDropDownArrow(sender:UIButton){
         self.showOrDismiss()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func showOrHideDropDownButtonPressed(sender: AnyObject) {
@@ -580,9 +577,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     
     func checkTextFieldContentSpecialChar(str:String)->Bool{
-        
         let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
-        
         if (str.rangeOfCharacterFromSet(characterSet) != nil) {
             return true
         }

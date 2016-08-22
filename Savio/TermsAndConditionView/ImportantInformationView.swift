@@ -15,10 +15,11 @@ protocol ImportantInformationViewDelegate {
 class ImportantInformationView: UIView {
  
     @IBOutlet weak var btnVeBg: UIView!
-    var delegate: ImportantInformationViewDelegate?
     @IBOutlet weak var termsAndConditionTextView: UITextView!
     @IBOutlet weak var gotItButton: UIButton!
     @IBOutlet weak var lblHeader: UILabel!
+    
+    var delegate: ImportantInformationViewDelegate?
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -29,6 +30,7 @@ class ImportantInformationView: UIView {
         termsAndConditionTextView.contentOffset = CGPointMake(0, 0)
       }
     
+    //Go to the previous ViewController
     @IBAction func gotItButtonPressed(sender: AnyObject) {
         self.removeFromSuperview()
         delegate?.acceptPolicy(self)

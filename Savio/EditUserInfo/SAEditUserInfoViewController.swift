@@ -35,9 +35,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
         addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
@@ -48,7 +48,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView!.frame = self.view.frame
         objAnimView!.animate()
-        
         self.view.addSubview(objAnimView!)
         
         let objAPI = API()

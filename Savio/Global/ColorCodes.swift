@@ -17,7 +17,7 @@ var colorRidePlan = 89
 var colorHomePlan = 90
 var colorGadgetPlan = 91
 var colorGenericPlan = 92
-
+//Structure defined for Color
 struct Color {
     static var groupPlan = 85
     static var weddingPlan = 86
@@ -28,6 +28,8 @@ struct Color {
     static var gadgetPlan = 91
     static var genericPlan = 92
 }
+
+//Structure defined for ShadowColor
 struct ShadowColor {
     static var groupPlan = 85
     static var weddingPlan = 86
@@ -41,6 +43,7 @@ struct ShadowColor {
 
 class ColorCodes: NSObject {
     
+    //This function will return the specific color code for selected theme
     class func colorForCode( colorCode: Int) -> UIColor {
         
         var color : UIColor! = UIColor.whiteColor()
@@ -53,13 +56,13 @@ class ColorCodes: NSObject {
         case Color.homePlan: color  = ColorCodes.getColor(r: 244, g: 161, b: 111, a: 1)
         case Color.gadgetPlan: color  = ColorCodes.getColor(r: 205, g: 220, b: 57, a: 1)
         case Color.genericPlan: color  = ColorCodes.getColor(r: 244, g: 176, b: 58, a: 1)
-
             
         default:  color = UIColor.blackColor()
         }
         return color
     }
 
+    //This function will return the specific shadow color code for selected theme
     class func colorForShadow( colorCode: Int) -> UIColor {
         
         var color : UIColor! = UIColor.whiteColor()
@@ -79,6 +82,7 @@ class ColorCodes: NSObject {
         return color
     }
 
+    //This function is used to set the RGB contents.
     class func getColor(r r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/256.0, green: g/256.0, blue: b/256.0, alpha: a);
     }

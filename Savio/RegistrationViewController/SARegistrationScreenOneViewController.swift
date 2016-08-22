@@ -350,7 +350,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
     }
     //Register keyboard notification
-    
     func registerForKeyboardNotifications(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
@@ -538,13 +537,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         activeTextField.resignFirstResponder()
         self.removeKeyboardNotification()
     }
+    
     @IBAction func clickeOnDropDownArrow(sender:UIButton){
         self.showOrDismiss()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func showOrHideDropDownButtonPressed(sender: AnyObject) {
@@ -582,9 +577,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     
     func checkTextFieldContentSpecialChar(str:String)->Bool{
-        
         let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
-        
         if (str.rangeOfCharacterFromSet(characterSet) != nil) {
             return true
         }

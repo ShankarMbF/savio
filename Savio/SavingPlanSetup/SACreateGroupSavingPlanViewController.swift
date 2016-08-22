@@ -39,6 +39,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var isImageClicked = false
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
@@ -162,7 +163,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-            
+                //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if wishListArray!.count>0 {
                 let objSAWishListViewController = SAWishListViewController()
                 objSAWishListViewController.wishListArray = wishListArray!
@@ -179,6 +180,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     //TableViewDelegate methods
+    //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if parameterDict["isUpdate"]!.isEqualToString("Yes") {
             return offerArr.count + 3
@@ -188,10 +190,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     
+    //return the number of rows in each section in table view.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    //create custom cell from their respective Identifiers.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         if(indexPath.section == 0) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier", forIndexPath: indexPath) as! SetDayTableViewCell
@@ -301,16 +305,19 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     
+    //This is UITableViewDelegate method used to set the view for UITableView header.
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view : UIView = UIView()
         view.backgroundColor = UIColor.clearColor()
         return view
     }
     
+    //This is UITableViewDelegate method used to set the height of header.
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 3
     }
     
+    //This is UITableViewDelegate method used to set the height of rows per section.
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if(indexPath.section == 0) {
             return 64
@@ -366,6 +373,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         alert.show()
     }
     
+    //Dictionary to join the Group plan.
     func getParametersForUpdate() -> Dictionary<String,AnyObject>
     {
         var newDict : Dictionary<String,AnyObject> = [:]
@@ -414,6 +422,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         return newDict
     }
     
+    //Dictionary to send to the CreatePartySavingPlan API.
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var newDict : Dictionary<String,AnyObject> = [:]

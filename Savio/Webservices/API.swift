@@ -263,7 +263,6 @@ class API: UIView,NSURLSessionDelegate {
                     }
                 }
                 else {
-                    print(response?.description)
                     if let error = error
                     {
                         //return error to viewcontroller
@@ -379,7 +378,6 @@ class API: UIView,NSURLSessionDelegate {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        //print(dict)
                         if(dict["message"] as! String  == "Verification code is correct.")
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -391,8 +389,7 @@ class API: UIView,NSURLSessionDelegate {
                                 self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("Verification code is incorrect.")
                             }
                         }
-                        else
-                        {
+                        else {
                             //send error
                             dispatch_async(dispatch_get_main_queue()){
                                 self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("Verification code is incorrect.")
@@ -400,18 +397,14 @@ class API: UIView,NSURLSessionDelegate {
                         }
                         
                     }
-                    else
-                    {
+                    else {
                         if let error = error
                         {
-                            
                             dispatch_async(dispatch_get_main_queue()){
                                 self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI(error.localizedDescription)
                             }
                         }
-                        else
-                        {
-                            
+                        else {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI((error?.localizedDescription)!)
                             }
@@ -463,8 +456,6 @@ class API: UIView,NSURLSessionDelegate {
                     
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        
-                        print("\(dict)")
                         if let code = dict["errorCode"] as? NSString
                         {
                             if(code == "200")
@@ -505,9 +496,7 @@ class API: UIView,NSURLSessionDelegate {
                             }
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.logInDelegate?.errorResponseForOTPLogInAPI((response?.description)!)
                         }
@@ -518,9 +507,6 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.logInDelegate?.errorResponseForOTPLogInAPI(error.localizedDescription)
                     }
-                    
-                    print(error.localizedDescription)
-                    
                 }
             }
             dataTask.resume()
@@ -555,17 +541,13 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        //                        print("\(dict)")
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.successResponseForResetPasscodeAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else  {
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI((response?.description)!)
                         }
@@ -573,12 +555,9 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else if let error = error
                 {
-                    
                     dispatch_async(dispatch_get_main_queue()){
                         self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI(error.localizedDescription)
                     }
-                    print(error.localizedDescription)
-                    
                 }
                 
             }
@@ -605,17 +584,10 @@ class API: UIView,NSURLSessionDelegate {
     func getValueFromKeychainOfKey(key:String)-> AnyObject{
         //get the value of password from keychain
         return KeychainItemWrapper.load(key)
-        //        if (KeychainItemWrapper.load(key) as! String).isEmpty{
-        //            return ""
-        //        }
-        //        else {
-        //
-        //
-        //        }
-        
     }
     
     func deleteKeychainValue(key:String) {
+        //Delete value from Keychain
         KeychainItemWrapper.delete(key)
     }
     
@@ -632,7 +604,7 @@ class API: UIView,NSURLSessionDelegate {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        print(dict)
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -651,27 +623,21 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                         print(dict)
-                        
                         if(dict["errorCode"] as! String == "200")
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.shareExtensionDelegate?.successResponseForShareExtensionAPI(dict)
                             }
                         }
-                        else
-                        {
+                        else {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("Internal server error")
                             }
                         }
                     }
-                    else
-                    {
-                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.shareExtensionDelegate?.errorResponseForShareExtensionAPI((response?.description)!)
                         }
@@ -700,7 +666,6 @@ class API: UIView,NSURLSessionDelegate {
     
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
-        //        print(dict)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
@@ -710,8 +675,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
-        // print(dict)
-        
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -730,24 +694,19 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    // print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue()){
                             self.deleteWishList?.successResponseForDeleteWishListAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.deleteWishList?.errorResponseForDeleteWishListAPI((response?.description)!)
                         }
                     }
                 }
-                else  if let error = error
-                {
-                    
+                else  if let error = error  {
                     dispatch_async(dispatch_get_main_queue()){
                         self.deleteWishList?.errorResponseForDeleteWishListAPI(error.localizedDescription)
                     }
@@ -780,9 +739,9 @@ class API: UIView,NSURLSessionDelegate {
         
         if(isFromWishList == "FromWishList")
         {
+            //Check if network is present
             if(self.isConnectedToNetwork())
             {
-                
                 urlconfig.timeoutIntervalForRequest = 60
                 urlconfig.timeoutIntervalForResource = 60
                 let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -799,7 +758,6 @@ class API: UIView,NSURLSessionDelegate {
                     if let data = data
                     {
                         let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                        // print(json)
                         if let dict = json as? Dictionary<String,AnyObject>
                         {
                             dispatch_async(dispatch_get_main_queue()){
@@ -813,16 +771,11 @@ class API: UIView,NSURLSessionDelegate {
                             }
                         }
                     }
-                    else  if let error = error
-                    {
-                        
+                    else  if let error = error  {
                         dispatch_async(dispatch_get_main_queue()){
                             self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
                         }
-                        
-                        
                     }
-                    
                 }
                 dataTask.resume()
             }
@@ -833,6 +786,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else
         {
+            //Check if network is present
             if(self.isConnectedToNetwork())
             {
                 urlconfig.timeoutIntervalForRequest = 30
@@ -851,16 +805,13 @@ class API: UIView,NSURLSessionDelegate {
                     if let data = data
                     {
                         let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                        //print(json)
                         if let dict = json as? Dictionary<String,AnyObject>
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
                             }
                         }
-                        else
-                        {
-                            //                            print(response?.description)
+                        else  {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
                             }
@@ -902,6 +853,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -914,7 +866,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())
@@ -922,18 +873,13 @@ class API: UIView,NSURLSessionDelegate {
                             self.getWishlistDelegate?.successResponseForGetWishlistAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else  {
                         dispatch_async(dispatch_get_main_queue()){
                             self.getWishlistDelegate?.errorResponseForGetWishlistAPI((response?.description)!)
                         }
-                        
-                        
                     }
                 }
-                else  if let error = error
-                {
+                else  if let error = error {
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.getWishlistDelegate?.errorResponseForGetWishlistAPI(error.localizedDescription)
@@ -963,6 +909,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -976,7 +923,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())
@@ -984,24 +930,17 @@ class API: UIView,NSURLSessionDelegate {
                             self.categorySavingPlanDelegate?.successResponseForCategoriesSavingPlanAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI((response?.description)!)
                         }
                     }
                 }
-                else  if let error = error
-                {
-                    
+                else  if let error = error  {
                     dispatch_async(dispatch_get_main_queue()){
                         self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI(error.localizedDescription)
                     }
-                    
-                    
                 }
-                
             }
             dataTask.resume()
         }
@@ -1022,6 +961,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -1035,33 +975,24 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        //                        print(dict)
-                        
                         dispatch_async(dispatch_get_main_queue())
                         {
                             self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("Error")
                         }
                     }
                 }
-                else  if let error = error
-                {
-                    
+                else  if let error = error  {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(error.localizedDescription)
                     }
-                    
-                    print(error.localizedDescription)
-                    
+    
                 }
                 
             }
@@ -1085,6 +1016,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -1098,7 +1030,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())
@@ -1106,9 +1037,7 @@ class API: UIView,NSURLSessionDelegate {
                             self.getSavingPlanDelegate?.successResponseForGetUsersPlanAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI((response?.description)!)
                         }
@@ -1120,9 +1049,7 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI(error.localizedDescription)
                     }
-                    
                 }
-                
             }
             
             dataTask.resume()
@@ -1144,6 +1071,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -1162,16 +1090,13 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.successResponseForUpdateSavingPlanAPI(dict)
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateSavingPlanDelegate?.errorResponseForUpdateSavingPlanAPI((response?.description)!)
                         }
@@ -1206,6 +1131,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             
@@ -1222,10 +1148,8 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        //                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             self.getUserInfoDelegate?.successResponseForGetUserInfoAPI(dict)
@@ -1233,7 +1157,6 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else
                     {
-                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("Error")
                         }
@@ -1274,6 +1197,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -1291,7 +1215,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue()){
@@ -1300,7 +1223,6 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else
                     {
-                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI((response?.description)!)
                         }
@@ -1336,6 +1258,7 @@ class API: UIView,NSURLSessionDelegate {
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
@@ -1352,7 +1275,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())
@@ -1362,7 +1284,6 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else
                     {
-                        //                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI((response?.description)!)
                         }
@@ -1405,7 +1326,7 @@ class API: UIView,NSURLSessionDelegate {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        print("dictParam = \(dict)")
+        //Check if network is present
         if(self.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 60
@@ -1424,7 +1345,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    //                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         
@@ -1444,16 +1364,13 @@ class API: UIView,NSURLSessionDelegate {
                             }
                         }
                     }
-                    else
-                    {
-                        //                        print(response?.description)
+                    else {
                         dispatch_async(dispatch_get_main_queue()){
                             self.inviteMemberDelegate?.errorResponseForInviteMembersAPI((response?.description)!)
                         }
                     }
                 }
-                else  if let error = error
-                {
+                else  if let error = error {
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.inviteMemberDelegate?.errorResponseForInviteMembersAPI(error.localizedDescription)
@@ -1469,8 +1386,5 @@ class API: UIView,NSURLSessionDelegate {
             }
         }
     }
-    
-    
-    
-    
+ 
 }

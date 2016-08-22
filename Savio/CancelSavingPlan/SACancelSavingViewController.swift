@@ -19,12 +19,12 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var  objAnimView = ImageViewAnimation()
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         
-        //
+        //set attributed text for UILabel
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         paragraphStyle.alignment = NSTextAlignment.Center
@@ -42,13 +42,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         
         self.setUpView()
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+ 
+    //Set up the UIView
     func setUpView(){
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -74,6 +69,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         
+        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
@@ -96,12 +92,14 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    //MARK: Bar button action
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
         if wishListArray.count>0{
+            //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray
             self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -115,7 +113,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     @IBAction func keepSavingButtonPressed(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
+    //Call the API for cancelling the saving plan
     @IBAction func yesButtonPressed(sender: AnyObject) {
         self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
@@ -128,12 +126,14 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         
     }
     
+    //success rsponse of CancelSavingPlanDelegate
     func successResponseForCancelSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String
         {
             if (message == "Cancelled Plan successfully")
             {
+                //Remove the individualPlan's value from NSUserDefaults
                 NSUserDefaults.standardUserDefaults().setValue(0, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
@@ -144,10 +144,12 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         }
     }
     
+    //error rsponse of CancelSavingPlanDelegate
     func errorResponseForCancelSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
     }
     
+    //Your saving plan is canceled, go to create new saving plan
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {
         let objSavingPlan = SACreateSavingPlanViewController()
         self.navigationController?.pushViewController(objSavingPlan, animated: true)

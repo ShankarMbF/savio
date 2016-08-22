@@ -18,7 +18,6 @@ extension String {
 
 import UIKit
 
-
 class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var addFundsButton: UIButton!
     @IBOutlet weak var deductMoneyLabel: UILabel!
@@ -59,9 +58,9 @@ class SAImpulseSavingViewController: UIViewController {
         ]
     }
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.buildCircleSlider()
         self.setUpView()
     }
@@ -192,6 +191,7 @@ class SAImpulseSavingViewController: UIViewController {
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 92
+        //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -199,6 +199,7 @@ class SAImpulseSavingViewController: UIViewController {
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
+    //Go to SASpendViewController
     @IBAction func spendButtonPressed(sender: AnyObject) {
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
         self.navigationController?.pushViewController(objPlan, animated: false)
@@ -258,7 +259,7 @@ class SAImpulseSavingViewController: UIViewController {
     
     
     func heartBtnClicked(){
-        
+        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
             let objSAWishListViewController = SAWishListViewController()
             objSAWishListViewController.wishListArray = wishListArray

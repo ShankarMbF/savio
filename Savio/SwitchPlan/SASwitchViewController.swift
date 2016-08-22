@@ -12,10 +12,9 @@ class SASwitchViewController: UIViewController {
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
 
-
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.setUpView()
     }
@@ -27,8 +26,6 @@ class SASwitchViewController: UIViewController {
     
     
     func setUpView(){
-        
-        
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
@@ -82,17 +79,13 @@ class SASwitchViewController: UIViewController {
     }
     
     
-
-
-    
     //MARK: Bar button action
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     func heartBtnClicked(){
-        
-        
+        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
             
             let objSAWishListViewController = SAWishListViewController()
@@ -105,14 +98,4 @@ class SASwitchViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

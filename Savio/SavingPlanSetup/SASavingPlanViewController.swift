@@ -45,6 +45,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var dateFromUpdatePlan = ""
     var isCostChanged = false
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         offerArr.removeAll()
@@ -98,6 +99,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        //Set the contentsize of UIScrollView
         if(isUpdatePlan)
         {
             scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
@@ -164,6 +166,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let url = NSURL(string:itemDetailsDataDict["imageURL"] as! String)
             if(url != "")
             {
+                //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()
                 spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
                 spinner.hidesWhenStopped = true
@@ -176,12 +179,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     {
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
+                            //Remove the spinner after image load
                             spinner.stopAnimating()
                             spinner.hidden = true
                             self.topBackgroundImageView.image = image
                         })
                     }
                     else {
+                        //Remove the spinner if image is not present
                         spinner.stopAnimating()
                         spinner.hidden = true
                         self.topBackgroundImageView.image = UIImage(named: "generic-setup-bg.png")
@@ -216,6 +221,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             if(isClearPressed)
             {
+                //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()
                 spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, (self.topBackgroundImageView.frame.size.height/2)+20)
                 spinner.hidesWhenStopped = true
@@ -226,13 +232,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if !(itemDetailsDataDict["image"] is NSNull) {
                     if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                     {
-                        
+                     //load the image from URL
                         let request: NSURLRequest = NSURLRequest(URL: url)
                         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                             if(data?.length > 0)
                             {
                                 let image = UIImage(data: data!)
                                 dispatch_async(dispatch_get_main_queue(), {
+                                    //Remove the spinner after image load
                                     spinner.stopAnimating()
                                     spinner.hidden = true
                                     self.topBackgroundImageView.image = image
@@ -240,6 +247,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             }
                             else
                             {
+                                //Remove the spinner after image load
                                 spinner.stopAnimating()
                                 spinner.hidden = true
                             }
@@ -247,6 +255,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
+                    //Remove the spinner if image is not there
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
@@ -297,7 +306,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
-                
+                //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
                 let objSAWishListViewController = SAWishListViewController()
                 objSAWishListViewController.wishListArray = wishListArray!
                 self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
@@ -386,6 +395,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     //MARK: UITableviewDelegate and UITableviewDataSource methods
+    //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(isUpdatePlan)
         {
@@ -397,10 +407,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     
+    //return the number of rows in each section in table view.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    //create custom cell from their respective Identifiers.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         if(indexPath.section == 0) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
@@ -588,7 +600,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             button.tag = 0
                             cell1.segmentBar.toggleButton(button)
                         }
-                        else if(isChangeSegment){
+                        else if(isChangeSegment) {
                             let button = UIButton()
                             button.tag = 1
                             cell1.segmentBar.toggleButton(button)
@@ -865,16 +877,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.tblView.reloadData()
     }
     
+    //This is UITableViewDelegate method used to set the view for UITableView header.
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view : UIView = UIView()
         view.backgroundColor = UIColor.clearColor()
         return view
     }
     
+    //This is UITableViewDelegate method used to set the height of header.
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 3
     }
     
+    //This is UITableViewDelegate method used to set the height of rows per section.
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         if(indexPath.section == 0)
         {
@@ -938,6 +953,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         itemTitle = text
     }
     
+    //This is SegmentBarChangeDelegate method used to get the selected date/day for saving plans recurring payment.
     func getDateTextField(str: String) {
         popOverSelectedStr = str
         if(isUpdatePlan) {
@@ -959,8 +975,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView.reloadData()
     }
     
+    //This is SegmentBarChangeDelegate method used to get the selected date/day for saving plans recurring payment.
     func segmentBarChanged(str: String) {
-        
         if(isUpdatePlan) {
             if(str == "date")  {
                 dateString = "date"
@@ -991,6 +1007,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         isPopoverValueChanged = true
     }
     
+    //This is SavingPlanDatePickerCellDelegate method used to get the selected end date for user’s plan.
     func datePickerText(date: Int,dateStr:String) {
         dateDiff = date
         datePickerDate = dateStr
@@ -1004,6 +1021,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
+    //Clear all the data entered
     func clearButtonPressed()
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1058,7 +1076,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    //create Dictionary for creating saving plan
+    //Create Dictionary for creating saving plan
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]
@@ -1139,9 +1157,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         
         parameterDict["WISHLIST_ID"] = itemDetailsDataDict["id"]
-        
         parameterDict["PARTY_ID"] = userInfoDict["partyId"]
-        
         if(dateString == "date") {
             parameterDict["PAY_TYPE"] = "Month"
         }
@@ -1202,6 +1218,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan) {
+                    //Update the current plan
                     objAPI.updateSavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let dateParameter = NSDateFormatter()
@@ -1250,6 +1267,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.updateSavingPlan(newDict)
                 }
                 else  {
+                    //Create saving plan from wishlist
                     objAPI.partySavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     newDict["TITLE"] = self.getParameters()["TITLE"]
@@ -1330,6 +1348,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //This method is used to show the customized alert message to user
     func displayAlert(message:String)
     {
+        //Customization of UIAlertView
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.headIndent = 10
         paragraphStyle.alignment = NSTextAlignment.Left
@@ -1351,6 +1370,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         alert.show()
     }
     
+    //Delete the offer from added offers
     func closeOfferButtonPressed(sender:UIButton)
     {
         let indx = sender.tag - 5
@@ -1383,7 +1403,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView.reloadData()
     }
     
-    
+    //This method is used to get the selected/entered amount by user.
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
         if(isUpdatePlan) {
@@ -1461,6 +1481,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         isImageClicked = true
     }
     
+    //Cancel the image picker action
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
@@ -1469,6 +1490,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String {
             if(message == "Success") {
+                //Create a dictionary to send SASavingSummaryViewController
+                
+                //Add spinner to the topBackgroundImageView until the image loads
                 let spinner =  UIActivityIndicatorView()
                 spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, (self.topBackgroundImageView.frame.size.height/2)+20)
                 spinner.hidesWhenStopped = true
@@ -1498,6 +1522,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             if(data?.length > 0) {
                                 let image = UIImage(data: data!)
                                 dispatch_async(dispatch_get_main_queue(), {
+                                    //Remove the spinner after image load
                                     spinner.stopAnimating()
                                     spinner.hidden = true
                                     self.topBackgroundImageView.image = image
@@ -1505,6 +1530,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 })
                             }
                             else {
+                                //Remove the spinner after image load
                                 spinner.stopAnimating()
                                 spinner.hidden = true
                             }
@@ -1514,6 +1540,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
+                    //Remove the spinner after image load
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
@@ -1556,7 +1583,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 alert.show()
             }
             else if(message == "Party Saving Plan is succesfully added") {
-                
+               //Create a dictionary to send SASavingSummaryViewController
                 var dict :  Dictionary<String,AnyObject> = [:]
                 dict["title"] = self.getParameters()["TITLE"]
                 dict["amount"] = self.getParameters()["AMOUNT"]
@@ -1620,6 +1647,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String
         {
+            
+            //Create a dictionary to send SASavingSummaryViewController
             var dict :  Dictionary<String,AnyObject> = [:]
             dict["title"] = itemTitle
             dict["amount"] = String(format:"%d",cost)

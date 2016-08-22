@@ -27,41 +27,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var objRegisterViewController: SARegistrationScreenOneViewController?
     var objCreateViewController: CreatePINViewController?
     
-    
+    //Set up the window and UINavigationViewController
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+        //Import the library for finding crashes
         Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)
         
         // Check if launched from notification
-        // 1
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
             // Do the stuff after geting Notification when app is not running mode
         }
         
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        //   window = UIWindow(frame:CGRect(x: 0, y: 20, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
-        
-        
+       
+        //Set the status bar color
         self.setStatusBarBackgroundColor(UIColor.blackColor())
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
-        //Check if keychain has encrypted pin value
+        
+        //Check if keychain has encrypted pin value.
         let objApi = API()
         
+        //Check if passcode is stored into keychain.
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
+            //If passcode is empty go to SARegistrationViewController.
             if(passcode != "")
             {
+                //Check if userInfo is stored into keychain.
                 if let userInfoDict = objApi.getValueFromKeychainOfKey("userInfo") as? Dictionary<String,AnyObject>
                 {
-                    print(userInfoDict)
                     let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-                    print(udidDict)
-                    print(Device.udid)
-                    
                     let udidArray = udidDict[0]
-                    
+                    //Check if current deviceID is present in keychain.
                     if(udidArray["DEVICE_ID"] as! String  == Device.udid)
                     {
                         //else Go to SAEnterYourPINViewController
@@ -104,6 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = objSANav
             
         }
+        //Customize the UINavigationBar
         objSANav!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 20)!]
         objSANav?.navigationBarHidden = true
         
@@ -112,8 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    //Set statusBarBackgrounColor
     func setStatusBarBackgroundColor(color: UIColor) {
-        
         guard  let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow")?.valueForKey("statusBar") as? UIView else {
             return
         }
@@ -143,19 +142,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    
+    //Register device for APNS.
     func registerForPushNotifications(application: UIApplication) {
         let notificationSettings = UIUserNotificationSettings(
             forTypes: [.Badge, .Sound, .Alert], categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
     }
     
+    //Delegate method to verfy if the user accepts or denys the APNS.
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
         if notificationSettings.types != .None {
             application.registerForRemoteNotifications()
         }
     }
     
+    //Delegate method invoke when APNS is successfully registered, and provide deviceToken.
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
         var tokenString = ""
@@ -170,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
+    //Delegate method invoke when the APNS registration is failed
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         print("Failed to register:", error)
     }
@@ -177,15 +179,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Handle notifications
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         let aps = userInfo["aps"] as! [String: AnyObject]
-        
-        // 1
+   
         if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
             // Refresh App with new Content
-            // 2
             
         } else  {
-            //
-            // 4
+       
         }
     }
     

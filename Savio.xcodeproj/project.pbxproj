@@ -75,8 +75,6 @@
 		A841DAC01D507F9E00846F46 /* 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A841DAA51D507F9E00846F46 /* 7@3x.png */; };
 		A841DAC11D507F9E00846F46 /* 8@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A841DAA61D507F9E00846F46 /* 8@3x.png */; };
 		A841DAC21D507F9E00846F46 /* 9@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A841DAA71D507F9E00846F46 /* 9@3x.png */; };
-		A84625AD1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84625AB1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift */; };
-		A84625AE1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A84625AC1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib */; };
 		A850454C1CF823D8002E8B47 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A850454A1CF823D8002E8B47 /* SwitchTableViewCell.swift */; };
 		A850454D1CF823D8002E8B47 /* SwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A850454B1CF823D8002E8B47 /* SwitchTableViewCell.xib */; };
 		A858A5BC1D07EB570097546F /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A858A5BB1D07EB570097546F /* MainInterface.storyboard */; };
@@ -454,10 +452,6 @@
 		C97949671CEC381C00416BD5 /* Page4.png in Resources */ = {isa = PBXBuildFile; fileRef = C97949621CEC381C00416BD5 /* Page4.png */; };
 		C97949681CEC381C00416BD5 /* Page5.png in Resources */ = {isa = PBXBuildFile; fileRef = C97949631CEC381C00416BD5 /* Page5.png */; };
 		C97949771CEC987900416BD5 /* ColorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97949721CEC987900416BD5 /* ColorCodes.swift */; };
-		C97949781CEC987900416BD5 /* FontCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97949731CEC987900416BD5 /* FontCodes.swift */; };
-		C97949791CEC987900416BD5 /* VTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97949741CEC987900416BD5 /* VTButton.swift */; };
-		C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97949751CEC987900416BD5 /* VTLabel.swift */; };
-		C979497B1CEC987900416BD5 /* VTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97949761CEC987900416BD5 /* VTView.swift */; };
 		C97A351B1CF6CC7900BEB441 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A35191CF6CC7900BEB441 /* icon.png */; };
 		C97A351C1CF6CC7900BEB441 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351A1CF6CC7900BEB441 /* icon@2x.png */; };
 		C97A351E1CF6D55D00BEB441 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97A351D1CF6D55D00BEB441 /* icon@3x.png */; };
@@ -674,8 +668,6 @@
 		A841DAA51D507F9E00846F46 /* 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "7@3x.png"; sourceTree = "<group>"; };
 		A841DAA61D507F9E00846F46 /* 8@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8@3x.png"; sourceTree = "<group>"; };
 		A841DAA71D507F9E00846F46 /* 9@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9@3x.png"; sourceTree = "<group>"; };
-		A84625AB1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAEnterPhoneNumberViewController.swift; sourceTree = "<group>"; };
-		A84625AC1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAEnterPhoneNumberViewController.xib; sourceTree = "<group>"; };
 		A850454A1CF823D8002E8B47 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		A850454B1CF823D8002E8B47 /* SwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchTableViewCell.xib; sourceTree = "<group>"; };
 		A858A5BB1D07EB570097546F /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
@@ -1051,10 +1043,6 @@
 		C97949621CEC381C00416BD5 /* Page4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Page4.png; sourceTree = "<group>"; };
 		C97949631CEC381C00416BD5 /* Page5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Page5.png; sourceTree = "<group>"; };
 		C97949721CEC987900416BD5 /* ColorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCodes.swift; sourceTree = "<group>"; };
-		C97949731CEC987900416BD5 /* FontCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontCodes.swift; sourceTree = "<group>"; };
-		C97949741CEC987900416BD5 /* VTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTButton.swift; sourceTree = "<group>"; };
-		C97949751CEC987900416BD5 /* VTLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTLabel.swift; sourceTree = "<group>"; };
-		C97949761CEC987900416BD5 /* VTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VTView.swift; sourceTree = "<group>"; };
 		C97A35191CF6CC7900BEB441 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../../icon.png; sourceTree = "<group>"; };
 		C97A351A1CF6CC7900BEB441 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../../icon@2x.png"; sourceTree = "<group>"; };
 		C97A351D1CF6D55D00BEB441 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@3x.png"; path = "../../icon@3x.png"; sourceTree = "<group>"; };
@@ -1366,15 +1354,6 @@
 				A841DAA71D507F9E00846F46 /* 9@3x.png */,
 			);
 			path = 3x;
-			sourceTree = "<group>";
-		};
-		A84625AA1CF712BB004C07DD /* PhoneNumberViewController */ = {
-			isa = PBXGroup;
-			children = (
-				A84625AB1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift */,
-				A84625AC1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib */,
-			);
-			path = PhoneNumberViewController;
 			sourceTree = "<group>";
 		};
 		A86681DE1CFEC26D0014DB59 /* SavioWishList */ = {
@@ -1952,10 +1931,6 @@
 			isa = PBXGroup;
 			children = (
 				C97949721CEC987900416BD5 /* ColorCodes.swift */,
-				C97949731CEC987900416BD5 /* FontCodes.swift */,
-				C97949741CEC987900416BD5 /* VTButton.swift */,
-				C97949751CEC987900416BD5 /* VTLabel.swift */,
-				C97949761CEC987900416BD5 /* VTView.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -2090,7 +2065,6 @@
 				C91E23E41D029C3300DC6D29 /* WishListViewController */,
 				A86681EF1CFEF10A0014DB59 /* SavingPlanSetup */,
 				C90571931CFEAA8500ECC4FC /* SACreateSavingPlanViewController */,
-				A84625AA1CF712BB004C07DD /* PhoneNumberViewController */,
 				A86CD62E1CF47E8000222765 /* HurrayViewController */,
 				C95CD6101CF2C92100013200 /* DropDownList */,
 				A897514B1CEF07D400F122AD /* PINViewController */,
@@ -2685,7 +2659,6 @@
 				A8AEA9431CFFF1DE0069F22A /* NextButtonTableViewCell.xib in Resources */,
 				A82B9C971D06AAEA00BFD084 /* offer-close@1x.png in Resources */,
 				A88E81CF1D49EA0F00CAA00F /* stats-achievement-badge@2x.png in Resources */,
-				A84625AE1CF712D0004C07DD /* SAEnterPhoneNumberViewController.xib in Resources */,
 				C9361EB41D30C18300605E1B /* social-fb@3x.png in Resources */,
 				A858A5F81D08127C0097546F /* group-save-circle@3x.png in Resources */,
 				A86CD6321CF47E8000222765 /* HurreyViewController.xib in Resources */,
@@ -3020,7 +2993,6 @@
 				A892E6021D5C364100155B05 /* SARegistrationScreenSecondViewController.swift in Sources */,
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
-				C97949781CEC987900416BD5 /* FontCodes.swift in Sources */,
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
 				A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */,
@@ -3036,7 +3008,6 @@
 				A8392A1E1CEED33600C7EE48 /* NSString-MD5.swift in Sources */,
 				C9854A991CED9A5000D09AB3 /* SAWelcomeViewController.swift in Sources */,
 				A8095B981CEDC4D5006366F7 /* ImportantInformationView.swift in Sources */,
-				C979497A1CEC987900416BD5 /* VTLabel.swift in Sources */,
 				C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */,
 				A86CD6311CF47E8000222765 /* HurreyViewController.swift in Sources */,
 				A8900C211D2FB27F00D8CD0F /* CircleSlider.swift in Sources */,
@@ -3051,13 +3022,11 @@
 				C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */,
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
-				C97949791CEC987900416BD5 /* VTButton.swift in Sources */,
 				A89A28041D34B6A400722A19 /* Piechart.swift in Sources */,
 				C9A807D41D33A3910053A07B /* SAEditUserInfoViewController.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
 				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,
-				A84625AD1CF712D0004C07DD /* SAEnterPhoneNumberViewController.swift in Sources */,
 				C95CD6171CF2C92100013200 /* DPDConstants.swift in Sources */,
 				C95CD61A1CF2C92100013200 /* DropDown.swift in Sources */,
 				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
@@ -3088,7 +3057,6 @@
 				C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */,
 				C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */,
 				A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */,
-				C979497B1CEC987900416BD5 /* VTView.swift in Sources */,
 				A82796151D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift in Sources */,
 				A86D629E1D20F26E00B2087D /* CancelButtonTableViewCell.swift in Sources */,
 			);

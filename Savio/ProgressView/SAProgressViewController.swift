@@ -31,35 +31,31 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     let spinner =  UIActivityIndicatorView()
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
     
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
-        // Do any additional setup after loading the view.
-        
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
-        
         self.setUPNavigation()
+        
+        //Create obj of ImageViewAnimation to show user while  uploading/downloading something
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
          savingPlanTitleLabel.hidden = true
         self.view.addSubview(objAnimView)
         
+        //Create API class object to get usersSaving Plan
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         objAPI.getUsersSavingPlan("i")
        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    //This method is used to set the contentSize of UIScrollView
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
@@ -140,7 +136,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         {
              totalAmount = amount.floatValue
         }
-         //get the total paid amount of plan from the Dictionary
+        //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
             paidAmount = totalPaidAmount.floatValue
@@ -172,12 +168,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             if !(savingPlanDetailsDict["image"] is NSNull) {
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
-
+                    //load image from url
                     let request: NSURLRequest = NSURLRequest(URL: url)
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         if(data?.length > 0){
                             let image = UIImage(data: data!)
                             dispatch_async(dispatch_get_main_queue(), {
+                                //Remove the activityIndicator after image load
                                 imgView.image = image
                                 activityIndicator.stopAnimating()
                                 activityIndicator.hidden = true
@@ -185,12 +182,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                         }
                         else
                         {
+                            //Remove the activityIndicator after image load
                             activityIndicator.stopAnimating()
                             activityIndicator.hidden = true
                         }
                     })
                 }
                 else {
+                    //Remove the activityIndicator if image is not present
                     activityIndicator.stopAnimating()
                     activityIndicator.hidden = true
                 }

@@ -39,7 +39,7 @@
     var imagePicker = UIImagePickerController()
     var isContactAdded = false
     
-    
+    //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -72,12 +72,7 @@
         topBackgroundImageView.layer.masksToBounds = true
         
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     func setUpView(){
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -103,7 +98,7 @@
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-            
+            //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if(wishListArray!.count > 0) {
                 
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -125,18 +120,21 @@
             
             let request: NSURLRequest = NSURLRequest(URL: url!)
             if(urlString != "") {
+                
+                //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()
                 spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
                 spinner.hidesWhenStopped = true
                 spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
                 topBackgroundImageView.addSubview(spinner)
                 spinner.startAnimating()
-                
+                //load the image from URL
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if(data?.length > 0) {
                         let image = UIImage(data: data!)
 
                         dispatch_async(dispatch_get_main_queue(), {
+                            //Remove the spinner after image load
                             spinner.stopAnimating()
                             spinner.hidden = true
                             self.cameraButton.hidden = true
@@ -144,6 +142,7 @@
                         })
                     }
                     else {
+                        //Remove the spinner after image load
                         spinner.stopAnimating()
                         spinner.hidden = true
                     }
@@ -381,7 +380,7 @@
     }
     
     // MARK: - UITableViewDelegate methods
-    
+    //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if itemDetailsDataDict["title"] != nil {
             return 4
@@ -390,6 +389,7 @@
         }
     }
     
+    //return the number of rows in each section in table view.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 4) {
             return participantsArr.count
@@ -400,8 +400,8 @@
         }
     }
     
+    //create custom cell from their respective Identifiers.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        
         if(indexPath.section == 0)  {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
@@ -630,12 +630,14 @@
         }
     }
     
+    //This is UITableViewDelegate method used to set the view for UITableView header.
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view : UIView = UIView()
         view.backgroundColor = UIColor.clearColor()
         return view
     }
     
+    //This is UITableViewDelegate method used to set the height of header.
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(section == 4) {
             if(participantsArr.count > 0) {
@@ -650,6 +652,8 @@
             return 3
         }
     }
+    
+    //This is UITableViewDelegate method used to set the height of rows per section.
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         if(indexPath.section == 0) {
             return 44
@@ -682,7 +686,7 @@
         }
     }
     
-    
+    //Create Dictionary to send to the CreatePartySavingPlan API.
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var parameterDict : Dictionary<String,AnyObject> = [:]

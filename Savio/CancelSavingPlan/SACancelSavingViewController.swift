@@ -129,6 +129,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     //success rsponse of CancelSavingPlanDelegate
     func successResponseForCancelSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if (message == "Cancelled Plan successfully")
@@ -137,16 +138,30 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
                 NSUserDefaults.standardUserDefaults().setValue(0, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
                 
                 view1.hidden = true
                 view2.hidden = false
             }
+            else {
+                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            
         }
+        else  if let message = objResponse["error"] as? String{
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
     }
     
     //error rsponse of CancelSavingPlanDelegate
     func errorResponseForCancelSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     //Your saving plan is canceled, go to create new saving plan

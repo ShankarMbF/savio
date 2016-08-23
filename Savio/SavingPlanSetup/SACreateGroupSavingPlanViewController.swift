@@ -111,7 +111,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
 
-        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
+        if (parameterDict["imageURL"] as! String != "" &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let urlString = parameterDict["imageURL"] as? String {
                 let data :NSData = NSData(base64EncodedString: urlString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBgImageView.image = UIImage(data: data)
@@ -596,9 +596,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "Party Saving Plan is succesfully added") {
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                    let objGroupProgress = SAGroupProgressViewController()
-                    self.navigationController?.pushViewController(objGroupProgress, animated: true)
+                    //Navigate to showing group progress
+                     NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
                     objAnimView.removeFromSuperview()
                 }
                 else {

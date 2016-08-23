@@ -98,15 +98,17 @@ class SASavingSummaryViewController: UIViewController {
     @IBAction func btnContinueClicked(sender: AnyObject) {
         // Navigate app as per plan type
         let str = itemDataDict["planType"] as! String
+        
         if str == "group" {
             //Navigate to showing group progress
-            let objGroupProgress = SAGroupProgressViewController()
-            self.navigationController?.pushViewController(objGroupProgress, animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
         }
         else {
-            //Navigate to showing individual progress screen
-            let objProgress = SAProgressViewController()
-            self.navigationController?.pushViewController(objProgress, animated: true)
+             //Navigate to showing individual progress screen
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
+
         }
     }
     

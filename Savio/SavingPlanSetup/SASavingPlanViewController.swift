@@ -1692,7 +1692,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
     }
     
     //MARK: Offer delegate methods

@@ -656,7 +656,9 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
+             dispatch_async(dispatch_get_main_queue()){
             self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
+            }
         }
         
     }

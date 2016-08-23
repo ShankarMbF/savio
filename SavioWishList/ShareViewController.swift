@@ -29,9 +29,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         priceTextField.resignFirstResponder()
         let objAPI = API()
         
-        
-        
-        
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         
         if  let data = defaults.valueForKey("myPasscode") as? NSData

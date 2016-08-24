@@ -95,9 +95,8 @@ class SASpendViewController: UIViewController {
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = wishListArray
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")

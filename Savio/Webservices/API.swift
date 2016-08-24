@@ -11,10 +11,10 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
+//let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-//let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
+let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
@@ -623,6 +623,7 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         if(dict["errorCode"] as! String == "200")
@@ -645,6 +646,7 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
+                    print(response?.description)
                     dispatch_async(dispatch_get_main_queue()){
                         self.shareExtensionDelegate?.errorResponseForShareExtensionAPI(error.localizedDescription)
                     }
@@ -656,7 +658,9 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
+             dispatch_async(dispatch_get_main_queue()){
             self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
+            }
         }
         
     }

@@ -111,7 +111,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
 
-        if (parameterDict["imageURL"] != nil &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
+        if (parameterDict["imageURL"] as! String != "" &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let urlString = parameterDict["imageURL"] as? String {
                 let data :NSData = NSData(base64EncodedString: urlString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBgImageView.image = UIImage(data: data)
@@ -165,9 +165,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
                 //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if wishListArray!.count>0 {
-                let objSAWishListViewController = SAWishListViewController()
-                objSAWishListViewController.wishListArray = wishListArray!
-                self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
@@ -369,6 +368,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func displayAlert(message:String)
     {
+        //Show of UIAlertView
         let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
@@ -596,9 +596,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "Party Saving Plan is succesfully added") {
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                    let objGroupProgress = SAGroupProgressViewController()
-                    self.navigationController?.pushViewController(objGroupProgress, animated: true)
+                    //Navigate to showing group progress
+                     NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
                     objAnimView.removeFromSuperview()
                 }
                 else {

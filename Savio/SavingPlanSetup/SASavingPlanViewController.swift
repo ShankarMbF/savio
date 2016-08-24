@@ -307,10 +307,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
                 //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
-                let objSAWishListViewController = SAWishListViewController()
-                objSAWishListViewController.wishListArray = wishListArray!
-                self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
-            }
+                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")            }
             else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
@@ -422,6 +420,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(itemDetailsDataDict["title"] != nil)
             {
                 cell1.titleTextField.text = itemTitle
+                cell1.titleTextField.textColor = UIColor(red:244/255, green: 176/255, blue: 58/255, alpha: 1)
             }
             if(isClearPressed)
             {
@@ -429,8 +428,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 }
-                else
-                {
+                else {
                     cell1.titleTextField.text = itemTitle
                 }
             }
@@ -1348,25 +1346,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //This method is used to show the customized alert message to user
     func displayAlert(message:String)
     {
-        //Customization of UIAlertView
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.headIndent = 10
-        paragraphStyle.alignment = NSTextAlignment.Left
-        
-        let messageText = NSMutableAttributedString(
-            string: message,
-            attributes: [
-                NSParagraphStyleAttributeName: paragraphStyle,
-                NSForegroundColorAttributeName : UIColor.blackColor()
-            ]
-        )
-        let alert = UIAlertView(title: "Alert", message: "", delegate: nil, cancelButtonTitle: "Ok")
-        let label = UILabel()
-        label.sizeToFit()
-        label.attributedText = messageText
-        label.numberOfLines = 0
-        label.textAlignment = .Left
-        alert.setValue(label, forKey: "accessoryView")
+        //Show of UIAlertView
+        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -1692,7 +1673,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
     }
     
     //MARK: Offer delegate methods

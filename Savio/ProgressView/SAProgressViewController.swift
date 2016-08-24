@@ -34,7 +34,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
@@ -93,7 +94,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
             if(wishListArray.count > 0)
             {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
@@ -105,7 +105,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -199,7 +198,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 activityIndicator.hidden = true
             }
             
-            
             if(i == 0)
             {
                 labelOne.hidden = true
@@ -207,8 +205,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 imgView.hidden = false
                 imgView.layer.cornerRadius = imgView.frame.width/2
             }
-            else if(i == 1)
-            {
+            else if(i == 1) {
                 labelOne.hidden = false
                 labelOne.text = "0.0%"
                 labelTwo.hidden = false
@@ -216,8 +213,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 imgView.hidden = true
                 activityIndicator.hidden = true
             }
-            else
-            {
+            else {
                 labelOne.hidden = false
                 labelOne.text = String(format: "£ %0.2f",totalAmount - paidAmount)
                 labelTwo.hidden = false
@@ -233,7 +229,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         maskLayer.frame = self.planButton!.bounds
         maskLayer.path = maskPath.CGPath
         self.planButton?.layer.mask = maskLayer
-        
     }
     
     //MARK: Bar button action
@@ -244,9 +239,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            let objSAWishListViewController = SAWishListViewController()
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
-        }
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -278,7 +272,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.navigationController?.pushViewController(obj, animated: false)
     }
     
-    
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
@@ -295,12 +288,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
     
-    
     @IBAction func impulseSavingButtonPressed(sender: UIButton) {
         let objImpulseSave = SAImpulseSavingViewController()
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
-    
     
     //get users plan delegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
@@ -311,15 +302,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }
-            else
-            {
+            else {
             pageControl.hidden = true
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             }
         }
-        else
-        {
+        else {
             pageControl.hidden = true
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -331,6 +320,5 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()
-    }
-    
-   }
+    }    
+}

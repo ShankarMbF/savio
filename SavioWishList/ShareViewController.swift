@@ -18,9 +18,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     @IBOutlet var textView: UITextView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var bgView: UIView!
+    
     var spinner =  UIActivityIndicatorView()
     var currentImagePosition: Int = 0;
     var dictGlobal : Dictionary  <String,AnyObject> = [:]
+    
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
     }
@@ -38,24 +40,19 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
                 { action -> Void in
                     self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
-                    
                     })
-                
                 self.presentViewController(alert, animated: true, completion: nil)
-                //self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
             }
             else
             {
                 if self.textView.text.characters.count == 0 && self.priceTextField.text?.characters.count == 0 || self.imageView.image == nil {
                     let alert = UIAlertController(title: "Warning", message: "Looks like required content is not scraped properly, please try again.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                    
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 else if self.textView.text.characters.count == 0 {
                     let alert = UIAlertController(title: "Warning", message: "Please enter title for product", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                    
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 else if self.priceTextField.text!.characters.count == 0 {
@@ -67,12 +64,9 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 
                else if((priceTextField.text! as NSString).floatValue > 3000)
                 {
-                
                     let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                    
                     self.presentViewController(alert, animated: true, completion: nil)
-                    
                 }
                 
                 else {
@@ -87,7 +81,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         if(self.imageView.image != nil)
                         {
                         let imageData:NSData = UIImageJPEGRepresentation(self.imageView.image!, 1.0)!
-                 
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                         var newDict : Dictionary<String,AnyObject> = [:]
                         newDict["imageName.jpg"] = base64String
@@ -95,11 +88,9 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         }
                         let data = defaults.valueForKey("userInfo") as! NSData
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
-                        
                         dict["TITLE"] = self.textView.text
                         dict["AMOUNT"] = self.priceTextField.text?.stringByReplacingOccurrencesOfString("£", withString: "")
                         dict["PARTYID"] = userDict!["partyId"]
-                        
                         dict["SHAREDSAVINGPLANID"] = ""
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)
@@ -109,14 +100,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 
             }
         }
-        else
-        {
-            
+        else {
             spinner.stopAnimating()
             spinner.hidden = true
             let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            
             self.presentViewController(alert, animated: true, completion: nil)
         }
         
@@ -124,7 +112,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     //UITextfieldDelegate method
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
         let currentCharacterCount = textField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
@@ -149,7 +136,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     {
         return textField.resignFirstResponder()
     }
-    
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if(UIScreen.mainScreen().bounds.size.height == 480)
@@ -180,39 +166,52 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     
     @IBAction func rightButtonPressed(sender: AnyObject) {
-        
         let imgString = self.dictGlobal["image"] as! String
         let arrayImgUrl:  Array? = imgString.componentsSeparatedByString("#~@")   // #~@ taken from ShareExtensio.js file
         currentImagePosition += 1;
         if currentImagePosition >= arrayImgUrl?.count {
             currentImagePosition -= 1
         }
-        else
-        {
+        else {
             self.showImage(currentImagePosition)
         }
-        
     }
+    //UIView life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for item: AnyObject in (self.extensionContext?.inputItems)! {
             let inputItem = item as! NSExtensionItem
             for provider: AnyObject in inputItem.attachments! {
                 let itemProvider = provider as! NSItemProvider
-                
+                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
                     itemProvider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil, completionHandler: { (result: NSSecureCoding?, error: NSError!) -> Void in
                         if let resultDict = result as? NSDictionary {
                             print(resultDict)
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
+                                defaults.setObject(self.dictGlobal, forKey: "ScrapingResult")
                                 self.textView.text = self.dictGlobal["title"] as! String
                                 self.priceTextField.text = self.dictGlobal["price"] as? String
                             });
                             self.showImage(self.currentImagePosition)
                             
                         }
+                        else {
+                            print("no dictionary found")
+                        }
                     })
+                }
+                else{
+                    print("here")
+                   self.dictGlobal = defaults.valueForKey("ScrapingResult") as! Dictionary<String,AnyObject>
+                    print(dictGlobal)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.textView.text = self.dictGlobal["title"] as! String
+                        self.priceTextField.text = self.dictGlobal["price"] as? String
+                    });
+                    self.showImage(self.currentImagePosition)
                 }
             }
         }
@@ -225,6 +224,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         bgView.layer.cornerRadius = 5
         bgView.layer.masksToBounds = true
         priceTextField.inputAccessoryView = customToolBar
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+       
     }
     
     func doneBarButtonPressed() {
@@ -254,18 +257,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             
             var imgURLString: String? = arrayImgUrl![idx] as String
             imgURLString = imgURLString?.stringByReplacingOccurrencesOfString("'", withString: "")
-            
             let imgURL: NSURL? = NSURL.init(string: imgURLString!)
-            
             let imgData:  NSData? = NSData.init(contentsOfURL: imgURL!)
-            
             if imgData != nil {
                 self.imageView.image = UIImage(data: imgData!)
-                
             }
-            
             self.lblImagePagingCount.text = String(format: "%d / %d", arguments:[idx+1, (arrayImgUrl?.count)!])
-            
         });
     }
     
@@ -279,23 +276,17 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
             
             })
-        
         self.presentViewController(alert, animated: true, completion: nil)
-        //
     }
     
     func errorResponseForShareExtensionAPI(error: String) {
-        //        dispatch_async(dispatch_get_main_queue()){
         spinner.stopAnimating()
         spinner.hidden = true
-        //  }
         let alert = UIAlertController(title: "Warning", message: error, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
             self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
-            
             })
-        
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }

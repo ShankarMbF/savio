@@ -310,7 +310,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 //Check if savingPlanTransactionList is present
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
-                    for var i in 0 ..< transactionArray.count {
+                    for i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
                         paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
                     }
@@ -376,7 +376,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 //Check if savingPlanTransactionList array is present
                 if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
                 {
-                    for var i in 0 ..< transactionArray.count {
+                    for i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
                         paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
                     }
@@ -416,9 +416,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            let objSAWishListViewController = SAWishListViewController()
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
-        }
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -499,7 +498,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let cellDict = participantsArr[indexPath.row]
         //Adjust the Constraint constant for ecpand and collapse of UITableViewCell
         if prevIndxArr.count > 0 {
-            for var i in 0 ..< prevIndxArr.count {
+            for i in 0 ..< prevIndxArr.count {
                 
                 if prevIndxArr[i] == indexPath.row {
                     cell?.topVwHt.constant = 22.0
@@ -528,7 +527,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         //Check if savingPlanTransactionList array is present
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
-            for var i in 0 ..< transactionArray.count {
+            for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
                 paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
                 cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
@@ -656,7 +655,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if prevIndxArr.count > 0 {
-            for var i in 0 ..< prevIndxArr.count {
+            for i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
                     if indexPath.row == 0 {
                         return 220
@@ -690,9 +689,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
-            
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
             }

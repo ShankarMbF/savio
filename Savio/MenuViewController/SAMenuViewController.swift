@@ -8,26 +8,39 @@
 
 import UIKit
 
-class SAMenuViewController: UIViewController {
-
+class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
     @IBOutlet weak var menuTable: UITableView?
     var arrMenu: Array<Dictionary<String,AnyObject>> = []
+    var isFromSummary = false
     
-     // MARK: - ViewController life cycle Method
+    // MARK: - ViewController life cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup Menu as per plan created
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodForSelectRowAtIndexPath:"), name:"SelectRowIdentifier", object: nil)
         //Set up UI for Menu
         self.setUpUI()
     }
-
+    
     //Function invoke when NotificationIdentifier notification brodcast
     func methodOfReceivedNotification(notification: NSNotification){
         //Take Action on Notification
         arrMenu.removeAll()
         self.setUpUI()
         menuTable?.reloadData()
+    }
+    
+    func methodForSelectRowAtIndexPath(notification: NSNotification)
+    {
+         if let indxPath = NSUserDefaults.standardUserDefaults().valueForKey("SelectedIndexPath") as? Int
+         {
+          self.deSelectRow(NSIndexPath(forRow: indxPath,inSection: 0))
+        }
+        isFromSummary = true
+        self.selectRow(NSIndexPath(forRow: 1,inSection: 0))
     }
     
     //Function invoking for setup the UI
@@ -42,18 +55,18 @@ class SAMenuViewController: UIViewController {
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-
+        
         //Set up number of menu as per plan created
         for i in 0 ..< arr.count {
             var dict = arr[i] as! Dictionary<String,AnyObject>
             if dict["className"]!.isEqualToString("SAProgressViewController") {
-                                dict["showInMenu"] = "No"
+                dict["showInMenu"] = "No"
                 if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){
                     dict["showInMenu"] = "Yes"
                     arrMenu.append(dict)
                 }
             }
-           else if dict["className"]!.isEqualToString("SASavingPlanViewController") {
+            else if dict["className"]!.isEqualToString("SASavingPlanViewController") {
                 dict["showInMenu"] = "No"
                 if(individualFlag == 1){
                     dict["showInMenu"] = "Yes"
@@ -72,7 +85,7 @@ class SAMenuViewController: UIViewController {
     }
     
     
-         // MARK: - Tableview datasource and delegate
+    // MARK: - Tableview datasource and delegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.arrMenu.count
     }
@@ -98,39 +111,51 @@ class SAMenuViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-         let dict =  self.arrMenu[indexPath.row]
-        // Identifying selected cell
-        let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+        let dict =  self.arrMenu[indexPath.row]
+        
+        let selectedCell:MenuTableViewCell? = menuTable!.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
         //Changing background color of selected row
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         let imageName =  dict["activeImage"] as! String
         let imageIcon = UIImage(named: imageName)
         selectedCell?.icon?.image = imageIcon
-       
+
         let className: String = dict["className"] as! String
         print(className)
+        
+        NSUserDefaults.standardUserDefaults().setObject(indexPath.row, forKey: "SelectedIndexPath")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         //Brodcast the notification for navigating flow
+        if(isFromSummary == false)
+        {
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
+        }
+        
     }
     
     // Just set it back in deselect
-     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell:MenuTableViewCell? = tableView.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+
+        let indxPath = NSUserDefaults.standardUserDefaults().valueForKey("SelectedIndexPath") as? Int
+        self.menuTable?.deselectRowAtIndexPath(NSIndexPath(forRow: indxPath!,inSection:0), animated: true)
+        
+        let selectedCell:MenuTableViewCell? = menuTable!.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
         selectedCell!.contentView.backgroundColor = UIColor.whiteColor()
         let dict =  self.arrMenu[indexPath.row]
         let imageName =  dict["image"] as! String
         let imageIcon = UIImage(named: imageName)
         selectedCell?.icon?.image = imageIcon
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

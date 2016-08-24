@@ -55,8 +55,7 @@ class SAMenuViewController: UIViewController {
             }
            else if dict["className"]!.isEqualToString("SASavingPlanViewController") {
                 dict["showInMenu"] = "No"
-                if(individualFlag == 1)
-                {
+                if(individualFlag == 1){
                     dict["showInMenu"] = "Yes"
                     arrMenu.append(dict)
                 }
@@ -67,8 +66,6 @@ class SAMenuViewController: UIViewController {
         }
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -115,7 +112,6 @@ class SAMenuViewController: UIViewController {
         //Brodcast the notification for navigating flow
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
     }
-    
     
     // Just set it back in deselect
      func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {

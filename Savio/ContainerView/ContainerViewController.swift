@@ -47,11 +47,10 @@ class ContainerViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
         //        self.navController.navigationBar.hidden = true
-        
+    
         self.view.addSubview(self.menuVC!.view)
         self.view.addSubview(self.navController!.view)
-        
-        self.addChildViewController(self.navController)
+                self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
         //----------------------------------------------------------------------------------
         

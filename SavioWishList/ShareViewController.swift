@@ -28,10 +28,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     @IBAction func postButtonTapped(sender: AnyObject) {
         priceTextField.resignFirstResponder()
         let objAPI = API()
-        
-        
-        
-        
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
         
         if  let data = defaults.valueForKey("myPasscode") as? NSData
@@ -199,14 +195,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //        self.bgView.layer.borderColor = UIColor.grayColor().CGColor
-        //        self.bgView.layer.borderWidth = 2.0
-        //self.bgView.layer.cornerRadius = 5.0
-        
-        
-        
         for item: AnyObject in (self.extensionContext?.inputItems)! {
             let inputItem = item as! NSExtensionItem
             for provider: AnyObject in inputItem.attachments! {
@@ -232,25 +220,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         var customToolBar : UIToolbar?
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
-        
         customToolBar!.items = [acceptButton]
         
         bgView.layer.cornerRadius = 5
         bgView.layer.masksToBounds = true
-        
-        /*
-        let leftView = UILabel()
-        leftView.frame = CGRectMake(10, 0, 17, 30)
-        leftView.text = " £"
-        // leftView.backgroundColor = UIColor.blueColor()
-        leftView.font = UIFont(name: "GothamRounded-Medium", size: 16)
-        leftView.textColor = UIColor.blackColor()
-        self.priceTextField.leftView = leftView
-        self.priceTextField.leftViewMode = .Always
-        */
-        
         priceTextField.inputAccessoryView = customToolBar
-        
     }
     
     func doneBarButtonPressed() {
@@ -267,14 +241,10 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         if((priceTextField.text! as NSString).floatValue > 3000)
         {
-            
             let alert = UIAlertController(title: "Warning", message: "Please enter cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-            
             self.presentViewController(alert, animated: true, completion: nil)
-            
         }
-        
     }
     
     func showImage(idx: Int)  {

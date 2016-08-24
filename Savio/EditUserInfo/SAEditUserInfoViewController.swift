@@ -1305,9 +1305,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     if(urlString != "")
                     {
                         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                            let image = UIImage(data: data!)
                             if(data?.length > 0)
                             {
+                                let image = UIImage(data: data!)
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.addProfilePictureButton.setImage(image, forState: .Normal)
                                     self.addProfilePictureButton.layer.cornerRadius = self.addProfilePictureButton.frame.size.height/2.0
@@ -1322,8 +1322,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                             }
                         })
                     }
-                    else
-                    {
+                    else{
                         self.spinner.stopAnimating()
                         self.spinner.hidden = true
                     }

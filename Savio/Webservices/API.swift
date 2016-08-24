@@ -623,6 +623,7 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         if(dict["errorCode"] as! String == "200")
@@ -645,6 +646,7 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
+                    print(response?.description)
                     dispatch_async(dispatch_get_main_queue()){
                         self.shareExtensionDelegate?.errorResponseForShareExtensionAPI(error.localizedDescription)
                     }

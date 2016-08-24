@@ -182,9 +182,8 @@
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0 {
-                let objSAWishListViewController = SAWishListViewController()
-                objSAWishListViewController.wishListArray = wishListArray!
-                self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
                 let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
@@ -853,25 +852,11 @@
     
     func displayAlert(message:String)
     {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.headIndent = 10
-        paragraphStyle.alignment = NSTextAlignment.Left
-        let messageText = NSMutableAttributedString(
-            string: message,
-            attributes: [
-                NSParagraphStyleAttributeName: paragraphStyle,
-                NSForegroundColorAttributeName : UIColor.blackColor()
-            ]
-        )
-        let alert = UIAlertView(title: "Alert", message: "", delegate: nil, cancelButtonTitle: "Ok")
-        let label = UILabel()
-        label.sizeToFit()
-        label.attributedText = messageText
-        label.numberOfLines = 0
-        label.textAlignment = .Left
-        alert.setValue(label, forKey: "accessoryView")
+        //Show of UIAlertView
+        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
+
     
     func clearButtonPressed() {
         

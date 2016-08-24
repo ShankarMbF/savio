@@ -45,6 +45,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     var activeTextField = UITextField()
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     var objAnimView = ImageViewAnimation()
+    var objimpInfo = ImportantInformationView()
 
     
     var registrationViewErrorDelegate: RegistrationViewErrorDelegate?
@@ -269,7 +270,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["party_role"] =  4
             print(userInfoDict)
             
-            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+            objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
@@ -470,7 +471,18 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-        
-        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        let arr = self.view.subviews
+        for obj in arr
+        {
+            if(obj == objimpInfo)
+            {
+                 objimpInfo.removeFromSuperview()
+            }
+        }
+
     }
 }

@@ -29,7 +29,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="237" id="cD6-pO-72o"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="11"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="9"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aOo-vc-KOf">
@@ -45,7 +45,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="MxG-9Z-3e0"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>

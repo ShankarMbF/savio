@@ -409,8 +409,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func heartBtnClicked(){
         if colors.count>0{
-            let objSAWishListViewController = SAWishListViewController()
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")

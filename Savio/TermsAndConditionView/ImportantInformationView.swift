@@ -32,7 +32,7 @@ class ImportantInformationView: UIView {
     
     //Go to the previous ViewController
     @IBAction func gotItButtonPressed(sender: AnyObject) {
-        self.removeFromSuperview()
+      //  self.removeFromSuperview()
         delegate?.acceptPolicy(self)
     }
 

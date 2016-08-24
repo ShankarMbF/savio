@@ -98,18 +98,10 @@ class SASavingSummaryViewController: UIViewController {
     @IBAction func btnContinueClicked(sender: AnyObject) {
         // Navigate app as per plan type
         let str = itemDataDict["planType"] as! String
+        //Navigate to showing individual/group progress screen
+        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
         
-        if str == "group" {
-            //Navigate to showing group progress
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
-        }
-        else {
-             //Navigate to showing individual progress screen
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
-
-        }
     }
     
     //Function invoking for set up UI as per the individual or group plan
@@ -466,9 +458,8 @@ class SASavingSummaryViewController: UIViewController {
     //function invoking on tapping on heart button
     func heartBtnClicked(){
         if wishListArray.count>0{
-            let objSAWishListViewController = SAWishListViewController()
-            objSAWishListViewController.wishListArray = wishListArray
-            self.navigationController?.pushViewController(objSAWishListViewController, animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")

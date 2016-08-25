@@ -607,8 +607,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            urlconfig.timeoutIntervalForRequest = 90
+            urlconfig.timeoutIntervalForResource = 90
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
@@ -740,105 +740,56 @@ class API: UIView,NSURLSessionDelegate {
         
         let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
         let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        var request : NSMutableURLRequest
         
         if(isFromWishList == "FromWishList")
         {
-            //Check if network is present
-            if(self.isConnectedToNetwork())
-            {
-                urlconfig.timeoutIntervalForRequest = 60
-                urlconfig.timeoutIntervalForResource = 60
-                let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-                
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-                request.HTTPMethod = "POST"
-                
-                request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-                
-                let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-                    if let data = data
-                    {
-                        let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                        if let dict = json as? Dictionary<String,AnyObject>
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
-                            }
-                        }
-                        else
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
-                            }
-                        }
-                    }
-                    else  if let error = error  {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
-                        }
-                    }
-                }
-                dataTask.resume()
-            }
-            else {
-                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
-            }
-            
+              request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
         }
-        else
+        else {
+              request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
+        }
+        
+        if(self.isConnectedToNetwork())
         {
-            //Check if network is present
-            if(self.isConnectedToNetwork())
-            {
-                urlconfig.timeoutIntervalForRequest = 30
-                urlconfig.timeoutIntervalForResource = 30
-                let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-                
-                let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
-                request.HTTPMethod = "POST"
-                
-                request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-                request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-                
-                let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-                    if let data = data
+            urlconfig.timeoutIntervalForRequest = 90
+            urlconfig.timeoutIntervalForResource = 90
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+        
+            request.HTTPMethod = "POST"
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                        if let dict = json as? Dictionary<String,AnyObject>
-                        {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
-                            }
-                        }
-                        else  {
-                            dispatch_async(dispatch_get_main_queue()){
-                                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
-                            }
-                        }
-                    }
-                    else  if let error = error
-                    {
-                        
                         dispatch_async(dispatch_get_main_queue()){
-                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
+                            self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
                         }
-                        
-                        
                     }
-                    
+                    else
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI((response?.description)!)
+                        }
+                    }
                 }
-                dataTask.resume()
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
+                    }
+                }
             }
-            else {
-                self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
-            }
-            
-            
+            dataTask.resume()
+        }
+        else {
+            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
         }
         
     }
@@ -1078,8 +1029,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            urlconfig.timeoutIntervalForRequest = 90
+            urlconfig.timeoutIntervalForResource = 90
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             
@@ -1333,8 +1284,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+            urlconfig.timeoutIntervalForRequest = 90
+            urlconfig.timeoutIntervalForResource = 90
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)

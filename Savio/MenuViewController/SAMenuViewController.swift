@@ -79,6 +79,20 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
     }
     
+    func selectRow(indexPath:NSIndexPath)
+    {
+        self.tableView(self.menuTable!, didSelectRowAtIndexPath:indexPath)
+        self.menuTable?.reloadData()
+        isFromSummary = false
+    }
+    
+    func deSelectRow(indexPath:NSIndexPath)
+    {
+        let indxPath = NSUserDefaults.standardUserDefaults().valueForKey("SelectedIndexPath") as? Int
+        self.tableView(self.menuTable!, didDeselectRowAtIndexPath: NSIndexPath(forRow: indxPath!,inSection:0))
+        self.menuTable?.reloadData()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

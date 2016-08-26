@@ -165,26 +165,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
         }
         
-        print("Device Token:", tokenString)
-        
+        print(tokenString)
         NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "APNSTOKEN")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     //Delegate method invoke when the APNS registration is failed
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("Failed to register:", error)
+
     }
     
     // MARK: Handle notifications
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        //--------------For Future Use---------------//
+        /*
         let aps = userInfo["aps"] as! [String: AnyObject]
-   
         if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
             // Refresh App with new Content
             
         } else  {
        
+        }
+        */
+        
+        
+        if ( application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background  )
+        {
+            //opened from a push notification when the app was on background
+          var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
+            badgeCount = badgeCount - 1
+            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
+            
+        }
+        
+        if(application.applicationState == UIApplicationState.Active) {
+            NSLog("Inactive");
+            //Show the view with the content of the push
+            completionHandler(UIBackgroundFetchResult.NewData);
+            
+        } else if (application.applicationState == UIApplicationState.Background) {
+            
+            NSLog("Background");
+            
+            //Refresh the local model
+            
+            completionHandler(UIBackgroundFetchResult.NewData);
+            
+        } else {
+            NSLog("Active");
+            //Show an in-app banner
+            completionHandler(UIBackgroundFetchResult.NewData);
+            
         }
     }
     

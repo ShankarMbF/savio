@@ -34,17 +34,12 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         //Set input accessory view to the UITextfield
         fiveDigitTextField.inputAccessoryView = toolbar
-        
-//        gotItButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-//        gotItButton.layer.shadowOffset = CGSizeMake(0, 4)
-//        gotItButton.layer.shadowOpacity = 1
+
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
         
     }
-    
-
     
     func removeKeyboardNotification(){
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
@@ -53,9 +48,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         objAnimView.removeFromSuperview()
-        print(userInfoDict)
-        let viewController = self.parentViewController
-        print(viewController)
+    
         if(isFromForgotPasscode == true)
         {
             isFromForgotPasscode = false
@@ -66,8 +59,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             backButton.hidden = false
             yourCodeSentLabel.hidden = true
         }
-        else
-        {
+        else {
         yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
         
         fiveDigitTextField.hidden = true
@@ -128,8 +120,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             headerText.text = "Enter your verification code"
             gotItButton.setTitle("Confirm", forState: UIControlState.Normal)
         }
-        else
-        {
+        else  {
             if(fiveDigitTextField.text == "")
             {   //Show error when field is empty
                 fiveDigitTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -193,8 +184,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
     }
     func errorResponseForOTPSentAPI(error:String){
-        
-        print(error)
+  
         objAnimView.removeFromSuperview()
         fiveDigitTextField.textColor = UIColor.redColor()
         fiveDigitTextField.hidden = true
@@ -213,7 +203,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         self.navigationController?.pushViewController(objCreatePINView, animated: true)
     }
     func errorResponseForOTPVerificationAPI(error:String){
-        print(error)
         objAnimView.removeFromSuperview()
         if(error == "Verification code is incorrect")
         {

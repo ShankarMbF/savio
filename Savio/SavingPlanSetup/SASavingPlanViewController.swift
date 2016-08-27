@@ -232,7 +232,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if !(itemDetailsDataDict["image"] is NSNull) {
                     if  let url = NSURL(string:itemDetailsDataDict["image"] as! String)
                     {
-                     //load the image from URL
+                        //load the image from URL
                         let request: NSURLRequest = NSURLRequest(URL: url)
                         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                             if(data?.length > 0)
@@ -353,39 +353,39 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         //alert view controll action method
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            //Check if camera is available
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                self.imagePicker.allowsEditing = true
+            { action -> Void in
                 
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                //Give alert if camera is not available
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
+                //Check if camera is available
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    //Give alert if camera is not available
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
             })
-          //alert view controll action method
+        //alert view controll action method
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            //check if Photolibrary available
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                self.imagePicker.allowsEditing = true
+            { action -> Void in
+                //check if Photolibrary available
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                    self.imagePicker.allowsEditing = true
+                    
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    //Give alert if camera is not available
+                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                    alert.show()
+                }
                 
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            else {
-                //Give alert if camera is not available
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
-            
             })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -588,7 +588,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else {
                     cell1.dayDateTextField.text = ""
                 }
-
+                
             }
             if(isClearPressed)  {
                 if(isUpdatePlan) {
@@ -1024,50 +1024,50 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            
-            if(self.isUpdatePlan == false) {
-                self.setUpView()
-                self.dateDiff = 0
-                self.cost = 0
-                self.isPopoverValueChanged = false
-                self.itemTitle = ""
-                self.isClearPressed = true
-                self.popOverSelectedStr = ""
-                self.isCostChanged = false
-                if(self.itemDetailsDataDict.keys.count > 0) {
-                    self.itemDetailsDataDict.removeAll()
+            { action -> Void in
+                
+                if(self.isUpdatePlan == false) {
+                    self.setUpView()
+                    self.dateDiff = 0
+                    self.cost = 0
+                    self.isPopoverValueChanged = false
+                    self.itemTitle = ""
+                    self.isClearPressed = true
+                    self.popOverSelectedStr = ""
+                    self.isCostChanged = false
+                    if(self.itemDetailsDataDict.keys.count > 0) {
+                        self.itemDetailsDataDict.removeAll()
+                    }
+                    
+                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
+                    if self.offerArr.count>0 {
+                        self.offerArr.removeAll()
+                    }
+                    
+                    self.scrlView.contentOffset = CGPointMake(0, 20)
+                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                    self.tblView.reloadData()
+                }
+                else {
+                    self.isDateChanged = false
+                    self.isOfferDetailPressed = false
+                    self.isCostChanged = false
+                    self.isClearPressed = true
+                    self.isPopoverValueChanged = false
+                    self.setUpView()
+                    
+                    let count = self.offerArr.count - self.updateOfferArr.count as Int
+                    if(count > 0) {
+                        self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
+                        self.offerArr.removeAll()
+                        self.offerArr = self.updateOfferArr
+                    }
+                    self.scrlView.contentOffset = CGPointMake(0, 20)
+                    self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                    self.tblView.reloadData()
+                    
                 }
                 
-                self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
-                if self.offerArr.count>0 {
-                    self.offerArr.removeAll()
-                }
-                
-                self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                self.tblView.reloadData()
-            }
-            else {
-                self.isDateChanged = false
-                self.isOfferDetailPressed = false
-                self.isCostChanged = false
-                self.isClearPressed = true
-                self.isPopoverValueChanged = false
-                self.setUpView()
-                
-                let count = self.offerArr.count - self.updateOfferArr.count as Int
-                if(count > 0) {
-                    self.tblViewHt.constant = self.tblViewHt.constant - CGFloat(count * 120)
-                    self.offerArr.removeAll()
-                    self.offerArr = self.updateOfferArr
-                }
-                self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-                self.tblView.reloadData()
-                
-            }
-            
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -1564,7 +1564,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 alert.show()
             }
             else if(message == "Party Saving Plan is succesfully added") {
-               //Create a dictionary to send SASavingSummaryViewController
+                //Create a dictionary to send SASavingSummaryViewController
                 var dict :  Dictionary<String,AnyObject> = [:]
                 dict["title"] = self.getParameters()["TITLE"]
                 dict["amount"] = self.getParameters()["AMOUNT"]
@@ -1671,6 +1671,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func errorResponseForUpdateSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
+        
+        self.isPopoverValueChanged = false
+        self.isClearPressed = true
+        self.isCostChanged = false
+        
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }

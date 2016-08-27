@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate {
+class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate,UIScrollViewDelegate {
     @IBOutlet weak var btnVwBg: UIView!
     @IBOutlet weak var pinTextFieldsContainerView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
@@ -25,14 +25,14 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var textFieldTwo: UITextField!
     @IBOutlet weak var textFieldThree: UITextField!
     @IBOutlet weak var textFieldFour: UITextField!
-    
     @IBOutlet weak var enterYourPasscodeLabel: UILabel!
-    
     @IBOutlet weak var registerButtonBackgroundView: UIView!
+    @IBOutlet weak var scrlView: UIScrollView!
+    
+    var lastOffset: CGPoint = CGPointZero
+    var activeTextField = UITextField()
     var objAnimView = ImageViewAnimation()
-    
     let objAPI = API()
-    
     var userInfoDict = Dictionary<String,AnyObject>()
     
     override func viewDidLoad() {
@@ -47,20 +47,70 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         registerButton.layer.cornerRadius = 5
         btnVwBg.layer.cornerRadius = 5
-        
-        
-        //        loginButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        //        loginButton.layer.shadowOffset = CGSizeMake(0, 4)
-        //        loginButton.layer.shadowOpacity = 1
+      
         loginButton.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        
-        
+        //add custom tool bar for UIDatePickerView
+        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed:"))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
+        textFieldOne.inputAccessoryView = customToolBar
+        textFieldTwo.inputAccessoryView = customToolBar
+        textFieldThree.inputAccessoryView = customToolBar
+        textFieldFour.inputAccessoryView = customToolBar
     }
-    //UITextField delegate method
     
+    func doneBarButtonPressed(sender: AnyObject) {
+        activeTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
+    
+    func cancelBarButtonPressed(sender: AnyObject) {
+        activeTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
+    
+    //Register keyboard notification
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWasShown(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        lastOffset = (scrlView?.contentOffset)!
+        let yOfTextField = activeTextField.frame.height + pinTextFieldsContainerView.frame.origin.y
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
+        }
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        scrlView?.setContentOffset(CGPointZero, animated: true)
+    }
+    
+
+    //UITextField delegate method
     func textFieldDidBeginEditing(textField: UITextField) {
+         activeTextField = textField
+        self.registerForKeyboardNotifications()
         errorLabel.hidden = true
     }
     
@@ -77,14 +127,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     
     @IBAction func clickOnRegisterButton(sender: AnyObject) {
-        
         if(registerButton.titleLabel?.text == "Register")
         {
             let saRegisterViewController = SARegistrationViewController(nibName:"SARegistrationViewController",bundle: nil)
             self.navigationController?.pushViewController(saRegisterViewController, animated: true)
         }
-        else
-        {
+        else  {
             //Send the OTP to mobile number
             
             //Get the user details from Keychain
@@ -174,13 +222,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             }
             
         }
-            
-            //        else if(enterPasscodeTextField.text?.characters.count < 4)
-            //        {
-            //            enterPasscodeTextField.layer.borderColor = UIColor.redColor().CGColor
-            //            errorLabel.hidden = false
-            //            errorLabel.text = "Passcode should be of 4 digits"
-            //        }
+       
         else
         {
             
@@ -382,10 +424,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         textFieldFour.keyboardType = UIKeyboardType.NumberPad
         
-        textFieldOne.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldTwo.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldThree.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldFour.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldOne.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldTwo.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldThree.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldFour.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
     }
     
     func textFieldDidChange(textField: UITextField){
@@ -401,6 +443,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                 textFieldFour.becomeFirstResponder()
             case textFieldFour:
                 textFieldFour.resignFirstResponder()
+                self.removeKeyboardNotification()
             default:
                 textFieldOne.becomeFirstResponder()
             }

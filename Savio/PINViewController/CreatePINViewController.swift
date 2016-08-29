@@ -32,10 +32,12 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     @IBOutlet weak var confirmPasscodeView: UIView!
     @IBOutlet weak var passcodeView: UIView!
     @IBOutlet weak var backButton: UIButton!
+    
     var objAPI = API()
     var objAnimView = ImageViewAnimation()
+    var activeTextField = UITextField()
     var userInfoDict  = Dictionary<String,AnyObject>()
-    var keyboardRect = CGRectZero
+    var lastOffset: CGPoint = CGPointZero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,21 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         self.customizeTextFields()
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
+        
+        //add custom tool bar for UITextField
+        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed:"))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
+        textFieldOne.inputAccessoryView = customToolBar
+        textFieldTwo.inputAccessoryView = customToolBar
+        textFieldThree.inputAccessoryView = customToolBar
+        textFieldFour.inputAccessoryView = customToolBar
+        textFieldReOne.inputAccessoryView = customToolBar
+        textFieldReTwo.inputAccessoryView = customToolBar
+        textFieldReThree.inputAccessoryView = customToolBar
+        textFieldReFour.inputAccessoryView = customToolBar
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,9 +88,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     
     //UITextFieldDelegateMethods
     func textFieldDidBeginEditing(textField: UITextField){
+        activeTextField = textField
+        self.registerForKeyboardNotifications()
         self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         enterFourDigitCodeLabel.hidden = true
-        
     }
     
     @IBAction func toolBarDoneButtonPressed(sender: AnyObject) {
@@ -233,133 +251,161 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         }
     }
     
-        func errorResponseForRegistrationAPI(error:String){
-            objAnimView.removeFromSuperview()
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
+    func errorResponseForRegistrationAPI(error:String){
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+    }
+    
+    func addTargetAndRadiusForTf(textField: UITextField) {
+        let borderWidth: CGFloat = 1
+        let cornerRadius: CGFloat = 3
         
-        func addTargetAndRadiusForTf(textField: UITextField) {
-            let borderWidth: CGFloat = 1
-            let cornerRadius: CGFloat = 3
-            
-            textField.layer.borderWidth = borderWidth
-            textField.layer.cornerRadius = cornerRadius
-            textField.layer.masksToBounds = true
-            textField.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-            textField.keyboardType = UIKeyboardType.NumberPad
-            textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            
-        }
+        textField.layer.borderWidth = borderWidth
+        textField.layer.cornerRadius = cornerRadius
+        textField.layer.masksToBounds = true
+        textField.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textField.keyboardType = UIKeyboardType.NumberPad
+        textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-        func customizeTextFields() {
-            self.addTargetAndRadiusForTf(textFieldOne)
-            self.addTargetAndRadiusForTf(textFieldTwo)
-            self.addTargetAndRadiusForTf(textFieldThree)
-            self.addTargetAndRadiusForTf(textFieldFour)
-            self.addTargetAndRadiusForTf(textFieldReOne)
-            self.addTargetAndRadiusForTf(textFieldReTwo)
-            self.addTargetAndRadiusForTf(textFieldReThree)
-            self.addTargetAndRadiusForTf(textFieldReFour)
-        }
+    }
+    
+    func customizeTextFields() {
+        self.addTargetAndRadiusForTf(textFieldOne)
+        self.addTargetAndRadiusForTf(textFieldTwo)
+        self.addTargetAndRadiusForTf(textFieldThree)
+        self.addTargetAndRadiusForTf(textFieldFour)
+        self.addTargetAndRadiusForTf(textFieldReOne)
+        self.addTargetAndRadiusForTf(textFieldReTwo)
+        self.addTargetAndRadiusForTf(textFieldReThree)
+        self.addTargetAndRadiusForTf(textFieldReFour)
+    }
+    
+    func textFieldDidChange(textField: UITextField) {
         
-        func textFieldDidChange(textField: UITextField) {
-            
-            let text = textField.text
-            if text?.utf16.count==1{
-                switch textField{
-                case textFieldOne:
-                    textFieldTwo.becomeFirstResponder()
-                case textFieldTwo:
-                    textFieldThree.becomeFirstResponder()
-                case textFieldThree:
-                    textFieldFour.becomeFirstResponder()
-                case textFieldFour:
-                    textFieldReOne.becomeFirstResponder()
-                case textFieldReOne:
-                    textFieldReTwo.becomeFirstResponder()
-                case textFieldReTwo:
-                    textFieldReThree.becomeFirstResponder()
-                case textFieldReThree:
-                    textFieldReFour.becomeFirstResponder()
-                case textFieldReFour:
-                    textFieldReFour.resignFirstResponder()
-                default:
-                    textFieldOne.becomeFirstResponder()
-                }
-            }else {
-                switch textField{
-                case textFieldFour:
-                    textFieldThree.becomeFirstResponder()
-                case textFieldThree:
-                    textFieldTwo.becomeFirstResponder()
-                case textFieldTwo:
-                    textFieldOne.becomeFirstResponder()
-                case textFieldOne:
-                    textFieldOne.resignFirstResponder()
-                case textFieldReFour:
-                    textFieldReThree.becomeFirstResponder()
-                case textFieldReThree:
-                    textFieldReTwo.becomeFirstResponder()
-                case textFieldReTwo:
-                    textFieldReOne.becomeFirstResponder()
-                case textFieldReOne:
-                    textFieldFour.becomeFirstResponder()
-                default:
-                    textFieldOne.becomeFirstResponder()
-                }
+        let text = textField.text
+        if text?.utf16.count==1{
+            switch textField{
+            case textFieldOne:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldFour.becomeFirstResponder()
+            case textFieldFour:
+                textFieldReOne.becomeFirstResponder()
+            case textFieldReOne:
+                textFieldReTwo.becomeFirstResponder()
+            case textFieldReTwo:
+                textFieldReThree.becomeFirstResponder()
+            case textFieldReThree:
+                textFieldReFour.becomeFirstResponder()
+            case textFieldReFour:
+                textFieldReFour.resignFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
+            }
+        }else {
+            switch textField{
+            case textFieldFour:
+                textFieldThree.becomeFirstResponder()
+            case textFieldThree:
+                textFieldTwo.becomeFirstResponder()
+            case textFieldTwo:
+                textFieldOne.becomeFirstResponder()
+            case textFieldOne:
+                textFieldOne.resignFirstResponder()
+            case textFieldReFour:
+                textFieldReThree.becomeFirstResponder()
+            case textFieldReThree:
+                textFieldReTwo.becomeFirstResponder()
+            case textFieldReTwo:
+                textFieldReOne.becomeFirstResponder()
+            case textFieldReOne:
+                textFieldFour.becomeFirstResponder()
+            default:
+                textFieldOne.becomeFirstResponder()
             }
         }
-        
-        func registerForKeyboardNotifications(){
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWasShown(notification: NSNotification) {
+        //do stuff
+        var yOfTextField : CGFloat = 0.0
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        lastOffset = (backgroundScrollView?.contentOffset)!
+        if(activeTextField == textFieldOne || activeTextField == textFieldTwo || activeTextField == textFieldThree || activeTextField == textFieldFour)
+        {
+            yOfTextField = activeTextField.frame.height + passcodeView.frame.origin.y
+        }
+        else {
+            yOfTextField = activeTextField.frame.height + confirmPasscodeView.frame.origin.y
+        }
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            backgroundScrollView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
         
-        func removeKeyboardNotification(){
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        }
         
-        @objc func keyboardWasShown(notification: NSNotification) {
-            self.backgroundScrollView.contentOffset = CGPoint(x: 0, y: 50)
-            
-        }
-        
-        @objc func keyboardWillBeHidden(notification: NSNotification){
-            self.backgroundScrollView.contentOffset = CGPoint(x: 0, y: 0)
-        }
-        
-        @IBAction func bgViewTapped(sender: AnyObject) {
-            textFieldReOne.resignFirstResponder()
-            textFieldReTwo.resignFirstResponder()
-            textFieldReThree.resignFirstResponder()
-            textFieldReFour.resignFirstResponder()
-            textFieldOne.resignFirstResponder()
-            textFieldTwo.resignFirstResponder()
-            textFieldThree.resignFirstResponder()
-            textFieldFour.resignFirstResponder()
-        }
-        
-        func setAllPinEntryFieldsToColor(color: UIColor) {
-            textFieldOne.layer.borderColor = color.CGColor
-            textFieldTwo.layer.borderColor = color.CGColor
-            textFieldThree.layer.borderColor = color.CGColor
-            textFieldFour.layer.borderColor = color.CGColor
-            textFieldReOne.layer.borderColor = color.CGColor
-            textFieldReTwo.layer.borderColor = color.CGColor
-            textFieldReThree.layer.borderColor = color.CGColor
-            textFieldReFour.layer.borderColor = color.CGColor
-        }
-        func resetTextOnAllTextFields() {
-            textFieldOne.text = ""
-            textFieldTwo.text = ""
-            textFieldThree.text = ""
-            textFieldFour.text = ""
-            textFieldReOne.text = ""
-            textFieldReTwo.text = ""
-            textFieldReThree.text = ""
-            textFieldReFour.text = ""
-        }
-        
+    }
+    
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        backgroundScrollView?.setContentOffset(CGPointZero, animated: true)
+    }
+    
+    func doneBarButtonPressed(sender: AnyObject) {
+        activeTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
+    
+    func cancelBarButtonPressed(sender: AnyObject) {
+        activeTextField.resignFirstResponder()
+        self.removeKeyboardNotification()
+    }
+    @IBAction func bgViewTapped(sender: AnyObject) {
+        textFieldReOne.resignFirstResponder()
+        textFieldReTwo.resignFirstResponder()
+        textFieldReThree.resignFirstResponder()
+        textFieldReFour.resignFirstResponder()
+        textFieldOne.resignFirstResponder()
+        textFieldTwo.resignFirstResponder()
+        textFieldThree.resignFirstResponder()
+        textFieldFour.resignFirstResponder()
+    }
+    
+    func setAllPinEntryFieldsToColor(color: UIColor) {
+        textFieldOne.layer.borderColor = color.CGColor
+        textFieldTwo.layer.borderColor = color.CGColor
+        textFieldThree.layer.borderColor = color.CGColor
+        textFieldFour.layer.borderColor = color.CGColor
+        textFieldReOne.layer.borderColor = color.CGColor
+        textFieldReTwo.layer.borderColor = color.CGColor
+        textFieldReThree.layer.borderColor = color.CGColor
+        textFieldReFour.layer.borderColor = color.CGColor
+    }
+    func resetTextOnAllTextFields() {
+        textFieldOne.text = ""
+        textFieldTwo.text = ""
+        textFieldThree.text = ""
+        textFieldFour.text = ""
+        textFieldReOne.text = ""
+        textFieldReTwo.text = ""
+        textFieldReThree.text = ""
+        textFieldReFour.text = ""
+    }
+    
 }

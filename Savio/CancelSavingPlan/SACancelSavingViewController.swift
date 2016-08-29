@@ -137,8 +137,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
                 NSUserDefaults.standardUserDefaults().setValue(0, forKey: "individualPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
+         
                 
                 view1.hidden = true
                 view2.hidden = false
@@ -165,7 +164,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     
     //Your saving plan is canceled, go to create new saving plan
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {
-        let objSavingPlan = SACreateSavingPlanViewController()
-        self.navigationController?.pushViewController(objSavingPlan, animated: true)
+        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
     }
 }

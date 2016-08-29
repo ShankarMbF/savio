@@ -51,7 +51,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         loginButton.layer.cornerRadius = 5
         
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        //add custom tool bar for UIDatePickerView
+        //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed:"))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
@@ -317,29 +317,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
         self.navigationController?.pushViewController(objHurrrayView, animated: true)
     }
-    
-    func setUpMenu(group:NSNumber,individual:NSNumber,member:NSNumber)  {
-        var className :String = ""
-        
-        if individual == 1 {
-            className = "individualPlan"
-        }
-        else if group == 1 {
-            className = "groupPlan"
-        }
-        else if member == 1 {
-            className = "groupMemberPlan"
-        }
-        else {
-            className = ""
-        }
-        NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
-        NSUserDefaults.standardUserDefaults().synchronize()
-    }
-    
+
     func errorResponseForOTPLogInAPI(error: String) {
         objAnimView.removeFromSuperview()
-        print(error)
         if(error == "No network found")
         {
             let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
@@ -363,6 +343,27 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         }
         
     }
+    
+    
+    func setUpMenu(group:NSNumber,individual:NSNumber,member:NSNumber)  {
+        var className :String = ""
+        
+        if individual == 1 {
+            className = "individualPlan"
+        }
+        else if group == 1 {
+            className = "groupPlan"
+        }
+        else if member == 1 {
+            className = "groupMemberPlan"
+        }
+        else {
+            className = ""
+        }
+        NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
     
     //OTP Verification Delegate Method
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)

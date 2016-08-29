@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-       
+        
         //Set the status bar color
         self.setStatusBarBackgroundColor(UIColor.blackColor())
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     //Set SAWelcomViewController as rootViewController of UINavigationViewController
                     objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                     window?.rootViewController = objSANav
-
+                    
                 }
             }
             else  {
@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 //Set SAWelcomViewController as rootViewController of UINavigationViewController
                 objSANav = UINavigationController(rootViewController: objRegisterViewController!)
                 window?.rootViewController = objSANav
-            
+                
             }
         }
         else {
@@ -172,36 +172,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Delegate method invoke when the APNS registration is failed
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-
+        
     }
     
     // MARK: Handle notifications
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         //--------------For Future Use---------------//
         /*
-        let aps = userInfo["aps"] as! [String: AnyObject]
-        if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
-            // Refresh App with new Content
-            
-        } else  {
-       
-        }
-        */
+         let aps = userInfo["aps"] as! [String: AnyObject]
+         if let contentAvaiable = aps["content-available"] as? NSString where contentAvaiable.integerValue == 1 {
+         // Refresh App with new Content
+         
+         } else  {
+         
+         }
+         */
         
         
         if ( application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background  )
         {
             //opened from a push notification when the app was on background
-          var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
+            var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
             badgeCount = badgeCount - 1
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
             
         }
         
+        
         if(application.applicationState == UIApplicationState.Active) {
             NSLog("Inactive");
             //Show the view with the content of the push
             completionHandler(UIBackgroundFetchResult.NewData);
+            let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.Alert)
+            alertController.title = "Alert"
+            alertController.message = dict["alert"] as? String
+            UIApplication.sharedApplication().applicationIconBadgeNumber =  (dict["badge"] as? Int)!
+            
+            //alert view controll action method
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+            { action -> Void in
+                var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
+                badgeCount = badgeCount - 1
+                UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
+            })
+            
+            self.objSANav!.presentViewController(alertController, animated: true, completion: nil)
+            
             
         } else if (application.applicationState == UIApplicationState.Background) {
             

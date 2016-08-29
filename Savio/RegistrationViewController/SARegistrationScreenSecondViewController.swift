@@ -274,6 +274,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
+            objimpInfo.isFromRegistration = true
             self.view.addSubview(objimpInfo)
         }
         else

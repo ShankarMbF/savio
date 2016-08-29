@@ -8,9 +8,16 @@
 
 import UIKit
 
+extension NSObject {
+    var theClassName: String {
+        return NSStringFromClass(self.dynamicType)
+    }
+}
+
 protocol ImportantInformationViewDelegate {
     func acceptPolicy(obj:ImportantInformationView)
 }
+
 
 class ImportantInformationView: UIView {
  
@@ -19,6 +26,7 @@ class ImportantInformationView: UIView {
     @IBOutlet weak var gotItButton: UIButton!
     @IBOutlet weak var lblHeader: UILabel!
     
+    var isFromRegistration = false
     var delegate: ImportantInformationViewDelegate?
     
     // Only override drawRect: if you perform custom drawing.
@@ -32,7 +40,11 @@ class ImportantInformationView: UIView {
     
     //Go to the previous ViewController
     @IBAction func gotItButtonPressed(sender: AnyObject) {
-      //  self.removeFromSuperview()
+  
+        if(isFromRegistration == false)
+        {
+         self.removeFromSuperview()
+        }
         delegate?.acceptPolicy(self)
     }
 

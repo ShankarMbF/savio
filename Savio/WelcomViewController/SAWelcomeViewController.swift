@@ -153,8 +153,9 @@ class SAWelcomeViewController: UIViewController {
     
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
-        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! UIView
+        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
         objImpInfo.frame = self.view.frame
+        objImpInfo.isFromRegistration = false
         self.view.addSubview(objImpInfo)
     }
 }

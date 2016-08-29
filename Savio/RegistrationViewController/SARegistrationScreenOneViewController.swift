@@ -459,6 +459,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
         objimpInfo.lblHeader.text = "Why do we need this information?"
         objimpInfo.frame = self.view.frame
+        objimpInfo.isFromRegistration = false
         self.view.addSubview(objimpInfo)
     }
     

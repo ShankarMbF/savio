@@ -1671,11 +1671,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func errorResponseForUpdateSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
-        
         self.isPopoverValueChanged = false
-        self.isClearPressed = true
         self.isCostChanged = false
-        
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }

@@ -18,10 +18,10 @@ let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
-let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
+//let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 
 //============AUTHY API KEY SANDBOX===============
-//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
 
 let custom_message = "Your Savio phone verification code is {{code}}"
 var checkString = ""
@@ -293,7 +293,7 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            let request = NSMutableURLRequest(URL: NSURL(string:"http://api.authy.com/protected/json/phones/verification/start")!)
+            let request = NSMutableURLRequest(URL: NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!)
             
             request.HTTPMethod = "POST"
             //collect requierd parameter in dictionary
@@ -372,7 +372,7 @@ class API: UIView,NSURLSessionDelegate {
             urlconfig.timeoutIntervalForResource = 10
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
+            let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://sandbox-api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
@@ -607,8 +607,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 90
-            urlconfig.timeoutIntervalForResource = 90
+            urlconfig.timeoutIntervalForRequest = 180
+            urlconfig.timeoutIntervalForResource = 180
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
@@ -750,8 +750,8 @@ class API: UIView,NSURLSessionDelegate {
         
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 90
-            urlconfig.timeoutIntervalForResource = 90
+            urlconfig.timeoutIntervalForRequest = 180
+            urlconfig.timeoutIntervalForResource = 180
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
         
             request.HTTPMethod = "POST"
@@ -1026,8 +1026,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 90
-            urlconfig.timeoutIntervalForResource = 90
+            urlconfig.timeoutIntervalForRequest = 180
+            urlconfig.timeoutIntervalForResource = 180
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             
@@ -1281,8 +1281,8 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 90
-            urlconfig.timeoutIntervalForResource = 90
+            urlconfig.timeoutIntervalForRequest = 180
+            urlconfig.timeoutIntervalForResource = 180
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)

@@ -18,8 +18,6 @@ struct Device {
 
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    
     var window: UIWindow?
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomeViewController?
@@ -195,12 +193,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
             badgeCount = badgeCount - 1
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
-            
         }
-        
+
         
         if(application.applicationState == UIApplicationState.Active) {
-            NSLog("Inactive");
+            NSLog("Active");
             //Show the view with the content of the push
             completionHandler(UIBackgroundFetchResult.NewData);
             let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
@@ -216,23 +213,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 badgeCount = badgeCount - 1
                 UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
             })
-            
             self.objSANav!.presentViewController(alertController, animated: true, completion: nil)
-            
-            
         } else if (application.applicationState == UIApplicationState.Background) {
-            
             NSLog("Background");
-            
             //Refresh the local model
-            
             completionHandler(UIBackgroundFetchResult.NewData);
             
         } else {
-            NSLog("Active");
+            NSLog("Inactive");
             //Show an in-app banner
             completionHandler(UIBackgroundFetchResult.NewData);
-            
         }
     }
     

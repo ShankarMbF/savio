@@ -25,7 +25,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //change the border color of UITextField
         fiveDigitTextField.layer.cornerRadius = 2
@@ -34,10 +34,10 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         //Set input accessory view to the UITextfield
         fiveDigitTextField.inputAccessoryView = toolbar
-
+        
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>        
+        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
     }
     
@@ -48,7 +48,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         objAnimView.removeFromSuperview()
-    
+        
         if(isFromForgotPasscode == true)
         {
             isFromForgotPasscode = false
@@ -60,13 +60,13 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             yourCodeSentLabel.hidden = true
         }
         else {
-        yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
-        
-        fiveDigitTextField.hidden = true
-        resentCodeButton.hidden = true
-        backButton.hidden = true
-        yourCodeSentLabel.hidden = false
-        
+            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
+            
+            fiveDigitTextField.hidden = true
+            resentCodeButton.hidden = true
+            backButton.hidden = true
+            yourCodeSentLabel.hidden = false
+            
         }
     }
     
@@ -129,21 +129,21 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             }
             else {
                 //Set the OTPVerificationDelegate
-        
+                
                 //---------------Remove below comment while testing on live authy---------------//
                 
-                /*
-                 objAPI.otpVerificationDelegate = self
-                 
-                 objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "91", OTP: fiveDigitTextField.text!)
-                 codeDoesNotMatchLabel.hidden = true;
-                 fiveDigitTextField.resignFirstResponder()
+                
+                objAPI.otpVerificationDelegate = self
+                
+                objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "91", OTP: fiveDigitTextField.text!)
+                codeDoesNotMatchLabel.hidden = true;
+                fiveDigitTextField.resignFirstResponder()
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-                 objAnimView.animate()
-                 self.view.addSubview(objAnimView)
-                 */
-      
+                objAnimView.animate()
+                self.view.addSubview(objAnimView)
+                
+                  //---------------Comment below code while testing on live authy---------------//
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)
                 
@@ -159,7 +159,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         objAPI.otpSentDelegate = self
         print(userInfoDict)
         //Resend the OTP to the mobile number present in keychain
-
+        
         objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "91")
         
         fiveDigitTextField.resignFirstResponder()
@@ -184,7 +184,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
     }
     func errorResponseForOTPSentAPI(error:String){
-  
+        
         objAnimView.removeFromSuperview()
         fiveDigitTextField.textColor = UIColor.redColor()
         fiveDigitTextField.hidden = true
@@ -206,8 +206,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         objAnimView.removeFromSuperview()
         if(error == "Verification code is incorrect")
         {
-        codeDoesNotMatchLabel.text = error
-        codeDoesNotMatchLabel.hidden = false;
+            codeDoesNotMatchLabel.text = error
+            codeDoesNotMatchLabel.hidden = false;
         }
         else
         {

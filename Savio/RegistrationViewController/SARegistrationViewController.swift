@@ -218,7 +218,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tfDatePicker?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                 if (dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] != nil){
                     cell.tfDatePicker?.text = dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] as? String
-                    print("\(dictForTextFieldValue)")
                 }
                 arrRegistrationFields.append(cell)
             }
@@ -368,10 +367,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 //                let arrDropDown = tfTitleDict["dropDownArray"] as! Array<String>
                 let arrDropDown = arrAddress
-                
-                print("\(arrDropDown)")
                 cell.arr = arrDropDown
-                print("\(cell.arr)")
                 if arrDropDown.count>0{
                     arrRegistrationFields.append(cell)
                 }
@@ -437,7 +433,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         else {
             dictForTextFieldValue.removeValueForKey((txtFldCell.tf?.placeholder)!)
         }
-        print("\(dictForTextFieldValue)")
     }
     
     func titleCellText(titleCell:TitleTableViewCell){
@@ -447,7 +442,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if titleCell.tfName?.text?.characters.count>0{
             dictForTextFieldValue.updateValue((titleCell.tfName?.text)!, forKey: "name")
         }
-        print("\(dictForTextFieldValue)")
     }
     
     func getTextFOrPostCode(findAddrCell: FindAddressTableViewCell)
@@ -464,7 +458,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue((findAddrCell.tfPostCode?.text)!, forKey: (findAddrCell.tfPostCode?.placeholder)!)
         
         let strCode = strPostCode
-        print("\(strPostCode)")
         if strCode.characters.count == 0 {
             var dict = arrRegistration[6] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
@@ -510,24 +503,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         
         let str = dropDownTextCell.tf?.text
         let fullNameArr = str!.characters.split{$0 == ","}.map(String.init)
-        print(fullNameArr)
-        //        var addressStr = ""
-        //        for var i=0; i<fullNameArr.count-3; i++ {
-        //            addressStr = addressStr+" \(fullNameArr[i])"
-        //        }
         
         dictForTextFieldValue.updateValue(fullNameArr[0], forKey: "First Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[1], forKey: "Second Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[2], forKey: "Third Address Line")
-        
-        //        dictForTextFieldValue.updateValue(addressStr, forKey: "First Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-2], forKey: "Town")
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-1], forKey: "County")
-        
-        print(dictForTextFieldValue)
-        
-        //        dictForTextFieldValue.updateValue((dropDownTextCell.tf?.text)!, forKey: (dropDownTextCell.tf?.placeholder)!)
-        //        dictForTextFieldValue.updateValue((dropDownTextCell.tf?.text)!, forKey: (dropDownTextCell.tf?.placeholder)!)
+
         self.createCells()
     }
     func linkButtonClicked(sender:UIButton){
@@ -741,9 +723,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func acceptPolicy(obj:ImportantInformationView){
         var dict = self.getAllValuesFromTxtFild()
         let objAPI = API()
-        print("DictPara:\(dict)")
-        // objAPI.storeValueInKeychainForKey("myUserInfo", value: dict)
-        
         if(changePhoneNumber == false)
         {
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
@@ -1145,9 +1124,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 dict = arrRegistration[5]as Dictionary<String,AnyObject>
                 idx = 5
             }
-            
-            print("\(idx)")
-            
             if(errorFLag == true){
                 returnFlag = true
                 var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
@@ -1160,8 +1136,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 metadataDict["lable"] = lableDict
                 dict["metaData"] = metadataDict
                 arrRegistration[idx] = dict
-                //                    print("\(dict)")
-                
             }
         }
         self.createCells()
@@ -1231,9 +1205,6 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     func success(addressArray:Array<String>){
         objAnimView?.removeFromSuperview()
         self.getJSONForUI()
-        //        arrAddress = addressArray
-        //        print("\(arrAddress)")
-        
         var dict = arrRegistration[8] as Dictionary<String,AnyObject>
         var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
         let lableDict = metadataDict["textField1"]!.mutableCopy()
@@ -1242,13 +1213,11 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         dict["metaData"] = metadataDict
         arrRegistration[8] = dict
         arrAddress = addressArray
-        print("\(arrAddress)")
         dictForTextFieldValue.removeValueForKey("errorPostcodeValid")
         self.createCells()
     }
     func error(error:String){
         objAnimView?.removeFromSuperview()
-        print("\(error)")
         if(error == "That postcode doesn't look right"){
             var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
@@ -1271,10 +1240,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
         objAnimView?.removeFromSuperview()
-        print("\(objResponse)")
-        
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
-        
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()

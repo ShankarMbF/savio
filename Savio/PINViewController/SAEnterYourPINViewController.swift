@@ -220,22 +220,16 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             if  textFieldFour.text == "" {
                 textFieldFour.layer.borderColor = UIColor.redColor().CGColor
             }
-            
         }
-       
         else
         {
-            
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
-            
-            
             objAPI.logInDelegate = self;
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
             var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-            print(userDict)
             var param = Dictionary<String,AnyObject>()
             param["userID"] = userDict["partyId"]
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
@@ -248,37 +242,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             } else {
                 param["PNS_DEVICE_ID"] =  ""
             }
-            
-            print(param)
             objAPI.logInWithUserID(param)
-            
-            /*
-             if (NSUserDefaults.standardUserDefaults().valueForKey("pin") == nil){
-             var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-             print(userDict)
-             var param = Dictionary<String,AnyObject>()
-             param["userID"] = userDict["partyId"]
-             param["pin"] = enterPasscodeTextField.text?.MD5()
-             print(param)
-             objAPI.logInWithUserID(param)
-             
-             }
-             
-             if NSUserDefaults.standardUserDefaults().valueForKey("pin") as! String == enterPasscodeTextField.text
-             {
-             objAnimView.removeFromSuperview()
-             
-             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-             self.navigationController?.pushViewController(objHurrrayView, animated: true)
-             }
-             else {
-             objAnimView.removeFromSuperview()
-             errorLabel.hidden = false
-             errorLabel.text = "Passcode do not match"
-             }
-             
-             */
-            
         }
     }
     
@@ -298,21 +262,16 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
-        print(userInfoDict)
         
         let groupPlan = objResponse["G"] as! NSNumber
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
-        
-        print(groupPlan)
-        print(individualPlan)
-        print(groupMemberPlan)
-        
+     //Store the plan info in NSUserDefaults
         NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: "groupPlan")
         NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: "individualPlan")
         NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
-        //let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+        
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
         let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
         self.navigationController?.pushViewController(objHurrrayView, animated: true)
@@ -394,7 +353,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     }
     
     
-    
     func customizeTextFields() {
         self.setAllPinEntryFieldsToColor( UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         
@@ -404,24 +362,19 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldOne.layer.borderWidth = borderWidth
         textFieldOne.layer.cornerRadius = cornerRadius
         textFieldOne.layer.masksToBounds = true
-        //        textFieldOne.userInteractionEnabled = false
         
         
         textFieldTwo.layer.borderWidth = borderWidth
         textFieldTwo.layer.cornerRadius = cornerRadius
         textFieldTwo.layer.masksToBounds = true
-        //        textFieldTwo.userInteractionEnabled = false
         
         textFieldThree.layer.borderWidth = borderWidth
         textFieldThree.layer.cornerRadius = cornerRadius
         textFieldThree.layer.masksToBounds = true
-        //        textFieldThree.userInteractionEnabled = false
-        
         
         textFieldFour.layer.borderWidth = borderWidth
         textFieldFour.layer.cornerRadius = cornerRadius
         textFieldFour.layer.masksToBounds = true
-        //        textFieldFour.userInteractionEnabled = false
         
         textFieldFour.keyboardType = UIKeyboardType.NumberPad
         

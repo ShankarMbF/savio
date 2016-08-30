@@ -163,7 +163,6 @@ class ContainerViewController: UIViewController {
             let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         default:
-            print("Default Line Reached")
             let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }

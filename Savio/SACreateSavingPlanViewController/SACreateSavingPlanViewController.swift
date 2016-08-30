@@ -427,7 +427,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     @IBAction func clickedOnWishListButton(sender:UIButton){
-        print("Clicked on Wishlist button")
         NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
     }
@@ -578,7 +577,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
      //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
-        print(error)
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()

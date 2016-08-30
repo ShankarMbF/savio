@@ -65,13 +65,9 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
 
     func setUpDropDown(){
-//        if tf?.placeholder == "Select your Address"{
-//            arr.sortInPlace { sortTwoString($0, value2: $1) }
-//        }
         arr.sortInPlace { sortTwoString($0, value2: $1) }
         dropDown.dataSource = arr
-        print("\(arr)")
-        
+
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.tf?.text = item
             self.delegate?.dropDownTxtFieldCellText(self)

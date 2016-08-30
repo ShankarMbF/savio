@@ -31,7 +31,6 @@ class linkButtonTableViewCell: UITableViewCell {
     }
     
     @IBAction func clickedOnLinkButton(sender:UIButton){
-        print("\(sender.currentAttributedTitle)")
         delegate?.linkButtonClicked(sender);
     }
     

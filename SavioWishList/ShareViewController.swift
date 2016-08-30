@@ -188,7 +188,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
                     itemProvider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil, completionHandler: { (result: NSSecureCoding?, error: NSError!) -> Void in
                         if let resultDict = result as? NSDictionary {
-                            print(resultDict)
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
                                 defaults.setObject(self.dictGlobal, forKey: "ScrapingResult")
@@ -204,9 +203,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     })
                 }
                 else{
-                    print("here")
                    self.dictGlobal = defaults.valueForKey("ScrapingResult") as! Dictionary<String,AnyObject>
-                    print(dictGlobal)
                     dispatch_async(dispatch_get_main_queue(), {
                         self.textView.text = self.dictGlobal["title"] as! String
                         self.priceTextField.text = self.dictGlobal["price"] as? String

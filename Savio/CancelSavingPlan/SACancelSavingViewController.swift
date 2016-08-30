@@ -128,7 +128,6 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     //success rsponse of CancelSavingPlanDelegate
     func successResponseForCancelSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
-        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if (message == "Cancelled Plan successfully")

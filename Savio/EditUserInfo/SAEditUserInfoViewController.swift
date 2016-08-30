@@ -728,7 +728,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("partyRole")
                 param.removeValueForKey("partyStatus")
                 param.removeValueForKey("partyGender")
-                print(param)
                 objAPI.updateUserInfoDelegate = self
                 objAPI.updateUserInfo(param)
             }

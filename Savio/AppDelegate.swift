@@ -186,7 +186,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
          */
         
-        
         if ( application.applicationState == UIApplicationState.Inactive || application.applicationState == UIApplicationState.Background  )
         {
             //opened from a push notification when the app was on background
@@ -195,7 +194,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
         }
 
-        
         if(application.applicationState == UIApplicationState.Active) {
             NSLog("Active");
             //Show the view with the content of the push

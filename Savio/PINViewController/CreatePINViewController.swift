@@ -14,20 +14,16 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     @IBOutlet weak var backgroundScrollView: UIScrollView!
     @IBOutlet weak var enterFourDigitCodeLabel: UILabel!
     @IBOutlet weak var confirmPIN: UIButton!
-    
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var subHeaderLabel: UILabel!
-    
     @IBOutlet weak var textFieldOne: UITextField!
     @IBOutlet weak var textFieldTwo: UITextField!
     @IBOutlet weak var textFieldThree: UITextField!
     @IBOutlet weak var textFieldFour: UITextField!
-    
     @IBOutlet weak var textFieldReOne: UITextField!
     @IBOutlet weak var textFieldReTwo: UITextField!
     @IBOutlet weak var textFieldReThree: UITextField!
     @IBOutlet weak var textFieldReFour: UITextField!
-    
     @IBOutlet weak var lblConfirmPasscode: UILabel!
     @IBOutlet weak var confirmPasscodeView: UIView!
     @IBOutlet weak var passcodeView: UIView!
@@ -156,21 +152,15 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
-                    print(newUserInfoDict)
-                    //objAPI.storeValueInKeychainForKey("myUserInfo", value: userInfoDict)
                     var updatePasscodeDict = Dictionary<String,AnyObject>()
                     updatePasscodeDict["mobile_Number"] = userInfoDict["phone_number"]
                     updatePasscodeDict["pin"] = passcode.MD5()
-                    
-                    
                     if(checkString == "ForgotPasscode")
                     {
-                        print(updatePasscodeDict)
                         objAPI.resetPasscodeDelegate = self
                         objAPI.resetPasscodeOfUserID(updatePasscodeDict)
                     }
                     else {
-                        print(userInfoDict)
                         objAPI.delegate = self
                         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
                     }
@@ -187,7 +177,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     func error(error:String){
         
     }
-    
     
     
     func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
@@ -358,8 +347,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             let diff = yOfTextField - visibleAreaHeight
             backgroundScrollView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
-        
-        
     }
     
     @objc func keyboardWillBeHidden(notification: NSNotification){

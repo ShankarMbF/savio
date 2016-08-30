@@ -106,7 +106,6 @@ class SASavingSummaryViewController: UIViewController {
     
     //Function invoking for set up UI as per the individual or group plan
     func setUpView(){
-        print(itemDataDict)
         NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
         
@@ -175,8 +174,6 @@ class SASavingSummaryViewController: UIViewController {
                 summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
                 htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
                 //------------------------------------------------------------------------
-                
-                print("invitee = \(arr)")
                 //-------------- Show invited user list--------------------------------------
                 for i in 0 ..< arr.count {
                     let dict = arr[i] as Dictionary<String, AnyObject>

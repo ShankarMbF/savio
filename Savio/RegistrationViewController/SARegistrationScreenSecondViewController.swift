@@ -268,8 +268,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
-            print(userInfoDict)
-            
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
@@ -409,10 +407,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
-        print("\(objResponse)")
-
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
-        
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()

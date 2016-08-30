@@ -263,7 +263,6 @@ public class LineChart: UIView {
     }
     
     func sliderValueChanged(slider: UISlider) {
-        print(slider.value)
         if  CGFloat(slider.value) >= x.axis.inset && CGFloat(slider.value) <=  self.drawingWidth + x.axis.inset {
             moveScrollLineForPoint(CGFloat(slider.value))
             let xValue = CGFloat(slider.value)
@@ -441,9 +440,6 @@ public class LineChart: UIView {
                 self.valueLabel.text = stringValue
             }
         }
-
-    
-        print(transalation.x)
     }
     
     func drawSliderTrack() {

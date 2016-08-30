@@ -135,7 +135,6 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         selectedCell?.icon?.image = imageIcon
 
         let className: String = dict["className"] as! String
-        print(className)
         
         NSUserDefaults.standardUserDefaults().setObject(indexPath.row, forKey: "SelectedIndexPath")
         NSUserDefaults.standardUserDefaults().synchronize()

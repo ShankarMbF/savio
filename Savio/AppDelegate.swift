@@ -196,22 +196,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if(application.applicationState == UIApplicationState.Active) {
             NSLog("Active");
+            let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
+         
             //Show the view with the content of the push
             completionHandler(UIBackgroundFetchResult.NewData);
-            let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.Alert)
-            alertController.title = "Alert"
-            alertController.message = dict["alert"] as? String
-            UIApplication.sharedApplication().applicationIconBadgeNumber =  (dict["badge"] as? Int)!
+            //Show notification in banner view
+            TWMessageBarManager.sharedInstance().showMessageWithTitle("Savio", description:dict["alert"] as? String, type: TWMessageBarMessageType.Info)
+            //Change apps badge count
+            var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
+            badgeCount = badgeCount - 1
+            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
             
-            //alert view controll action method
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
-            { action -> Void in
-                var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
-                badgeCount = badgeCount - 1
-                UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
-            })
-            self.objSANav!.presentViewController(alertController, animated: true, completion: nil)
         } else if (application.applicationState == UIApplicationState.Background) {
             NSLog("Background");
             //Refresh the local model

@@ -22,9 +22,7 @@ class DataProtectionPolicy: UIView {
     
     @IBOutlet weak var lblHeading: UILabel!
     
-
     @IBOutlet weak var btnVeBg: UIView!
-    
     override func drawRect(rect: CGRect) {
          //set the shadow color for back button
 //        backButton.layer.shadowColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor

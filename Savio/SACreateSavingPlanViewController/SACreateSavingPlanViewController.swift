@@ -44,7 +44,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         //----------------------------------------Setting navigation Bar-------------------------------------------
-        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -135,7 +135,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         //---------------set Navigation right button nav-heart-------------------
         heartBtn.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         heartBtn.frame = CGRectMake(0, 0, 30, 30)
-        heartBtn.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        heartBtn.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         let heartCount:String = String(format: "%d",colors.count)
         heartBtn.setTitle(heartCount, forState: UIControlState.Normal)
         heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)

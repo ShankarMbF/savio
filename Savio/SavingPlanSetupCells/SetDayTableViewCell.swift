@@ -91,9 +91,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
-        let fontNormal:UIFont? = UIFont(name: "GothamRounded-Medium", size:10)
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
         let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
-        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:5)
         switch index {
         case 1:
             let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
@@ -146,7 +146,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             }
             else {
                 dayDateTextField.text = "Mon"
-                dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
+                dayDateTextField.font = UIFont(name: kMediumFont, size:10)
                  segmentDelegate!.getDateTextField("Mon")
             }
         }
@@ -155,7 +155,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 dayDateTextField.attributedText = self.createXLabelText(Int(dateStr)!, text: String(format: "%@",dateStr))
             }
             else {
-                dayDateTextField.font = UIFont(name: "GothamRounded-Medium", size:10)
+                dayDateTextField.font = UIFont(name: kMediumFont, size:10)
                 dayDateTextField.text = dateStr
             }
              segmentDelegate!.getDateTextField(dateStr)

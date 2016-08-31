@@ -34,7 +34,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +82,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
@@ -253,7 +253,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                     if let str1 = cellDict!["offDesc"] as? String  {
                     str = str1
                     //Calculating height of lable as per the string
-                    ht = self.heightForView(str, font: UIFont(name: "GothamRounded-Book", size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
+                    ht = self.heightForView(str, font: UIFont(name: kBookFont, size: 10)!, width: (cell.lblProductOffer?.frame.size.width)! )
                     }
                 }
                 else {

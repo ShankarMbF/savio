@@ -470,7 +470,7 @@ public class LineChart: UIView {
         let stringValue: String = String.init(format: "%.0f", firstValue!)
 
         self.valueLabel.text = stringValue
-        self.valueLabel.font =  UIFont(name: "GothamRounded-Medium", size: 7)
+        self.valueLabel.font =  UIFont(name: kMediumFont, size: 7)
         self.valueLabel.textAlignment = .Center
         
         //draw line
@@ -719,9 +719,9 @@ public class LineChart: UIView {
      */
     private func createXLabelText (index: Int) -> NSMutableAttributedString {
         let text = x.labels.values[index]
-        let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!]
+        let attributes: Dictionary = [NSFontAttributeName:UIFont(name: kMediumFont, size: 8)!]
         let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
-        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:4)
 
         switch index {
         case 0:
@@ -774,15 +774,7 @@ public class LineChart: UIView {
             } else {
                 label.text = String(index)
             }
-//            let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 8)!])
-//           
-//            let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:4)
-//
-//            attString.setAttributes([NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5], range: NSRange(location:1,length:2))
-//            
-//            
-//        
-//            label.attributedText = attString
+
             self.addSubview(label)
         }
     }
@@ -799,7 +791,7 @@ public class LineChart: UIView {
         for var i: CGFloat = start; i <= stop; i += step {
             yValue = graphHeight - self.y.scale(i) - (y.axis.inset * 1.5)
             let label = UILabel(frame: CGRect(x: 2.0, y: yValue, width: y.axis.inset - 8.0, height: y.axis.inset))
-            label.font = UIFont(name: "GothamRounded-Light", size: 6)
+            label.font = UIFont(name: kLightFont, size: 6)
             label.textAlignment = .Right
             label.text = String(Int(round(i)))
             label.backgroundColor = UIColor.clearColor()

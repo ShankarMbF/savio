@@ -49,7 +49,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         offerArr.removeAll()
-        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         if(isUpdatePlan)
         {
             self.title = "Update Saving plan"
@@ -59,7 +59,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.title = "Savings plan setup"
         }
         
-        let font = UIFont(name: "GothamRounded-Book", size: 15)
+        let font = UIFont(name: kBookFont, size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -139,7 +139,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
@@ -799,8 +799,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else {
                     if(isOfferDetailPressed == true) {
                         if(indexPath.section == offerDetailTag) {
-                            offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
-                            cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                            offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: kLightFont, size: 13)!, width: cell1.detailOfferLabel.frame.width)
+                            cell1.detailOfferLabelHeight.constant = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: kLightFont, size: 13)!, width: cell1.detailOfferLabel.frame.width)
                             cell1.detailOfferLabel.hidden = false
                             cell1.detailOfferLabel.text = dict["offDesc"] as? String
                             cell1.offerDetailsButton.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
@@ -848,12 +848,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func offerDetailsButtonPressed(sender:UIButton)
     {
         let dict = offerArr[sender.tag - 5]
-        offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+        offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: kLightFont, size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
         isChangeSegment = true
         if(isOfferDetailPressed == true) {
             if(prevOfferDetailTag != sender.tag) {
                 let oldDict = offerArr[prevOfferDetailTag - 5]
-                let oldOfferDetailHeight = self.heightForView((oldDict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                let oldOfferDetailHeight = self.heightForView((oldDict["offDesc"] as? String)!, font: UIFont(name:kLightFont, size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
                 
                 tblViewHt.constant = tblView.frame.size.height - oldOfferDetailHeight +  offerDetailHeight
                 offerDetailTag = sender.tag
@@ -1361,13 +1361,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(indx != offerDetailTag - 5) {
                     let dict = offerArr[offerDetailTag - 5]
                     
-                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: kLightFont, size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
                     tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
                 }
                 else {
                     let dict = offerArr[sender.tag - 5]
                     
-                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: "GothamRounded-Light", size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
+                    offerDetailHeight = self.heightForView((dict["offDesc"] as? String)!, font: UIFont(name: kLightFont, size: 13)!, width: UIScreen.mainScreen().bounds.width - 70)
                     tblViewHt.constant =  tblView.frame.size.height - 120 - offerDetailHeight
                 }
             }
@@ -1407,9 +1407,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //Add superscript to date text
     private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
-        let fontNormal:UIFont? = UIFont(name: "GothamRounded-Medium", size:10)
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
         let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
-        let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:5)
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:5)
         
         switch index {
         case 1:

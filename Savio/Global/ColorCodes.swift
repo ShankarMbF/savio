@@ -9,14 +9,12 @@
 import Foundation
 import UIKit
 
-var colorGroupPlan = 85
-var colorWeddingPlan = 86
-var colorBabyPlan = 87
-var colorHolidayPlan = 88
-var colorRidePlan = 89
-var colorHomePlan = 90
-var colorGadgetPlan = 91
-var colorGenericPlan = 92
+
+var kLightFont: String! = "GothamRounded-Light"
+var kBookFont: String! = "GothamRounded-Book"
+var kMediumFont: String! = "GothamRounded-Medium"
+
+
 //Structure defined for Color
 struct Color {
     static var groupPlan = 85

@@ -24,7 +24,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         self.wishListAPI()
         
         //---------Setting navigation bar-------------------------
-        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
@@ -52,7 +52,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)

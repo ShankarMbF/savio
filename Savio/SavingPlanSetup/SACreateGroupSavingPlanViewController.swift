@@ -42,7 +42,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         self.title = "Savings plan setup"
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -110,7 +110,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-
+        
         if (parameterDict["imageURL"] as! String != "" &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let urlString = parameterDict["imageURL"] as? String {
                 let data :NSData = NSData(base64EncodedString: urlString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
@@ -163,7 +163,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-                //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
+            //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if wishListArray!.count>0 {
                 NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
@@ -472,30 +472,30 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         //Open camera or gallery as per users choice
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-                    self.imagePicker.allowsEditing = true
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
+        { action -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.allowsEditing = true
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
-            { action -> Void in
-                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-                    self.imagePicker.delegate = self
-                    self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                    self.imagePicker.allowsEditing = true
-                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                else {
-                    let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
-                }
+        { action -> Void in
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.allowsEditing = true
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
             })
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -535,11 +535,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
-            { action -> Void in
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                self.navigationController?.popViewControllerAnimated(true)
-                self.delegate?.clearAll()
+        { action -> Void in
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            self.navigationController?.popViewControllerAnimated(true)
+            self.delegate?.clearAll()
             })
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -591,13 +591,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
+        print(objResponse)
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     //Navigate to showing group progress
-                     NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
                     NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
                     NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
                     objAnimView.removeFromSuperview()
@@ -622,7 +623,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     dict["PARTY_ID"] = parameterDict["pty_id"]
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
-                
+                    
                     objAPI.sendInviteMembersList(dict)
                 }
                 else {
@@ -641,6 +642,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func errorResponseForPartySavingPlanAPI(error:String) {
+        print(error)
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()
@@ -649,6 +651,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of Invite members API
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         if let message = objResponse["message"] as? String  {
             if(message == "Invited user successfully") {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
@@ -683,7 +686,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 else {
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
                 }
-                    newDict["planType"] = "group"
+                newDict["planType"] = "group"
                 
                 let objSummaryView = SASavingSummaryViewController()
                 objSummaryView.itemDataDict =  newDict
@@ -694,6 +697,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func errorResponseForInviteMembersAPI(error: String) {
+        print(error)
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()

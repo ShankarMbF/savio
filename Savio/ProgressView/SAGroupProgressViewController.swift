@@ -67,7 +67,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
@@ -119,7 +119,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
@@ -154,7 +154,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(
-                                name: "GothamRounded-Medium",
+                                name: kMediumFont,
                                 size: 16.0)!,
                               range: NSRange(
                                 location: 4,
@@ -318,9 +318,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 
                 let text = String(format: "%d",Int(paidAmount * 100)/totalAmount)
              
-                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
+                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: kMediumFont, size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
-                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)
+                let fontSuper:UIFont? = UIFont(name: kMediumFont, size:25)
                 let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
                 attString.appendAttributedString(superscript)
                 labelSix.attributedText = attString
@@ -365,9 +365,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFive.hidden = true
                 labelSix.hidden = true
                 let text = String(format: "%d",paidAmount)
-                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: "GothamRounded-Medium", size: 45)!]
+                let attributes: Dictionary = [NSFontAttributeName:UIFont(name: kMediumFont, size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
-                let fontSuper:UIFont? = UIFont(name: "GothamRounded-Medium", size:25)
+                let fontSuper:UIFont? = UIFont(name: kMediumFont, size:25)
                 let superscript = NSMutableAttributedString(string: "£ ", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
                 superscript.appendAttributedString(attString)
                 labelThree.attributedText = superscript

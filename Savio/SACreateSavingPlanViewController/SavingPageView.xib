@@ -89,6 +89,7 @@
             <constraints>
                 <constraint firstItem="SYK-zo-4rC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="Tgy-7j-LFh"/>
                 <constraint firstItem="SYK-zo-4rC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WF2-Xo-U4J"/>
+                <constraint firstAttribute="trailing" secondItem="soR-3d-tBf" secondAttribute="trailing" id="aad-Z4-Oes"/>
                 <constraint firstItem="soR-3d-tBf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="den-ZI-U0L"/>
                 <constraint firstItem="SYK-zo-4rC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35" id="ed9-1e-USX"/>
                 <constraint firstItem="soR-3d-tBf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="nYF-Uu-IH2"/>

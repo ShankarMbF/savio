@@ -142,6 +142,11 @@
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="HfO-vF-xIW"/>
+                                        </mask>
+                                    </variation>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="ZQv-mg-C5O"/>
                                     </connections>

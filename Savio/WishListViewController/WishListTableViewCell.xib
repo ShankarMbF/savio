@@ -35,10 +35,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lB-gg-S8l">
                                 <rect key="frame" x="60" y="35" width="200" height="123"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divider-pound.png" translatesAutoresizingMaskIntoConstraints="NO" id="cFy-G2-efg">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="divider-pound.png" translatesAutoresizingMaskIntoConstraints="NO" id="cFy-G2-efg">
                                         <rect key="frame" x="53" y="54" width="94" height="16"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPECIALIZED XC COMP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmj-W7-aCP">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SPECIALIZED XC COMP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmj-W7-aCP">
                                         <rect key="frame" x="30" y="5" width="140" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="2BT-sS-6bU"/>
@@ -53,7 +53,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1400" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5s-Ui-gQN">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1400" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5s-Ui-gQN">
                                         <rect key="frame" x="54" y="73" width="92" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Z5s-Ui-gQN" secondAttribute="height" multiplier="46:15" id="WCf-iv-bbQ"/>
@@ -63,6 +63,11 @@
                                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="WCf-iv-bbQ"/>
+                                            </mask>
+                                        </variation>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -111,6 +116,11 @@
                         <state key="normal" title="Delete">
                             <color key="titleColor" red="0.61176470588235299" green="0.61960784313725492" blue="0.63529411764705879" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="PeU-aU-qY5"/>
+                            </mask>
+                        </variation>
                     </button>
                 </subviews>
                 <constraints>

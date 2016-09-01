@@ -38,6 +38,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var userInfoDict  : Dictionary<String,AnyObject> = [:]
     var isImageClicked = false
     var offerArr: Array<Dictionary<String,AnyObject>> = []
+    var groupMemberCount = 0
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -227,31 +228,63 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             if(isDateChanged) {
-                cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
-                if(dateString == "day") {
-                    if((dateDiff/168) == 1) {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
-                    }
-                    else if ((dateDiff/168) == 0) {
-                        cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
-                    }
-                    else {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
-                    }
-                }
-                else {
-                    if((dateDiff/168)/4 == 1) {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
-                    }
-                    else if ((dateDiff/168)/4 == 0) {
-                        cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                if parameterDict["isUpdate"]!.isEqualToString("Yes")
+                {
+                    cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(groupMemberCount)),cost/(groupMemberCount),cost)
+                    
+                    if(dateString == "day") {
+                        if((dateDiff/168) == 1) {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
+                        }
+                        else if ((dateDiff/168) == 0) {
+                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                        }
+                        else {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
+                        }
                     }
                     else {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        if((dateDiff/168)/4 == 1) {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        }
+                        else if ((dateDiff/168)/4 == 0) {
+                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                        }
+                        else {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        }
                     }
+                    
+                    
+                }else {
+                    
+                    cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
+                    if(dateString == "day") {
+                        if((dateDiff/168) == 1) {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
+                        }
+                        else if ((dateDiff/168) == 0) {
+                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                        }
+                        else {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
+                        }
+                    }
+                    else {
+                        if((dateDiff/168)/4 == 1) {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        }
+                        else if ((dateDiff/168)/4 == 0) {
+                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                        }
+                        else {
+                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        }
+                    }
+                    
                 }
             }
-            
+     
             if(isClearPressed) {
                 cell1.calculationLabel.text = ""
             }
@@ -619,6 +652,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "200") {
                     participantsArr.removeLast()
                     var dict : Dictionary<String,AnyObject> = [:]
+                    print(participantsArr)
                     dict["INIVITED_USER_LIST"] = participantsArr
                     dict["PARTY_ID"] = parameterDict["pty_id"]
                     let objAPI = API()

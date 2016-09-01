@@ -45,6 +45,11 @@
                     <constraint firstItem="Tdw-GV-UQY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="uKG-Ya-5CM"/>
                     <constraint firstItem="u95-xb-RaE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="vpJ-FO-ox1"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="kVo-NO-DKB"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="name" destination="u95-xb-RaE" id="0Cg-gM-hTR"/>

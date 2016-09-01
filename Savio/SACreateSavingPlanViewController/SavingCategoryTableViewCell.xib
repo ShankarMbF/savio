@@ -31,6 +31,11 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="11"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cD6-pO-72o"/>
+                            </mask>
+                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aOo-vc-KOf">
                         <rect key="frame" x="20" y="16" width="47" height="47"/>
@@ -39,6 +44,11 @@
                             <constraint firstAttribute="width" constant="47" id="ZsA-Ha-RLi"/>
                             <constraint firstAttribute="height" constant="47" id="cjv-Dr-EZK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FFB-mK-VzR"/>
+                            </mask>
+                        </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjD-IM-oCa">
                         <rect key="frame" x="75" y="20" width="133" height="17"/>
@@ -55,14 +65,18 @@
                     <constraint firstItem="aOo-vc-KOf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="Dyo-9C-e1j"/>
                     <constraint firstAttribute="trailingMargin" secondItem="obs-re-Qcr" secondAttribute="trailing" id="K67-Q5-HxQ"/>
                     <constraint firstItem="obs-re-Qcr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="32" id="OII-2t-sIf"/>
+                    <constraint firstItem="EjD-IM-oCa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="67" id="Rw4-e0-xrh"/>
                     <constraint firstItem="EjD-IM-oCa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="Rzl-qm-PJs"/>
                     <constraint firstItem="obs-re-Qcr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="25" id="TAX-mc-dOv"/>
                     <constraint firstAttribute="bottomMargin" secondItem="obs-re-Qcr" secondAttribute="bottom" constant="4" id="YiW-oz-qLM"/>
                     <constraint firstItem="EjD-IM-oCa" firstAttribute="leading" secondItem="aOo-vc-KOf" secondAttribute="trailing" constant="8" id="e02-W2-mXc"/>
+                    <constraint firstItem="obs-re-Qcr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="67" id="k8t-7P-745"/>
                     <constraint firstItem="aOo-vc-KOf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="wAP-Jz-j42"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="e02-W2-mXc"/>
+                        <exclude reference="4Jn-hZ-wKv"/>
                         <exclude reference="TAX-mc-dOv"/>
                     </mask>
                 </variation>

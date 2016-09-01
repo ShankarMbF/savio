@@ -38,6 +38,7 @@
     var isImageclicked = false
     var imagePicker = UIImagePickerController()
     var isContactAdded = false
+    var groupArrayCount = 0
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -156,6 +157,7 @@
             isFromWishList = true
             itemTitle = itemDetailsDataDict["title"] as! String
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
+            groupArrayCount = Int(itemDetailsDataDict["totalMembers"] as! NSNumber)
         }
         else {
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
@@ -799,6 +801,7 @@
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
+                objGroupSavingPlanView.groupMemberCount = groupArrayCount
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
                 objAnimView.removeFromSuperview()
             }

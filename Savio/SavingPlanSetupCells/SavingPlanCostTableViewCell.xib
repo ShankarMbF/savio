@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="GothamRounded-Medium.otf">
@@ -91,7 +92,9 @@
                 </subviews>
                 <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="4Fw-YO-ADe"/>
                     <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="60o-Q6-4NX"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="owe-f5-37h" secondAttribute="bottom" constant="70" id="9uz-Fi-651"/>
                     <constraint firstItem="ISQ-4m-YEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="Cgv-Sd-kt4"/>
                     <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="owe-f5-37h" secondAttribute="bottom" constant="5" id="Dy4-UX-fRY"/>
                     <constraint firstAttribute="bottom" secondItem="QW5-xP-CdE" secondAttribute="bottom" constant="11" id="KZn-rf-bXp"/>
@@ -112,6 +115,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="9uz-Fi-651"/>
+                        <exclude reference="Dy4-UX-fRY"/>
                         <exclude reference="KzA-ez-r09"/>
                         <exclude reference="lhX-Ck-u50"/>
                         <exclude reference="gRH-Pk-Agl"/>

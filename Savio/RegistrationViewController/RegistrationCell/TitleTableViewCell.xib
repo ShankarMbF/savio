@@ -25,18 +25,28 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DSe-vs-hRB">
                         <rect key="frame" x="30" y="4" width="90" height="27"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="27" id="TOy-Ls-i6j"/>
                             <constraint firstAttribute="width" constant="90" id="YP6-EX-4GO"/>
                             <constraint firstAttribute="width" secondItem="DSe-vs-hRB" secondAttribute="height" multiplier="10:3" id="mZI-Y9-PbA"/>
                             <constraint firstAttribute="height" constant="27" id="si2-QT-F0G"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mZI-Y9-PbA"/>
+                                <exclude reference="si2-QT-F0G"/>
+                            </mask>
+                        </variation>
                         <connections>
                             <outlet property="delegate" destination="-1" id="eBg-uj-AwQ"/>
                         </connections>
                     </textField>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bcP-nc-8gY">
                         <rect key="frame" x="124" y="4" width="166" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="ATA-B6-Eyo"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                         <connections>
@@ -68,6 +78,12 @@
                     <constraint firstItem="yms-xY-RA2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="lpT-pO-eCH"/>
                     <constraint firstItem="DSe-vs-hRB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="22" id="zGV-1a-o2s"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="cqY-sO-pHL"/>
+                        <exclude reference="Pr4-00-2qG"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="tfName" destination="bcP-nc-8gY" id="4QU-sC-IUA"/>

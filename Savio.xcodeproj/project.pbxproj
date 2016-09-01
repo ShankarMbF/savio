@@ -334,8 +334,6 @@
 		A8BDCBFC1D05557500D4C47B /* wedding-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBD21D05557500D4C47B /* wedding-setup-bg@2x.png */; };
 		A8BDCC0C1D05936F00D4C47B /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCC0A1D05936F00D4C47B /* icon-60.png */; };
 		A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */; };
-		A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */; };
-		A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */; };
 		A8DE13F91D50A2DD00C20695 /* ShareExtension.js in Resources */ = {isa = PBXBuildFile; fileRef = A8DE13F81D50A2DD00C20695 /* ShareExtension.js */; };
 		A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */; };
 		A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */; };
@@ -926,8 +924,6 @@
 		A8BDCBD21D05557500D4C47B /* wedding-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wedding-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A8BDCC0A1D05936F00D4C47B /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60.png"; sourceTree = "<group>"; };
 		A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSegmentBar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTableViewCell.swift; sourceTree = "<group>"; };
-		A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraTableViewCell.xib; sourceTree = "<group>"; };
 		A8DE13F81D50A2DD00C20695 /* ShareExtension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ShareExtension.js; sourceTree = "<group>"; };
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
@@ -1408,8 +1404,6 @@
 				A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */,
 				A8AB1C731D05A900002F68F5 /* OfferTableViewCell.xib */,
 				A82B9C9A1D06DDDF00BFD084 /* slider.swift */,
-				A8DC922D1D1902CC00B7B138 /* CameraTableViewCell.swift */,
-				A8DC922E1D1902CC00B7B138 /* CameraTableViewCell.xib */,
 				A82796131D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift */,
 				A82796141D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.xib */,
 				A82796171D1A705100097E75 /* GroupParticipantNameTableViewCell.swift */,
@@ -2571,7 +2565,6 @@
 				A8BDCBF41D05557500D4C47B /* ride-setup-bg.png in Resources */,
 				C90D39C41D068D2000F285BB /* divider-savio@2x.png in Resources */,
 				A858A5F11D08127C0097546F /* gadget-circle@2x.png in Resources */,
-				A8DC92301D1902CC00B7B138 /* CameraTableViewCell.xib in Resources */,
 				A859DDDD1D50AD4800932150 /* wedding-updown@2x.png in Resources */,
 				C9ED80471D1BC38A00058A96 /* menu-profile.png in Resources */,
 				A88E81D41D49EA0F00CAA00F /* stats-achievement-holder@3x.png in Resources */,
@@ -3043,7 +3036,6 @@
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,
 				C95CD6171CF2C92100013200 /* DPDConstants.swift in Sources */,
 				C95CD61A1CF2C92100013200 /* DropDown.swift in Sources */,
-				A8DC922F1D1902CC00B7B138 /* CameraTableViewCell.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */,

@@ -1297,6 +1297,7 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         

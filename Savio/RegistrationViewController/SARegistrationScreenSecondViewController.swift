@@ -406,6 +406,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         objAnimView.removeFromSuperview()
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
         if errorCode == 200 {

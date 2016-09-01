@@ -34,7 +34,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     var activeTextField = UITextField()
     var userInfoDict  = Dictionary<String,AnyObject>()
     var lastOffset: CGPoint = CGPointZero
-    
+    var arrayTextFields: Array<UITextField>!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,14 +50,20 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
-        textFieldOne.inputAccessoryView = customToolBar
-        textFieldTwo.inputAccessoryView = customToolBar
-        textFieldThree.inputAccessoryView = customToolBar
-        textFieldFour.inputAccessoryView = customToolBar
-        textFieldReOne.inputAccessoryView = customToolBar
-        textFieldReTwo.inputAccessoryView = customToolBar
-        textFieldReThree.inputAccessoryView = customToolBar
-        textFieldReFour.inputAccessoryView = customToolBar
+        
+        self.arrayTextFields = [textFieldOne,
+            textFieldTwo,
+            textFieldThree,
+            textFieldFour,
+            textFieldReOne,
+            textFieldReTwo,
+            textFieldReThree,
+            textFieldReFour]
+        
+        for tf: UITextField in arrayTextFields {
+            tf.inputAccessoryView = customToolBar
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -147,9 +153,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     
                     let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
                     userInfoDict["pass_code"] = passcode.MD5()
-                    
-                    
-                    
+           
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     var updatePasscodeDict = Dictionary<String,AnyObject>()
@@ -273,49 +277,40 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     func textFieldDidChange(textField: UITextField) {
         
         let text = textField.text
+        var tag = textField.tag
         if text?.utf16.count==1{
-            switch textField{
-            case textFieldOne:
-                textFieldTwo.becomeFirstResponder()
-            case textFieldTwo:
-                textFieldThree.becomeFirstResponder()
-            case textFieldThree:
-                textFieldFour.becomeFirstResponder()
-            case textFieldFour:
-                textFieldReOne.becomeFirstResponder()
-            case textFieldReOne:
-                textFieldReTwo.becomeFirstResponder()
-            case textFieldReTwo:
-                textFieldReThree.becomeFirstResponder()
-            case textFieldReThree:
-                textFieldReFour.becomeFirstResponder()
-            case textFieldReFour:
-                textFieldReFour.resignFirstResponder()
-            default:
-                textFieldOne.becomeFirstResponder()
+            for tf: UITextField in arrayTextFields {
+                if tf.tag == tag && tag != 7 {
+                    let tfNext = arrayTextFields[tag + 1]
+                    tfNext.becomeFirstResponder()
+                    break
+                }
+                else if tag == 7 {
+                    textField.resignFirstResponder()
+                    break
+                }
             }
+            
         }else {
-            switch textField{
-            case textFieldFour:
-                textFieldThree.becomeFirstResponder()
-            case textFieldThree:
-                textFieldTwo.becomeFirstResponder()
-            case textFieldTwo:
-                textFieldOne.becomeFirstResponder()
-            case textFieldOne:
-                textFieldOne.resignFirstResponder()
-            case textFieldReFour:
-                textFieldReThree.becomeFirstResponder()
-            case textFieldReThree:
-                textFieldReTwo.becomeFirstResponder()
-            case textFieldReTwo:
-                textFieldReOne.becomeFirstResponder()
-            case textFieldReOne:
-                textFieldFour.becomeFirstResponder()
-            default:
-                textFieldOne.becomeFirstResponder()
+            
+            for idx in 0...tag {
+                tag -= 1
+                if tag >= 0 {
+                let tfPre = arrayTextFields[tag]
+                if tfPre.text?.characters.count > 0 {
+                    tfPre.becomeFirstResponder()
+                    break
+                }
+                }
             }
+            
         }
+    }
+    
+    func makePreviousKeyfiledFirstResponder(idx: Int) {
+        
+      
+        
     }
     
     func registerForKeyboardNotifications(){

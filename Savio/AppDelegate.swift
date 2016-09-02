@@ -193,9 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             badgeCount = badgeCount - 1
             UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
         }
-
         if(application.applicationState == UIApplicationState.Active) {
-            NSLog("Active");
             let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
             let apnsDict = dict["alert"]  as! Dictionary<String,AnyObject>
             //Show the view with the content of the push
@@ -206,12 +204,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.sharedApplication().applicationIconBadgeNumber = Int(dict["badge"] as! NSNumber)
             
         } else if (application.applicationState == UIApplicationState.Background) {
-            NSLog("Background");
             //Refresh the local model
             completionHandler(UIBackgroundFetchResult.NewData);
             
         } else {
-            NSLog("Inactive");
             //Show an in-app banner
             completionHandler(UIBackgroundFetchResult.NewData);
         }

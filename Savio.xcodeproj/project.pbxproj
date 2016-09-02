@@ -335,6 +335,12 @@
 		A8BDCC0C1D05936F00D4C47B /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCC0A1D05936F00D4C47B /* icon-60.png */; };
 		A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */; };
 		A8DE13F91D50A2DD00C20695 /* ShareExtension.js in Resources */ = {isa = PBXBuildFile; fileRef = A8DE13F81D50A2DD00C20695 /* ShareExtension.js */; };
+		A8E3CA221D79AC86002B792C /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA1E1D79AC86002B792C /* Default-667h@2x.png */; };
+		A8E3CA231D79AC86002B792C /* Default-portrait-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA1F1D79AC86002B792C /* Default-portrait-736h@3x.png */; };
+		A8E3CA241D79AC86002B792C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA201D79AC86002B792C /* Default.png */; };
+		A8E3CA251D79AC86002B792C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA211D79AC86002B792C /* Default@2x.png */; };
+		A8E3CA271D79ACFA002B792C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA261D79ACFA002B792C /* Images.xcassets */; };
+		A8E3CA2B1D79AFD2002B792C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA2A1D79AFD2002B792C /* Default-568h@2x.png */; };
 		A8F820201D2E1DA700BB7537 /* GroupCircularProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */; };
 		A8F820241D2E667C00BB7537 /* SACancelSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */; };
 		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
@@ -925,6 +931,12 @@
 		A8BDCC0A1D05936F00D4C47B /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60.png"; sourceTree = "<group>"; };
 		A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSegmentBar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A8DE13F81D50A2DD00C20695 /* ShareExtension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ShareExtension.js; sourceTree = "<group>"; };
+		A8E3CA1E1D79AC86002B792C /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		A8E3CA1F1D79AC86002B792C /* Default-portrait-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-portrait-736h@3x.png"; sourceTree = "<group>"; };
+		A8E3CA201D79AC86002B792C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		A8E3CA211D79AC86002B792C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		A8E3CA261D79ACFA002B792C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A8E3CA2A1D79AFD2002B792C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
@@ -1719,6 +1731,18 @@
 			path = setupSavingPlan;
 			sourceTree = "<group>";
 		};
+		A8E3CA1D1D79AC86002B792C /* Splashscreen */ = {
+			isa = PBXGroup;
+			children = (
+				A8E3CA2A1D79AFD2002B792C /* Default-568h@2x.png */,
+				A8E3CA1E1D79AC86002B792C /* Default-667h@2x.png */,
+				A8E3CA1F1D79AC86002B792C /* Default-portrait-736h@3x.png */,
+				A8E3CA201D79AC86002B792C /* Default.png */,
+				A8E3CA211D79AC86002B792C /* Default@2x.png */,
+			);
+			path = Splashscreen;
+			sourceTree = "<group>";
+		};
 		A8F820211D2E665800BB7537 /* CancelSavingPlan */ = {
 			isa = PBXGroup;
 			children = (
@@ -2091,6 +2115,7 @@
 				C9E525B41CE986FA000FD01E /* LaunchScreen.storyboard */,
 				C9E525B71CE986FA000FD01E /* Info.plist */,
 				A8095B9A1CEDC504006366F7 /* BridgingHeader.h */,
+				A8E3CA261D79ACFA002B792C /* Images.xcassets */,
 			);
 			path = Savio;
 			sourceTree = "<group>";
@@ -2098,6 +2123,7 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				A8E3CA1D1D79AC86002B792C /* Splashscreen */,
 				A86D2E5B1D673445000D7D8A /* AppIcon */,
 				A86D2E591D66CDF0000D7D8A /* ArrowImages */,
 				A86D2E5A1D66CDF0000D7D8A /* splashLogo */,
@@ -2378,6 +2404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A841DAAB1D507F9E00846F46 /* 4.png in Resources */,
+				A8E3CA271D79ACFA002B792C /* Images.xcassets in Resources */,
 				C9ED80411D1BC38A00058A96 /* menu-log-out.png in Resources */,
 				A859DDE41D50AE7000932150 /* generic-updown@3x.png in Resources */,
 				A859DDB81D50AD2B00932150 /* holiday-updown@1x.png in Resources */,
@@ -2488,6 +2515,7 @@
 				A88E81DA1D49EA0F00CAA00F /* stats-achievement-smiley@3x.png in Resources */,
 				A8900C1A1D2FAF5200D8CD0F /* info-box-arrow@3x.png in Resources */,
 				C9ED805C1D1BC38A00058A96 /* menu-whishlist.png in Resources */,
+				A8E3CA251D79AC86002B792C /* Default@2x.png in Resources */,
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
 				C9E855011CF456CC006213BF /* savivo-logo.png in Resources */,
@@ -2558,6 +2586,7 @@
 				A858A5FE1D08127C0097546F /* home-circle@3x.png in Resources */,
 				A8BDCBDB1D05557500D4C47B /* gadget-setup-bg@3x.png in Resources */,
 				A8BDCBE81D05557500D4C47B /* holiday-calendar.png in Resources */,
+				A8E3CA241D79AC86002B792C /* Default.png in Resources */,
 				A8BDCBF81D05557500D4C47B /* wedding-calendar.png in Resources */,
 				A8BDCBF51D05557500D4C47B /* ride-setup-bg@2x.png in Resources */,
 				C9ED804B1D1BC38A00058A96 /* menu-progress@2x.png in Resources */,
@@ -2726,6 +2755,7 @@
 				A841DABD1D507F9E00846F46 /* 4@3x.png in Resources */,
 				A858A5FB1D08127C0097546F /* holiday-circle@3x.png in Resources */,
 				C9E535F41CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib in Resources */,
+				A8E3CA221D79AC86002B792C /* Default-667h@2x.png in Resources */,
 				C9361EBF1D30C18300605E1B /* social-wa@2x.png in Resources */,
 				A858A5EF1D08127C0097546F /* baby-circle.png in Resources */,
 				C9ED80251D1BC38A00058A96 /* menu-active-logout@3x.png in Resources */,
@@ -2744,6 +2774,7 @@
 				C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */,
 				A8BDCBD61D05557500D4C47B /* gadget-calendar.png in Resources */,
 				C975A9351D01952900184C8C /* holiday-category-icon@3x.png in Resources */,
+				A8E3CA2B1D79AFD2002B792C /* Default-568h@2x.png in Resources */,
 				A858A5EE1D08127C0097546F /* baby-circle@3x.png in Resources */,
 				C91E23E81D029C3300DC6D29 /* SAWishListViewController.xib in Resources */,
 				A88E81D51D49EA0F00CAA00F /* stats-achievement-money@2x.png in Resources */,
@@ -2756,6 +2787,7 @@
 				C9361EC01D30C18300605E1B /* social-wa@3x.png in Resources */,
 				A859DDA91D50AD1F00932150 /* group-dropdown@1x.png in Resources */,
 				A8900C191D2FAF5200D8CD0F /* info-box-arrow@2x.png in Resources */,
+				A8E3CA231D79AC86002B792C /* Default-portrait-736h@3x.png in Resources */,
 				A859DD9A1D50ACDD00932150 /* gadget-updown@1x.png in Resources */,
 				A841DABF1D507F9E00846F46 /* 6@3x.png in Resources */,
 				A8BDCBF71D05557500D4C47B /* wdding-setup-bg@3x.png in Resources */,

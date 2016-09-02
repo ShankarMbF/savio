@@ -197,15 +197,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if(application.applicationState == UIApplicationState.Active) {
             NSLog("Active");
             let dict = userInfo["aps"] as! Dictionary<String,AnyObject>
-         
+            let apnsDict = dict["alert"]  as! Dictionary<String,AnyObject>
             //Show the view with the content of the push
             completionHandler(UIBackgroundFetchResult.NewData);
             //Show notification in banner view
-            TWMessageBarManager.sharedInstance().showMessageWithTitle("Savio", description:dict["alert"] as? String, type: TWMessageBarMessageType.Info)
+            TWMessageBarManager.sharedInstance().showMessageWithTitle(apnsDict["title"] as? String, description: apnsDict["body"] as? String, type: TWMessageBarMessageType.Info)
             //Change apps badge count
-            var badgeCount = UIApplication.sharedApplication().applicationIconBadgeNumber
-            badgeCount = badgeCount - 1
-            UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount
+            UIApplication.sharedApplication().applicationIconBadgeNumber = Int(dict["badge"] as! NSNumber)
             
         } else if (application.applicationState == UIApplicationState.Background) {
             NSLog("Background");

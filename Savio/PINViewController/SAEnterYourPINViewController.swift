@@ -34,6 +34,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     var objAnimView = ImageViewAnimation()
     let objAPI = API()
     var userInfoDict = Dictionary<String,AnyObject>()
+    var arrayTextFields: Array<UITextField>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +58,16 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
-        textFieldOne.inputAccessoryView = customToolBar
-        textFieldTwo.inputAccessoryView = customToolBar
-        textFieldThree.inputAccessoryView = customToolBar
-        textFieldFour.inputAccessoryView = customToolBar
+        
+        self.arrayTextFields = [textFieldOne,
+                                textFieldTwo,
+                                textFieldThree,
+                                textFieldFour]
+        
+        for tf: UITextField in arrayTextFields {
+            tf.inputAccessoryView = customToolBar
+        }
+
     }
     
     func doneBarButtonPressed(sender: AnyObject) {
@@ -384,36 +391,36 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldFour.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
     }
     
-    func textFieldDidChange(textField: UITextField){
+    func textFieldDidChange(textField: UITextField) {
         
         let text = textField.text
-        if text?.characters.count==1{
-            switch textField{
-            case textFieldOne:
-                textFieldTwo.becomeFirstResponder()
-            case textFieldTwo:
-                textFieldThree.becomeFirstResponder()
-            case textFieldThree:
-                textFieldFour.becomeFirstResponder()
-            case textFieldFour:
-                textFieldFour.resignFirstResponder()
-                self.removeKeyboardNotification()
-            default:
-                textFieldOne.becomeFirstResponder()
+        var tag = textField.tag
+        if text?.utf16.count==1{
+            for tf: UITextField in arrayTextFields {
+                if tf.tag == tag && tag != 3 {
+                    let tfNext = arrayTextFields[tag + 1]
+                    tfNext.becomeFirstResponder()
+                    break
+                }
+                else if tag == 3 {
+                    textField.resignFirstResponder()
+                    break
+                }
             }
+            
         }else {
-            switch textField{
-            case textFieldFour:
-                textFieldThree.becomeFirstResponder()
-            case textFieldThree:
-                textFieldTwo.becomeFirstResponder()
-            case textFieldTwo:
-                textFieldOne.becomeFirstResponder()
-            case textFieldOne:
-                textFieldOne.resignFirstResponder()
-            default:
-                textFieldOne.becomeFirstResponder()
+            
+            for idx in 0...tag {
+                tag -= 1
+                if tag >= 0 {
+                    let tfPre = arrayTextFields[tag]
+                    if tfPre.text?.characters.count > 0 {
+                        tfPre.becomeFirstResponder()
+                        break
+                    }
+                }
             }
+            
         }
     }
     

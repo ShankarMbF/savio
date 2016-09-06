@@ -272,7 +272,6 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 return 280.0
             }
         }
-        
     }
     
     //Function navigate when user tapping on start saving plan button and navigate to setup plan screen

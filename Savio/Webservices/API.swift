@@ -297,7 +297,7 @@ class API: UIView,NSURLSessionDelegate {
             
             request.HTTPMethod = "POST"
             //collect requierd parameter in dictionary
-            let params = ["api_key":APIKey,"via":"sms","phone_number":phoneNumber,"country_code":country_code] as Dictionary<String, String>
+            let params = ["api_key":APIKey,"via":"sms","phone_number":phoneNumber,"country_code":country_code,"locale":"en"] as Dictionary<String, String>
             //set request parameter to request body
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")

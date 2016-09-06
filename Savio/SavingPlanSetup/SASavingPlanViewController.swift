@@ -94,44 +94,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             objAPI.getUsersSavingPlan("i")
             objAPI.getSavingPlanDelegate = self
         }
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //Set the contentsize of UIScrollView
-        if(isUpdatePlan)
-        {
-            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
-        }
-        else
-        {
-            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
-        }
+         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
     }
     
     func setUpView(){
         //set Navigation left button
+         let leftBtnName = UIButton()
         if (isUpdatePlan) {
-            let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
             leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
-            let leftBarButton = UIBarButtonItem()
-            leftBarButton.customView = leftBtnName
-            self.navigationItem.leftBarButtonItem = leftBarButton
-            
         } else  {
-            
-            let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
             leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
-            
-            let leftBarButton = UIBarButtonItem()
-            leftBarButton.customView = leftBtnName
-            self.navigationItem.leftBarButtonItem = leftBarButton
         }
+        let leftBarButton = UIBarButtonItem()
+        leftBarButton.customView = leftBtnName
+        self.navigationItem.leftBarButtonItem = leftBarButton
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
@@ -259,11 +244,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
-                
             }
-            
         }
-        
     }
     
     //set top image as per selected category

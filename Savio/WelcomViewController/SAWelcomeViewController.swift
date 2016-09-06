@@ -12,12 +12,11 @@ import UIKit
 class SAWelcomeViewController: UIViewController {
     
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!      //IBOutlet for scrollview
+    @IBOutlet weak var pageControl: UIPageControl!    //IBOutlet for pagination
+    @IBOutlet weak var signUpBtn: UIButton!           //IBOutlet for signup button
     
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var signUpBtn: UIButton!
-    
-    var timer: NSTimer?
+    var timer: NSTimer?                               // variable for set delay time
     
     //flag holds the
     var idx: Int = 0

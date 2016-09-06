@@ -83,7 +83,7 @@ class ContainerViewController: UIViewController {
     func addCentreView(notification: NSNotification) {
         let className = notification.object as! String
         //Check selected menu class and current class is same then close menu
-        if self.centreVC.nibName == className {
+        if (self.centreVC.nibName == className) || (self.centreVC.nibName == "SAGroupProgressViewController" && className == "SAProgressViewController") {
             self.ToggleCentreView()
             return
         }

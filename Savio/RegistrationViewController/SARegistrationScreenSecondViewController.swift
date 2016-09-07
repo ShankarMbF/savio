@@ -407,7 +407,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        objAnimView.removeFromSuperview()
+       
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
         if errorCode == 200 {
             checkString = "Register"
@@ -421,6 +421,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "91")
         }
         else if errorCode == 201 {
+             objAnimView.removeFromSuperview()
             let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
@@ -433,6 +434,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             self.presentViewController(alert, animated: true, completion: nil)
         }
         else if errorCode == 202 {
+             objAnimView.removeFromSuperview()
             var dict = objResponse["party"] as! Dictionary<String,AnyObject>
            let firstName = dict["first_name"] as! String
            let lastName = dict["second_name"] as! String
@@ -446,7 +448,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                 self.navigationController?.popViewControllerAnimated(true)
                 })
             self.presentViewController(alert, animated: true, completion: nil)
-            
         }
     }
     
@@ -470,16 +471,21 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         let arr = self.view.subviews
         for obj in arr
         {
             if(obj == objimpInfo)
             {
-                 objimpInfo.removeFromSuperview()
+                objimpInfo.removeFromSuperview()
             }
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
 
     }
 }

@@ -495,12 +495,10 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             let trimmedString = strCode.stringByReplacingOccurrencesOfString(" ", withString: "")
             objGetAddressAPI.verifyPostCode(trimmedString)
         }
-        
     }
     
     func dropDownTxtFieldCellText(dropDownTextCell:DropDownTxtFieldTableViewCell)
     {
-        
         let str = dropDownTextCell.tf?.text
         let fullNameArr = str!.characters.split{$0 == ","}.map(String.init)
         
@@ -512,6 +510,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
 
         self.createCells()
     }
+    
     func linkButtonClicked(sender:UIButton){
         
         let attributes = [

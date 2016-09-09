@@ -450,8 +450,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F9E013E9E95B6BF9A4C87C2CAC295BC9 /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -463,7 +462,6 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6a20ad58-0b21-4cfd-a8ec-fb5c1f76e469";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -595,8 +593,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2ED925F8EBF8F5072B05087C321275E8 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Vatsa Solutions Private Limited (235FYPWGUK)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -608,7 +605,6 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6a20ad58-0b21-4cfd-a8ec-fb5c1f76e469";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};

@@ -634,7 +634,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         dictForTextFieldValue.updateValue(fullNameArr[0], forKey: "First Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[1], forKey: "Second Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[2], forKey: "Third Address Line")
-        dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-2], forKey: "Town")
+        dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-2], forKey: "town")
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-1], forKey: "County")
         
         userInfoDict.updateValue(fullNameArr[0], forKey: "address_1")
@@ -704,6 +704,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 }
                 
                 var param = userInfoDict as Dictionary<String,AnyObject>
+                param["town"] = userInfoDict["Town"]
+                param.removeValueForKey("Town")
                 param["ptystatus"] = "ENABLE"
                 param.removeValueForKey("date_of_birth")
                 param.removeValueForKey("pass_code")
@@ -728,6 +730,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 param.removeValueForKey("partyRole")
                 param.removeValueForKey("partyStatus")
                 param.removeValueForKey("partyGender")
+                
+                print(param)
                 objAPI.updateUserInfoDelegate = self
                 objAPI.updateUserInfo(param)
             }
@@ -1354,6 +1358,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     func successResponseForUpdateUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView?.removeFromSuperview()
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "UserData Updated Successfully")

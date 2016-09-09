@@ -11,6 +11,8 @@ import UIKit
 class SASwitchViewController: UIViewController {
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    @IBOutlet var scrView : UIScrollView?
+    @IBOutlet var confirmBtn : UIButton?
 
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -24,6 +26,11 @@ class SASwitchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrView?.contentSize = CGSizeMake(0, confirmBtn!.frame.origin.y + confirmBtn!.frame.size.height + 10)
+        //        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
+    }
     
     func setUpView(){
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black

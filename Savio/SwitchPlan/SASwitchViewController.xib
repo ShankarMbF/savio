@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -30,28 +30,11 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aEn-X9-th9">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="WNR-qh-7mt">
-                                    <rect key="frame" x="280" y="50" width="40" height="40"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have more than one active saving plan, use this screen to select the plan to manage." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRX-RL-1RY">
+                                    <rect key="frame" x="40" y="167" width="520" height="73"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="X4H-cQ-lrH"/>
-                                        <constraint firstAttribute="height" constant="40" id="Zx7-qX-Fes"/>
-                                    </constraints>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Switch saving plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNQ-Ol-z7a">
-                                    <rect key="frame" x="193" y="105" width="215" height="66"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="66" id="eQL-oS-umb"/>
-                                        <constraint firstAttribute="width" constant="215" id="mvY-OO-CXh"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have more than one active saving plan, use this screen to select the plan to manage." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRX-RL-1RY">
-                                    <rect key="frame" x="110" y="193" width="380" height="47"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="47" id="Van-A1-Mu0"/>
-                                        <constraint firstAttribute="width" constant="380" id="vgm-EL-BwG"/>
+                                        <constraint firstAttribute="height" constant="73" id="Van-A1-Mu0"/>
+                                        <constraint firstAttribute="width" constant="520" id="vgm-EL-BwG"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,14 +43,14 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tv5-BH-QrD">
                                     <rect key="frame" x="40" y="257" width="520" height="105"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="87I-AG-E0f">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="6.png" translatesAutoresizingMaskIntoConstraints="NO" id="87I-AG-E0f">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="Wnk-zj-wAq"/>
                                                 <constraint firstAttribute="height" constant="100" id="qdm-d7-nso"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yet-8I-vPx">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="6.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yet-8I-vPx">
                                             <rect key="frame" x="420" y="0.0" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="1N8-Xz-Fk3"/>
@@ -107,6 +90,23 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="WNR-qh-7mt">
+                                    <rect key="frame" x="280" y="38" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="X4H-cQ-lrH"/>
+                                        <constraint firstAttribute="height" constant="40" id="Zx7-qX-Fes"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Switch saving plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNQ-Ol-z7a">
+                                    <rect key="frame" x="193" y="93" width="215" height="66"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="66" id="eQL-oS-umb"/>
+                                        <constraint firstAttribute="width" constant="215" id="mvY-OO-CXh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -114,7 +114,7 @@
                                 <constraint firstAttribute="trailing" secondItem="vhd-pc-SDe" secondAttribute="trailing" constant="32" id="AJT-Dr-FFM"/>
                                 <constraint firstAttribute="trailing" secondItem="Tv5-BH-QrD" secondAttribute="trailing" constant="40" id="AmT-m9-QH3"/>
                                 <constraint firstItem="Xqt-QM-C44" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="bottom" constant="30" id="F24-4D-aRw"/>
-                                <constraint firstItem="FRX-RL-1RY" firstAttribute="top" secondItem="bNQ-Ol-z7a" secondAttribute="bottom" constant="22" id="F6k-nN-Da7"/>
+                                <constraint firstItem="FRX-RL-1RY" firstAttribute="top" secondItem="bNQ-Ol-z7a" secondAttribute="bottom" constant="8" id="F6k-nN-Da7"/>
                                 <constraint firstItem="Tv5-BH-QrD" firstAttribute="leading" secondItem="aEn-X9-th9" secondAttribute="leading" constant="40" id="GGR-W2-IwE"/>
                                 <constraint firstItem="vhd-pc-SDe" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="bottom" constant="31" id="Jt5-SZ-2lZ"/>
                                 <constraint firstItem="FRX-RL-1RY" firstAttribute="centerX" secondItem="aEn-X9-th9" secondAttribute="centerX" id="N3Q-jV-gat"/>
@@ -122,10 +122,12 @@
                                 <constraint firstItem="vhd-pc-SDe" firstAttribute="leading" secondItem="aEn-X9-th9" secondAttribute="leading" constant="32" id="X7J-vX-GOR"/>
                                 <constraint firstItem="Tv5-BH-QrD" firstAttribute="top" secondItem="FRX-RL-1RY" secondAttribute="bottom" constant="17" id="YeK-bT-Ypg"/>
                                 <constraint firstItem="bNQ-Ol-z7a" firstAttribute="top" secondItem="WNR-qh-7mt" secondAttribute="bottom" constant="15" id="Z8r-RH-QMH"/>
+                                <constraint firstItem="FRX-RL-1RY" firstAttribute="leading" secondItem="aEn-X9-th9" secondAttribute="leading" constant="40" id="cXa-6a-bj3"/>
                                 <constraint firstItem="WNR-qh-7mt" firstAttribute="centerX" secondItem="aEn-X9-th9" secondAttribute="centerX" id="kIn-ke-xjS"/>
                                 <constraint firstItem="bNQ-Ol-z7a" firstAttribute="centerX" secondItem="aEn-X9-th9" secondAttribute="centerX" id="l2t-tu-3rB"/>
                                 <constraint firstAttribute="trailing" secondItem="Xqt-QM-C44" secondAttribute="trailing" constant="32" id="uZa-W2-P4k"/>
-                                <constraint firstItem="WNR-qh-7mt" firstAttribute="top" secondItem="aEn-X9-th9" secondAttribute="top" constant="50" id="utL-8x-u1Y"/>
+                                <constraint firstItem="WNR-qh-7mt" firstAttribute="top" secondItem="aEn-X9-th9" secondAttribute="top" constant="38" id="utL-8x-u1Y"/>
+                                <constraint firstAttribute="trailing" secondItem="FRX-RL-1RY" secondAttribute="trailing" constant="40" id="zBO-qM-SFt"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -154,6 +156,7 @@
         </view>
     </objects>
     <resources>
+        <image name="6.png" width="75" height="75"/>
         <image name="savivo-logo.png" width="85" height="85"/>
     </resources>
 </document>

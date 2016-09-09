@@ -73,6 +73,13 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
                     arrMenu.append(dict)
                 }
             }
+             else if dict["className"]!.isEqualToString("SASwitchViewController") {
+                dict["showInMenu"] = "No"
+                if (individualFlag == 1 && groupMemberFlag == 1) || (groupFlag == 1 && groupMemberFlag == 1){
+                    dict["showInMenu"] = "Yes"
+                    arrMenu.append(dict)
+                }
+            }
             else {
                 arrMenu.append(dict)
             }

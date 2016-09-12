@@ -87,6 +87,19 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        {
+            if(groupFlag == 1 && usersPlan == "G")
+            {
+                objAPI.getUsersSavingPlan("g")
+            }
+            else if(groupMemberFlag == 1  && usersPlan == "GM")
+            {
+                objAPI.getUsersSavingPlan("gm")
+            }
+
+        }
+        else {
         if(groupFlag == 1 )
         {
             objAPI.getUsersSavingPlan("g")
@@ -95,10 +108,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             objAPI.getUsersSavingPlan("gm")
         }
+        }
         self.view.bringSubviewToFront(topButtonView)
     }
  
-    
     func setUPNavigation()
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black

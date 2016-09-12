@@ -127,18 +127,31 @@ class ContainerViewController: UIViewController {
             let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
             let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
             let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-            //As per flag show the progress view of plan
-            if individualFlag == 1 {
-                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-            }
-            else if(groupFlag == 1 || groupMemberFlag == 1)
-            {
-                self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
-            }
-            else {
-                self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
-            }
             
+            var usersPlanFlag = ""
+            if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+            {
+                usersPlanFlag = usersPlan
+                //As per flag show the progress view of plan
+                if individualFlag == 1 && usersPlanFlag == "I"{
+                    self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                }
+                else
+                {
+                    self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                }
+                
+            } else {
+                usersPlanFlag = ""
+                //As per flag show the progress view of plan
+                if individualFlag == 1{
+                    self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                }
+                else
+                {
+                    self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                }
+            }
             self.replaceViewController()
             
         case "SASavingPlanViewController":
@@ -178,15 +191,5 @@ class ContainerViewController: UIViewController {
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

@@ -15,11 +15,18 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     @IBOutlet var confirmBtn : UIButton?
     @IBOutlet weak var planOneImageView: UIImageView!
     @IBOutlet weak var planTwoImageView: UIImageView!
-    @IBOutlet weak var planOneTitle: UIButton!
-    @IBOutlet weak var planTwoTitle: UIButton!
+    @IBOutlet weak var planOneButton: UIButton!
+    @IBOutlet weak var planTwoButton: UIButton!
+    @IBOutlet weak var spinnerOne: UIActivityIndicatorView!
+    @IBOutlet weak var spinnerTwo: UIActivityIndicatorView!
     
+    var usersPlanArray : Array<Dictionary<String,AnyObject>> = []
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var objAnimView = ImageViewAnimation()
+    var planOneType = ""
+    var planTwoType = ""
+    var planOneSharedSavingPlanID = ""
+    var planTwoSharedSavingPlanID = ""
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +34,17 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-       // self.view.addSubview(objAnimView)
+        self.view.addSubview(objAnimView)
         
         //Create object of API class to call the GETSavingPlanDelegate methods.
         let objAPI = API()
         objAPI.getListOfUsersPlanDelegate = self
-
+        objAPI.getListOfUsersPlan()
+        
         
         self.setUpView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,7 +60,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -78,7 +86,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-   
+            
             if(wishListArray.count > 0)
             {
                 
@@ -88,7 +96,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
- 
+                
             }
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
             
@@ -97,10 +105,13 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        
     }
     
+    
+    @IBAction func confirmButtonPressed(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
+    }
     
     //MARK: Bar button action
     func menuButtonClicked(){
@@ -119,13 +130,135 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         }
     }
     
-    //MARK: GetListOfUsersPlanDelegate methods
+    @IBAction func planOneButtonPressed(sender: AnyObject) {
+        print(planOneSharedSavingPlanID)
+        NSUserDefaults.standardUserDefaults().setObject(planOneSharedSavingPlanID, forKey: "UsersPlan")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
     
-    func successResponseForGetListOfUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+    @IBAction func planTwoButtonPressed(sender: AnyObject) {
+        print(planTwoSharedSavingPlanID)
+        NSUserDefaults.standardUserDefaults().setObject(planTwoSharedSavingPlanID, forKey: "UsersPlan")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
     }
     
+    //MARK: GetListOfUsersPlanDelegate methods
+    
+    func successResponseForGetListOfUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String
+        {
+            if(message == "Successfully received")
+            {
+                usersPlanArray = (objResponse["lstPartysavingplan"] as? Array<Dictionary<String,AnyObject>>)!
+                
+                let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
+                planOneButton .setTitle(dictOne["title"] as? String , forState: .Normal)
+                planOneType = dictOne["partySavingPlanType"] as! String
+                if(planOneType == "Group")
+                {
+                    if let sharedSavingPlanID = dictOne["sharedSavingPlanID"] as? NSNumber
+                    {
+                        planOneSharedSavingPlanID = "GM"
+                    }
+                    else {
+                        planOneSharedSavingPlanID = "G"
+                    }
+                }
+                else {
+                    planOneSharedSavingPlanID = "I"
+                }
+                
+                if let urlString = dictOne["image"] as? String
+                {
+                    let url = NSURL(string:urlString)
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    if(urlString != "")
+                    {
+                        spinnerOne.hidden = false
+                        spinnerOne.startAnimating()
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            if data?.length > 0
+                            {
+                                let image = UIImage(data: data!)
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.planOneImageView.image = image
+                                    
+                                    self.spinnerOne.hidden = true
+                                    self.spinnerOne.stopAnimating()
+                                })
+                            }
+                            else {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.spinnerOne.hidden = true
+                                    self.spinnerOne.stopAnimating()
+                                })
+                            }
+                        })
+                    }
+                    else {
+                        self.spinnerOne.hidden = true
+                        self.spinnerOne.stopAnimating()
+                    }
+                }
+                
+                
+                let dictTwo = usersPlanArray[1] as Dictionary<String,AnyObject>
+                planTwoButton .setTitle(dictTwo["title"] as? String , forState: .Normal)
+                planTwoType = dictTwo["partySavingPlanType"] as! String
+                if(planTwoType == "Group")
+                {
+                    if let sharedSavingPlanID = dictTwo["sharedSavingPlanID"] as? NSNumber
+                    {
+                        planTwoSharedSavingPlanID = "GM"
+                    }
+                    else {
+                        planTwoSharedSavingPlanID = "G"
+                    }
+                }
+                else {
+                    planTwoSharedSavingPlanID = "I"
+                }
+                if let urlString = dictTwo["image"] as? String
+                {
+                    let url = NSURL(string:urlString)
+                    let request: NSURLRequest = NSURLRequest(URL: url!)
+                    if(urlString != "")
+                    {
+                        spinnerTwo.hidden = false
+                        spinnerTwo.startAnimating()
+                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                            if data?.length > 0 {
+                                let image = UIImage(data: data!)
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.planTwoImageView.image = image
+                                    self.spinnerTwo.hidden = true
+                                    self.spinnerTwo.stopAnimating()
+                                })
+                            }
+                            else  {
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.spinnerTwo.hidden = true
+                                    self.spinnerTwo.stopAnimating()
+                                })
+                            }
+                        })
+                    }else {
+                        self.spinnerTwo.hidden = true
+                        self.spinnerTwo.stopAnimating()
+                    }
+                }
+                self.setUpView()
+            }
+        }
+    }
+    
     func errorResponseForGetListOfUsersPlanAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        objAnimView.removeFromSuperview()
         
     }
 }

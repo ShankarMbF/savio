@@ -11,10 +11,10 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
+//let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-//let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
+let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
@@ -1349,7 +1349,7 @@ class API: UIView,NSURLSessionDelegate {
     }
  
       //MARK:Get list of users plan
-    func getListOfUsersPlan(str:String)
+    func getListOfUsersPlan()
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
@@ -1366,7 +1366,7 @@ class API: UIView,NSURLSessionDelegate {
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -1388,7 +1388,6 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else  if let error = error
                 {
-                    
                     dispatch_async(dispatch_get_main_queue()){
                         self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI((response?.description)!)
                     }

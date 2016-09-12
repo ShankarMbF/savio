@@ -19,11 +19,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SASwitchViewController" customModule="Savio" customModuleProvider="target">
             <connections>
                 <outlet property="confirmBtn" destination="Xqt-QM-C44" id="hCp-XF-0zQ"/>
+                <outlet property="planOneButton" destination="tCT-fc-NW7" id="VSH-QF-MR3"/>
                 <outlet property="planOneImageView" destination="87I-AG-E0f" id="mXM-J9-Beq"/>
-                <outlet property="planOneTitle" destination="tCT-fc-NW7" id="vN6-nf-hAz"/>
+                <outlet property="planTwoButton" destination="QGx-Db-PPW" id="HAK-bT-n9M"/>
                 <outlet property="planTwoImageView" destination="Yet-8I-vPx" id="Bon-Ww-ihK"/>
-                <outlet property="planTwoTitle" destination="QGx-Db-PPW" id="WaD-To-gaS"/>
                 <outlet property="scrView" destination="Bo7-N7-RzW" id="iLY-dZ-KfY"/>
+                <outlet property="spinnerOne" destination="Qok-Hl-DH5" id="9gT-VO-sCp"/>
+                <outlet property="spinnerTwo" destination="Gqa-XM-GVe" id="BK0-rU-F6n"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -58,6 +60,13 @@
                                                 <constraint firstAttribute="height" constant="100" id="qdm-d7-nso"/>
                                             </constraints>
                                         </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Qok-Hl-DH5">
+                                            <rect key="frame" x="40" y="40" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="0N9-wN-xNp"/>
+                                                <constraint firstAttribute="height" constant="20" id="2Bu-wo-6zE"/>
+                                            </constraints>
+                                        </activityIndicatorView>
                                         <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceHolder100x100.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yet-8I-vPx">
                                             <rect key="frame" x="420" y="0.0" width="100" height="100"/>
                                             <constraints>
@@ -72,9 +81,12 @@
                                                 <constraint firstAttribute="width" constant="100" id="gQ5-kM-08H"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
-                                            <state key="normal" title="Title">
+                                            <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="planOneButtonPressed:" destination="-1" eventType="touchUpInside" id="grT-Br-8SD"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGx-Db-PPW">
                                             <rect key="frame" x="420" y="0.0" width="100" height="100"/>
@@ -83,20 +95,34 @@
                                                 <constraint firstAttribute="height" constant="100" id="WAh-Hp-aUX"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
-                                            <state key="normal" title="Title">
+                                            <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="planTwoButtonPressed:" destination="-1" eventType="touchUpInside" id="ggI-CN-auB"/>
+                                            </connections>
                                         </button>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Gqa-XM-GVe">
+                                            <rect key="frame" x="460" y="40" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="1zI-de-i4T"/>
+                                                <constraint firstAttribute="height" constant="20" id="XOV-m3-bef"/>
+                                            </constraints>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="87I-AG-E0f" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" id="1CQ-OQ-BVa"/>
+                                        <constraint firstItem="Gqa-XM-GVe" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" constant="40" id="36B-ef-LP0"/>
                                         <constraint firstItem="tCT-fc-NW7" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" id="83b-w8-bHt"/>
+                                        <constraint firstItem="Qok-Hl-DH5" firstAttribute="leading" secondItem="Tv5-BH-QrD" secondAttribute="leading" constant="40" id="QXh-ze-WUk"/>
                                         <constraint firstItem="87I-AG-E0f" firstAttribute="leading" secondItem="Tv5-BH-QrD" secondAttribute="leading" id="U3g-rM-IGm"/>
                                         <constraint firstItem="QGx-Db-PPW" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" id="b13-Y4-M8L"/>
                                         <constraint firstAttribute="height" constant="105" id="cpH-Nk-N2m"/>
                                         <constraint firstAttribute="trailing" secondItem="Yet-8I-vPx" secondAttribute="trailing" id="kOc-jU-DnN"/>
+                                        <constraint firstItem="Qok-Hl-DH5" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" constant="40" id="llZ-wl-vNI"/>
                                         <constraint firstItem="Yet-8I-vPx" firstAttribute="top" secondItem="Tv5-BH-QrD" secondAttribute="top" id="ua8-Q1-oIL"/>
+                                        <constraint firstAttribute="trailing" secondItem="Gqa-XM-GVe" secondAttribute="trailing" constant="40" id="vUB-Qz-Vik"/>
                                         <constraint firstItem="tCT-fc-NW7" firstAttribute="leading" secondItem="Tv5-BH-QrD" secondAttribute="leading" id="x1T-x7-vLr"/>
                                         <constraint firstAttribute="trailing" secondItem="QGx-Db-PPW" secondAttribute="trailing" id="ycP-NG-wcp"/>
                                     </constraints>
@@ -128,6 +154,9 @@
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="confirmButtonPressed:" destination="-1" eventType="touchUpInside" id="iwh-pH-1mv"/>
+                                    </connections>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="WNR-qh-7mt">
                                     <rect key="frame" x="280" y="38" width="40" height="40"/>
@@ -192,6 +221,7 @@
                 <constraint firstAttribute="bottom" secondItem="Bo7-N7-RzW" secondAttribute="bottom" id="bmW-9K-dl9"/>
                 <constraint firstAttribute="trailing" secondItem="Bo7-N7-RzW" secondAttribute="trailing" id="k5R-1b-cM9"/>
             </constraints>
+            <point key="canvasLocation" x="123" y="239"/>
         </view>
     </objects>
     <resources>

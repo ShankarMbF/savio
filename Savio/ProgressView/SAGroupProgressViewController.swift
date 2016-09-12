@@ -524,6 +524,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         cell?.topShadowView.backgroundColor = topLabelColors[indexPath.row]
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
+        var diff : CGFloat = 0.0
         //Check if savingPlanTransactionList array is present
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
@@ -540,13 +541,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         else  {
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
+        
             if(savingPlanDetailsDict["payType"] as! String == "Month")
             {
-                cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/((dateDiff/168)/4) * ((dateDiff/168)/4)))
+                diff = (CGFloat(dateDiff)/168)/4
+                cell?.remainingAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
             }
             else
             {
-                cell?.remainingAmountLabel.text = String(format: "£%d",((totalAmount/participantsArr.count)/(dateDiff/168) * (dateDiff/168)))
+                 diff = (CGFloat(dateDiff)/168)
+                cell?.remainingAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
             }
             cell?.remainingProgress.angle = 360
         }
@@ -564,10 +568,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.payTypeLabel.text = String(format: "per %@",savingPlanDetailsDict["payType"] as! String).lowercaseString
         if(savingPlanDetailsDict["payType"] as! String == "Month")
         {
-                   cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/((dateDiff/168)/4))
+                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
         }
         else {
-                   cell?.cellTotalAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count)/(dateDiff/168))
+                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
         }
         
         let spinner =  UIActivityIndicatorView()
@@ -707,6 +711,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
      //get users plan delegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         var memberTypeArray : Array<String> = []
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")

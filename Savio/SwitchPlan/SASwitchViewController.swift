@@ -8,16 +8,32 @@
 
 import UIKit
 
-class SASwitchViewController: UIViewController {
+class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    
     @IBOutlet var scrView : UIScrollView?
     @IBOutlet var confirmBtn : UIButton?
-
+    @IBOutlet weak var planOneImageView: UIImageView!
+    @IBOutlet weak var planTwoImageView: UIImageView!
+    @IBOutlet weak var planOneTitle: UIButton!
+    @IBOutlet weak var planTwoTitle: UIButton!
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var objAnimView = ImageViewAnimation()
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+       // self.view.addSubview(objAnimView)
+        
+        //Create object of API class to call the GETSavingPlanDelegate methods.
+        let objAPI = API()
+        objAPI.getListOfUsersPlanDelegate = self
+
+        
         self.setUpView()
     }
 
@@ -72,10 +88,8 @@ class SASwitchViewController: UIViewController {
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-                
+ 
             }
-            
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
             
         }
@@ -83,6 +97,8 @@ class SASwitchViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        
     }
     
     
@@ -103,4 +119,13 @@ class SASwitchViewController: UIViewController {
         }
     }
     
+    //MARK: GetListOfUsersPlanDelegate methods
+    
+    func successResponseForGetListOfUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        
+    }
+    
+    func errorResponseForGetListOfUsersPlanAPI(error: String) {
+        
+    }
 }

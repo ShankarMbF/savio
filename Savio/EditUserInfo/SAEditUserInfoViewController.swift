@@ -723,6 +723,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 if let thirdAddress = param["Third Address Line"] as? String {
                     param.removeValueForKey("Third Address Line")
                 }
+                if let county = param["County"] as? String {
+                    param.removeValueForKey("County")
+                }
                 param.removeValueForKey("phone_number")
                 param.removeValueForKey("pin")
                 param.removeValueForKey("Surname")

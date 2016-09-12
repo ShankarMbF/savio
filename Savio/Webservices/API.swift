@@ -132,6 +132,12 @@ protocol InviteMembersDelegate
     func errorResponseForInviteMembersAPI(error:String)
 }
 
+protocol GetListOfUsersPlanDelegate
+{
+    func successResponseForGetListOfUsersPlanAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForGetListOfUsersPlanAPI(error:String)
+}
+
 class API: UIView,NSURLSessionDelegate {
     // Maintain
     let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -152,6 +158,7 @@ class API: UIView,NSURLSessionDelegate {
     var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
     var inviteMemberDelegate : InviteMembersDelegate?
     var updateUserInfoDelegate : UpdateUserInfoDelegate?
+    var getListOfUsersPlanDelegate : GetListOfUsersPlanDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -1341,4 +1348,59 @@ class API: UIView,NSURLSessionDelegate {
         }
     }
  
+      //MARK:Get list of users plan
+    func getListOfUsersPlan(str:String)
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.getListOfUsersPlanDelegate?.successResponseForGetListOfUsersPlanAPI(dict)
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI((response?.description)!)
+                        }
+                    }
+                }
+                else  if let error = error
+                {
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI((response?.description)!)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
+        else {
+            self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI("No network found")
+        }
+        
+    }
+
 }

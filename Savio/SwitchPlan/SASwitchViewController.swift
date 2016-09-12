@@ -60,7 +60,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-        
+     
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -155,6 +155,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                 
                 let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
                 planOneButton .setTitle(dictOne["title"] as? String , forState: .Normal)
+                self.view.bringSubviewToFront(planOneButton)
                 planOneType = dictOne["partySavingPlanType"] as! String
                 if(planOneType == "Group")
                 {
@@ -206,7 +207,9 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                 
                 let dictTwo = usersPlanArray[1] as Dictionary<String,AnyObject>
                 planTwoButton .setTitle(dictTwo["title"] as? String , forState: .Normal)
+                self.view.bringSubviewToFront(planTwoButton)
                 planTwoType = dictTwo["partySavingPlanType"] as! String
+                
                 if(planTwoType == "Group")
                 {
                     if let sharedSavingPlanID = dictTwo["sharedSavingPlanID"] as? NSNumber
@@ -249,6 +252,10 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                         self.spinnerTwo.stopAnimating()
                     }
                 }
+                planOneImageView.layer.cornerRadius = planOneImageView.frame.size.height / 2
+                self.planOneImageView.clipsToBounds = true
+                planTwoImageView.layer.cornerRadius = planTwoImageView.frame.size.height / 2
+                self.planTwoImageView.clipsToBounds = true
                 self.setUpView()
             }
         }

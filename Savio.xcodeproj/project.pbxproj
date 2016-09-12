@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7771077AE6E6A1D17CBF2F85 /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7451B943A5B44BA7D90C483 /* libPods-Savio.a */; };
+		55672DDDCF889C6D9A2B306B /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7458D31810C3732959F0D250 /* libPods-Savio.a */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -189,8 +189,6 @@
 		A87802D01D658CF60048EAE5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9295A0D1D33863E004C2F5C /* Social.framework */; };
 		A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */; };
 		A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E525C81CE9D29D000FD01E /* Security.framework */; };
-		A87802DA1D658E6A0048EAE5 /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */; };
-		A87802DB1D65B2830048EAE5 /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7451B943A5B44BA7D90C483 /* libPods-Savio.a */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
@@ -346,7 +344,6 @@
 		A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */; };
 		A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */; };
 		A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */; };
-		BAB4F64B3935786B4F4229DB /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */; };
 		C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */; };
 		C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */; };
 		C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */; };
@@ -580,6 +577,7 @@
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
+		D80628F3BC8F76F701636E2B /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -607,8 +605,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
-		A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
+		2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
+		674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
+		7458D31810C3732959F0D250 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -943,7 +943,8 @@
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
 		A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAImpulseSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAImpulseSavingViewController.xib; sourceTree = "<group>"; };
-		B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
+		AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C85D2FFB3CC388525A6C95FB /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
 		C90571981CFF020200ECC4FC /* SavingCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -1182,9 +1183,6 @@
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		CA0372271D48D89D00FC5C1B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		CA0372281D48D89D00FC5C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
-		E7451B943A5B44BA7D90C483 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1192,9 +1190,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A87802DB1D65B2830048EAE5 /* libPods-Savio.a in Frameworks */,
 				A86681EE1CFEE91F0014DB59 /* MobileCoreServices.framework in Frameworks */,
-				BAB4F64B3935786B4F4229DB /* libPods-SavioWishList.a in Frameworks */,
+				D80628F3BC8F76F701636E2B /* libPods-SavioWishList.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1202,7 +1199,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A87802DA1D658E6A0048EAE5 /* libPods-SavioWishList.a in Frameworks */,
 				A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */,
 				CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */,
 				A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */,
@@ -1217,7 +1213,7 @@
 				A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */,
 				A87802CE1D658CF60048EAE5 /* AddressBook.framework in Frameworks */,
 				A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */,
-				7771077AE6E6A1D17CBF2F85 /* libPods-Savio.a in Frameworks */,
+				55672DDDCF889C6D9A2B306B /* libPods-Savio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,19 +1226,19 @@
 				A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */,
 				A87802B61D6580E80048EAE5 /* libPods-Savio.a */,
 				A86B73041D3612240075F501 /* SafariServices.framework */,
-				E7451B943A5B44BA7D90C483 /* libPods-Savio.a */,
-				A00DE4D28F28FC52A017C628 /* libPods-SavioWishList.a */,
+				7458D31810C3732959F0D250 /* libPods-Savio.a */,
+				AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		65354D1AA6A68A07E4FC6719 /* Pods */ = {
+		35A65F1D5A2DA0D8CFC37B0E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */,
-				B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */,
-				DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */,
-				9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */,
+				2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */,
+				1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */,
+				C85D2FFB3CC388525A6C95FB /* Pods-SavioWishList.debug.xcconfig */,
+				674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2063,8 +2059,8 @@
 				A86681DE1CFEC26D0014DB59 /* SavioWishList */,
 				C9E525A91CE986FA000FD01E /* Products */,
 				CEBCEB051D37B2A800432221 /* lib */,
-				65354D1AA6A68A07E4FC6719 /* Pods */,
 				08100F54AE2E7E9D7C66644D /* Frameworks */,
+				35A65F1D5A2DA0D8CFC37B0E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2282,13 +2278,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A86681E81CFEC26D0014DB59 /* Build configuration list for PBXNativeTarget "SavioWishList" */;
 			buildPhases = (
-				887C2698D67A536D47E30164 /* 📦 Check Pods Manifest.lock */,
+				187C8141ABFF4F9AA3C85E8F /* [CP] Check Pods Manifest.lock */,
 				A86681D91CFEC26D0014DB59 /* Sources */,
 				A86681DA1CFEC26D0014DB59 /* Frameworks */,
 				A86681DB1CFEC26D0014DB59 /* Resources */,
-				CCB45227A312A6A00D813DA5 /* 📦 Embed Pods Frameworks */,
-				CF8EEF952F61404BD2B29027 /* 📦 Copy Pods Resources */,
 				CA766B681D4F5E0E00D20732 /* ShellScript */,
+				8DE195D023FC0E5E66A57789 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2303,15 +2298,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9E525BA1CE986FA000FD01E /* Build configuration list for PBXNativeTarget "Savio" */;
 			buildPhases = (
-				E2F915913F8F3980949F4DD2 /* 📦 Check Pods Manifest.lock */,
+				11852254AED3FE55A68F8C5E /* [CP] Check Pods Manifest.lock */,
 				C9E525A41CE986FA000FD01E /* Sources */,
 				C9E525A51CE986FA000FD01E /* Frameworks */,
 				C9E525A61CE986FA000FD01E /* Resources */,
 				A86681EB1CFEC26D0014DB59 /* Embed App Extensions */,
-				F6E8A53B9DA1C55F601C72CF /* 📦 Embed Pods Frameworks */,
-				A9BBB90D7FF164B8A45DC6CE /* 📦 Copy Pods Resources */,
 				CA0372261D48D72200FC5C1B /* ShellScript */,
 				CA766B671D4F5DF600D20732 /* ShellScript */,
+				43406B5FD68341AB69280529 /* [CP] Embed Pods Frameworks */,
+				DE86403D974CCBEF62723B96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2874,34 +2869,64 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		887C2698D67A536D47E30164 /* 📦 Check Pods Manifest.lock */ = {
+		11852254AED3FE55A68F8C5E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A9BBB90D7FF164B8A45DC6CE /* 📦 Copy Pods Resources */ = {
+		187C8141ABFF4F9AA3C85E8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		43406B5FD68341AB69280529 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8DE195D023FC0E5E66A57789 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CA0372261D48D72200FC5C1B /* ShellScript */ = {
@@ -2943,64 +2968,19 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi\n";
 		};
-		CCB45227A312A6A00D813DA5 /* 📦 Embed Pods Frameworks */ = {
+		DE86403D974CCBEF62723B96 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CF8EEF952F61404BD2B29027 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E2F915913F8F3980949F4DD2 /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F6E8A53B9DA1C55F601C72CF /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Savio/Pods-Savio-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3128,7 +3108,7 @@
 /* Begin XCBuildConfiguration section */
 		A86681E91CFEC26D0014DB59 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBEE395F1BFB77B2E57C152B /* Pods-SavioWishList.debug.xcconfig */;
+			baseConfigurationReference = C85D2FFB3CC388525A6C95FB /* Pods-SavioWishList.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
@@ -3149,7 +3129,7 @@
 		};
 		A86681EA1CFEC26D0014DB59 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E9311F90196CB1A68BB31CB /* Pods-SavioWishList.release.xcconfig */;
+			baseConfigurationReference = 674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
@@ -3260,7 +3240,7 @@
 		};
 		C9E525BB1CE986FA000FD01E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F33DE6DCB9153FB48F22D753 /* Pods-Savio.debug.xcconfig */;
+			baseConfigurationReference = 2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
@@ -3290,7 +3270,7 @@
 		};
 		C9E525BC1CE986FA000FD01E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7E7A9699744FC3242EEED5F /* Pods-Savio.release.xcconfig */;
+			baseConfigurationReference = 1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;

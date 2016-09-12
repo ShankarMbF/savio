@@ -59,6 +59,9 @@
                                                 <constraint firstAttribute="width" constant="100" id="Wnk-zj-wAq"/>
                                                 <constraint firstAttribute="height" constant="100" id="qdm-d7-nso"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Qok-Hl-DH5">
                                             <rect key="frame" x="40" y="40" width="20" height="20"/>

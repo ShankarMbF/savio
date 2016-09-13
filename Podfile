@@ -6,7 +6,7 @@
 
 target 'Savio' do
 pod 'Google/SignIn'
-pod 'Stripe'
+pod 'Stripe', '~> 4.0'
 end
 
 target 'SavioWishList' do

@@ -166,6 +166,8 @@
 		A86682041CFF07C80014DB59 /* SetDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682021CFF07C80014DB59 /* SetDayTableViewCell.xib */; };
 		A86682071CFF09940014DB59 /* CalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */; };
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
+		A868DC041D881EE000E7F279 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A868DC031D881EE000E7F279 /* MonthYearPickerView.swift */; };
+		A868DC061D88274D00E7F279 /* libStripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8B1CB521D87C80100EB8772 /* libStripe.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FA1D3601620075F501 /* CoreLocation.framework */; };
 		A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FC1D36016B0075F501 /* CoreMotion.framework */; };
 		A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FE1D36017B0075F501 /* CoreGraphics.framework */; };
@@ -281,6 +283,8 @@
 		A8AEA9431CFFF1DE0069F22A /* NextButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AEA9411CFFF1DE0069F22A /* NextButtonTableViewCell.xib */; };
 		A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AEA9441CFFF9110069F22A /* ClearButtonTableViewCell.swift */; };
 		A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */; };
+		A8B1CB571D87CAED00EB8772 /* SAPaymentFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */; };
+		A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8B1CB561D87CAED00EB8772 /* SAPaymentFlowViewController.xib */; };
 		A8B347791D13D7E200063524 /* savivo-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C9E854FE1CF456CC006213BF /* savivo-logo.png */; };
 		A8B5A5041D4A1F15005A607D /* Group-social-pop-up-close.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B5A5011D4A1F15005A607D /* Group-social-pop-up-close.png */; };
 		A8B5A5051D4A1F15005A607D /* Group-social-pop-up-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B5A5021D4A1F15005A607D /* Group-social-pop-up-close@2x.png */; };
@@ -767,6 +771,7 @@
 		A86682021CFF07C80014DB59 /* SetDayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetDayTableViewCell.xib; sourceTree = "<group>"; };
 		A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculationTableViewCell.swift; sourceTree = "<group>"; };
 		A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalculationTableViewCell.xib; sourceTree = "<group>"; };
+		A868DC031D881EE000E7F279 /* MonthYearPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthYearPickerView.swift; sourceTree = "<group>"; };
 		A86B72F41D36014E0075F501 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A86B72F61D3601520075F501 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A86B72F81D36015D0075F501 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -881,6 +886,9 @@
 		A8AEA9411CFFF1DE0069F22A /* NextButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NextButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9441CFFF9110069F22A /* ClearButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearButtonTableViewCell.swift; sourceTree = "<group>"; };
 		A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClearButtonTableViewCell.xib; sourceTree = "<group>"; };
+		A8B1CB521D87C80100EB8772 /* libStripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStripe.a; path = "../../Library/Developer/Xcode/DerivedData/Savio-edhpqnpuyhkfazdyqqhzvpvulpjb/Build/Products/Debug-iphonesimulator/Stripe/libStripe.a"; sourceTree = "<group>"; };
+		A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPaymentFlowViewController.swift; sourceTree = "<group>"; };
+		A8B1CB561D87CAED00EB8772 /* SAPaymentFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAPaymentFlowViewController.xib; sourceTree = "<group>"; };
 		A8B5A5011D4A1F15005A607D /* Group-social-pop-up-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close.png"; sourceTree = "<group>"; };
 		A8B5A5021D4A1F15005A607D /* Group-social-pop-up-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close@2x.png"; sourceTree = "<group>"; };
 		A8B5A5031D4A1F15005A607D /* Group-social-pop-up-close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close@3x.png"; sourceTree = "<group>"; };
@@ -1199,6 +1207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A868DC061D88274D00E7F279 /* libStripe.a in Frameworks */,
 				A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */,
 				CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */,
 				A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */,
@@ -1223,6 +1232,7 @@
 		08100F54AE2E7E9D7C66644D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8B1CB521D87C80100EB8772 /* libStripe.a */,
 				A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */,
 				A87802B61D6580E80048EAE5 /* libPods-Savio.a */,
 				A86B73041D3612240075F501 /* SafariServices.framework */,
@@ -1597,6 +1607,16 @@
 				A8ABA8271D76C6CC00C58E7F /* TWMessageBarManager.m */,
 			);
 			path = BannerView;
+			sourceTree = "<group>";
+		};
+		A8B1CB541D87CACC00EB8772 /* PaymentFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A868DC031D881EE000E7F279 /* MonthYearPickerView.swift */,
+				A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */,
+				A8B1CB561D87CAED00EB8772 /* SAPaymentFlowViewController.xib */,
+			);
+			path = PaymentFlow;
 			sourceTree = "<group>";
 		};
 		A8BDCBA81D05557500D4C47B /* setupSavingPlan */ = {
@@ -2076,6 +2096,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A8B1CB541D87CACC00EB8772 /* PaymentFlow */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
 				C9A807D11D33A3660053A07B /* EditUserInfo */,
 				A8F820261D2E7FA600BB7537 /* ImpulseSavingView */,
@@ -2421,6 +2442,7 @@
 				A859DD8B1D50ACD000932150 /* baby-dropdown@1x.png in Resources */,
 				C975A9321D01952900184C8C /* group-save-category-icon@3x.png in Resources */,
 				C9ED803B1D1BC38A00058A96 /* menu-active-update.png in Resources */,
+				A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */,
 				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A88E81D71D49EA0F00CAA00F /* stats-achievement-money.png in Resources */,
 				C975A9271D01952900184C8C /* baby-category-icon.png in Resources */,
@@ -3051,6 +3073,7 @@
 				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,
 				A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */,
 				C95CD6171CF2C92100013200 /* DPDConstants.swift in Sources */,
+				A868DC041D881EE000E7F279 /* MonthYearPickerView.swift in Sources */,
 				C95CD61A1CF2C92100013200 /* DropDown.swift in Sources */,
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
@@ -3075,6 +3098,7 @@
 				C95CD6191CF2C92100013200 /* DPDUIView+Extension.swift in Sources */,
 				A8AEA9421CFFF1DE0069F22A /* NextButtonTableViewCell.swift in Sources */,
 				A897514E1CEF099500F122AD /* CreatePINViewController.swift in Sources */,
+				A8B1CB571D87CAED00EB8772 /* SAPaymentFlowViewController.swift in Sources */,
 				A86681FB1CFF01EA0014DB59 /* SavingPlanCostTableViewCell.swift in Sources */,
 				C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */,
 				C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */,
@@ -3151,6 +3175,7 @@
 		};
 		C9E525B81CE986FA000FD01E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3199,6 +3224,7 @@
 		};
 		C9E525B91CE986FA000FD01E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3259,7 +3285,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";
@@ -3288,6 +3314,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Release-iphoneos",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4b0682a9-a685-47c4-ad18-f07b54bffec7";

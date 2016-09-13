@@ -132,12 +132,19 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
     @IBAction func planOneButtonPressed(sender: AnyObject) {
         print(planOneSharedSavingPlanID)
+        planTwoImageView.layer.borderWidth = 0
+        planOneImageView.layer.borderWidth = 3
+        planOneImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
+        
         NSUserDefaults.standardUserDefaults().setObject(planOneSharedSavingPlanID, forKey: "UsersPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     @IBAction func planTwoButtonPressed(sender: AnyObject) {
         print(planTwoSharedSavingPlanID)
+        planOneImageView.layer.borderWidth = 0
+        planTwoImageView.layer.borderWidth = 3
+        planTwoImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
         NSUserDefaults.standardUserDefaults().setObject(planTwoSharedSavingPlanID, forKey: "UsersPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
         

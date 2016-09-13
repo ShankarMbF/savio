@@ -10,6 +10,8 @@ import UIKit
 import Fabric
 import Crashlytics
 
+
+
 struct Device {
     static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
 }
@@ -25,9 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var objRegisterViewController: SARegistrationScreenOneViewController?
     var objCreateViewController: CreatePINViewController?
     
+    
     //Set up the window and UINavigationViewController
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        //Import the library for finding crashes
+        //Import the library for finding crashesr
+        
+        Stripe.setDefaultPublishableKey("pk_test_rWDMpplhoWUDu2JjXBji4bE2")
+        
         Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)
         

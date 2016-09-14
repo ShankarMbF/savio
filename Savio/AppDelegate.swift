@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //Import the library for finding crashesr
         
-        Stripe.setDefaultPublishableKey("pk_test_rWDMpplhoWUDu2JjXBji4bE2")
+        Stripe.setDefaultPublishableKey("pk_test_dfQyZuLy5OiRc24IspyuEhdD")
         
         Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)

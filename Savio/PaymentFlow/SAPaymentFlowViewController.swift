@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import PassKit
 
 class SAPaymentFlowViewController: UIViewController {
     
@@ -21,12 +21,16 @@ class SAPaymentFlowViewController: UIViewController {
     @IBOutlet weak var cardNumberErrorLabel: UILabel!
     @IBOutlet weak var cardErrorLabelHt: NSLayoutConstraint!
     @IBOutlet weak var cardNumberTextFieldTopSpace: NSLayoutConstraint!
-    @IBOutlet weak var cvvTextFieldTopSpace: NSLayoutConstraint!
-    @IBOutlet weak var expiryDateTextFieldTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var scrlView: UIScrollView!
+    @IBOutlet weak var contentview: UIView!
     
     var picker = MonthYearPickerView()
+    var lastOffset: CGPoint = CGPointZero
+    var activeTextField = UITextField()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var errorFlag = true
+    var request = PKPaymentRequest()
+    var stripeCard = STPCard()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -38,64 +42,13 @@ class SAPaymentFlowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     func setUpView(){
-        
-        cvvTextFieldTopSpace.constant = 5
-        expiryDateTextFieldTopSpace.constant = 5
         cardNumberTextFieldTopSpace.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-        
-        /*
-        //set Navigation left button
-        let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = leftBtnName
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        
-        self.title = "Payment setup"
-        //set Navigation right button nav-heart
-        
-      
-        let btnName = UIButton()
-        //        btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
-        
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
-        {
-            let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
-            if(wishListArray.count > 0)
-            {
-                
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-            }
-            else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-                
-            }
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
-            
-        }
-        
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.customView = btnName
-        self.navigationItem.rightBarButtonItem = rightBarButton
-  */
+        self.navigationItem.setHidesBackButton(true, animated: false)
         
         //Customization of card holders name text field
         cardHoldersNameTextField?.layer.cornerRadius = 2.0
@@ -113,6 +66,7 @@ class SAPaymentFlowViewController: UIViewController {
         cardNumberTextField?.attributedPlaceholder = placeholder1;
         cardNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        
         //Customization of expiry month year text field
         expiryMonthYearTextField?.layer.cornerRadius = 2.0
         expiryMonthYearTextField?.layer.masksToBounds = true
@@ -128,7 +82,7 @@ class SAPaymentFlowViewController: UIViewController {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
-        //Set datepickerview as input view and customtoolbar as inputAccessoryViewto DOB textfield
+        //Set datepickerview as input view and customtoolbar as inputAccessoryView to expiry date textfield
         expiryMonthYearTextField.inputView = picker
         expiryMonthYearTextField.inputAccessoryView = customToolBar
         
@@ -141,6 +95,14 @@ class SAPaymentFlowViewController: UIViewController {
         cvvTextField?.attributedPlaceholder = placeholder3;
         cvvTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
+        //Add custom tool bar as input accessory view to card number textfield and cvv textfield
+        let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar2.items = [flexibleSpace1,doneButton]
+        cardNumberTextField.inputAccessoryView = customToolBar2
+        cvvTextField.inputAccessoryView = customToolBar2
+        
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
         saveButton.layer.cornerRadius = 2.0
@@ -148,40 +110,64 @@ class SAPaymentFlowViewController: UIViewController {
     
     func doneBarButtonPressed()
     {
-    
-        self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year)
-
-        expiryMonthYearTextField.resignFirstResponder()
+        if(activeTextField == expiryMonthYearTextField)
+        {
+            self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year)
+        }
+        activeTextField.resignFirstResponder()
     }
     
     func cancelBarButtonPressed()
     {
-
         expiryMonthYearTextField.resignFirstResponder()
-    }
-    //MARK: Bar button action
-    //function invoke when user tapping on back button
-    func backButtonPress()  {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func heartBtnClicked(){
-        //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
-        if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
-        }
-        else {
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        self.checkTextFieldValidation()
+        if(checkTextFieldValidation() == false)
+        {
+            self.errorFlag = true
+            stripeCard.cvc = cvvTextField.text
+            stripeCard.number = cardNumberTextField.text
+            stripeCard.expYear = UInt(picker.year)
+            stripeCard.expMonth = UInt(picker.month)
+            
+            STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
+                print(token)
+                print(error?.localizedDescription)
+                if((error) != nil)
+                {
+                    self.cardNumberErrorLabel.text = "Enter valid card details"
+                    self.cardNumberTextFieldTopSpace.constant = 35
+                    self.errorFlag = true
+                    if(error?.localizedDescription == "Your card\'s number is invalid")
+                    {
+                        self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.cardNumberTextField.textColor = UIColor.redColor()
+                    } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
+                        self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                    }
+                    else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
+                        self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                    }
+                    else if(error?.localizedDescription == "Your card\'s security code is invalid") {
+                        self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.cvvTextField.textColor = UIColor.redColor()
+                    }
+                }
+                else {
+                    let objSummaryView = SASavingSummaryViewController()
+                    self.navigationController?.pushViewController(objSummaryView, animated: true)
+                }
+            })
+        }
+        else {
+            errorFlag = false
+        }
     }
     
-    func checkTextFieldValidation()
+    func checkTextFieldValidation()->Bool
     {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -225,21 +211,6 @@ class SAPaymentFlowViewController: UIViewController {
             cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
             cardNumberTextField.textColor = UIColor.redColor()
         }
-        else if(cardNumberTextField.text?.characters.count < 16 || cardNumberTextField.text?.characters.count > 16) {
-            cardNumberErrorLabel.text = "Enter valid card details"
-            if(UIScreen.mainScreen().bounds.width == 320)
-            {
-                cardNumberTextFieldTopSpace.constant = 35
-                
-            }
-            else
-            {
-                cardNumberTextFieldTopSpace.constant = 5
-            }
-            errorFlag = true
-            cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardNumberTextField.textColor = UIColor.redColor()
-        }
         else {
             cardNumberTextFieldTopSpace.constant = 5
             cardNumberErrorLabel.text = ""
@@ -256,7 +227,7 @@ class SAPaymentFlowViewController: UIViewController {
             expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
             expiryMonthYearTextField.textColor = UIColor.redColor()
         }
-     
+            
         else if(expiryMonthYearTextField.text == String(format:"%d/%d",components.month,components.year))
         {
             cardNumberErrorLabel.text = "Enter valid card details"
@@ -267,9 +238,9 @@ class SAPaymentFlowViewController: UIViewController {
         }
         else {
             cardNumberErrorLabel.text = ""
-            expiryDateTextFieldTopSpace.constant = 5
-            cvvTextFieldTopSpace.constant = 5
         }
+        
+        return errorFlag
     }
     
     func checkTextFieldContentOnlyNumber(str:String)->Bool{
@@ -321,8 +292,59 @@ class SAPaymentFlowViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    //UITextField delegate method
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeTextField = textField
+        activeTextField.textColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+        self.registerForKeyboardNotifications()
     }
     
+    func textFieldDidEndEditing(textField: UITextField) {
+        activeTextField.resignFirstResponder()
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        self.removeKeyboardNotification()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        self.removeKeyboardNotification()
+        return true
+    }
+    
+    //Register keyboard notification
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWasShown(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        lastOffset = (scrlView?.contentOffset)!
+        let yOfTextField = activeTextField.frame.height
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
+        }
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        scrlView?.setContentOffset(CGPointZero, animated: true)
+    }
+    
+    
 }
+

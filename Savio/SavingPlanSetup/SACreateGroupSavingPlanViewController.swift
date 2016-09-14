@@ -621,6 +621,27 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         isOfferShow = true
     }
     
+    //function checking any key is null and return not null values in dictionary
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for var key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+    
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
@@ -722,9 +743,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 newDict["planType"] = "group"
                 
-                let objSummaryView = SASavingSummaryViewController()
-                objSummaryView.itemDataDict =  newDict
-                self.navigationController?.pushViewController(objSummaryView, animated: true)
+                NSUserDefaults.standardUserDefaults().setValue(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
+                
+                let objPaymentView = SAPaymentFlowViewController()
+                self.navigationController?.pushViewController(objPaymentView, animated: true)
             }
         }
         objAnimView.removeFromSuperview()

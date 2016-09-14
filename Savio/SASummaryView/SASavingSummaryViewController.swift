@@ -110,6 +110,8 @@ class SASavingSummaryViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().synchronize()
         
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        itemDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String,AnyObject>
+        
         //-------Setup the continue button UI---------------
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()

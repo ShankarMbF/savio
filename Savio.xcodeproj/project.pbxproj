@@ -31,7 +31,6 @@
 		A82B9C8C1D0688B200BFD084 /* generic-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C881D0688B200BFD084 /* generic-camera.png */; };
 		A82B9C8D1D0688B200BFD084 /* generic-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C891D0688B200BFD084 /* generic-camera@2x.png */; };
 		A82B9C8E1D0688B200BFD084 /* generic-camera@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C8A1D0688B200BFD084 /* generic-camera@3x.png */; };
-		A82B9C901D0697C300BFD084 /* EditPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82B9C8F1D0697C300BFD084 /* EditPriceViewController.swift */; };
 		A82B9C921D06A5B300BFD084 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095C741CEDC6A3006366F7 /* API.swift */; };
 		A82B9C931D06A66100BFD084 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A82B9C971D06AAEA00BFD084 /* offer-close@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = A82B9C941D06AAEA00BFD084 /* offer-close@1x.png */; };
@@ -642,7 +641,6 @@
 		A82B9C881D0688B200BFD084 /* generic-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-camera.png"; sourceTree = "<group>"; };
 		A82B9C891D0688B200BFD084 /* generic-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-camera@2x.png"; sourceTree = "<group>"; };
 		A82B9C8A1D0688B200BFD084 /* generic-camera@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "generic-camera@3x.png"; sourceTree = "<group>"; };
-		A82B9C8F1D0697C300BFD084 /* EditPriceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPriceViewController.swift; sourceTree = "<group>"; };
 		A82B9C941D06AAEA00BFD084 /* offer-close@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@1x.png"; sourceTree = "<group>"; };
 		A82B9C951D06AAEA00BFD084 /* offer-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@2x.png"; sourceTree = "<group>"; };
 		A82B9C961D06AAEA00BFD084 /* offer-close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "offer-close@3x.png"; sourceTree = "<group>"; };
@@ -952,6 +950,7 @@
 		A8E3CA211D79AC86002B792C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A8E3CA261D79ACFA002B792C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A8E3CA2A1D79AFD2002B792C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A8F24F3A1D8AAB70005D3DE8 /* libStripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStripe.a; path = "Pods/../build/Release-iphoneos/Stripe/libStripe.a"; sourceTree = "<group>"; };
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
@@ -1239,6 +1238,7 @@
 		08100F54AE2E7E9D7C66644D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8F24F3A1D8AAB70005D3DE8 /* libStripe.a */,
 				A81D01491D894E8000E58A97 /* PassKit.framework */,
 				A8B1CB521D87C80100EB8772 /* libStripe.a */,
 				A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */,
@@ -1401,7 +1401,6 @@
 				A86681EC1CFEC5C80014DB59 /* SavioWishList.entitlements */,
 				A86681DF1CFEC26D0014DB59 /* ShareViewController.swift */,
 				A86681E41CFEC26D0014DB59 /* Info.plist */,
-				A82B9C8F1D0697C300BFD084 /* EditPriceViewController.swift */,
 			);
 			path = SavioWishList;
 			sourceTree = "<group>";
@@ -3033,7 +3032,6 @@
 			files = (
 				A82B9C931D06A66100BFD084 /* KeychainItemWrapper.m in Sources */,
 				A82B9C921D06A5B300BFD084 /* API.swift in Sources */,
-				A82B9C901D0697C300BFD084 /* EditPriceViewController.swift in Sources */,
 				A86681E01CFEC26D0014DB59 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3160,9 +3158,24 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/Google/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAuthUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
@@ -3181,9 +3194,24 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Atul Deore (GDH82HZKLM)";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/Google/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAuthUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
@@ -3195,7 +3223,6 @@
 		};
 		C9E525B81CE986FA000FD01E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3218,6 +3245,19 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/Google/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAuthUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3232,6 +3272,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3244,7 +3285,6 @@
 		};
 		C9E525B91CE986FA000FD01E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -3267,6 +3307,19 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/Google/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAuthUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -3275,8 +3328,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "93a4680a-75a9-42cc-8e5f-3aace91e6444";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = ../Savio/BridgingHeader.h;
@@ -3288,6 +3343,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3318,6 +3374,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -11,8 +11,10 @@
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
+        </mutableArray>
+        <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
+            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -83,7 +85,7 @@
                                                 <constraint firstAttribute="height" constant="100" id="LkJ-Jo-Pw9"/>
                                                 <constraint firstAttribute="width" constant="100" id="gQ5-kM-08H"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                                             <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -97,7 +99,7 @@
                                                 <constraint firstAttribute="width" constant="100" id="MFL-EC-mxf"/>
                                                 <constraint firstAttribute="height" constant="100" id="WAh-Hp-aUX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                                             <state key="normal">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>

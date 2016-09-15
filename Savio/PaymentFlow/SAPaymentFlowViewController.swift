@@ -24,16 +24,20 @@ class SAPaymentFlowViewController: UIViewController {
     @IBOutlet weak var scrlView: UIScrollView!
     @IBOutlet weak var contentview: UIView!
     
+    var objAnimView = ImageViewAnimation()
     var picker = MonthYearPickerView()
     var lastOffset: CGPoint = CGPointZero
     var activeTextField = UITextField()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-    var errorFlag = true
+    var errorFlag = false
     var request = PKPaymentRequest()
     var stripeCard = STPCard()
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         self.setUpView()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -43,6 +47,7 @@ class SAPaymentFlowViewController: UIViewController {
     }
     
     func setUpView(){
+        
         cardNumberTextFieldTopSpace.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -112,7 +117,17 @@ class SAPaymentFlowViewController: UIViewController {
     {
         if(activeTextField == expiryMonthYearTextField)
         {
-            self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year)
+            if(String(format: "%02d/%d", picker.month, picker.year) == "00/0")
+            {
+                let date = NSDate()
+                let calendar = NSCalendar.currentCalendar()
+                let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year)
+                
+            }
+            else {
+                self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year)
+            }
         }
         activeTextField.resignFirstResponder()
     }
@@ -131,11 +146,17 @@ class SAPaymentFlowViewController: UIViewController {
             stripeCard.expYear = UInt(picker.year)
             stripeCard.expMonth = UInt(picker.month)
             
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            self.navigationController?.view.addSubview(self.objAnimView)
+            
             STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
                 print(token)
                 print(error?.localizedDescription)
                 if((error) != nil)
                 {
+                    self.objAnimView.removeFromSuperview()
                     self.cardNumberErrorLabel.text = "Enter valid card details"
                     self.cardNumberTextFieldTopSpace.constant = 35
                     self.errorFlag = true
@@ -157,6 +178,33 @@ class SAPaymentFlowViewController: UIViewController {
                     }
                 }
                 else {
+                    var array : Array<Dictionary<String,AnyObject>> = []
+                    let dict : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    
+                    if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                    {
+                        array = saveCardArray
+                        print(array)
+                        var cardNumberArray : Array<String> = []
+                        for i in 0 ..< array.count{
+                            let newDict = array[i]
+                            cardNumberArray.append(newDict["cardNumber"] as! String)
+                        }
+                        if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+                        {
+                              array.append(dict)
+                        }
+                             print(array)
+                        NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+
+                    }
+                    else {
+                        array.append(dict)
+                        NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                    }
+                    
                     let objSummaryView = SASavingSummaryViewController()
                     self.navigationController?.pushViewController(objSummaryView, animated: true)
                 }
@@ -331,7 +379,7 @@ class SAPaymentFlowViewController: UIViewController {
         let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
         let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (scrlView?.contentOffset)!
-        let yOfTextField = activeTextField.frame.height
+        let yOfTextField = activeTextField.frame.height + 280
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
@@ -343,6 +391,11 @@ class SAPaymentFlowViewController: UIViewController {
         //do stuff
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         scrlView?.setContentOffset(CGPointZero, animated: true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        objAnimView.removeFromSuperview()
     }
     
     

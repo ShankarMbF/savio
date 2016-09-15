@@ -45,6 +45,7 @@ class SAImpulseSavingViewController: UIViewController {
     private var progressLabel: UILabel!
     private var timer: NSTimer?
     private var progressValue: Float = 0
+    var lastOffset: CGPoint = CGPointZero
     private var sliderOptions: [CircleSliderOption] {
         return [
             .BarColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
@@ -52,7 +53,7 @@ class SAImpulseSavingViewController: UIViewController {
             .TrackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
             .BarWidth(20),
             .StartAngle(-90),
-            .MaxValue(100),
+            .MaxValue(3000),
             .MinValue(0),
             .ThumbWidth(30)
         ]
@@ -162,29 +163,76 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     //UITextfieldDelegate method
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.characters.count > 1  && string == "" {
+            return true
+        }
+        let combinedString = textField.text! + string
+        let valueString = combinedString.chopPrefix(1)
+        if valueString.characters.count == 0 {
+            return false
+        }
+        if(Float(valueString)! > 3000)
+        {
+            circleSlider.value = 3000
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+            self.removeKeyboardNotification()
+            return false
+        }
+        if combinedString.characters.count < 6 {
+            
+            circleSlider.value = Float(valueString)!
+        }
+        return false
+    }
+    
+    //Register keyboard notification
+    func registerForKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func removeKeyboardNotification(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWasShown(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        var info = notification.userInfo as! Dictionary<String,AnyObject>
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        lastOffset = (scrlView?.contentOffset)!
+        let yOfTextField = priceTextField.frame.height
+        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+            let diff = yOfTextField - visibleAreaHeight
+            scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
+        }
+    }
+    
+    //Keyboard notification function
+    @objc func keyboardWillBeHidden(notification: NSNotification){
+        //do stuff
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        scrlView?.setContentOffset(CGPointZero, animated: true)
+    }
+    
+    
+    //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
         messagePopUpView.hidden = true
-        //If the UIScreen size is 480 move the View little bit up so the UITextField will not be hidden
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-30), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
-        else if(UIScreen.mainScreen().bounds.size.height == 568) {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-60), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
+        self.registerForKeyboardNotifications()
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        textField.resignFirstResponder()
+        self.removeKeyboardNotification()
         return true
     }
     
@@ -209,26 +257,13 @@ class SAImpulseSavingViewController: UIViewController {
         var tfString: String = priceTextField.text!
         tfString = tfString.chopPrefix(1)
         priceTextField.resignFirstResponder()
-        circleSlider.value =  Float(tfString)!
-        if(UIScreen.mainScreen().bounds.size.height == 480)
-        {
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+30), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
+    
+        if(Float(tfString) > 3000) {
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
-        else if(UIScreen.mainScreen().bounds.size.height == 568)
-        {
-            //UIViewAnimation for moving screen little bit up
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDelegate(self)
-            UIView.setAnimationDuration(0.5)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+60), view!.frame.size.width, view!.frame.size.height)
-            UIView.commitAnimations()
-        }
+        self.removeKeyboardNotification()
+        
     }
     
     @IBAction func addFundsButtonPressed(sender: AnyObject) {

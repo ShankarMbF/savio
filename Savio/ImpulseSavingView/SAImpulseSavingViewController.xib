@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -138,15 +138,15 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" minimumFontSize="36" translatesAutoresizingMaskIntoConstraints="NO" id="Kyo-nz-RKi">
-                                            <rect key="frame" x="100" y="125" width="100" height="50"/>
+                                            <rect key="frame" x="90" y="125" width="120" height="50"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="0CV-NU-SRV"/>
+                                                <constraint firstAttribute="width" constant="120" id="0CV-NU-SRV"/>
                                                 <constraint firstAttribute="height" constant="50" id="oMv-Nk-ect"/>
                                             </constraints>
                                             <attributedString key="attributedText">
                                                 <fragment content="£00">
                                                     <attributes>
-                                                        <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                        <font key="NSFont" size="11" name="GothamRounded-Book"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         <integer key="NSUnderline" value="1"/>
                                                     </attributes>

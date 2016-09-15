@@ -295,7 +295,7 @@ class SAPaymentFlowViewController: UIViewController {
     //UITextField delegate method
     func textFieldDidBeginEditing(textField: UITextField) {
         activeTextField = textField
-        activeTextField.textColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+        activeTextField.textColor = UIColor.blackColor()
         self.registerForKeyboardNotifications()
     }
     

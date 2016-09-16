@@ -651,10 +651,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "Party Saving Plan is succesfully added") {
                     NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    //Navigate to showing group progress
-                    NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-                    NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
-                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
+                    let objPaymentView = SAPaymentFlowViewController()
+                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                    
                     objAnimView.removeFromSuperview()
                 }
                 else {
@@ -745,8 +744,18 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 
                 NSUserDefaults.standardUserDefaults().setValue(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
                 
-                let objPaymentView = SAPaymentFlowViewController()
-                self.navigationController?.pushViewController(objPaymentView, animated: true)
+                if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                {
+                    let objSavedCardView = SASaveCardViewController()
+                    objSavedCardView.isFromSavingPlan = true
+                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
+                    
+                }else {
+                    let objPaymentView = SAPaymentFlowViewController()
+                    objPaymentView.isFromGroupMemberPlan = true
+                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                }
+
             }
         }
         objAnimView.removeFromSuperview()

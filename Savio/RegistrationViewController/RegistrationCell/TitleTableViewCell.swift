@@ -43,7 +43,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         dropDown.dataSource = [
             "Mr.",
-            "Miss."
+            "Ms."
         ]
 
         dropDown.selectionAction = { [unowned self] (index, item) in

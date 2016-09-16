@@ -138,6 +138,12 @@ protocol GetListOfUsersPlanDelegate
     func errorResponseForGetListOfUsersPlanAPI(error:String)
 }
 
+protocol AddSavingCardDelegate
+{
+    func successResponseForAddSavingCardDelegateAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForAddSavingCardDelegateAPI(error:String)
+}
+
 class API: UIView,NSURLSessionDelegate {
     // Maintain
     let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -159,6 +165,7 @@ class API: UIView,NSURLSessionDelegate {
     var inviteMemberDelegate : InviteMembersDelegate?
     var updateUserInfoDelegate : UpdateUserInfoDelegate?
     var getListOfUsersPlanDelegate : GetListOfUsersPlanDelegate?
+    var addSavingCardDelegate : AddSavingCardDelegate?
     
     //Checking Reachability function
     func isConnectedToNetwork() -> Bool {
@@ -243,7 +250,7 @@ class API: UIView,NSURLSessionDelegate {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-             // request.timeoutInterval  = 30
+            // request.timeoutInterval  = 30
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -664,8 +671,8 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-             dispatch_async(dispatch_get_main_queue()){
-            self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
+            dispatch_async(dispatch_get_main_queue()){
+                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
             }
         }
         
@@ -750,10 +757,10 @@ class API: UIView,NSURLSessionDelegate {
         
         if(isFromWishList == "FromWishList")
         {
-              request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
+            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
         }
         else {
-              request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
+            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
         }
         
         if(self.isConnectedToNetwork())
@@ -761,7 +768,7 @@ class API: UIView,NSURLSessionDelegate {
             urlconfig.timeoutIntervalForRequest = 180
             urlconfig.timeoutIntervalForResource = 180
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-        
+            
             request.HTTPMethod = "POST"
             
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
@@ -952,7 +959,7 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(error.localizedDescription)
                     }
-    
+                    
                 }
                 
             }
@@ -1347,8 +1354,8 @@ class API: UIView,NSURLSessionDelegate {
             }
         }
     }
- 
-      //MARK:Get list of users plan
+    
+    //MARK:Get list of users plan
     func getListOfUsersPlan()
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -1401,5 +1408,91 @@ class API: UIView,NSURLSessionDelegate {
         }
         
     }
-
+    
+    
+    func addSavingCard(dictParam:Dictionary<String,AnyObject>)
+    {
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/cards",baseURL))!)
+            request.HTTPMethod = "POST"
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        if let code = dict["errorCode"] as? NSString
+                        {
+                            if(code == "200")
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.addSavingCardDelegate?.successResponseForAddSavingCardDelegateAPI(dict)
+                                }
+                            }
+                            else if(code == "204")
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("Passcode is incorrect")
+                                }
+                            }
+                            else
+                            {
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("Internal Server Error")
+                                }
+                            }
+                        }
+                        else {
+                            if let code = dict["error"] as? NSString
+                            {
+                                if(code == "Internal Server Error")
+                                {
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("Internal Server Error")
+                                    }
+                                }
+                                    
+                                else
+                                {
+                                    dispatch_async(dispatch_get_main_queue()){
+                                        self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("Passcode is incorrect")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI((response?.description)!)
+                        }
+                    }
+                }
+                else if let error = error
+                {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI(error.localizedDescription)
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else {
+            //Give error no network found
+            addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("No network found")
+        }
+    }
 }

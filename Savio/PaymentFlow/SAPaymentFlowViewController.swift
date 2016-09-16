@@ -32,10 +32,12 @@ class SAPaymentFlowViewController: UIViewController {
     var errorFlag = false
     var request = PKPaymentRequest()
     var stripeCard = STPCard()
+    var isFromGroupMemberPlan = false
+    var isFromImpulseSaving = false
+    var showCardInfo = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         self.setUpView()
         
         // Do any additional setup after loading the view.
@@ -47,13 +49,13 @@ class SAPaymentFlowViewController: UIViewController {
     }
     
     func setUpView(){
-        
         cardNumberTextFieldTopSpace.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
         self.navigationItem.setHidesBackButton(true, animated: false)
+        self.title = "Payment setup"
         
         //Customization of card holders name text field
         cardHoldersNameTextField?.layer.cornerRadius = 2.0
@@ -111,6 +113,18 @@ class SAPaymentFlowViewController: UIViewController {
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
         saveButton.layer.cornerRadius = 2.0
+        
+        if(showCardInfo)
+        {
+            if let saveCardInfo = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            {
+                cardHoldersNameTextField.text = saveCardInfo["cardHolderName"] as? String
+                cardNumberTextField.text = saveCardInfo["cardNumber"] as? String
+                expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["cardExpMonth"] as? Int)!,(saveCardInfo["cardExpDate"] as?
+                    Int)!)
+                
+            }
+        }
     }
     
     func doneBarButtonPressed()
@@ -184,7 +198,6 @@ class SAPaymentFlowViewController: UIViewController {
                     if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                     {
                         array = saveCardArray
-                        print(array)
                         var cardNumberArray : Array<String> = []
                         for i in 0 ..< array.count{
                             let newDict = array[i]
@@ -192,21 +205,42 @@ class SAPaymentFlowViewController: UIViewController {
                         }
                         if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
                         {
-                              array.append(dict)
+                            array.append(dict)
+                            NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
+                            NSUserDefaults.standardUserDefaults().synchronize()
+                            NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+                            NSUserDefaults.standardUserDefaults().synchronize()
                         }
-                             print(array)
-                        NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-
+                        else {
+                            //show alert view controller if card is already added
+                            let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                            //alert view controll action method
+                            alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
+                            { action -> Void in
+                                self.navigationController?.popViewControllerAnimated(true)
+                                })
+                        }
+                        
                     }
                     else {
                         array.append(dict)
                         NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
                         NSUserDefaults.standardUserDefaults().synchronize()
                     }
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to showing group progress
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                        
+                    }else if(self.isFromImpulseSaving){
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                    else {
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
                     
-                    let objSummaryView = SASavingSummaryViewController()
-                    self.navigationController?.pushViewController(objSummaryView, animated: true)
                 }
             })
         }

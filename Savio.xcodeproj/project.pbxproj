@@ -276,6 +276,10 @@
 		A8978BDC1D49EFAF005F665A /* stats-achievement-smiley.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */; };
 		A8978BDE1D49F06B005F665A /* group-stats-achievement-smiley-popup.png in Resources */ = {isa = PBXBuildFile; fileRef = A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */; };
 		A89A28041D34B6A400722A19 /* Piechart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A28031D34B6A400722A19 /* Piechart.swift */; };
+		A89F77F01D8BBC5400EA932B /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F77EE1D8BBC5400EA932B /* CardTableViewCell.swift */; };
+		A89F77F11D8BBC5400EA932B /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A89F77EF1D8BBC5400EA932B /* CardTableViewCell.xib */; };
+		A89F77F51D8C069900EA932B /* SAThankYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F77F31D8C069900EA932B /* SAThankYouViewController.swift */; };
+		A89F77F61D8C069900EA932B /* SAThankYouViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A89F77F41D8C069900EA932B /* SAThankYouViewController.xib */; };
 		A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */; };
 		A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */; };
 		A8AB1C741D05A900002F68F5 /* OfferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */; };
@@ -880,6 +884,10 @@
 		A8978BDB1D49EFAF005F665A /* stats-achievement-smiley.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley.png"; sourceTree = "<group>"; };
 		A8978BDD1D49F06B005F665A /* group-stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group-stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A89A28031D34B6A400722A19 /* Piechart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piechart.swift; sourceTree = "<group>"; };
+		A89F77EE1D8BBC5400EA932B /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		A89F77EF1D8BBC5400EA932B /* CardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
+		A89F77F31D8C069900EA932B /* SAThankYouViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAThankYouViewController.swift; sourceTree = "<group>"; };
+		A89F77F41D8C069900EA932B /* SAThankYouViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAThankYouViewController.xib; sourceTree = "<group>"; };
 		A8A6C7831D2CE58B009B0D2F /* SAGroupProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAGroupProgressViewController.swift; sourceTree = "<group>"; };
 		A8A6C7841D2CE58B009B0D2F /* SAGroupProgressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAGroupProgressViewController.xib; sourceTree = "<group>"; };
 		A8AB1C721D05A900002F68F5 /* OfferTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferTableViewCell.swift; sourceTree = "<group>"; };
@@ -1303,6 +1311,8 @@
 			children = (
 				A81D01451D892B4000E58A97 /* SASaveCardViewController.swift */,
 				A81D01461D892B4000E58A97 /* SASaveCardViewController.xib */,
+				A89F77EE1D8BBC5400EA932B /* CardTableViewCell.swift */,
+				A89F77EF1D8BBC5400EA932B /* CardTableViewCell.xib */,
 			);
 			path = SaveCard;
 			sourceTree = "<group>";
@@ -1606,6 +1616,15 @@
 				C9E535F21CF02C7F0017FBC6 /* SAEnterYourPINViewController.xib */,
 			);
 			path = PINViewController;
+			sourceTree = "<group>";
+		};
+		A89F77F21D8C063B00EA932B /* ThankYouView */ = {
+			isa = PBXGroup;
+			children = (
+				A89F77F31D8C069900EA932B /* SAThankYouViewController.swift */,
+				A89F77F41D8C069900EA932B /* SAThankYouViewController.xib */,
+			);
+			path = ThankYouView;
 			sourceTree = "<group>";
 		};
 		A8A6C7871D2D2808009B0D2F /* PieChart */ = {
@@ -2112,6 +2131,7 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				A89F77F21D8C063B00EA932B /* ThankYouView */,
 				A81D01441D892B2A00E58A97 /* SaveCard */,
 				A8B1CB541D87CACC00EB8772 /* PaymentFlow */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
@@ -2462,6 +2482,7 @@
 				A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */,
 				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A88E81D71D49EA0F00CAA00F /* stats-achievement-money.png in Resources */,
+				A89F77F61D8C069900EA932B /* SAThankYouViewController.xib in Resources */,
 				C975A9271D01952900184C8C /* baby-category-icon.png in Resources */,
 				A88E81EB1D49EA0F00CAA00F /* stats-slider-bar@2x.png in Resources */,
 				C975A92A1D01952900184C8C /* gadget-category-icon.png in Resources */,
@@ -2546,6 +2567,7 @@
 				A8BDCBD81D05557500D4C47B /* gadget-calendar@3x.png in Resources */,
 				A88E81C51D49EA0F00CAA00F /* generic-stats-slider-tab@3x.png in Resources */,
 				C9ED804C1D1BC38A00058A96 /* menu-progress@3x.png in Resources */,
+				A89F77F11D8BBC5400EA932B /* CardTableViewCell.xib in Resources */,
 				C9ED802F1D1BC38A00058A96 /* menu-active-settings.png in Resources */,
 				C975A92D1D01952900184C8C /* generic-category-icon.png in Resources */,
 				A859DDAD1D50AD1F00932150 /* group-updown@2x.png in Resources */,
@@ -3095,6 +3117,7 @@
 				C91E23EB1D029CF900DC6D29 /* WishListTableViewCell.swift in Sources */,
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */,
+				A89F77F01D8BBC5400EA932B /* CardTableViewCell.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,
@@ -3120,6 +3143,7 @@
 				A86681FB1CFF01EA0014DB59 /* SavingPlanCostTableViewCell.swift in Sources */,
 				C9FB592E1D1ABCA800C9B6AE /* ContactTableViewCell.swift in Sources */,
 				C9B6C8461D058A0D00FCB00C /* SAOfferListTableViewCell.swift in Sources */,
+				A89F77F51D8C069900EA932B /* SAThankYouViewController.swift in Sources */,
 				A82796251D1AA04900097E75 /* GroupCalculationTableViewCell.swift in Sources */,
 				A82796151D1A6B3C00097E75 /* InviteFriendsButtonTableViewCell.swift in Sources */,
 				A86D629E1D20F26E00B2087D /* CancelButtonTableViewCell.swift in Sources */,

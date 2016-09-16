@@ -16,6 +16,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SASaveCardViewController" customModule="Savio" customModuleProvider="target">
             <connections>
+                <outlet property="cardLastFourDigitTextField" destination="hNQ-af-vTu" id="XWO-n7-HZB"/>
+                <outlet property="cardListView" destination="oz5-Tr-xzG" id="dr6-cF-Dlg"/>
                 <outlet property="cardViewOne" destination="4Oh-hl-vSV" id="j5B-pt-3O3"/>
                 <outlet property="cardViewTwo" destination="wKN-LO-IPY" id="cid-sL-pyT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -120,6 +122,20 @@
                         <constraint firstItem="wKN-LO-IPY" firstAttribute="leading" secondItem="4Oh-hl-vSV" secondAttribute="leading" constant="2" id="qbt-sN-yjo"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFs-Vz-Rng">
+                    <rect key="frame" x="0.0" y="560" width="600" height="40"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="uxI-Rr-EMn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
+                    <state key="normal" title="     + Add New Card">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addNewCardButtonPressed:" destination="-1" eventType="touchUpInside" id="NQ5-po-Tgo"/>
+                    </connections>
+                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oz5-Tr-xzG">
                     <rect key="frame" x="0.0" y="229" width="600" height="330"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -131,18 +147,11 @@
                             <exclude reference="5Kc-dN-C4G"/>
                         </mask>
                     </variation>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Lgc-0L-tB1"/>
+                        <outlet property="delegate" destination="-1" id="vTx-bg-eEd"/>
+                    </connections>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFs-Vz-Rng">
-                    <rect key="frame" x="0.0" y="560" width="600" height="40"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="uxI-Rr-EMn"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
-                    <state key="normal" title="     + Add New Card">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -163,7 +172,7 @@
                     <exclude reference="m8w-BN-Vnt"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="458" y="352"/>
+            <point key="canvasLocation" x="459" y="259"/>
         </view>
     </objects>
 </document>

@@ -156,9 +156,10 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     // Just set it back in deselect
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-
+        
         let indxPath = NSUserDefaults.standardUserDefaults().valueForKey("SelectedIndexPath") as? Int
         self.menuTable?.deselectRowAtIndexPath(NSIndexPath(forRow: indxPath!,inSection:0), animated: true)
+        
         
         let selectedCell:MenuTableViewCell? = menuTable!.cellForRowAtIndexPath(indexPath)as? MenuTableViewCell
         selectedCell!.contentView.backgroundColor = UIColor.whiteColor()

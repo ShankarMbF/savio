@@ -1603,9 +1603,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 NSUserDefaults.standardUserDefaults().setValue(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                {
+                    let objSavedCardView = SASaveCardViewController()
+                    objSavedCardView.isFromSavingPlan = true
+                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
                 
-                let objPaymentView = SAPaymentFlowViewController()
-                self.navigationController?.pushViewController(objPaymentView, animated: true)
+                }else {
+                    let objPaymentView = SAPaymentFlowViewController()
+                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                }
             }
             else {
                 let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")

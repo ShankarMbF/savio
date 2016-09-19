@@ -193,6 +193,12 @@
 		A87802D01D658CF60048EAE5 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9295A0D1D33863E004C2F5C /* Social.framework */; };
 		A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8095B9B1CEDC52B006366F7 /* SystemConfiguration.framework */; };
 		A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E525C81CE9D29D000FD01E /* Security.framework */; };
+		A87CE8851D8FB7CA00270494 /* MasterCard.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE87E1D8FB7CA00270494 /* MasterCard.png */; };
+		A87CE8861D8FB7CA00270494 /* MasterCard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE87F1D8FB7CA00270494 /* MasterCard@2x.png */; };
+		A87CE8871D8FB7CA00270494 /* VISA.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE8801D8FB7CA00270494 /* VISA.png */; };
+		A87CE8881D8FB7CA00270494 /* Visa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE8811D8FB7CA00270494 /* Visa@2x.png */; };
+		A87CE88D1D8FB96D00270494 /* Warning.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE88B1D8FB96D00270494 /* Warning.png */; };
+		A87CE88E1D8FB96D00270494 /* Warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A87CE88C1D8FB96D00270494 /* Warning@2x.png */; };
 		A88102B01D12607100A483A4 /* baby-setup-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AE1D12607100A483A4 /* baby-setup-bg.png */; };
 		A88102B11D12607100A483A4 /* baby-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */; };
 		A88102B31D12612E00A483A4 /* baby-setup-bg@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */; };
@@ -801,6 +807,12 @@
 		A87016221D1C0C2500E58A6A /* CircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircularProgress.xib; sourceTree = "<group>"; };
 		A87802B61D6580E80048EAE5 /* libPods-Savio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Savio.a"; path = "../../Library/Developer/Xcode/DerivedData/Savio-edhpqnpuyhkfazdyqqhzvpvulpjb/Build/Products/Debug-iphonesimulator/libPods-Savio.a"; sourceTree = "<group>"; };
 		A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SavioWishList.a"; path = "Pods/../build/Release-iphoneos/libPods-SavioWishList.a"; sourceTree = "<group>"; };
+		A87CE87E1D8FB7CA00270494 /* MasterCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MasterCard.png; sourceTree = "<group>"; };
+		A87CE87F1D8FB7CA00270494 /* MasterCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MasterCard@2x.png"; sourceTree = "<group>"; };
+		A87CE8801D8FB7CA00270494 /* VISA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VISA.png; sourceTree = "<group>"; };
+		A87CE8811D8FB7CA00270494 /* Visa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Visa@2x.png"; sourceTree = "<group>"; };
+		A87CE88B1D8FB96D00270494 /* Warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Warning.png; sourceTree = "<group>"; };
+		A87CE88C1D8FB96D00270494 /* Warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Warning@2x.png"; sourceTree = "<group>"; };
 		A88102AE1D12607100A483A4 /* baby-setup-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg.png"; sourceTree = "<group>"; };
 		A88102AF1D12607100A483A4 /* baby-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baby-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A88102B21D12612E00A483A4 /* baby-setup-bg@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "baby-setup-bg@3x.jpg"; sourceTree = "<group>"; };
@@ -1518,6 +1530,26 @@
 			path = SpendView;
 			sourceTree = "<group>";
 		};
+		A87CE87D1D8FB7CA00270494 /* CardImages */ = {
+			isa = PBXGroup;
+			children = (
+				A87CE87E1D8FB7CA00270494 /* MasterCard.png */,
+				A87CE87F1D8FB7CA00270494 /* MasterCard@2x.png */,
+				A87CE8801D8FB7CA00270494 /* VISA.png */,
+				A87CE8811D8FB7CA00270494 /* Visa@2x.png */,
+			);
+			path = CardImages;
+			sourceTree = "<group>";
+		};
+		A87CE8821D8FB7CA00270494 /* WarningSign */ = {
+			isa = PBXGroup;
+			children = (
+				A87CE88B1D8FB96D00270494 /* Warning.png */,
+				A87CE88C1D8FB96D00270494 /* Warning@2x.png */,
+			);
+			path = WarningSign;
+			sourceTree = "<group>";
+		};
 		A88E817D1D49E9E800CAA00F /* ProgressBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -2179,6 +2211,8 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				A87CE87D1D8FB7CA00270494 /* CardImages */,
+				A87CE8821D8FB7CA00270494 /* WarningSign */,
 				C9EF84EB1D82D41A00971510 /* PlaceHolder100x100.png */,
 				A8E3CA1D1D79AC86002B792C /* Splashscreen */,
 				A86D2E5B1D673445000D7D8A /* AppIcon */,
@@ -2474,6 +2508,7 @@
 				C9ED803F1D1BC38A00058A96 /* menu-active-whishlist@3x.png in Resources */,
 				A88E81EF1D49EA0F00CAA00F /* stats-spend-tab-active@3x.png in Resources */,
 				C90D39CB1D068D2000F285BB /* nav-back@3x.png in Resources */,
+				A87CE8871D8FB7CA00270494 /* VISA.png in Resources */,
 				C9ED80281D1BC38A00058A96 /* menu-active-offers@3x.png in Resources */,
 				A858A5FF1D08127C0097546F /* ride-circle.png in Resources */,
 				A859DD8B1D50ACD000932150 /* baby-dropdown@1x.png in Resources */,
@@ -2619,6 +2654,7 @@
 				A859DD901D50ACD000932150 /* baby-updown@3x.png in Resources */,
 				A8BDCBF91D05557500D4C47B /* wedding-calendar@2x.png in Resources */,
 				C9ED80301D1BC38A00058A96 /* menu-active-settings@2x.png in Resources */,
+				A87CE88D1D8FB96D00270494 /* Warning.png in Resources */,
 				A88E81CE1D49EA0F00CAA00F /* group-save-streak-popup@3x.png in Resources */,
 				A88E81F01D49EA0F00CAA00F /* stats-spend-tab.png in Resources */,
 				C95CD60D1CF2C7EE00013200 /* DropDownTxtFieldTableViewCell.xib in Resources */,
@@ -2690,6 +2726,7 @@
 				C9ED80581D1BC38A00058A96 /* menu-switch@3x.png in Resources */,
 				A8978BDC1D49EFAF005F665A /* stats-achievement-smiley.png in Resources */,
 				A8F820251D2E667C00BB7537 /* SACancelSavingViewController.xib in Resources */,
+				A87CE88E1D8FB96D00270494 /* Warning@2x.png in Resources */,
 				A82B9C8B1D0688B200BFD084 /* generic-calendar@3x.png in Resources */,
 				A859DDC41D50AD3500932150 /* home-updown@1x.png in Resources */,
 				A859DD9C1D50ACDD00932150 /* gadget-updown@3x.png in Resources */,
@@ -2743,6 +2780,7 @@
 				A841DAAC1D507F9E00846F46 /* 5.png in Resources */,
 				A88E81E31D49EA0F00CAA00F /* stats-offers-tab@3x.png in Resources */,
 				A841DAC21D507F9E00846F46 /* 9@3x.png in Resources */,
+				A87CE8861D8FB7CA00270494 /* MasterCard@2x.png in Resources */,
 				A841DAC01D507F9E00846F46 /* 7@3x.png in Resources */,
 				A859DDDC1D50AD4800932150 /* wedding-updown@1x.png in Resources */,
 				C9ED80461D1BC38A00058A96 /* menu-offers@3x.png in Resources */,
@@ -2793,6 +2831,7 @@
 				C9ED802A1D1BC38A00058A96 /* menu-active-profile@2x.png in Resources */,
 				A859DDA01D50ACFC00932150 /* generic-dropdown@1x.png in Resources */,
 				A859DDDA1D50AD4800932150 /* wedding-dropdown@2x.png in Resources */,
+				A87CE8851D8FB7CA00270494 /* MasterCard.png in Resources */,
 				A8BDCBE91D05557500D4C47B /* holiday-calendar@2x.png in Resources */,
 				C9ED802B1D1BC38A00058A96 /* menu-active-profile@3x.png in Resources */,
 				C9361EBE1D30C18300605E1B /* social-wa.png in Resources */,
@@ -2835,6 +2874,7 @@
 				C90571971CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib in Resources */,
 				A8BDCBD61D05557500D4C47B /* gadget-calendar.png in Resources */,
 				C975A9351D01952900184C8C /* holiday-category-icon@3x.png in Resources */,
+				A87CE8881D8FB7CA00270494 /* Visa@2x.png in Resources */,
 				A8E3CA2B1D79AFD2002B792C /* Default-568h@2x.png in Resources */,
 				A858A5EE1D08127C0097546F /* baby-circle@3x.png in Resources */,
 				C91E23E81D029C3300DC6D29 /* SAWishListViewController.xib in Resources */,

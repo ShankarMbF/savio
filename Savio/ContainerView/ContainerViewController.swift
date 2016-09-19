@@ -28,6 +28,14 @@ class ContainerViewController: UIViewController {
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
         
+        if let userPlan = NSUserDefaults.standardUserDefaults().valueForKey("savingPlanDict")
+        {
+            if let savedCard = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray")
+            {
+                //Go to SAPaymentFlowViewController if you did not find the saved card details
+                self.centreVC = SAPaymentFlowViewController()
+            }
+        }
         //As per flag show the plan progress
         if individualFlag == 1 { //Individual plan
             self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)

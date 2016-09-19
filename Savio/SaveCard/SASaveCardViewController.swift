@@ -15,6 +15,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var cardViewTwo: UIView!
     @IBOutlet weak var cardLastFourDigitTextField: UITextField!
     
+    var isFromImpulseSaving = false
     var isFromSavingPlan = false
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
@@ -63,9 +64,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
         {
             savedCardArray = saveCardArray
+            cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
+            cardListView.reloadData()
         }
-        cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
-        cardListView.reloadData()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,7 +84,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func doneBtnClicked()
     {
         let objPaymentView = SAPaymentFlowViewController()
-        objPaymentView.showCardInfo = true
+        if(isFromImpulseSaving)
+        {
+            objPaymentView.isFromImpulseSaving = true
+        }
+         objPaymentView.showCardInfo = true
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     

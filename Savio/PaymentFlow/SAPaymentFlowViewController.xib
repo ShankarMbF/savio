@@ -146,15 +146,22 @@
                                         <constraint firstAttribute="trailing" secondItem="rX1-JL-Ifz" secondAttribute="trailing" id="kWg-Kf-ZdD"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Valid Debit Cards are Accepted" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaV-hG-eEP">
-                                    <rect key="frame" x="30" y="95" width="540" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Valid Cards are Accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h40-nL-Ddz">
+                                    <rect key="frame" x="208" y="95" width="214" height="21"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="Y2X-a2-Dos"/>
+                                        <constraint firstAttribute="width" constant="214" id="suG-08-2sV"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="14"/>
                                     <color key="textColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warning.png" translatesAutoresizingMaskIntoConstraints="NO" id="nzE-TK-cBT">
+                                    <rect key="frame" x="177" y="94" width="26" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="26" id="S2p-GF-2Oc"/>
+                                        <constraint firstAttribute="height" constant="24" id="aup-WX-5tz"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -167,21 +174,24 @@
                                 <constraint firstItem="ji4-jD-oX0" firstAttribute="top" secondItem="jGu-G3-j8a" secondAttribute="top" constant="38" id="Fdf-yy-Ys7"/>
                                 <constraint firstItem="fk9-Pe-gz9" firstAttribute="top" secondItem="ji4-jD-oX0" secondAttribute="bottom" constant="37" id="Fnj-VH-NBf"/>
                                 <constraint firstItem="fk9-Pe-gz9" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="Iqx-oF-zSv"/>
+                                <constraint firstItem="h40-nL-Ddz" firstAttribute="top" secondItem="ji4-jD-oX0" secondAttribute="bottom" constant="17" id="KHg-vk-2iu"/>
                                 <constraint firstAttribute="trailing" secondItem="Ek4-qn-oyK" secondAttribute="trailing" constant="30" id="Kfu-Ps-JR2"/>
                                 <constraint firstAttribute="trailing" secondItem="C5V-wd-mQA" secondAttribute="trailing" constant="30" id="Lsi-ol-oLk"/>
                                 <constraint firstItem="C5V-wd-mQA" firstAttribute="top" secondItem="MXu-0F-41k" secondAttribute="bottom" constant="35" id="MH2-4p-kDt"/>
                                 <constraint firstItem="fP1-6N-mL0" firstAttribute="leading" secondItem="ccv-bS-42D" secondAttribute="trailing" constant="10" id="MJN-xb-1TV"/>
+                                <constraint firstItem="h40-nL-Ddz" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" constant="15" id="P6d-wa-Mxg"/>
+                                <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="h40-nL-Ddz" secondAttribute="bottom" constant="24" id="Q1N-5M-o54"/>
                                 <constraint firstItem="MXu-0F-41k" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="WgW-fW-jMS"/>
                                 <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="ji4-jD-oX0" secondAttribute="bottom" constant="62" id="XfJ-pg-aph"/>
-                                <constraint firstItem="uaV-hG-eEP" firstAttribute="top" secondItem="ji4-jD-oX0" secondAttribute="bottom" constant="17" id="c1X-D0-Q5n"/>
+                                <constraint firstItem="h40-nL-Ddz" firstAttribute="leading" secondItem="nzE-TK-cBT" secondAttribute="trailing" constant="5" id="ZaW-Qe-daQ"/>
                                 <constraint firstAttribute="trailing" secondItem="fk9-Pe-gz9" secondAttribute="trailing" constant="30" id="cnR-PK-hy6"/>
                                 <constraint firstItem="Ek4-qn-oyK" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="ggz-S0-QQz"/>
                                 <constraint firstItem="ji4-jD-oX0" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" id="iKb-pH-AEh"/>
-                                <constraint firstItem="uaV-hG-eEP" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="kfh-gf-TAc"/>
+                                <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="nzE-TK-cBT" secondAttribute="bottom" constant="22" id="m4b-va-ma1"/>
                                 <constraint firstItem="fP1-6N-mL0" firstAttribute="top" secondItem="C5V-wd-mQA" secondAttribute="bottom" constant="5" id="m7l-jO-XOj"/>
                                 <constraint firstItem="ccv-bS-42D" firstAttribute="width" secondItem="fP1-6N-mL0" secondAttribute="width" id="mWd-MQ-ZyS"/>
                                 <constraint firstAttribute="trailing" secondItem="MXu-0F-41k" secondAttribute="trailing" constant="30" id="mzF-f3-Bgj"/>
-                                <constraint firstAttribute="trailing" secondItem="uaV-hG-eEP" secondAttribute="trailing" constant="30" id="pXU-Ra-24j"/>
+                                <constraint firstItem="nzE-TK-cBT" firstAttribute="top" secondItem="jGu-G3-j8a" secondAttribute="top" constant="94" id="pE9-ph-saN"/>
                                 <constraint firstItem="ccv-bS-42D" firstAttribute="top" secondItem="C5V-wd-mQA" secondAttribute="bottom" constant="5" id="tnV-GZ-Jnh"/>
                                 <constraint firstItem="2Dd-gg-eOY" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="w72-4j-0MR"/>
                                 <constraint firstItem="2Dd-gg-eOY" firstAttribute="top" secondItem="ccv-bS-42D" secondAttribute="bottom" constant="60" id="yzZ-c5-zv6"/>
@@ -227,6 +237,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Warning.png" width="26" height="24"/>
         <image name="savivo-logo.png" width="85" height="85"/>
     </resources>
 </document>

@@ -279,9 +279,27 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
         
-        self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
-        let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-        self.navigationController?.pushViewController(objHurrrayView, animated: true)
+            self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
+        
+        if let userPlan = NSUserDefaults.standardUserDefaults().valueForKey("savingPlanDict")
+        {
+            if let savedCard = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray")
+            {
+                let objPaymentView = SAPaymentFlowViewController(nibName:"SAPaymentFlowViewController",bundle: nil)
+                objPaymentView.doNotShowBackButton = false
+                self.navigationController?.pushViewController(objPaymentView, animated: true)
+                
+            }else {
+                let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+                self.navigationController?.pushViewController(objHurrrayView, animated: true)
+            }
+        }else {
+      
+            let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
+            self.navigationController?.pushViewController(objHurrrayView, animated: true)
+        }
+        
+ 
     }
 
     func errorResponseForOTPLogInAPI(error: String) {

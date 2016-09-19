@@ -88,7 +88,6 @@ class MonthYearPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
         if let block = onDateSelected {
             block(month: month, year: year)
         }
-        
         self.month = month
         self.year = year
     }

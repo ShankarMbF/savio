@@ -196,7 +196,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             if(message == "Your PIN is updated Sucessfully")
             {
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
-                
                 headerLabel.text = "Your passcode has been reset"
                 backButton.hidden = true
                 confirmPIN .setTitle("Got It", forState: UIControlState.Normal)

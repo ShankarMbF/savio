@@ -34,6 +34,7 @@ class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var circularView: UIView!
     @IBOutlet weak var priceTextField: UITextField!
     
+    var isFromPayment = false
     var circleSlider: CircleSlider! {
         didSet {
             self.circleSlider.tag = 0
@@ -66,6 +67,30 @@ class SAImpulseSavingViewController: UIViewController {
         self.setUpView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if(isFromPayment)
+        {
+            messagePopUpView.hidden = true
+            circularView.backgroundColor = UIColor(red : 244/255,
+                                                   green : 172/255,
+                                                   blue : 58/255, alpha: 1)
+            circularView.layer.cornerRadius = circularView.frame.height / 2
+            priceTextField.hidden = true
+            priceLabel.text = String(format:"£%d",Int(circleSlider.value))
+            circleSlider.hidden = true
+            priceLabel.hidden = false
+            anotherStepLabel.hidden = false
+            savedPaymentLabel.hidden = false
+            addFundsButton.setTitle("Continue", forState: .Normal)
+            addFundsButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            addFundsButton.backgroundColor = UIColor(red : 244/255,
+                                                     green : 172/255,
+                                                     blue : 58/255, alpha: 1)
+            deductMoneyLabel.text = String(format:"Your payment of £%d has been added to your saving plan.",Int(circleSlider.value))
+            isFromPayment = false
+        }
+    }
     //customization of circle slider
     private func buildCircleSlider() {
         self.circleSlider = CircleSlider(frame: CGRectMake(0, 0, circularView.frame.size.width, circularView.frame.size.height), options: self.sliderOptions)
@@ -269,26 +294,14 @@ class SAImpulseSavingViewController: UIViewController {
     @IBAction func addFundsButtonPressed(sender: AnyObject) {
         if(addFundsButton.titleLabel?.text == "ADD FUNDS")
         {
-            circularView.backgroundColor = UIColor(red : 244/255,
-                                                   green : 172/255,
-                                                   blue : 58/255, alpha: 1)
-            circularView.layer.cornerRadius = circularView.frame.height / 2
-            priceTextField.hidden = true
-            priceLabel.text = String(format:"£%d",Int(circleSlider.value))
-            circleSlider.hidden = true
-            priceLabel.hidden = false
-            anotherStepLabel.hidden = false
-            savedPaymentLabel.hidden = false
-            addFundsButton.setTitle("Continue", forState: .Normal)
-            addFundsButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            addFundsButton.backgroundColor = UIColor(red : 244/255,
-                                                     green : 172/255,
-                                                     blue : 58/255, alpha: 1)
-            deductMoneyLabel.text = String(format:"Your payment of £%d has been added to your saving plan.",Int(circleSlider.value))
+            let objSavedCardView = SASaveCardViewController()
+            objSavedCardView.isFromImpulseSaving = true
+            self.navigationController?.pushViewController(objSavedCardView, animated: true)
         }
         else
         {
-            print("continue")
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
         }
     }
     

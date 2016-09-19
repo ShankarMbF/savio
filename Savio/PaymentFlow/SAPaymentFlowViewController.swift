@@ -9,7 +9,7 @@
 import UIKit
 import PassKit
 
-class SAPaymentFlowViewController: UIViewController {
+class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
@@ -35,6 +35,7 @@ class SAPaymentFlowViewController: UIViewController {
     var isFromGroupMemberPlan = false
     var isFromImpulseSaving = false
     var showCardInfo = false
+    var doNotShowBackButton = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,12 +50,16 @@ class SAPaymentFlowViewController: UIViewController {
     }
     
     func setUpView(){
+        if(doNotShowBackButton == false)
+        {
+            self.navigationItem.setHidesBackButton(true, animated: false)
+        }
+   
         cardNumberTextFieldTopSpace.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-        self.navigationItem.setHidesBackButton(true, animated: false)
         self.title = "Payment setup"
         
         //Customization of card holders name text field
@@ -122,9 +127,13 @@ class SAPaymentFlowViewController: UIViewController {
                 cardNumberTextField.text = saveCardInfo["cardNumber"] as? String
                 expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["cardExpMonth"] as? Int)!,(saveCardInfo["cardExpDate"] as?
                     Int)!)
-                
             }
         }
+        //        warningLabel.text = "Only Valid Cards are Accepted"
+        //        warningLabel.icon = UIImage(named: "Warning.png")
+        //        warningLabel.iconPadding = 5
+        //        warningLabel.iconPosition = ( SMIconHorizontalPosition.left, SMIconVerticalPosition.top )
+        
     }
     
     func doneBarButtonPressed()
@@ -136,11 +145,11 @@ class SAPaymentFlowViewController: UIViewController {
                 let date = NSDate()
                 let calendar = NSCalendar.currentCalendar()
                 let components = calendar.components([.Day , .Month , .Year], fromDate: date)
-                self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%02d", components.month, components.year)
                 
             }
             else {
-                self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%02d", picker.month, picker.year)
             }
         }
         activeTextField.resignFirstResponder()
@@ -155,10 +164,23 @@ class SAPaymentFlowViewController: UIViewController {
         if(checkTextFieldValidation() == false)
         {
             self.errorFlag = true
-            stripeCard.cvc = cvvTextField.text
-            stripeCard.number = cardNumberTextField.text
-            stripeCard.expYear = UInt(picker.year)
-            stripeCard.expMonth = UInt(picker.month)
+            if(showCardInfo)
+            {
+                if let saveCardInfo = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+                {
+                    stripeCard.cvc = cvvTextField.text
+                    stripeCard.number = cardNumberTextField.text
+                    stripeCard.expYear = (saveCardInfo["cardExpDate"] as? UInt)!
+                    stripeCard.expMonth = (saveCardInfo["cardExpMonth"] as? UInt)!
+                }
+                
+            }
+            else {
+                stripeCard.cvc = cvvTextField.text
+                stripeCard.number = cardNumberTextField.text
+                stripeCard.expYear = UInt(picker.year)
+                stripeCard.expMonth = UInt(picker.month)
+            }
             
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
@@ -166,7 +188,7 @@ class SAPaymentFlowViewController: UIViewController {
             self.navigationController?.view.addSubview(self.objAnimView)
             
             STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
-                print(token)
+                print(token?.tokenId)
                 print(error?.localizedDescription)
                 if((error) != nil)
                 {
@@ -192,55 +214,13 @@ class SAPaymentFlowViewController: UIViewController {
                     }
                 }
                 else {
-                    var array : Array<Dictionary<String,AnyObject>> = []
-                    let dict : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    let objAPI = API()
+                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                    print(dict)
                     
-                    if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                    {
-                        array = saveCardArray
-                        var cardNumberArray : Array<String> = []
-                        for i in 0 ..< array.count{
-                            let newDict = array[i]
-                            cardNumberArray.append(newDict["cardNumber"] as! String)
-                        }
-                        if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
-                        {
-                            array.append(dict)
-                            NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
-                            NSUserDefaults.standardUserDefaults().synchronize()
-                            NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
-                            NSUserDefaults.standardUserDefaults().synchronize()
-                        }
-                        else {
-                            //show alert view controller if card is already added
-                            let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
-                            //alert view controll action method
-                            alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
-                            { action -> Void in
-                                self.navigationController?.popViewControllerAnimated(true)
-                                })
-                        }
-                        
-                    }
-                    else {
-                        array.append(dict)
-                        NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-                    }
-                    if(self.isFromGroupMemberPlan == true)
-                    {
-                        //Navigate to showing group progress
-                        let objThankyYouView = SAThankYouViewController()
-                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
-                        
-                    }else if(self.isFromImpulseSaving){
-                        self.navigationController?.popViewControllerAnimated(true)
-                    }
-                    else {
-                        let objSummaryView = SASavingSummaryViewController()
-                        self.navigationController?.pushViewController(objSummaryView, animated: true)
-                    }
-                    
+                    objAPI.addSavingCardDelegate = self
+                    objAPI.addSavingCard(dict)
                 }
             })
         }
@@ -394,6 +374,23 @@ class SAPaymentFlowViewController: UIViewController {
         return true
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        
+        if(textField == cardNumberTextField)
+        {
+        let newLength = text.utf16.count + string.utf16.count - range.length
+        return newLength <= 16
+        }
+        else if(textField == cvvTextField){
+            let newLength = text.utf16.count + string.utf16.count - range.length
+            return newLength <= 3
+        }
+        else {
+            return true
+        }
+        
+    }
     //Register keyboard notification
     func registerForKeyboardNotifications(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
@@ -431,7 +428,64 @@ class SAPaymentFlowViewController: UIViewController {
         super.viewWillDisappear(animated)
         objAnimView.removeFromSuperview()
     }
+    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        var array : Array<Dictionary<String,AnyObject>> = []
+        let dict : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+        if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+        {
+            array = saveCardArray
+            var cardNumberArray : Array<String> = []
+            for i in 0 ..< array.count{
+                let newDict = array[i]
+                cardNumberArray.append(newDict["cardNumber"] as! String)
+            }
+            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+            {
+                array.append(dict)
+                NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            }
+            else {
+                //show alert view controller if card is already added
+                let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                //alert view controll action method
+                alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
+                { action -> Void in
+                    self.navigationController?.popViewControllerAnimated(true)
+                    })
+            }
+            
+        }
+        else {
+            array.append(dict)
+            NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        if(self.isFromGroupMemberPlan == true)
+        {
+            //Navigate to showing group progress
+            let objThankyYouView = SAThankYouViewController()
+            self.navigationController?.pushViewController(objThankyYouView, animated: true)
+            
+        }else if(self.isFromImpulseSaving){
+            let objImpulseView = SAImpulseSavingViewController()
+            objImpulseView.isFromPayment = true
+            self.navigationController?.pushViewController(objImpulseView, animated: true)
+        }
+        else {
+            let objSummaryView = SASavingSummaryViewController()
+            self.navigationController?.pushViewController(objSummaryView, animated: true)
+        }
+        
+        print(objResponse)
+    }
     
+    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+    }
     
 }
 

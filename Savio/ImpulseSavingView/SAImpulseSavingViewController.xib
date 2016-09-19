@@ -158,7 +158,7 @@
                                             </connections>
                                         </textField>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vso-oK-UIB">
-                                            <rect key="frame" x="100" y="50" width="100" height="50"/>
+                                            <rect key="frame" x="85" y="50" width="130" height="50"/>
                                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -169,10 +169,10 @@
                                         <constraint firstItem="Kyo-nz-RKi" firstAttribute="top" secondItem="Kps-gQ-FZS" secondAttribute="top" constant="125" id="7Q9-2i-Xxx"/>
                                         <constraint firstItem="Kyo-nz-RKi" firstAttribute="centerX" secondItem="Kps-gQ-FZS" secondAttribute="centerX" id="7j9-ug-REp"/>
                                         <constraint firstItem="7nj-rH-zBJ" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="50" id="LL9-TH-POx"/>
-                                        <constraint firstItem="Vso-oK-UIB" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="100" id="LaF-LH-UJ6"/>
+                                        <constraint firstItem="Vso-oK-UIB" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="85" id="LaF-LH-UJ6"/>
                                         <constraint firstAttribute="height" constant="300" id="ORa-H6-QgL"/>
                                         <constraint firstItem="kPF-tF-yFc" firstAttribute="centerX" secondItem="Kps-gQ-FZS" secondAttribute="centerX" id="SSf-On-SeF"/>
-                                        <constraint firstAttribute="trailing" secondItem="Vso-oK-UIB" secondAttribute="trailing" constant="100" id="UMk-dX-Sa5"/>
+                                        <constraint firstAttribute="trailing" secondItem="Vso-oK-UIB" secondAttribute="trailing" constant="85" id="UMk-dX-Sa5"/>
                                         <constraint firstItem="kPF-tF-yFc" firstAttribute="centerY" secondItem="Kps-gQ-FZS" secondAttribute="centerY" id="Wma-Mg-hgB"/>
                                         <constraint firstItem="kPF-tF-yFc" firstAttribute="leading" secondItem="Kps-gQ-FZS" secondAttribute="leading" constant="30" id="gjb-kE-8c2"/>
                                         <constraint firstItem="Vso-oK-UIB" firstAttribute="top" secondItem="Kps-gQ-FZS" secondAttribute="top" constant="50" id="hMV-ve-sgX"/>

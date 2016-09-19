@@ -76,5 +76,10 @@ class SAThankYouViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func continueButtonPressed(sender: UIButton) {
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
+    }
 
 }

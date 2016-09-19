@@ -33,6 +33,7 @@ class SASpendViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBarHidden = false
 
         //set Navigation left button
         let leftBtnName = UIButton()

@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="GothamRounded-Medium.otf">
+            <string>GothamRounded-Medium</string>
+        </mutableArray>
+        <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SASpendViewController" customModule="Savio" customModuleProvider="target">
             <connections>
@@ -66,13 +74,56 @@
                         <constraint firstAttribute="bottom" secondItem="f2B-co-boH" secondAttribute="bottom" id="xhf-TF-QAc"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry,                                                                                   you haven't reached the goal yet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYI-xq-r0R">
+                    <rect key="frame" x="200" y="40" width="200" height="76"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="ERK-WS-C8Z"/>
+                        <constraint firstAttribute="height" constant="76" id="glx-4d-GZB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="16"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSW-2g-1ev">
+                    <rect key="frame" x="30" y="160" width="540" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="vj1-rs-ciZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're working hard to find you the best place to buy from. Take a look at these deals we've negotiated in the offers page." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-fY-1Wb">
+                    <rect key="frame" x="30" y="300" width="540" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="06P-Yf-ZPf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="f6b-kM-t6F" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2ff-fS-8Mu"/>
                 <constraint firstAttribute="bottom" secondItem="f6b-kM-t6F" secondAttribute="bottom" id="7fX-jq-uNv"/>
+                <constraint firstItem="aYI-xq-r0R" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="B0M-JR-ebp"/>
+                <constraint firstItem="Pw7-fY-1Wb" firstAttribute="top" secondItem="kSW-2g-1ev" secondAttribute="bottom" constant="20" id="BXY-0E-qpp"/>
+                <constraint firstAttribute="trailing" secondItem="kSW-2g-1ev" secondAttribute="trailing" constant="30" id="CDM-GZ-jSD"/>
+                <constraint firstItem="aYI-xq-r0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="MLr-hG-rDz"/>
+                <constraint firstAttribute="trailing" secondItem="Pw7-fY-1Wb" secondAttribute="trailing" constant="30" id="NVF-xs-fyd"/>
+                <constraint firstItem="kSW-2g-1ev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="gIb-0l-Pxr"/>
                 <constraint firstAttribute="trailing" secondItem="f6b-kM-t6F" secondAttribute="trailing" id="pQv-U7-fIG"/>
+                <constraint firstItem="kSW-2g-1ev" firstAttribute="top" secondItem="aYI-xq-r0R" secondAttribute="bottom" constant="44" id="s5V-dX-bmm"/>
+                <constraint firstItem="Pw7-fY-1Wb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="vfX-op-hTO"/>
+                <constraint firstItem="f6b-kM-t6F" firstAttribute="top" secondItem="Pw7-fY-1Wb" secondAttribute="bottom" constant="128" id="x9c-zY-Xlb"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="x9c-zY-Xlb"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="221" y="203"/>
         </view>
     </objects>
 </document>

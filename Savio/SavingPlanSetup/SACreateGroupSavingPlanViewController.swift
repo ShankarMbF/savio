@@ -742,9 +742,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 newDict["planType"] = "group"
                 
-                NSUserDefaults.standardUserDefaults().setValue(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
+                let objAPI = API()
+                objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
                 
-                if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true

@@ -23,6 +23,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     @IBOutlet weak var cardNumberTextFieldTopSpace: NSLayoutConstraint!
     @IBOutlet weak var scrlView: UIScrollView!
     @IBOutlet weak var contentview: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var objAnimView = ImageViewAnimation()
     var picker = MonthYearPickerView()
@@ -50,8 +51,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     }
     
     func setUpView(){
-        if(doNotShowBackButton == false)
+        if(doNotShowBackButton == true)
         {
+           // self.navigationItem.setHidesBackButton(true, animated: false)
+            let leftBtnName = UIButton()
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+            leftBtnName.addTarget(self, action: Selector("backButtonPressd"), forControlEvents: .TouchUpInside)
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+            
+            self.cancelButton.hidden = false
+        }
+        else {
             self.navigationItem.setHidesBackButton(true, animated: false)
         }
    
@@ -129,11 +142,11 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
                     Int)!)
             }
         }
-        //        warningLabel.text = "Only Valid Cards are Accepted"
-        //        warningLabel.icon = UIImage(named: "Warning.png")
-        //        warningLabel.iconPadding = 5
-        //        warningLabel.iconPosition = ( SMIconHorizontalPosition.left, SMIconVerticalPosition.top )
-        
+    }
+    
+    func backButtonPressd()
+    {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func doneBarButtonPressed()
@@ -145,11 +158,11 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
                 let date = NSDate()
                 let calendar = NSCalendar.currentCalendar()
                 let components = calendar.components([.Day , .Month , .Year], fromDate: date)
-                self.expiryMonthYearTextField.text = String(format: "%02d/%02d", components.month, components.year)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year%100)
                 
             }
             else {
-                self.expiryMonthYearTextField.text = String(format: "%02d/%02d", picker.month, picker.year)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year%100)
             }
         }
         activeTextField.resignFirstResponder()
@@ -345,15 +358,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     }
     
     
-    @IBAction func switchChanged(sender: UISwitch) {
-        if(sender.on)
-        {
-            print("switch is on")
-        } else {
-            print("switch is off")
-        }
+    @IBAction func cancelButtonPressed(sender: UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
-    
+  
     //UITextField delegate method
     func textFieldDidBeginEditing(textField: UITextField) {
         activeTextField = textField
@@ -430,9 +438,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     }
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
+        print(objResponse)
         var array : Array<Dictionary<String,AnyObject>> = []
-        let dict : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-        if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+        let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+        
+        let objAPI = API()
+        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
         {
             array = saveCardArray
             var cardNumberArray : Array<String> = []
@@ -442,11 +453,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
             }
             if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
             {
-                array.append(dict)
-                NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
+                array.append(dict1)
+                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
             }
             else {
                 //show alert view controller if card is already added
@@ -455,22 +465,24 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
                 alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
                 { action -> Void in
                     self.navigationController?.popViewControllerAnimated(true)
-                    })
+                })
             }
-            
         }
         else {
-            array.append(dict)
-            NSUserDefaults.standardUserDefaults().setValue(array, forKey: "saveCardArray")
+            array.append(dict1)
+            NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
             NSUserDefaults.standardUserDefaults().synchronize()
+            objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
         }
         if(self.isFromGroupMemberPlan == true)
         {
             //Navigate to showing group progress
+            self.isFromGroupMemberPlan = false
             let objThankyYouView = SAThankYouViewController()
             self.navigationController?.pushViewController(objThankyYouView, animated: true)
             
         }else if(self.isFromImpulseSaving){
+            self.isFromImpulseSaving = false
             let objImpulseView = SAImpulseSavingViewController()
             objImpulseView.isFromPayment = true
             self.navigationController?.pushViewController(objImpulseView, animated: true)
@@ -479,8 +491,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
             let objSummaryView = SASavingSummaryViewController()
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
-        
-        print(objResponse)
     }
     
     func errorResponseForAddSavingCardDelegateAPI(error: String) {

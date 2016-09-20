@@ -61,7 +61,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cardViewTwo.layer.cornerRadius = 5
         cardViewTwo.layer.borderColor = UIColor(red: 0.97, green: 0.87, blue: 0.69, alpha: 1).CGColor
         
-        if let saveCardArray = NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+        let objAPI = API()
+        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
         {
             savedCardArray = saveCardArray
             cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)

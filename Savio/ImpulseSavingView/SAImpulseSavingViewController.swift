@@ -77,7 +77,7 @@ class SAImpulseSavingViewController: UIViewController {
                                                    blue : 58/255, alpha: 1)
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.hidden = true
-            priceLabel.text = String(format:"£%d",Int(circleSlider.value))
+            priceLabel.text = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
             circleSlider.hidden = true
             priceLabel.hidden = false
             anotherStepLabel.hidden = false
@@ -294,6 +294,8 @@ class SAImpulseSavingViewController: UIViewController {
     @IBAction func addFundsButtonPressed(sender: AnyObject) {
         if(addFundsButton.titleLabel?.text == "ADD FUNDS")
         {
+            NSUserDefaults.standardUserDefaults().setValue(priceTextField.text, forKey: "ImpulseAmount")
+            NSUserDefaults.standardUserDefaults().synchronize()
             let objSavedCardView = SASaveCardViewController()
             objSavedCardView.isFromImpulseSaving = true
             self.navigationController?.pushViewController(objSavedCardView, animated: true)

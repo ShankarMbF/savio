@@ -1415,6 +1415,15 @@ class API: UIView,NSURLSessionDelegate {
     
     func addSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -1428,7 +1437,7 @@ class API: UIView,NSURLSessionDelegate {
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data

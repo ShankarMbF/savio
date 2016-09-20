@@ -649,8 +649,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                   
                     let objPaymentView = SAPaymentFlowViewController()
                     self.navigationController?.pushViewController(objPaymentView, animated: true)
                     
@@ -731,9 +730,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if offerArr.count>0 {
                     newDict["offers"] = offerArr
                 }
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+     
+              
                 if(dateString == "day") {
                     newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
                 }

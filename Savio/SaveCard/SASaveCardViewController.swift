@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
@@ -17,6 +17,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
+    var objAnimView = ImageViewAnimation()
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        
         cardViewOne.layer.borderWidth = 1
         cardViewOne.layer.cornerRadius = 5
         cardViewOne.layer.borderColor = UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1).CGColor
@@ -61,13 +61,16 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cardViewTwo.layer.cornerRadius = 5
         cardViewTwo.layer.borderColor = UIColor(red: 0.97, green: 0.87, blue: 0.69, alpha: 1).CGColor
         
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.view.addSubview(self.objAnimView)
+        
         let objAPI = API()
-        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-        {
-            savedCardArray = saveCardArray
-            cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
-            cardListView.reloadData()
-        }
+        objAPI.getListOfUsersCardDelegate = self
+        objAPI.getWishListOfUsersCards()
+
+
         
     }
     
@@ -158,16 +161,21 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
         let objPaymentView = SAPaymentFlowViewController()
+        objPaymentView.addNewCard = true
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+   
+    func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        objAnimView.removeFromSuperview()
+     // savedCardArray = saveCardArray
+        cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
+        cardListView.reloadData()
+
+    }
+    
+    func errorResponseForGetListOfUsersCards(error: String) {
+        objAnimView.removeFromSuperview()
+    }
     
 }

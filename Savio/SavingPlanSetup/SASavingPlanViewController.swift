@@ -1601,10 +1601,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["planType"] = "individual"
                 let objAPI = API()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+        
                 NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
                 if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()

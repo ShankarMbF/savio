@@ -9,7 +9,7 @@
 import UIKit
 import PassKit
 
-class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
+class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate {
     
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
@@ -37,6 +37,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     var isFromImpulseSaving = false
     var showCardInfo = false
     var doNotShowBackButton = true
+    var addNewCard = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     func setUpView(){
         if(doNotShowBackButton == true)
         {
-           // self.navigationItem.setHidesBackButton(true, animated: false)
+            // self.navigationItem.setHidesBackButton(true, animated: false)
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
@@ -67,7 +68,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
         else {
             self.navigationItem.setHidesBackButton(true, animated: false)
         }
-   
+        
         cardNumberTextFieldTopSpace.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
@@ -186,7 +187,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
                     stripeCard.expYear = (saveCardInfo["cardExpDate"] as? UInt)!
                     stripeCard.expMonth = (saveCardInfo["cardExpMonth"] as? UInt)!
                 }
-                
             }
             else {
                 stripeCard.cvc = cvvTextField.text
@@ -229,11 +229,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
                 else {
                     let objAPI = API()
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
-                    print(dict)
                     
-                    objAPI.addSavingCardDelegate = self
-                    objAPI.addSavingCard(dict)
+                    if(self.addNewCard == true)
+                    {
+                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                        objAPI.addNewSavingCardDelegate = self
+                        objAPI.addNewSavingCard(dict)
+                        self.addNewCard = false
+                        print(dict)
+                    } else {
+                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                        objAPI.addSavingCardDelegate = self
+                        objAPI.addSavingCard(dict)
+                        print(dict)
+                    }
                 }
             })
         }
@@ -361,7 +370,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     @IBAction func cancelButtonPressed(sender: UIButton) {
         self.navigationController?.popViewControllerAnimated(true)
     }
-  
+    
     //UITextField delegate method
     func textFieldDidBeginEditing(textField: UITextField) {
         activeTextField = textField
@@ -387,8 +396,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
         
         if(textField == cardNumberTextField)
         {
-        let newLength = text.utf16.count + string.utf16.count - range.length
-        return newLength <= 16
+            let newLength = text.utf16.count + string.utf16.count - range.length
+            return newLength <= 16
         }
         else if(textField == cvvTextField){
             let newLength = text.utf16.count + string.utf16.count - range.length
@@ -439,63 +448,97 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate {
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         print(objResponse)
-        var array : Array<Dictionary<String,AnyObject>> = []
-        let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-        
-        let objAPI = API()
-        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-        {
-            array = saveCardArray
-            var cardNumberArray : Array<String> = []
-            for i in 0 ..< array.count{
-                let newDict = array[i]
-                cardNumberArray.append(newDict["cardNumber"] as! String)
-            }
-            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
             {
-                array.append(dict1)
-                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" || objResponse["stripePlanStatusMessage"] as? String == "StripePlan Not Created")
+                {
+                    var array : Array<Dictionary<String,AnyObject>> = []
+                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    
+                    let objAPI = API()
+                    
+                    if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                    {
+                        array = saveCardArray
+                        var cardNumberArray : Array<String> = []
+                        for i in 0 ..< array.count{
+                            let newDict = array[i]
+                            cardNumberArray.append(newDict["cardNumber"] as! String)
+                        }
+                        if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+                        {
+                            array.append(dict1)
+                            NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                            NSUserDefaults.standardUserDefaults().synchronize()
+                            objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                        }
+                        else {
+                            //show alert view controller if card is already added
+                            let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                            //alert view controll action method
+                            alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
+                            { action -> Void in
+                                self.navigationController?.popViewControllerAnimated(true)
+                                })
+                        }
+                    }
+                    else {
+                        array.append(dict1)
+                        NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                    }
+                    
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to showing group progress
+                        self.isFromGroupMemberPlan = false
+                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                        
+                    }else if(self.isFromImpulseSaving){
+                        self.isFromImpulseSaving = false
+                        let objImpulseView = SAImpulseSavingViewController()
+                        objImpulseView.isFromPayment = true
+                        self.navigationController?.pushViewController(objImpulseView, animated: true)
+                    }
+                    else {
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
+                    
+                }
             }
-            else {
-                //show alert view controller if card is already added
-                let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
-                //alert view controll action method
-                alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
-                { action -> Void in
-                    self.navigationController?.popViewControllerAnimated(true)
-                })
-            }
-        }
-        else {
-            array.append(dict1)
-            NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
-        }
-        if(self.isFromGroupMemberPlan == true)
-        {
-            //Navigate to showing group progress
-            self.isFromGroupMemberPlan = false
-            let objThankyYouView = SAThankYouViewController()
-            self.navigationController?.pushViewController(objThankyYouView, animated: true)
-            
-        }else if(self.isFromImpulseSaving){
-            self.isFromImpulseSaving = false
-            let objImpulseView = SAImpulseSavingViewController()
-            objImpulseView.isFromPayment = true
-            self.navigationController?.pushViewController(objImpulseView, animated: true)
-        }
-        else {
-            let objSummaryView = SASavingSummaryViewController()
-            self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
     }
     
     func errorResponseForAddSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
+    func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
+            {
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" && objResponse["stripePlanStatusMessage"] as? String == "Stripe Subscription  Created")
+                {
+                    let objThankyYouView = SAThankYouViewController()
+                    self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                }
+            }
+        }
+    }
+    
+    func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+    }
 }
 

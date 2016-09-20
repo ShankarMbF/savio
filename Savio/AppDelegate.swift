@@ -51,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Check if keychain has encrypted pin value.
         let objApi = API()
-        
         //Check if passcode is stored into keychain.
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {

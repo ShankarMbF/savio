@@ -235,7 +235,14 @@ class SASavingSummaryViewController: UIViewController {
                     }
                 }
                 //------------------------------------------------------------------------------------
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
             }
+        }else {
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         }
         
         //-----------------End of showing Invited user list-------------------------------------------

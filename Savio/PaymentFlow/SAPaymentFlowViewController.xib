@@ -147,17 +147,17 @@
                                         <constraint firstAttribute="trailing" secondItem="rX1-JL-Ifz" secondAttribute="trailing" id="kWg-Kf-ZdD"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Valid Cards are Accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h40-nL-Ddz">
-                                    <rect key="frame" x="208" y="95" width="214" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Valid Debit cards are accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h40-nL-Ddz">
+                                    <rect key="frame" x="193" y="95" width="254" height="21"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="214" id="suG-08-2sV"/>
+                                        <constraint firstAttribute="width" constant="254" id="suG-08-2sV"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="14"/>
                                     <color key="textColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Warning.png" translatesAutoresizingMaskIntoConstraints="NO" id="nzE-TK-cBT">
-                                    <rect key="frame" x="177" y="94" width="26" height="24"/>
+                                    <rect key="frame" x="162" y="94" width="26" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="26" id="S2p-GF-2Oc"/>
                                         <constraint firstAttribute="height" constant="24" id="aup-WX-5tz"/>
@@ -202,7 +202,7 @@
                                 <constraint firstAttribute="trailing" secondItem="C5V-wd-mQA" secondAttribute="trailing" constant="30" id="Lsi-ol-oLk"/>
                                 <constraint firstItem="C5V-wd-mQA" firstAttribute="top" secondItem="MXu-0F-41k" secondAttribute="bottom" constant="35" id="MH2-4p-kDt"/>
                                 <constraint firstItem="fP1-6N-mL0" firstAttribute="leading" secondItem="ccv-bS-42D" secondAttribute="trailing" constant="10" id="MJN-xb-1TV"/>
-                                <constraint firstItem="h40-nL-Ddz" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" constant="15" id="P6d-wa-Mxg"/>
+                                <constraint firstItem="h40-nL-Ddz" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" constant="20" id="P6d-wa-Mxg"/>
                                 <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="h40-nL-Ddz" secondAttribute="bottom" constant="24" id="Q1N-5M-o54"/>
                                 <constraint firstItem="MXu-0F-41k" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="WgW-fW-jMS"/>
                                 <constraint firstItem="J2W-8v-8AC" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" id="Wwj-1U-47R"/>

@@ -77,7 +77,7 @@ class SAImpulseSavingViewController: UIViewController {
                                                    blue : 58/255, alpha: 1)
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.hidden = true
-            priceLabel.text = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
+            priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             circleSlider.hidden = true
             priceLabel.hidden = false
             anotherStepLabel.hidden = false
@@ -87,7 +87,7 @@ class SAImpulseSavingViewController: UIViewController {
             addFundsButton.backgroundColor = UIColor(red : 244/255,
                                                      green : 172/255,
                                                      blue : 58/255, alpha: 1)
-            deductMoneyLabel.text = String(format:"Your payment of £%d has been added to your saving plan.",Int(circleSlider.value))
+            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             isFromPayment = false
         }
     }

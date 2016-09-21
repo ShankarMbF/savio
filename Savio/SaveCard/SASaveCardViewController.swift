@@ -70,8 +70,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         objAPI.getListOfUsersCardDelegate = self
         objAPI.getWishListOfUsersCards()
 
-
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +90,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         {
             objPaymentView.isFromImpulseSaving = true
         }
-         objPaymentView.showCardInfo = true
+        objPaymentView.showCardInfo = true
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     
@@ -110,36 +108,38 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         //--------create custom cell from CardTableViewCell.xib------------
         let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("CardTableViewCell", owner: nil, options: nil) as Array
         let cell = bundleArr[0] as! CardTableViewCell
-        let dict = savedCardArray[indexPath.row]
-        let trimmedString: String = (dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
-        let attributedString = NSMutableAttributedString(string: String(format: "%@ Ending in %@",dict["cardHolderName"] as! String,trimmedString))
+        let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
+        
+        let trimmedString: String = (dict["last4"] as? String)!
+        //(dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
+        let attributedString = NSMutableAttributedString(string: String(format: "%@ Ending in %@",dict["brand"] as! String,trimmedString))
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                       value: UIColor.blackColor(),
                                       range: NSRange(
                                         location:0,
-                                        length:(dict["cardHolderName"] as! String).characters.count))
+                                        length:(dict["brand"] as! String).characters.count))
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont ,size: 15)!, range: NSRange(
             location:0,
-            length:(dict["cardHolderName"] as! String).characters.count))
+            length:(dict["brand"] as! String).characters.count))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                       value: UIColor.blackColor(),
                                       range: NSRange(
-                                        location:((dict["cardHolderName"] as! String).characters.count),
+                                        location:((dict["brand"] as! String).characters.count),
                                         length:11))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kLightFont,size: 15)!, range: NSRange(
-            location:((dict["cardHolderName"] as! String).characters.count),
+            location:((dict["brand"] as! String).characters.count),
             length:11))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                       value: UIColor.blackColor(),
                                       range: NSRange(
-                                        location:((dict["cardHolderName"] as! String).characters.count) + 11,
+                                        location:((dict["brand"] as! String).characters.count) + 11,
                                         length:trimmedString.characters.count))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont,size: 15)!, range: NSRange(
-            location:((dict["cardHolderName"] as! String).characters.count) + 11,
+            location:((dict["brand"] as! String).characters.count) + 11,
             length:trimmedString.characters.count))
         
         cell.cardHolderNameLabel.attributedText = attributedString
@@ -151,10 +151,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         //Changing background color of selected row
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         
-        let dict = savedCardArray[indexPath.row]
+        let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
         NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
         NSUserDefaults.standardUserDefaults().synchronize()
-        let trimmedString: String = (dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
+        let trimmedString: String = (dict["last4"] as? String)!
         cardLastFourDigitTextField.text = trimmedString
         
     }
@@ -164,14 +164,46 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         objPaymentView.addNewCard = true
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
-   
+    
+    
+    //function checking any key is null and return not null values in dictionary
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for var key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+    
+    
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         objAnimView.removeFromSuperview()
-     // savedCardArray = saveCardArray
-        cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
-        cardListView.reloadData()
-
+        if let message = objResponse["message"] as? String{
+            if(message == "Successfully Received")
+            {
+                let cardListResponse = checkNullDataFromDict(objResponse)
+                let dict = cardListResponse["exCollection"] as! Dictionary<String, AnyObject>
+                savedCardArray = dict["data"]! as! Array<Dictionary<String,AnyObject>>
+                cardListView.reloadData()
+                cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
+                let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0))as? CardTableViewCell
+                //Changing background color of selected row
+                selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+            }
+        }
     }
     
     func errorResponseForGetListOfUsersCards(error: String) {

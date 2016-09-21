@@ -1634,16 +1634,18 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            urlconfig.timeoutIntervalForRequest = 60
+            urlconfig.timeoutIntervalForResource = 60
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card/%@",baseURL,partyID))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())

@@ -175,9 +175,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.navigationController?.view.addSubview(self.objAnimView)
+        
         if(checkTextFieldValidation() == false)
         {
-            self.errorFlag = true
             if(showCardInfo)
             {
                 if let saveCardInfo = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
@@ -194,21 +198,15 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 stripeCard.expYear = UInt(picker.year)
                 stripeCard.expMonth = UInt(picker.month)
             }
-            
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
-            objAnimView.frame = self.view.frame
-            objAnimView.animate()
-            self.navigationController?.view.addSubview(self.objAnimView)
-            
             STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
                 print(token?.tokenId)
+                self.errorFlag = false
                 print(error?.localizedDescription)
                 if((error) != nil)
                 {
                     self.objAnimView.removeFromSuperview()
                     self.cardNumberErrorLabel.text = "Enter valid card details"
                     self.cardNumberTextFieldTopSpace.constant = 35
-                    self.errorFlag = true
                     if(error?.localizedDescription == "Your card\'s number is invalid")
                     {
                         self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -229,7 +227,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 else {
                     let objAPI = API()
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-                    
+    
                     if(self.addNewCard == true)
                     {
                         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
@@ -248,7 +246,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         else {
             errorFlag = false
+            objAnimView.removeFromSuperview()
         }
+        
     }
     
     func checkTextFieldValidation()->Bool
@@ -445,11 +445,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         super.viewWillDisappear(animated)
         objAnimView.removeFromSuperview()
     }
+    
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         print(objResponse)
         if let message = objResponse["message"] as? String{
-            if(message == "Successful")
+            if(message == "Successfull")
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" || objResponse["stripePlanStatusMessage"] as? String == "StripePlan Not Created")
                 {
@@ -524,12 +525,30 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
-            if(message == "Successful")
+            if(message == "Successfull")
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" && objResponse["stripePlanStatusMessage"] as? String == "Stripe Subscription  Created")
                 {
-                    let objThankyYouView = SAThankYouViewController()
-                    self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to showing group progress
+                        self.isFromGroupMemberPlan = false
+                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                        
+                    }else if(self.isFromImpulseSaving){
+                        self.isFromImpulseSaving = false
+                        let objImpulseView = SAImpulseSavingViewController()
+                        objImpulseView.isFromPayment = true
+                        self.navigationController?.pushViewController(objImpulseView, animated: true)
+                    }
+                    else {
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
+
                 }
             }
         }

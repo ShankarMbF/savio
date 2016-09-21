@@ -270,7 +270,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
                             objAPI.addSavingCardDelegate = self
                             objAPI.addSavingCard(dict)
-                            print(dict)
                         }
                     }
                     else {
@@ -289,7 +288,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
                             objAPI.addSavingCardDelegate = self
                             objAPI.addSavingCard(dict)
-                            print(dict)
                         }
                         
                     }
@@ -501,7 +499,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
-        print(objResponse)
         if let message = objResponse["message"] as? String{
             if(message == "Successful")
             {

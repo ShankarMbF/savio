@@ -118,7 +118,7 @@ class SASavingSummaryViewController: UIViewController {
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
         btnContinue!.layer.cornerRadius = 5
-//        ----------------------------------------------------
+//  ----------------------------------------------------
         
         //--------------set Navigation left button------------
         let leftBtnName = UIButton()

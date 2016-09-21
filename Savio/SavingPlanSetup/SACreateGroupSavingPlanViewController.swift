@@ -645,7 +645,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
-        print(objResponse)
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
@@ -675,7 +674,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "200") {
                     participantsArr.removeLast()
                     var dict : Dictionary<String,AnyObject> = [:]
-                    print(participantsArr)
                     dict["INIVITED_USER_LIST"] = participantsArr
                     dict["PARTY_ID"] = parameterDict["pty_id"]
                    
@@ -703,7 +701,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func errorResponseForPartySavingPlanAPI(error:String) {
-        print(error)
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()
@@ -712,7 +709,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of Invite members API
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         if let message = objResponse["message"] as? String  {
             if(message == "Invited user successfully") {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
@@ -768,7 +764,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func errorResponseForInviteMembersAPI(error: String) {
-        print(error)
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()

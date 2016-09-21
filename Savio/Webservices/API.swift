@@ -259,7 +259,6 @@ class API: UIView,NSURLSessionDelegate {
     
     func registerTheUserWithTitle(dictParam:Dictionary<String,AnyObject>,apiName:String)
     {
-        print(dictParam)
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -276,12 +275,10 @@ class API: UIView,NSURLSessionDelegate {
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 //If data is not nil
-                print(response?.description)
                 if data != nil
                 {
                     //Json serialization
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         //return success response to viewcontroller
@@ -1332,7 +1329,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         
@@ -1460,7 +1456,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         if let code = dict["errorCode"] as? NSString
@@ -1554,7 +1549,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         if let code = dict["errorCode"] as? NSString
@@ -1645,7 +1639,6 @@ class API: UIView,NSURLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    print(json)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         dispatch_async(dispatch_get_main_queue())

@@ -264,7 +264,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
-        print(objResponse)
         let dict = objResponse["party"]
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
         let udidArray = udidDict[0]

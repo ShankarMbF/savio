@@ -168,8 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for i in 0..<deviceToken.length {
             tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
         }
-        
-        print(tokenString)
+ 
         NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "APNSTOKEN")
         NSUserDefaults.standardUserDefaults().synchronize()
     }

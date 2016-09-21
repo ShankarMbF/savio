@@ -724,7 +724,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
      //get users plan delegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         var memberTypeArray : Array<String> = []
-        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")

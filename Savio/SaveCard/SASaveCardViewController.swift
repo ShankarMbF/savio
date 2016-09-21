@@ -193,7 +193,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successfully Received")

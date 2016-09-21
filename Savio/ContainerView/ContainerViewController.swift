@@ -48,7 +48,26 @@ class ContainerViewController: UIViewController {
                 //Go to SAPaymentFlowViewController if you did not find the saved card details
                 self.centreVC = SAPaymentFlowViewController()
             }
-        }        
+        }
+        else {
+            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            {
+                if individualFlag == 1 { //Individual plan
+                    self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                }
+                else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
+                {
+                    self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                }
+                else {//create saving plan if no plan exist
+                    self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+                }
+            }
+            else {
+                //Go to SAPaymentFlowViewController if you did not find the saved card details
+                self.centreVC = SAPaymentFlowViewController()
+            }
+        }
         //--------------Setting up navigation controller--------------------------------
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame

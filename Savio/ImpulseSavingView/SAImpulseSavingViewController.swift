@@ -294,11 +294,21 @@ class SAImpulseSavingViewController: UIViewController {
     @IBAction func addFundsButtonPressed(sender: AnyObject) {
         if(addFundsButton.titleLabel?.text == "ADD FUNDS")
         {
-            NSUserDefaults.standardUserDefaults().setValue(priceTextField.text, forKey: "ImpulseAmount")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            let objSavedCardView = SASaveCardViewController()
-            objSavedCardView.isFromImpulseSaving = true
-            self.navigationController?.pushViewController(objSavedCardView, animated: true)
+            var tfString: String = priceTextField.text!
+            tfString = tfString.chopPrefix(1)
+            if(tfString == "00")
+            {
+                let alert = UIAlertView(title: "Warning", message: "Please enter cost more than £ 0", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+            else {
+                NSUserDefaults.standardUserDefaults().setValue(tfString, forKey: "ImpulseAmount")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                let objSavedCardView = SASaveCardViewController()
+                objSavedCardView.isFromImpulseSaving = true
+                self.navigationController?.pushViewController(objSavedCardView, animated: true)
+            }
+    
         }
         else
         {

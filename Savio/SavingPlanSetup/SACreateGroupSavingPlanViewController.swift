@@ -650,7 +650,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
                    
+                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
                     let objPaymentView = SAPaymentFlowViewController()
+                    objPaymentView.isFromGroupMemberPlan = true
                     self.navigationController?.pushViewController(objPaymentView, animated: true)
                     
                     objAnimView.removeFromSuperview()
@@ -674,10 +678,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     print(participantsArr)
                     dict["INIVITED_USER_LIST"] = participantsArr
                     dict["PARTY_ID"] = parameterDict["pty_id"]
+                   
+                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
-                    
                     objAPI.sendInviteMembersList(dict)
+                    
                 }
                 else {
                     let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as! String, delegate: nil, cancelButtonTitle: "Ok")
@@ -751,7 +759,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     
                 }else {
                     let objPaymentView = SAPaymentFlowViewController()
-                    objPaymentView.isFromGroupMemberPlan = true
                     self.navigationController?.pushViewController(objPaymentView, animated: true)
                 }
 

@@ -46,14 +46,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-         savingPlanTitleLabel.hidden = true
+        savingPlanTitleLabel.hidden = true
         self.view.addSubview(objAnimView)
         
         //Create API class object to get usersSaving Plan
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         objAPI.getUsersSavingPlan("i")
-       
+        
     }
     
     //This method is used to set the contentSize of UIScrollView
@@ -68,7 +68,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -114,33 +114,33 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     }
     
     
-    //set up the UIView 
+    //set up the UIView
     func setUpView(){
         planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
-                                     value: UIFont(
-                                        name: kMediumFont,
-                                        size: 16.0)!,
-                                     range: NSRange(
-                                        location: 3,
-                                        length: (savingPlanDetailsDict["title"] as! String).characters.count))
+                              value: UIFont(
+                                name: kMediumFont,
+                                size: 16.0)!,
+                              range: NSRange(
+                                location: 3,
+                                length: (savingPlanDetailsDict["title"] as! String).characters.count))
         
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
- 
+        
         //get the total amount of plan from the Dictionary
         if let amount = savingPlanDetailsDict["amount"] as? NSNumber
         {
-             totalAmount = amount.floatValue
+            totalAmount = amount.floatValue
         }
         //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
             paidAmount = totalPaidAmount.floatValue
         }
-   
+        
         //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
@@ -246,7 +246,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             alert.show()
         }
     }
-
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
@@ -264,12 +264,19 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     //Goto stats tab
     @IBAction func clickOnStatButton(sender:UIButton){
-        let obj = SAStatViewController()
-        obj.itemTitle = savingPlanDetailsDict["title"] as! String
-        obj.planType = "Individual"
-        obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
-        obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
-        self.navigationController?.pushViewController(obj, animated: false)
+        if let title = savingPlanDetailsDict["title"] as? String
+        {
+            let obj = SAStatViewController()
+            obj.itemTitle = title
+            obj.planType = "Individual"
+            obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
+            obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
+            self.navigationController?.pushViewController(obj, animated: false)
+        }
+        else {
+            let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     @IBAction func offersButtonPressed(sender: AnyObject) {
@@ -303,9 +310,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 self.setUpView()
             }
             else {
-            pageControl.hidden = true
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+                pageControl.hidden = true
+                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
             }
         }
         else {
@@ -313,12 +320,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-         objAnimView.removeFromSuperview()
+        objAnimView.removeFromSuperview()
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         objAnimView.removeFromSuperview()
-    }    
+    }
 }

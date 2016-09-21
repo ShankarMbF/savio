@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)
         
+        
         // Check if launched from notification
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
             // Do the stuff after geting Notification when app is not running mode
@@ -51,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Check if keychain has encrypted pin value.
         let objApi = API()
+//        objApi.deleteKeychainValue("savingPlanDict")
+//        objApi.deleteKeychainValue("saveCardArray")
         //Check if passcode is stored into keychain.
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {

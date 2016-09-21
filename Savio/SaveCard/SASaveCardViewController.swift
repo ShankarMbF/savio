@@ -162,6 +162,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true
+        if(isFromImpulseSaving)
+        {
+            objPaymentView.isFromImpulseSaving = true
+        }
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     
@@ -208,6 +212,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func errorResponseForGetListOfUsersCards(error: String) {
         objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
 }

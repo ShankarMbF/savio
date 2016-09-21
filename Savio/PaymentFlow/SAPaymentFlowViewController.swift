@@ -227,20 +227,73 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 else {
                     let objAPI = API()
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-    
+                    
+                    var array : Array<Dictionary<String,AnyObject>> = []
+                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
                     if(self.addNewCard == true)
                     {
-                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
-                        objAPI.addNewSavingCardDelegate = self
-                        objAPI.addNewSavingCard(dict)
-                        self.addNewCard = false
-                        print(dict)
-                    } else {
-                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
-                        objAPI.addSavingCardDelegate = self
-                        objAPI.addSavingCard(dict)
-                        print(dict)
+                        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                        {
+                            array = saveCardArray
+                            var cardNumberArray : Array<String> = []
+                            for i in 0 ..< array.count{
+                                let newDict = array[i]
+                                cardNumberArray.append(newDict["cardNumber"] as! String)
+                            }
+                            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+                            {
+                                array.append(dict1)
+                                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                                NSUserDefaults.standardUserDefaults().synchronize()
+                                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                                
+                                let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                                objAPI.addNewSavingCardDelegate = self
+                                objAPI.addNewSavingCard(dict)
+                                self.addNewCard = false
+                                
+                            }
+                            else {
+                                self.objAnimView.removeFromSuperview()
+                                
+                                //show alert view controller if card is already added
+                                let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                                //alert view controll action method
+                                alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
+                                { action -> Void in
+                                    self.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                    self.presentViewController(alertController, animated: true, completion: nil)
+                            }
+                        }
+                        else {
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                            objAPI.addSavingCardDelegate = self
+                            objAPI.addSavingCard(dict)
+                            print(dict)
+                        }
                     }
+                    else {
+                        array.append(dict1)
+                        NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                        
+                        if(self.addNewCard == true)
+                        {
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                            objAPI.addNewSavingCardDelegate = self
+                            objAPI.addNewSavingCard(dict)
+                            self.addNewCard = false
+                        } else {
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                            objAPI.addSavingCardDelegate = self
+                            objAPI.addSavingCard(dict)
+                            print(dict)
+                        }
+                        
+                    }
+                    
                 }
             })
         }
@@ -450,47 +503,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         objAnimView.removeFromSuperview()
         print(objResponse)
         if let message = objResponse["message"] as? String{
-            if(message == "Successfull")
+            if(message == "Successful")
             {
-                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" || objResponse["stripePlanStatusMessage"] as? String == "StripePlan Not Created")
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
-                    var array : Array<Dictionary<String,AnyObject>> = []
-                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-                    
-                    let objAPI = API()
-                    
-                    if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                    {
-                        array = saveCardArray
-                        var cardNumberArray : Array<String> = []
-                        for i in 0 ..< array.count{
-                            let newDict = array[i]
-                            cardNumberArray.append(newDict["cardNumber"] as! String)
-                        }
-                        if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
-                        {
-                            array.append(dict1)
-                            NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-                            NSUserDefaults.standardUserDefaults().synchronize()
-                            objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
-                        }
-                        else {
-                            //show alert view controller if card is already added
-                            let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
-                            //alert view controll action method
-                            alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
-                            { action -> Void in
-                                self.navigationController?.popViewControllerAnimated(true)
-                                })
-                        }
-                    }
-                    else {
-                        array.append(dict1)
-                        NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
-                    }
-                    
                     if(self.isFromGroupMemberPlan == true)
                     {
                         //Navigate to showing group progress
@@ -527,29 +543,26 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         if let message = objResponse["message"] as? String{
             if(message == "Successfull")
             {
-                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully" && objResponse["stripePlanStatusMessage"] as? String == "Stripe Subscription  Created")
+                if(self.isFromGroupMemberPlan == true)
                 {
-                    if(self.isFromGroupMemberPlan == true)
-                    {
-                        //Navigate to showing group progress
-                        self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
-                        NSUserDefaults.standardUserDefaults().synchronize()
-                        let objThankyYouView = SAThankYouViewController()
-                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
-                        
-                    }else if(self.isFromImpulseSaving){
-                        self.isFromImpulseSaving = false
-                        let objImpulseView = SAImpulseSavingViewController()
-                        objImpulseView.isFromPayment = true
-                        self.navigationController?.pushViewController(objImpulseView, animated: true)
-                    }
-                    else {
-                        let objSummaryView = SASavingSummaryViewController()
-                        self.navigationController?.pushViewController(objSummaryView, animated: true)
-                    }
-
+                    //Navigate to showing group progress
+                    self.isFromGroupMemberPlan = false
+                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    let objThankyYouView = SAThankYouViewController()
+                    self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    
+                }else if(self.isFromImpulseSaving){
+                    self.isFromImpulseSaving = false
+                    let objImpulseView = SAImpulseSavingViewController()
+                    objImpulseView.isFromPayment = true
+                    self.navigationController?.pushViewController(objImpulseView, animated: true)
                 }
+                else {
+                    let objSummaryView = SASavingSummaryViewController()
+                    self.navigationController?.pushViewController(objSummaryView, animated: true)
+                }
+                
             }
         }
     }

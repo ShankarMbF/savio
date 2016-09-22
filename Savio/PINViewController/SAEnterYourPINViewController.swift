@@ -289,9 +289,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                 self.navigationController?.pushViewController(objHurrrayView, animated: true)
                 
             }else {
-                let objPaymentView = SAPaymentFlowViewController(nibName:"SAPaymentFlowViewController",bundle: nil)
-                objPaymentView.doNotShowBackButton = false
-                self.navigationController?.pushViewController(objPaymentView, animated: true)
+                let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+                self.navigationController?.pushViewController(objContainer, animated: true)
             }
         }else {
             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)

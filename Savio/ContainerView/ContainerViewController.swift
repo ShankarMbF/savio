@@ -23,26 +23,13 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        
+
         let objAPI = API()
         if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
             if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
-                if individualFlag == 1 { //Individual plan
-                    self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-                }
-                else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
-                {
-                    self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
-                }
-                else {//create saving plan if no plan exist
-                    self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
-                }
+                self.setUpViewController()
             }
             else {
                 //Go to SAPaymentFlowViewController if you did not find the saved card details
@@ -50,17 +37,7 @@ class ContainerViewController: UIViewController {
             }
         }
         else {
-            
-            if individualFlag == 1 { //Individual plan
-                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-            }
-            else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
-            {
-                self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
-            }
-            else {//create saving plan if no plan exist
-                self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
-            }
+            self.setUpViewController()
         }
         //--------------Setting up navigation controller--------------------------------
         self.navController = UINavigationController(rootViewController: self.centreVC)
@@ -80,6 +57,26 @@ class ContainerViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
         //---------------------------------------------------------------------------------------
+    }
+    func setUpViewController()
+    {
+        // Set all plan flag
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        
+        if individualFlag == 1 { //Individual plan
+            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+        }
+        else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
+        {
+            self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+        }
+        else {//create saving plan if no plan exist
+            self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+        }
+        
     }
     
     //function invoke on tapping menu button.

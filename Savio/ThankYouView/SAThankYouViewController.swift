@@ -67,6 +67,22 @@ class SAThankYouViewController: UIViewController {
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
+    
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+    }
+    
+    func heartBtnClicked(){
+        
+        if wishListArray.count>0{
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+        }
+        else {
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+    }
     /*
     // MARK: - Navigation
 

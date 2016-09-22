@@ -52,8 +52,28 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     func setUpView(){
-        if(doNotShowBackButton == true)
+        let objAPI = API()
+        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
+            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            {
+               
+                // self.navigationItem.setHidesBackButton(true, animated: false)
+                let leftBtnName = UIButton()
+                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+                leftBtnName.addTarget(self, action: Selector("backButtonPressd"), forControlEvents: .TouchUpInside)
+                let leftBarButton = UIBarButtonItem()
+                leftBarButton.customView = leftBtnName
+                self.navigationItem.leftBarButtonItem = leftBarButton
+                
+                self.cancelButton.hidden = false
+                
+            }else {
+                self.navigationItem.setHidesBackButton(true, animated: false)
+            }
+        }
+        else {
             // self.navigationItem.setHidesBackButton(true, animated: false)
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -64,9 +84,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             self.navigationItem.leftBarButtonItem = leftBarButton
             
             self.cancelButton.hidden = false
-        }
-        else {
-            self.navigationItem.setHidesBackButton(true, animated: false)
         }
         
         cardNumberTextFieldTopSpace.constant = 5

@@ -312,8 +312,26 @@ class SAImpulseSavingViewController: UIViewController {
         }
         else
         {
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
+            if let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+            { //Individual plan
+                if(plan == "individualPlan")
+                {
+                    let objProgressView = SAProgressViewController()
+                    self.navigationController?.pushViewController(objProgressView, animated: true)
+                   
+                }
+                else if(plan == "groupPlan")
+                {
+                    let objProgressView = SAGroupProgressViewController()
+                    self.navigationController?.pushViewController(objProgressView, animated: true)
+                }
+                else if(plan == "groupMemberPlan")
+                {
+                    let objProgressView = SAGroupProgressViewController()
+                    self.navigationController?.pushViewController(objProgressView, animated: true)
+                }
+            }
+
         }
     }
     

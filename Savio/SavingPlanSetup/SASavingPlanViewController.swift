@@ -1603,6 +1603,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
         
                 NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
+                NSUserDefaults.standardUserDefaults().setValue("individualPlan", forKey: "usersPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
                 if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>

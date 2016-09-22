@@ -650,6 +650,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "Party Saving Plan is succesfully added") {
                    
                     NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
+                    NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
                     let objPaymentView = SAPaymentFlowViewController()
@@ -678,6 +679,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     dict["PARTY_ID"] = parameterDict["pty_id"]
                    
                     NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
+                         NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
                     let objAPI = API()
@@ -746,6 +748,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 
                 let objAPI = API()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
+                
                 
                 if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {

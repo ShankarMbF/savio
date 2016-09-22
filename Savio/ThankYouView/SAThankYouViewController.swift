@@ -9,14 +9,14 @@
 import UIKit
 
 class SAThankYouViewController: UIViewController {
-
-     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,18 +84,46 @@ class SAThankYouViewController: UIViewController {
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     @IBAction func continueButtonPressed(sender: UIButton) {
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        // Set all plan flag
+        if let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+        { //Individual plan
+            if(plan == "individualPlan")
+            {
+                let objProgressView = SAProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            }
+            else if(plan == "groupPlan")
+            {
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                let objProgressView = SAGroupProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+            }
+            else if(plan == "groupMemberPlan")
+            {
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                let objProgressView = SAGroupProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+            }
+        }
     }
-
+    
 }

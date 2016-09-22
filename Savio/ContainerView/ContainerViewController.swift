@@ -76,7 +76,6 @@ class ContainerViewController: UIViewController {
         else {//create saving plan if no plan exist
             self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
         }
-        
     }
     
     //function invoke on tapping menu button.

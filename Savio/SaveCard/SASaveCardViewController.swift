@@ -19,6 +19,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     var isFromSavingPlan = false
     var objAnimView = ImageViewAnimation()
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
+    var cardListResponse : Dictionary<String,AnyObject> = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -69,7 +70,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         let objAPI = API()
         objAPI.getListOfUsersCardDelegate = self
         objAPI.getWishListOfUsersCards()
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,13 +86,21 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func doneBtnClicked()
     {
-        let objPaymentView = SAPaymentFlowViewController()
-        if(isFromImpulseSaving)
+        if let dict = cardListResponse["exCollection"] as? Dictionary<String, AnyObject>
         {
-            objPaymentView.isFromImpulseSaving = true
+            let objPaymentView = SAPaymentFlowViewController()
+            if(isFromImpulseSaving)
+            {
+                objPaymentView.isFromImpulseSaving = true
+            }
+            objPaymentView.showCardInfo = true
+            self.navigationController?.pushViewController(objPaymentView, animated: true)
+            
+            
+        } else{
+            let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
-        objPaymentView.showCardInfo = true
-        self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     
     // MARK: - Tableview Delegate & Datasource
@@ -191,13 +200,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         return replaceDict
     }
     
-    
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successfully Received")
             {
-                let cardListResponse = checkNullDataFromDict(objResponse)
+                cardListResponse = checkNullDataFromDict(objResponse)
                 let dict = cardListResponse["exCollection"] as! Dictionary<String, AnyObject>
                 savedCardArray = dict["data"]! as! Array<Dictionary<String,AnyObject>>
                 cardListView.reloadData()
@@ -214,5 +223,4 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
-    
 }

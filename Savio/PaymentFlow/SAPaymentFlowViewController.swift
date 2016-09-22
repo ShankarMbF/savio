@@ -382,6 +382,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
             cardNumberTextField.textColor = UIColor.redColor()
         }
+        if cardNumberTextField.text?.characters.count < 16 {
+            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.hidden = false
+            cardNumberTextFieldTopSpace.constant = 35
+            errorFlag = true
+            cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+            cardNumberTextField.textColor = UIColor.redColor()
+        }
         else {
             cardNumberTextFieldTopSpace.constant = 5
             cardNumberErrorLabel.text = ""
@@ -406,6 +414,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             errorFlag = true
             expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
             expiryMonthYearTextField.textColor = UIColor.redColor()
+        }
+        else if(cvvTextField.text?.characters.count < 3)
+        {
+            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberTextFieldTopSpace.constant = 35
+            errorFlag = true
+            cvvTextField.layer.borderColor = UIColor.redColor().CGColor
+            cvvTextField.textColor = UIColor.redColor()
         }
         else {
             cardNumberErrorLabel.text = ""

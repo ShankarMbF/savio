@@ -90,6 +90,20 @@ class SAImpulseSavingViewController: UIViewController {
             deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             isFromPayment = false
         }
+        else {
+            if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            {
+                if var trimmedString = activeCard["cardNumber"] as? String
+                {
+                    trimmedString = (activeCard["cardNumber"] as! NSString).substringFromIndex(max(activeCard["cardNumber"]!.length-4,0))
+                    deductMoneyLabel.text = String(format:"We'll deduct this from your linked account ending xxx%@",trimmedString)
+                }
+                else if let trimmedString =  activeCard["last4"] as? String{
+                       deductMoneyLabel.text = String(format:"We'll deduct this from your linked account ending xxx%@",trimmedString)
+                }
+            
+            }
+        }
     }
     //customization of circle slider
     private func buildCircleSlider() {

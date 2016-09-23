@@ -114,10 +114,16 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         datePickerTextField.resignFirstResponder()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let currentDate: NSDate = NSDate()
+        let components: NSDateComponents = NSDateComponents()
+        components.day = +7
+        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        
         let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
         datePickerTextField.text = pickrDate
         datePickerTextField.textColor = UIColor.whiteColor()
-        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
+        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(minDate)
         savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
     }
     

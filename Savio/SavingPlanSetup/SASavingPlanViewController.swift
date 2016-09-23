@@ -711,9 +711,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if let payType = itemDetailsDataDict["payType"] as? NSString
                     {
                         let date  = itemDetailsDataDict["planEndDate"] as? String
+                        
+                        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                        let currentDate: NSDate = NSDate()
+                        let components: NSDateComponents = NSDateComponents()
+                        components.day = +7
+                        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
+                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
                         dateDiff = Int(timeDifference/3600)
                         if(payType == "Month") {
                             if((dateDiff/168) == 1) {
@@ -941,7 +948,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 tblViewHt.constant = tblView.frame.size.height  + 44
             }
             dateFromUpdatePlan = ""
-            
         }
         else {
             if(isPopoverValueChanged == false)
@@ -950,7 +956,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         isPopoverValueChanged = true
-        
         scrlView.contentSize = CGSizeMake(0, tblViewHt.constant+300)
         tblView.reloadData()
     }

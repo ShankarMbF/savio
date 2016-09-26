@@ -36,7 +36,7 @@ class CustomSegmentBar: UIView {
         
         //Set the frame for leftButton and customize it
         self.leftButton = UIButton()
-        self.leftButton?.backgroundColor = self.setUpColor()
+        self.leftButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
         self.leftButton?.frame = CGRectMake(self.sideOffset, self.topOffset, widthActBtn, heightActBtn)
         self.leftButton?.setTitle(leftTitle, forState: UIControlState.Normal)
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.leftButton!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
@@ -51,7 +51,7 @@ class CustomSegmentBar: UIView {
         
         //Set the frame for rightButton and customize it
         self.rightButton = UIButton()
-        self.rightButton?.backgroundColor = self.setUpColor()
+        self.rightButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
         self.rightButton?.frame = CGRectMake(self.midOfToggleView!, self.topOffset, widthActBtn, heightActBtn)
         self.rightButton?.setTitle(rightTitle, forState: UIControlState.Normal)
         let maskPath2: UIBezierPath = UIBezierPath(roundedRect: self.rightButton!.bounds, byRoundingCorners: ([.TopRight, .BottomRight]), cornerRadii: CGSizeMake(3.0, 3.0))
@@ -66,7 +66,7 @@ class CustomSegmentBar: UIView {
         
         //Set the frame for activebutton and customize it
         self.activeButton = UIButton()
-        self.activeButton?.backgroundColor = UIColor(red: (53/255),green : (56/255),blue:(68/255),alpha:1)
+        self.activeButton?.backgroundColor = self.setUpColor()
         self.activeButton?.setTitle(leftTitle, forState: UIControlState.Normal)
         self.activeButton?.frame = CGRectMake(self.sideOffset, self.sideOffset , widthActBtn , heightActBtn)
         let maskPath3: UIBezierPath = UIBezierPath(roundedRect: self.activeButton!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))

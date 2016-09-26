@@ -67,6 +67,19 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         objAnimView.animate()
         self.view.addSubview(self.objAnimView)
         
+        if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        {
+            if var trimmedString = activeCard["cardNumber"] as? String
+            {
+                trimmedString = (activeCard["cardNumber"] as! NSString).substringFromIndex(max(activeCard["cardNumber"]!.length-4,0))
+                cardLastFourDigitTextField.text = trimmedString
+            }
+            else if let trimmedString =  activeCard["last4"] as? String{
+                cardLastFourDigitTextField.text = trimmedString
+            }
+            
+        }
+        
         let objAPI = API()
         objAPI.getListOfUsersCardDelegate = self
         objAPI.getWishListOfUsersCards()
@@ -86,7 +99,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func doneBtnClicked()
     {
-        if let dict = cardListResponse["exCollection"] as? Dictionary<String, AnyObject>
+        if let _ = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
             let objPaymentView = SAPaymentFlowViewController()
             if(isFromImpulseSaving)
@@ -123,29 +136,29 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         //(dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
         let attributedString = NSMutableAttributedString(string: String(format: "%@ Ending in %@",dict["brand"] as! String,trimmedString))
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
-                                      range: NSRange(
-                                        location:0,
-                                        length:(dict["brand"] as! String).characters.count))
+            value: UIColor.blackColor(),
+            range: NSRange(
+                location:0,
+                length:(dict["brand"] as! String).characters.count))
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont ,size: 15)!, range: NSRange(
             location:0,
             length:(dict["brand"] as! String).characters.count))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
-                                      range: NSRange(
-                                        location:((dict["brand"] as! String).characters.count),
-                                        length:11))
+            value: UIColor.blackColor(),
+            range: NSRange(
+                location:((dict["brand"] as! String).characters.count),
+                length:11))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kLightFont,size: 15)!, range: NSRange(
             location:((dict["brand"] as! String).characters.count),
             length:11))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
-                                      range: NSRange(
-                                        location:((dict["brand"] as! String).characters.count) + 11,
-                                        length:trimmedString.characters.count))
+            value: UIColor.blackColor(),
+            range: NSRange(
+                location:((dict["brand"] as! String).characters.count) + 11,
+                length:trimmedString.characters.count))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont,size: 15)!, range: NSRange(
             location:((dict["brand"] as! String).characters.count) + 11,

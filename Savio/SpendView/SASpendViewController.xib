@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="GothamRounded-Light.otf">
+            <string>GothamRounded-Light</string>
+            <string>GothamRounded-Light</string>
+        </mutableArray>
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
-        </mutableArray>
-        <mutableArray key="gotham-rounded-book-2.otf">
-            <string>GothamRounded-Book</string>
-            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -76,12 +76,12 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry,                                                                                   you haven't reached the goal yet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYI-xq-r0R">
-                    <rect key="frame" x="200" y="40" width="200" height="76"/>
+                    <rect key="frame" x="91" y="40" width="418" height="76"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="200" id="ERK-WS-C8Z"/>
+                        <constraint firstAttribute="width" constant="418" id="ERK-WS-C8Z"/>
                         <constraint firstAttribute="height" constant="76" id="glx-4d-GZB"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="16"/>
+                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="24"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -90,7 +90,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="vj1-rs-ciZ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -99,7 +99,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="06P-Yf-ZPf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>

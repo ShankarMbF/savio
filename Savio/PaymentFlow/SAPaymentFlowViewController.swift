@@ -171,11 +171,22 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                  cardNumberTextField.text = String(format: "%@%@",cardNumberTextField.text!,(saveCardInfo["last4"] as? String)!)
                  */
                 
-                expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["expMonth"] as? Int)!,(saveCardInfo["expYear"] as?
-                    Int)!%100)
+                if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+                {
+                    if let _ = activeCard["cardNumber"] as? String
+                    {
+                        expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["cardExpMonth"] as? Int)!,(saveCardInfo["cardExpDate"] as?
+                            Int)!%100)
+                    }
+                    else{
+                        expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["expMonth"] as? Int)!,(saveCardInfo["expYear"] as?
+                            Int)!%100)
+                    }
+                }
             }
         }
     }
+    
     
     func backButtonPressd()
     {

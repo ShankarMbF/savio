@@ -11,7 +11,7 @@
 		1278CB3263E8EF5C4E31A2197D7E6CC2 /* STPBankAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 8832035BF7F797C6E66BFDA61038D60D /* STPBankAccount.m */; };
 		164DAC0C9ECC3EDC4086BB5716D22BA2 /* STPCheckoutDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 30F59F73A103B2EC9CA8D70F5DA45C51 /* STPCheckoutDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		423725CE9FF77CFFB747EA451F8B1622 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D692051EF32C02A74F6A5706D54B828B /* Foundation.framework */; };
-		43446158D9FF5014816F93C8DB758DAF /* Pods-SavioWishList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 214D1CDA9235028FFA0C89782E915DB4 /* Pods-SavioWishList-dummy.m */; };
+		43446158D9FF5014816F93C8DB758DAF /* Pods-SavioWishList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F35011BA66E5E25CD45EFD77C642038E /* Pods-SavioWishList-dummy.m */; };
 		49943689CEAE1270270C3E390987E1BF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35EB645053A39B4E088C0BDA3A6C9F5D /* Security.framework */; };
 		4E443AC04E5941D4C66B0DB690992C8E /* STPToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 507452263B02D52409820A84E797A513 /* STPToken.m */; };
 		522875E121243FA420963D3AF31D8150 /* STPOSXCheckoutWebViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEADF67110A5C62471C07654F904CEB2 /* STPOSXCheckoutWebViewAdapter.m */; };
@@ -27,7 +27,7 @@
 		8A952A4F1FEF517FE428C02E96D8AE35 /* STPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B877BBCAFC3A29203DCB0DFC205354FA /* STPAPIClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C6611E932ABA269C2055D33379F9C71 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D692051EF32C02A74F6A5706D54B828B /* Foundation.framework */; };
 		906412B5A4BFBDEA63B6B9628D1F4FD6 /* Stripe.h in Headers */ = {isa = PBXBuildFile; fileRef = C9295411B6EB538B25DCEEC39EC4FA27 /* Stripe.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9EFBC08C23ED189C75972F38CE357686 /* Pods-Savio-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B647A43EA5C238BA41E1FB76809CA6 /* Pods-Savio-dummy.m */; };
+		9EFBC08C23ED189C75972F38CE357686 /* Pods-Savio-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78751F6B88ADED4A1032DDDB81883713 /* Pods-Savio-dummy.m */; };
 		A265A03A503081808D5FAA5EEEF5423E /* STPCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ADAE1308AB729B64251F0A162EA69F9 /* STPCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA722326669F45F9EDD8F31192587176 /* StripeError.m in Sources */ = {isa = PBXBuildFile; fileRef = E09466CE2437292F2578DE806A52A62F /* StripeError.m */; };
 		B23DD989D06B388578A71D9A652772AC /* STPOSXCheckoutWebViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AE50A6616DC81E2752A9B35A48515D /* STPOSXCheckoutWebViewAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -61,45 +61,41 @@
 /* Begin PBXFileReference section */
 		0BAB2136BD9DEF071FC73C7DCFFD424B /* Stripe-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Stripe-dummy.m"; sourceTree = "<group>"; };
 		0CC96C78847703B7563FC2088882F508 /* STPStrictURLProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPStrictURLProtocol.h; path = Stripe/Checkout/STPStrictURLProtocol.h; sourceTree = "<group>"; };
+		0EAC1642CE14AB46353477414C3A5A60 /* Pods-SavioWishList-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SavioWishList-acknowledgements.plist"; sourceTree = "<group>"; };
 		117FA84447B16BEBEDED52DA2027E103 /* STPAPIConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPAPIConnection.h; path = Stripe/STPAPIConnection.h; sourceTree = "<group>"; };
-		11B647A43EA5C238BA41E1FB76809CA6 /* Pods-Savio-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Savio-dummy.m"; sourceTree = "<group>"; };
 		1264036CF0901747FB3D682749355ADF /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		12D03B167B252EC0A2D656F67417E7D6 /* SignIn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SignIn.h; path = Headers/SignIn.h; sourceTree = "<group>"; };
 		155DF775BCBBF30D62030268EFD39512 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20CF235AACA104F3358160D97319FAB9 /* GoogleAuthUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAuthUtilities.framework; path = Frameworks/GoogleAuthUtilities.framework; sourceTree = "<group>"; };
-		214D1CDA9235028FFA0C89782E915DB4 /* Pods-SavioWishList-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SavioWishList-dummy.m"; sourceTree = "<group>"; };
-		2430CD24D7A487B1982501FA8C2FB8F9 /* Pods-SavioWishList-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SavioWishList-acknowledgements.markdown"; sourceTree = "<group>"; };
 		27489BAD280688003E7DCA753BB300A5 /* STPNullabilityMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPNullabilityMacros.h; path = Stripe/PublicHeaders/STPNullabilityMacros.h; sourceTree = "<group>"; };
 		2B8938BBF6F06E316271E514DAD6AAAF /* STPFormEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPFormEncoder.h; path = Stripe/STPFormEncoder.h; sourceTree = "<group>"; };
 		2D2EE39F434FC3761CA8C74B48E57F90 /* Analytics-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Analytics-Module.h"; path = "Headers/ModuleHeaders/Analytics-Module.h"; sourceTree = "<group>"; };
+		2ED925F8EBF8F5072B05087C321275E8 /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
 		30F59F73A103B2EC9CA8D70F5DA45C51 /* STPCheckoutDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutDelegate.h; path = Stripe/Checkout/STPCheckoutDelegate.h; sourceTree = "<group>"; };
 		35EB645053A39B4E088C0BDA3A6C9F5D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		3665C15A65FB9A189A64E6B590165104 /* STPToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPToken.h; path = Stripe/PublicHeaders/STPToken.h; sourceTree = "<group>"; };
 		36A3917283D957752E9227C7669FC615 /* STPIOSCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPIOSCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPIOSCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
-		3C36A603DDF1968A218D9EAC2B62B22C /* Pods-SavioWishList-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SavioWishList-acknowledgements.plist"; sourceTree = "<group>"; };
-		43216389D5E20A9549DAF51EC4C734DE /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
+		3ECA54D315392A8E583FE03FAFD8D0E5 /* Pods-Savio-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Savio-resources.sh"; sourceTree = "<group>"; };
+		4209DB8ED93F71B08815FA3D13A3CBB3 /* Pods-SavioWishList-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SavioWishList-resources.sh"; sourceTree = "<group>"; };
 		4400F697CA66BD25E48DB2C710FDB5CE /* STPCheckoutOptions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutOptions.m; path = Stripe/Checkout/STPCheckoutOptions.m; sourceTree = "<group>"; };
 		47E6E59BA3B1036456FB654F983B3285 /* STPFormEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPFormEncoder.m; path = Stripe/STPFormEncoder.m; sourceTree = "<group>"; };
 		507452263B02D52409820A84E797A513 /* STPToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPToken.m; path = Stripe/STPToken.m; sourceTree = "<group>"; };
 		53C926F101252A525B6EB4649B68F6A2 /* STPIOSCheckoutWebViewAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPIOSCheckoutWebViewAdapter.m; path = Stripe/Checkout/STPIOSCheckoutWebViewAdapter.m; sourceTree = "<group>"; };
-		59A4F50AF5EBE2276DB49A60B1944599 /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
 		6143D9E9A72EB629C3B09C2B32BD4727 /* STPColorUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPColorUtils.h; path = Stripe/Checkout/STPColorUtils.h; sourceTree = "<group>"; };
-		63F2D4339FF5D73AACBBA0457C770327 /* Pods-Savio-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Savio-resources.sh"; sourceTree = "<group>"; };
 		69AE50A6616DC81E2752A9B35A48515D /* STPOSXCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPOSXCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPOSXCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
-		6CE1128DB3BA9C6D62EA70E8AAF98C19 /* Pods-Savio-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Savio-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6DAEAAB176B23C796BB4E0227CAF7CB0 /* STPCheckoutViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutViewController.h; path = Stripe/PublicHeaders/Checkout/STPCheckoutViewController.h; sourceTree = "<group>"; };
 		7792F7DD9606BC6B74CDD9120C8C7B9E /* StripeError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = StripeError.h; path = Stripe/PublicHeaders/StripeError.h; sourceTree = "<group>"; };
+		78751F6B88ADED4A1032DDDB81883713 /* Pods-Savio-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Savio-dummy.m"; sourceTree = "<group>"; };
 		7C1C85D5F1F557AE2D672644B5923790 /* Stripe.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Stripe.xcconfig; sourceTree = "<group>"; };
 		7FB9D5EFF24F1B95EBB975152A5511BC /* Core-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Core-Module.h"; path = "Headers/ModuleHeaders/Core-Module.h"; sourceTree = "<group>"; };
+		83A76DBAAA573FD009756A40432A39DA /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
 		859D5B101607F3FF9E972576C5FEA55A /* STPCheckoutWebViewAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutWebViewAdapter.h; path = Stripe/Checkout/STPCheckoutWebViewAdapter.h; sourceTree = "<group>"; };
 		8832035BF7F797C6E66BFDA61038D60D /* STPBankAccount.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPBankAccount.m; path = Stripe/STPBankAccount.m; sourceTree = "<group>"; };
+		8E119396AFF1A158D7925E37DAA39DCF /* Pods-Savio-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Savio-frameworks.sh"; sourceTree = "<group>"; };
 		8E6EB70E9D92E3DC8C1E9D14CD72A608 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
 		8E74789E68C7F3B64145992D7DC914D1 /* STPStrictURLProtocol.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPStrictURLProtocol.m; path = Stripe/Checkout/STPStrictURLProtocol.m; sourceTree = "<group>"; };
-		8F69FBE9F9325C457137F645AC9514AB /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
-		8FC39374A494F45540EF3633B6A0FFA5 /* Pods-Savio-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Savio-acknowledgements.plist"; sourceTree = "<group>"; };
 		912212D83964933895D024A765B24914 /* GGLSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GGLSignIn.framework; path = Frameworks/GGLSignIn.framework; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		97B4103B0DDBDDAEE7B0106F1C123116 /* Pods-Savio-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Savio-frameworks.sh"; sourceTree = "<group>"; };
 		9ADAE1308AB729B64251F0A162EA69F9 /* STPCard.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCard.h; path = Stripe/PublicHeaders/STPCard.h; sourceTree = "<group>"; };
 		9AE0784B7A27972F659B2687C4552585 /* Stripe-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Stripe-prefix.pch"; sourceTree = "<group>"; };
 		9E3443782E822ADA468488BC01A57FCF /* libStripe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStripe.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,27 +105,32 @@
 		A9829A871DE7E30712CFE6EF36AE2A62 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		AD349AA55C789B5FBBAAE38A79A84B1B /* STPCheckoutViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutViewController.m; path = Stripe/Checkout/STPCheckoutViewController.m; sourceTree = "<group>"; };
 		B0CF3E5E0A462BE93F52357DCCE20750 /* SignIn-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SignIn-Module.h"; path = "Headers/ModuleHeaders/SignIn-Module.h"; sourceTree = "<group>"; };
-		B11DD9017EFBA1B90F08DF845796E3AA /* Pods-SavioWishList-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SavioWishList-resources.sh"; sourceTree = "<group>"; };
+		B12B045F7BB51321D030B324A89D5D2C /* Pods-Savio-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Savio-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B1AA982C1316309C417B0F46653EA9A0 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B37248210EC4EDBC30E0DA98748976DB /* Pods-SavioWishList-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SavioWishList-frameworks.sh"; sourceTree = "<group>"; };
 		B877BBCAFC3A29203DCB0DFC205354FA /* STPAPIClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPAPIClient.h; path = Stripe/PublicHeaders/STPAPIClient.h; sourceTree = "<group>"; };
 		BE33E851AD1391A0F03E7F228F6B0D2B /* STPCheckoutOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutOptions.h; path = Stripe/PublicHeaders/Checkout/STPCheckoutOptions.h; sourceTree = "<group>"; };
 		BE77CBBFBFC8762FAF9CC42E6CCBF183 /* STPColorUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPColorUtils.m; path = Stripe/Checkout/STPColorUtils.m; sourceTree = "<group>"; };
 		C07BAA1A9853CCC125100097D123751F /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
 		C451ED799D2988AD140356BEDAE8B3D7 /* STPCard.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCard.m; path = Stripe/STPCard.m; sourceTree = "<group>"; };
+		C70B7EA23575FB48F05E1A3E5C630E05 /* Pods-SavioWishList-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SavioWishList-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C9295411B6EB538B25DCEEC39EC4FA27 /* Stripe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Stripe.h; path = Stripe/PublicHeaders/Stripe.h; sourceTree = "<group>"; };
+		D1E4D68A35EDF1FEB5ACC0E19E410521 /* Pods-Savio-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Savio-acknowledgements.plist"; sourceTree = "<group>"; };
 		D509F95FCD3FD3B9EB075A51F756F740 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSignIn.framework; path = Frameworks/GoogleSignIn.framework; sourceTree = "<group>"; };
 		D667005160250BB42728A5D3E2ACF5BB /* GoogleSignIn.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleSignIn.bundle; path = Resources/GoogleSignIn.bundle; sourceTree = "<group>"; };
 		D692051EF32C02A74F6A5706D54B828B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		DBF5FDB1308D01AFE269882C19D48A42 /* GoogleAppUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppUtilities.framework; path = Frameworks/GoogleAppUtilities.framework; sourceTree = "<group>"; };
-		DC6F18B10CF8669846F4BAF87E6CEE5D /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		DC98B1DAC562FE89AD96EE1B6B1488B4 /* STPCheckoutInternalUIWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPCheckoutInternalUIWebViewController.m; path = Stripe/Checkout/STPCheckoutInternalUIWebViewController.m; sourceTree = "<group>"; };
 		DF76618B80DC25929BE9E2057DD4863B /* STPAPIClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPAPIClient.m; path = Stripe/STPAPIClient.m; sourceTree = "<group>"; };
 		E09466CE2437292F2578DE806A52A62F /* StripeError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = StripeError.m; path = Stripe/StripeError.m; sourceTree = "<group>"; };
+		E84CE24C9345132D08D6D9A2B8FEB478 /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		EAC1CFF731F71803A9F18B48E2614B76 /* GoogleNetworkingUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleNetworkingUtilities.framework; path = Frameworks/GoogleNetworkingUtilities.framework; sourceTree = "<group>"; };
 		ED561D573BCD660102D9526678F5590D /* STPBankAccount.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPBankAccount.h; path = Stripe/PublicHeaders/STPBankAccount.h; sourceTree = "<group>"; };
 		EEADF67110A5C62471C07654F904CEB2 /* STPOSXCheckoutWebViewAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPOSXCheckoutWebViewAdapter.m; path = Stripe/Checkout/STPOSXCheckoutWebViewAdapter.m; sourceTree = "<group>"; };
+		F35011BA66E5E25CD45EFD77C642038E /* Pods-SavioWishList-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SavioWishList-dummy.m"; sourceTree = "<group>"; };
 		F5671D4C3BA3DA3C99E49D05732588FC /* Core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Headers/Core.h; sourceTree = "<group>"; };
 		F8C4FF66721FBB2FACDD20107B04E3E0 /* STPCheckoutInternalUIWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPCheckoutInternalUIWebViewController.h; path = Stripe/Checkout/STPCheckoutInternalUIWebViewController.h; sourceTree = "<group>"; };
+		F9E013E9E95B6BF9A4C87C2CAC295BC9 /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
 		FF7BE18DAB1FA4618B748A618F19BC61 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +197,30 @@
 			path = Stripe;
 			sourceTree = "<group>";
 		};
+		0EA41BA222335FCF833FD416A520EE46 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4FC876CEDA36B4EC7BD0D2684725B578 /* Pods-Savio */,
+				1E2AE8077D4EB5273D03BBCEC555DA33 /* Pods-SavioWishList */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		1E2AE8077D4EB5273D03BBCEC555DA33 /* Pods-SavioWishList */ = {
+			isa = PBXGroup;
+			children = (
+				C70B7EA23575FB48F05E1A3E5C630E05 /* Pods-SavioWishList-acknowledgements.markdown */,
+				0EAC1642CE14AB46353477414C3A5A60 /* Pods-SavioWishList-acknowledgements.plist */,
+				F35011BA66E5E25CD45EFD77C642038E /* Pods-SavioWishList-dummy.m */,
+				B37248210EC4EDBC30E0DA98748976DB /* Pods-SavioWishList-frameworks.sh */,
+				4209DB8ED93F71B08815FA3D13A3CBB3 /* Pods-SavioWishList-resources.sh */,
+				E84CE24C9345132D08D6D9A2B8FEB478 /* Pods-SavioWishList.debug.xcconfig */,
+				83A76DBAAA573FD009756A40432A39DA /* Pods-SavioWishList.release.xcconfig */,
+			);
+			name = "Pods-SavioWishList";
+			path = "Target Support Files/Pods-SavioWishList";
+			sourceTree = "<group>";
+		};
 		3EF229062F5357F1028165A423A4C68A /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +254,21 @@
 			path = GoogleSymbolUtilities;
 			sourceTree = "<group>";
 		};
+		4FC876CEDA36B4EC7BD0D2684725B578 /* Pods-Savio */ = {
+			isa = PBXGroup;
+			children = (
+				B12B045F7BB51321D030B324A89D5D2C /* Pods-Savio-acknowledgements.markdown */,
+				D1E4D68A35EDF1FEB5ACC0E19E410521 /* Pods-Savio-acknowledgements.plist */,
+				78751F6B88ADED4A1032DDDB81883713 /* Pods-Savio-dummy.m */,
+				8E119396AFF1A158D7925E37DAA39DCF /* Pods-Savio-frameworks.sh */,
+				3ECA54D315392A8E583FE03FAFD8D0E5 /* Pods-Savio-resources.sh */,
+				F9E013E9E95B6BF9A4C87C2CAC295BC9 /* Pods-Savio.debug.xcconfig */,
+				2ED925F8EBF8F5072B05087C321275E8 /* Pods-Savio.release.xcconfig */,
+			);
+			name = "Pods-Savio";
+			path = "Target Support Files/Pods-Savio";
+			sourceTree = "<group>";
+		};
 		7116B6C76B11A51A7086444B46D028AC /* GoogleUtilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,23 +292,8 @@
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
 				CCF556BBB63034774AEF108383D392BB /* Pods */,
 				E3891BEA9C93E4D465841F8937B2B88D /* Products */,
-				E960263A97118CA2DEEF9449B0C356D3 /* Targets Support Files */,
+				0EA41BA222335FCF833FD416A520EE46 /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		7FE28B45BD71FCFA5F95C19398C9341C /* Pods-Savio */ = {
-			isa = PBXGroup;
-			children = (
-				6CE1128DB3BA9C6D62EA70E8AAF98C19 /* Pods-Savio-acknowledgements.markdown */,
-				8FC39374A494F45540EF3633B6A0FFA5 /* Pods-Savio-acknowledgements.plist */,
-				11B647A43EA5C238BA41E1FB76809CA6 /* Pods-Savio-dummy.m */,
-				97B4103B0DDBDDAEE7B0106F1C123116 /* Pods-Savio-frameworks.sh */,
-				63F2D4339FF5D73AACBBA0457C770327 /* Pods-Savio-resources.sh */,
-				8F69FBE9F9325C457137F645AC9514AB /* Pods-Savio.debug.xcconfig */,
-				59A4F50AF5EBE2276DB49A60B1944599 /* Pods-Savio.release.xcconfig */,
-			);
-			name = "Pods-Savio";
-			path = "Target Support Files/Pods-Savio";
 			sourceTree = "<group>";
 		};
 		84EFEC47D86C5B70C23928126B7B6302 /* GoogleSignIn */ = {
@@ -415,20 +440,6 @@
 			name = Checkout;
 			sourceTree = "<group>";
 		};
-		C1FAB9863BCD26DE1C2C427461663BD4 /* Pods-SavioWishList */ = {
-			isa = PBXGroup;
-			children = (
-				2430CD24D7A487B1982501FA8C2FB8F9 /* Pods-SavioWishList-acknowledgements.markdown */,
-				3C36A603DDF1968A218D9EAC2B62B22C /* Pods-SavioWishList-acknowledgements.plist */,
-				214D1CDA9235028FFA0C89782E915DB4 /* Pods-SavioWishList-dummy.m */,
-				B11DD9017EFBA1B90F08DF845796E3AA /* Pods-SavioWishList-resources.sh */,
-				DC6F18B10CF8669846F4BAF87E6CEE5D /* Pods-SavioWishList.debug.xcconfig */,
-				43216389D5E20A9549DAF51EC4C734DE /* Pods-SavioWishList.release.xcconfig */,
-			);
-			name = "Pods-SavioWishList";
-			path = "Target Support Files/Pods-SavioWishList";
-			sourceTree = "<group>";
-		};
 		C57939F9C8F97A588AA2BA6E118C0BE5 /* Google */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,15 +523,6 @@
 				9E3443782E822ADA468488BC01A57FCF /* libStripe.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E960263A97118CA2DEEF9449B0C356D3 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7FE28B45BD71FCFA5F95C19398C9341C /* Pods-Savio */,
-				C1FAB9863BCD26DE1C2C427461663BD4 /* Pods-SavioWishList */,
-			);
-			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -683,7 +685,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
+		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -701,7 +703,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -721,19 +722,37 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		254DFEA10848121D76DE28B7BBB74F78 /* Release */ = {
+		65468B056E7526C7E8D629E794EFC4BD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43216389D5E20A9549DAF51EC4C734DE /* Pods-SavioWishList.release.xcconfig */;
+			baseConfigurationReference = E84CE24C9345132D08D6D9A2B8FEB478 /* Pods-SavioWishList.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8982B355CB61F6F867DCC779609453A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83A76DBAAA573FD009756A40432A39DA /* Pods-SavioWishList.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -750,19 +769,17 @@
 			};
 			name = Release;
 		};
-		3D34C5BA42EDAF7E715EB6EC32283E9E /* Release */ = {
+		A7354CCECD0F51517D9B9537DDC65929 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59A4F50AF5EBE2276DB49A60B1944599 /* Pods-Savio.release.xcconfig */;
+			baseConfigurationReference = F9E013E9E95B6BF9A4C87C2CAC295BC9 /* Pods-Savio.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -771,32 +788,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		3D64ADD7454C65FD1690ADEDA59C7872 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C1C85D5F1F557AE2D672644B5923790 /* Stripe.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Stripe/Stripe-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
+		AAF678CED40D3499169D10F63CA0719E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -814,7 +808,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -829,20 +822,17 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		4E9D6DE2796A8016B9B89C7D5B5D4D0C /* Debug */ = {
+		B3637EA76342CA58116BE08C97D19DC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7C1C85D5F1F557AE2D672644B5923790 /* Stripe.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -859,19 +849,17 @@
 			};
 			name = Debug;
 		};
-		D82AAFDCC382F33A8EFF94C360C107BF /* Debug */ = {
+		D54BFC5BB67F20ED7B09B9834325EBF0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC6F18B10CF8669846F4BAF87E6CEE5D /* Pods-SavioWishList.debug.xcconfig */;
+			baseConfigurationReference = 2ED925F8EBF8F5072B05087C321275E8 /* Pods-Savio.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -880,30 +868,28 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		DA07B24A8653A5C7DD3AF3353D2A23AB /* Debug */ = {
+		F8701DE317CAC02379602470585A1E21 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F69FBE9F9325C457137F645AC9514AB /* Pods-Savio.debug.xcconfig */;
+			baseConfigurationReference = 7C1C85D5F1F557AE2D672644B5923790 /* Stripe.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Stripe/Stripe-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -911,8 +897,8 @@
 		2A43DAC6B409FC30D5DDA17F861C4F78 /* Build configuration list for PBXNativeTarget "Stripe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4E9D6DE2796A8016B9B89C7D5B5D4D0C /* Debug */,
-				3D64ADD7454C65FD1690ADEDA59C7872 /* Release */,
+				B3637EA76342CA58116BE08C97D19DC8 /* Debug */,
+				F8701DE317CAC02379602470585A1E21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -920,8 +906,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				015A368F878AC3E2CEAE21DDE8026304 /* Debug */,
-				44CDBB6D11DE06DB64D6268622BDC47E /* Release */,
+				47BEF9D903506B003EA5C2B249729489 /* Debug */,
+				AAF678CED40D3499169D10F63CA0719E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -929,8 +915,8 @@
 		46A1897A13B398BA815E4B62B559C456 /* Build configuration list for PBXNativeTarget "Pods-SavioWishList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D82AAFDCC382F33A8EFF94C360C107BF /* Debug */,
-				254DFEA10848121D76DE28B7BBB74F78 /* Release */,
+				65468B056E7526C7E8D629E794EFC4BD /* Debug */,
+				8982B355CB61F6F867DCC779609453A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -938,8 +924,8 @@
 		C38995F3D388319D9ECF33D7983497EA /* Build configuration list for PBXNativeTarget "Pods-Savio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DA07B24A8653A5C7DD3AF3353D2A23AB /* Debug */,
-				3D34C5BA42EDAF7E715EB6EC32283E9E /* Release */,
+				A7354CCECD0F51517D9B9537DDC65929 /* Debug */,
+				D54BFC5BB67F20ED7B09B9834325EBF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

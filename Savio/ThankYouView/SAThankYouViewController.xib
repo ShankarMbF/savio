@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="GothamRounded-Light.otf">
+            <string>GothamRounded-Light</string>
+        </mutableArray>
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
@@ -28,9 +31,9 @@
                         <constraint firstAttribute="height" constant="40" id="jfL-hj-z57"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you your savings plan has been created" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U9-z1-N6A">
-                    <rect key="frame" x="30" y="140" width="540" height="340"/>
-                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="40"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Transaction is Completed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7U9-z1-N6A">
+                    <rect key="frame" x="30" y="190" width="540" height="153"/>
+                    <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="22"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -61,19 +64,32 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="z81-NN-DUT"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Bf-dd-i59">
+                    <rect key="frame" x="30" y="120" width="540" height="62"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="540" id="Pzx-pd-7ZA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="26"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="bcd-5c-sXZ" secondAttribute="trailing" constant="30" id="2QS-fP-ILv"/>
+                <constraint firstItem="9Bf-dd-i59" firstAttribute="top" secondItem="Ozg-IG-Vw9" secondAttribute="bottom" constant="42" id="5SF-cN-oQp"/>
                 <constraint firstAttribute="trailing" secondItem="7U9-z1-N6A" secondAttribute="trailing" constant="30" id="6Mj-ls-Ueu"/>
-                <constraint firstItem="bcd-5c-sXZ" firstAttribute="top" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="20" id="8Xi-eI-Bej"/>
-                <constraint firstItem="bcd-5c-sXZ" firstAttribute="top" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="20" id="EAq-ZC-V3a"/>
+                <constraint firstItem="bcd-5c-sXZ" firstAttribute="top" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="157" id="8Xi-eI-Bej"/>
+                <constraint firstItem="bcd-5c-sXZ" firstAttribute="top" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="157" id="EAq-ZC-V3a"/>
                 <constraint firstAttribute="trailing" secondItem="bcd-5c-sXZ" secondAttribute="trailing" constant="30" id="M9D-fP-WOU"/>
                 <constraint firstItem="Ozg-IG-Vw9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MDs-yN-uCk"/>
-                <constraint firstItem="7U9-z1-N6A" firstAttribute="top" secondItem="Ozg-IG-Vw9" secondAttribute="bottom" constant="62" id="OQT-Bc-bDa"/>
+                <constraint firstItem="7U9-z1-N6A" firstAttribute="top" secondItem="Ozg-IG-Vw9" secondAttribute="bottom" constant="112" id="OQT-Bc-bDa"/>
                 <constraint firstItem="7U9-z1-N6A" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="PHZ-db-SgC"/>
-                <constraint firstAttribute="bottom" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="120" id="XeY-bJ-09u"/>
+                <constraint firstAttribute="bottom" secondItem="7U9-z1-N6A" secondAttribute="bottom" constant="257" id="XeY-bJ-09u"/>
+                <constraint firstItem="9Bf-dd-i59" firstAttribute="trailing" secondItem="7U9-z1-N6A" secondAttribute="trailing" id="aSx-Cn-8te"/>
                 <constraint firstItem="bcd-5c-sXZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="bOB-ND-bPK"/>
+                <constraint firstItem="9Bf-dd-i59" firstAttribute="leading" secondItem="7U9-z1-N6A" secondAttribute="leading" id="iaK-cU-ujj"/>
+                <constraint firstItem="7U9-z1-N6A" firstAttribute="top" secondItem="9Bf-dd-i59" secondAttribute="bottom" constant="8" symbolic="YES" id="iwQ-Lp-cZe"/>
                 <constraint firstItem="bcd-5c-sXZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="plf-LX-Ju9"/>
                 <constraint firstItem="Ozg-IG-Vw9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="38" id="yRT-RW-v5h"/>
             </constraints>

@@ -9,7 +9,7 @@
 import UIKit
 import PassKit
 
-class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate {
+class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,setDefaultCardDelegate{
     
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
@@ -631,6 +631,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+    }
+    
+    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+    }
+    
+    func errorResponseForSetDefaultCard(error: String) {
+        print(error)
     }
 }
 

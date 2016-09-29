@@ -180,7 +180,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cardLastFourDigitTextField.text = trimmedString
         
     }
-    
+
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true

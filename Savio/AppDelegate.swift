@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         //Customize the UINavigationBar
-        objSANav!.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 20)!]
+        objSANav!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 20)!]
         objSANav?.navigationBarHidden = true
         window?.makeKeyAndVisible()
         return true

@@ -1301,6 +1301,25 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    //Go to Payment screen
+    
+    
+    @IBAction func paymentButtonPressed(sender: UIButton) {
+        
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
+        {
+            let objSavedCardView = SASaveCardViewController()
+            objSavedCardView.isFromImpulseSaving = true
+            self.navigationController?.pushViewController(objSavedCardView, animated: true)
+        }else {
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
     // MARK: - GetUserInfoDelegate
     func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String {

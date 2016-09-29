@@ -274,7 +274,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     else {
                         let objAPI = API()
                         let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-                        
                         var array : Array<Dictionary<String,AnyObject>> = []
                         let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
                         if(self.addNewCard == true)
@@ -302,11 +301,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                 }
                                 else {
                                     self.objAnimView.removeFromSuperview()
-                                    
                                     //show alert view controller if card is already added
                                     let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
                                     //alert view controll action method
-                                    alertController.addAction(UIAlertAction(title: "Warning", style: UIAlertActionStyle.Default)
+                                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
                                     { action -> Void in
                                         self.navigationController?.popViewControllerAnimated(true)
                                         })
@@ -622,7 +620,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     let objSummaryView = SASavingSummaryViewController()
                     self.navigationController?.pushViewController(objSummaryView, animated: true)
                 }
-                
             }
         }
     }

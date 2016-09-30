@@ -8,15 +8,17 @@
 
 import UIKit
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,setDefaultCardDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
     @IBOutlet weak var cardViewTwo: UIView!
     @IBOutlet weak var cardLastFourDigitTextField: UITextField!
+    @IBOutlet weak var topView: UIView!
     
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
+    var isFromEditUserInfo = false
     var objAnimView = ImageViewAnimation()
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     var cardListResponse : Dictionary<String,AnyObject> = [:]
@@ -35,10 +37,16 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
-        
+        if(isFromEditUserInfo)
+        {
+            leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
+            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        }
+        else{
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+            leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+        }
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -79,6 +87,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             }
             
         }
+        if(isFromEditUserInfo)
+        {
+            self.topView.hidden = false
+        }
         
         let objAPI = API()
         objAPI.getListOfUsersCardDelegate = self
@@ -99,21 +111,42 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func doneBtnClicked()
     {
-        if let _ = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            let objPaymentView = SAPaymentFlowViewController()
-            if(isFromImpulseSaving)
+            if(isFromEditUserInfo)
             {
-                objPaymentView.isFromImpulseSaving = true
+                
+                objAnimView.animate()
+                self.view.addSubview(self.objAnimView)
+                
+                let objAPI = API()
+                objAPI.setDefaultCardCardDelegate = self
+                
+                var newDict : Dictionary<String,AnyObject> = [:]
+                newDict["STRIPE_CUST_ID"] = dict["customer"]
+                newDict["CUST_DEFAULT_CARD"] = dict["id"]
+                objAPI.setDefaultPaymentCard(newDict)
+                
             }
-            objPaymentView.showCardInfo = true
-            self.navigationController?.pushViewController(objPaymentView, animated: true)
+            else {
+                let objPaymentView = SAPaymentFlowViewController()
+                if(isFromImpulseSaving)
+                {
+                    objPaymentView.isFromImpulseSaving = true
+                }
+                objPaymentView.showCardInfo = true
+                self.navigationController?.pushViewController(objPaymentView, animated: true)
+            }
             
             
         } else{
             let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
+    }
+    
+    func menuButtonClicked(){
+        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
     }
     
     // MARK: - Tableview Delegate & Datasource
@@ -136,29 +169,29 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         //(dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
         let attributedString = NSMutableAttributedString(string: String(format: "%@ Ending in %@",dict["brand"] as! String,trimmedString))
         attributedString.addAttribute(NSForegroundColorAttributeName,
-            value: UIColor.blackColor(),
-            range: NSRange(
-                location:0,
-                length:(dict["brand"] as! String).characters.count))
+                                      value: UIColor.blackColor(),
+                                      range: NSRange(
+                                        location:0,
+                                        length:(dict["brand"] as! String).characters.count))
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont ,size: 15)!, range: NSRange(
             location:0,
             length:(dict["brand"] as! String).characters.count))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-            value: UIColor.blackColor(),
-            range: NSRange(
-                location:((dict["brand"] as! String).characters.count),
-                length:11))
+                                      value: UIColor.blackColor(),
+                                      range: NSRange(
+                                        location:((dict["brand"] as! String).characters.count),
+                                        length:11))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kLightFont,size: 15)!, range: NSRange(
             location:((dict["brand"] as! String).characters.count),
             length:11))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-            value: UIColor.blackColor(),
-            range: NSRange(
-                location:((dict["brand"] as! String).characters.count) + 11,
-                length:trimmedString.characters.count))
+                                      value: UIColor.blackColor(),
+                                      range: NSRange(
+                                        location:((dict["brand"] as! String).characters.count) + 11,
+                                        length:trimmedString.characters.count))
         
         attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: kMediumFont,size: 15)!, range: NSRange(
             location:((dict["brand"] as! String).characters.count) + 11,
@@ -180,7 +213,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cardLastFourDigitTextField.text = trimmedString
         
     }
-
+    
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true
@@ -191,6 +224,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     
+    @IBAction func profileButtonPressed(sender: UIButton) {
+        let objEditUserInfo = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
+        self.navigationController?.pushViewController(objEditUserInfo, animated: true)
+    }
+    
+    @IBAction func paymentButtonPressed(sender: UIButton) {
+    }
     
     //function checking any key is null and return not null values in dictionary
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
@@ -214,7 +254,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successfully Received")
@@ -222,6 +261,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 cardListResponse = checkNullDataFromDict(objResponse)
                 let dict = cardListResponse["exCollection"] as! Dictionary<String, AnyObject>
                 savedCardArray = dict["data"]! as! Array<Dictionary<String,AnyObject>>
+                let newDict = self.checkNullDataFromDict(savedCardArray[0])
+                NSUserDefaults.standardUserDefaults().setValue(newDict, forKey: "activeCard")
                 cardListView.reloadData()
                 cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
                 let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0))as? CardTableViewCell
@@ -237,5 +278,44 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         alert.show()
     }
     
-
+    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        if(individualFlag == 1)
+        {
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            
+            let objProgressView = SAProgressViewController()
+            self.navigationController?.pushViewController(objProgressView, animated: true)
+        }
+        else if(groupMemberFlag == 1 || groupFlag == 1)
+        {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            
+            let objProgressView = SAGroupProgressViewController()
+            self.navigationController?.pushViewController(objProgressView, animated: true)
+        }
+        else if(groupMemberFlag == 1)
+        {
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            
+            let objProgressView = SAGroupProgressViewController()
+            self.navigationController?.pushViewController(objProgressView, animated: true)
+        }
+        print(objResponse)
+    }
+    
+    func errorResponseForSetDefaultCard(error: String) {
+        objAnimView.removeFromSuperview()
+        print(error)
+    }
+    
+    
 }

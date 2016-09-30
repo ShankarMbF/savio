@@ -18,12 +18,12 @@ class ContainerViewController: UIViewController {
     var centreVC: UIViewController! =  SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
     var navController: UINavigationController!
     var isShowingProgress:String?
-    
+    var newView = UIView()
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        
         let objAPI = API()
         if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
@@ -80,14 +80,30 @@ class ContainerViewController: UIViewController {
     
     //function invoke on tapping menu button.
     func ToggleCentreView() {
+        
         var destination = self.navController.view.frame;
         if (destination.origin.x > 0) {
             destination.origin.x = 0;
+            newView.removeFromSuperview()
         } else {
-            destination.origin.x += 250;
+            destination.origin.x += 250
+            newView.frame = CGRectMake(250, 40, self.navController.view.frame.width, self.navController.view.frame.height)
+            newView.backgroundColor = UIColor.clearColor()
+            let tapGesture = UITapGestureRecognizer()
+            tapGesture.numberOfTapsRequired = 1
+            tapGesture.addTarget(self, action: Selector("newViewTouched:"))
+            newView.addGestureRecognizer(tapGesture)
+            self.view.addSubview(newView)
         }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.navController.view.frame = destination
+        })
+    }
+    
+    func newViewTouched(sender:UITapGestureRecognizer)
+    {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.navController.view.frame = CGRectMake(0, 0, self.navController.view.frame.width, self.navController.view.frame.height)
         })
     }
     
@@ -105,7 +121,6 @@ class ContainerViewController: UIViewController {
             self.ToggleCentreView()
             return
         }
-        
         self.navController.view.removeFromSuperview()
         self.navController.removeFromParentViewController()
         

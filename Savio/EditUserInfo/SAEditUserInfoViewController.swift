@@ -1313,7 +1313,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
         {
             let objSavedCardView = SASaveCardViewController()
-            objSavedCardView.isFromImpulseSaving = true
+            objSavedCardView.isFromEditUserInfo = true
             self.navigationController?.pushViewController(objSavedCardView, animated: true)
         }else {
             let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")

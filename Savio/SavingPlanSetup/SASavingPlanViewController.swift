@@ -99,6 +99,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //Set the contentsize of UIScrollView
+        
          scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
     }
     
@@ -475,11 +476,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(datePickerDate == "")
             {
-                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                let currentDate: NSDate = NSDate()
-                let components: NSDateComponents = NSDateComponents()
-                components.day = +7
-                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
                 let dateComponents = NSDateComponents()
                 dateComponents.month = 1
                 let calender = NSCalendar.currentCalendar()
@@ -1296,7 +1292,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     array.append("  Please select date.")
                 }
                 if(datePickerDate == "") {
-                    array.append("  Please select monthly/weekly payment date.")
+                    array.append("  Please choose the plan duration end date.")
                 }
                 if(popOverSelectedStr == "") {
                     array.append("  Please select payment date/day.")
@@ -1538,7 +1534,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
                 updateOfferArr = offerArr
-                tblViewHt.constant = tblView.frame.size.height + CGFloat(offerArr.count * 90) + 120
+                tblViewHt.constant = tblView.frame.size.width + tblView.frame.size.height + CGFloat(offerArr.count * 90)
                 tblView.reloadData()
             }
             else {

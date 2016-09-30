@@ -11,6 +11,7 @@
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
+            <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -20,6 +21,7 @@
                 <outlet property="cardListView" destination="oz5-Tr-xzG" id="dr6-cF-Dlg"/>
                 <outlet property="cardViewOne" destination="4Oh-hl-vSV" id="j5B-pt-3O3"/>
                 <outlet property="cardViewTwo" destination="wKN-LO-IPY" id="cid-sL-pyT"/>
+                <outlet property="topView" destination="G95-z0-8H3" id="7DS-qh-soL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,6 +30,47 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G95-z0-8H3">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CS7-AM-Dce">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="O9h-ue-lGn"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Profile"/>
+                            <connections>
+                                <action selector="profileButtonPressed:" destination="-1" eventType="touchUpInside" id="WLq-Jn-K8q"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQI-sX-OtU">
+                            <rect key="frame" x="302" y="2" width="300" height="38"/>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="38" id="8e6-cE-pUD"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="16"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Payment"/>
+                            <connections>
+                                <action selector="paymentButtonPressed:" destination="-1" eventType="touchUpInside" id="D8c-rh-CWU"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="5as-9H-cBM"/>
+                        <constraint firstItem="CS7-AM-Dce" firstAttribute="leading" secondItem="G95-z0-8H3" secondAttribute="leading" id="MzO-dl-6zf"/>
+                        <constraint firstItem="BQI-sX-OtU" firstAttribute="top" secondItem="G95-z0-8H3" secondAttribute="top" constant="2" id="UHp-zv-SSv"/>
+                        <constraint firstItem="BQI-sX-OtU" firstAttribute="leading" secondItem="CS7-AM-Dce" secondAttribute="trailing" constant="2" id="Upf-de-J8J"/>
+                        <constraint firstItem="CS7-AM-Dce" firstAttribute="width" secondItem="BQI-sX-OtU" secondAttribute="width" id="Wkq-OH-HJV"/>
+                        <constraint firstItem="CS7-AM-Dce" firstAttribute="top" secondItem="G95-z0-8H3" secondAttribute="top" id="iOw-AP-ZAG"/>
+                        <constraint firstItem="BQI-sX-OtU" firstAttribute="leading" secondItem="CS7-AM-Dce" secondAttribute="trailing" constant="2" id="kBU-Ql-3VN"/>
+                        <constraint firstAttribute="trailing" secondItem="BQI-sX-OtU" secondAttribute="trailing" constant="-2" id="xbQ-4x-Y6R"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Oh-hl-vSV">
                     <rect key="frame" x="55" y="60" width="490" height="128"/>
                     <subviews>
@@ -156,11 +199,14 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="4Oh-hl-vSV" secondAttribute="trailing" constant="55" id="Ahd-dh-ETw"/>
+                <constraint firstAttribute="trailing" secondItem="G95-z0-8H3" secondAttribute="trailing" id="GO5-3O-4Zx"/>
                 <constraint firstItem="oz5-Tr-xzG" firstAttribute="top" secondItem="4Oh-hl-vSV" secondAttribute="bottom" constant="41" id="HLt-bO-gSA"/>
                 <constraint firstItem="4Oh-hl-vSV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="JKr-XA-d49"/>
+                <constraint firstItem="G95-z0-8H3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kyk-eZ-PnU"/>
                 <constraint firstItem="yFs-Vz-Rng" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rif-jc-L5b"/>
                 <constraint firstItem="oz5-Tr-xzG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="g1J-bO-UOB"/>
                 <constraint firstItem="yFs-Vz-Rng" firstAttribute="top" secondItem="oz5-Tr-xzG" secondAttribute="bottom" id="m8w-BN-Vnt"/>
+                <constraint firstItem="G95-z0-8H3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nGm-s4-GlG"/>
                 <constraint firstAttribute="trailing" secondItem="oz5-Tr-xzG" secondAttribute="trailing" id="pPh-cu-obX"/>
                 <constraint firstAttribute="trailing" secondItem="yFs-Vz-Rng" secondAttribute="trailing" id="rJD-Ej-6mA"/>
                 <constraint firstItem="yFs-Vz-Rng" firstAttribute="top" secondItem="oz5-Tr-xzG" secondAttribute="bottom" constant="1" id="ryE-2o-qrR"/>

@@ -26,7 +26,7 @@
                             <constraint firstAttribute="height" constant="2" id="rUT-wA-aab"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTd-i4-mSD">
@@ -42,7 +42,7 @@
                             <constraint firstAttribute="height" constant="2" id="3Bh-fK-U52"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V3l-Ie-gXS">
@@ -51,6 +51,11 @@
                             <constraint firstAttribute="height" constant="30" id="ch5-Jt-t9B"/>
                             <constraint firstAttribute="width" constant="55" id="sNT-kr-NWR"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ch5-Jt-t9B"/>
+                            </mask>
+                        </variation>
                     </imageView>
                 </subviews>
                 <constraints>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -76,14 +76,19 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry,                                                                                   you haven't reached the goal yet" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYI-xq-r0R">
-                    <rect key="frame" x="91" y="40" width="418" height="76"/>
+                    <rect key="frame" x="30" y="40" width="540" height="76"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="418" id="ERK-WS-C8Z"/>
                         <constraint firstAttribute="height" constant="76" id="glx-4d-GZB"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="24"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="ERK-WS-C8Z"/>
+                        </mask>
+                    </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you have reached your goal you'll be able to use your Savio card." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSW-2g-1ev">
                     <rect key="frame" x="30" y="160" width="540" height="120"/>
@@ -91,7 +96,7 @@
                         <constraint firstAttribute="height" constant="120" id="vj1-rs-ciZ"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're working hard to find you the best place to buy from. Take a look at these deals we've negotiated in the offers page." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-fY-1Wb">
@@ -100,7 +105,7 @@
                         <constraint firstAttribute="height" constant="120" id="06P-Yf-ZPf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -113,6 +118,8 @@
                 <constraint firstAttribute="trailing" secondItem="kSW-2g-1ev" secondAttribute="trailing" constant="30" id="CDM-GZ-jSD"/>
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="MLr-hG-rDz"/>
                 <constraint firstAttribute="trailing" secondItem="Pw7-fY-1Wb" secondAttribute="trailing" constant="30" id="NVF-xs-fyd"/>
+                <constraint firstAttribute="trailing" secondItem="aYI-xq-r0R" secondAttribute="trailing" constant="30" id="WCY-Uc-2lI"/>
+                <constraint firstItem="aYI-xq-r0R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="g1T-1x-Dtg"/>
                 <constraint firstItem="kSW-2g-1ev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="gIb-0l-Pxr"/>
                 <constraint firstAttribute="trailing" secondItem="f6b-kM-t6F" secondAttribute="trailing" id="pQv-U7-fIG"/>
                 <constraint firstItem="kSW-2g-1ev" firstAttribute="top" secondItem="aYI-xq-r0R" secondAttribute="bottom" constant="44" id="s5V-dX-bmm"/>

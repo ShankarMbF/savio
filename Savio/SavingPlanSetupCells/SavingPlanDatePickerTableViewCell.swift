@@ -10,7 +10,7 @@ import UIKit
 
 protocol SavingPlanDatePickerCellDelegate {
     func datePickerText(date:Int,dateStr:String)
-
+    
 }
 class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,SegmentBarChangeDelegate {
     
@@ -36,14 +36,13 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let currentDate: NSDate = NSDate()
         let components: NSDateComponents = NSDateComponents()
-        components.day = +7
+        components.month = 1
         let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
         datePickerView.minimumDate = minDate
-         
-        let date = datePickerView.date
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        datePickerTextField.text = dateFormatter.stringFromDate(date)
+        datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
         // cornerRadius changes
         datePickerTextField.layer.cornerRadius = 5
         BGContentView.layer.cornerRadius = 5
@@ -56,21 +55,26 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         datePickerTextField.inputView = datePickerView
         datePickerTextField.inputAccessoryView = customToolBar
         calenderImageView.image = self.setUpImage()
+    
     }
     
     func segmentBarChanged(str: String) {
+        
         if(str == "date") {
             let dateComponents = NSDateComponents()
             dateComponents.month = 1
             let calender = NSCalendar.currentCalendar()
             let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
             datePickerView.minimumDate = newDate
+            datePickerView.reloadInputViews()
         }
         else {
             let daysToAdd : Double = 7
             let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
             datePickerView.minimumDate = newDate
+            datePickerView.reloadInputViews()
         }
+        
     }
     
     func getDateTextField(str: String) {
@@ -113,15 +117,17 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     }
     
     func doneBarButtonPressed(){
-        datePickerTextField.resignFirstResponder()
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        
         let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
         datePickerTextField.text = pickrDate
         datePickerTextField.textColor = UIColor.whiteColor()
+        
         let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
         savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
+        
+        datePickerTextField.resignFirstResponder()
     }
     
     func cancelBarButtonPressed(){
@@ -171,7 +177,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (view?.contentOffset)!
         let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
-
+        
         let yOfTextField = datePickerTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight

@@ -12,7 +12,7 @@ protocol SavingPlanDatePickerCellDelegate {
     func datePickerText(date:Int,dateStr:String)
     
 }
-class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,SegmentBarChangeDelegate {
+class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var calenderImageView: UIImageView!
@@ -24,25 +24,19 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     var datePickerView:UIDatePicker = UIDatePicker()
     var savingPlanDatePickerDelegate : SavingPlanDatePickerCellDelegate?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
-    var segmentBarDelegate = SegmentBarChangeDelegate.self
     var lastOffset: CGPoint = CGPointZero
+    var dateString = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         datePickerView.datePickerMode = UIDatePickerMode.Date
-        
-        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let currentDate: NSDate = NSDate()
-        let components: NSDateComponents = NSDateComponents()
-        components.month = 1
-        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-        datePickerView.minimumDate = minDate
-        
+
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+        
         // cornerRadius changes
         datePickerTextField.layer.cornerRadius = 5
         BGContentView.layer.cornerRadius = 5
@@ -57,30 +51,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         calenderImageView.image = self.setUpImage()
     
     }
-    
-    func segmentBarChanged(str: String) {
-        
-        if(str == "date") {
-            let dateComponents = NSDateComponents()
-            dateComponents.month = 1
-            let calender = NSCalendar.currentCalendar()
-            let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-            datePickerView.minimumDate = newDate
-            datePickerView.reloadInputViews()
-        }
-        else {
-            let daysToAdd : Double = 7
-            let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
-            datePickerView.minimumDate = newDate
-            datePickerView.reloadInputViews()
-        }
-        
-    }
-    
-    func getDateTextField(str: String) {
-        
-    }
-    
+
     func setUpImage()-> UIImage
     {
         var imageName = ""
@@ -134,6 +105,19 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
         datePickerTextField.resignFirstResponder()
         
     }
+    func changeDatePickerViewDate()
+    {
+        let dateComponents = NSDateComponents()
+        let calender = NSCalendar.currentCalendar()
+        if(dateString == "date"){
+            dateComponents.month = 1
+        }else {
+            dateComponents.day = 7
+        }
+        let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+        self.datePickerView.minimumDate = newDate
+    }
+
     
     @objc func datePickerWasShown(notification: NSNotification){
         //do stuff
@@ -158,6 +142,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate,Seg
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
+        self.changeDatePickerViewDate()
         self.registerForKeyboardNotifications()
         return true
     }

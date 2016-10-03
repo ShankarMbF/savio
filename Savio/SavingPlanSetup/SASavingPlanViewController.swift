@@ -476,13 +476,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(datePickerDate == "")
             {
-                let dateComponents = NSDateComponents()
-                dateComponents.month = 1
-                let calender = NSCalendar.currentCalendar()
-                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                cell1.datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
+                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
             }
             else
             {
@@ -499,18 +495,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
-                    let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                    let currentDate: NSDate = NSDate()
-                    let components: NSDateComponents = NSDateComponents()
-                    
-                    components.day = +7
-                    let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+                   
                     let dateFormatter = NSDateFormatter()
-                    
                     dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                    
-                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
+                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
                 }
+            }
+            if(dateString == "date")
+            {
+                cell1.dateString = "date"
+            }
+            else {
+                cell1.dateString = "day"
             }
             return cell1
         }
@@ -967,11 +963,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             if(str == payTypeStr)  {
                 popOverSelectedStr = dateFromUpdatePlan
-                tblView.reloadData()
             }
             else {
                 popOverSelectedStr = ""
-                tblView.reloadData()
             }
             isClearPressed  = false
             
@@ -986,6 +980,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         isChangeSegment = true
         isPopoverValueChanged = true
+          tblView.reloadData()
     }
     
     //This is SavingPlanDatePickerCellDelegate method used to get the selected end date for user’s plan.

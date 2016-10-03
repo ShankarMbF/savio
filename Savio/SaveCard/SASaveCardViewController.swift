@@ -15,6 +15,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var cardViewTwo: UIView!
     @IBOutlet weak var cardLastFourDigitTextField: UITextField!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var newCardButton: UIButton!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewDoneButton: UIButton!
+    @IBOutlet weak var bottomViewNewCardbutton: UIButton!
     
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
@@ -22,6 +26,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     var objAnimView = ImageViewAnimation()
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     var cardListResponse : Dictionary<String,AnyObject> = [:]
+    var wishListArray : Array<Dictionary<String,AnyObject>> = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -38,26 +43,56 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+        
+        let btnName = UIButton()
+        
+        
         if(isFromEditUserInfo)
         {
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
             leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            
+            btnName.frame = CGRectMake(0, 0, 30, 30)
+            btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+            btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
+            btnName.setTitle("0", forState: UIControlState.Normal)
+            btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+            btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+            
+            if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            {
+                let dataSave = str
+                wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+                if(wishListArray.count > 0)
+                {
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                    btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                }
+                else {
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                    btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                }
+                
+                btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            }
         }
         else{
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+            
+            btnName.frame = CGRectMake(0, 0, 60, 30)
+            btnName.setTitle("Done", forState: UIControlState.Normal)
+            btnName.setTitleColor(UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1), forState: UIControlState.Normal)
+            btnName.titleLabel!.font = UIFont(name: kBookFont, size: 15)
+            btnName.addTarget(self, action: Selector("doneBtnClicked"), forControlEvents: .TouchUpInside)
         }
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         //set Navigation right button nav-heart
-        let btnName = UIButton()
-        btnName.frame = CGRectMake(0, 0, 60, 30)
-        btnName.setTitle("Done", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1), forState: UIControlState.Normal)
-        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 15)
-        btnName.addTarget(self, action: Selector("doneBtnClicked"), forControlEvents: .TouchUpInside)
+        
+        
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -90,6 +125,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         if(isFromEditUserInfo)
         {
             self.topView.hidden = false
+            self.newCardButton.hidden  = true
+            self.bottomView.hidden = false
         }
         
         let objAPI = API()
@@ -113,34 +150,29 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            if(isFromEditUserInfo)
-            {
-                
-                objAnimView.animate()
-                self.view.addSubview(self.objAnimView)
-                
-                let objAPI = API()
-                objAPI.setDefaultCardCardDelegate = self
-                
-                var newDict : Dictionary<String,AnyObject> = [:]
-                newDict["STRIPE_CUST_ID"] = dict["customer"]
-                newDict["CUST_DEFAULT_CARD"] = dict["id"]
-                objAPI.setDefaultPaymentCard(newDict)
-                
-            }
-            else {
-                let objPaymentView = SAPaymentFlowViewController()
-                if(isFromImpulseSaving)
-                {
-                    objPaymentView.isFromImpulseSaving = true
-                }
-                objPaymentView.showCardInfo = true
-                self.navigationController?.pushViewController(objPaymentView, animated: true)
-            }
             
+            let objPaymentView = SAPaymentFlowViewController()
+            if(isFromImpulseSaving)
+            {
+                objPaymentView.isFromImpulseSaving = true
+            }
+            objPaymentView.showCardInfo = true
+            self.navigationController?.pushViewController(objPaymentView, animated: true)
             
         } else{
             let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+    
+    func heartBtnClicked(){
+        
+        if wishListArray.count>0{
+            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+        }
+        else {
+            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
         }
     }
@@ -229,6 +261,28 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.pushViewController(objEditUserInfo, animated: true)
     }
     
+    @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
+        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        {
+            
+            objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+            
+            let objAPI = API()
+            objAPI.setDefaultCardCardDelegate = self
+            
+            var newDict : Dictionary<String,AnyObject> = [:]
+            newDict["STRIPE_CUST_ID"] = dict["customer"]
+            newDict["CUST_DEFAULT_CARD"] = dict["id"]
+            objAPI.setDefaultPaymentCard(newDict)
+            
+            
+        } else{
+            let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
+    }
     @IBAction func paymentButtonPressed(sender: UIButton) {
     }
     

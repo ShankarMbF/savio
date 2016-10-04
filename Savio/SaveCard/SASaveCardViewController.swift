@@ -253,6 +253,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         {
             objPaymentView.isFromImpulseSaving = true
         }
+        else if(isFromEditUserInfo)
+        {
+         objPaymentView.isFromEditUserInfo = true
+        }
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     

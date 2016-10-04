@@ -35,6 +35,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     var stripeCard = STPCard()
     var isFromGroupMemberPlan = false
     var isFromImpulseSaving = false
+    var isFromEditUserInfo = false
     var showCardInfo = false
     var doNotShowBackButton = true
     var addNewCard = false
@@ -53,11 +54,11 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     func setUpView(){
         let objAPI = API()
-        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
-               
+                
                 // self.navigationItem.setHidesBackButton(true, animated: false)
                 let leftBtnName = UIButton()
                 leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
@@ -160,16 +161,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 
                 cardNumberTextField.secureTextEntry = true
                 cardNumberTextField.text = "testtesttesttest"
-                
-                /*
-                 for i in 0 ..< 12 {
-                 cardNumberTextField.secureTextEntry = true
-                 cardNumberTextField.text = "testtesttest";
-                 
-                 }
-                 cardNumberTextField.secureTextEntry = true
-                 cardNumberTextField.text = String(format: "%@%@",cardNumberTextField.text!,(saveCardInfo["last4"] as? String)!)
-                 */
                 
                 if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
                 {
@@ -615,6 +606,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     let objImpulseView = SAImpulseSavingViewController()
                     objImpulseView.isFromPayment = true
                     self.navigationController?.pushViewController(objImpulseView, animated: true)
+                }
+                else if(isFromEditUserInfo)
+                {
+                    let objSavedCardView = SASaveCardViewController()
+                    objSavedCardView.isFromEditUserInfo = true
+                    objSavedCardView.isFromImpulseSaving = true
+                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
                 }
                 else {
                     let objSummaryView = SASavingSummaryViewController()

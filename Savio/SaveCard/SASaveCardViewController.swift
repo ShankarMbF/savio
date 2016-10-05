@@ -23,6 +23,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
     var isFromEditUserInfo = false
+    var showAlert  = false
     var objAnimView = ImageViewAnimation()
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     var cardListResponse : Dictionary<String,AnyObject> = [:]
@@ -127,6 +128,12 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             self.topView.hidden = false
             self.newCardButton.hidden  = true
             self.bottomView.hidden = false
+            
+            if(showAlert == true)
+            {
+                let alert = UIAlertView(title: "Alert", message: "This card will be saved as default card", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
         }
         
         let objAPI = API()
@@ -150,14 +157,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            
-            let objPaymentView = SAPaymentFlowViewController()
-            if(isFromImpulseSaving)
-            {
-                objPaymentView.isFromImpulseSaving = true
-            }
-            objPaymentView.showCardInfo = true
-            self.navigationController?.pushViewController(objPaymentView, animated: true)
+            objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+            let objAPI = API()
+            objAPI.setDefaultCardCardDelegate = self
+            var newDict : Dictionary<String,AnyObject> = [:]
+            newDict["STRIPE_CUST_ID"] = dict["customer"]
+            newDict["CUST_DEFAULT_CARD"] = dict["id"]
+            objAPI.setDefaultPaymentCard(newDict)
             
         } else{
             let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
@@ -255,7 +262,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
         else if(isFromEditUserInfo)
         {
-         objPaymentView.isFromEditUserInfo = true
+            objPaymentView.isFromEditUserInfo = true
         }
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
@@ -268,19 +275,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
-            
             let objAPI = API()
             objAPI.setDefaultCardCardDelegate = self
-            
             var newDict : Dictionary<String,AnyObject> = [:]
             newDict["STRIPE_CUST_ID"] = dict["customer"]
             newDict["CUST_DEFAULT_CARD"] = dict["id"]
             objAPI.setDefaultPaymentCard(newDict)
-            
-            
         } else{
             let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -372,7 +374,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()
-        print(error)
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
     }
     
     

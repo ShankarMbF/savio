@@ -285,10 +285,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         {
             if let savedCard = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
-                let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
-                self.navigationController?.pushViewController(objHurrrayView, animated: true)
-                
-            }else {
                 let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
                 self.navigationController?.pushViewController(objContainer, animated: true)
             }

@@ -87,6 +87,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     }
     
     @IBAction func clickOnBackButton(sender: AnyObject) {
+        /*
         fiveDigitTextField.hidden = true
         resentCodeButton.hidden = true
         backButton.hidden = true
@@ -94,6 +95,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         headerText.text = "We've sent you a verification code"
         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
         codeDoesNotMatchLabel.hidden = true
+         */
+        let objEnterPINView = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
+        self.navigationController?.pushViewController(objEnterPINView, animated: true)
     }
     
     @IBAction func doneButtonToolBarPressed(sender: AnyObject) {

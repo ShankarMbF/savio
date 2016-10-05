@@ -612,6 +612,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromEditUserInfo = true
                     objSavedCardView.isFromImpulseSaving = true
+                    objSavedCardView.showAlert = true
                     self.navigationController?.pushViewController(objSavedCardView, animated: true)
                 }
                 else {

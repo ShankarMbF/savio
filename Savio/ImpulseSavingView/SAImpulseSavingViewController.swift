@@ -33,6 +33,8 @@ class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var messagePopUpView: UIView!
     @IBOutlet weak var circularView: UIView!
     @IBOutlet weak var priceTextField: UITextField!
+    @IBOutlet weak var addFundsViewTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var circularViewTopSpace: NSLayoutConstraint!
     
     var isFromPayment = false
     var circleSlider: CircleSlider! {
@@ -56,7 +58,7 @@ class SAImpulseSavingViewController: UIViewController {
             .StartAngle(-90),
             .MaxValue(3000),
             .MinValue(0),
-            .ThumbWidth(30)
+            .ThumbWidth(40)
         ]
     }
     
@@ -89,21 +91,15 @@ class SAImpulseSavingViewController: UIViewController {
                                                      blue : 58/255, alpha: 1)
             deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             isFromPayment = false
+            
+  
+            circularViewTopSpace.constant = 10
         }
         else {
-            if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
-            {
-                if var trimmedString = activeCard["cardNumber"] as? String
-                {
-                    trimmedString = (activeCard["cardNumber"] as! NSString).substringFromIndex(max(activeCard["cardNumber"]!.length-4,0))
-                    deductMoneyLabel.text = String(format:"We'll deduct this from your linked account ending xxx%@",trimmedString)
-                }
-                else if let trimmedString =  activeCard["last4"] as? String{
-                       deductMoneyLabel.text = String(format:"We'll deduct this from your linked account ending xxx%@",trimmedString)
-                }
-            
+          
+            circularViewTopSpace.constant = 70
+            deductMoneyLabel.text = ""
             }
-        }
     }
     //customization of circle slider
     private func buildCircleSlider() {
@@ -120,7 +116,7 @@ class SAImpulseSavingViewController: UIViewController {
     //Circle slider action method
     func valueChange(sender: CircleSlider) {
         let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
-        messagePopUpView.hidden = true
+       // messagePopUpView.hidden = true
         let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
         priceTextField.attributedText = attrString2
     }
@@ -132,6 +128,8 @@ class SAImpulseSavingViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrlView.contentSize = CGSizeMake(0, UIScreen.mainScreen().bounds.height + 20)
+        
         //add rounded corners to plan button
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
@@ -141,7 +139,7 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     func setUpView(){
-        scrlView.contentSize = CGSizeMake(0, 2300)
+        
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)

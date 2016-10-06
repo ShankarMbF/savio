@@ -157,12 +157,17 @@ protocol GetListOfUsersCardsDelegate
     func errorResponseForGetListOfUsersCards(error:String)
 }
 
-protocol setDefaultCardDelegate
+protocol SetDefaultCardDelegate
 {
     func successResponseForSetDefaultCard(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForSetDefaultCard(error:String)
 }
 
+protocol ImpulseSavingDelegate
+{
+    func successResponseImpulseSavingDelegateAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForImpulseSavingDelegateAPI(error:String)
+}
 
 
 class API: UIView,NSURLSessionDelegate {
@@ -189,7 +194,8 @@ class API: UIView,NSURLSessionDelegate {
     var addSavingCardDelegate : AddSavingCardDelegate?
     var addNewSavingCardDelegate : AddNewSavingCardDelegate?
     var getListOfUsersCardDelegate : GetListOfUsersCardsDelegate?
-    var setDefaultCardCardDelegate : setDefaultCardDelegate?
+    var setDefaultCardDelegate : SetDefaultCardDelegate?
+    var impulseSavingDelegate : ImpulseSavingDelegate?
     
     
     //Checking Reachability function
@@ -1675,6 +1681,7 @@ class API: UIView,NSURLSessionDelegate {
         }
     }
     
+    //MARK : Set default card
     func setDefaultPaymentCard(dictParam:Dictionary<String,AnyObject>)
     {
         let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
@@ -1708,26 +1715,82 @@ class API: UIView,NSURLSessionDelegate {
                     {
                         dispatch_async(dispatch_get_main_queue())
                         {
-                            self.setDefaultCardCardDelegate?.successResponseForSetDefaultCard(dict)
+                            self.setDefaultCardDelegate?.successResponseForSetDefaultCard(dict)
                         }
                     }
                     else  {
                         dispatch_async(dispatch_get_main_queue()){
-                            self.setDefaultCardCardDelegate?.errorResponseForSetDefaultCard((response?.description)!)
+                            self.setDefaultCardDelegate?.errorResponseForSetDefaultCard((response?.description)!)
                         }
                     }
                 }
                 else  if let error = error {
                     
                     dispatch_async(dispatch_get_main_queue()){
-                       self.setDefaultCardCardDelegate?.errorResponseForSetDefaultCard(error.localizedDescription)
+                       self.setDefaultCardDelegate?.errorResponseForSetDefaultCard(error.localizedDescription)
                     }
                 }
             }
             dataTask.resume()
         }
         else {
-            self.setDefaultCardCardDelegate?.errorResponseForSetDefaultCard("No network found")
+            self.setDefaultCardDelegate?.errorResponseForSetDefaultCard("No network found")
+        }
+    }
+
+    //MARK : ImpulseSaving
+    func impulseSaving(dictParam:Dictionary<String,AnyObject>)
+    {
+        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 60
+            urlconfig.timeoutIntervalForResource = 60
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlanTransaction",baseURL))!)
+            request.HTTPMethod = "POST"
+            
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            self.impulseSavingDelegate?.successResponseImpulseSavingDelegateAPI(dict)
+                        }
+                    }
+                    else  {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI((response?.description)!)
+                        }
+                    }
+                }
+                else  if let error = error {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI(error.localizedDescription)
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+        else {
+            self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI("No network found")
         }
     }
 }

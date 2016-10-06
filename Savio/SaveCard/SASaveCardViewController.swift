@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,setDefaultCardDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
@@ -160,7 +160,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             let objAPI = API()
-            objAPI.setDefaultCardCardDelegate = self
+            objAPI.setDefaultCardDelegate = self
             var newDict : Dictionary<String,AnyObject> = [:]
             newDict["STRIPE_CUST_ID"] = dict["customer"]
             newDict["CUST_DEFAULT_CARD"] = dict["id"]
@@ -278,7 +278,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             let objAPI = API()
-            objAPI.setDefaultCardCardDelegate = self
+            objAPI.setDefaultCardDelegate = self
             var newDict : Dictionary<String,AnyObject> = [:]
             newDict["STRIPE_CUST_ID"] = dict["customer"]
             newDict["CUST_DEFAULT_CARD"] = dict["id"]
@@ -310,6 +310,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 
             }
         }
+        
         return replaceDict
     }
     
@@ -339,35 +340,55 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
-        objAnimView.removeFromSuperview()
+       
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        if(individualFlag == 1)
+        if(isFromImpulseSaving == false)
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-            
-            let objProgressView = SAProgressViewController()
-            self.navigationController?.pushViewController(objProgressView, animated: true)
-        }
-        else if(groupMemberFlag == 1 || groupFlag == 1)
-        {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-            
-            let objProgressView = SAGroupProgressViewController()
-            self.navigationController?.pushViewController(objProgressView, animated: true)
-        }
-        else if(groupMemberFlag == 1)
-        {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
-            
-            let objProgressView = SAGroupProgressViewController()
-            self.navigationController?.pushViewController(objProgressView, animated: true)
+             objAnimView.removeFromSuperview()
+            if(individualFlag == 1)
+            {
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                let objProgressView = SAProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+            }
+            else if(groupMemberFlag == 1 || groupFlag == 1)
+            {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                let objProgressView = SAGroupProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+            }
+            else if(groupMemberFlag == 1)
+            {
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                
+                let objProgressView = SAGroupProgressViewController()
+                self.navigationController?.pushViewController(objProgressView, animated: true)
+            }
+        }else {
+            let objAPI = API()
+            objAPI.impulseSavingDelegate = self
+            let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            var newDict : Dictionary<String,AnyObject> = [:]
+            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
+            newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
+            newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+            newDict["PAYMENT_TYPE"] = "debit"
+            newDict["AUTH_CODE"] = "test"
+            newDict["PTY_SAVINGPLAN_ID"] = userInfoDict["partyId"] as! NSNumber
+            print(newDict)
+            objAPI.impulseSaving(newDict)
         }
         print(objResponse)
     }
@@ -378,5 +399,18 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         alert.show()
     }
     
+    func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        self.isFromImpulseSaving = false
+        let objImpulseView = SAImpulseSavingViewController()
+        objImpulseView.isFromPayment = true
+        self.navigationController?.pushViewController(objImpulseView, animated: true)
+    }
     
+    func errorResponseForImpulseSavingDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        
+    }
 }

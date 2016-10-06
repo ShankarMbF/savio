@@ -9,7 +9,7 @@
 import UIKit
 import PassKit
 
-class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,setDefaultCardDelegate{
+class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,ImpulseSavingDelegate{
     
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
@@ -602,10 +602,21 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     
                 }else if(self.isFromImpulseSaving){
-                    self.isFromImpulseSaving = false
-                    let objImpulseView = SAImpulseSavingViewController()
-                    objImpulseView.isFromPayment = true
-                    self.navigationController?.pushViewController(objImpulseView, animated: true)
+                    let objAPI = API()
+                    objAPI.impulseSavingDelegate = self
+                    var newDict : Dictionary<String,AnyObject> = [:]
+                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    newDict["STRIPE_CUSTOMER_ID"] = objResponse["customer"]
+                    newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
+                    newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+                    newDict["PAYMENT_TYPE"] = "debit"
+                    newDict["AUTH_CODE"] = "test"
+                    newDict["PTY_SAVINGPLAN_ID"] = userInfoDict["partyId"] as! NSNumber
+                    print(newDict)
+                    objAPI.impulseSaving(newDict)
+
                 }
                 else if(isFromEditUserInfo)
                 {
@@ -628,13 +639,21 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
-    
-    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
+
+    func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
+        self.isFromImpulseSaving = false
+        let objImpulseView = SAImpulseSavingViewController()
+        objImpulseView.isFromPayment = true
+        self.navigationController?.pushViewController(objImpulseView, animated: true)
     }
     
-    func errorResponseForSetDefaultCard(error: String) {
-        print(error)
+    func errorResponseForImpulseSavingDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        alert.show()
+        
     }
+
 }
 

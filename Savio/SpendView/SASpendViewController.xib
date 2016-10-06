@@ -91,16 +91,21 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you have reached your goal you'll be able to use your Savio card." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSW-2g-1ev">
-                    <rect key="frame" x="30" y="160" width="540" height="120"/>
+                    <rect key="frame" x="30" y="141" width="540" height="234"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="vj1-rs-ciZ"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="vj1-rs-ciZ"/>
+                        </mask>
+                    </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're working hard to find you the best place to buy from. Take a look at these deals we've negotiated in the offers page." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-fY-1Wb">
-                    <rect key="frame" x="30" y="300" width="540" height="120"/>
+                    <rect key="frame" x="30" y="400" width="540" height="120"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="06P-Yf-ZPf"/>
                     </constraints>
@@ -112,6 +117,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="f6b-kM-t6F" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2ff-fS-8Mu"/>
+                <constraint firstItem="kSW-2g-1ev" firstAttribute="top" secondItem="aYI-xq-r0R" secondAttribute="bottom" constant="25" id="6ST-4K-Cpf"/>
+                <constraint firstItem="f6b-kM-t6F" firstAttribute="top" secondItem="Pw7-fY-1Wb" secondAttribute="bottom" constant="28" id="7LB-B2-5g3"/>
                 <constraint firstAttribute="bottom" secondItem="f6b-kM-t6F" secondAttribute="bottom" id="7fX-jq-uNv"/>
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="B0M-JR-ebp"/>
                 <constraint firstItem="Pw7-fY-1Wb" firstAttribute="top" secondItem="kSW-2g-1ev" secondAttribute="bottom" constant="20" id="BXY-0E-qpp"/>
@@ -119,6 +126,7 @@
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="MLr-hG-rDz"/>
                 <constraint firstAttribute="trailing" secondItem="Pw7-fY-1Wb" secondAttribute="trailing" constant="30" id="NVF-xs-fyd"/>
                 <constraint firstAttribute="trailing" secondItem="aYI-xq-r0R" secondAttribute="trailing" constant="30" id="WCY-Uc-2lI"/>
+                <constraint firstItem="Pw7-fY-1Wb" firstAttribute="top" secondItem="kSW-2g-1ev" secondAttribute="bottom" constant="25" id="dg1-jz-7DM"/>
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="g1T-1x-Dtg"/>
                 <constraint firstItem="kSW-2g-1ev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="gIb-0l-Pxr"/>
                 <constraint firstAttribute="trailing" secondItem="f6b-kM-t6F" secondAttribute="trailing" id="pQv-U7-fIG"/>
@@ -128,6 +136,8 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="s5V-dX-bmm"/>
+                    <exclude reference="BXY-0E-qpp"/>
                     <exclude reference="x9c-zY-Xlb"/>
                 </mask>
             </variation>

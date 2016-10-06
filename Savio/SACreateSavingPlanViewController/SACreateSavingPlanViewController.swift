@@ -27,16 +27,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     var heartBtn: UIButton = UIButton()    //Heart button on navigation bar
     var colors:[Dictionary<String,AnyObject>] = []
     
+    var tblArr : Array<Dictionary<String,AnyObject>> = []
     //Set default placeholder for all saving plan icon image
     var placeHolderImgArr: Array<String> = ["group-save-category-icon","wedding-category-icon","baby-category-icon","holiday-category-icon","ride-category-icon","home-category-icon","gadget-category-icon","generic-category-icon"]
-    var tblArr : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","header":"Group Save","detail":"Set up savings goal between friends and family","sav-id":"8"]
-        ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","header":"Wedding","detail":"Get great deals on everything from flowers to videos","sav-id":"1"]
-        ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","header":"Baby","detail":"Get everything ready for the new arrival","sav-id":"2"],
-         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","header":"Holiday","detail":"Save up or some sunshine!","sav-id":"3"],
-         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","header":"Ride","detail":"There's always room for another bike.","sav-id":"4"],
-         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","header":"Home","detail":"Time to make that project a reality.","sav-id":"5"],
-         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","header":"Gadget","detail":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
-         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","header":"Generic plan","detail":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
+    var valueArray : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","savDescription":"Set up savings goal between friends and family","sav-id":"8"]
+        ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","title":"Wedding","savDescription":"Get great deals on everything from flowers to videos","sav-id":"1"]
+        ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","title":"Baby","savDescription":"Get everything ready for the new arrival","sav-id":"2"],
+         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","title":"Holiday","savDescription":"Save up or some sunshine!","sav-id":"3"],
+         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","title":"Ride","savDescription":"There's always room for another bike.","sav-id":"4"],
+         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","title":"Home","savDescription":"Time to make that project a reality.","sav-id":"5"],
+         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","title":"Gadget","savDescription":"The one thing you really need, from smartphones to sewing machines.","sav-id":"6"],
+         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","sav-id":"7"]]
     
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"] //Set up list of page on page controller
     
@@ -525,16 +526,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: GetCategorysavingPlan API Delegate method
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         //setup UI and reload tableview
-        self.setUpView()
-        tblView?.scrollsToTop = true
-        tblView?.reloadData()
         
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray
-            self.setUpView()
-            tblView?.scrollsToTop = true
-            tblView?.reloadData()
             if(tblArr.count != 0)
             {
                 for i in 0 ..< tblArr.count {
@@ -546,9 +541,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     }
                 }
             }
+            else {
+                 tblArr = valueArray
+            }
+            self.setUpView()
+            tblView?.scrollsToTop = true
+            tblView?.reloadData()
             //Call get method of offer list
             self.callGetOfferListAPI()
+    
         }
+     
     }
     //function invoke when GetCategorysavingPlan API request fail
     func errorResponseForCategoriesSavingPlanAPI(error: String) {

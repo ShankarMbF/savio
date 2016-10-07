@@ -52,11 +52,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         if(isUpdatePlan)
         {
-            self.title = "Update Saving plan"
+            self.title = "Update plan"
         }
         else
         {
-            self.title = "Savings plan setup"
+            self.title = "Plan setup"
         }
         
         let font = UIFont(name: kBookFont, size: 15)
@@ -637,20 +637,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             if(isPopoverValueChanged) {
                 if(dateString == "day") {
                     if((dateDiff/168) == 1) {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0) {
                         
-                        cell1.calculationLabel.text = String(format: "You will need to save £%d per week for 1 week",cost)
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%d per week for 1 week",cost)
                     }
                     else {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
                     
                 }
                 else {
                     if((dateDiff/168)/4 == 1) {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0) {
                         let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -664,10 +664,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         
                         dateDiff = Int(timeDifference/3600)
                         
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else {
-                        cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                 }
             }
@@ -676,24 +676,24 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(isDateChanged) {
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d months",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
                         }
                     }
                 }
@@ -716,19 +716,19 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         dateDiff = Int(timeDifference/3600)
                         if(payType == "Month") {
                             if((dateDiff/168) == 1) {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             else {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             }
                             
                         }
                         else {
                             if((dateDiff/168)/4 == 1) {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                             }
                             else {
-                                cell1.calculationLabel.text = String(format: "You will need to save £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                             }
                         }
                     }
@@ -1557,6 +1557,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: PartySavingplan methods
     func successResponseForPartySavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
+        print(objResponse)
         if let message = objResponse["message"] as? String {
             if(message  == "Multiple representations of the same entity") {
                 let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")

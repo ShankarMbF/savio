@@ -44,7 +44,7 @@ class SASpendViewController: UIViewController {
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.title = "Spend money"
+        self.title = "Spend now"
         
         //set Navigation right button nav-heart
         let btnName = UIButton()

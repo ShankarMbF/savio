@@ -149,7 +149,7 @@ class SAImpulseSavingViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-        self.title = "Add Extra funds"
+        self.title = "Add more funds"
         
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -304,7 +304,7 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     @IBAction func addFundsButtonPressed(sender: AnyObject) {
-        if(addFundsButton.titleLabel?.text == "ADD FUNDS")
+        if(addFundsButton.titleLabel?.text == "MAKE PAYMENT")
         {
             var tfString: String = priceTextField.text!
             tfString = tfString.chopPrefix(1)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -37,7 +37,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unf-fN-0ho">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel savings plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DX-40-yym">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel plan" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DX-40-yym">
                             <rect key="frame" x="183" y="36" width="235" height="73"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="73" id="8Wh-84-Tfq"/>
@@ -46,7 +46,7 @@
                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel your savings plan?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5v-1W-cps">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to cancel your plan?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5v-1W-cps">
                             <rect key="frame" x="10" y="160" width="580" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="UC1-nH-DAR"/>
@@ -55,11 +55,12 @@
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancelling your savings plan will withdraw any money you have saved from Savio back into your account." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCS-zF-Ar6">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCS-zF-Ar6">
                             <rect key="frame" x="10" y="241" width="580" height="80"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="eMy-IQ-a6e"/>
                             </constraints>
+                            <string key="text">Cancelling your plan will stop all your top ups. Your money will remain on your Savio card and you are able to use it in ATMs and shops as usual.</string>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -100,7 +101,7 @@
                             </constraints>
                             <state key="normal">
                                 <attributedString key="attributedTitle">
-                                    <fragment content="No, I want to keep saving">
+                                    <fragment content="No, I want to keep my plan active">
                                         <attributes>
                                             <color key="NSColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" metaFont="system" size="14"/>
@@ -150,19 +151,27 @@
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aid-gQ-1Sd">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your savings plan has been cancelled" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHp-XT-doJ">
-                            <rect key="frame" x="35" y="30" width="530" height="66"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your plan has been cancelled" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHp-XT-doJ">
+                            <rect key="frame" x="35" y="30" width="530" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="66" id="b4E-3m-LFb"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                             <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="b4E-3m-LFb"/>
+                                </mask>
+                            </variation>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to start a new saving plan?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msI-DK-VFj">
-                            <rect key="frame" x="40" y="266" width="520" height="15"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to start a new plan?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msI-DK-VFj">
+                            <rect key="frame" x="40" y="233" width="520" height="15"/>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLv-21-PrS">
-                            <rect key="frame" x="30" y="289" width="540" height="37"/>
+                            <rect key="frame" x="30" y="256" width="540" height="37"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKj-8R-VCW">
                                     <rect key="frame" x="0.0" y="0.0" width="540" height="35"/>
@@ -198,7 +207,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your money will returned to your bank in the next 5-10 working days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-m4-mN9">
-                            <rect key="frame" x="20" y="111" width="560" height="15"/>
+                            <rect key="frame" x="20" y="78" width="560" height="15"/>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.31764705879999999" green="0.3294117647" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -208,14 +217,14 @@
                     <constraints>
                         <constraint firstItem="msI-DK-VFj" firstAttribute="top" secondItem="gxF-m4-mN9" secondAttribute="bottom" constant="140" id="6iv-uG-FXa"/>
                         <constraint firstItem="DLv-21-PrS" firstAttribute="top" secondItem="msI-DK-VFj" secondAttribute="bottom" constant="8" id="8N6-l5-1Tj"/>
-                        <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="30" id="RSl-lz-Phs"/>
+                        <constraint firstAttribute="trailing" secondItem="jHp-XT-doJ" secondAttribute="trailing" constant="35" id="KfT-IH-MaV"/>
                         <constraint firstItem="gxF-m4-mN9" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="20" id="SCi-Vi-9dC"/>
-                        <constraint firstItem="jHp-XT-doJ" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="35" id="XaW-6b-sfj"/>
+                        <constraint firstItem="jHp-XT-doJ" firstAttribute="top" secondItem="aid-gQ-1Sd" secondAttribute="top" constant="30" id="Yes-Ye-VFk"/>
                         <constraint firstAttribute="trailing" secondItem="gxF-m4-mN9" secondAttribute="trailing" constant="20" id="biX-WI-RFs"/>
-                        <constraint firstAttribute="trailing" secondItem="jHp-XT-doJ" secondAttribute="trailing" constant="35" id="fVe-QZ-28M"/>
                         <constraint firstAttribute="trailing" secondItem="msI-DK-VFj" secondAttribute="trailing" constant="40" id="iUy-w7-0Bd"/>
+                        <constraint firstItem="jHp-XT-doJ" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="35" id="mK3-5q-mXH"/>
                         <constraint firstItem="DLv-21-PrS" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="30" id="oFp-Vc-OSo"/>
-                        <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="15" id="sBk-bC-Xfh"/>
+                        <constraint firstItem="gxF-m4-mN9" firstAttribute="top" secondItem="jHp-XT-doJ" secondAttribute="bottom" constant="15" id="s8L-rk-1tp"/>
                         <constraint firstAttribute="trailing" secondItem="DLv-21-PrS" secondAttribute="trailing" constant="30" id="vOn-Xk-WDj"/>
                         <constraint firstItem="msI-DK-VFj" firstAttribute="leading" secondItem="aid-gQ-1Sd" secondAttribute="leading" constant="40" id="xDy-Uv-7Q4"/>
                     </constraints>

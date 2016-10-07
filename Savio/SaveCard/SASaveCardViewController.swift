@@ -340,13 +340,35 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
-       
+        
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        if(isFromImpulseSaving == false)
+        if(isFromSavingPlan)
         {
-             objAnimView.removeFromSuperview()
+            let objSummaryView = SASavingSummaryViewController()
+            self.navigationController?.pushViewController(objSummaryView, animated: true)
+            
+        }
+        else if (isFromImpulseSaving == true){
+            let objAPI = API()
+            objAPI.impulseSavingDelegate = self
+            let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            var newDict : Dictionary<String,AnyObject> = [:]
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
+            newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
+            newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+            newDict["PAYMENT_TYPE"] = "debit"
+            newDict["AUTH_CODE"] = "test"
+            newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+            print(newDict)
+            objAPI.impulseSaving(newDict)
+        }
+        else {
+            objAnimView.removeFromSuperview()
             if(individualFlag == 1)
             {
                 NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
@@ -373,24 +395,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
-        }else {
-            let objAPI = API()
-            objAPI.impulseSavingDelegate = self
-            let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
-            var newDict : Dictionary<String,AnyObject> = [:]
-            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
-            newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-            newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
-            newDict["PAYMENT_TYPE"] = "debit"
-            newDict["AUTH_CODE"] = "test"
-            newDict["PTY_SAVINGPLAN_ID"] = userInfoDict["partyId"] as! NSNumber
-            print(newDict)
-            objAPI.impulseSaving(newDict)
+            
         }
-        print(objResponse)
     }
     
     func errorResponseForSetDefaultCard(error: String) {
@@ -401,10 +407,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        self.isFromImpulseSaving = false
-        let objImpulseView = SAImpulseSavingViewController()
-        objImpulseView.isFromPayment = true
-        self.navigationController?.pushViewController(objImpulseView, animated: true)
+        if let _ = objResponse["message"] as? String
+        {
+            self.isFromImpulseSaving = false
+            let objImpulseView = SAImpulseSavingViewController()
+            objImpulseView.isFromPayment = true
+            self.navigationController?.pushViewController(objImpulseView, animated: true)
+        }
+        
     }
     
     func errorResponseForImpulseSavingDelegateAPI(error: String) {

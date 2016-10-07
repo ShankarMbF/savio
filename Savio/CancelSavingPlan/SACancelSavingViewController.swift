@@ -19,7 +19,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var  objAnimView = ImageViewAnimation()
     
-    //MARK: ViewController lifeCycle method.
+    //MARK: ViewController lifeCycle method.  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]

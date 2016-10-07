@@ -163,7 +163,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setUpView(){
         savingPlanTitleLabel.hidden = false
         //create attribute text to savingPlanTitleLabel
-        planTitle = String(format: "Our %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "Our %@ plan",savingPlanDetailsDict["title"] as! String)
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(

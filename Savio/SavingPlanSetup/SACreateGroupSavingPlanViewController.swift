@@ -44,7 +44,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
-        self.title = "Savings plan setup"
+        self.title = "Plan setup"
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -234,24 +234,24 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                     }
                     
@@ -261,24 +261,24 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per week for 0 week"
+                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0) {
-                            cell1.calculationLabel.text = "You will need to save £0 per month for 0 month"
+                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
                         }
                         else {
-                            cell1.calculationLabel.text = String(format: "You will need to save £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                     }
                     

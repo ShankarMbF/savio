@@ -1,6 +1,6 @@
  [
   {
-  "title": "Start saving plan",
+  "title": "Start plan",
   "image": "menu-start.png",
   "activeImage": "menu-active-start.png",
   "className": "SACreateSavingPlanViewController",
@@ -14,7 +14,7 @@
   "showInMenu": "Yes"
   },
   {
-  "title": "Update saving plan",
+  "title": "Update plan",
   "image": "menu-update.png",
   "activeImage": "menu-active-update.png",
   "className": "SASavingPlanViewController",
@@ -42,7 +42,7 @@
   "showInMenu": "Yes"
   },
   {
-  "title": "Spend savings",
+  "title": "Spend now",
   "image": "menu-spend.png",
   "activeImage": "menu-active-spend.png",
   "className": "SASpendViewController",

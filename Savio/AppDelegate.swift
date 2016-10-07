@@ -54,7 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let objApi = API()
 //        objApi.deleteKeychainValue("savingPlanDict")
 //        objApi.deleteKeychainValue("saveCardArray")
-        
         //Check if passcode is stored into keychain.
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {

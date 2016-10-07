@@ -156,7 +156,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(sharedPartySavingPlan == 0)
             {
                 if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0) {
-                    cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+                    cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
                 }
@@ -183,7 +183,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         {
             //Not invited for group member
             if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
-                cell.btnSavingPlan?.setTitle("Start saving plan", forState: UIControlState.Normal)
+                cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                 cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.deleteButtonTopSpace.constant = 60
             }

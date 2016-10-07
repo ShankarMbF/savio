@@ -45,7 +45,7 @@
         super.viewDidLoad()
         self.setUpView()
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
-        self.title = "Savings plan setup"
+        self.title = "Plan setup"
        
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black

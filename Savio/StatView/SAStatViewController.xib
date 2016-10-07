@@ -212,7 +212,7 @@
                                 <constraint firstAttribute="height" constant="40" id="V8x-oz-26I"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
-                            <state key="normal" title="MAKE IMPULSE SAVING">
+                            <state key="normal" title="ADD FUNDS">
                                 <color key="titleColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>

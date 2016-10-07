@@ -116,7 +116,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     //set up the UIView
     func setUpView(){
-        planTitle = String(format: "My %@ saving plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["title"] as! String)
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -209,7 +209,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
                 labelOne.hidden = false
                 labelOne.text = "0.0%"
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "£ %0.2f saved",paidAmount)
+                labelTwo.text = String(format: "£ %0.2f added",paidAmount)
                 imgView.hidden = true
                 activityIndicator.hidden = true
             }
@@ -302,6 +302,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     //get users plan delegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")

@@ -144,8 +144,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
                 objAnimView.animate()
                 self.view.addSubview(objAnimView)
+                */
 
- */
+
                   //---------------Comment below code while testing on live authy---------------//
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)
@@ -201,10 +202,12 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     }
     func errorResponseForOTPVerificationAPI(error:String){
         objAnimView.removeFromSuperview()
-        if(error == "Verification code is incorrect")
+        if(error == "Verification code is incorrect.")
         {
-            codeDoesNotMatchLabel.text = error
-            codeDoesNotMatchLabel.hidden = false;
+//            codeDoesNotMatchLabel.text = error
+//            codeDoesNotMatchLabel.hidden = false;
+            let alert = UIAlertView(title: "Incorrect verification code", message: "Please try again or request a new code.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         else
         {

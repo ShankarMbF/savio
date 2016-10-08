@@ -414,7 +414,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -480,7 +480,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 1)
         {
             //if plan already created then restrict user to create all plan
-            let alert = UIAlertView(title: "Alert", message: "You already have an active plan.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "Sorry, can only have one personal plan and be a member of one group plan at a time.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

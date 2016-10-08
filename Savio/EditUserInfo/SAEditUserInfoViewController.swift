@@ -484,7 +484,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -1390,7 +1390,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         {
             if(message == "UserData Updated Successfully")
             {
-                let alert = UIAlertView(title: "Alert", message: "User info updated successfully", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Alert", message: "Personal details updated", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
                 self.createCells()
             }

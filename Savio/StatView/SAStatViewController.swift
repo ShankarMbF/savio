@@ -211,7 +211,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Alert", message: "You have no items in your wishlist", delegate: nil, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -386,7 +386,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             facebookSheet.setInitialText("Share on Facebook")
             self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "You’re not logged into Facebook", message: "You need to login to Facebook to be able share this.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -399,7 +399,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             twitterSheet.setInitialText("Share on Twitter")
             self.presentViewController(twitterSheet, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Twitter isn’t set up", message: "You can add your twitter account in the iOS Settings screens", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -429,7 +429,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                     }
                 } else {
                     //Whatsapp not install in device
-                    let alert = UIAlertController(title: "Accounts", message: "Your device has not WhatsApp installed.", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "No Whatsapp account set up", message: "Your What’s app account isn’t connected to iOS.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }

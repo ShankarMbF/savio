@@ -420,7 +420,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()
-            let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Welcome back! You need to create you a new passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()

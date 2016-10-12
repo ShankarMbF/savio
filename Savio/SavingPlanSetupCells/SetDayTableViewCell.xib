@@ -126,6 +126,7 @@
                 <outlet property="dayDateTextField" destination="VFk-f7-AHB" id="1ET-YK-Yze"/>
                 <outlet property="dropDownImageView" destination="LrU-of-bI0" id="Ez5-fI-3u7"/>
                 <outlet property="segmentBar" destination="6PP-vq-H1I" id="bHB-lU-TEN"/>
+                <outlet property="titleLbl" destination="yeh-6F-lio" id="Kfn-KJ-cbu"/>
             </connections>
             <point key="canvasLocation" x="-667" y="74.5"/>
         </tableViewCell>

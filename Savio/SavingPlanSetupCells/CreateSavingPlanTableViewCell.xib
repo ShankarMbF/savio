@@ -38,7 +38,7 @@
                             <constraint firstAttribute="height" constant="40" id="dfo-eP-3FR"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
-                        <state key="normal" title="Create saving plan">
+                        <state key="normal" title="Create plan">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

@@ -21,6 +21,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     @IBOutlet weak var BGContentView: UIView!
     @IBOutlet weak var dayDateTextField: UITextField!
     @IBOutlet weak var dayDateLabel: UILabel!
+    @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var dropDownImageView: UIImageView!
     @IBOutlet weak var segmentBar: CustomSegmentBar!
 
@@ -48,7 +49,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         leftView.backgroundColor = UIColor.clearColor()
         dayDateTextField.leftView = leftView
         dayDateTextField.leftViewMode = UITextFieldViewMode.Always
-        
+        print(colorDataDict["savPlanID"])
+        if(colorDataDict["savPlanID"] as! Int == 92) {
+            titleLbl.text = "Adding funds every"
+        }
         //add corner radius to textfield
         let maskPath1: UIBezierPath = UIBezierPath(roundedRect: dayDateTextField!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer1: CAShapeLayer = CAShapeLayer()

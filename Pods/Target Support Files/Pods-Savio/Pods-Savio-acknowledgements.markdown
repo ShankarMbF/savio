@@ -5,6 +5,10 @@ This application makes use of the following third party libraries:
 
 Copyright 2016 Google
 
+## FirebaseCore
+
+Copyright 2016 Google
+
 ## FirebaseInstanceID
 
 Copyright 2016 Google
@@ -15,19 +19,19 @@ Copyright 2016 Google Inc.
 
 ## GoogleAppUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleAuthUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleInterchangeUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleNetworkingUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleSignIn
 
@@ -35,11 +39,11 @@ Copyright 2015 Google Inc. All Rights Reserved.
 
 ## GoogleSymbolUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleUtilities
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## Stripe
 

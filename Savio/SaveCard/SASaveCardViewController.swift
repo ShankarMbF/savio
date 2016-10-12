@@ -157,8 +157,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
+            
             let objAPI = API()
             objAPI.setDefaultCardDelegate = self
             var newDict : Dictionary<String,AnyObject> = [:]
@@ -275,6 +278,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
             let objAPI = API()

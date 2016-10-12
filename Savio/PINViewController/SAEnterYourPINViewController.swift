@@ -281,13 +281,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
         
-        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
-        {
-            if let savedCard = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-            {
+        if (groupPlan == 1 || individualPlan == 1 || groupMemberPlan == 1) {
                 let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
                 self.navigationController?.pushViewController(objContainer, animated: true)
-            }
+        
         }else {
             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
             self.navigationController?.pushViewController(objHurrrayView, animated: true)

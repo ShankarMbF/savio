@@ -103,7 +103,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         else {
             spinner.stopAnimating()
             spinner.hidden = true
-            let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "You’re not logged into Savio", message: "Open the app and login or register before adding wish list items.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -279,11 +279,23 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     func errorResponseForShareExtensionAPI(error: String) {
         spinner.stopAnimating()
         spinner.hidden = true
-        let alert = UIAlertController(title: "Warning", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
-        { action -> Void in
-            self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
-            })
-        self.presentViewController(alert, animated: true, completion: nil)
+        if(error == "No network found")
+        {
+            let alert = UIAlertController(title: "Connection problem", message: "Savio needs the internet to Save wish list items. Check your data connection and try again.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+            { action -> Void in
+                self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+                })
+            self.presentViewController(alert, animated: true, completion: nil)
+        }else {
+            let alert = UIAlertController(title: "Warning", message: error, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+            { action -> Void in
+                self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
+                })
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }
+       
     }
 }

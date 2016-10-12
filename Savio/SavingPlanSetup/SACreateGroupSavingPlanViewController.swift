@@ -749,7 +749,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let objAPI = API()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
                 
-                
                 if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()

@@ -28,11 +28,11 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         paragraphStyle.alignment = NSTextAlignment.Center
-        let attrString = NSMutableAttributedString(string: "Cancelling your savings plan will withdraw any money you have saved from Savio back into your account.")
+        let attrString = NSMutableAttributedString(string: "Cancelling your plan will stop all regular top ups. Your money will remain on your Savio card and you are able to use it in ATMs and shops as usual.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         cancelDetailLabel.attributedText = attrString
         
-        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new saving plan?")
+        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new plan?")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
         
@@ -49,7 +49,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-        self.title = "Update saving plan"
+        self.title = "Plan setup"
         
         //set Navigation left button
         let leftBtnName = UIButton()

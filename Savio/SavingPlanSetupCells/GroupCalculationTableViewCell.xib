@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,9 +21,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZs-4l-H7x">
-                        <rect key="frame" x="20" y="56" width="280" height="40"/>
+                        <rect key="frame" x="20" y="50" width="280" height="49"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="MtX-I4-IS8"/>
+                            <constraint firstAttribute="height" constant="49" id="MtX-I4-IS8"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="12"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,9 +45,14 @@
                     <constraint firstItem="b3O-H4-Wak" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="E9a-vU-XXZ"/>
                     <constraint firstItem="nZs-4l-H7x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="FuP-cB-HRh"/>
                     <constraint firstAttribute="trailing" secondItem="nZs-4l-H7x" secondAttribute="trailing" constant="20" id="Rbp-lM-grH"/>
-                    <constraint firstAttribute="bottom" secondItem="nZs-4l-H7x" secondAttribute="bottom" constant="3" id="gWH-Qc-nV0"/>
+                    <constraint firstAttribute="bottom" secondItem="nZs-4l-H7x" secondAttribute="bottom" id="gWH-Qc-nV0"/>
                     <constraint firstItem="b3O-H4-Wak" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="hT5-xV-liY"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="0a6-5X-hZj"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
             <connections>

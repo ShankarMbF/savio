@@ -1489,7 +1489,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let underlineAttributedString = NSAttributedString(string: "edit", attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,NSForegroundColorAttributeName:UIColor.whiteColor()])
                 cameraButton.setAttributedTitle(underlineAttributedString, forState: UIControlState.Normal)
                 itemTitle = itemDetailsDataDict["title"] as! String
-                self.title = "Update Saving plan"
+                self.title = "Update plan"
                 cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                 var pathComponents2 : NSArray!
                 pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")

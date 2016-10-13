@@ -9,9 +9,9 @@
         <mutableArray key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
             <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
         </mutableArray>
         <mutableArray key="gotham-rounded-book-2.otf">
+            <string>GothamRounded-Book</string>
             <string>GothamRounded-Book</string>
         </mutableArray>
     </customFonts>
@@ -30,7 +30,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Rzp-Wj-qzb"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>

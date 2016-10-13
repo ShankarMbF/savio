@@ -104,7 +104,7 @@
                         </mask>
                     </variation>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're working hard to find the great offers from our partners. Take a look at these deals we've negotiated in the offers tab." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-fY-1Wb">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We’re working hard to find your great offers from our partners. Take a look at the deals we’ve negotiated in the offers tab." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-fY-1Wb">
                     <rect key="frame" x="30" y="400" width="540" height="120"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="06P-Yf-ZPf"/>

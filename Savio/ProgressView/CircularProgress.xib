@@ -30,11 +30,11 @@
                                 <activityIndicatorView opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="We0-eo-g6b">
                                     <rect key="frame" x="90" y="90" width="20" height="20"/>
                                 </activityIndicatorView>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                                    <rect key="frame" x="25" y="101" width="150" height="50"/>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
+                                    <rect key="frame" x="25" y="101" width="150" height="60"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
-                                        <constraint firstAttribute="height" constant="50" id="myv-oh-nu9"/>
+                                        <constraint firstAttribute="height" constant="60" id="myv-oh-nu9"/>
                                         <constraint firstAttribute="width" constant="150" id="xBj-9G-ey1"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>

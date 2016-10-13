@@ -121,7 +121,7 @@ class SASavingSummaryViewController: UIViewController {
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         //----------------------------------------------------
-        self.title = "Your saving plan" // Setting title of summary View
+        self.title = "Your plan" // Setting title of summary View
         
         //--------set Navigation right button nav-heart----------------------
         let btnName = UIButton()

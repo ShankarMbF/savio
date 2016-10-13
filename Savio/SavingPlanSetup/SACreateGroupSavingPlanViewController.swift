@@ -230,7 +230,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             if(isDateChanged) {
                 if parameterDict["isUpdate"]!.isEqualToString("Yes")
                 {
-                    cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(groupMemberCount)),cost/(groupMemberCount),cost)
+                    cell1.percentageCalculationLabel.text = String(format: "The plan is split equally between everyone. You have %.2f%% of the plan which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(groupMemberCount)),cost/(groupMemberCount),cost)
                     
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
@@ -258,7 +258,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     
                 }else {
                     
-                    cell1.percentageCalculationLabel.text = String(format: "You are saving for %.2f%% which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
+                    cell1.percentageCalculationLabel.text = String(format: "The plan is split equally between everyone. You have %.2f%% of the plan which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
@@ -645,6 +645,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
+        print(objResponse)
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
@@ -711,6 +712,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of Invite members API
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
+            print(objResponse)
         if let message = objResponse["message"] as? String  {
             if(message == "Invited user successfully") {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")

@@ -348,6 +348,7 @@
 		A8BDCBFC1D05557500D4C47B /* wedding-setup-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCBD21D05557500D4C47B /* wedding-setup-bg@2x.png */; };
 		A8BDCC0C1D05936F00D4C47B /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BDCC0A1D05936F00D4C47B /* icon-60.png */; };
 		A8CCACE11D0AB5F70075A778 /* CustomSegmentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */; };
+		A8DA14C71DB10BFB00AC05D2 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A8DA14C61DB10BFB00AC05D2 /* Arrow.png */; };
 		A8DE13F91D50A2DD00C20695 /* ShareExtension.js in Resources */ = {isa = PBXBuildFile; fileRef = A8DE13F81D50A2DD00C20695 /* ShareExtension.js */; };
 		A8E3CA221D79AC86002B792C /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA1E1D79AC86002B792C /* Default-667h@2x.png */; };
 		A8E3CA231D79AC86002B792C /* Default-portrait-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A8E3CA1F1D79AC86002B792C /* Default-portrait-736h@3x.png */; };
@@ -964,6 +965,7 @@
 		A8BDCBD21D05557500D4C47B /* wedding-setup-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wedding-setup-bg@2x.png"; sourceTree = "<group>"; };
 		A8BDCC0A1D05936F00D4C47B /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-60.png"; sourceTree = "<group>"; };
 		A8CCACE01D0AB5F70075A778 /* CustomSegmentBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSegmentBar.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A8DA14C61DB10BFB00AC05D2 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Arrow.png; path = "../arrow image/Arrow.png"; sourceTree = "<group>"; };
 		A8DE13F81D50A2DD00C20695 /* ShareExtension.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ShareExtension.js; sourceTree = "<group>"; };
 		A8E3CA1E1D79AC86002B792C /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		A8E3CA1F1D79AC86002B792C /* Default-portrait-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-portrait-736h@3x.png"; sourceTree = "<group>"; };
@@ -1491,6 +1493,7 @@
 		A86D2E591D66CDF0000D7D8A /* ArrowImages */ = {
 			isa = PBXGroup;
 			children = (
+				A8DA14C61DB10BFB00AC05D2 /* Arrow.png */,
 				C9E854F01CF44B4A006213BF /* down-arrow-15x15.png */,
 				C9E854F11CF44B4A006213BF /* down-arrow-30x30.png */,
 				C9E854F21CF44B4A006213BF /* down-arrow-45x45.png */,
@@ -2856,6 +2859,7 @@
 				C975A9381D01952900184C8C /* home-category-icon@3x.png in Resources */,
 				A827961E1D1A71B300097E75 /* GroupsavingViewController.xib in Resources */,
 				A86D629F1D20F26E00B2087D /* CancelButtonTableViewCell.xib in Resources */,
+				A8DA14C71DB10BFB00AC05D2 /* Arrow.png in Resources */,
 				C9ED80371D1BC38A00058A96 /* menu-active-start@3x.png in Resources */,
 				A8BDCBFB1D05557500D4C47B /* wedding-setup-bg.png in Resources */,
 				C975A9391D01952900184C8C /* ride-category-icon.png in Resources */,

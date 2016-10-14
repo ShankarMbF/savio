@@ -159,7 +159,6 @@ class SASavingSummaryViewController: UIViewController {
         continueButtonBackgroundView.layer.cornerRadius = 5
         btnContinue!.layer.cornerRadius = 5
         
-   
         let objAPI = API()
         if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
@@ -171,7 +170,7 @@ class SASavingSummaryViewController: UIViewController {
                 //Invited user list present
                 if arr.count > 0 {
                     
-                    //----------------Set up height as per uinvited user count-----------------------
+                    //----------------Set up height as per invited user count-----------------------
                     let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
                     //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
                     groupViewHt.constant = ht //+ 10

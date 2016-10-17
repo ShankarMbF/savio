@@ -963,9 +963,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             if(str == payTypeStr)  {
                 popOverSelectedStr = dateFromUpdatePlan
+                 tblView.reloadData()
             }
             else {
                 popOverSelectedStr = ""
+                 tblView.reloadData()
             }
             isClearPressed  = false
             
@@ -980,7 +982,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         isChangeSegment = true
         isPopoverValueChanged = true
-          tblView.reloadData()
+        
     }
     
     //This is SavingPlanDatePickerCellDelegate method used to get the selected end date for user’s plan.

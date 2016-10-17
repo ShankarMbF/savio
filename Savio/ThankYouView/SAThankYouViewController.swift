@@ -109,7 +109,7 @@ class SAThankYouViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
             NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
         }
-        else if(plan == "groupPlan" || groupFlag == 1)
+        else if(plan == "groupPlan" || groupFlag == 1)//group plan
         {
             NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -118,7 +118,7 @@ class SAThankYouViewController: UIViewController {
             let objProgressView = SAGroupProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
         }
-        else if(plan == "groupMemberPlan" || groupMemberFlag == 1)
+        else if(plan == "groupMemberPlan" || groupMemberFlag == 1)//Group member plan
         {
             NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
             NSUserDefaults.standardUserDefaults().synchronize()

@@ -270,11 +270,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.pushViewController(objPaymentView, animated: true)
     }
     
+    //Go to SAEditUserInfoViewController
     @IBAction func profileButtonPressed(sender: UIButton) {
         let objEditUserInfo = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
         self.navigationController?.pushViewController(objEditUserInfo, animated: true)
     }
     
+    //Call the API to set selected card as Default card
     @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
@@ -319,6 +321,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         return replaceDict
     }
     
+     // MARK: - API Response
+    //Success reponse of GetListOfUsersCardsDelegate
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
@@ -338,14 +342,16 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
     }
     
+    //Error reponse of GetListOfUsersCardsDelegate
     func errorResponseForGetListOfUsersCards(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
-    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>) {
-        
+    //Success reponse of SetDefaultCardDelegate
+    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>)
+    {
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
@@ -374,6 +380,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
         else {
             objAnimView.removeFromSuperview()
+            //Navigate user to Progress screen
             if(individualFlag == 1)
             {
                 NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
@@ -403,13 +410,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             
         }
     }
-    
+     //Success reponse of SetDefaultCardDelegate
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
+    //Success reponse of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         if let _ = objResponse["message"] as? String
@@ -422,6 +430,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
+    //Success reponse of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

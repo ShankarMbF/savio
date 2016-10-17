@@ -36,7 +36,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     var isFromGroupMemberPlan = false
     var isFromImpulseSaving = false
     var isFromEditUserInfo = false
-    var showCardInfo = false
     var doNotShowBackButton = true
     var addNewCard = false
     
@@ -151,31 +150,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         saveButtonBgView.layer.cornerRadius = 2.0
         saveButton.layer.cornerRadius = 2.0
         
-        if(showCardInfo)
-        {
-            if let saveCardInfo = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
-            {
-                
-                cardHoldersNameTextField.secureTextEntry = true
-                cardHoldersNameTextField.text = "test"
-                
-                cardNumberTextField.secureTextEntry = true
-                cardNumberTextField.text = "testtesttesttest"
-                
-                if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
-                {
-                    if let _ = activeCard["cardNumber"] as? String
-                    {
-                        expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["cardExpMonth"] as? Int)!,(saveCardInfo["cardExpDate"] as?
-                            Int)!%100)
-                    }
-                    else{
-                        expiryMonthYearTextField.text = String(format:"%d/%d",(saveCardInfo["expMonth"] as? Int)!,(saveCardInfo["expYear"] as?
-                            Int)!%100)
-                    }
-                }
-            }
-        }
     }
     
     
@@ -213,123 +187,110 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.navigationController?.view.addSubview(self.objAnimView)
-        
+        //Check validations of Textfields
         if(checkTextFieldValidation() == false)
         {
-            if(showCardInfo)
-            {
-                /*
-                 if let saveCardInfo = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
-                 {
-                 stripeCard.cvc = cvvTextField.text
-                 stripeCard.number = cardNumberTextField.text
-                 stripeCard.expYear = (saveCardInfo["expMonth"] as? UInt)!
-                 stripeCard.expMonth = (saveCardInfo["expYear"] as? UInt)!
-                 }
-                 */
-                let objThankyYouView = SAThankYouViewController()
-                self.navigationController?.pushViewController(objThankyYouView, animated: true)
-            }
-            else {
-                stripeCard.cvc = cvvTextField.text
-                stripeCard.number = cardNumberTextField.text
-                stripeCard.expYear = UInt(picker.year)
-                stripeCard.expMonth = UInt(picker.month)
-                
-                STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
-                    print(token?.tokenId)
-                    self.errorFlag = false
-                    print(error?.localizedDescription)
-                    if((error) != nil)
+            //Customize Stripe card
+            stripeCard.cvc = cvvTextField.text
+            stripeCard.number = cardNumberTextField.text
+            stripeCard.expYear = UInt(picker.year)
+            stripeCard.expMonth = UInt(picker.month)
+            //Stripe create token closure
+            STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
+                print(token?.tokenId)
+                self.errorFlag = false
+                print(error?.localizedDescription)
+                if((error) != nil)
+                {
+                    self.objAnimView.removeFromSuperview()
+                    self.cardNumberErrorLabel.text = "Enter valid card details"
+                    self.cardNumberTextFieldTopSpace.constant = 35
+                    if(error?.localizedDescription == "Your card\'s number is invalid")
                     {
-                        self.objAnimView.removeFromSuperview()
-                        self.cardNumberErrorLabel.text = "Enter valid card details"
-                        self.cardNumberTextFieldTopSpace.constant = 35
-                        if(error?.localizedDescription == "Your card\'s number is invalid")
-                        {
-                            self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.cardNumberTextField.textColor = UIColor.redColor()
-                        } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
-                            self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        }
-                        else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
-                            self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        }
-                        else if(error?.localizedDescription == "Your card\'s security code is invalid") {
-                            self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.cvvTextField.textColor = UIColor.redColor()
-                        }
+                        self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.cardNumberTextField.textColor = UIColor.redColor()
+                    } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
+                        self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.expiryMonthYearTextField.textColor = UIColor.redColor()
                     }
-                    else {
-                        let objAPI = API()
-                        let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-                        var array : Array<Dictionary<String,AnyObject>> = []
-                        let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-                        if(self.addNewCard == true)
+                    else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
+                        self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                    }
+                    else if(error?.localizedDescription == "Your card\'s security code is invalid") {
+                        self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.cvvTextField.textColor = UIColor.redColor()
+                    }
+                }
+                else {
+                    let objAPI = API()
+                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    var array : Array<Dictionary<String,AnyObject>> = []
+                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    //If user is adding new card call AddNewSavingCardDelegate
+                    if(self.addNewCard == true)
+                    {
+                        if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                         {
-                            if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                            {
-                                array = saveCardArray
-                                var cardNumberArray : Array<String> = []
-                                for i in 0 ..< array.count{
-                                    let newDict = array[i]
-                                    cardNumberArray.append(newDict["cardNumber"] as! String)
-                                }
-                                if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
-                                {
-                                    array.append(dict1)
-                                    NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-                                    NSUserDefaults.standardUserDefaults().synchronize()
-                                    objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
-                                    
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
-                                    objAPI.addNewSavingCardDelegate = self
-                                    objAPI.addNewSavingCard(dict)
-                                    self.addNewCard = false
-                                    
-                                }
-                                else {
-                                    self.objAnimView.removeFromSuperview()
-                                    //show alert view controller if card is already added
-                                    let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
-                                    //alert view controll action method
-                                    alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
-                                    { action -> Void in
-                                        self.navigationController?.popViewControllerAnimated(true)
-                                        })
-                                    self.presentViewController(alertController, animated: true, completion: nil)
-                                }
+                            array = saveCardArray
+                            var cardNumberArray : Array<String> = []
+                            for i in 0 ..< array.count{
+                                let newDict = array[i]
+                                cardNumberArray.append(newDict["cardNumber"] as! String)
                             }
-                            else {
-                                let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
-                                objAPI.addSavingCardDelegate = self
-                                objAPI.addSavingCard(dict)
-                            }
-                        }
-                        else {
-                            array.append(dict1)
-                            NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-                            NSUserDefaults.standardUserDefaults().synchronize()
-                            objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
-                            
-                            if(self.addNewCard == true)
+                            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
                             {
+                                array.append(dict1)
+                                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                                NSUserDefaults.standardUserDefaults().synchronize()
+                                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                                
                                 let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
                                 objAPI.addNewSavingCardDelegate = self
                                 objAPI.addNewSavingCard(dict)
                                 self.addNewCard = false
-                            } else {
-                                let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
-                                objAPI.addSavingCardDelegate = self
-                                objAPI.addSavingCard(dict)
+                                
                             }
-                            
+                            else {
+                                self.objAnimView.removeFromSuperview()
+                                //show alert view controller if card is already added
+                                let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                                //alert view controll action method
+                                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+                                { action -> Void in
+                                    self.navigationController?.popViewControllerAnimated(true)
+                                    })
+                                self.presentViewController(alertController, animated: true, completion: nil)
+                            }
+                        }
+                        else {
+                            //Call AddSavingCardDelegate
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                            objAPI.addSavingCardDelegate = self
+                            objAPI.addSavingCard(dict)
                         }
                     }
-                })
-            }
+                    else {
+                        array.append(dict1)
+                        NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                        
+                        if(self.addNewCard == true)
+                        {
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                            objAPI.addNewSavingCardDelegate = self
+                            objAPI.addNewSavingCard(dict)
+                            self.addNewCard = false
+                        } else {
+                            let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                            objAPI.addSavingCardDelegate = self
+                            objAPI.addSavingCard(dict)
+                        }
+                        
+                    }
+                }
+            })
         }
         else {
             errorFlag = false
@@ -549,6 +510,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         objAnimView.removeFromSuperview()
     }
     
+    // MARK: - API Response
+    //Success response of AddSavingCardDelegate
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
@@ -571,6 +534,15 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         objImpulseView.isFromPayment = true
                         self.navigationController?.pushViewController(objImpulseView, animated: true)
                     }
+                    else if(isFromEditUserInfo)
+                    {
+                        let objSavedCardView = SASaveCardViewController()
+                        objSavedCardView.isFromEditUserInfo = true
+                        objSavedCardView.isFromImpulseSaving = true
+                        objSavedCardView.showAlert = true
+                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
+                    }
+                        
                     else {
                         let objSummaryView = SASavingSummaryViewController()
                         self.navigationController?.pushViewController(objSummaryView, animated: true)
@@ -581,12 +553,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
     }
     
+    //Error response of AddSavingCardDelegate
     func errorResponseForAddSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
+    //Success response of AddNewSavingCardDelegate
     func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
@@ -616,7 +590,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     newDict["PTY_SAVINGPLAN_ID"] = userInfoDict["partyId"] as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)
-
                 }
                 else if(isFromEditUserInfo)
                 {
@@ -634,12 +607,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
     }
     
+    //error response of AddNewSavingCardDelegate
     func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
-
+    
+    //Success response of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         self.isFromImpulseSaving = false
@@ -648,12 +623,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         self.navigationController?.pushViewController(objImpulseView, animated: true)
     }
     
+    //Error response of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         
     }
-
+    
 }
 

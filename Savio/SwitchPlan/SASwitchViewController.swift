@@ -157,7 +157,6 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             if(message == "Successfully received")
             {
                 usersPlanArray = (objResponse["lstPartysavingplan"] as? Array<Dictionary<String,AnyObject>>)!
-                
                 let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
                 planOneButton .setTitle(dictOne["title"] as? String , forState: .Normal)
                 self.view.bringSubviewToFront(planOneButton)

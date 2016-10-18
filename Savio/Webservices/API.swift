@@ -1429,7 +1429,6 @@ class API: UIView,NSURLSessionDelegate {
                     }
                 }
             }
-            
             dataTask.resume()
         }
         else {

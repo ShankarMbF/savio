@@ -42,14 +42,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func setUpView(){
         let objAPI = API()
@@ -195,6 +190,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             stripeCard.number = cardNumberTextField.text
             stripeCard.expYear = UInt(picker.year)
             stripeCard.expMonth = UInt(picker.month)
+            
             //Stripe create token closure
             STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
                 print(token?.tokenId)
@@ -411,14 +407,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
     }
     
-    func phoneNumberValidation(value: String) -> Bool {
-        let charcter  = NSCharacterSet(charactersInString: "0123456789").invertedSet
-        var filtered:NSString!
-        let inputString:NSArray = value.componentsSeparatedByCharactersInSet(charcter)
-        filtered = inputString.componentsJoinedByString("")
-        return  value == filtered
-    }
-    
     
     func checkTextFieldContentSpecialChar(str:String)->Bool{
         let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
@@ -521,7 +509,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 {
                     if(self.isFromGroupMemberPlan == true)
                     {
-                        //Navigate to showing group progress
+                        //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
                         NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
                         NSUserDefaults.standardUserDefaults().synchronize()

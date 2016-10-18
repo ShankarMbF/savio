@@ -79,7 +79,13 @@ class SAImpulseSavingViewController: UIViewController {
                                                    blue : 58/255, alpha: 1)
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.hidden = true
-            priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+            if let _ = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
+            {
+               priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+            }else {
+                priceLabel.text = "£0"
+            }
+            
             circleSlider.hidden = true
             priceLabel.hidden = false
             anotherStepLabel.hidden = false

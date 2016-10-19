@@ -64,18 +64,32 @@ class ContainerViewController: UIViewController {
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        
-        
-        if individualFlag == 1 { //Individual plan
-            self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
-        }
-        else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
         {
-            self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+            //As per flag show the progress view of plan
+            if usersPlan == "I"{
+                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            }
+            else
+            {
+                self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+            }
+
         }
-        else {//create saving plan if no plan exist
-            self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+        else {
+            if individualFlag == 1 { //Individual plan
+                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            }
+            else if(groupFlag == 1 || groupMemberFlag == 1) //Group or group member plan
+            {
+                self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+            }
+            else {//create saving plan if no plan exist
+                self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
+            }
         }
+        
+   
     }
     
     //function invoke on tapping menu button.

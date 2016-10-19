@@ -78,6 +78,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="400" id="qIL-de-JlS"/>
                             </constraints>
+                            <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="FIU-OE-1fa"/>
                                 <outlet property="delegate" destination="-1" id="Vkj-uP-3L7"/>

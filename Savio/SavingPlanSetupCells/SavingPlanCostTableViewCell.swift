@@ -49,7 +49,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
         customToolBar!.items = [acceptButton]
         costTextField.inputAccessoryView = customToolBar
-
+        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -59,13 +59,19 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     
     func doneBarButtonPressed() {
-        costTextField.resignFirstResponder()
-        var textFieldValue: String  = (costTextField?.text)!
-        textFieldValue = textFieldValue.chopPrefix(1)
-        slider.value = Float(textFieldValue)!
-        delegate?.txtFieldCellText(self)
-        if(Float(textFieldValue)! > 3000) {
-            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+        if(costTextField.text?.characters.count > 1)
+        {
+            costTextField.resignFirstResponder()
+            var textFieldValue: String  = (costTextField?.text)!
+            textFieldValue = textFieldValue.chopPrefix(1)
+            slider.value = Float(textFieldValue)!
+            delegate?.txtFieldCellText(self)
+            if(Float(textFieldValue)! > 3000) {
+                let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        }else{
+            let alert = UIAlertView(title: "Warning", message: "Please enter cost", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -105,7 +111,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     //get the color for selected theme
     func setUpColor()-> UIColor
     {
-      return ColorCodes.colorForCode(colorDataDict["savPlanID"] as! Int)
+        return ColorCodes.colorForCode(colorDataDict["savPlanID"] as! Int)
     }
     
     //UISegmentcontrol value changed method
@@ -182,18 +188,18 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         let combinedString = textField.text! + string
         let valueString = combinedString.chopPrefix(1)
         if valueString.characters.count == 0 {
-            return false 
+            return false
         }
         if(Float(valueString)! > 3000)
         {
-             self.costTextField.attributedText = self.createAttributedString("£3000")
+            self.costTextField.attributedText = self.createAttributedString("£3000")
             slider.value = 3000
             let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             return false
         }
         if combinedString.characters.count < 6 {
-        self.costTextField.attributedText = self.createAttributedString(combinedString)
+            self.costTextField.attributedText = self.createAttributedString(combinedString)
             slider.value = Float(valueString)!
         }
         return false

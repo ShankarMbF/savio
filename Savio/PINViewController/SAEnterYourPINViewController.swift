@@ -270,6 +270,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
         
+        let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
+        objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
+        
         let groupPlan = objResponse["G"] as! NSNumber
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber

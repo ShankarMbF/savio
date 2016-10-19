@@ -221,8 +221,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 else {
                     let objAPI = API()
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    
                     var array : Array<Dictionary<String,AnyObject>> = []
                     let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    
                     //If user is adding new card call AddNewSavingCardDelegate
                     if(self.addNewCard == true)
                     {
@@ -270,16 +272,19 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         array.append(dict1)
                         NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
                         NSUserDefaults.standardUserDefaults().synchronize()
+                        
                         objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
                         
                         if(self.addNewCard == true)
                         {
                             let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                            
                             objAPI.addNewSavingCardDelegate = self
                             objAPI.addNewSavingCard(dict)
                             self.addNewCard = false
                         } else {
                             let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                            
                             objAPI.addSavingCardDelegate = self
                             objAPI.addSavingCard(dict)
                         }
@@ -515,22 +520,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         NSUserDefaults.standardUserDefaults().synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
-                        
-                    }else if(self.isFromImpulseSaving){
-                        self.isFromImpulseSaving = false
-                        let objImpulseView = SAImpulseSavingViewController()
-                        objImpulseView.isFromPayment = true
-                        self.navigationController?.pushViewController(objImpulseView, animated: true)
                     }
-                    else if(isFromEditUserInfo)
-                    {
-                        let objSavedCardView = SASaveCardViewController()
-                        objSavedCardView.isFromEditUserInfo = true
-                        objSavedCardView.isFromImpulseSaving = true
-                        objSavedCardView.showAlert = true
-                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
-                    }
-                        
                     else {
                         let objSummaryView = SASavingSummaryViewController()
                         self.navigationController?.pushViewController(objSummaryView, animated: true)
@@ -544,12 +534,19 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Error response of AddSavingCardDelegate
     func errorResponseForAddSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
         let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     //Success response of AddNewSavingCardDelegate
     func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successfull")
@@ -566,11 +563,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 }else if(self.isFromImpulseSaving){
                     let objAPI = API()
                     objAPI.impulseSavingDelegate = self
+                    
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
-                    newDict["STRIPE_CUSTOMER_ID"] = objResponse["customer"]
+                    newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
                     newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
                     newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
                     newDict["PAYMENT_TYPE"] = "debit"
@@ -598,8 +597,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //error response of AddNewSavingCardDelegate
     func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     //Success response of ImpulseSavingDelegate
@@ -614,8 +619,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Error response of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
         
     }
     

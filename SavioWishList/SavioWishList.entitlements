@@ -5,6 +5,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.mbf.savio</string>
+		<string>group.com.extension-demo</string>
 	</array>
 </dict>
 </plist>

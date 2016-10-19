@@ -621,7 +621,7 @@ class API: UIView,NSURLSessionDelegate {
         //Save the value of password into keychain
         KeychainItemWrapper.save(key, data: value)
         
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = NSKeyedArchiver.archivedDataWithRootObject(value)
         defaults.setObject(data, forKey: key)
     }
@@ -641,7 +641,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func sendWishList(dict:Dictionary<String,AnyObject>)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String
@@ -713,7 +713,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String
@@ -775,7 +775,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func createPartySavingPlan(dict:Dictionary<String,AnyObject>,isFromWishList:String)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String
@@ -1315,7 +1315,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func sendInviteMembersList(dict:Dictionary<String,AnyObject>)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String
@@ -1440,7 +1440,7 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Add saving card
     func addSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String
@@ -1533,7 +1533,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func addNewSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.web.share.extention")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         let data = defaults.valueForKey("userInfo") as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
         let cookie = userInfoDict["cookie"] as! String

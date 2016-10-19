@@ -1641,7 +1641,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String
         {
-            
             //Create a dictionary to send SASavingSummaryViewController
             var dict :  Dictionary<String,AnyObject> = [:]
             dict["title"] = itemTitle

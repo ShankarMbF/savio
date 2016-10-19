@@ -142,11 +142,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //NavigationBar button methods
     func backButtonClicked()
     {
@@ -324,6 +319,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
      // MARK: - API Response
     //Success reponse of GetListOfUsersCardsDelegate
     func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successfully Received")

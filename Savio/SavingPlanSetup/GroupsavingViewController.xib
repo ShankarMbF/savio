@@ -40,6 +40,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="500" id="PSm-Dy-U60"/>
                                     </constraints>
+                                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="e8W-ss-OOG"/>
                                         <outlet property="delegate" destination="-1" id="VMG-eU-Whx"/>

@@ -23,8 +23,6 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     var usersPlanArray : Array<Dictionary<String,AnyObject>> = []
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var objAnimView = ImageViewAnimation()
-    var planOneType = ""
-    var planTwoType = ""
     var planOneSharedSavingPlanID = ""
     var planTwoSharedSavingPlanID = ""
     //MARK: ViewController lifeCycle method.
@@ -60,7 +58,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-     
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -135,7 +133,24 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         planOneImageView.layer.borderWidth = 3
         planOneImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
         
-        NSUserDefaults.standardUserDefaults().setObject(planOneSharedSavingPlanID, forKey: "UsersPlan")
+        let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
+        
+        var planOneType = ""
+        if(dictOne["partySavingPlanType"] as! String == "Group")
+        {
+            if let sharedSavingPlanID = dictOne["sharedSavingPlanID"] as? NSNumber
+            {
+                planOneType = "GM"
+            }
+            else {
+                planOneType = "G"
+            }
+        }
+        else {
+            planOneType = "I"
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(planOneType, forKey: "UsersPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
@@ -143,7 +158,25 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         planOneImageView.layer.borderWidth = 0
         planTwoImageView.layer.borderWidth = 3
         planTwoImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
-        NSUserDefaults.standardUserDefaults().setObject(planTwoSharedSavingPlanID, forKey: "UsersPlan")
+        
+        let dictTwo = usersPlanArray[0] as Dictionary<String,AnyObject>
+        
+        var planTwoType = ""
+        if(dictTwo["partySavingPlanType"] as! String == "group")
+        {
+            if let sharedSavingPlanID = dictTwo["sharedSavingPlanID"] as? NSNumber
+            {
+                planTwoType = "GM"
+            }
+            else {
+                planTwoType = "G"
+            }
+        }
+        else {
+            planTwoType = "I"
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(planTwoType, forKey: "UsersPlan")
         NSUserDefaults.standardUserDefaults().synchronize()
         
     }
@@ -152,110 +185,82 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
     func successResponseForGetListOfUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Successfully received")
             {
                 usersPlanArray = (objResponse["lstPartysavingplan"] as? Array<Dictionary<String,AnyObject>>)!
-                let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
-                planOneButton .setTitle(dictOne["title"] as? String , forState: .Normal)
-                self.view.bringSubviewToFront(planOneButton)
-                planOneType = dictOne["partySavingPlanType"] as! String
-                if(planOneType == "Group")
-                {
-                    if let sharedSavingPlanID = dictOne["sharedSavingPlanID"] as? NSNumber
-                    {
-                        planOneSharedSavingPlanID = "GM"
-                    }
-                    else {
-                        planOneSharedSavingPlanID = "G"
-                    }
-                }
-                else {
-                    planOneSharedSavingPlanID = "I"
-                }
                 
-                if let urlString = dictOne["image"] as? String
-                {
-                    let url = NSURL(string:urlString)
-                    let request: NSURLRequest = NSURLRequest(URL: url!)
-                    if(urlString != "")
+                for i in 0 ..< usersPlanArray.count {
+                    spinnerOne.hidden = false
+                    spinnerOne.startAnimating()
+                    
+                    spinnerTwo.hidden = false
+                    spinnerTwo.startAnimating()
+                    
+                    let dict = usersPlanArray[i] as Dictionary<String,AnyObject>
+                    if(i == 0)
                     {
-                        spinnerOne.hidden = false
-                        spinnerOne.startAnimating()
-                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                            if data?.length > 0
-                            {
-                                let image = UIImage(data: data!)
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.planOneImageView.image = image
-                                    
-                                    self.spinnerOne.hidden = true
-                                    self.spinnerOne.stopAnimating()
-                                })
-                            }
-                            else {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.spinnerOne.hidden = true
-                                    self.spinnerOne.stopAnimating()
-                                })
-                            }
-                        })
+                        planOneButton .setTitle(dict["title"] as? String , forState: .Normal)
+                        self.view.bringSubviewToFront(planOneButton)
                     }
-                    else {
+                    else if(i == 1)
+                    {
+                        planTwoButton .setTitle(dict["title"] as? String , forState: .Normal)
+                        self.view.bringSubviewToFront(planTwoButton)
+                    }
+                    
+                    if let urlString = dict["image"] as? String
+                    {
+                        let url = NSURL(string:urlString)
+                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        if(urlString != "")
+                        {
+                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                                if data?.length > 0
+                                {
+                                    let image = UIImage(data: data!)
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        if(i == 0)
+                                        {
+                                            self.planOneImageView.image = image
+                                            self.spinnerOne.hidden = true
+                                            self.spinnerOne.stopAnimating()
+                                        }
+                                        else {
+                                            self.planTwoImageView.image = image
+                                            self.spinnerTwo.hidden = true
+                                            self.spinnerTwo.stopAnimating()
+                                        }
+                                    })
+                                }
+                                else {
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.spinnerOne.hidden = true
+                                        self.spinnerOne.stopAnimating()
+                                        self.spinnerTwo.hidden = true
+                                        self.spinnerTwo.stopAnimating()
+                                    })
+                                }
+                            })
+                        }
+                        else {
+                            self.spinnerOne.hidden = true
+                            self.spinnerOne.stopAnimating()
+                            self.spinnerTwo.hidden = true
+                            self.spinnerTwo.stopAnimating()
+                        }
+                    }else {
                         self.spinnerOne.hidden = true
                         self.spinnerOne.stopAnimating()
-                    }
-                }
-                
-                
-                let dictTwo = usersPlanArray[1] as Dictionary<String,AnyObject>
-                planTwoButton .setTitle(dictTwo["title"] as? String , forState: .Normal)
-                self.view.bringSubviewToFront(planTwoButton)
-                planTwoType = dictTwo["partySavingPlanType"] as! String
-                
-                if(planTwoType == "Group")
-                {
-                    if let sharedSavingPlanID = dictTwo["sharedSavingPlanID"] as? NSNumber
-                    {
-                        planTwoSharedSavingPlanID = "GM"
-                    }
-                    else {
-                        planTwoSharedSavingPlanID = "G"
-                    }
-                }
-                else {
-                    planTwoSharedSavingPlanID = "I"
-                }
-                if let urlString = dictTwo["image"] as? String
-                {
-                    let url = NSURL(string:urlString)
-                    let request: NSURLRequest = NSURLRequest(URL: url!)
-                    if(urlString != "")
-                    {
-                        spinnerTwo.hidden = false
-                        spinnerTwo.startAnimating()
-                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                            if data?.length > 0 {
-                                let image = UIImage(data: data!)
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.planTwoImageView.image = image
-                                    self.spinnerTwo.hidden = true
-                                    self.spinnerTwo.stopAnimating()
-                                })
-                            }
-                            else  {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.spinnerTwo.hidden = true
-                                    self.spinnerTwo.stopAnimating()
-                                })
-                            }
-                        })
-                    }else {
                         self.spinnerTwo.hidden = true
                         self.spinnerTwo.stopAnimating()
                     }
+                    
+                    
                 }
+                
                 planOneImageView.layer.cornerRadius = planOneImageView.frame.size.height / 2
                 self.planOneImageView.clipsToBounds = true
                 planTwoImageView.layer.cornerRadius = planTwoImageView.frame.size.height / 2

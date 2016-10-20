@@ -458,7 +458,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else  {
-                    
                     let amountString =  "£" + String(format:"%d",cost)
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = Float(cost)
@@ -646,32 +645,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     else {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
                     }
-                    
                 }
                 else {
                     if((dateDiff/168)/4 == 1) {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0) {
-                        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                        let components: NSDateComponents = NSDateComponents()
-                        components.month = +1
-                        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
-                        
-                        let dateFormatter = NSDateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let timeDifference : NSTimeInterval = minDate.timeIntervalSinceDate(NSDate())
-                        
-                        dateDiff = Int(timeDifference/3600)
-                        
-                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                   
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%d per month for 1 month",cost)
                     }
                     else {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                 }
             }
-            
+        
             if(isUpdatePlan) {
                 if(isDateChanged) {
                     if(dateString == "day") {
@@ -697,7 +685,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         }
                     }
                 }
-                    
                 else
                 {
                     if let payType = itemDetailsDataDict["payType"] as? NSString
@@ -1271,6 +1258,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
                     newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
                     newDict["STATUS"] = "Active"
+                    print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
                 

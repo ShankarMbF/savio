@@ -34,13 +34,17 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utt-4l-toQ">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="630"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umo-dj-Tjc">
+                                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umo-dj-Tjc">
                                     <rect key="frame" x="35" y="200" width="530" height="500"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="tintColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="500" id="PSm-Dy-U60"/>
                                     </constraints>
-                                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="separatorColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="sectionIndexColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="sectionIndexBackgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="sectionIndexTrackingBackgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <outlet property="dataSource" destination="-1" id="e8W-ss-OOG"/>
                                         <outlet property="delegate" destination="-1" id="VMG-eU-Whx"/>
@@ -138,7 +142,7 @@
                 <constraint firstItem="bZg-DJ-1R2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="e7C-Nt-B1Z"/>
                 <constraint firstAttribute="bottom" secondItem="bZg-DJ-1R2" secondAttribute="bottom" id="n9d-ff-qf3"/>
             </constraints>
-            <point key="canvasLocation" x="576" y="343"/>
+            <point key="canvasLocation" x="246" y="334"/>
         </view>
     </objects>
     <resources>

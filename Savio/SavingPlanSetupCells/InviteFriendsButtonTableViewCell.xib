@@ -64,7 +64,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64f-Zh-9hs">
-                        <rect key="frame" x="4" y="115" width="312" height="1"/>
+                        <rect key="frame" x="4" y="118" width="312" height="1"/>
                         <color key="backgroundColor" red="0.63137254899999995" green="0.83921568629999999" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ION-cq-wMX"/>
@@ -82,7 +82,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="KB1-Jc-Oxb" secondAttribute="trailing" constant="17" id="USE-tU-vYH"/>
                     <constraint firstItem="wP4-Nx-q9S" firstAttribute="top" secondItem="KB1-Jc-Oxb" secondAttribute="bottom" constant="22" id="Wtw-5l-vn2"/>
                     <constraint firstItem="mfE-Js-Tm0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="bQH-cV-sVJ"/>
-                    <constraint firstItem="64f-Zh-9hs" firstAttribute="top" secondItem="wP4-Nx-q9S" secondAttribute="bottom" constant="5" id="j1l-27-gzn"/>
+                    <constraint firstItem="64f-Zh-9hs" firstAttribute="top" secondItem="wP4-Nx-q9S" secondAttribute="bottom" constant="8" id="j1l-27-gzn"/>
                     <constraint firstItem="KB1-Jc-Oxb" firstAttribute="top" secondItem="snL-hi-ETX" secondAttribute="bottom" constant="8" id="mFH-cM-txu"/>
                     <constraint firstItem="KB1-Jc-Oxb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="sRw-Nb-Q8j"/>
                     <constraint firstItem="snL-hi-ETX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="tMa-mE-M6Y"/>
@@ -93,6 +93,7 @@
                     <constraint firstItem="snL-hi-ETX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="x4M-Vt-eBe"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="BGContentView" destination="H2p-sc-9uM" id="TXl-Zy-00M"/>
                 <outlet property="bottomBorderLabel" destination="64f-Zh-9hs" id="roS-0a-7jN"/>

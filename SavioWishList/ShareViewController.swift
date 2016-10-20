@@ -30,7 +30,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     @IBAction func postButtonTapped(sender: AnyObject) {
         priceTextField.resignFirstResponder()
         let objAPI = API()
-        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
         
         if  let data = defaults.valueForKey("myPasscode") as? NSData
         {
@@ -184,7 +184,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             let inputItem = item as! NSExtensionItem
             for provider: AnyObject in inputItem.attachments! {
                 let itemProvider = provider as! NSItemProvider
-                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.mbf.savio")!
+                let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.com.extension-demo")!
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
                     itemProvider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil, completionHandler: { (result: NSSecureCoding?, error: NSError!) -> Void in
                         if let resultDict = result as? NSDictionary {

@@ -157,7 +157,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         else {
             if(dayDateStr == "date") {
                 let date : Int? = Int(dateStr)
+                if(date != 0 && dateStr != "")
+                {
                 dayDateTextField.attributedText = self.createXLabelText(date!, text: String(format: "%@",dateStr))
+                }
             }
             else {
                 dayDateTextField.font = UIFont(name: kMediumFont, size:10)

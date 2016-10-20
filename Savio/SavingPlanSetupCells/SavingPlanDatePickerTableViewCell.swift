@@ -32,10 +32,16 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         // Initialization code
         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         datePickerView.datePickerMode = UIDatePickerMode.Date
-
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+        
+        let dateComponents = NSDateComponents()
+        let calender = NSCalendar.currentCalendar()
+        dateComponents.day = 7
+        let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+        self.datePickerView.minimumDate = newDate
         
         // cornerRadius changes
         datePickerTextField.layer.cornerRadius = 5
@@ -49,9 +55,9 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         datePickerTextField.inputView = datePickerView
         datePickerTextField.inputAccessoryView = customToolBar
         calenderImageView.image = self.setUpImage()
-    
+        
     }
-
+    
     func setUpImage()-> UIImage
     {
         var imageName = ""
@@ -95,7 +101,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         datePickerTextField.text = pickrDate
         datePickerTextField.textColor = UIColor.whiteColor()
         
-        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
+        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(datePickerView.minimumDate!)
         savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
         
         datePickerTextField.resignFirstResponder()
@@ -117,7 +123,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
         self.datePickerView.minimumDate = newDate
     }
-
+    
     
     @objc func datePickerWasShown(notification: NSNotification){
         //do stuff
@@ -142,7 +148,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        self.changeDatePickerViewDate()
+        //self.changeDatePickerViewDate()
         self.registerForKeyboardNotifications()
         return true
     }

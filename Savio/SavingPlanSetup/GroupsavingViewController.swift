@@ -44,14 +44,14 @@
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.title = "Plan setup"
-       
+        
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
-
+        
         tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
         tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
@@ -73,7 +73,7 @@
         topBackgroundImageView.layer.masksToBounds = true
         
     }
-
+    
     func setUpView(){
         //set Navigation left button
         let leftBtnName = UIButton()
@@ -86,7 +86,6 @@
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         //set Navigation right button nav-heart
-        
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
@@ -114,7 +113,7 @@
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-
+        
         //Get image for the saving plan
         if let urlString = itemDetailsDataDict["imageURL"] as? String {
             let url = NSURL(string:urlString)
@@ -133,7 +132,7 @@
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if(data?.length > 0) {
                         let image = UIImage(data: data!)
-
+                        
                         dispatch_async(dispatch_get_main_queue(), {
                             //Remove the spinner after image load
                             spinner.stopAnimating()
@@ -229,7 +228,7 @@
         self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
         self.tblView.reloadData()
     }
-
+    
     
     @IBAction func cameraButtonPressed(sender: AnyObject) {
         //Open camera or gallery as per users selection
@@ -260,9 +259,7 @@
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            
             })
-        
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -344,7 +341,7 @@
                 print("No email address")
             }
         }
-  
+        
         var pic: UIImage?
         let picTemp1 = ABPersonCopyImageDataWithFormat(person, kABPersonImageFormatThumbnail)
         if picTemp1 == nil {
@@ -377,7 +374,7 @@
     }
     
     func skipContact(){
-         isContactAdded = true
+        isContactAdded = true
     }
     
     // MARK: - UITableViewDelegate methods
@@ -435,7 +432,7 @@
                 if(itemDetailsDataDict["amount"] is String)
                 {
                     let amountString = "£" + String(itemDetailsDataDict["amount"])
-
+                    
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = (itemDetailsDataDict["amount"] as! NSString).floatValue
                     cost = Int(cell1.slider.value)
@@ -510,8 +507,8 @@
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
                 if(participantsArr.count == 0) {
-                cell1.layer.cornerRadius = 5
-                cell1.layer.masksToBounds = true
+                    cell1.layer.cornerRadius = 5
+                    cell1.layer.masksToBounds = true
                 }
                 else {
                     cell1.layer.cornerRadius = 0
@@ -571,19 +568,26 @@
             
         else {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
-
             if(indexPath.row  == (participantsArr.count - 1)) {
-            let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
-            let maskLayer: CAShapeLayer = CAShapeLayer()
-            maskLayer.frame = cell1.bounds
-            maskLayer.path = maskPath.CGPath
-            cell1.layer.mask = maskLayer
-            }
-            else {
-                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(0, 0))
+                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
+                
+//                let maskPath1: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(1.0, 1.0))
+//                
+//                let combinedPath : CGMutablePathRef = CGPathCreateMutableCopy(maskPath.CGPath)!
+//                CGPathAddPath(combinedPath, nil, maskPath1.CGPath)
+                
                 let maskLayer: CAShapeLayer = CAShapeLayer()
                 maskLayer.frame = cell1.bounds
                 maskLayer.path = maskPath.CGPath
+                cell1.layer.mask = maskLayer
+            }
+            else {
+                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight,.TopLeft,.TopRight]), cornerRadii: CGSizeMake(0, 0))
+                let maskLayer: CAShapeLayer = CAShapeLayer()
+                maskLayer.frame = cell1.bounds
+                maskLayer.backgroundColor = UIColor(red:90/255,green:90/255,blue:100/255,alpha:1).CGColor
+                maskLayer.path = maskPath.CGPath
+                
                 cell1.layer.mask = maskLayer
             }
             
@@ -666,18 +670,9 @@
             return 70
         }
         else if(indexPath.section == 3) {
-            return 118
+            return 119
         }
         else if(indexPath.section ==   4) {
-            return 40
-        }
-        else if(indexPath.section ==   5) {
-            return 65
-        }
-        else if(indexPath.section ==   6) {
-            return 40
-        }
-        else {
             if(participantsArr.count == 0) {
                 return 0
             }
@@ -685,6 +680,13 @@
                 return 35
             }
         }
+        else if(indexPath.section ==   5) {
+            return 65
+        }
+        else {
+            return 40
+        }
+        
     }
     
     //Create Dictionary to send to the CreatePartySavingPlan API.
@@ -753,7 +755,7 @@
                 parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
             }
         }
-    
+        
         parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
         parameterDict["pty_id"] = userInfoDict["partyId"]
         if(itemDetailsDataDict["savingId"] != nil) {
@@ -828,7 +830,7 @@
                 objGroupSavingPlanView.delegate = self
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
                 objAnimView.removeFromSuperview()
-
+                
             }
             else {
                 self.objAnimView.removeFromSuperview()
@@ -859,14 +861,13 @@
         let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
-
+    
     
     func clearButtonPressed() {
         
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            
             self.setUpView()
             self.dateDiff = 0
             self.cost = 0
@@ -887,7 +888,6 @@
             self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             self.tblView.reloadData()
             })
-        
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }

@@ -441,10 +441,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func statsButtonPressed(btn:UIButton)
     {
         let obj = SAStatViewController()
-        obj.itemTitle = savingPlanDetailsDict["title"] as! String
+        if let itemTitle = savingPlanDetailsDict["title"] as? String
+        {
+        obj.itemTitle = itemTitle
         obj.planType = "Group"
         obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
         obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
+        }
         self.navigationController?.pushViewController(obj, animated: false)
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {

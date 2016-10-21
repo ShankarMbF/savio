@@ -574,7 +574,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
                     newDict["PAYMENT_TYPE"] = "debit"
                     newDict["AUTH_CODE"] = "test"
-                    newDict["PTY_SAVINGPLAN_ID"] = userInfoDict["partyId"] as! NSNumber
+                    newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)
                 }
@@ -610,10 +610,19 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Success response of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        self.isFromImpulseSaving = false
-        let objImpulseView = SAImpulseSavingViewController()
-        objImpulseView.isFromPayment = true
-        self.navigationController?.pushViewController(objImpulseView, animated: true)
+        if let errorCode = objResponse["errorCode"] as? NSNumber
+        {
+            if (errorCode == 200)
+            {
+                self.isFromImpulseSaving = false
+                let objImpulseView = SAImpulseSavingViewController()
+                objImpulseView.isFromPayment = true
+                self.navigationController?.pushViewController(objImpulseView, animated: true)
+            }
+        }else {
+            let alert = UIAlertView(title: "Sorry, transaction is not completed", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     //Error response of ImpulseSavingDelegate

@@ -94,7 +94,6 @@ class ContainerViewController: UIViewController {
     
     //function invoke on tapping menu button.
     func ToggleCentreView() {
-        
         var destination = self.navController.view.frame;
         if (destination.origin.x > 0) {
             destination.origin.x = 0;

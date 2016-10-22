@@ -70,6 +70,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 }
                 
                 else {
+                    var text = priceTextField.text
+                    text = text?.stringByReplacingOccurrencesOfString(",", withString: "")
+                    text = text?.stringByReplacingOccurrencesOfString("£", withString: "")
+                    print(text)
+                    if(Float(text!) < 3000)
+                    {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
                         self.spinner.hidesWhenStopped = true
@@ -96,6 +102,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         objAPI.sendWishList(dict)
                         
                     });
+                    }
+                    else {
+                        let alert = UIAlertController(title: "Warning", message: "Please pick up item which cost less than £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
                 }
                 
             }

@@ -1574,11 +1574,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                 if(dateString == "day")
                 {
+                    if(dateDiff > 0)
+                    {
                     dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                    }
+                    else {
+                        dict["emi"] = String(format:"%d",cost)
+                    }
                     dict["payType"] = "Weekly"
                 }
                 else {
+                    if(dateDiff > 0)
+                    {
                     dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                    }
+                    else {
+                        dict["emi"] = String(format:"%d",cost)
+                    }
                     dict["payType"] = "Monthly"
                 }
                 

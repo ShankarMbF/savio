@@ -149,7 +149,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             //
             
             objAPI.otpSentDelegate = self;
-            objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "91")
+            objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
             
             //Add animation of logo
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)

@@ -483,7 +483,7 @@
                 cell1.datePickerTextField.userInteractionEnabled = false
                 let date  = itemDetailsDataDict["planEndDate"] as? String
                 let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.dateFormat = "dd-MM-yyyy"
                 let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
                 datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
                 dateDiff = Int(timeDifference/3600)
@@ -740,7 +740,7 @@
         }
         
         let dateParameter = NSDateFormatter()
-        dateParameter.dateFormat = "yyyy-MM-dd"
+        dateParameter.dateFormat = "dd-MM-yyyy"
         if(itemDetailsDataDict["planEndDate"] != nil) {
             parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
         }

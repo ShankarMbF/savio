@@ -1187,7 +1187,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     objAPI.updateSavingPlanDelegate = self
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let dateParameter = NSDateFormatter()
-                    dateParameter.dateFormat = "yyyy-MM-dd"
+                    dateParameter.dateFormat = "dd-MM-yyyy"
                     var pathComponents : NSArray!
                     pathComponents = (datePickerDate).componentsSeparatedByString(" ")
                     var dateStr = pathComponents.lastObject as! String

@@ -144,7 +144,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SAStatViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -157,7 +157,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SAStatViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Showing wishlist count
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
@@ -265,7 +265,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     //function invoke on tapping any achivement button for showing social media sharing option
     @IBAction func clickedOnAchivements(sender: UIButton){
         //load SocialSharingView.xib for showing pop up
-        let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)[0] as! UIView
+        let testView = NSBundle.mainBundle().loadNibNamed("SocialSharingView", owner: self, options: nil)![0] as! UIView
         testView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         let vw = testView.viewWithTag(7)! as UIView
         vw.layer.borderWidth = 2.0
@@ -336,23 +336,23 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             btnClose.setImage(UIImage(named:"Group-social-pop-up-close.png"), forState: .Normal)
         }
         
-        btnClose.addTarget(self, action: Selector("closeSharePopup:"), forControlEvents: UIControlEvents.TouchUpInside)
+        btnClose.addTarget(self, action: #selector(SAStatViewController.closeSharePopup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         //setup for facebook sharing button
         let fbBtn = testView.viewWithTag(2) as! UIButton
-        fbBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        fbBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         //setup for twitter sharing button
         let twBtn = testView.viewWithTag(3) as! UIButton
-        twBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        twBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         //setup for google sharing button
         let glBtn = testView.viewWithTag(4) as! UIButton
-        glBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        glBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         //setup for whatsapp sharing button
         let waBtn = testView.viewWithTag(5) as! UIButton
-        waBtn.addTarget(self, action: Selector("clickedOnSocialMediaButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        waBtn.addTarget(self, action: #selector(SAStatViewController.clickedOnSocialMediaButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.navigationController?.view.addSubview(testView)
     }
@@ -418,8 +418,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                         if let imageData = UIImageJPEGRepresentation(image, 1.0) {
                             let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).URLByAppendingPathComponent("Documents/whatsAppTmp.wai")
                             do {
-                                try imageData.writeToURL(tempFile, options: .DataWritingAtomic)
-                                documentInteractionController = UIDocumentInteractionController(URL: tempFile)
+                                try imageData.writeToURL(tempFile!, options: .DataWritingAtomic)
+                                documentInteractionController = UIDocumentInteractionController(URL: tempFile!)
                                 documentInteractionController.UTI = "net.whatsapp.image"
                                 documentInteractionController.presentOpenInMenuFromRect(CGRectZero, inView: self.view, animated: true)
                             } catch {

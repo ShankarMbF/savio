@@ -44,7 +44,7 @@ class CustomSegmentBar: UIView {
         maskLayer.frame = self.leftButton!.bounds
         maskLayer.path = maskPath.CGPath
         self.leftButton?.layer.mask = maskLayer
-        self.leftButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.leftButton?.addTarget(self, action:#selector(CustomSegmentBar.toggleButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.leftButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.leftButton?.tag = 1
         self.addSubview(self.leftButton!)
@@ -59,7 +59,7 @@ class CustomSegmentBar: UIView {
         maskLayer2.frame = self.rightButton!.bounds
         maskLayer2.path = maskPath2.CGPath
         self.rightButton?.layer.mask = maskLayer2
-        self.rightButton?.addTarget(self, action:Selector("toggleButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.rightButton?.addTarget(self, action:#selector(CustomSegmentBar.toggleButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.rightButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.rightButton?.tag = 0
         self.addSubview(self.rightButton!)

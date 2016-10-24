@@ -208,7 +208,7 @@ public class LineChart: UIView {
 
         if removeAll {
             let context = UIGraphicsGetCurrentContext()
-            CGContextClearRect(context, rect)
+            CGContextClearRect(context!, rect)
             return
         }
         
@@ -517,7 +517,7 @@ public class LineChart: UIView {
         delegate?.chartVerticalLineDrawingCompleted()
         
         // add getsture recogniszer
-        let gesture = UIPanGestureRecognizer(target: self, action: Selector("scrollLineMoved:"))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(LineChart.scrollLineMoved(_:)))
         graphView.addGestureRecognizer(gesture)
     }
     

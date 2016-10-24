@@ -69,7 +69,7 @@ public class Piechart: UIControl {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
         
-        self.addTarget(self, action: Selector("click"), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(Piechart.click as (Piechart) -> () -> ()), forControlEvents: .TouchUpInside)
         
     }
     

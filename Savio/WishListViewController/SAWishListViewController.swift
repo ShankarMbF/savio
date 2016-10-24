@@ -36,13 +36,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //Set view's title
         self.title = "My Wish List"
         //Register UIApplication Will Enter Foreground Notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SAWishListViewController.getWishListData(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         //--------------set Navigation left button-----------------
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SAWishListViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -55,7 +55,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SAWishListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         //check if wishlist product is empty or not
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
@@ -97,7 +97,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //function invoke for call get method of wishlist
     func wishListAPI(){
         //--------load the ImageViewAnimation.xib and showing loading animation--------------------
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -135,8 +135,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         //--------create custom cell from WishListTableViewCell.xib------------
-        let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("WishListTableViewCell", owner: nil, options: nil) as Array
-        let cell = bundleArr[0] as! WishListTableViewCell
+        let cell = NSBundle.mainBundle().loadNibNamed("WishListTableViewCell", owner: nil, options: nil)![0] as! WishListTableViewCell
         //-----------------------------------------------------------------------
         //Get individual dictionary of wishlist product
         let cellDict = wishListArray[indexPath.row]
@@ -157,7 +156,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             {
                 if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0) {
                     cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
-                    cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
                 }
                 else{
@@ -170,7 +169,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                 //Invited for group member
                 if(NSUserDefaults.standardUserDefaults().objectForKey("groupMemberPlan") as? NSNumber == 0){
                     cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
-                    cell.btnSavingPlan?.addTarget(self, action: Selector("joinGroupSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
                 }
                 else {
@@ -184,7 +183,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             //Not invited for group member
             if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
                 cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
-                cell.btnSavingPlan?.addTarget(self, action: Selector("navigateToSetUpSavingPlan:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.deleteButtonTopSpace.constant = 60
             }
             else{
@@ -193,7 +192,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             }
         }
         //set up delete button
-        cell.btnDelete?.addTarget(self, action: Selector("deleteButtonPress:"), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnDelete?.addTarget(self, action: #selector(SAWishListViewController.deleteButtonPress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         //------------------Showing prodict image-------------------------------------------
         let spinner =  UIActivityIndicatorView()
@@ -304,7 +303,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             //if yes then show loading animation
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)

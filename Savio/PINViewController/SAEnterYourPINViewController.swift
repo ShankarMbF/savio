@@ -54,8 +54,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed:"))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAEnterYourPINViewController.doneBarButtonPressed(_:)))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SAEnterYourPINViewController.cancelBarButtonPressed(_:)))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
@@ -82,8 +82,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAEnterYourPINViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAEnterYourPINViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){
@@ -152,7 +152,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
             
             //Add animation of logo
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             
             objAnimView.animate()
@@ -230,7 +230,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         }
         else
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAPI.logInDelegate = self;
             objAnimView.animate()
@@ -395,10 +395,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         textFieldFour.keyboardType = UIKeyboardType.NumberPad
         
-        textFieldOne.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldTwo.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldThree.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldFour.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldOne.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldTwo.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldThree.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldFour.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
     }
     
     func textFieldDidChange(textField: UITextField) {

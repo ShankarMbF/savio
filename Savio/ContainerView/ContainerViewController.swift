@@ -54,8 +54,8 @@ class ContainerViewController: UIViewController {
         //----------------------------------------------------------------------------------
         
         //------Register notfication for menu toggel and menu selection-----------------------
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addCentreView:", name: kNotificationAddCentreView, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToggleCentreView", name: kNotificationToggleMenuView, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.addCentreView(_:)), name: kNotificationAddCentreView, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.ToggleCentreView), name: kNotificationToggleMenuView, object: nil)
         //---------------------------------------------------------------------------------------
     }
     func setUpViewController()
@@ -104,7 +104,7 @@ class ContainerViewController: UIViewController {
             newView.backgroundColor = UIColor.clearColor()
             let tapGesture = UITapGestureRecognizer()
             tapGesture.numberOfTapsRequired = 1
-            tapGesture.addTarget(self, action: Selector("newViewTouched:"))
+            tapGesture.addTarget(self, action: #selector(ContainerViewController.newViewTouched(_:)))
             newView.addGestureRecognizer(tapGesture)
             self.view.addSubview(newView)
         }

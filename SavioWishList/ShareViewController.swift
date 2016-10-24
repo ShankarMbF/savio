@@ -227,7 +227,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         var customToolBar : UIToolbar?
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(ShareViewController.doneBarButtonPressed))
         customToolBar!.items = [acceptButton]
         
         bgView.layer.cornerRadius = 5

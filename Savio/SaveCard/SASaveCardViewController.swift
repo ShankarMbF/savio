@@ -51,14 +51,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         if(isFromEditUserInfo)
         {
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
             
             btnName.frame = CGRectMake(0, 0, 30, 30)
             btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
             btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
             btnName.setTitle("0", forState: UIControlState.Normal)
             btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-            btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+            btnName.addTarget(self, action: #selector(SASaveCardViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
             
             if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
             {
@@ -79,13 +79,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
         else{
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-            leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.backButtonClicked), forControlEvents: .TouchUpInside)
             
             btnName.frame = CGRectMake(0, 0, 60, 30)
             btnName.setTitle("Done", forState: UIControlState.Normal)
             btnName.setTitleColor(UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1), forState: UIControlState.Normal)
             btnName.titleLabel!.font = UIFont(name: kBookFont, size: 15)
-            btnName.addTarget(self, action: Selector("doneBtnClicked"), forControlEvents: .TouchUpInside)
+            btnName.addTarget(self, action: #selector(SASaveCardViewController.doneBtnClicked), forControlEvents: .TouchUpInside)
         }
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -106,7 +106,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cardViewTwo.layer.cornerRadius = 5
         cardViewTwo.layer.borderColor = UIColor(red: 0.97, green: 0.87, blue: 0.69, alpha: 1).CGColor
         
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(self.objAnimView)
@@ -152,7 +152,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
@@ -198,8 +198,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
         //--------create custom cell from CardTableViewCell.xib------------
-        let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("CardTableViewCell", owner: nil, options: nil) as Array
-        let cell = bundleArr[0] as! CardTableViewCell
+        let cell = NSBundle.mainBundle().loadNibNamed("CardTableViewCell", owner: nil, options: nil)![0] as! CardTableViewCell
         let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
         
         let trimmedString: String = (dict["last4"] as? String)!
@@ -275,7 +274,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
         if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
@@ -299,7 +298,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {

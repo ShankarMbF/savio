@@ -76,7 +76,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         self.setUPNavigation()
       
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -122,7 +122,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SAGroupProgressViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -135,7 +135,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SAGroupProgressViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
@@ -192,7 +192,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         pageControl.numberOfPages = 3
         groupMembersLabel.text = String(format:"Group members (%d)",participantsArr.count)
         
-        for(var i=0; i<participantsArr.count; i++)
+        for i in 0 ..< participantsArr.count
         {
             var error = Piechart.Slice()
             error.value = 1
@@ -214,7 +214,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         for i in 0 ..< 3
         {
              //load the CircularProgress.xib to create progress view
-            let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)[0] as! UIView
+            let circularProgress = NSBundle.mainBundle().loadNibNamed("GroupCircularProgressView", owner: self, options: nil)![0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  horizontalScrollView.frame.size.width, horizontalScrollView.frame.size.height)
  
             //customization of KDCircularProgress
@@ -509,7 +509,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.saveProgress.progressColors = [chartColors[indexPath.row]]
         cell?.planView.backgroundColor = chartColors[indexPath.row]
         cell?.topVw.backgroundColor = chartColors[indexPath.row]
-        cell?.makeImpulseSavingButton.addTarget(self, action: Selector("impulseSavingButtonPressed:"), forControlEvents: .TouchUpInside)
+        cell?.makeImpulseSavingButton.addTarget(self, action: #selector(SAGroupProgressViewController.impulseSavingButtonPressed(_:)), forControlEvents: .TouchUpInside)
         
         let cellDict = participantsArr[indexPath.row]
         //Adjust the Constraint constant for ecpand and collapse of UITableViewCell
@@ -744,7 +744,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 userDict["partyName"] = objResponse["partyName"]
                 userDict["partyImageUrl"] = objResponse["partyImageUrl"]
                 userDict["savingPlanTransactionList"] = objResponse["savingPlanTransactionList"]
-                for(var i=0; i<participantsArr.count; i += 1)
+                for i in 0 ..< participantsArr.count
                 {
                     let memberTypeDict = participantsArr[i] as Dictionary<String,AnyObject>
                     memberTypeArray.append(memberTypeDict["memberType"] as! String)

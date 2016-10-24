@@ -78,7 +78,7 @@ class ContactViewController: UIViewController {
             
             //setting up invite button
             cell?.inviteBtn?.tag = indexPath.row
-            cell?.inviteBtn?.addTarget(self, action: Selector("clickOnInviteButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell?.inviteBtn?.addTarget(self, action: #selector(ContactViewController.clickOnInviteButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if indexPath.row == 1 {
                 //mobile number avalable then showing in contact list
                 if let mobileNum: String = contactDict["mobileNum"] as? String {

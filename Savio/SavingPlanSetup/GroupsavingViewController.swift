@@ -79,7 +79,7 @@
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(GroupsavingViewController.backButtonClicked), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -92,7 +92,7 @@
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(GroupsavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
             let dataSave = str
@@ -521,7 +521,7 @@
                 if(itemDetailsDataDict["title"] != nil) {
                     cell1.inviteButton.userInteractionEnabled = false
                 }
-                cell1.inviteButton.addTarget(self, action: Selector("inviteButtonPressed"), forControlEvents: .TouchUpInside)
+                cell1.inviteButton.addTarget(self, action: #selector(GroupsavingViewController.inviteButtonPressed), forControlEvents: .TouchUpInside)
                 if(participantsArr.count > 0) {
                     cell1.bottomBorderLabel.hidden = false
                 }
@@ -534,7 +534,7 @@
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
                 
-                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell1
             }
             
@@ -546,10 +546,10 @@
             cell1.layer.masksToBounds = true
             if(itemDetailsDataDict["title"] != nil) {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else {
-                cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
@@ -562,7 +562,7 @@
             if(itemDetailsDataDict["title"] != nil) {
                 cell1.clearButton.userInteractionEnabled = false
             }
-            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: #selector(GroupsavingViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
             
@@ -600,7 +600,7 @@
                 else {
                     cell1.phoneOrEmailLabel.text = dict["mobile_number"] as? String
                 }
-                cell1.deleteContactButton.addTarget(self, action:  Selector("deleteContactButtonPressed:"), forControlEvents: .TouchUpInside)
+                cell1.deleteContactButton.addTarget(self, action:  #selector(GroupsavingViewController.deleteContactButtonPressed(_:)), forControlEvents: .TouchUpInside)
                 cell1.deleteContactButton.tag = indexPath.row
                 
             }
@@ -793,7 +793,7 @@
     
     
     func nextButtonPressed(sender:UIButton) {
-        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)

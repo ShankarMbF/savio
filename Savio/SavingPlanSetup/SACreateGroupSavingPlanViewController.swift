@@ -77,7 +77,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.backButtonClicked), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -90,7 +90,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
             let dataSave = str
@@ -296,10 +296,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.layer.masksToBounds = true
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 cell1.createSavingPlanButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.createSavingPlanButton.addTarget(self, action: Selector("joinGroupButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.joinGroupButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
             else {
-                cell1.createSavingPlanButton.addTarget(self, action: Selector("createSavingPlanButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.createSavingPlanButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.createSavingPlanButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             }
             return cell1
         }
@@ -308,7 +308,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else {
@@ -317,7 +317,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             cell1.closeButton.tag = indexPath.section
-            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.closeButton.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             let dict = offerArr[indexPath.section - 2]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
@@ -537,7 +537,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func createSavingPlanButtonPressed()
     {
         if isOfferShow == true {
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.navigationController!.view.addSubview(self.objAnimView)
@@ -582,7 +582,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func joinGroupButtonPressed(sender:UIButton)
     {
         if isOfferShow == true {
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.navigationController!.view.addSubview(self.objAnimView)
@@ -626,7 +626,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {

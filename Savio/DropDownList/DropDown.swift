@@ -188,7 +188,7 @@ public final class DropDown: UIView {
 	public var dismissMode = DismissMode.OnTap {
 		willSet {
 			if newValue == .OnTap {
-				let gestureRecognizer = UITapGestureRecognizer(target: self, action:"dismissableViewTapped")
+				let gestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(DropDown.dismissableViewTapped))
 				dismissableView.addGestureRecognizer(gestureRecognizer)
 			} else if let gestureRecognizer = dismissableView.gestureRecognizers?.first {
 				dismissableView.removeGestureRecognizer(gestureRecognizer)
@@ -746,8 +746,8 @@ extension DropDown {
 	private func startListeningToKeyboard() {
 		KeyboardListener.sharedInstance.startListeningToKeyboard()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self,selector:"keyboardUpdate",name: UIKeyboardWillShowNotification,object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self,selector: "keyboardUpdate",name: UIKeyboardWillHideNotification,object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,selector:#selector(DropDown.keyboardUpdate),name: UIKeyboardWillShowNotification,object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(DropDown.keyboardUpdate),name: UIKeyboardWillHideNotification,object: nil)
 	}
 	
 	private func stopListeningToNotifications() {

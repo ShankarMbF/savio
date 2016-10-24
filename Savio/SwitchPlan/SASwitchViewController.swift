@@ -29,7 +29,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -63,7 +63,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SASwitchViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -78,7 +78,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SASwitchViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {

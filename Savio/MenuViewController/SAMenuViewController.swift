@@ -18,9 +18,9 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup Menu as per plan created
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification:"), name:"NotificationIdentifier", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodForSelectRowAtIndexPath:"), name:"SelectRowIdentifier", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodForSelectRowAtIndexPath(_:)), name:"SelectRowIdentifier", object: nil)
         //Set up UI for Menu
         self.setUpUI()
     }

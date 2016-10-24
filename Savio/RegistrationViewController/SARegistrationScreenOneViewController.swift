@@ -109,8 +109,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
         //add custom tool bar for UIDatePickerView
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SARegistrationScreenOneViewController.cancelBarButtonPressed))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
@@ -136,7 +136,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         mobileNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         //Add custom tool bar as input accessory view to mobile number textfield
         let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
         let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar2.items = [flexibleSpace1,doneButton]
         mobileNumberTextField.inputAccessoryView = customToolBar2
@@ -351,8 +351,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){
@@ -456,7 +456,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
-        let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+        let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
         objimpInfo.lblHeader.text = "Why do we need this information?"
         objimpInfo.frame = self.view.frame
         objimpInfo.isFromRegistration = false

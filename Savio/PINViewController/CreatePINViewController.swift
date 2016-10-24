@@ -46,8 +46,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed:"))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed:"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(CreatePINViewController.doneBarButtonPressed(_:)))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CreatePINViewController.cancelBarButtonPressed(_:)))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
@@ -145,7 +145,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 {
                     
                     //Add animation of logo
-                    objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+                    objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                     objAnimView.frame = self.view.frame
                     
                     objAnimView.animate()
@@ -256,7 +256,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         textField.layer.borderWidth = borderWidth
         textField.layer.cornerRadius = cornerRadius
         textField.layer.masksToBounds = true
-        textField.addTarget(self, action: Selector("textFieldDidChange:"), forControlEvents: UIControlEvents.EditingChanged)
+        textField.addTarget(self, action: #selector(CreatePINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         textField.keyboardType = UIKeyboardType.NumberPad
         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
@@ -313,8 +313,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CreatePINViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CreatePINViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){

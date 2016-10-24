@@ -115,7 +115,7 @@ class SASavingSummaryViewController: UIViewController {
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SASavingSummaryViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -131,7 +131,7 @@ class SASavingSummaryViewController: UIViewController {
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //--------Hide all Invited user view for individual plan---------
         lblName1?.hidden = true
@@ -311,11 +311,11 @@ class SASavingSummaryViewController: UIViewController {
             if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
                 //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
                 var topMargin: CGFloat = 0.0   // variable for ste top margine for each offer
-                for var i=0; i<arrOff.count; i++ {
+                for i in 0 ..< arrOff.count {
                     
                     lblOffer?.hidden = false
                     // Load the SummaryPage view.
-                    let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)[0] as! UIView
+                    let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
                     topMargin = CGFloat(i) * 60 + 35
                     //                summaryPageView.frame = CGRectMake(0, topMargin + 10, (vwOffer?.frame.size.width)!, 55)

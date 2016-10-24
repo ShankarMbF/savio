@@ -215,7 +215,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     @IBAction func findAddressButtonPressed(sender: AnyObject) {
         activeTextField.resignFirstResponder()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         if(arrayAddress.count > 0)
@@ -236,7 +236,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     //Importanat information view delegate method
     func acceptPolicy(obj:ImportantInformationView){
         let objAPI = API()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -268,7 +268,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
-            objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+            objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
@@ -284,8 +284,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){

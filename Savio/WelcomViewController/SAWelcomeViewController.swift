@@ -78,7 +78,7 @@ class SAWelcomeViewController: UIViewController {
         // Load the PageView view from the TestView.xib file and configure it properly.
         for i in 0 ..< pageArr.count {
             // Load the TestView view.
-            let testView = NSBundle.mainBundle().loadNibNamed("PageView", owner: self, options: nil)[0] as! UIView
+            let testView = NSBundle.mainBundle().loadNibNamed("PageView", owner: self, options: nil)![0] as! UIView
             // Set its frame and the background color.
             testView.frame = CGRectMake(CGFloat(i) * scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height)
             // Set the proper message to the test view's label.
@@ -87,7 +87,7 @@ class SAWelcomeViewController: UIViewController {
             // Add the test view as a subview to the scrollview.
             scrollView.addSubview(testView)
         }
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: Selector("change"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(SAWelcomeViewController.change), userInfo: nil, repeats: true)
     }
     
     //Function invoking for configure the page control for animated pages
@@ -141,7 +141,7 @@ class SAWelcomeViewController: UIViewController {
     
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
-        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
         objImpInfo.frame = self.view.frame
         objImpInfo.isFromRegistration = false
         self.view.addSubview(objImpInfo)

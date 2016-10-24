@@ -52,14 +52,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.navigationController?.navigationBar.translucent = false
         //------------------------------------------------------------------------------------------------------------
         //Register UIApplication Will Enter Foreground Notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:Selector("getWishListData:"), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.getWishListData(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
         tblView?.separatorInset = UIEdgeInsetsZero
         //Setting up UI
         self.setUpView()
         //Setting up animation loader
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -126,7 +126,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -140,7 +140,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let heartCount:String = String(format: "%d",colors.count)
         heartBtn.setTitle(heartCount, forState: UIControlState.Normal)
         heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        heartBtn.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        heartBtn.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = heartBtn
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -188,7 +188,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
-                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
+                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
                     testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
                     let vw = testView.viewWithTag(2)! as UIView
@@ -271,7 +271,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
-                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
+                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
                     testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
                     let vw = testView.viewWithTag(2)! as UIView
@@ -352,7 +352,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             NSUserDefaults.standardUserDefaults().synchronize()
             
             scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
-            let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)[0] as! UIView
+            let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
             // Set its frame and data to pageview
             testView.frame = CGRectMake(scrlView!.bounds.origin.x, 0, scrlView!.frame.size.width, scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
@@ -444,8 +444,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         
-        let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil) as Array
-        let cell = bundleArr[0] as! SavingCategoryTableViewCell
+        let cell = NSBundle.mainBundle().loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil)![0] as! SavingCategoryTableViewCell
         let cellDict = tblArr[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsZero
         cell.lblHeader!.text = cellDict["title"] as? String;
@@ -605,7 +604,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
-        for var i = 0; i < offerArr.count; i++ {
+        for i in 0 ..< offerArr.count {
             let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
             arr.append(dict)
         }
@@ -625,7 +624,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {

@@ -57,7 +57,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
             
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
@@ -69,7 +69,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: Selector("backButtonPress"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.backButtonPress), forControlEvents: .TouchUpInside)
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
@@ -85,7 +85,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData        {
             let dataSave = str
@@ -122,7 +122,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let objAPI = API()
             //Check Network rechability
             if objAPI.isConnectedToNetwork() {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(objAnimView)
@@ -190,8 +190,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         //Create custom cell from SAOfferListTableViewCell.xib
-        let bundleArr : Array = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil) as Array
-        let cell = bundleArr[0] as! SAOfferListTableViewCell
+        let cell = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil)![0] as! SAOfferListTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         //Showing Add offer button as per flag
@@ -202,12 +201,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         else {
             cell.btnAddOffer?.hidden = false
-            cell.btnAddOffer?.addTarget(self, action: Selector("clickedOnAddOffer:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             cell.btnAddOffer?.tag = indexPath.row
             cell.suggestedHt.constant = 72
         }
 
-        cell.btnOfferDetail?.addTarget(self, action: Selector("clickedOnOfferDetail:"), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.btnOfferDetail?.tag = indexPath.row
         let cellDict:Dictionary? = offerArr[indexPath.row]
         //--------------Showing offer detail-----------------------------
@@ -279,7 +278,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         //Calculating row height as per expanding and colapsing
         if prevIndxArr.count > 0 {
-            for var i in 0 ..< prevIndxArr.count {
+            for i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
                     if hideAddOfferButton{
                         //return height when add offer button is hide
@@ -353,7 +352,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         //Check any value is coming Null or not
         if let obj = objResponse["offerList"] as? Array<Dictionary<String,AnyObject>>{
-            for var i = 0; i < obj.count; i += 1 {
+            for i in 0 ..< obj.count {
                 //Replace dict's Null value with blanck.
                 let dict = self.checkNullDataFromDict(obj[i] as Dictionary<String,AnyObject>)
                 offerArr.append(dict)
@@ -373,7 +372,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //Check any key is NULL or Nil and replace it vith blank value
             if (ob is NSNull)  || ob == nil {

@@ -55,7 +55,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SACancelSavingViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -67,7 +67,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SACancelSavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
@@ -114,7 +114,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     }
     //Call the API for cancelling the saving plan
     @IBAction func yesButtonPressed(sender: AnyObject) {
-        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)

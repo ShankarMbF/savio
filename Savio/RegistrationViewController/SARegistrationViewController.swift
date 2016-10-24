@@ -55,18 +55,17 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             // dictionary to identifying cell and its properies
             let dict = arrRegistration[i] as Dictionary<String,AnyObject>
             //get tableviewCell as per the classtype
-            let bundleArr : Array = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)
             
             if dict["classType"]!.isEqualToString("SavioLogoTableViewCell"){
-                let cell = bundleArr[0] as! SavioLogoTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! SavioLogoTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             //Setup all error message lable tableViewCell
             if dict["classType"]!.isEqualToString("ErrorTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! ErrorTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ErrorTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 let tfTitleDict = metadataDict["lable"]as! Dictionary<String,AnyObject>
                 //Set Error messages to error lable
@@ -74,14 +73,14 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 let isErrorShow = tfTitleDict["isErrorShow"] as! String
                 //identifying to which error message show for textfield
                 if isErrorShow == "Yes"{
-                    arrRegistrationFields.append(cell)
+                    arrRegistrationFields.append(cell as! UITableViewCell)
                 }
             }
             
             //SetUp Titel and Name textfield tableView cell and its validation messages
             if dict["classType"]!.isEqualToString("TitleTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! TitleTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TitleTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -119,12 +118,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     }
                 }
                 //                cell.tfName?.placeholder = tfNameDict["placeholder"] as? String
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
                 
             }
             if dict["classType"]!.isEqualToString("TxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! TxtFieldTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -203,12 +202,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     }
                 }
                 
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("PickerTextfildTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! PickerTextfildTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! PickerTextfildTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -219,12 +218,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if (dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] != nil){
                     cell.tfDatePicker?.text = dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] as? String
                 }
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("FindAddressTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! FindAddressTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! FindAddressTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -251,12 +250,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 
                 let btnPostcodeDict = metadataDict["button"]as! Dictionary<String,AnyObject>
                 cell.btnPostCode?.setTitle(btnPostcodeDict["placeholder"] as? String, forState: UIControlState.Normal)
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("linkButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! linkButtonTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! linkButtonTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -268,23 +267,23 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 ]
                 let attributedString = NSAttributedString(string: (btnPostcodeDict["placeholder"] as? String)!, attributes: attributes)
                 cell.btnLink?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("ButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! ButtonTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ButtonTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 let btnPostcodeDict = metadataDict["button"]as! Dictionary<String,AnyObject>
                 cell.btn?.setTitle(btnPostcodeDict["placeholder"] as? String, forState: UIControlState.Normal)
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("NumericTextTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! NumericTextTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! NumericTextTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -312,12 +311,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                     }
                 }
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("EmailTxtTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! EmailTxtTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! EmailTxtTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -345,12 +344,12 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                     }
                 }
-                arrRegistrationFields.append(cell)
+                arrRegistrationFields.append(cell as! UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("DropDownTxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                let cell = bundleArr[0] as! DropDownTxtFieldTableViewCell
+                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! DropDownTxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -363,13 +362,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
                     //                    if (arrAddress.count>0){
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
-                    arrRegistrationFields.append(cell)
+                    arrRegistrationFields.append(cell as! UITableViewCell)
                 }
                 //                let arrDropDown = tfTitleDict["dropDownArray"] as! Array<String>
                 let arrDropDown = arrAddress
                 cell.arr = arrDropDown
                 if arrDropDown.count>0{
-                    arrRegistrationFields.append(cell)
+                    arrRegistrationFields.append(cell as! UITableViewCell)
                 }
             }
         }
@@ -485,7 +484,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
         else {
             //            NW1W 9BE
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView!.frame = self.view.frame
             objAnimView?.animate()
             self.view.addSubview(objAnimView!)
@@ -524,7 +523,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
         else
         {
-            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
             objimpInfo.frame = self.view.frame
             self.view.addSubview(objimpInfo)
@@ -568,7 +567,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 if(firstName == dict["first_name"] as! String || lastName == dict["second_name"] as! String || dateOfBirth == dict["date_of_birth"] as! String)
                 {
                     
-                    objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+                    objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                     objAnimView!.frame = self.view.frame
                     objAnimView?.animate()
                     self.view.addSubview(objAnimView!)
@@ -585,7 +584,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                 }
             }
             else {
-                let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)[0] as! ImportantInformationView
+                let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                 objImpInfo.delegate = self
                 objImpInfo.lblHeader.text = "Terms & Conditions"
                 //            objImpInfo.lblHeading.text = "Term And Condition"
@@ -724,7 +723,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         let objAPI = API()
         if(changePhoneNumber == false)
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView!.frame = self.view.frame
             objAnimView?.animate()
             self.view.addSubview(objAnimView!)
@@ -735,7 +734,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         else {
             if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
             {
-                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
                 objAnimView?.animate()
                 self.view.addSubview(objAnimView!)
@@ -777,7 +776,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         self.getJSONForUI()
         var idx = 0
         var firstErroIndex = -1
-        for var i=0; i<arrRegistrationFields.count; i++ {
+        for i in 0 ..< arrRegistrationFields.count {
             var errorFLag = false
             var errorMsg = ""
             var dict = Dictionary<String, AnyObject>()

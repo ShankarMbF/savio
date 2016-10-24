@@ -46,7 +46,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         var customToolBar : UIToolbar?
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SavingPlanCostTableViewCell.doneBarButtonPressed))
         customToolBar!.items = [acceptButton]
         costTextField.inputAccessoryView = customToolBar
         
@@ -129,8 +129,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     func registerForKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     @IBAction func plusButtonPressed(sender: AnyObject) {

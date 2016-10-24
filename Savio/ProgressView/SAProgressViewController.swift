@@ -43,7 +43,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.setUPNavigation()
         
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         savingPlanTitleLabel.hidden = true
@@ -73,7 +73,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+        leftBtnName.addTarget(self, action: #selector(SAProgressViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -87,7 +87,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SAProgressViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
@@ -148,7 +148,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         for i in 0 ..< 3
         {
             //load the CircularProgress.xib to create progress view
-            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)[0] as! UIView
+            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)![0] as! UIView
             circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  scrlView.frame.size.width, scrlView.frame.size.height)
             scrlView.addSubview(circularProgress)
             

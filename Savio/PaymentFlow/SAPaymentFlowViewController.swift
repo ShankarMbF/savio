@@ -57,7 +57,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 let leftBtnName = UIButton()
                 leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
                 leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-                leftBtnName.addTarget(self, action: Selector("backButtonPressd"), forControlEvents: .TouchUpInside)
+                leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
                 let leftBarButton = UIBarButtonItem()
                 leftBarButton.customView = leftBtnName
                 self.navigationItem.leftBarButtonItem = leftBarButton
@@ -73,7 +73,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             let leftBtnName = UIButton()
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: Selector("backButtonPressd"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
@@ -115,8 +115,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         
         //add custom tool bar for UIDatePickerView
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelBarButtonPressed"))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SAPaymentFlowViewController.cancelBarButtonPressed))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
@@ -135,7 +135,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         
         //Add custom tool bar as input accessory view to card number textfield and cvv textfield
         let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:Selector("doneBarButtonPressed"))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
         let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar2.items = [flexibleSpace1,doneButton]
         cardNumberTextField.inputAccessoryView = customToolBar2
@@ -178,7 +178,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.navigationController?.view.addSubview(self.objAnimView)
@@ -467,8 +467,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardNotification(){

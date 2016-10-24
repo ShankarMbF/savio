@@ -87,7 +87,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.setUpView()
         if(self.isUpdatePlan)
         {
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
@@ -109,11 +109,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if (isUpdatePlan) {
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: Selector("menuButtonClicked"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SASavingPlanViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
         } else  {
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: Selector("backButtonClicked"), forControlEvents: .TouchUpInside)
+            leftBtnName.addTarget(self, action: #selector(SASavingPlanViewController.backButtonClicked), forControlEvents: .TouchUpInside)
         }
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -126,7 +126,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.addTarget(self, action: Selector("heartBtnClicked"), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(SASavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
@@ -726,18 +726,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else if(indexPath.section == offerArr.count+5) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
-            cell1.nextButton.addTarget(self, action: Selector("nextButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else if(indexPath.section == offerArr.count+6) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
-            cell1.clearButton.addTarget(self, action: Selector("clearButtonPressed"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
         else if(indexPath.section == offerArr.count+7) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell
-            cell1.cancelSavingPlanButton.addTarget(self, action: Selector("cancelSavingButtonPressed:"), forControlEvents: .TouchUpInside)
+            cell1.cancelSavingPlanButton.addTarget(self, action: #selector(SASavingPlanViewController.cancelSavingButtonPressed(_:)), forControlEvents: .TouchUpInside)
             return cell1
         }
         else {
@@ -745,7 +745,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             cell1.tblView = tblView
             cell1.closeButton.tag = indexPath.section
-            cell1.closeButton.addTarget(self, action: Selector("closeOfferButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.closeButton.addTarget(self, action: #selector(SASavingPlanViewController.closeOfferButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             let ind = indexPath.section - 5
             let dict = offerArr[ind]
             cell1.offerTitleLabel.text = dict["offCompanyName"] as? String
@@ -759,7 +759,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cell1.offerDetailsButton.titleEdgeInsets = UIEdgeInsetsMake(0, (cell1.offerDetailsButton.imageView?.frame.size.width)!, 0, -(((cell1.offerDetailsButton.imageView?.frame.size.width)!-30)))
                 cell1.offerDetailsButton.setImage(UIImage(named:"detail-arrow-down.png"), forState: .Normal)
                 cell1.offerDetailsButton.imageEdgeInsets = UIEdgeInsetsMake(0, (cell1.offerDetailsButton.titleLabel?.frame.size.width)!, 0, -(((cell1.offerDetailsButton.titleLabel?.frame.size.width)!+30)))
-                cell1.offerDetailsButton.addTarget(self, action: Selector("offerDetailsButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.offerDetailsButton.addTarget(self, action: #selector(SASavingPlanViewController.offerDetailsButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 if(isClearPressed) {
                     cell1.detailOfferLabel.hidden = true
@@ -1172,7 +1172,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         //Check if offers are already added or not
         if isOfferShow == false {
             //if yes create the saving plan
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.navigationController?.view.addSubview(self.objAnimView)
@@ -1424,7 +1424,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
-        for var key:String in Array(dict.keys) {
+        for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {

@@ -140,7 +140,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "44", OTP: fiveDigitTextField.text!)
                 codeDoesNotMatchLabel.hidden = true;
                 fiveDigitTextField.resignFirstResponder()
-                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
                 objAnimView.animate()
                 self.view.addSubview(objAnimView)
@@ -162,7 +162,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         //Resend the OTP to the mobile number present in keychain
         objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
         fiveDigitTextField.resignFirstResponder()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)[0] as! ImageViewAnimation)
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         objAnimView.animate()
         self.view.addSubview(objAnimView)

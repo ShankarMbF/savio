@@ -8,6 +8,7 @@
 
 import UIKit
 import PassKit
+import Stripe
 
 class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,ImpulseSavingDelegate{
     

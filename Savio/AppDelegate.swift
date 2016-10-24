@@ -9,7 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
-
+import Stripe
 
 
 struct Device {

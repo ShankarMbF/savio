@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5132ECBAA376482C476A8F41 /* Pods_Savio.framework */; };
 		5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C45361DBE432300A7E938 /* Contacts.framework */; };
-		55672DDDCF889C6D9A2B306B /* libPods-Savio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7458D31810C3732959F0D250 /* libPods-Savio.a */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -170,7 +170,6 @@
 		A86682071CFF09940014DB59 /* CalculationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86682051CFF09940014DB59 /* CalculationTableViewCell.swift */; };
 		A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86682061CFF09940014DB59 /* CalculationTableViewCell.xib */; };
 		A868DC041D881EE000E7F279 /* MonthYearPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A868DC031D881EE000E7F279 /* MonthYearPickerView.swift */; };
-		A868DC061D88274D00E7F279 /* libStripe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8B1CB521D87C80100EB8772 /* libStripe.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A86B72FB1D3601620075F501 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FA1D3601620075F501 /* CoreLocation.framework */; };
 		A86B72FD1D36016B0075F501 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FC1D36016B0075F501 /* CoreMotion.framework */; };
 		A86B73001D36017B0075F501 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A86B72FE1D36017B0075F501 /* CoreGraphics.framework */; };
@@ -595,7 +594,7 @@
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
-		D80628F3BC8F76F701636E2B /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */; };
+		CD370554CAA0EC2E0DB6EC86 /* Pods_SavioWishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -625,9 +624,10 @@
 /* Begin PBXFileReference section */
 		1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
 		2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
+		5132ECBAA376482C476A8F41 /* Pods_Savio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Savio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550C45361DBE432300A7E938 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
-		7458D31810C3732959F0D250 /* libPods-Savio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Savio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SavioWishList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -660,7 +660,6 @@
 		A82B9C9A1D06DDDF00BFD084 /* slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = slider.swift; sourceTree = "<group>"; };
 		A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationScreenOneViewController.swift; sourceTree = "<group>"; };
 		A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationScreenOneViewController.xib; sourceTree = "<group>"; };
-		A82F3D7A1D991AC1006EF2EE /* libStripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStripe.a; path = "Pods/../build/Debug-iphoneos/Stripe/libStripe.a"; sourceTree = "<group>"; };
 		A833D0F31D49FF6B0098409E /* stats-achievement-smiley-popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup.png"; sourceTree = "<group>"; };
 		A833D0F41D49FF6B0098409E /* stats-achievement-smiley-popup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@2x.png"; sourceTree = "<group>"; };
 		A833D0F51D49FF6B0098409E /* stats-achievement-smiley-popup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stats-achievement-smiley-popup@3x.png"; sourceTree = "<group>"; };
@@ -809,8 +808,6 @@
 		A87016181D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateGroupSavingPlanViewController.xib; sourceTree = "<group>"; };
 		A87016201D1BFE1500E58A6A /* KDCircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDCircularProgress.swift; sourceTree = "<group>"; };
 		A87016221D1C0C2500E58A6A /* CircularProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircularProgress.xib; sourceTree = "<group>"; };
-		A87802B61D6580E80048EAE5 /* libPods-Savio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Savio.a"; path = "../../Library/Developer/Xcode/DerivedData/Savio-edhpqnpuyhkfazdyqqhzvpvulpjb/Build/Products/Debug-iphonesimulator/libPods-Savio.a"; sourceTree = "<group>"; };
-		A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SavioWishList.a"; path = "Pods/../build/Release-iphoneos/libPods-SavioWishList.a"; sourceTree = "<group>"; };
 		A87CE87E1D8FB7CA00270494 /* MasterCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MasterCard.png; sourceTree = "<group>"; };
 		A87CE87F1D8FB7CA00270494 /* MasterCard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MasterCard@2x.png"; sourceTree = "<group>"; };
 		A87CE8801D8FB7CA00270494 /* VISA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VISA.png; sourceTree = "<group>"; };
@@ -914,7 +911,6 @@
 		A8AEA9411CFFF1DE0069F22A /* NextButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NextButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9441CFFF9110069F22A /* ClearButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearButtonTableViewCell.swift; sourceTree = "<group>"; };
 		A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClearButtonTableViewCell.xib; sourceTree = "<group>"; };
-		A8B1CB521D87C80100EB8772 /* libStripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStripe.a; path = "../../Library/Developer/Xcode/DerivedData/Savio-edhpqnpuyhkfazdyqqhzvpvulpjb/Build/Products/Debug-iphonesimulator/Stripe/libStripe.a"; sourceTree = "<group>"; };
 		A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPaymentFlowViewController.swift; sourceTree = "<group>"; };
 		A8B1CB561D87CAED00EB8772 /* SAPaymentFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAPaymentFlowViewController.xib; sourceTree = "<group>"; };
 		A8B5A5011D4A1F15005A607D /* Group-social-pop-up-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close.png"; sourceTree = "<group>"; };
@@ -975,13 +971,11 @@
 		A8E3CA211D79AC86002B792C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A8E3CA261D79ACFA002B792C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A8E3CA2A1D79AFD2002B792C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		A8F24F3A1D8AAB70005D3DE8 /* libStripe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStripe.a; path = "Pods/../build/Release-iphoneos/Stripe/libStripe.a"; sourceTree = "<group>"; };
 		A8F8201F1D2E1DA700BB7537 /* GroupCircularProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCircularProgressView.xib; sourceTree = "<group>"; };
 		A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACancelSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACancelSavingViewController.xib; sourceTree = "<group>"; };
 		A8F820271D2E7FC800BB7537 /* SAImpulseSavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAImpulseSavingViewController.swift; sourceTree = "<group>"; };
 		A8F820281D2E7FC800BB7537 /* SAImpulseSavingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAImpulseSavingViewController.xib; sourceTree = "<group>"; };
-		AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85D2FFB3CC388525A6C95FB /* Pods-SavioWishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.debug.xcconfig"; sourceTree = "<group>"; };
 		C90571941CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SACreateSavingPlanViewController.swift; sourceTree = "<group>"; };
 		C90571951CFEAA8500ECC4FC /* SACreateSavingPlanViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SACreateSavingPlanViewController.xib; sourceTree = "<group>"; };
@@ -1229,7 +1223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A86681EE1CFEE91F0014DB59 /* MobileCoreServices.framework in Frameworks */,
-				D80628F3BC8F76F701636E2B /* libPods-SavioWishList.a in Frameworks */,
+				CD370554CAA0EC2E0DB6EC86 /* Pods_SavioWishList.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,7 +1233,6 @@
 			files = (
 				5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */,
 				A81D014A1D894E8000E58A97 /* PassKit.framework in Frameworks */,
-				A868DC061D88274D00E7F279 /* libStripe.a in Frameworks */,
 				A86B73051D3612240075F501 /* SafariServices.framework in Frameworks */,
 				CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */,
 				A86B73031D3601890075F501 /* MediaPlayer.framework in Frameworks */,
@@ -1254,7 +1247,7 @@
 				A87802D61D658CF60048EAE5 /* Security.framework in Frameworks */,
 				A87802CE1D658CF60048EAE5 /* AddressBook.framework in Frameworks */,
 				A87802D41D658CF60048EAE5 /* SystemConfiguration.framework in Frameworks */,
-				55672DDDCF889C6D9A2B306B /* libPods-Savio.a in Frameworks */,
+				11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,15 +1258,10 @@
 			isa = PBXGroup;
 			children = (
 				550C45361DBE432300A7E938 /* Contacts.framework */,
-				A82F3D7A1D991AC1006EF2EE /* libStripe.a */,
-				A8F24F3A1D8AAB70005D3DE8 /* libStripe.a */,
 				A81D01491D894E8000E58A97 /* PassKit.framework */,
-				A8B1CB521D87C80100EB8772 /* libStripe.a */,
-				A87802B91D6582D30048EAE5 /* libPods-SavioWishList.a */,
-				A87802B61D6580E80048EAE5 /* libPods-Savio.a */,
 				A86B73041D3612240075F501 /* SafariServices.framework */,
-				7458D31810C3732959F0D250 /* libPods-Savio.a */,
-				AB00FA87CCBC82FAD2329CD9 /* libPods-SavioWishList.a */,
+				5132ECBAA376482C476A8F41 /* Pods_Savio.framework */,
+				72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3340,7 +3328,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd67ed99-85bf-4a36-8520-f4a599e6399b";
+				PROVISIONING_PROFILE = "d069a1b8-ee3f-4805-aa80-42ef6ff09893";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio ShareExtension";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
@@ -3382,7 +3370,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd67ed99-85bf-4a36-8520-f4a599e6399b";
+				PROVISIONING_PROFILE = "d069a1b8-ee3f-4805-aa80-42ef6ff09893";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio ShareExtension";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
@@ -3444,6 +3432,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "93a4680a-75a9-42cc-8e5f-3aace91e6444";
@@ -3500,6 +3489,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "93a4680a-75a9-42cc-8e5f-3aace91e6444";
@@ -3529,14 +3519,11 @@
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Release-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a665e95f-c3d7-443d-87bb-d773593b1bfd";
+				PROVISIONING_PROFILE = "2977b7a0-c6a8-45c8-9e4b-971c627d9650";
 				PROVISIONING_PROFILE_SPECIFIER = Savio;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3563,14 +3550,11 @@
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Release-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a665e95f-c3d7-443d-87bb-d773593b1bfd";
+				PROVISIONING_PROFILE = "2977b7a0-c6a8-45c8-9e4b-971c627d9650";
 				PROVISIONING_PROFILE_SPECIFIER = Savio;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

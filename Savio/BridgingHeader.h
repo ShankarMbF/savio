@@ -18,5 +18,3 @@
 #import "KeychainItemWrapper.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "TWMessageBarManager.h"
-
-#import <Stripe/Stripe.h>

@@ -138,7 +138,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             //Setup all error message lable tableViewCell
             if dict["classType"]!.isEqualToString("ErrorTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ErrorTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ErrorTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 let tfTitleDict = metadataDict["lable"]as! Dictionary<String,AnyObject>
                 //Set Error messages to error lable
@@ -147,14 +147,14 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 //identifying to which error message show for textfield
                 
                 if isErrorShow == "Yes"{
-                    arrRegistrationFields.append(cell as! UITableViewCell)
+                    arrRegistrationFields.append(cell as UITableViewCell)
                 }
             }
             
             //SetUp Titel and Name textfield tableView cell and its validation messages
             if dict["classType"]!.isEqualToString("TitleTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TitleTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TitleTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -198,12 +198,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tfName?.textColor = UIColor.redColor()
                     }
                 }
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
                 
             }
             if dict["classType"]!.isEqualToString("TxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TxtFieldTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! TxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -307,12 +307,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     }
                 }
                 
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("PickerTextfildTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! PickerTextfildTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! PickerTextfildTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -328,12 +328,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 if (dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] != nil){
                     cell.tfDatePicker?.text = dictForTextFieldValue[(cell.tfDatePicker?.placeholder)!] as? String
                 }
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("FindAddressTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! FindAddressTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! FindAddressTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -360,22 +360,22 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 
                 let btnPostcodeDict = metadataDict["button"]as! Dictionary<String,AnyObject>
                 cell.btnPostCode?.setTitle(btnPostcodeDict["placeholder"] as? String, forState: UIControlState.Normal)
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("ButtonTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ButtonTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! ButtonTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.btn?.setTitle("Save", forState: UIControlState.Normal)
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("NumericTextTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! NumericTextTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! NumericTextTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -404,12 +404,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                     }
                 }
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
             }
             
             if dict["classType"]!.isEqualToString("EmailTxtTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! EmailTxtTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! EmailTxtTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -439,13 +439,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
                     }
                 }
-                arrRegistrationFields.append(cell as! UITableViewCell)
+                arrRegistrationFields.append(cell as UITableViewCell)
                 
             }
             
             if dict["classType"]!.isEqualToString("DropDownTxtFieldTableViewCell"){
                 let metadataDict = dict["metaData"]as! Dictionary<String,AnyObject>
-                var cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! DropDownTxtFieldTableViewCell
+                let cell = NSBundle.mainBundle().loadNibNamed(dict["classType"] as! String, owner: nil, options: nil)![0] as! DropDownTxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.delegate = self
                 cell.tblView = tblView
@@ -455,12 +455,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
-                    arrRegistrationFields.append(cell as! UITableViewCell)
+                    arrRegistrationFields.append(cell as UITableViewCell)
                 }
                 let arrDropDown = arrAddress
                 cell.arr = arrDropDown
                 if arrDropDown.count>0{
-                    arrRegistrationFields.append(cell as! UITableViewCell)
+                    arrRegistrationFields.append(cell as UITableViewCell)
                 }
             }
         }

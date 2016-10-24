@@ -242,7 +242,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             var ht: CGFloat = 0.0
             var str = ""
             //Check any cell is expanded before
-            for var i in 0 ..< prevIndxArr.count {
+            for i in 0 ..< prevIndxArr.count {
                 //Check current cell call for expand
                 if prevIndxArr[i] == indexPath.row {
                     //Expand cell and show offer  detail

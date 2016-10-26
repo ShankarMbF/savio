@@ -265,11 +265,36 @@
     }
     
     //MARK: - Addressbook integration
+    func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
+        switch ABAddressBookGetAuthorizationStatus(){
+        case .Authorized:
+            completionHandler(accessGranted: true)
+            /* Access the address book */
+        case .NotDetermined:
+            var error: Unmanaged<CFError>?
+            let addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
+            ABAddressBookRequestAccessWithCompletion(addressBook,
+                                                     {(granted: Bool, error: CFError!) in
+                                                        completionHandler(accessGranted: granted)
+            })
+        default:
+            completionHandler(accessGranted: false)
+        }
+    }
+    
     func showAddressBook(){
-        addressBook = ABPeoplePickerNavigationController()
-        addressBook?.peoplePickerDelegate = self
-        self.presentViewController(addressBook!, animated: true, completion: nil)
-        
+        requestForAccess { (accessGranted) in
+            if accessGranted {
+                self.addressBook = ABPeoplePickerNavigationController()
+                self.addressBook?.peoplePickerDelegate = self
+                self.presentViewController(self.addressBook!, animated: true, completion: nil)
+            }
+            else {
+                let alert = UIAlertController(title: "Can't access contacts", message: "Please allow Savio access to Contacts in Settings to invite your friends", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     func peoplePickerNavigationControllerDidCancel(peoplePicker: ABPeoplePickerNavigationController) {

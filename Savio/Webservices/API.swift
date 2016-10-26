@@ -15,7 +15,7 @@ import Foundation
 //let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-let baseURL = "http://54.229.252.23:8080/SavioAPI/V1"
+let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 

@@ -3042,7 +3042,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run aa428530698cf2f9c719c944f531f9ddbfdb9d0d e2fc95ceb825969b005b5e6a50862945cfd61eeba2c601d8c2e76a967140efd1";
+			shellScript = "./Fabric.framework/run 761dec15218ab1b985ecd5f0070f7204b59a0826 32352c5a20c162184b4601242467a0dda1febc0e33ddf6049a1b758078c21e8e";
 		};
 		DE86403D974CCBEF62723B96 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3217,7 +3217,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d069a1b8-ee3f-4805-aa80-42ef6ff09893";
+				PROVISIONING_PROFILE = "9af28787-33c9-475c-bb7c-b35cb7a89b0d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio ShareExtension";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_VERSION = 2.3;
@@ -3254,7 +3254,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d069a1b8-ee3f-4805-aa80-42ef6ff09893";
+				PROVISIONING_PROFILE = "9af28787-33c9-475c-bb7c-b35cb7a89b0d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio ShareExtension";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3398,7 +3398,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2977b7a0-c6a8-45c8-9e4b-971c627d9650";
+				PROVISIONING_PROFILE = "69d897d3-70a4-4f31-8bc0-748176c3314a";
 				PROVISIONING_PROFILE_SPECIFIER = Savio;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3425,7 +3425,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2977b7a0-c6a8-45c8-9e4b-971c627d9650";
+				PROVISIONING_PROFILE = "69d897d3-70a4-4f31-8bc0-748176c3314a";
 				PROVISIONING_PROFILE_SPECIFIER = Savio;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

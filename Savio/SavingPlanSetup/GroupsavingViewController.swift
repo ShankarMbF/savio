@@ -639,6 +639,27 @@
         let alert = UIAlertController(title: "Are you sure?", message: "You want to delete this person from list", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
+            // detect contact, which was deleted
+            let deletedContact = self.participantsArr[sender.tag]
+            let deletedContactEmail = deletedContact["email_id"] as? String
+            let deletedContactPhone = deletedContact["mobile_number"] as? String
+            
+            // filter out deleted contacts from "InviteGroupArray"
+            var newParticipantsArr =  Array<Dictionary<String,AnyObject>>()
+            if let contactsArray =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
+                for contact in contactsArray {
+                    if let deletedContactEmail = deletedContactEmail where deletedContactEmail == contact["email_id"] as? String {
+                        continue
+                    }
+                    if let deletedContactPhone = deletedContactPhone where deletedContactPhone == contact["mobile_number"] as? String {
+                        continue
+                    }
+                    newParticipantsArr.append(contact)
+                }
+                NSUserDefaults.standardUserDefaults().setObject(newParticipantsArr, forKey:"InviteGroupArray")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            }
+            
             self.participantsArr.removeAtIndex(sender.tag)
             self.contentViewHt.constant = self.contentViewHt.constant - 40
             self.tblViewHt.constant = self.tblViewHt.constant - 40

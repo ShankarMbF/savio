@@ -9,6 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
+import UserNotifications
 import Stripe
 
 
@@ -18,8 +19,7 @@ struct Device {
 
 @UIApplicationMain
 
-
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomeViewController?
@@ -52,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Check if keychain has encrypted pin value.
         let objApi = API()
-        objApi.deleteKeychainValue("savingPlanDict")
-        objApi.deleteKeychainValue("saveCardArray")
+//        objApi.deleteKeychainValue("savingPlanDict")
+//        objApi.deleteKeychainValue("saveCardArray")
         //Check if passcode is stored into keychain.
         if let passcode = objApi.getValueFromKeychainOfKey("myPasscode") as? String
         {
@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 {
                     let udidDict = userInfoDict["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
                     let udidArray = udidDict[0]
+                    print(udidDict)
                     //Check if current deviceID is present in keychain.
                     if(udidArray["DEVICE_ID"] as! String  == Device.udid)
                     {
@@ -148,9 +149,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Register device for APNS.
     func registerForPushNotifications(application: UIApplication) {
-        let notificationSettings = UIUserNotificationSettings(
-            forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        application.registerUserNotificationSettings(notificationSettings)
+        
+        if #available(iOS 10.0, *){
+            UNUserNotificationCenter.currentNotificationCenter().delegate = self
+            UNUserNotificationCenter.currentNotificationCenter().requestAuthorizationWithOptions([.Badge, .Sound, .Alert], completionHandler: {(granted, error) in
+                if (granted)
+                {
+                    UIApplication.sharedApplication().registerForRemoteNotifications()
+                }
+                else{
+                    //Do stuff if unsuccessful...
+                    print("not Successfully updated ......")
+                }
+            })
+        }
+            
+        else{ //If user is not on iOS 10 use the old methods we've been using
+            let notificationSettings = UIUserNotificationSettings(
+                forTypes: [.Badge, .Sound, .Alert], categories: nil)
+            application.registerUserNotificationSettings(notificationSettings)
+            
+        }
+        
     }
     
     //Delegate method to verfy if the user accepts or denys the APNS.

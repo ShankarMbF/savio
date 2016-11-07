@@ -266,6 +266,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         objAnimView.removeFromSuperview()
         let dict = objResponse["party"]
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
+        print(udidDict)
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)

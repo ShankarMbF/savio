@@ -12,17 +12,17 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-//let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
+let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
+//let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
-let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
+//let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 
 //============AUTHY API KEY SANDBOX===============
-//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
 
 let custom_message = "Your Savio phone verification code is {{code}}"
 var checkString = ""

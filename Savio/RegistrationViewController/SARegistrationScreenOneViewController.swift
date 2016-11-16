@@ -427,7 +427,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             userInfoDict["first_name"] = nameTextField.text
             userInfoDict["second_name"] = surnameTextField.text
             userInfoDict["date_of_birth"] = dateOfBirthTextField.text
-            userInfoDict["phone_number"] = mobileNumberTextField.text
+            userInfoDict["phone_number"] =  String(format:"%@",mobileNumberTextField.text!)
             userInfoDict["email"] = emailTextField.text
             
             if(titleTextField.text == "Mr")

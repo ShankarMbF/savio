@@ -12,6 +12,7 @@ import Stripe
 
 class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,ImpulseSavingDelegate{
     
+    @IBOutlet weak var cardNumView: NSLayoutConstraint!
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
     @IBOutlet weak var cardNumberTextField: UITextField!
     @IBOutlet weak var cvvTextField: UITextField!
@@ -25,6 +26,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     @IBOutlet weak var scrlView: UIScrollView!
     @IBOutlet weak var contentview: UIView!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var txtCardNum1: UITextField!
+    @IBOutlet weak var txtCardNum2: UITextField!
+    @IBOutlet weak var txtCardNum3: UITextField!
+    @IBOutlet weak var txtCardNum4: UITextField!
     
     var objAnimView = ImageViewAnimation()
     var picker = MonthYearPickerView()
@@ -39,6 +44,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     var isFromEditUserInfo = false
     var doNotShowBackButton = true
     var addNewCard = false
+    var arrayTextFields: Array<UITextField>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +54,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     
     func setUpView(){
+       
+        
         let objAPI = API()
         if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
@@ -83,6 +91,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         
         cardNumberTextFieldTopSpace.constant = 5
+        cardNumView.constant = 5
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -125,6 +134,27 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         expiryMonthYearTextField.inputView = picker
         expiryMonthYearTextField.inputAccessoryView = customToolBar
         
+        //Set border to all card number textfield
+        txtCardNum1?.layer.cornerRadius = 2.0
+        txtCardNum1?.layer.masksToBounds = true
+        txtCardNum1?.layer.borderWidth=1.0
+        txtCardNum1?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
+        txtCardNum2?.layer.cornerRadius = 2.0
+        txtCardNum2?.layer.masksToBounds = true
+        txtCardNum2?.layer.borderWidth=1.0
+        txtCardNum2?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
+        txtCardNum3?.layer.cornerRadius = 2.0
+        txtCardNum3?.layer.masksToBounds = true
+        txtCardNum3?.layer.borderWidth=1.0
+        txtCardNum3?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
+        txtCardNum4?.layer.cornerRadius = 2.0
+        txtCardNum4?.layer.masksToBounds = true
+        txtCardNum4?.layer.borderWidth=1.0
+        txtCardNum4?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
         
         //Customization of cvv text field
         cvvTextField?.layer.cornerRadius = 2.0
@@ -141,6 +171,22 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         customToolBar2.items = [flexibleSpace1,doneButton]
         cardNumberTextField.inputAccessoryView = customToolBar2
         cvvTextField.inputAccessoryView = customToolBar2
+        
+        self.arrayTextFields = [txtCardNum1,
+                                txtCardNum2,
+                                txtCardNum3,
+                                txtCardNum4]
+        
+        for tf: UITextField in arrayTextFields {
+            tf.inputAccessoryView = customToolBar2
+            
+        }
+        
+        txtCardNum1.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        txtCardNum2.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        txtCardNum3.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        txtCardNum4.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+
         
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
@@ -186,9 +232,11 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //Check validations of Textfields
         if(checkTextFieldValidation() == false)
         {
+            let cardNum = txtCardNum1.text! + txtCardNum2.text! + txtCardNum3.text! + txtCardNum4.text!
             //Customize Stripe card
             stripeCard.cvc = cvvTextField.text
-            stripeCard.number = cardNumberTextField.text
+//            stripeCard.number = cardNumberTextField.text
+            stripeCard.number = cardNum
             stripeCard.expYear = UInt(picker.year)
             stripeCard.expMonth = UInt(picker.month)
             
@@ -202,10 +250,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     self.objAnimView.removeFromSuperview()
                     self.cardNumberErrorLabel.text = "Enter valid card details"
                     self.cardNumberTextFieldTopSpace.constant = 35
+                    self.cardNumView.constant = 35
                     if(error?.localizedDescription == "Your card\'s number is invalid")
                     {
-                        self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-                        self.cardNumberTextField.textColor = UIColor.redColor()
+                        self.setBarodrColor(UIColor.redColor())
+//                        self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+//                        self.cardNumberTextField.textColor = UIColor.redColor()
                     } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
@@ -224,7 +274,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     
                     var array : Array<Dictionary<String,AnyObject>> = []
-                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+//                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":cardNum,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
                     
                     //If user is adding new card call AddNewSavingCardDelegate
                     if(self.addNewCard == true)
@@ -237,7 +288,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                 let newDict = array[i]
                                 cardNumberArray.append(newDict["cardNumber"] as! String)
                             }
-                            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+//                            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+                            if(cardNumberArray.contains(cardNum) == false)
                             {
                                 array.append(dict1)
                                 NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
@@ -301,6 +353,19 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         
     }
     
+    func setBarodrColor(borderColor: UIColor) {
+        txtCardNum1.layer.borderColor = borderColor.CGColor
+        txtCardNum1.textColor = borderColor
+        txtCardNum2.layer.borderColor = borderColor.CGColor
+        txtCardNum2.textColor = borderColor
+        
+        txtCardNum3.layer.borderColor = borderColor.CGColor
+        txtCardNum3.textColor = borderColor
+        
+        txtCardNum4.layer.borderColor = borderColor.CGColor
+        txtCardNum4.textColor = borderColor
+    }
+    
     func checkTextFieldValidation()->Bool
     {
         let date = NSDate()
@@ -338,9 +403,38 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         
         //Validations for card number text field
-        if cardNumberTextField.text == "" {
+        
+        let cardNumStr = txtCardNum1.text! + txtCardNum2.text! + txtCardNum3.text! + txtCardNum4.text!
+        
+        
+        if cardNumStr == "" {
             cardNumberErrorLabel.text = "Enter valid card details"
             cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
+            errorFlag = true
+            self.setBarodrColor(UIColor.redColor())
+        }
+        if cardNumStr.characters.count < 16 {
+            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.hidden = false
+            cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
+            errorFlag = true
+             self.setBarodrColor(UIColor.redColor())
+//            cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
+//            cardNumberTextField.textColor = UIColor.redColor()
+        }
+//        else {
+//            cardNumberTextFieldTopSpace.constant = 5
+//            cardNumView.constant = 5
+//            cardNumberErrorLabel.text = ""
+//        }
+        
+        
+   /*     if cardNumberTextField.text == "" {
+            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
             errorFlag = true
             cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
             cardNumberTextField.textColor = UIColor.redColor()
@@ -349,20 +443,23 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberErrorLabel.text = "Enter valid card details"
             cardNumberErrorLabel.hidden = false
             cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
             errorFlag = true
             cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
             cardNumberTextField.textColor = UIColor.redColor()
         }
         else {
             cardNumberTextFieldTopSpace.constant = 5
+            cardNumView.constant = 5
             cardNumberErrorLabel.text = ""
-        }
+        }*/
         
         //Validations for expiry date text field and cvv text field
-        if(expiryMonthYearTextField.text == "" || cvvTextField.text == "")
+        else if(expiryMonthYearTextField.text == "" || cvvTextField.text == "")
         {
             cardNumberErrorLabel.text = "Enter valid card details"
             cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
             errorFlag = true
             cvvTextField.layer.borderColor = UIColor.redColor().CGColor
             cvvTextField.textColor = UIColor.redColor()
@@ -374,6 +471,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         {
             cardNumberErrorLabel.text = "Enter valid card details"
             cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
             errorFlag = true
             expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
             expiryMonthYearTextField.textColor = UIColor.redColor()
@@ -382,12 +480,17 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         {
             cardNumberErrorLabel.text = "Enter valid card details"
             cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
             errorFlag = true
             cvvTextField.layer.borderColor = UIColor.redColor().CGColor
             cvvTextField.textColor = UIColor.redColor()
         }
         else {
+//            cardNumberErrorLabel.text = ""
+            cardNumberTextFieldTopSpace.constant = 5
+            cardNumView.constant = 5
             cardNumberErrorLabel.text = ""
+
         }
         
         return errorFlag
@@ -449,9 +552,56 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         return true
     }
     
+    
+    func textFieldDidChange(textField: UITextField) {
+        
+        let text = textField.text
+        var tag = textField.tag
+        if text?.characters.count == 4 {
+            for tf: UITextField in arrayTextFields {
+                if tf.tag == tag && tag != 3 && text?.characters.count >= 4{
+                    let tfNext = arrayTextFields[tag + 1]
+                    tfNext.becomeFirstResponder()
+                    break
+                }
+                 if tag == 3 && text?.characters.count >= 4 {
+                    textField.resignFirstResponder()
+                    break
+                }
+            }
+            
+        }else if text?.characters.count == 0 {
+            
+            for idx in 0...tag {
+                tag -= 1
+                if tag >= 0 {
+                    let tfPre = arrayTextFields[tag]
+                    if tfPre.text?.characters.count > 0 {
+                        tfPre.becomeFirstResponder()
+                        break
+                    }
+                }
+            }
+        }
+        else {
+            
+        }
+    }
+
+    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
-        
+        textField.textColor = UIColor.blackColor()
+         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+
+        if(textField == txtCardNum1 || textField == txtCardNum2 || textField == txtCardNum3 || textField == txtCardNum4) {
+           
+            let currentCharacterCount = textField.text?.characters.count ?? 0
+            let newLength = currentCharacterCount + string.characters.count
+            if (newLength > 4) {
+                return false;
+            }
+        }
         if(textField == cardNumberTextField)
         {
             let newLength = text.utf16.count + string.utf16.count - range.length

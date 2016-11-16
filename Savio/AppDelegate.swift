@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         Fabric.with([Crashlytics.self])
         registerForPushNotifications(application)
         
-        
         // Check if launched from notification
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
             // Do the stuff after geting Notification when app is not running mode

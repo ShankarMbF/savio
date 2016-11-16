@@ -128,7 +128,7 @@ class ContactViewController: UIViewController {
                 var dict = contactArray[i] as Dictionary<String,AnyObject>
                 if let phone = dict["mobile_number"] as? String
                 {
-                    mobileArray.append(phone)
+                    mobileArray.append(String(format:"%@",phone))
                 }
                 if let email = dict["email"] as? String
                 {

@@ -258,12 +258,15 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["county"] = countyTextField.text
             userInfoDict["post_code"] = findAddressTextField.text
             let udidDict : Dictionary<String,AnyObject>
+           
             if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
+                 print(udidDict)
                 
             } else {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
+                 print(udidDict)
             }
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
@@ -416,7 +419,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                 objAPI.deleteKeychainValue("myPasscode")
             }
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "44")
+            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "91")
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()

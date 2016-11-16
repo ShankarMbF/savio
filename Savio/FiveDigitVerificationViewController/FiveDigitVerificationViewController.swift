@@ -133,11 +133,11 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             }
             else {
                 //Set the OTPVerificationDelegate
-                
+      
                 //---------------Remove below comment while testing on live authy---------------//
-           
+  /*
                 objAPI.otpVerificationDelegate = self
-                objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "44", OTP: fiveDigitTextField.text!)
+                objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "91", OTP: fiveDigitTextField.text!)
                 codeDoesNotMatchLabel.hidden = true;
                 fiveDigitTextField.resignFirstResponder()
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -145,12 +145,12 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAnimView.animate()
                 self.view.addSubview(objAnimView)
          
-/*
+*/
 
                   //---------------Comment below code while testing on live authy---------------//
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true) 
-                 */
+ 
             }
         }
     }
@@ -160,7 +160,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         objAPI.otpSentDelegate = self
         
         //Resend the OTP to the mobile number present in keychain
-        objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
+        objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "91")
         fiveDigitTextField.resignFirstResponder()
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)

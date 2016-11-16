@@ -91,6 +91,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 self.dayDateStr = "day"
             }
             self.dayPickerView.reloadAllComponents()
+            self.dayPickerView.selectRow(0, inComponent: 0, animated: false)
         }
     }
     

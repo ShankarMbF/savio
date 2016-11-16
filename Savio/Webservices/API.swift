@@ -19,10 +19,10 @@ let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
-//let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
+let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 
 //============AUTHY API KEY SANDBOX===============
-let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
 
 let custom_message = "Your Savio phone verification code is {{code}}"
 var checkString = ""
@@ -403,7 +403,10 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
+            dispatch_async(dispatch_get_main_queue()){
+               self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
+            }
+            
         }
     }
     
@@ -568,6 +571,7 @@ class API: UIView,NSURLSessionDelegate {
     //ResetPasscode function
     func resetPasscodeOfUserID(dictParam:Dictionary<String,AnyObject>)
     {
+        print(dictParam)
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -588,6 +592,7 @@ class API: UIView,NSURLSessionDelegate {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        print(dict)
                         dispatch_async(dispatch_get_main_queue()){
                             self.resetPasscodeDelegate?.successResponseForResetPasscodeAPI(dict)
                         }

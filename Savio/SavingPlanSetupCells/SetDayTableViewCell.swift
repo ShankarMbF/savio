@@ -141,40 +141,43 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func doneBarButtonPressed(){
-        dayDateTextField.resignFirstResponder()
-        dropDownImageView.image = self.setUpWordImage()
-        if(dayPickerView.selectedRowInComponent(0) == 0) {
-            if(dayDateStr == "date") {
-                
-                dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
-                 segmentDelegate!.getDateTextField("1")
-            }
-            else {
-                dayDateTextField.text = "Mon"
-                dayDateTextField.font = UIFont(name: kMediumFont, size:10)
-                 segmentDelegate!.getDateTextField("Mon")
-            }
-        }
-        else {
-            if(dayDateStr == "date") {
-                let date : Int? = Int(dateStr)
-                if(date != 0 && dateStr != "")
-                {
-                dayDateTextField.attributedText = self.createXLabelText(date!, text: String(format: "%@",dateStr))
+        dispatch_async(dispatch_get_main_queue()){
+            self.dayDateTextField.resignFirstResponder()
+            self.dropDownImageView.image = self.setUpWordImage()
+            if(self.dayPickerView.selectedRowInComponent(0) == 0) {
+                if(self.dayDateStr == "date") {
+                    
+                    self.dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
+                    self.segmentDelegate!.getDateTextField("1")
+                }
+                else {
+                    self.dayDateTextField.text = "Mon"
+                    self.dayDateTextField.font = UIFont(name: kMediumFont, size:10)
+                    self.segmentDelegate!.getDateTextField("Mon")
                 }
             }
             else {
-                dayDateTextField.font = UIFont(name: kMediumFont, size:10)
-                dayDateTextField.text = dateStr
+                if(self.dayDateStr == "date") {
+                    let date : Int? = Int(self.dateStr)
+                    if(date != 0 && self.dateStr != "")
+                    {
+                        self.dayDateTextField.attributedText = self.createXLabelText(date!, text: String(format: "%@",self.dateStr))
+                    }
+                }
+                else {
+                    self.dayDateTextField.font = UIFont(name: kMediumFont, size:10)
+                    self.dayDateTextField.text = self.dateStr
+                }
+                self.segmentDelegate!.getDateTextField(self.dateStr)
             }
-             segmentDelegate!.getDateTextField(dateStr)
+            self.dayPickerView.reloadAllComponents()
         }
-        dayPickerView.reloadAllComponents()
-       
     }
     
     func cancelBarButtonPressed(){
-        dayDateTextField.resignFirstResponder()
+        dispatch_async(dispatch_get_main_queue()){
+            self.dayDateTextField.resignFirstResponder()
+        }
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int

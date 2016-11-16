@@ -1660,7 +1660,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
             if(dateString == "day") {
-                dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                let str = String(format:"%d",cost/(dateDiff/168))
+                dict["emi"] = str
                 dict["payType"] = "Weekly"
             }
             else {

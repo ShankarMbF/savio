@@ -413,7 +413,7 @@ class SASavingSummaryViewController: UIViewController {
             lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
             
             lblMonth.text =  String(format: "£%@", itemDataDict["emi"] as! String)
-            
+            print(itemDataDict)
             //Calculation of last date of EMI
             if(itemDataDict["day"] as? String == "date")
             {
@@ -426,23 +426,41 @@ class SASavingSummaryViewController: UIViewController {
                 
                 var pathComponents2 : NSArray!
                 pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
+                print(pathComponents2)
                 
                 //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
             }
             else {
                 //calculation as per week
+                 dateFormatter.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
                 paymentLastDate.text = "Weekly"
                 let daysToAdd : Double = 7
                 let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
                 var pathComponents2 : NSArray!
-                pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString("-")
-                
-                //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
-                lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+                let str = self.daySuffix(from: newDate)
+                print(str)
+                pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString(" ")
+                print(pathComponents2)
+                print(itemDataDict["payDate"])
+//                            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+                print(itemDataDict["payDate"])
+                let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, itemDataDict["PAY_DATE"] as! String)
+                lblNextDebit.font = UIFont.init(name: kBookFont, size: 15)
             }
         }
         
+    }
+    
+    func daySuffix(from date: NSDate) -> String {
+        let calendar = NSCalendar.currentCalendar()
+        let dayOfMonth = calendar.component(NSCalendarUnit.Day, fromDate: date)
+        switch dayOfMonth {
+        case 1, 21, 31: return "st"
+        case 2, 22: return "nd"
+        case 3, 23: return "rd"
+        default: return "th"
+        }
     }
     
     override func viewDidLayoutSubviews() {

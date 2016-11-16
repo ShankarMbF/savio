@@ -409,6 +409,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     //Registration delegate methods
     func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
         if errorCode == 200 {
             checkString = "Register"

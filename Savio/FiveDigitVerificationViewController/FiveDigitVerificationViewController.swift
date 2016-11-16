@@ -135,7 +135,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 //Set the OTPVerificationDelegate
       
                 //---------------Remove below comment while testing on live authy---------------//
-  /*
+ 
                 objAPI.otpVerificationDelegate = self
                 objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "91", OTP: fiveDigitTextField.text!)
                 codeDoesNotMatchLabel.hidden = true;
@@ -145,11 +145,11 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 objAnimView.animate()
                 self.view.addSubview(objAnimView)
          
-*/
+
 
                   //---------------Comment below code while testing on live authy---------------//
-                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
-                self.navigationController?.pushViewController(objCreatePINView, animated: true) 
+//                let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
+//                self.navigationController?.pushViewController(objCreatePINView, animated: true) 
  
             }
         }

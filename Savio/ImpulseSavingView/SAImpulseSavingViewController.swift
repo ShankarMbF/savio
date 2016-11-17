@@ -86,6 +86,7 @@ class SAImpulseSavingViewController: UIViewController {
                 priceLabel.text = "£0"
             }
             
+            priceTextField.borderStyle = UITextBorderStyle.None
             circleSlider.hidden = true
             priceLabel.hidden = false
             anotherStepLabel.hidden = false
@@ -121,8 +122,14 @@ class SAImpulseSavingViewController: UIViewController {
     
     //Circle slider action method
     func valueChange(sender: CircleSlider) {
-        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue]
        // messagePopUpView.hidden = true
+        priceTextField.borderStyle = UITextBorderStyle.RoundedRect
+        
+        if sender.value == 0 {
+             priceTextField.borderStyle = UITextBorderStyle.None
+        }
+
         let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
         priceTextField.attributedText = attrString2
     }

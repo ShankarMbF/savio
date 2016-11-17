@@ -1674,10 +1674,7 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getListOfUsersCardDelegate?.errorResponseForGetListOfUsersCards(error.localizedDescription)
                     }
-                    
                 }
-                
-                
             }
             dataTask.resume()
         }

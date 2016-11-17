@@ -197,6 +197,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
         if(dayDateStr == "day") {
             return dayArray[row]
         }
@@ -206,12 +207,13 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(dayDateStr == "day") {
-            dateStr =  dayArray[row]
-        }
-        else {
-            dateStr =  dateArray[row]
-        }
+  
+            if(dayDateStr == "day") {
+                dateStr =  dayArray[row]
+            }
+            else {
+                dateStr =  dateArray[row]
+            }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

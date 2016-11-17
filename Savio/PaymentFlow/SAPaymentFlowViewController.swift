@@ -761,9 +761,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Success response of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        if let errorCode = objResponse["errorCode"] as? NSNumber
+        if let errorCode = objResponse["errorCode"] as? NSString
         {
-            if (errorCode == 200)
+            if (errorCode == "200")
             {
                 self.isFromImpulseSaving = false
                 let objImpulseView = SAImpulseSavingViewController()

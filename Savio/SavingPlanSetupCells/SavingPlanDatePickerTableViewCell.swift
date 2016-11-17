@@ -35,13 +35,14 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+       
         
         let dateComponents = NSDateComponents()
         let calender = NSCalendar.currentCalendar()
-        dateComponents.day = 7
+        dateComponents.month = 3
         let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
         self.datePickerView.minimumDate = newDate
+         datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
         
         // cornerRadius changes
         datePickerTextField.layer.cornerRadius = 5

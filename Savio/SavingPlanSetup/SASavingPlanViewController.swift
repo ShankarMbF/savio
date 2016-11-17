@@ -475,9 +475,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(datePickerDate == "")
             {
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+//                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
             }
             else
             {

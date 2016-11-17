@@ -192,6 +192,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         for item: AnyObject in (self.extensionContext?.inputItems)! {
             let inputItem = item as! NSExtensionItem
             for provider: AnyObject in inputItem.attachments! {
@@ -231,6 +232,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         customToolBar!.items = [acceptButton]
         
         bgView.layer.cornerRadius = 5
+        bgView.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+         bgView.layer.borderWidth = 2.0
         bgView.layer.masksToBounds = true
         priceTextField.inputAccessoryView = customToolBar
     }

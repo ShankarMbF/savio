@@ -282,7 +282,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         spinner.stopAnimating()
         spinner.hidden = true
         
-        let alert = UIAlertController(title: "Success", message: "Item successfully added to wishlist", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "We've added this product to your wish list.", message: "Open the Savio app to start your saving plan.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in
             self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)

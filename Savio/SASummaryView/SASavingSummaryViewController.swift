@@ -446,6 +446,7 @@ class SASavingSummaryViewController: UIViewController {
 //                            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 print(itemDataDict["payDate"])
                 let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, itemDataDict["PAY_DATE"] as! String)
+                lblNextDebit.text = finalDate
                 lblNextDebit.font = UIFont.init(name: kBookFont, size: 15)
             }
         }

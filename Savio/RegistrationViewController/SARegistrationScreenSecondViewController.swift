@@ -402,7 +402,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else
         {
-            let alert = UIAlertView(title: "Alert", message: "We can't look up your postcode, please enter your address below.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Sorry!", message: "We can't look up your postcode, please enter your address below.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             
         }

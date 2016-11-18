@@ -225,7 +225,7 @@ class SAImpulseSavingViewController: UIViewController {
         if(Float(valueString)! > 3000)
         {
             circleSlider.value = 3000
-            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             self.removeKeyboardNotification()
             return false
@@ -309,7 +309,7 @@ class SAImpulseSavingViewController: UIViewController {
         priceTextField.resignFirstResponder()
     
         if(Float(tfString) > 3000) {
-            let alert = UIAlertView(title: "Warning", message: "Please enter cost less than £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         self.removeKeyboardNotification()
@@ -358,6 +358,11 @@ class SAImpulseSavingViewController: UIViewController {
             }
 
         }
+    }
+    
+    
+    @IBAction func CancelButtonPressed(sender: AnyObject) {
+            self.navigationController?.popViewControllerAnimated(true)
     }
     
     

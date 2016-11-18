@@ -205,7 +205,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         if(isUpdatePlan)
         {
-            if(isClearPressed)
+           /* if(isClearPressed)
             {
                 //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()
@@ -245,7 +245,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
-            }
+            }*/
         }
     }
     
@@ -380,7 +380,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(isUpdatePlan)
         {
-            return offerArr.count+8
+            return offerArr.count+7
         }
         else
         {
@@ -729,13 +729,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-        else if(indexPath.section == offerArr.count+6) {
+       /* else if(indexPath.section == offerArr.count+6) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
-        }
-        else if(indexPath.section == offerArr.count+7) {
+        }*/
+        else if(indexPath.section == offerArr.count+6) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell
             cell1.cancelSavingPlanButton.addTarget(self, action: #selector(SASavingPlanViewController.cancelSavingButtonPressed(_:)), forControlEvents: .TouchUpInside)
             return cell1
@@ -881,10 +881,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else if(indexPath.section == offerArr.count+5) {
             return 65
         }
-        else if(indexPath.section == offerArr.count+6){
+      /*  else if(indexPath.section == offerArr.count+6){
             return 44
-        }
-        else if(indexPath.section == offerArr.count+7){
+        }*/
+        else if(indexPath.section == offerArr.count+6){
             if(isUpdatePlan)
             {
                 return 65
@@ -987,7 +987,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     //Clear all the data entered
-    func clearButtonPressed()
+ /*   func clearButtonPressed()
     {
         let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
@@ -1039,7 +1039,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
-    }
+    }*/
     
     //Create Dictionary for creating saving plan
     func getParameters() -> Dictionary<String,AnyObject>

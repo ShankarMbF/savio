@@ -499,7 +499,7 @@ class SASavingSummaryViewController: UIViewController {
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "Your Wish List is empty! Use our mobile browser widget to add some things you want to buy. Go to www.getsavio.com to see how.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Your Wish List is empty!", message: "Use our mobile browser widget to add some things you want to buy. Go to www.getsavio.com to see how.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

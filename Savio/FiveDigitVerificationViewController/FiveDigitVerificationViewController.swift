@@ -144,7 +144,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
 //                objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
 //                objAnimView.animate()
 //                self.view.addSubview(objAnimView)
-//         
 
 
                   //---------------Comment below code while testing on live authy---------------//

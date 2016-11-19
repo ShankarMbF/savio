@@ -700,7 +700,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 objAnimView.removeFromSuperview()
             }
         }
-        
     }
     
     func errorResponseForPartySavingPlanAPI(error:String) {

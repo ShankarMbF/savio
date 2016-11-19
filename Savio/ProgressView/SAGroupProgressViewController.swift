@@ -399,7 +399,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             horizontalScrollView.addSubview(circularProgress)
         }
-        
+        prevIndxArr.append(0)
         //customization of plan button as per the psd
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
@@ -432,7 +432,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: "Your Wish List is empty! Use our mobile browser widget to add some things you want to buy. Go to www.getsavio.com to see how.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -760,6 +760,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 participantsArr.append(userDict)
                 participantsArr = participantsArr.reverse()
                 self.setUpView()
+
                 self.tblView.reloadData()
             }
             else

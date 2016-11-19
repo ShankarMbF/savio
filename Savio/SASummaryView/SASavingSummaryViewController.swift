@@ -171,14 +171,17 @@ class SASavingSummaryViewController: UIViewController {
                 if arr.count > 0 {
                     
                     //----------------Set up height as per invited user count-----------------------
-                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * (lblName1?.frame.size.height)!) as CGFloat
+                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
                     //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
                     groupViewHt.constant = ht //+ 10
+                    print(ht)
                     // --------------------------------------------------------------------
                     
                     //------Set Summary height as per invited user's view height----------
-                    summaryViewHt.constant = (vwSummary?.frame.size.height)! + ht + 10
-                    htContentView.constant = (vwScrContent?.frame.size.height)! + ht + 10
+                    summaryViewHt.constant = summaryViewHt.constant + ht //(vwSummary?.frame.size.height)! + ht + 10
+                    htContentView.constant = htContentView.constant + ht//(vwScrContent?.frame.size.height)! + ht + 10
+                    print(summaryViewHt.constant)
+                    print(htContentView.constant)
                     //------------------------------------------------------------------------
                     //-------------- Show invited user list--------------------------------------
                     for i in 0 ..< arr.count {
@@ -370,12 +373,15 @@ class SASavingSummaryViewController: UIViewController {
                 
             }
             //Setting up height of summary container view
-            htDescriptionContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)
+//            htDescriptionContentView.constant = summaryViewHt.constant//continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)
             
-            htContentView.constant = (vwUpper?.frame.size.height)! + htDescriptionContentView.constant  //htContentView.constant + htOfferView.constant
+//            htContentView.constant = (vwUpper?.frame.size.height)! + htDescriptionContentView.constant  //htContentView.constant + htOfferView.constant
             
             //Setting scrollview content size as per contentView
-            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant - 30)
+//            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant - 30)
+            htDescriptionContentView.constant = summaryViewHt.constant + htOfferView.constant + 200
+             htContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + 200 //htContentView.constant + htDescriptionContentView.constant
+            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant )
             
             //SHOWING PLAN TITLE
             lblTitle.text = itemDataDict["title"] as? String
@@ -493,7 +499,7 @@ class SASavingSummaryViewController: UIViewController {
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: "Your Wish List is empty! Use our mobile browser widget to add some things you want to buy. Go to www.getsavio.com to see how.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

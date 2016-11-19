@@ -99,8 +99,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //Set the contentsize of UIScrollView
-        
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height)
+        var ht: CGFloat
+        if isUpdatePlan{
+            ht = 130.0 + CGFloat(offerArr.count) * 120.0
+        }
+        else{
+            ht = 100.0
+        }
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
     }
     
     func setUpView(){
@@ -188,8 +194,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             isPopoverValueChanged = true
-            tblViewHt.constant = tblView.frame.size.height  + 40
-            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
+            //            tblViewHt.constant = tblView.frame.size.height  + 40
+            //            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
             isCostChanged = true
             
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
@@ -203,8 +209,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.cameraButton.hidden = false
         }
         
+        tblViewHt.constant = tblView.frame.size.height  + 40
         if(isUpdatePlan)
         {
+            tblViewHt.constant = tblView.frame.size.height // + 250
             if(isClearPressed)
             {
                 //Add spinner to UIImageView until image loads
@@ -247,6 +255,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
             }
         }
+        
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
     }
     
     //set top image as per selected category
@@ -380,7 +390,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(isUpdatePlan)
         {
-            return offerArr.count+7
+            return offerArr.count+8
         }
         else
         {
@@ -475,9 +485,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(datePickerDate == "")
             {
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+                //                let dateFormatter = NSDateFormatter()
+                //                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                //                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
             }
             else
             {
@@ -494,7 +504,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
-                   
+                    
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                     cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
@@ -651,7 +661,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                     }
                     else if ((dateDiff/168)/4 == 0) {
-                   
+                        
                         cell1.calculationLabel.text = String(format: "You will need to top up £%d per month for 1 month",cost)
                     }
                     else {
@@ -659,7 +669,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
             }
-        
+            
             if(isUpdatePlan) {
                 if(isDateChanged) {
                     if(dateString == "day") {
@@ -729,7 +739,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             cell1.nextButton.addTarget(self, action: #selector(SASavingPlanViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return cell1
         }
-       else if(indexPath.section == offerArr.count+6) {
+        else if(indexPath.section == offerArr.count+6) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
@@ -799,6 +809,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell1
         }
     }
+    
     
     //Calculate height of offer description text
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
@@ -935,7 +946,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
         }
         isPopoverValueChanged = true
-        scrlView.contentSize = CGSizeMake(0, tblViewHt.constant+300)
+        scrlView.contentSize = CGSizeMake(0, tblView.frame.origin.y+tblViewHt.constant)
         tblView.reloadData()
     }
     
@@ -950,16 +961,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             if(str == payTypeStr)  {
                 popOverSelectedStr = dateFromUpdatePlan
-                 tblView.reloadData()
+                tblView.reloadData()
             }
             else {
                 popOverSelectedStr = ""
-                 tblView.reloadData()
+                tblView.reloadData()
             }
             isClearPressed  = false
             
+            
         }
         else {
+            popOverSelectedStr = datePickerDate
             if(str == "date") {
                 dateString = "date"
             }
@@ -1348,8 +1361,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             tblViewHt.constant =  tblView.frame.size.height - 80
         }
         offerArr.removeAtIndex(indx)
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
+        
         tblView.reloadData()
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
     }
     
     //This method is used to get the selected/entered amount by user.
@@ -1576,7 +1590,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if(dateDiff > 0)
                     {
-                    dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                        dict["emi"] = String(format:"%d",cost/(dateDiff/168))
                     }
                     else {
                         dict["emi"] = String(format:"%d",cost)
@@ -1586,7 +1600,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else {
                     if(dateDiff > 0)
                     {
-                    dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                        dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
                     }
                     else {
                         dict["emi"] = String(format:"%d",cost)
@@ -1696,12 +1710,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>) {
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {
-            tblViewHt.constant = tblView.frame.size.height + 120
+            tblViewHt.constant = tblView.frame.size.height + 50
         }
         else {
             tblViewHt.constant = tblView.frame.size.height + 80
         }
+        
         tblView.reloadData()
+        
         isOfferShow = false
     }
     

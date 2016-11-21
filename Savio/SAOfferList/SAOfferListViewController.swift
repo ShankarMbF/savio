@@ -452,11 +452,20 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
 
     //Function invoke on tapping add offer button
     func clickedOnAddOffer(sender: UIButton){
-        //collecting all detail of offer and send it to setup view
-         let cellDict = offerArr[sender.tag]
-        delegate?.addedOffers(cellDict)
-        self.navigationController?.popViewControllerAnimated(true)
+        let alertController = UIAlertController(title: "Alert", message: "Your offer has been added to your plan and will be applied when you make your purchase through Savio.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+            print("OK")
+            //collecting all detail of offer and send it to setup view
+            let cellDict = self.offerArr[sender.tag]
+            self.delegate?.addedOffers(cellDict)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        alertController.addAction(okAction)
+       self.presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    
     
     //get offerlist API's delegate method invoking when success response getting from API.
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){

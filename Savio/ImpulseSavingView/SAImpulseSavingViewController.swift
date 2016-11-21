@@ -323,7 +323,7 @@ class SAImpulseSavingViewController: UIViewController {
             tfString = tfString.chopPrefix(1)
             if(tfString == "00")
             {
-                let alert = UIAlertView(title: "Warning", message: "Please enter cost more than £ 0", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Hmmm", message: "You can't top up with no money, that won't get you anywhere!", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             else {

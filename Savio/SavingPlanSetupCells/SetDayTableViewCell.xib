@@ -101,12 +101,12 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="Zpt-gX-ffP"/>
                         <exclude reference="TvS-jX-Cdu"/>
+                        <exclude reference="Hdb-3G-9xu"/>
+                        <exclude reference="Y5A-fq-j4y"/>
                         <exclude reference="0aZ-m5-81U"/>
                         <exclude reference="SG7-tH-wgY"/>
-                        <exclude reference="Y5A-fq-j4y"/>
-                        <exclude reference="Hdb-3G-9xu"/>
+                        <exclude reference="Zpt-gX-ffP"/>
                         <exclude reference="0hg-fI-853"/>
                         <exclude reference="fS4-8b-G72"/>
                     </mask>

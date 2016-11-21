@@ -37,6 +37,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     var lastOffset: CGPoint = CGPointZero
+    var updatedDateStr: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,17 +84,46 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 self.segmentDelegate!.segmentBarChanged("date")
                 self.dayDateTextField.text = ""
                 self.dayDateStr = "date"
+               
             }
             else {
                 self.dayDateLabel.text = "day"
                 self.segmentDelegate!.segmentBarChanged("day")
                 self.dayDateTextField.text = ""
                 self.dayDateStr = "day"
+                self.dayDateTextField.text = "Mon"
+                self.dayDateTextField.font = UIFont(name: kMediumFont, size:10)
             }
             self.dayPickerView.reloadAllComponents()
             self.dayPickerView.selectRow(0, inComponent: 0, animated: false)
+            self.segmentseletion()
         }
     }
+    
+    func segmentseletion() {
+//        if(self.dayPickerView.selectedRowInComponent(0) == 0) {
+//        if updatedDateStr?.characters.count > 0{
+//            
+//        }
+            if(self.dayDateStr == "date") {
+                
+                self.dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
+                self.segmentDelegate!.getDateTextField("1")
+//                self.dayDateTextField.attributedText = self.createXLabelText(1, text: updatedDateStr!)
+//                self.segmentDelegate!.getDateTextField(updatedDateStr!)
+            }
+            else {
+                self.dayDateTextField.text = "Mon"
+                self.dayDateTextField.font = UIFont(name: kMediumFont, size:10)
+                self.segmentDelegate!.getDateTextField("Mon")
+//                self.dayDateTextField.text = updatedDateStr!
+//                self.dayDateTextField.font = UIFont(name: kMediumFont, size:10)
+//                self.segmentDelegate!.getDateTextField(updatedDateStr!)
+            }
+//        }
+
+    }
+    
     
     private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
         let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
@@ -219,7 +249,8 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-    }
+//        self.doneBarButtonPressed()
+           }
     
     func setUpWordImage()->UIImage
     {

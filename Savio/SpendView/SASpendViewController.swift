@@ -106,19 +106,99 @@ class SASpendViewController: UIViewController {
     }
 
     @IBAction func planButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(false)
+        var vw = UIViewController?()
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        var isAvailble: Bool = false
+        var usersPlanFlag = ""
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        {
+            usersPlanFlag = usersPlan
+            //As per flag show the progress view of plan
+            vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            if individualFlag == 1 && usersPlanFlag == "I"{
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAProgressViewController
+                        break
+                    }
+                }
+            }
+            else
+            {
+                vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAGroupProgressViewController
+                        break
+                    }
+                }
+            }
+            
+        } else {
+            usersPlanFlag = ""
+            //As per flag show the progress view of plan
+            
+            if individualFlag == 1{
+                vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAProgressViewController
+                        break
+                    }
+                }
+            }
+            else
+            {
+                vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAGroupProgressViewController
+                        break
+                    }
+                }
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            
+            self.navigationController?.pushViewController(vw!, animated: false)
+        }
     }
     
     //Go to SAOffersViewController
     @IBAction func offersButtonPressed(sender: AnyObject) {
-        let obj = SAOfferListViewController()
-        obj.savID = 92
-        //save the Generic plan in NSUserDefaults, so it will show its specific offers
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        obj.hideAddOfferButton = true
-        self.navigationController?.pushViewController(obj, animated: true)
-
+        var isAvailble: Bool = false
+        var vw = UIViewController?()
+        
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SAOfferListViewController) {
+                isAvailble = true
+                vw = obj as! SAOfferListViewController
+                break
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            
+            let obj = SAOfferListViewController()
+            obj.savID = 92
+            obj.isComingProgress = true
+            //save the Generic plan in NSUserDefaults, so it will show its specific offers
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            obj.hideAddOfferButton = false
+            self.navigationController?.pushViewController(obj, animated: true)
+        }
     }
 }

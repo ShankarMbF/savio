@@ -20,6 +20,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     @IBOutlet weak var bottomview: UIView!                     //IBOutlet of UIView
     @IBOutlet weak var tblView : UITableView?                  //IBOutlet for tableview
     @IBOutlet weak var closeLbl : UILabel?                     //IBOutlet for UILable
+     @IBOutlet weak var tabVw : UIView?
+    @IBOutlet weak var progressButton: UIButton!
+    @IBOutlet weak var offersButton: UIButton!
+//    @IBOutlet weak var planButton: UIButton!
+    @IBOutlet weak var spendButton: UIButton!
     
     var indx : Int = 0
     var  prevIndxArr: Array<Int> = []                          //Array for hold previous selected index
@@ -29,11 +34,24 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var  offerArr: Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
     var delegate : SAOfferListViewDelegate?
     var objAnimView = ImageViewAnimation()
+    var isComingProgress: Bool?
+
 
     // MARK: - view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
+        progressButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
+        offersButton.setImage(UIImage(named: "stats-offers-tab-active.png"), forState: UIControlState.Normal)
+
+        if isComingProgress! {
+            tabVw?.hidden = false
+        }
+        else{
+            tabVw?.hidden = true
+        }
         self.setUpView()
+        
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
     }
 
@@ -135,6 +153,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 alert.show()
             }
         }
+        //customization of plan button as per the psd
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.progressButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.progressButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.progressButton?.layer.mask = maskLayer
     }
     /*
     // MARK: - Navigation
@@ -174,6 +198,96 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     // MARK: - Button Action
+    @IBAction func spendButtonPressed(sender: AnyObject) {
+        var isAvailble: Bool = false
+        var vw = UIViewController?()
+        
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SASpendViewController) {
+                isAvailble = true
+                vw = obj as! SASpendViewController
+                break
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+        
+        let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
+        self.navigationController?.pushViewController(objPlan, animated: false)
+        }
+    }
+    
+    @IBAction func progressButtonPressed(sender: AnyObject) {
+        var vw = UIViewController?()
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        var isAvailble: Bool = false
+        var usersPlanFlag = ""
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        {
+            usersPlanFlag = usersPlan
+            //As per flag show the progress view of plan
+             vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            if individualFlag == 1 && usersPlanFlag == "I"{
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAProgressViewController
+                        break
+                    }
+                }
+            }
+            else
+            {
+                vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAGroupProgressViewController
+                        break
+                    }
+                }
+            }
+            
+        } else {
+            usersPlanFlag = ""
+            //As per flag show the progress view of plan
+            
+            if individualFlag == 1{
+                 vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAProgressViewController
+                        break
+                    }
+                }
+            }
+            else
+            {
+                 vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                for var obj in (self.navigationController?.viewControllers)!{
+                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                        isAvailble = true
+                        vw = obj as! SAGroupProgressViewController
+                        break
+                    }
+                }
+            }
+        }
+       
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            
+            self.navigationController?.pushViewController(vw!, animated: false)
+        }
+    }
+    
+    
     @IBAction func clickedOnSkipOffersBtn(sender:UIButton){
         self.navigationController?.popViewControllerAnimated(true)
         delegate?.skipOffers()

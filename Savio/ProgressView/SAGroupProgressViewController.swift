@@ -469,6 +469,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     @IBAction func offersButtonPressed(sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 63
+        obj.isComingProgress = true
         //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
@@ -479,9 +480,25 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     //Go to SASpendViewController
     @IBAction func spendButtonPressed(sender: AnyObject) {
+        var isAvailble: Bool = false
+        var vw = UIViewController?()
         
-        let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
-        self.navigationController?.pushViewController(objPlan, animated: false)
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SASpendViewController) {
+                isAvailble = true
+                vw = obj as! SASpendViewController
+                break
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            
+            let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
+            self.navigationController?.pushViewController(objPlan, animated: false)
+        }
     }
     
     //MARK: TableView Delegate and Datasource methods

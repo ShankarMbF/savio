@@ -158,6 +158,7 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
             let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             obj.hideAddOfferButton = true
+            obj.isComingProgress = false
             self.centreVC = obj
             centreVC.hidesBottomBarWhenPushed = true
             self.replaceViewController()

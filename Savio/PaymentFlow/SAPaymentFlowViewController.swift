@@ -259,14 +259,18 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                        self.cardNumberErrorLabel.text = "Your card\'s expiration year is invalid"
                     }
                     else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                        self.cardNumberErrorLabel.text = "Your card\'s expiration month is invalid"
+
                     }
                     else if(error?.localizedDescription == "Your card\'s security code is invalid") {
                         self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.cvvTextField.textColor = UIColor.redColor()
+                        self.cardNumberErrorLabel.text = "Your card\'s security code is invalid"
                     }
                 }
                 else {

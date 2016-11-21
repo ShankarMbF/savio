@@ -194,8 +194,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             itemTitle = (itemDetailsDataDict["title"] as? String)!
             cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
             isPopoverValueChanged = true
+
+//            tblViewHt.constant = tblView.frame.size.height  + 40
+//            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
+
             //            tblViewHt.constant = tblView.frame.size.height  + 40
             //            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
+
             isCostChanged = true
             
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
@@ -208,7 +213,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
             self.cameraButton.hidden = false
         }
+
+
+
         
+ 
         tblViewHt.constant = tblView.frame.size.height  + 40
         if(isUpdatePlan)
         {
@@ -319,7 +328,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let obj = SAOfferListViewController()
             isOfferDetailPressed = false
             obj.delegate = self
-            
+             obj.isComingProgress = false
             if(isUpdatePlan)
             {
                 obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
@@ -1302,6 +1311,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else {
             //Else go to SAOfferListViewController
             let obj = SAOfferListViewController()
+             obj.isComingProgress = false
             if(isOfferDetailPressed) {
                 isOfferDetailPressed = false
                 tblViewHt.constant = tblView.frame.size.height - (90 + offerDetailHeight)
@@ -1361,6 +1371,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             tblViewHt.constant =  tblView.frame.size.height - 80
         }
         offerArr.removeAtIndex(indx)
+       
+        tblView.reloadData()
+         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
         
         tblView.reloadData()
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
@@ -1715,6 +1728,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else {
             tblViewHt.constant = tblView.frame.size.height + 80
         }
+
         
         tblView.reloadData()
         

@@ -145,6 +145,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         if isOfferShow == true && offerArr.count > 0 {
             let obj = SAOfferListViewController()
+             obj.isComingProgress = false
             obj.delegate = self
             if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
@@ -554,6 +555,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else {
             let obj = SAOfferListViewController()
             obj.delegate = self
+             obj.isComingProgress = false
             if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
             }
@@ -599,6 +601,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else {
             let obj = SAOfferListViewController()
             obj.delegate = self
+             obj.isComingProgress = false
             if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
             }
@@ -700,6 +703,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 objAnimView.removeFromSuperview()
             }
         }
+        
     }
     
     func errorResponseForPartySavingPlanAPI(error:String) {

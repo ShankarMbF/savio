@@ -102,11 +102,12 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         datePickerTextField.text = pickrDate
         datePickerTextField.textColor = UIColor.whiteColor()
         
-        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(datePickerView.minimumDate!)
+        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
         savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
         
         datePickerTextField.resignFirstResponder()
     }
+       
     
     func cancelBarButtonPressed(){
         datePickerTextField.resignFirstResponder()

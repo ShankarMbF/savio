@@ -70,6 +70,14 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        textFieldOne.text = ""
+        textFieldTwo.text = ""
+        textFieldThree.text = ""
+        textFieldFour.text = ""
+    }
+    
     func doneBarButtonPressed(sender: AnyObject) {
         activeTextField.resignFirstResponder()
         self.removeKeyboardNotification()

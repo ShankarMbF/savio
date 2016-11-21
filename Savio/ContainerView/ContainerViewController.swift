@@ -218,8 +218,21 @@ class ContainerViewController: UIViewController {
             self.replaceViewController()
             
         case "SignOut":
-            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
+            self.navController.removeFromParentViewController()
+            var vw = UIViewController?()
+            
+            for var obj in (self.navigationController?.viewControllers)!{
+                if obj.isKindOfClass(SAEnterYourPINViewController) {
+                    vw = obj as! SAEnterYourPINViewController
+                    self.navigationController?.popToViewController(vw!, animated: true)
+                    break
+                }
+            }
+
+//            self.navigationController?.popViewControllerAnimated(true)
+//            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
+            
+            
         default:
             let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
             alert.show()

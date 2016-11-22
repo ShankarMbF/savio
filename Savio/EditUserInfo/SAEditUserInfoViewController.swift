@@ -1305,7 +1305,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func paymentButtonPressed(sender: UIButton) {
         
-            let alert = UIAlertView(title: "Alert", message: "If you make any updates please save tha details", delegate: self, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "If you make any updates please save the details", delegate: self, cancelButtonTitle: "Ok")
             alert.addButtonWithTitle("cancel")
             alert.show()
         

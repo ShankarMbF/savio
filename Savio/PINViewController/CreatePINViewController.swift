@@ -224,7 +224,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 self.presentViewController(alert, animated: true, completion: nil)
                 
             }else{
-            let alert = UIAlertView(title: "Warning", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Important Information", message: "Enter mobile number initially register with", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             }
         }

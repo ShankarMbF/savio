@@ -500,7 +500,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                 objAPI.deleteKeychainValue("myPasscode")
             }
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "91")
+            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "44")
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()

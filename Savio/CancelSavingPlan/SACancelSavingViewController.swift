@@ -36,7 +36,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
         
-        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "Your money will returned to your bank in the next 5-10 working days.")
+        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "There will be no more automated, regular payments taken from your card. Any money you have added will remain on your Savio card and you are able to use it in most shops and ATMs.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         yourMoneyWillBeReturnLabel.attributedText = attrStringForYourMoneyWillBeReturnLabelLabel
         

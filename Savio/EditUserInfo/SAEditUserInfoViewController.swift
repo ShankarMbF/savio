@@ -1308,7 +1308,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             let alert = UIAlertView(title: "Alert", message: "If you make any updates please save the details", delegate: self, cancelButtonTitle: "Ok")
             alert.addButtonWithTitle("cancel")
             alert.show()
-        
     }
     
     func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){

@@ -207,8 +207,26 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         }
         else if let internalMessage = objResponse["internalMessage"] as? String
         {
+            if(internalMessage == "Multiple representations of the same entity"){
+                let alert = UIAlertController(title: "Important Information", message: "Enter mobile number initially register with", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+                { action -> Void in
+                    var vw = UIViewController?()
+                    for var obj in (self.navigationController?.viewControllers)!{
+                        if obj.isKindOfClass(SARegistrationScreenOneViewController) {
+                            vw = obj as! SARegistrationScreenOneViewController
+                            self.navigationController?.popToViewController(vw!, animated: true)
+                            break
+                        }
+                    }
+                    
+                })
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+            }else{
             let alert = UIAlertView(title: "Warning", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
+            }
         }
         
     }
@@ -390,3 +408,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
 }
+
+
+

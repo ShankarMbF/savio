@@ -1305,20 +1305,33 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func paymentButtonPressed(sender: UIButton) {
         
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        
-        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
-        {
-            let objSavedCardView = SASaveCardViewController()
-            objSavedCardView.isFromEditUserInfo = true
-            self.navigationController?.pushViewController(objSavedCardView, animated: true)
-        }else {
-            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "If you make any updates please save tha details", delegate: self, cancelButtonTitle: "Ok")
+            alert.addButtonWithTitle("cancel")
             alert.show()
+        
+    }
+    
+    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+        switch buttonIndex{
+        case 1:
+            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+            let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+            let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+            
+            if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
+            {
+                let objSavedCardView = SASaveCardViewController()
+                objSavedCardView.isFromEditUserInfo = true
+                self.navigationController?.pushViewController(objSavedCardView, animated: true)
+            }else {
+                let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+            }
+        case 0: print("Red")
+        default: print("Is this part even possible?")
         }
     }
+    
     // MARK: - GetUserInfoDelegate
     func successResponseForGetUserInfoAPI(objResponse: Dictionary<String, AnyObject>) {
         if let message = objResponse["message"] as? String {

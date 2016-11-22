@@ -440,8 +440,27 @@ class SASavingSummaryViewController: UIViewController {
             else {
                 //calculation as per week
                  dateFormatter.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
+                 var daysToAdd : Double = 7
+                
+                let todayDateArr =  dateFormatter.stringFromDate(NSDate()).componentsSeparatedByString(" ")
+                let todayDay = todayDateArr[0] as! String
+                //                let str = "My String"
+                let subStr = todayDay[todayDay.startIndex.advancedBy(0)...todayDay.startIndex.advancedBy(2)]
+                let todayNum1 = self.nextDateFromDay(subStr)
+                let nextNum2 = self.nextDateFromDay(itemDataDict["PAY_DATE"] as! String)
+                
+                if todayNum1 < nextNum2 {
+                    daysToAdd = nextNum2 - todayNum1
+                }
+                else if todayNum1 > nextNum2{
+                    daysToAdd = (7.0 - todayNum1) + nextNum2
+                }
+                else{
+                    daysToAdd = 7
+                }
+
                 paymentLastDate.text = "Weekly"
-                let daysToAdd : Double = 7
+                
                 let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
                 var pathComponents2 : NSArray!
                 let str = self.daySuffix(from: newDate)
@@ -458,6 +477,41 @@ class SASavingSummaryViewController: UIViewController {
         }
         
     }
+    
+    let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    
+    func nextDateFromDay(dateStr:String) -> Double {
+        var remainingDay: Double = 0.0
+        
+        switch dateStr {
+        case "Mon":
+            remainingDay = 1.0
+            break
+        case "Tue":
+            remainingDay =  2.0
+            break
+        case "Wed":
+            remainingDay =  3.0
+            break
+        case "Thu":
+            remainingDay =  4.0
+            break
+        case "Fri":
+            remainingDay =  5.0
+            break
+        case "Sat":
+            remainingDay =  6.0
+            break
+        case "Sun":
+            remainingDay =  7.0
+            break
+        default:
+            break
+        }
+        
+        return remainingDay
+    }
+    
     
     func daySuffix(from date: NSDate) -> String {
         let calendar = NSCalendar.currentCalendar()

@@ -38,6 +38,13 @@ protocol PostCodeVerificationDelegate {
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>)
     func errorResponseForRegistrationAPI(error:String)
 }
+
+protocol TermAndConditionDelegate{
+    
+    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseFortermAndConditionAPI(error:String)
+}
+
 protocol OTPSentDelegate{
     
     func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
@@ -947,6 +954,57 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("No network found")
+        }
+        
+    }
+    
+    func termAndCondition()
+    {
+        
+        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
+        let partyID = "956"
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    print(response?.description)
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                    }
+                    
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else {
+            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
         }
         
     }

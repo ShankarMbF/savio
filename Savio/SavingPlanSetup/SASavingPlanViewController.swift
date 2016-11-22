@@ -556,6 +556,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 
                 if(popOverSelectedStr != "") {
+                    
                     if(dateString == "day") {
                         cell1.dayDateTextField.text = self.popOverSelectedStr
                     }
@@ -578,7 +579,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
-                    cell1.dayDateTextField.text = ""
+//                    cell1.dayDateTextField.text = ""
+                    var str = "1"
+                    cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
                 
             }
@@ -999,6 +1002,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         dateDiff = date
         datePickerDate = dateStr
         isDateChanged = true
+        tblView.reloadData()
+
     }
     
     //This method navigates user to the cancelling saving plan.

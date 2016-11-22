@@ -49,6 +49,7 @@ class SAImpulseSavingViewController: UIViewController {
     private var timer: NSTimer?
     private var progressValue: Float = 0
     var lastOffset: CGPoint = CGPointZero
+    var maxPrice: Float?
     private var sliderOptions: [CircleSliderOption] {
         return [
             .BarColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
@@ -56,7 +57,7 @@ class SAImpulseSavingViewController: UIViewController {
             .TrackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
             .BarWidth(20),
             .StartAngle(-90),
-            .MaxValue(3000),
+            .MaxValue(100),
             .MinValue(0),
             .ThumbWidth(40)
         ]
@@ -115,6 +116,7 @@ class SAImpulseSavingViewController: UIViewController {
         self.valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         self.valueLabel.textAlignment = .Center
         self.valueLabel.center = CGPoint(x: CGRectGetWidth(self.circleSlider.bounds) * 0.5, y: CGRectGetHeight(self.circleSlider.bounds) * 0.5)
+    
         self.circleSlider.addSubview(self.valueLabel)
         circularView.addSubview(circleSlider)
     }
@@ -125,12 +127,34 @@ class SAImpulseSavingViewController: UIViewController {
         let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue]
        // messagePopUpView.hidden = true
         priceTextField.borderStyle = UITextBorderStyle.RoundedRect
-        
+        var calculatedValue: Float = 0.0
         if sender.value == 0 {
              priceTextField.borderStyle = UITextBorderStyle.None
         }
+        else if (maxPrice! <= 200) {
+            calculatedValue = (maxPrice! / 100) * Float(sender.value)
+        }
+        else {
+            if Float(sender.value) <= 50 {
+                calculatedValue = Float(sender.value) * 2.0
+            }
+            else{
+                //NewSLider Value for second half-Non linear
+                var senderValue = sender.value
+                if sender.value > 100.0 {
+                    senderValue = 100.0
+                }
+                let newMaxValue = maxPrice! - 100.0
+                let newSliderValue = senderValue - 50.0
+                calculatedValue = newMaxValue / 50.0 * newSliderValue
+                calculatedValue += 100
+//                calculatedValue = (maxPrice!/200) * Float(sender.value)
+            }
+            print(calculatedValue)
+        }
 
-        let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
+//        let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
+        let attrString2 = NSAttributedString(string: String(format:"£%.0f",calculatedValue), attributes: singleAttribute3)
         priceTextField.attributedText = attrString2
     }
     
@@ -222,17 +246,41 @@ class SAImpulseSavingViewController: UIViewController {
         if valueString.characters.count == 0 {
             return false
         }
-        if(Float(valueString)! > 3000)
+        if(Float(valueString)! > maxPrice)
         {
-            circleSlider.value = 3000
-            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+            circleSlider.value = 0.0
+            let msgStr = String(format: "The maximum you can top up is £ %f", maxPrice!)
+            let alert = UIAlertView(title: "Whoa!", message: msgStr, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             self.removeKeyboardNotification()
             return false
         }
         if combinedString.characters.count < 6 {
+            var slideValue: Float = 0.0
+            if (Float(valueString)! <= 100) {
+                
+                slideValue = Float(valueString)! / 2.0
+
+                
+            } else {
+                
+                let newCurrentValue = Float(valueString)! - 100.0
+                let newMaxPrice : Float = maxPrice! - 100.0
+                
+ 
+                slideValue = (newCurrentValue * 50.0) / newMaxPrice
+                slideValue += 50.0
+
+            }
             
-            circleSlider.value = Float(valueString)!
+//            if (Float(valueString)! <= 100){
+//                slideValue = Float(valueString)! / (Float(maxPrice!)/100)
+//            }
+//            else{
+//                slideValue = Float(valueString)! / 3.0
+//            }
+            print(slideValue)
+            circleSlider.value = slideValue
         }
         return false
     }
@@ -308,7 +356,7 @@ class SAImpulseSavingViewController: UIViewController {
         tfString = tfString.chopPrefix(1)
         priceTextField.resignFirstResponder()
     
-        if(Float(tfString) > 3000) {
+        if(Float(tfString) > maxPrice) {
             let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate {
+class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate,GetWishlistDelegate {
     
     @IBOutlet weak var groupMembersLabel: UILabel!
     @IBOutlet weak var topButtonView: UIView!
@@ -40,6 +40,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     let spinner =  UIActivityIndicatorView()
     var objAnimView = ImageViewAnimation()
     var planEnddate = NSDate()
+    let btnName = UIButton()
     let chartColors = [
         UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
         UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),
@@ -67,6 +68,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -129,7 +131,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         self.title = "My Plan"
         
         //set Navigation right button nav-heart
-        let btnName = UIButton()
+        
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
@@ -150,8 +152,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                 self.callWishListAPI()
             }
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+        }
+        else{
+            self.callWishListAPI()
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -410,6 +416,26 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         tblView.layer.zPosition = 1
         self.view.bringSubviewToFront(toolBarView)
     }
+    
+    //Function invoke for call get wish list API
+    func callWishListAPI()
+    {
+        let objAPI = API()
+        //get keychain values
+        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        objAPI.getWishlistDelegate = self
+        
+        //Call get method of wishlist API by providing partyID
+        if(userDict["partyId"] is String)
+        {
+            objAPI.getWishListForUser(userDict["partyId"] as! String)
+        }
+        else
+        {
+            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+        }
+    }
+
     
     func timeBetween(startDate: NSDate, endDate: NSDate) -> [Int]
     {
@@ -709,6 +735,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func impulseSavingButtonPressed(sender:UIButton)
     {
         let objImpulseSave = SAImpulseSavingViewController()
+        objImpulseSave.maxPrice = Float(totalAmount)
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
     
@@ -802,5 +829,51 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         alert.show()
         objAnimView.removeFromSuperview()
     }
+    
+    //MARK: GetWishlist Delegate method
+    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+        if let error = objResponse["error"] as? String
+        {
+//            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
+        }
+        else
+        {
+            let wishListResponse = self.checkNullDataFromDict(objResponse)
+            wishListArray = wishListResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+            if(wishListArray.count > 0)
+            {
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else {
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+            }
+            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+
+        }
+        //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+        //            if arr.count > 0{
+        //                objAnimView.removeFromSuperview()
+        //            }
+        //        }
+    }
+    //function invoke when GetWishlist API request fail
+    func errorResponseForGetWishlistAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
+    }
+    
     
 }

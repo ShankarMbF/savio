@@ -13,7 +13,7 @@ protocol RegistrationViewErrorDelegate {
     
 }
 
-class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate {
+class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NSURLSessionDelegate {
     
     @IBOutlet weak var registerScrollViewSecond: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -46,6 +46,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     var objAnimView = ImageViewAnimation()
     var objimpInfo = ImportantInformationView()
+    var termAndConditionText:String?
 
     
     var registrationViewErrorDelegate: RegistrationViewErrorDelegate?
@@ -53,6 +54,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        self.callTermAndConditionAPI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -271,8 +273,10 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
+            
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
+            objimpInfo.termsAndConditionTextView.text = termAndConditionText
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
             objimpInfo.isFromRegistration = true
@@ -284,6 +288,82 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+    }
+    
+    func callTermAndConditionAPI() {
+        let objAPI = API()
+////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+////        objAnimView.frame = self.view.frame
+////        objAnimView.animate()
+////        self.view.addSubview(objAnimView)
+//        objAPI.termConditionDelegate = self
+//        objAPI.termAndCondition()
+        
+        
+        
+        
+        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
+        let partyID = "956"
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        //Check if network is present
+        if(objAPI.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+//                    print(response?.description)
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+//                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            if dict["errorCode"] as! String == "200"{
+                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                            }
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                    }
+                    
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else {
+        }
+
+        
+        
+        
+        
+        
+
+    }
+    
+    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+        termAndConditionText = objResponse["content"] as! String
+    }
+
+    func errorResponseFortermAndConditionAPI(error:String){
+        
     }
     
     func registerForKeyboardNotifications(){

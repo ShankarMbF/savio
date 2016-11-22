@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate,RegistrationViewErrorDelegate{
+class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate,RegistrationViewErrorDelegate,NSURLSessionDelegate{
     
     @IBOutlet weak var registerOneScrollView: UIScrollView!
     @IBOutlet weak var titleOrNameErrorLabel: UILabel!
@@ -44,10 +44,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     var lName = ""
     var dob = ""
     var lastOffset: CGPoint = CGPointZero
+    var impText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.callImportantAPI()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -458,10 +460,14 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
         let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
         objimpInfo.lblHeader.text = "Why do we need this information?"
+        objimpInfo.termsAndConditionTextView.text = impText
         objimpInfo.frame = self.view.frame
         objimpInfo.isFromRegistration = false
         self.view.addSubview(objimpInfo)
     }
+    
+  
+    
     
     //Textfield delegate methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -612,5 +618,77 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         lName = lastName
         dob = dateOfBirth
     }
+    
+    func callImportantAPI() {
+        let objAPI = API()
+        ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        ////        objAnimView.frame = self.view.frame
+        ////        objAnimView.animate()
+        ////        self.view.addSubview(objAnimView)
+        //        objAPI.termConditionDelegate = self
+        //        objAPI.termAndCondition()
+        
+        
+        
+        
+        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
+        let partyID = "956"
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        //Check if network is present
+        if(objAPI.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/11",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+//                    print(response?.description)
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+//                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            if dict["errorCode"] as! String == "200"{
+                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                            }
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                    }
+                    
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else {
+        }
+     }
+    
+    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+        impText = objResponse["content"] as? String
+    }
+    
+    func errorResponseFortermAndConditionAPI(error:String){
+        
+    }
+    
+
+    
     
 }

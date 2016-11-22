@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
+class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlistDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
     @IBOutlet weak var calculationLabel: UILabel!
@@ -30,11 +30,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     var planTitle = ""
     let spinner =  UIActivityIndicatorView()
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
+    let btnName = UIButton()
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -81,7 +81,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.title = "My Plan"
         
         //set Navigation right button nav-heart
-        let btnName = UIButton()
+        
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
@@ -102,9 +102,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                self.callWishListAPI()
+
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+        }else{
+            self.callWishListAPI()
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -231,6 +235,25 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         self.planButton?.layer.mask = maskLayer
     }
     
+    //Function invoke for call get wish list API
+    func callWishListAPI()
+    {
+        let objAPI = API()
+        //get keychain values
+        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        objAPI.getWishlistDelegate = self
+        
+        //Call get method of wishlist API by providing partyID
+        if(userDict["partyId"] is String)
+        {
+            objAPI.getWishListForUser(userDict["partyId"] as! String)
+        }
+        else
+        {
+            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+        }
+    }
+    
     //MARK: Bar button action
     func menuButtonClicked(){
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
@@ -331,6 +354,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
     
     @IBAction func impulseSavingButtonPressed(sender: UIButton) {
         let objImpulseSave = SAImpulseSavingViewController()
+        objImpulseSave.maxPrice = totalAmount
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
     
@@ -363,4 +387,70 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate {
         alert.show()
         objAnimView.removeFromSuperview()
     }
+    
+    //MARK: GetWishlist Delegate method
+    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+        if let error = objResponse["error"] as? String
+        {
+//            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
+        }
+        else
+        {
+            let wishListResponse = self.checkNullDataFromDict(objResponse)
+            wishListArray = wishListResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+            if(wishListArray.count > 0)
+            {
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else {
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                
+            }
+        }
+//        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+//            if arr.count > 0{
+//                objAnimView.removeFromSuperview()
+//            }
+//        }
+    }
+    //function invoke when GetWishlist API request fail
+    func errorResponseForGetWishlistAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
+    }
+    
+    //function checking any key is null and return not null values in dictionary
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+
+    
 }

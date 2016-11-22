@@ -81,14 +81,14 @@
                                             <constraint firstAttribute="height" constant="70" id="XZi-zL-tyt"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xj0-Wv-bQy">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xj0-Wv-bQy">
                                         <rect key="frame" x="293" y="115" width="50" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="0Aa-fk-KvM"/>
                                             <constraint firstAttribute="height" constant="44" id="3gl-Nb-yUH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <state key="normal" title="&gt;">
+                                        <state key="normal" title="    &gt;">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -133,7 +133,7 @@
                                             <constraint firstAttribute="height" constant="44" id="B8I-jU-RaU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <state key="normal" title="&lt;">
+                                        <state key="normal" title="   &lt;">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -177,7 +177,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.4353328339041096" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hd3-Yg-euT" firstAttribute="leading" secondItem="wbc-yd-nQP" secondAttribute="leadingMargin" id="V77-Ef-sz7"/>
                             <constraint firstItem="hd3-Yg-euT" firstAttribute="top" secondItem="8bI-gs-bmD" secondAttribute="bottom" constant="60" id="mWk-Ag-mI0"/>

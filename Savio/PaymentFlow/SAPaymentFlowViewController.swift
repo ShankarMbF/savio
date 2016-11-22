@@ -248,7 +248,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 if((error) != nil)
                 {
                     self.objAnimView.removeFromSuperview()
-                    self.cardNumberErrorLabel.text = "Enter valid card details"
+                    self.cardNumberErrorLabel.text = "The card number looks wrong"
                     self.cardNumberTextFieldTopSpace.constant = 35
                     self.cardNumView.constant = 35
                     if(error?.localizedDescription == "Your card\'s number is invalid")
@@ -259,12 +259,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        self.cardNumberErrorLabel.text = "Your card\'s expiration year is invalid"
+                        self.cardNumberErrorLabel.text = "The expiry date for your card\'s has passed"
                     }
                     else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        self.cardNumberErrorLabel.text = "Your card\'s expiration month is invalid"
+                        self.cardNumberErrorLabel.text = "The expiry date for your card\'s has passed"
 
                     }
                     else if(error?.localizedDescription == "Your card\'s security code is invalid") {
@@ -412,14 +412,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         
         
         if cardNumStr == "" {
-            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.text = "The card\'s number looks wrong"
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
             self.setBarodrColor(UIColor.redColor())
         }
         if cardNumStr.characters.count < 16 {
-            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.text = "The card\'s number looks wrong"
             cardNumberErrorLabel.hidden = false
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
@@ -427,6 +427,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
              self.setBarodrColor(UIColor.redColor())
 //            cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
 //            cardNumberTextField.textColor = UIColor.redColor()
+        }else if self.expiryMonthYearTextField.text == ""
+        {
+            cardNumberErrorLabel.text = "Some card\'s details are missing"
+            cardNumberErrorLabel.hidden = false
+            cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
+            errorFlag = true
+        }else if self.cvvTextField.text == ""
+        {
+            cardNumberErrorLabel.text = "Some card\'s details are missing"
+            cardNumberErrorLabel.hidden = false
+            cardNumberTextFieldTopSpace.constant = 35
+            cardNumView.constant = 35
+            errorFlag = true
         }
 //        else {
 //            cardNumberTextFieldTopSpace.constant = 5
@@ -461,7 +475,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //Validations for expiry date text field and cvv text field
         else if(expiryMonthYearTextField.text == "" || cvvTextField.text == "")
         {
-            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.text = "Enter valid expire month & year"
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
@@ -473,7 +487,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             
         else if(expiryMonthYearTextField.text == String(format:"%d/%d",components.month,components.year))
         {
-            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.text = "The card\'s number looks wrong"
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
@@ -482,7 +496,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         else if(cvvTextField.text?.characters.count < 3)
         {
-            cardNumberErrorLabel.text = "Enter valid card details"
+            cardNumberErrorLabel.text = "Enter valid CVV number"
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true

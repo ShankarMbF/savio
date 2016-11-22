@@ -913,7 +913,7 @@
 		A8AEA9411CFFF1DE0069F22A /* NextButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NextButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A8AEA9441CFFF9110069F22A /* ClearButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearButtonTableViewCell.swift; sourceTree = "<group>"; };
 		A8AEA9451CFFF9110069F22A /* ClearButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClearButtonTableViewCell.xib; sourceTree = "<group>"; };
-		A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAPaymentFlowViewController.swift; sourceTree = "<group>"; };
+		A8B1CB551D87CAED00EB8772 /* SAPaymentFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = SAPaymentFlowViewController.swift; sourceTree = "<group>"; };
 		A8B1CB561D87CAED00EB8772 /* SAPaymentFlowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SAPaymentFlowViewController.xib; sourceTree = "<group>"; };
 		A8B5A5011D4A1F15005A607D /* Group-social-pop-up-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close.png"; sourceTree = "<group>"; };
 		A8B5A5021D4A1F15005A607D /* Group-social-pop-up-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group-social-pop-up-close@2x.png"; sourceTree = "<group>"; };

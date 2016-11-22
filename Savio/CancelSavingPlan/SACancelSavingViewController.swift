@@ -28,7 +28,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 10
         paragraphStyle.alignment = NSTextAlignment.Center
-        let attrString = NSMutableAttributedString(string: "Cancelling your plan will stop all regular top ups. Your money will remain on your Savio card and you are able to use it in ATMs and shops as usual.")
+        let attrString = NSMutableAttributedString(string: "There will be no more automated, regular payments taken from your card. Any money you have added will remain on your Savio card and you are able to use it in most shops and ATMs.")
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         cancelDetailLabel.attributedText = attrString
         

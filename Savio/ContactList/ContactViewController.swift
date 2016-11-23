@@ -144,7 +144,7 @@ class ContactViewController: UIViewController {
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
-                dict["mobile_number"] = mobileNum
+                dict["mobile_number"] = mobileNum.stringByReplacingOccurrencesOfString(" ", withString: "")
                 dict["email_id"] = ""
                  dict["NOMID"] = "4"
                 text = mobileNum

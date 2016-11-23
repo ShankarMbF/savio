@@ -24,6 +24,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var dropDownImageView: UIImageView!
     @IBOutlet weak var segmentBar: CustomSegmentBar!
+    var acceptButton: UIBarButtonItem?
 
     var dayPickerView = UIPickerView()
     let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
@@ -62,10 +63,11 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dayDateTextField?.layer.mask = maskLayer1
         //Create custon tool bar for dayDateTextField
         customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SetDayTableViewCell.doneBarButtonPressed))
+         acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SetDayTableViewCell.doneBarButtonPressed))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SetDayTableViewCell.cancelBarButtonPressed))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
-        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton]
+//        acceptButton?.enabled = false
+        customToolBar!.items = [cancelButton,flexibleSpace,acceptButton!]
 
         dayDateTextField.delegate = self
         dayDateTextField.inputView = dayPickerView
@@ -109,6 +111,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 
                 self.dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
                 self.segmentDelegate!.getDateTextField("1")
+                dateStr = "1"
 //                self.dayDateTextField.attributedText = self.createXLabelText(1, text: updatedDateStr!)
 //                self.segmentDelegate!.getDateTextField(updatedDateStr!)
             }
@@ -189,7 +192,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             else {
                 if(self.dayDateStr == "date") {
                     let date : Int? = Int(self.dateStr)
-                    if(date != 0 && self.dateStr != "")
+                    if(date != 0 && self.dateStr.characters.count != 0)
                     {
                         self.dayDateTextField.attributedText = self.createXLabelText(date!, text: String(format: "%@",self.dateStr))
                     }
@@ -201,6 +204,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
                 self.segmentDelegate!.getDateTextField(self.dateStr)
             }
             self.dayPickerView.reloadAllComponents()
+            
         }
     }
     

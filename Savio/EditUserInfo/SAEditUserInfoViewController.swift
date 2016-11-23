@@ -34,6 +34,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var imagePicker = UIImagePickerController()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var userInfoDict : Dictionary<String,AnyObject> = [:]
+    var userBeforeEditInfoDict : Dictionary<String,AnyObject> = [:]
+    var isInfoUpdated: Bool = false
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -523,7 +525,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2.0
         addProfilePictureButton.setTitle("", forState: .Normal)
         addProfilePictureButton.clipsToBounds = true
-        
+        isInfoUpdated = true
         
     }
     
@@ -657,6 +659,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String) {
         
     }
+    
+    
+    
     
     func buttonOnCellClicked(sender:UIButton){
         
@@ -1187,7 +1192,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     func phoneNumberValidation(value: String) -> Bool {
-        let charcter  = NSCharacterSet(charactersInString: "0123456789").invertedSet
+        let charcter  = NSCharacterSet(charactersInString: "+0123456789").invertedSet
         var filtered:NSString!
         let inputString:NSArray = value.componentsSeparatedByCharactersInSet(charcter)
         filtered = inputString.componentsJoinedByString("")
@@ -1302,33 +1307,125 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     //Go to Payment screen
     
+  /*
+    ["partyRole": 4, "title": Mr, "date_of_birth": 23/11/1998, "county":  London, "town": <null>, "house_number": <null>, "second_name": Labale, "partyStatus": ENABLE, "email": pavan@vsplc.com, "confirm_pin": <null>, "partyGender": <null>, "post_code": se16at, "address_2":  26 Arch Street, "first_name": Pavan, "imageURL": <null>, "deviceRegistration": <__NSSingleObjectArrayI 0x60800020f8a0>(
+    {
+    COOKIE = "4ec3414a-19c1-439e-8136-90c852e613bc";
+    "DEVICE_ID" = "631CB809-9288-4A30-BACC-632C604960B6";
+    "DEV_ID" = 56;
+    "PNS_DEVICE_ID" = "";
+    "PTY_AUTH_PIN" = "<null>";
+    STATUS = ENABLE;
+    }
+    )
+    , "address_3":  , "pass_code": 81dc9bdb52d04dc20036dbd8313ed055, "address_1": Flat 11, "partyId": 1025, "phone_number": +441591591591, "stripeCustomerId": cus_9c8sDkhTRTzuPS, "stripeStatusCode": 01, "pin": 81dc9bdb52d04dc20036dbd8313ed055]*/
+    
+    
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                
+            }
+        }
+        return replaceDict
+    }
+    
+    
+    func checkAnyInfoUpdatedFromPrevious()-> Bool {
+        var updateFlag: Bool = false
+        var titleSTr = userBeforeEditInfoDict["title"] as! String
+        var firstName = userBeforeEditInfoDict["first_name"] as! String
+         var lastName = userBeforeEditInfoDict["second_name"] as! String
+         var address1 = userBeforeEditInfoDict["address_1"] as! String
+        var address2 = userBeforeEditInfoDict["address_2"] as! String
+        var address3 = userBeforeEditInfoDict["address_3"] as! String
+        var town = userBeforeEditInfoDict["town"] as! String
+        var country = userBeforeEditInfoDict["county"] as! String
+
+        
+        if titleSTr != (userInfoDict["title"] as! String){
+            updateFlag = true
+        }
+        
+        if firstName != (userInfoDict["first_name"] as! String){
+            updateFlag = true
+        }
+        
+        if lastName != (userInfoDict["second_name"] as! String){
+            updateFlag = true
+        }
+        
+        if address1 != (userInfoDict["address_1"] as! String){
+            updateFlag = true
+        }
+        
+        if address2 != (userInfoDict["address_2"] as! String){
+            updateFlag = true
+        }
+        
+        if address3 != (userInfoDict["address_3"] as! String){
+            updateFlag = true
+        }
+        
+        if town != (userInfoDict["town"] as! String){
+            updateFlag = true
+        }
+        
+        if country != (userInfoDict["county"] as! String){
+            updateFlag = true
+        }
+        return updateFlag
+    }
     
     @IBAction func paymentButtonPressed(sender: UIButton) {
         
+        let flagForUpdat: Bool = self.checkAnyInfoUpdatedFromPrevious()
+        if (isInfoUpdated == true || flagForUpdat == true){
             let alert = UIAlertView(title: "Alert", message: "If you make any updates please save the details", delegate: self, cancelButtonTitle: "Ok")
             alert.addButtonWithTitle("cancel")
             alert.show()
+        }
+        else{
+           self.navigateToPayment()
+        }
     }
     
     func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
         switch buttonIndex{
         case 1:
-            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-            let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-            let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-            
-            if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
-            {
-                let objSavedCardView = SASaveCardViewController()
-                objSavedCardView.isFromEditUserInfo = true
-                self.navigationController?.pushViewController(objSavedCardView, animated: true)
-            }else {
-                let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-            }
+            self.navigateToPayment()
         case 0: print("Red")
         default: print("Is this part even possible?")
         }
+    }
+    
+    func navigateToPayment() {
+        isInfoUpdated = false
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
+        {
+            let objSavedCardView = SASaveCardViewController()
+            objSavedCardView.isFromEditUserInfo = true
+            self.navigationController?.pushViewController(objSavedCardView, animated: true)
+        }else {
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+
     }
     
     // MARK: - GetUserInfoDelegate
@@ -1336,9 +1433,12 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         if let message = objResponse["message"] as? String {
             if(message == "Party Found")  {
                 
-                userInfoDict = objResponse["party"] as! Dictionary<String,AnyObject>
+                userInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
+
                 //Get Registration UI Json data
-                
+                userBeforeEditInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
+
+                               print(userBeforeEditInfoDict)
                 if let urlString = userInfoDict["imageURL"] as? String
                 {
                     let url = NSURL(string:urlString)
@@ -1426,3 +1526,4 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         alert.show()
     }
 }
+

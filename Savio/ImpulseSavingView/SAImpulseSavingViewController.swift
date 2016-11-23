@@ -35,6 +35,7 @@ class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var addFundsViewTopSpace: NSLayoutConstraint!
     @IBOutlet weak var circularViewTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var cancleButton: UIButton!
     
     var isFromPayment = false
     var circleSlider: CircleSlider! {
@@ -86,7 +87,7 @@ class SAImpulseSavingViewController: UIViewController {
             }else {
                 priceLabel.text = "£0"
             }
-            
+            cancleButton.hidden = true
             priceTextField.borderStyle = UITextBorderStyle.None
             circleSlider.hidden = true
             priceLabel.hidden = false
@@ -391,7 +392,6 @@ class SAImpulseSavingViewController: UIViewController {
                 {
                     let objProgressView = SAProgressViewController()
                     self.navigationController?.pushViewController(objProgressView, animated: true)
-                   
                 }
                 else if(plan == "groupPlan")
                 {

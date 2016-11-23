@@ -22,6 +22,7 @@
                 <outlet property="addFundsButton" destination="qpX-fH-sUf" id="bmp-6h-qcO"/>
                 <outlet property="addFundsViewTopSpace" destination="is1-4c-Yie" id="Wsp-QG-MNX"/>
                 <outlet property="anotherStepLabel" destination="7nj-rH-zBJ" id="iPC-rZ-BXr"/>
+                <outlet property="cancleButton" destination="hzv-dy-emi" id="wvl-H6-yJB"/>
                 <outlet property="circularView" destination="Kps-gQ-FZS" id="ckw-3n-e6y"/>
                 <outlet property="circularViewTopSpace" destination="kdC-mr-Gg9" id="EPf-zn-rSd"/>
                 <outlet property="contentView" destination="Cfd-Qt-DLv" id="gWk-HT-Juf"/>

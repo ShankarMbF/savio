@@ -1244,7 +1244,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "44")
+            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
         }
         else if errorCode == 201 {
             let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1328,7 +1328,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             let objAPI = API()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "44")
+            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
         }
  */
     }

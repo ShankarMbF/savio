@@ -48,6 +48,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         // Do any additional setup after loading the view.
         self.callImportantAPI()
     }
@@ -82,7 +83,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.titleTextField?.text = item
             self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-    
         }
         
          //Customization of name text field
@@ -455,6 +455,25 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     @IBAction func backButtonPressed(sender: AnyObject) {
         //Go back to previous view controller
         self.navigationController?.popViewControllerAnimated(true)
+        
+        var isAvailble: Bool = false
+        var vw = UIViewController?()
+        vw = SAWelcomeViewController()
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SAWelcomeViewController) {
+                isAvailble = true
+                vw = obj as! SAWelcomeViewController
+                break
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            self.navigationController?.pushViewController(vw!, animated: false)
+        }
+
     }
     
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
@@ -644,7 +663,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/11",baseURL))!)
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in

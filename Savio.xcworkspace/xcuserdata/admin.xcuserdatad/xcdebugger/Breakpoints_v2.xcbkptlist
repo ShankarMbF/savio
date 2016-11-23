@@ -159,8 +159,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "412"
             endingLineNumber = "412"
-            landmarkName = "successResponseForRegistrationAPI(objResponse:)"
-            landmarkType = "7">
+            landmarkName = "SARegistrationScreenSecondViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -393,7 +393,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "392"
             endingLineNumber = "392"
-            landmarkName = "error(error:)"
+            landmarkName = "keyboardWasShown(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

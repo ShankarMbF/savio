@@ -9,7 +9,7 @@
 import UIKit
 
 
-class SAWelcomeViewController: UIViewController {
+class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     
     
     @IBOutlet weak var scrollView: UIScrollView!      //IBOutlet for scrollview
@@ -22,10 +22,12 @@ class SAWelcomeViewController: UIViewController {
     var idx: Int = 0
     //pageArr is an array which holds animation pages
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
+    var impText: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //Hide navigationbar
+        self.callImportantAPI()
         self.navigationController?.navigationBarHidden = true
 
         // Do any additional setup after loading the view.
@@ -142,10 +144,81 @@ class SAWelcomeViewController: UIViewController {
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
         let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+        objImpInfo.termsAndConditionTextView.text = impText
         objImpInfo.frame = self.view.frame
         objImpInfo.isFromRegistration = false
         self.view.addSubview(objImpInfo)
     }
+    
+    func callImportantAPI() {
+        let objAPI = API()
+        ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        ////        objAnimView.frame = self.view.frame
+        ////        objAnimView.animate()
+        ////        self.view.addSubview(objAnimView)
+        //        objAPI.termConditionDelegate = self
+        //        objAPI.termAndCondition()
+        
+        
+        
+        
+        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
+        let partyID = "956"
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        //Check if network is present
+        if(objAPI.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/11",baseURL))!)
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    //                    print(response?.description)
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        //                        print(dict)
+                        dispatch_async(dispatch_get_main_queue())
+                        {
+                            if dict["errorCode"] as! String == "200"{
+                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                            }
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                    }
+                    
+                }
+                
+            }
+            dataTask.resume()
+        }
+        else {
+        }
+    }
+    
+    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+        impText = objResponse["content"] as? String
+    }
+    
+    func errorResponseFortermAndConditionAPI(error:String){
+        
+    }
+
 }
 
   

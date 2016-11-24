@@ -409,6 +409,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
                 
             }
+            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
 //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
 //            if arr.count > 0{

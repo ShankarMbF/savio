@@ -38,8 +38,6 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         let objAPI = API()
         objAPI.getListOfUsersPlanDelegate = self
         objAPI.getListOfUsersPlan()
-        
-        
         self.setUpView()
     }
     

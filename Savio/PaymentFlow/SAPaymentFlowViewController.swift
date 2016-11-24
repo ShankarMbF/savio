@@ -272,6 +272,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         self.cvvTextField.textColor = UIColor.redColor()
                         self.cardNumberErrorLabel.text = "Your card security code is invalid"
                     }
+                    else if(error?.localizedDescription == "Missing required param: exp_month.") {
+                        self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
+                        self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                        self.cardNumberErrorLabel.text = "Your card's expiration month is invalid"
+                    }
+
                 }
                 else {
                     let objAPI = API()

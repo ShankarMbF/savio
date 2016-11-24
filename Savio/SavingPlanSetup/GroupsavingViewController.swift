@@ -384,7 +384,6 @@
         contactView.delegate = self
         contactView.contactDict = contactDict
         self.navigationController?.pushViewController(contactView, animated: true)
-        
     }
     //Add contact delegate methods
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
@@ -953,3 +952,9 @@
         picker .dismissViewControllerAnimated(true, completion: nil)
     }
  }
+
+ 
+
+ 
+ 
+ 

@@ -173,7 +173,7 @@ class SASavingSummaryViewController: UIViewController {
                     //----------------Set up height as per invited user count-----------------------
                     let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
                     //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
-                    groupViewHt.constant = ht //+ 10
+                    groupViewHt.constant = ht + 10
                     print(ht)
                     // --------------------------------------------------------------------
                     

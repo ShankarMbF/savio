@@ -686,6 +686,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                          NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
+                    print(dict)
+                    
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
                     objAPI.sendInviteMembersList(dict)

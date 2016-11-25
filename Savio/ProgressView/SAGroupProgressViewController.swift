@@ -587,12 +587,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         //Check if savingPlanTransactionList array is present
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
+            paidAmount = 0
             for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
                 paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
                 cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
-                cell?.remainingAmountLabel.text = String(format: "£%d",totalAmount - Int(paidAmount))
+                cell?.remainingAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count ) - Int(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
                 
             }
@@ -613,14 +614,17 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             cell?.remainingProgress.angle = 360
         }
-        
         //Check if user has Group/Individual plan
         if(cellDict["memberType"] as! String == "Owner")
         {
             cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
+            NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
         else {
             cell?.nameLabel.text = cellDict["partyName"] as? String
+            NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
         
  
@@ -735,7 +739,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func impulseSavingButtonPressed(sender:UIButton)
     {
         let objImpulseSave = SAImpulseSavingViewController()
-        objImpulseSave.maxPrice = Float(totalAmount)
+        objImpulseSave.maxPrice = Float(totalAmount) / Float(participantsArr.count)
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
     
@@ -776,6 +780,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             if(message == "Success")
             {
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
+                print(objResponse)
+//                  newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+                
+                 var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
+                NSUserDefaults.standardUserDefaults().setObject(ptyDict["partySavingPlanID"], forKey: "PTY_SAVINGPLAN_ID")
+                NSUserDefaults.standardUserDefaults().synchronize()
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {
                     

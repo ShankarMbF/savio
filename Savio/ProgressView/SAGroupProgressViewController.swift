@@ -591,9 +591,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
                 paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                cell?.savedAmountLabel.text = String(format: "£%d",paidAmount)
+                let str = String(format: "£%.0f",paidAmount)
+                cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
-                cell?.remainingAmountLabel.text = String(format: "£%d",(totalAmount/participantsArr.count ) - Int(paidAmount))
+                cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
                 
             }
@@ -631,7 +632,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.payTypeLabel.text = String(format: "per %@",savingPlanDetailsDict["payType"] as! String).lowercaseString
         if(savingPlanDetailsDict["payType"] as! String == "Month")
         {
-                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
+                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round((Float(totalAmount)/Float(participantsArr.count))))
         }
         else {
                    cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))

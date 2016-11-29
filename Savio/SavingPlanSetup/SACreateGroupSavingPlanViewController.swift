@@ -63,6 +63,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         participantsArr.append(dict)
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBgImageView.layer.masksToBounds = true
+         dateString = "date"
+        isDateChanged = true
         self.setUpView()
     }
     
@@ -218,9 +220,27 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
             }
             else {
+                
+                if(selectedStr != "") {
+                    if(dateString == "day") {
+                        cell1.dayDateTextField.text = self.selectedStr
+                    }
+                    else {
+                        cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.selectedStr)!, text: self.selectedStr)
+                    }
+                }
+                else {
+                    //                    cell1.dayDateTextField.text = ""
+                    var str = "1"
+                    cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
+                }
+
+               
+                
                 if(isClearPressed) {
                     cell1.dayDateTextField.text = ""
                 }
+                
             }
             return cell1
         }
@@ -374,6 +394,52 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
     }
     
+    
+    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
+        let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:5)
+        
+        switch index {
+        case 1:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 2:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 3:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 21:
+            let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 22:
+            let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        case 23:
+            let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        default:
+            let superscript = NSMutableAttributedString(string: "th", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
+            normalscript.appendAttributedString(superscript)
+            break
+            
+        }
+        return normalscript
+    }
+    
     func getDateTextField(str: String) {
         selectedStr = str
         isDateChanged = true
@@ -389,6 +455,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             dateString = "day"
         }
         isDateChanged = true
+        tblView.reloadData()
     }
     
     func closeOfferButtonPressed(sender:UIButton)

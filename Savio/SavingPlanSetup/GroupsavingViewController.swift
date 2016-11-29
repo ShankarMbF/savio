@@ -349,7 +349,8 @@
                 
                 phoneNumber = ABMultiValueCopyValueAtIndex(phoneNumbers, index).takeRetainedValue() as? String;
                 contactDict["mobileNum"] = phoneNumber
-                
+                print(contactDict)
+
             } else {
                 phoneNumber = "Phone Number is empty!";
             }

@@ -168,7 +168,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
             activityIndicator.hidden = false
             //check if plan has image
-            if !(savingPlanDetailsDict["image"] is NSNull) {
+            if (!(savingPlanDetailsDict["image"] is NSNull) && i == 0){
                 if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
                 {
                     //load image from url

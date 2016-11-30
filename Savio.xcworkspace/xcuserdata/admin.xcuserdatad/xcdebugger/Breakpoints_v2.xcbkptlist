@@ -154,7 +154,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-                  timestampString = "502182604.00776"
+                  timestampString = "502192762.617558"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1671"
@@ -169,7 +169,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-                  timestampString = "502182604.00983"
+                  timestampString = "502192762.621073"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1671"
@@ -388,7 +388,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/ImpulseSavingView/SAImpulseSavingViewController.swift"
-                  timestampString = "502182604.069284"
+                  timestampString = "502192762.683145"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
@@ -403,7 +403,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/ImpulseSavingView/SAImpulseSavingViewController.swift"
-                  timestampString = "502182604.071351"
+                  timestampString = "502192762.685218"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
@@ -666,6 +666,22 @@
             startingLineNumber = "1029"
             endingLineNumber = "1029"
             landmarkName = "clearButtonPressed()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/ProgressView/SAProgressViewController.swift"
+            timestampString = "502192487.456802"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
+            landmarkName = "successResponseForGetUsersPlanAPI(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

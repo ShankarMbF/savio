@@ -32,13 +32,18 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         cancelDetailLabel.attributedText = attrString
         
-        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new plan?")
-        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        wouldYouLikeToStartNewSavingPlanLabel.attributedText = attrStringForWouldYouLikeToStartNewSavingPlanLabel
+        let para1 = NSMutableAttributedString()
+        let attrStringForWouldYouLikeToStartNewSavingPlanLabel = NSMutableAttributedString(string: "Would you like to start a new plan?", attributes:[NSFontAttributeName: UIFont(name: kBookFont, size: 15)!])
+        para1.appendAttributedString(attrStringForWouldYouLikeToStartNewSavingPlanLabel)
+        para1.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, para1.length))
+        wouldYouLikeToStartNewSavingPlanLabel.attributedText = para1
         
-        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "There will be no more automated, regular payments taken from your card. Any money you have added will remain on your Savio card and you are able to use it in most shops and ATMs.")
-        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        yourMoneyWillBeReturnLabel.attributedText = attrStringForYourMoneyWillBeReturnLabelLabel
+        let para = NSMutableAttributedString()
+        let attrStringForYourMoneyWillBeReturnLabelLabel = NSAttributedString(string: "There will be no more automated, regular payments taken from your card. Any money you have added will remain on your Savio card and you are able to use it in most shops and ATMs.", attributes:[NSFontAttributeName: UIFont(name: kBookFont, size: 15)!])
+//        let attrStringForYourMoneyWillBeReturnLabelLabel = NSMutableAttributedString(string: "There will be no more automated, regular payments taken from your card. Any money you have added will remain on your Savio card and you are able to use it in most shops and ATMs.")
+        para.appendAttributedString(attrStringForYourMoneyWillBeReturnLabelLabel)
+        para.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, para.length))
+        yourMoneyWillBeReturnLabel.attributedText = para
         
         self.setUpView()
     }

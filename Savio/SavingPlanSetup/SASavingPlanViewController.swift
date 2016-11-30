@@ -397,14 +397,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //MARK: UITableviewDelegate and UITableviewDataSource methods
     //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if(isUpdatePlan)
-        {
-            return offerArr.count+8
-        }
-        else
-        {
-            return offerArr.count+7
-        }
+        return offerArr.count+7
+//        if(isUpdatePlan)
+//        {
+//            return offerArr.count+8
+//        }
+//        else
+//        {
+//            return offerArr.count+7
+//        }
     }
     
     //return the number of rows in each section in table view.
@@ -752,10 +753,20 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             return cell1
         }
         else if(indexPath.section == offerArr.count+6) {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
-            cell1.tblView = tblView
-            cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell1
+            if isUpdatePlan{
+                let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell
+                cell1.cancelSavingPlanButton.addTarget(self, action: #selector(SASavingPlanViewController.cancelSavingButtonPressed(_:)), forControlEvents: .TouchUpInside)
+                return cell1
+            }
+            else{
+               
+                
+                let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
+                cell1.tblView = tblView
+                cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+                return cell1
+
+            }
         }
         else if(indexPath.section == offerArr.count+7) {
             let cell1 = tableView.dequeueReusableCellWithIdentifier("CancelSavingPlanIdentifier", forIndexPath: indexPath) as! CancelButtonTableViewCell

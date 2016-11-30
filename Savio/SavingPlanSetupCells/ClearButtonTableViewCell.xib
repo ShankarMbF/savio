@@ -25,7 +25,15 @@
                             <constraint firstAttribute="width" constant="320" id="jyf-KM-ZeQ"/>
                         </constraints>
                         <state key="normal">
-                            <attributedString key="attributedTitle"/>
+                            <attributedString key="attributedTitle">
+                                <fragment content="Clear">
+                                    <attributes>
+                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        <integer key="NSUnderline" value="1"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
                         </state>
                         <variation key="default">
                             <mask key="constraints">

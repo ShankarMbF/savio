@@ -51,6 +51,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
         // Do any additional setup after loading the view.
         self.callImportantAPI()
+         let objApi = API()
+         objApi.deleteKeychainValue("saveCardArray")
     }
     
     override func viewWillAppear(animated: Bool) {

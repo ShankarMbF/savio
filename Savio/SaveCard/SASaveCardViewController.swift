@@ -266,8 +266,26 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     //Go to SAEditUserInfoViewController
     @IBAction func profileButtonPressed(sender: UIButton) {
-        let objEditUserInfo = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
-        self.navigationController?.pushViewController(objEditUserInfo, animated: true)
+//        let objEditUserInfo = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
+//        self.navigationController?.pushViewController(objEditUserInfo, animated: true)
+        var vw = UIViewController?()
+        var flag = false
+        
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SAEditUserInfoViewController) {
+                vw = obj as! SAEditUserInfoViewController
+                flag = true
+                break
+            }
+        }
+        if flag {
+            self.navigationController?.popToViewController(vw!, animated: true)
+        }
+        else{
+            let objEditUserInfo = SAEditUserInfoViewController()
+            self.navigationController?.pushViewController(objEditUserInfo, animated: true)
+        }
+
     }
     
     //Call the API to set selected card as Default card

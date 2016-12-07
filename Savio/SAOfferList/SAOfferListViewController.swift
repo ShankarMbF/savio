@@ -40,6 +40,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     // MARK: - view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+         offersButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         progressButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab-active.png"), forState: UIControlState.Normal)

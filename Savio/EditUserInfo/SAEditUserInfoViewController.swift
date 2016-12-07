@@ -550,12 +550,30 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         if txtFldCell.tf?.text?.characters.count>0{
             
             dictForTextFieldValue.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+            
             if(txtFldCell.tf?.placeholder == "Surname")
             {
-                userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "second_name")
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "second_name")
             }
-            else {
-                userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: (txtFldCell.tf?.placeholder)!)
+            else if(txtFldCell.tf?.placeholder == "First Address Line")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "address_1")
+            }
+            else if(txtFldCell.tf?.placeholder == "Town")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "town")
+            }
+            else if(txtFldCell.tf?.placeholder == "County")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "county")
+            }
+            else if(txtFldCell.tf?.placeholder == "Second Address Line")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "address_2")
+            }
+            else if(txtFldCell.tf?.placeholder == "Third Address Line")
+            {
+                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "address_3")
             }
         }
         else {
@@ -1344,14 +1362,14 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     func checkAnyInfoUpdatedFromPrevious()-> Bool {
         var updateFlag: Bool = false
-        var titleSTr = userBeforeEditInfoDict["title"] as! String
-        var firstName = userBeforeEditInfoDict["first_name"] as! String
-         var lastName = userBeforeEditInfoDict["second_name"] as! String
-         var address1 = userBeforeEditInfoDict["address_1"] as! String
-        var address2 = userBeforeEditInfoDict["address_2"] as! String
-        var address3 = userBeforeEditInfoDict["address_3"] as! String
-        var town = userBeforeEditInfoDict["town"] as! String
-        var country = userBeforeEditInfoDict["county"] as! String
+        let titleSTr = userBeforeEditInfoDict["title"] as! String
+        let firstName = userBeforeEditInfoDict["first_name"] as! String
+         let lastName = userBeforeEditInfoDict["second_name"] as! String
+         let address1 = userBeforeEditInfoDict["address_1"] as! String
+        let address2 = userBeforeEditInfoDict["address_2"] as! String
+        let address3 = userBeforeEditInfoDict["address_3"] as! String
+        let town = userBeforeEditInfoDict["town"] as! String
+        let country = userBeforeEditInfoDict["county"] as! String
 
         
         if titleSTr != (userInfoDict["title"] as! String){

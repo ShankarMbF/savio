@@ -58,7 +58,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         {
             self.title = "Plan setup"
         }
-        
+        popOverSelectedStr = "1"
         let font = UIFont(name: kBookFont, size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
         self.navigationController?.navigationBarHidden = false
@@ -584,7 +584,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     var str = "1"
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
-                
             }
             if(isClearPressed)  {
                 if(isUpdatePlan) {
@@ -1281,11 +1280,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PARTY_ID"] = userInfoDict["partyId"]
                     newDict["SAV_PLAN_ID"] = "0"
                     if (topBackgroundImageView.image != nil) {
-                        
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                         let dict = ["imageName.jpg":base64String]
-                        
                         newDict["IMAGE"] = dict
                     }
                     else {
@@ -1299,7 +1296,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
-                
             }
             else {
                 //Handle the warnigs of required fields
@@ -1747,7 +1743,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
 
         
         tblView.reloadData()
-        
         isOfferShow = false
     }
     
@@ -1755,5 +1750,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         isOfferShow = false
         
     }
+    
+  
     
 }

@@ -67,6 +67,7 @@ class SAImpulseSavingViewController: UIViewController {
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
+        maxPrice = 3000.00
         self.buildCircleSlider()
         self.setUpView()
     }
@@ -250,7 +251,7 @@ class SAImpulseSavingViewController: UIViewController {
         if(Float(valueString)! > maxPrice)
         {
             circleSlider.value = 0.0
-            let msgStr = String(format: "The maximum you can top up is £ %f", maxPrice!)
+            let msgStr = String(format: "The maximum you can top up is £ %.0f", maxPrice!)
             let alert = UIAlertView(title: "Whoa!", message: msgStr, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             self.removeKeyboardNotification()

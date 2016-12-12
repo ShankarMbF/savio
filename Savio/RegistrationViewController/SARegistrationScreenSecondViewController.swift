@@ -275,7 +275,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["party_role"] =  4
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-            objimpInfo.lblHeader.text = "Why do we need this information?"
+            objimpInfo.lblHeader.text = "Terms and Condidtions"//"Why do we need this information?"
             objimpInfo.termsAndConditionTextView.text = termAndConditionText
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
@@ -343,7 +343,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                     }
                     
                 }
-                
             }
             dataTask.resume()
         }

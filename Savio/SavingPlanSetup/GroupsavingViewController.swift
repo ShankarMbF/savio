@@ -516,6 +516,18 @@
                 dateDiff = Int(timeDifference/3600)
                 
             }
+            else{
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                let dateComponents = NSDateComponents()
+                let calender = NSCalendar.currentCalendar()
+                dateComponents.month = 3
+                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+                datePickerDate = dateFormatter.stringFromDate(newDate!)
+                cell1.datePickerTextField.text = datePickerDate
+                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                dateDiff = Int(timeDifference/3600)
+            }
             if(isClearPressed) {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                 let currentDate: NSDate = NSDate()
@@ -531,7 +543,6 @@
         }
         else if(indexPath.section == 3) {
             if(itemDetailsDataDict["title"] == nil) {
-                
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
                 if(participantsArr.count == 0) {
                     cell1.layer.cornerRadius = 5

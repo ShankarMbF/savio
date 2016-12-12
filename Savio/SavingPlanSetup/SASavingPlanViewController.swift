@@ -498,6 +498,21 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 //                let dateFormatter = NSDateFormatter()
                 //                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                 //                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+                
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                
+                
+                let dateComponents = NSDateComponents()
+                let calender = NSCalendar.currentCalendar()
+                dateComponents.month = 3
+                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+                datePickerDate = dateFormatter.stringFromDate(newDate!)
+                cell1.datePickerTextField.text = datePickerDate
+                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                dateDiff = Int(timeDifference/3600)
+                
             }
             else
             {
@@ -1735,7 +1750,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>) {
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {
-            tblViewHt.constant = tblView.frame.size.height + 50
+//            tblViewHt.constant = tblView.frame.size.height + 50
         }
         else {
             tblViewHt.constant = tblView.frame.size.height + 80
@@ -1744,6 +1759,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         tblView.reloadData()
         isOfferShow = false
+         self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
     }
     
     func skipOffers(){

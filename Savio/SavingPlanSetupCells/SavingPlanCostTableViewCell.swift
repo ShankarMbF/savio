@@ -119,9 +119,13 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         if(sender.value >= 2000) {
             sender.value = sender.value + 30;
         }
+        else  if(sender.value <= 10){
+//            sender.value = 0
+        }
         else {
             sender.value = sender.value + 10;
         }
+       
         
         //set the slider value
         self.costTextField.attributedText = self.createAttributedString("£" + String(format: "%d",Int(sender.value)))

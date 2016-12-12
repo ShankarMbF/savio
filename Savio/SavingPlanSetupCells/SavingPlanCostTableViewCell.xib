@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="GothamRounded-Medium.otf">
+        <array key="GothamRounded-Medium.otf">
             <string>GothamRounded-Medium</string>
-            <string>GothamRounded-Medium</string>
-        </mutableArray>
-        <mutableArray key="gotham-rounded-book-2.otf">
+        </array>
+        <array key="gotham-rounded-book-2.otf">
             <string>GothamRounded-Book</string>
-            <string>GothamRounded-Book</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -31,31 +33,31 @@
                             <constraint firstAttribute="height" constant="20" id="2eh-V9-p22"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="17"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="3000" translatesAutoresizingMaskIntoConstraints="NO" id="ISQ-4m-YEC" customClass="slider" customModule="Savio" customModuleProvider="target">
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="3000" translatesAutoresizingMaskIntoConstraints="NO" id="ISQ-4m-YEC" customClass="slider" customModule="Savio" customModuleProvider="target">
                         <rect key="frame" x="36" y="71" width="248" height="31"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="78T-fC-QRi"/>
                         </constraints>
-                        <color key="minimumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="maximumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="thumbTintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="minimumTrackTintColor" red="0.21176470588235294" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="maximumTrackTintColor" red="0.15996189415454865" green="0.16485004127025604" blue="0.20508554577827454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="thumbTintColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <action selector="sliderValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="CSz-Gw-0MG"/>
                         </connections>
                     </slider>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQR-uk-sx8">
                         <rect key="frame" x="15" y="80" width="12" height="12"/>
-                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="Thk-1W-G6j"/>
                             <constraint firstAttribute="width" constant="12" id="jRT-TO-VyK"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="-">
-                            <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="minusButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Wke-nR-dz8"/>
@@ -63,14 +65,14 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QW5-xP-CdE">
                         <rect key="frame" x="293" y="80" width="12" height="12"/>
-                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="AFM-bg-Wfd"/>
                             <constraint firstAttribute="width" constant="12" id="PUx-Pn-tri"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <state key="normal" title="+">
-                            <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
                             <action selector="plusButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="T44-9P-AOY"/>
@@ -78,11 +80,11 @@
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ukx-QD-x5v">
                         <rect key="frame" x="36" y="30" width="250" height="25"/>
-                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="1m4-bi-4P2"/>
                         </constraints>
-                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         <connections>
@@ -90,7 +92,7 @@
                         </connections>
                     </textField>
                 </subviews>
-                <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="ukx-QD-x5v" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="4Fw-YO-ADe"/>
                     <constraint firstItem="owe-f5-37h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="60o-Q6-4NX"/>

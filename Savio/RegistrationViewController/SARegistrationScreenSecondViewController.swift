@@ -431,10 +431,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         // dropdown selection action
         dropDown.selectionAction = { [unowned self] (index, item) in
             let str = item
+            print(str)
             let fullNameArr = str.characters.split{$0 == ","}.map(String.init)
             self.addressLineOneTextField.text = fullNameArr[0]
             self.addressLineTwoTextField.text = fullNameArr[1]
-            self.addressLineThreeTextField.text = fullNameArr[2]
+            self.addressLineThreeTextField.text = fullNameArr[fullNameArr.count-3]
             self.townTextField.text = fullNameArr[fullNameArr.count-2]
             self.countyTextField.text = fullNameArr[fullNameArr.count-1]
             

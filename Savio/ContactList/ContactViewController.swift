@@ -57,6 +57,7 @@ class ContactViewController: UIViewController {
                 var nib :Array! = NSBundle.mainBundle().loadNibNamed("ContactProfileTableViewCell", owner: nil, options: nil)
                 cell = nib[0] as? ContactProfileTableViewCell
             }
+            cell?.selectionStyle = .None
             //Showing contact image
             cell?.personImage?.image = contactDict["imageData"] as? UIImage
             //Showing name
@@ -75,7 +76,7 @@ class ContactViewController: UIViewController {
                 var nib :Array! = NSBundle.mainBundle().loadNibNamed("ContactTableViewCell", owner: nil, options: nil)
                 cell = nib[0] as? ContactTableViewCell
             }
-            
+             cell?.selectionStyle = .None
             //setting up invite button
             cell?.inviteBtn?.tag = indexPath.row
             cell?.inviteBtn?.addTarget(self, action: #selector(ContactViewController.clickOnInviteButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)

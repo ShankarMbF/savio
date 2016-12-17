@@ -53,6 +53,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         self.callImportantAPI()
          let objApi = API()
          objApi.deleteKeychainValue("saveCardArray")
+        objApi.deleteKeychainValue("savingPlanDict")
     }
     
     override func viewWillAppear(animated: Bool) {

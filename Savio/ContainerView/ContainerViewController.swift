@@ -88,8 +88,6 @@ class ContainerViewController: UIViewController {
                 self.centreVC = SACreateSavingPlanViewController(nibName: "SACreateSavingPlanViewController", bundle: nil)
             }
         }
-        
-   
     }
     
     //function invoke on tapping menu button.

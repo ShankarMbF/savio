@@ -88,7 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     //Set SAWelcomViewController as rootViewController of UINavigationViewController
                     objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
                     window?.rootViewController = objSANav
-                    
                 }
             }
             else  {
@@ -167,7 +166,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             let notificationSettings = UIUserNotificationSettings(
                 forTypes: [.Badge, .Sound, .Alert], categories: nil)
             application.registerUserNotificationSettings(notificationSettings)
-            
         }
         
     }

@@ -502,8 +502,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                
-                
                 let dateComponents = NSDateComponents()
                 let calender = NSCalendar.currentCalendar()
                 dateComponents.month = 3
@@ -512,7 +510,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cell1.datePickerTextField.text = datePickerDate
                  let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
-                
             }
             else
             {

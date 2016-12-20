@@ -46,7 +46,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         addProfilePictureButton.titleLabel?.textAlignment = .Center
         addProfilePictureButton.titleLabel?.numberOfLines = 0
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2
-        
+        self.setUPNavigation()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView!.frame = self.view.frame
         objAnimView!.animate()
@@ -55,11 +59,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         let objAPI = API()
         objAPI.getUserInfoDelegate = self
         objAPI.getUserInfo()
-        self.setUPNavigation()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     func setUPNavigation()
@@ -705,66 +704,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 }
             }
             else {
-                
-                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-                objAnimView!.frame = self.view.frame
-                objAnimView?.animate()
-                self.navigationController!.view.addSubview(objAnimView!)
-                
-                let objAPI = API()
-                let dict = objAPI.getValueFromKeychainOfKey("userInfo")
-                userInfoDict["ptyid"] = dict["partyId"]
-                if(isImageClicked) {
-                    let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
-                    let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                    let newDict = ["imageName.jpg":base64String]
-                    userInfoDict["imageurl"] = newDict
-                }
-                else {
-                    let newDict = ["imageName.jpg":""]
-                    userInfoDict["imageurl"] = newDict
-                }
-                
-                var param = userInfoDict as Dictionary<String,AnyObject>
-                param["town"] = userInfoDict["Town"]
-                param.removeValueForKey("Town")
-                param["ptystatus"] = "ENABLE"
-                param.removeValueForKey("date_of_birth")
-                param.removeValueForKey("pass_code")
-                param.removeValueForKey("email")
-                param.removeValueForKey("confirm_pin")
-                param.removeValueForKey("imageURL")
-                param.removeValueForKey("partyId")
-                param.removeValueForKey("deviceRegistration")
-                if let firstAddress = param["First Address Line"] as? String {
-                    param.removeValueForKey("First Address Line")
-                }
-                if let secondAddress = param["Second Address Line"] as? String {
-                    param.removeValueForKey("Second Address Line")
-                }
-                if let thirdAddress = param["Third Address Line"] as? String {
-                    param.removeValueForKey("Third Address Line")
-                }
-                if let county = param["stripeCustomerId"] as? String {
-                    param.removeValueForKey("stripeCustomerId")
-                }
-                
-                if let County = param["County"] as? String {
-                    param.removeValueForKey("County")
-                }
-                if let stripeStatusCode = param["stripeStatusCode"] as? String {
-                    param.removeValueForKey("stripeStatusCode")
-                }
-                
-                param.removeValueForKey("phone_number")
-                param.removeValueForKey("pin")
-                param.removeValueForKey("Surname")
-                param.removeValueForKey("party_role")
-                param.removeValueForKey("partyRole")
-                param.removeValueForKey("partyStatus")
-                param.removeValueForKey("partyGender")
-                objAPI.updateUserInfoDelegate = self
-                objAPI.updateUserInfo(param)
+              
+                self.callEditUserInfoAPI()
             }
         }
         else {
@@ -781,6 +722,69 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 self.createCells()
             }
         }
+    }
+    
+    func callEditUserInfoAPI()  {
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView!.frame = self.view.frame
+        objAnimView?.animate()
+        self.navigationController!.view.addSubview(objAnimView!)
+        
+        let objAPI = API()
+        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
+        userInfoDict["ptyid"] = dict["partyId"]
+        if(isImageClicked) {
+            let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
+            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let newDict = ["imageName.jpg":base64String]
+            userInfoDict["imageurl"] = newDict
+        }
+        else {
+            let newDict = ["imageName.jpg":""]
+            userInfoDict["imageurl"] = newDict
+        }
+        
+        var param = userInfoDict as Dictionary<String,AnyObject>
+        param["town"] = userInfoDict["Town"]
+        param.removeValueForKey("Town")
+        param["ptystatus"] = "ENABLE"
+        param.removeValueForKey("date_of_birth")
+        param.removeValueForKey("pass_code")
+        param.removeValueForKey("email")
+        param.removeValueForKey("confirm_pin")
+        param.removeValueForKey("imageURL")
+        param.removeValueForKey("partyId")
+        param.removeValueForKey("deviceRegistration")
+        if let firstAddress = param["First Address Line"] as? String {
+            param.removeValueForKey("First Address Line")
+        }
+        if let secondAddress = param["Second Address Line"] as? String {
+            param.removeValueForKey("Second Address Line")
+        }
+        if let thirdAddress = param["Third Address Line"] as? String {
+            param.removeValueForKey("Third Address Line")
+        }
+        if let county = param["stripeCustomerId"] as? String {
+            param.removeValueForKey("stripeCustomerId")
+        }
+        
+        if let County = param["County"] as? String {
+            param.removeValueForKey("County")
+        }
+        if let stripeStatusCode = param["stripeStatusCode"] as? String {
+            param.removeValueForKey("stripeStatusCode")
+        }
+        
+        param.removeValueForKey("phone_number")
+        param.removeValueForKey("pin")
+        param.removeValueForKey("Surname")
+        param.removeValueForKey("party_role")
+        param.removeValueForKey("partyRole")
+        param.removeValueForKey("partyStatus")
+        param.removeValueForKey("partyGender")
+        objAPI.updateUserInfoDelegate = self
+        objAPI.updateUserInfo(param)
     }
     
     
@@ -1424,6 +1428,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         case 1:
             self.navigateToPayment()
         case 0: print("Red")
+        self.callEditUserInfoAPI()
+            self.navigateToPayment()
         default: print("Is this part even possible?")
         }
     }

@@ -345,7 +345,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "393"
             endingLineNumber = "393"
-            landmarkName = "addedContact(_:)"
+            landmarkName = "addedContact(contactDict:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -612,11 +612,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/ContactList/ContactViewController.swift"
-            timestampString = "502095721.898816"
+            timestampString = "503835888.788215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "clickOnInviteButton(sender:)"
             landmarkType = "7">
          </BreakpointContent>

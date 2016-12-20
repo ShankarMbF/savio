@@ -168,7 +168,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         emailErrorLabel.text = ""
         surnameErrorLabel.text = ""
         dateOfBirthErrorLabel.text = ""
-        
     }
     
     //Check all text fields validations

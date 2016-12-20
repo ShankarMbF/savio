@@ -126,10 +126,11 @@ class ContactViewController: UIViewController {
         if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
         {
             for i in 0 ..< contactArray.count {
+                
                 var dict = contactArray[i] as Dictionary<String,AnyObject>
                 if let phone = dict["mobile_number"] as? String
                 {
-                    mobileArray.append(String(format:"+44%@",phone))
+                    mobileArray.append(String(format:"+91%@",phone))
                 }
                 if let email = dict["email"] as? String
                 {

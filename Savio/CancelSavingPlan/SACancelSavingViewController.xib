@@ -56,7 +56,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCS-zF-Ar6">
                             <rect key="frame" x="10" y="241" width="355" height="80"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="80" id="eMy-IQ-a6e"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="eMy-IQ-a6e"/>
                             </constraints>
                             <string key="text">Cancelling your plan will stop all your top ups. Your money will remain on your Savio card and you are able to use it in ATMs and shops as usual.</string>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
@@ -64,7 +64,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xR-Rh-zL7">
-                            <rect key="frame" x="30" y="381" width="315" height="43"/>
+                            <rect key="frame" x="30" y="371" width="315" height="43"/>
                             <color key="backgroundColor" red="0.94117647059999998" green="0.64313725489999995" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="43" id="WAZ-94-B0q"/>
@@ -76,7 +76,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRn-fe-sQ4">
-                            <rect key="frame" x="30" y="381" width="315" height="40"/>
+                            <rect key="frame" x="30" y="371" width="315" height="40"/>
                             <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="XcI-He-jeP"/>
@@ -93,7 +93,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZU-gg-UaE">
-                            <rect key="frame" x="10" y="444" width="355" height="30"/>
+                            <rect key="frame" x="10" y="431" width="355" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="LxN-oC-p4z"/>
                             </constraints>
@@ -125,17 +125,17 @@
                         <constraint firstItem="iZU-gg-UaE" firstAttribute="leading" secondItem="unf-fN-0ho" secondAttribute="leading" constant="10" id="UHC-lL-H08"/>
                         <constraint firstAttribute="trailing" secondItem="iZU-gg-UaE" secondAttribute="trailing" constant="10" id="WfN-b1-eIT"/>
                         <constraint firstItem="LRn-fe-sQ4" firstAttribute="leading" secondItem="unf-fN-0ho" secondAttribute="leading" constant="30" id="XIF-Je-4as"/>
-                        <constraint firstItem="iZU-gg-UaE" firstAttribute="top" secondItem="LRn-fe-sQ4" secondAttribute="bottom" constant="23" id="Z11-2w-xKR"/>
+                        <constraint firstItem="iZU-gg-UaE" firstAttribute="top" secondItem="LRn-fe-sQ4" secondAttribute="bottom" constant="20" id="Z11-2w-xKR"/>
                         <constraint firstItem="mCS-zF-Ar6" firstAttribute="leading" secondItem="unf-fN-0ho" secondAttribute="leading" constant="10" id="fXA-cI-6dj"/>
                         <constraint firstItem="mCS-zF-Ar6" firstAttribute="top" secondItem="g5v-1W-cps" secondAttribute="bottom" constant="31" id="fvs-lg-BH0"/>
                         <constraint firstAttribute="trailing" secondItem="g5v-1W-cps" secondAttribute="trailing" constant="10" id="hUp-8c-h01"/>
-                        <constraint firstItem="LRn-fe-sQ4" firstAttribute="top" secondItem="mCS-zF-Ar6" secondAttribute="bottom" constant="60" id="jJi-OP-bH0"/>
+                        <constraint firstItem="LRn-fe-sQ4" firstAttribute="top" secondItem="mCS-zF-Ar6" secondAttribute="bottom" constant="50" id="jJi-OP-bH0"/>
                         <constraint firstItem="g5v-1W-cps" firstAttribute="top" secondItem="6DX-40-yym" secondAttribute="bottom" constant="51" id="jO6-OD-xcA"/>
                         <constraint firstItem="6xR-Rh-zL7" firstAttribute="leading" secondItem="unf-fN-0ho" secondAttribute="leading" constant="30" id="lmB-lK-m86"/>
                         <constraint firstItem="6DX-40-yym" firstAttribute="centerX" secondItem="unf-fN-0ho" secondAttribute="centerX" id="muq-i5-e9r"/>
                         <constraint firstItem="g5v-1W-cps" firstAttribute="leading" secondItem="unf-fN-0ho" secondAttribute="leading" constant="125" id="nBh-Cl-PHn"/>
                         <constraint firstAttribute="trailing" secondItem="6xR-Rh-zL7" secondAttribute="trailing" constant="30" id="ozj-L0-P4d"/>
-                        <constraint firstItem="6xR-Rh-zL7" firstAttribute="top" secondItem="mCS-zF-Ar6" secondAttribute="bottom" constant="60" id="xNe-MX-2yf"/>
+                        <constraint firstItem="6xR-Rh-zL7" firstAttribute="top" secondItem="mCS-zF-Ar6" secondAttribute="bottom" constant="50" id="xNe-MX-2yf"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">

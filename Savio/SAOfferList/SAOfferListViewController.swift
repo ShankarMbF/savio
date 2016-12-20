@@ -55,6 +55,16 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //customization of spend button
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.spendButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.spendButton!.bounds
+        maskLayer.path = maskPath.CGPath
+        self.offersButton?.layer.mask = maskLayer
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,11 +165,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             }
         }
         //customization of plan button as per the psd
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.progressButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
-        let maskLayer: CAShapeLayer = CAShapeLayer()
-        maskLayer.frame = self.progressButton!.bounds
-        maskLayer.path = maskPath.CGPath
-        self.progressButton?.layer.mask = maskLayer
+//        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.progressButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+//        let maskLayer: CAShapeLayer = CAShapeLayer()
+//        maskLayer.frame = self.progressButton!.bounds
+//        maskLayer.path = maskPath.CGPath
+//        self.progressButton?.layer.mask = maskLayer
     }
     /*
     // MARK: - Navigation

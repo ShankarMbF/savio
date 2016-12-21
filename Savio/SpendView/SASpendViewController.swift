@@ -77,7 +77,6 @@ class SASpendViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //customization of spend button

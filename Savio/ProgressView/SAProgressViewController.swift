@@ -326,7 +326,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = false
-        self.navigationController?.pushViewController(obj, animated: true)
+        self.navigationController?.pushViewController(obj, animated: false)
         }
     }
     

@@ -501,7 +501,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = false
-        self.navigationController?.pushViewController(obj, animated: true)
+        self.navigationController?.pushViewController(obj, animated: false)
     }
     
     //Go to SASpendViewController

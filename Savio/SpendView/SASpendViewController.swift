@@ -188,7 +188,6 @@ class SASpendViewController: UIViewController {
             self.navigationController?.popToViewController(vw!, animated: false)
         }
         else{
-            
             let obj = SAOfferListViewController()
             obj.savID = 92
             obj.isComingProgress = true
@@ -197,7 +196,7 @@ class SASpendViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
             obj.hideAddOfferButton = false
-            self.navigationController?.pushViewController(obj, animated: true)
+            self.navigationController?.pushViewController(obj, animated: false)
         }
     }
 }

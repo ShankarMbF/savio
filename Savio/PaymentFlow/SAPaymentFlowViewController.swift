@@ -408,8 +408,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //Validations for card number text field
         
         let cardNumStr = txtCardNum1.text! + txtCardNum2.text! + txtCardNum3.text! + txtCardNum4.text!
-        
-        
         if cardNumStr == "" {
             cardNumberErrorLabel.text = "The card number looks wrong"
             cardNumberTextFieldTopSpace.constant = 35
@@ -424,17 +422,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumView.constant = 35
             errorFlag = true
              self.setBarodrColor(UIColor.redColor())
-//            cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-//            cardNumberTextField.textColor = UIColor.redColor()
-        }else if self.expiryMonthYearTextField.text == ""
-        {
+        }else if self.expiryMonthYearTextField.text == "" {
             cardNumberErrorLabel.text = "Some card details are missing"
             cardNumberErrorLabel.hidden = false
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-        }else if self.cvvTextField.text == ""
-        {
+        }else if self.cvvTextField.text == "" {
             cardNumberErrorLabel.text = "Some card details are missing"
             cardNumberErrorLabel.hidden = false
             cardNumberTextFieldTopSpace.constant = 35
@@ -507,9 +501,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberTextFieldTopSpace.constant = 5
             cardNumView.constant = 5
             cardNumberErrorLabel.text = ""
-
         }
-        
         return errorFlag
     }
     

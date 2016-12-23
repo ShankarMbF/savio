@@ -1458,6 +1458,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             if(message == "Party Found")  {
                 
                 userInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
+                dictForTextFieldValue = self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
 
                 //Get Registration UI Json data
                 userBeforeEditInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)

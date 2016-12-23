@@ -371,7 +371,7 @@ class SAImpulseSavingViewController: UIViewController {
         {
             var tfString: String = priceTextField.text!
             tfString = tfString.chopPrefix(1)
-            if(tfString == "00")
+            if(tfString == "00" || tfString == "0")
             {
                 let alert = UIAlertView(title: "Hmmm", message: "You can't top up with no money, that won't get you anywhere!", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()

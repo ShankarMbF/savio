@@ -259,13 +259,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        self.cardNumberErrorLabel.text = "The expiry date for your card has passed"
+                        self.cardNumberErrorLabel.text = "Your card has expired"
                     }
                     else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
                         self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
-                        self.cardNumberErrorLabel.text = "The expiry date for your card has passed"
-
+                        self.cardNumberErrorLabel.text = "Your card has expired"
                     }
                     else if(error?.localizedDescription == "Your card\'s security code is invalid") {
                         self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -277,7 +276,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         self.expiryMonthYearTextField.textColor = UIColor.redColor()
                         self.cardNumberErrorLabel.text = "Your card's expiration month is invalid"
                     }
-
                 }
                 else {
                     let objAPI = API()
@@ -310,7 +308,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                 objAPI.addNewSavingCardDelegate = self
                                 objAPI.addNewSavingCard(dict)
                                 self.addNewCard = false
-                                
                             }
                             else {
                                 self.objAnimView.removeFromSuperview()
@@ -351,7 +348,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             objAPI.addSavingCardDelegate = self
                             objAPI.addSavingCard(dict)
                         }
-                        
                     }
                 }
             })
@@ -360,7 +356,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             errorFlag = false
             objAnimView.removeFromSuperview()
         }
-        
     }
     
     func setBarodrColor(borderColor: UIColor) {
@@ -368,10 +363,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         txtCardNum1.textColor = borderColor
         txtCardNum2.layer.borderColor = borderColor.CGColor
         txtCardNum2.textColor = borderColor
-        
         txtCardNum3.layer.borderColor = borderColor.CGColor
         txtCardNum3.textColor = borderColor
-        
         txtCardNum4.layer.borderColor = borderColor.CGColor
         txtCardNum4.textColor = borderColor
     }

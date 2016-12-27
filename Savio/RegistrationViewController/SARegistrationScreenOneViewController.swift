@@ -428,11 +428,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
             userInfoDict["title"] = titleTextField.text
-            userInfoDict["first_name"] = nameTextField.text
-            userInfoDict["second_name"] = surnameTextField.text
+            userInfoDict["first_name"] = nameTextField.text?.capitalizedString
+            userInfoDict["second_name"] = surnameTextField.text?.capitalizedString
             userInfoDict["date_of_birth"] = dateOfBirthTextField.text
             userInfoDict["phone_number"] =  String(format:"+44%@",mobileNumberTextField.text!)
             userInfoDict["email"] = emailTextField.text
+            print(userInfoDict)
             
             if(titleTextField.text == "Mr")
             {

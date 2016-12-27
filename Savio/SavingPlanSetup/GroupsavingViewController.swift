@@ -631,7 +631,8 @@
             
             if(participantsArr.count != 0) {
                 let dict = participantsArr[indexPath.row]
-                cell1.ParticipantsNameLabel.text = dict["first_name"] as? String
+                let nameStr = String(format: "%@ %@", dict["first_name"] as! String, dict["second_name"] as! String)
+                cell1.ParticipantsNameLabel.text = nameStr//dict["first_name"] as? String
                 if (dict["email_id"] as? String != "") {
                     cell1.phoneOrEmailLabel.text = dict["email_id"] as? String
                 }

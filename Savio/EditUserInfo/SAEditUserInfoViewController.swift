@@ -745,8 +745,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             userInfoDict["imageurl"] = newDict
         }
         
+        let fName = userInfoDict["first_name"] as! String
+        let lName = userInfoDict["second_name"] as! String
         var param = userInfoDict as Dictionary<String,AnyObject>
         param["town"] = userInfoDict["Town"]
+        param["first_name"] = fName.capitalizedString
+        param["second_name"] = lName.capitalizedString
+        
         param.removeValueForKey("Town")
         param["ptystatus"] = "ENABLE"
         param.removeValueForKey("date_of_birth")
@@ -784,6 +789,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         param.removeValueForKey("partyStatus")
         param.removeValueForKey("partyGender")
         objAPI.updateUserInfoDelegate = self
+        print(param)
         objAPI.updateUserInfo(param)
     }
     
@@ -1412,15 +1418,30 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func paymentButtonPressed(sender: UIButton) {
         
-        let flagForUpdat: Bool = self.checkAnyInfoUpdatedFromPrevious()
-        if (isInfoUpdated == true || flagForUpdat == true){
-            let alert = UIAlertView(title: "Alert", message: "If you make any updates please save the details", delegate: self, cancelButtonTitle: "Ok")
-            alert.addButtonWithTitle("cancel")
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        
+        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
+        {
+            let flagForUpdat: Bool = self.checkAnyInfoUpdatedFromPrevious()
+            if (isInfoUpdated == true || flagForUpdat == true){
+                let alert = UIAlertView(title: "Alert", message: "Would you like to save the changes to your personal settings?", delegate: self, cancelButtonTitle: "Yes")
+                alert.addButtonWithTitle("No")
+                alert.show()
+            }
+            else{
+                self.navigateToPayment()
+            }
+            
+        }else {
+            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        else{
-           self.navigateToPayment()
-        }
+        
+        
+        
+        
     }
     
     func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
@@ -1436,19 +1457,19 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     func navigateToPayment() {
         isInfoUpdated = false
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        
-        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
-        {
+//        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+//        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
+//        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+//        
+//        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
+//        {
             let objSavedCardView = SASaveCardViewController()
             objSavedCardView.isFromEditUserInfo = true
             self.navigationController?.pushViewController(objSavedCardView, animated: true)
-        }else {
-            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
+//        }else {
+//            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
+//        }
 
     }
     

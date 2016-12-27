@@ -176,7 +176,8 @@ class ContactViewController: UIViewController {
         
         if let lastName = contactDict["lastName"] as? String
         {
-            dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, lastName)
+//            dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, lastName)
+            dict["second_name"] = String(format: "%@", lastName)
             name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         }
   

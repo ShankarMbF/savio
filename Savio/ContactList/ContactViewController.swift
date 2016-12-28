@@ -147,10 +147,12 @@ class ContactViewController: UIViewController {
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
                 dict["mobile_number"] = mobileNum.stringByReplacingOccurrencesOfString("[^0-9]", withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
-                dict["mobile_number"] = "+44\(dict["mobile_number"])"
+                let num = String(format: "+44%@", dict["mobile_number"] as! String)
+                dict["mobile_number"] = num
                 dict["email_id"] = ""
                  dict["NOMID"] = "4"
                 text = mobileNum
+                print(dict["mobile_number"]!)
             }
             else {
                 if let emailStr: String = contactDict["email"] as? String {

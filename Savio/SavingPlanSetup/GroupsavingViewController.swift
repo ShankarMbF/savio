@@ -397,6 +397,7 @@
         tblViewHt.constant = tblViewHt.constant + 40
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + 40)
         tblView.reloadData()
+        print(participantsArr)
     }
     
     func skipContact(){

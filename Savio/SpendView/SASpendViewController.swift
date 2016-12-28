@@ -195,7 +195,7 @@ class SASpendViewController: UIViewController {
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
             NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
             NSUserDefaults.standardUserDefaults().synchronize()
-            obj.hideAddOfferButton = false
+            obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
     }

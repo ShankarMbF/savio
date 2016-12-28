@@ -93,6 +93,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             self.navigationItem.leftBarButtonItem = leftBarButton
             bottomview.hidden = true
             tblViewBottomSpace.constant = 0
+            if isComingProgress! {
+                tblViewBottomSpace.constant = 40
+            }
+            
         }
         else {
             let leftBtnName = UIButton()

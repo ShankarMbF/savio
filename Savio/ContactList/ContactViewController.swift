@@ -130,7 +130,7 @@ class ContactViewController: UIViewController {
                 var dict = contactArray[i] as Dictionary<String,AnyObject>
                 if let phone = dict["mobile_number"] as? String
                 {
-                    mobileArray.append(String(format:"+91%@",phone))
+                    mobileArray.append(String(format:"+44%@",phone))
                 }
                 if let email = dict["email"] as? String
                 {
@@ -147,6 +147,7 @@ class ContactViewController: UIViewController {
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
                 dict["mobile_number"] = mobileNum.stringByReplacingOccurrencesOfString("[^0-9]", withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+                dict["mobile_number"] = "+44\(dict["mobile_number"])"
                 dict["email_id"] = ""
                  dict["NOMID"] = "4"
                 text = mobileNum

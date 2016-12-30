@@ -322,6 +322,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         return ColorCodes.colorForCode(colorDataDict["savPlanID"] as! Int)
     }
     
+    @IBAction func btnCLick(sender : AnyObject){
+        self.dayDateTextField.becomeFirstResponder()
+    }
+    
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
         self.registerForKeyboardNotifications()

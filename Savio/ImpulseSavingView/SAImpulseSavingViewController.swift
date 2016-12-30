@@ -82,11 +82,12 @@ class SAImpulseSavingViewController: UIViewController {
                                                    blue : 58/255, alpha: 1)
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.hidden = true
+            
             if let _ = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
             {
                priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             }else {
-                priceLabel.text = "£0"
+                priceLabel.text = "£00"
             }
             cancleButton.hidden = true
             priceTextField.borderStyle = UITextBorderStyle.None
@@ -158,6 +159,14 @@ class SAImpulseSavingViewController: UIViewController {
 //        let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
         let attrString2 = NSAttributedString(string: String(format:"£%.0f",calculatedValue), attributes: singleAttribute3)
         priceTextField.attributedText = attrString2
+    }
+    
+    func createAttributedString(string: String) -> NSAttributedString {
+        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+        
+        attributedString.addAttributes([ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue], range: NSRange(location: 0, length: string.characters.count))
+//        attributedString.addAttributes([NSFontAttributeName:UIFont(name: kMediumFont, size: 10)!], range: NSRange(location: 0, length: string.characters.count))
+        return attributedString
     }
     
     override func didReceiveMemoryWarning() {

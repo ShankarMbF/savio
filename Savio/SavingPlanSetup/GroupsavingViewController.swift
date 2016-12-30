@@ -418,7 +418,6 @@
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 4) {
             return participantsArr.count
-            
         }
         else {
             return 1
@@ -438,7 +437,6 @@
                 cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
                 cell1.titleTextField.userInteractionEnabled = false
                 itemTitle = itemDetailsDataDict["title"] as! String
-                
             }
             if(isClearPressed) {
                 cell1.titleTextField.text = itemTitle

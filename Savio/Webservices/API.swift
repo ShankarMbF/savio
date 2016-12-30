@@ -449,7 +449,6 @@ class API: UIView,NSURLSessionDelegate {
                                 self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("Verification code is incorrect.")
                             }
                         }
-                        
                     }
                     else {
                         if let error = error
@@ -478,7 +477,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
+            self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("No network found")
         }
     }
     

@@ -10,6 +10,7 @@ import UIKit
 
 protocol TxtFieldTableViewCellDelegate {
     func txtFieldCellText(txtFldCell:TxtFieldTableViewCell)
+     func txtFieldCellTextImmediate(txtFldCell:TxtFieldTableViewCell, text: String)
 }
 
 class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -112,7 +113,11 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
             
         }
-        
+        var str :String = textField.text! + string
+        if string == "" {
+            str = String(str.characters.dropLast())
+        }
+        self.delegate?.txtFieldCellTextImmediate(self, text: str)
         return true;
     }
 //    func textFieldShouldEndEditing(textField: UITextField) -> Bool{
@@ -126,6 +131,7 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
         return true
     }
     
+ 
     func checkTextFieldTextLength(txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
         let currentCharacterCount = txtField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
@@ -135,6 +141,11 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
         if (newLength > len) {
             return false;
         }
+        var str :String = txtField.text! + string
+        if string == "" {
+            str = String(str.characters.dropLast())
+        }
+        self.delegate?.txtFieldCellTextImmediate(self, text: str)
         return true
     }
     

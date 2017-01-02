@@ -434,6 +434,10 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         }
     }
     
+    func txtFieldCellTextImmediate(txtFldCell:TxtFieldTableViewCell, text: String){
+        
+    }
+    
     func titleCellText(titleCell:TitleTableViewCell){
         if titleCell.tfTitle?.text?.characters.count>0{
             dictForTextFieldValue.updateValue((titleCell.tfTitle?.text)!, forKey: "title")

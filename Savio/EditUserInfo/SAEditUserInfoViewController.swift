@@ -552,7 +552,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             
             if(txtFldCell.tf?.placeholder == "Surname")
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "second_name")
+//                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: "second_name")
+                userInfoDict["second_name"] = txtFldCell.tf?.text
             }
             else if(txtFldCell.tf?.placeholder == "First Address Line")
             {
@@ -589,6 +590,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             userInfoDict.updateValue((titleCell.prevName), forKey: "first_name")
         }
     }
+    
+
     
     func getTextFOrPostCode(findAddrCell: FindAddressTableViewCell)
     {
@@ -677,7 +680,40 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         
     }
     
-    
+    func txtFieldCellTextImmediate(txtFldCell:TxtFieldTableViewCell, text: String){
+        if text.characters.count>0{
+            
+            dictForTextFieldValue.updateValue(text, forKey: (txtFldCell.tf?.placeholder)!)
+            
+            if(txtFldCell.tf?.placeholder == "Surname")
+            {
+                userInfoDict.updateValue(text, forKey: "second_name")
+            }
+            else if(txtFldCell.tf?.placeholder == "First Address Line")
+            {
+                userInfoDict.updateValue(text, forKey: "address_1")
+            }
+            else if(txtFldCell.tf?.placeholder == "Town")
+            {
+                userInfoDict.updateValue(text, forKey: "town")
+            }
+            else if(txtFldCell.tf?.placeholder == "County")
+            {
+                userInfoDict.updateValue(text, forKey: "county")
+            }
+            else if(txtFldCell.tf?.placeholder == "Second Address Line")
+            {
+                userInfoDict.updateValue(text, forKey: "address_2")
+            }
+            else if(txtFldCell.tf?.placeholder == "Third Address Line")
+            {
+                userInfoDict.updateValue(text, forKey: "address_3")
+            }
+        }
+        else {
+            dictForTextFieldValue.removeValueForKey((txtFldCell.tf?.placeholder)!)
+        }
+    }
     
     
     func buttonOnCellClicked(sender:UIButton){
@@ -748,7 +784,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         let fName = userInfoDict["first_name"] as! String
         let lName = userInfoDict["second_name"] as! String
         var param = userInfoDict as Dictionary<String,AnyObject>
-        param["town"] = userInfoDict["Town"]
+        param["town"] = userInfoDict["town"]
         param["first_name"] = fName.capitalizedString
         param["second_name"] = lName.capitalizedString
         

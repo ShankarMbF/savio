@@ -10,6 +10,7 @@ import UIKit
 
 protocol TitleTableViewCellDelegate {
     func titleCellText(titleCell:TitleTableViewCell)
+
 }
 
 class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
@@ -145,7 +146,10 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
             if (newLength > 50) {
                 return false;
             }
-             let firstName = textField.text! + string
+             var firstName = textField.text! + string
+            if string == "" {
+                firstName = String(firstName.characters.dropLast())
+            }
             prevName = firstName
             self.delegate?.titleCellText(self)
         }

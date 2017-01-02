@@ -1408,11 +1408,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         cost = Int(txtFldCell.slider.value)
         if(isUpdatePlan) {
             isDateChanged = true
-            
         }
         else {
             isPopoverValueChanged = true
-            
         }
         if(isCostChanged == false)
         {

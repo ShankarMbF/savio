@@ -493,15 +493,31 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     //Go to SAOffersViewController
     @IBAction func offersButtonPressed(sender: AnyObject) {
-        let obj = SAOfferListViewController()
-        obj.savID = 63
-        obj.isComingProgress = true
-        //save the Generic plan in NSUserDefaults, so it will show its specific offers
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        obj.hideAddOfferButton = true
-        self.navigationController?.pushViewController(obj, animated: false)
+        var isAvailble: Bool = false
+        var vw = UIViewController?()
+        
+        for var obj in (self.navigationController?.viewControllers)!{
+            if obj.isKindOfClass(SAOfferListViewController) {
+                isAvailble = true
+                vw = obj as! SAOfferListViewController
+                break
+            }
+        }
+        
+        if isAvailble {
+            self.navigationController?.popToViewController(vw!, animated: false)
+        }
+        else{
+            let obj = SAOfferListViewController()
+            obj.savID = 63
+            obj.isComingProgress = true
+            //save the Generic plan in NSUserDefaults, so it will show its specific offers
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            obj.hideAddOfferButton = true
+            self.navigationController?.pushViewController(obj, animated: false)
+        }
     }
     
     //Go to SASpendViewController

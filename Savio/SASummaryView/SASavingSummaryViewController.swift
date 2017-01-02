@@ -198,43 +198,43 @@ class SASavingSummaryViewController: UIViewController {
                         case 0:
                             lblName1?.hidden = false
                             lblContact1?.hidden = false
-                            lblName1?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName1?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact1?.text = contactStr
                             
                         case 1:
                             lblName2?.hidden = false
                             lblContact2?.hidden = false
-                            lblName2?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName2?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact2?.text = contactStr
                             
                         case 2:
                             lblName3?.hidden = false
                             lblContact3?.hidden = false
-                            lblName3?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName3?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact3?.text = contactStr
                             
                         case 3:
                             lblName4?.hidden = false
                             lblContact4?.hidden = false
-                            lblName4?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName4?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact4?.text = contactStr
                             
                         case 4:
                             lblName5?.hidden = false
                             lblContact5?.hidden = false
-                            lblName5?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName5?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact5?.text = contactStr
                             
                         case 5:
                             lblName6?.hidden = false
                             lblContact6?.hidden = false
-                            lblName6?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName6?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact6?.text = contactStr
                             
                         case 6:
                             lblName7?.hidden = false
                             lblContact7?.hidden = false
-                            lblName7?.text = String(format: "%@ - ",dict["first_name"] as! String)
+                            lblName7?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact7?.text = contactStr
                             
                         default: print("Default Line Reached")

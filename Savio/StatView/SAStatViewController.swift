@@ -45,13 +45,14 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.setUpView()
         //--------------Draw Line chart on graph contentview----------------------------
         lineChart = LineChart()
+        lineChart.clipsToBounds  = false
         lineChart.planTitle = self.planType
         lineChart.maximumValue = 3000
         lineChart.minimumValue = 0
-        let data: [CGFloat] = [0,600,600-1,-1]
+        let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
         
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1","2","3","4","5"]
+        xLabels = ["1","2","3","4","5","6","7","8"]
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity
@@ -89,6 +90,23 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             lineChart.graphMovingVerticalLine.backgroundColor =  UIColor(red: 176.0/255.0, green: 211.0/255.0, blue: 240.0/255.0, alpha: 1)
         }
     }
+    
+    
+    //MARK:- Delegate slider 
+    
+    func scrollLineDragged(xValue: CGFloat, widhtContent: CGFloat) {
+        let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
+        let widthOfContentView: CGFloat = self.widthOfContentView.constant
+        if widthOfContentView > widthScrollView {
+            let fraction: CGFloat = (widthOfContentView - widthScrollView) / widhtContent
+            if xValue <= CGFloat(30) {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: 5, y: 0  )
+            } else {
+                self.scrollViewForGraph.contentOffset = CGPoint(x: Double(CGFloat(xValue) * fraction ), y: 0  )
+            }
+        }
+    }
+
     
     //MARK: -
     

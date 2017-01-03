@@ -281,7 +281,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     func successResponseForShareExtensionAPI(objResponse: Dictionary<String, AnyObject>) {
         spinner.stopAnimating()
         spinner.hidden = true
-        
+        print(objResponse)
         let alert = UIAlertController(title: "We've added this product to your wish list.", message: "Open the Savio app to start your saving plan.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
         { action -> Void in

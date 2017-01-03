@@ -171,9 +171,10 @@ class SASavingSummaryViewController: UIViewController {
                 if arr.count > 0 {
                     
                     //----------------Set up height as per invited user count-----------------------
-                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
+//                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
+                    let ht = (CGFloat(arr.count) * 30) + 10 //as CGFloat
                     //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
-                    groupViewHt.constant = ht + 10
+                    groupViewHt.constant = ht
                     print(ht)
                     // --------------------------------------------------------------------
                     
@@ -370,7 +371,7 @@ class SASavingSummaryViewController: UIViewController {
                     }
                     //--------------------------------------------------------------------------------
                 }
-                
+                 htOfferView.constant = CGFloat(arrOff.count) * 60 + 35
             }
             //Setting up height of summary container view
 //            htDescriptionContentView.constant = summaryViewHt.constant//continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)
@@ -379,8 +380,11 @@ class SASavingSummaryViewController: UIViewController {
             
             //Setting scrollview content size as per contentView
 //            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant - 30)
+            
             htDescriptionContentView.constant = summaryViewHt.constant + htOfferView.constant + 200
-             htContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + 200 //htContentView.constant + htDescriptionContentView.constant
+            
+            htContentView.constant =  (vwUpper?.frame.size.height)! + htDescriptionContentView.constant + 50
+//             htContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + 200 //htContentView.constant + htDescriptionContentView.constant
             scrlVw?.contentSize = CGSizeMake(0, htContentView.constant )
             
             //SHOWING PLAN TITLE

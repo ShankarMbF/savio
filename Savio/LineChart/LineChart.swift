@@ -5,7 +5,7 @@ import QuartzCore
 public protocol LineChartDelegate {
 //    func didSelectDataPoint(x: CGFloat, yValues: [CGFloat])
 //    func setValuesForSlider(min: CGFloat, max: CGFloat)
-//    func scrollLineDragged(x: CGFloat)
+    func scrollLineDragged(x: CGFloat, widhtContent: CGFloat)
     func chartVerticalLineDrawingCompleted()
 }
 
@@ -139,7 +139,7 @@ public class LineChart: UIView {
     public var maximumValue: CGFloat = 0
     public var minimumValue: CGFloat = 0
     var scrollViewReference: UIScrollView  = UIScrollView()
-     var thumbImgView = UIImageView()
+    var thumbImgView = UIImageView()
     var graphMovingVerticalLine = UIView()
 
     // values calculated on init
@@ -262,21 +262,6 @@ public class LineChart: UIView {
         self.drawScrollLineForPoint(x.axis.inset)
     }
     
-    func sliderValueChanged(slider: UISlider) {
-        if  CGFloat(slider.value) >= x.axis.inset && CGFloat(slider.value) <=  self.drawingWidth + x.axis.inset {
-            moveScrollLineForPoint(CGFloat(slider.value))
-            let xValue = CGFloat(slider.value)
-            let inverted = self.x.invert(xValue - x.axis.inset)
-            let rounded = Int(round(Double(inverted)))
-            setProgressForCircularFloatingProgressBar(rounded)
-            let yValues: [CGFloat] = getYValuesForXValue(rounded)
-            let firstValue = yValues.first
-            if firstValue >= 0 {
-                let stringValue: String = String.init(format: "%.0f", firstValue!)
-                self.valueLabel.text = stringValue
-            }
-        }
-    }
     
     /**
      * Get y value for given x value. Or return zero or maximum value.
@@ -427,7 +412,7 @@ public class LineChart: UIView {
     func scrollLineMoved(gesture: UIPanGestureRecognizer) {
         let  transalation = gesture.locationInView(self)
         if  CGFloat(transalation.x) >= x.axis.inset && CGFloat(transalation.x) <=  self.drawingWidth + x.axis.inset {
-//            self.delegate?.scrollLineDragged(transalation.x)
+            self.delegate?.scrollLineDragged(transalation.x, widhtContent:self.drawingWidth + x.axis.inset)
             moveScrollLineForPoint(CGFloat(transalation.x))
             let xValue = CGFloat(transalation.x)
             let inverted = self.x.invert(xValue - x.axis.inset)
@@ -518,6 +503,7 @@ public class LineChart: UIView {
         
         // add getsture recogniszer
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(LineChart.scrollLineMoved(_:)))
+        
         graphView.addGestureRecognizer(gesture)
     }
     

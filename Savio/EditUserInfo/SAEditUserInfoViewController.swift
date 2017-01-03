@@ -51,6 +51,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        if isInfoUpdated == false {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView!.frame = self.view.frame
         objAnimView!.animate()
@@ -59,6 +60,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         let objAPI = API()
         objAPI.getUserInfoDelegate = self
         objAPI.getUserInfo()
+        }
     }
     
     func setUPNavigation()
@@ -1475,23 +1477,32 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             alert.show()
         }
         
-        
-        
-        
     }
     
     func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
         switch buttonIndex{
         case 1:
-            self.addProfilePictureButton.setImage(nil, forState: .Normal)
-            addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
-            addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
-            addProfilePictureButton.titleLabel?.textAlignment = .Center
-            addProfilePictureButton.titleLabel?.numberOfLines = 0
+            if let urlString = userInfoDict["imageURL"] as? String
+            {
+                if(urlString == "")
+                {
+                    self.addProfilePictureButton.setImage(nil, forState: .Normal)
+                    addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
+                    addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
+                    addProfilePictureButton.titleLabel?.textAlignment = .Center
+                    addProfilePictureButton.titleLabel?.numberOfLines = 0
+                }
+            }
             self.navigateToPayment()
         case 0: print("Red")
-        self.callEditUserInfoAPI()
+        dispatch_async(dispatch_get_main_queue()) {
+            // do your stuff here
+            self.callEditUserInfoAPI()
+        }
+        dispatch_async(dispatch_get_main_queue())
+        {
             self.navigateToPayment()
+            }
         default: print("Is this part even possible?")
         }
     }

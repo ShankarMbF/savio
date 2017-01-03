@@ -61,10 +61,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
         else {
             yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
-            
             fiveDigitTextField.hidden = true
             resentCodeButton.hidden = true
-            backButton.hidden = true
+            backButton.hidden = false
             yourCodeSentLabel.hidden = false
             
         }

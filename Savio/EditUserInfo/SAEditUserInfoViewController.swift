@@ -1483,6 +1483,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
         switch buttonIndex{
         case 1:
+            self.addProfilePictureButton.setImage(nil, forState: .Normal)
+            addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
+            addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
+            addProfilePictureButton.titleLabel?.textAlignment = .Center
+            addProfilePictureButton.titleLabel?.numberOfLines = 0
             self.navigateToPayment()
         case 0: print("Red")
         self.callEditUserInfoAPI()

@@ -232,6 +232,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 else {
                     //                    cell1.dayDateTextField.text = ""
                     var str = "1"
+                    selectedStr = str
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
 
@@ -441,6 +442,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func getDateTextField(str: String) {
+        print(str)
         selectedStr = str
         isDateChanged = true
         isClearPressed = false

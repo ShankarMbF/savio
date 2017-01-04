@@ -228,7 +228,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
         //Validations for surname text field
         if surnameTextField.text=="" {
-            
             surnameErrorLabel.text = "We need to know your surname"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true

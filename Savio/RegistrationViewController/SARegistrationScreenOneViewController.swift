@@ -457,7 +457,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     @IBAction func backButtonPressed(sender: AnyObject) {
         //Go back to previous view controller
-        self.navigationController?.popViewControllerAnimated(true)
         
         var isAvailble: Bool = false
         var vw = UIViewController?()
@@ -469,14 +468,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 break
             }
         }
-        
         if isAvailble {
             self.navigationController?.popToViewController(vw!, animated: false)
         }
         else{
             self.navigationController?.pushViewController(vw!, animated: false)
         }
-
     }
     
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
@@ -487,8 +484,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         objimpInfo.isFromRegistration = false
         self.view.addSubview(objimpInfo)
     }
-    
-  
     
     
     //Textfield delegate methods

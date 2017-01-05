@@ -82,7 +82,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dropDownImageView.image = self.setDownWordImage()
         segmentBar.segmentSelected =  { (idx: Int)  in
             if(idx == 1) {
-                self.dayDateLabel.text = "day"
+                self.dayDateLabel.text = "date"
                 self.segmentDelegate!.segmentBarChanged("date")
                 self.dayDateTextField.text = ""
                 self.dayDateStr = "date"

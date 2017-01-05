@@ -15,6 +15,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var savingPlanTitleLabel: UILabel!
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     @IBOutlet weak var scrlView: UIScrollView!
+    @IBOutlet weak var upperView: UIView!
     
     var cost : Int = 0
     var dateDiff : Int = 0
@@ -721,19 +722,36 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 else
                 {
+                    
                     if let payType = itemDetailsDataDict["payType"] as? NSString
                     {
+                        //                        if isChangeSegment{
+                        //                            print("change")
+                        //
+                        ////                            let dateFormatter = NSDateFormatter()
+                        ////                            dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                        ////                            let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
+                        ////                            datePickerTextField.text = pickrDate
+                        ////                            datePickerTextField.textColor = UIColor.whiteColor()
+                        ////
+                        ////                            let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
+                        //
+                        //                        }
                         let date  = itemDetailsDataDict["planEndDate"] as? String
                         
                         let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                         let currentDate: NSDate = NSDate()
                         let components: NSDateComponents = NSDateComponents()
-                        components.day = +7
+                        //                        components.day = +7
                         let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
                         
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
+                        //                            dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                        
+                        let dt = dateFormatter.dateFromString(date!)!
+//                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
+                         let timeDifference : NSTimeInterval = dt.timeIntervalSinceDate(NSDate())
                         dateDiff = Int(timeDifference/3600)
                         if(payType == "Month") {
                             if((dateDiff/168) == 1) {
@@ -751,6 +769,32 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             else {
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
                             }
+                        }
+                        
+                        if isChangeSegment {
+                            if dateString == "day"{
+                                if((dateDiff/168) == 1) {
+                                    cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                }
+                                else if ((dateDiff/168) == 0) {
+                                    cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                                }
+                                else {
+                                    cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                }
+                            }else{
+                                if((dateDiff/168)/4 == 1) {
+                                    cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                }
+                                else if ((dateDiff/168)/4 == 0) {
+                                    
+                                    cell1.calculationLabel.text = String(format: "You will need to top up £%d per month for 1 month",cost)
+                                }
+                                else {
+                                    cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                }
+                            }
+
                         }
                     }
                 }
@@ -993,6 +1037,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             else {
                 dateString = "day"
             }
+            isChangeSegment = true
+            isPopoverValueChanged = true
+
             if(str == payTypeStr)  {
                 popOverSelectedStr = dateFromUpdatePlan
                 tblView.reloadData()
@@ -1745,16 +1792,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>) {
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {
-//            tblViewHt.constant = tblView.frame.size.height + 50
+            //            tblViewHt.constant = tblView.frame.size.height + 50
         }
         else {
             tblViewHt.constant = tblView.frame.size.height + 80
-        }
-
-        
+        }        
         tblView.reloadData()
         isOfferShow = false
-         self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+        let ht = upperView.frame.size.height + tblView.frame.size.height
+        self.scrlView.contentSize = CGSizeMake(0, ht)
     }
     
     func skipOffers(){

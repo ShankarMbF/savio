@@ -1108,7 +1108,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 
                 self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
+                self.scrlView.contentSize = CGSizeMake(0, ht)
+                //                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
                 self.tblView.reloadData()
             }
             else {
@@ -1126,9 +1128,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     self.offerArr = self.updateOfferArr
                 }
                 self.scrlView.contentOffset = CGPointMake(0, 20)
-                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                //                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
+                self.scrlView.contentSize = CGSizeMake(0, ht)
                 self.tblView.reloadData()
-                
             }
             
             })
@@ -1160,6 +1163,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             parameterDict["AMOUNT"] = String(format:"%d",cost)
         }
+        
         if let image = itemDetailsDataDict["imageURL"] as? String {
             if(image != "") {
                 if (topBackgroundImageView.image != nil) {

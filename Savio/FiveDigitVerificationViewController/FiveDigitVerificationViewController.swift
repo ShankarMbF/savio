@@ -62,7 +62,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
             fiveDigitTextField.hidden = true
             resentCodeButton.hidden = true
-            backButton.hidden = true
+            backButton.hidden = false
             yourCodeSentLabel.hidden = false
             
         }
@@ -94,8 +94,16 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
         codeDoesNotMatchLabel.hidden = true
          */
-        let saRegisterViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
-        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
+        
+        for viewcontroller in self.navigationController!.viewControllers as Array {
+            if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                self.navigationController?.popToViewController(viewcontroller , animated: true)
+                break
+            }
+        }
+
+//        let saRegisterViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
+//        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
     }
     
     @IBAction func doneButtonToolBarPressed(sender: AnyObject) {

@@ -210,6 +210,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 let calendar = NSCalendar.currentCalendar()
                 let components = calendar.components([.Day , .Month , .Year], fromDate: date)
                 self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year%100)
+                picker.year = components.year
+                picker.month = components.month
                 
             }
             else {

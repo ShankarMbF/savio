@@ -212,7 +212,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year%100)
                 picker.year = components.year
                 picker.month = components.month
-                
             }
             else {
                 self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year%100)

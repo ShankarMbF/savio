@@ -708,7 +708,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Success response of AddNewSavingCardDelegate
     func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-        objAnimView.removeFromSuperview()
+        
         if let message = objResponse["message"] as? String{
             if(message == "Successfull")
             {
@@ -741,6 +741,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 }
                 else if(isFromEditUserInfo)
                 {
+                    objAnimView.removeFromSuperview()
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromEditUserInfo = true
                     objSavedCardView.isFromImpulseSaving = false
@@ -748,6 +749,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     self.navigationController?.pushViewController(objSavedCardView, animated: true)
                 }
                 else {
+                    objAnimView.removeFromSuperview()
                     let objSummaryView = SASavingSummaryViewController()
                     self.navigationController?.pushViewController(objSummaryView, animated: true)
                 }
@@ -771,6 +773,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Success response of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
+        objAnimView.removeFromSuperview()
         if let errorCode = objResponse["errorCode"] as? NSString
         {
             if (errorCode == "200")

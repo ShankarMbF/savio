@@ -59,6 +59,9 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         //Set up number of menu as per plan created
         for i in 0 ..< arr.count {
             var dict = arr[i] as! Dictionary<String,AnyObject>
+            
+            
+            
             if dict["className"]!.isEqualToString("SAProgressViewController") {
                 dict["showInMenu"] = "No"
                 if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){
@@ -76,6 +79,13 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
              else if dict["className"]!.isEqualToString("SASwitchViewController") {
                 dict["showInMenu"] = "No"
                 if (individualFlag == 1 && groupMemberFlag == 1) || (groupFlag == 1 && groupMemberFlag == 1){
+                    dict["showInMenu"] = "Yes"
+                    arrMenu.append(dict)
+                }
+            }
+            else  if dict["className"]!.isEqualToString("SASpendViewController") {
+                dict["showInMenu"] = "No"
+                if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){
                     dict["showInMenu"] = "Yes"
                     arrMenu.append(dict)
                 }

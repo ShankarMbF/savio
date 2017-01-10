@@ -36,6 +36,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var userInfoDict : Dictionary<String,AnyObject> = [:]
     var userBeforeEditInfoDict : Dictionary<String,AnyObject> = [:]
     var isInfoUpdated: Bool = false
+    var isPressAlertYes: Bool = false
+    var queue = NSOperationQueue()
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -536,7 +538,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     func selectedDate(txtFldCell:PickerTextfildTableViewCell){
-        
         dictForTextFieldValue.updateValue((txtFldCell.tfDatePicker?.text)!, forKey: (txtFldCell.tfDatePicker?.placeholder)!)
     }
     
@@ -831,6 +832,49 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         objAPI.updateUserInfo(param)
     }
     
+    func resignAllTextfield(){
+        for i in 0 ..< arrRegistrationFields.count {
+            if arrRegistrationFields[i].isKindOfClass(TitleTableViewCell){
+                let cell = arrRegistrationFields[i] as! TitleTableViewCell
+                cell.endEditing(true)
+
+                cell.tfName?.resignFirstResponder()
+            }
+            if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell){
+                let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
+                cell.endEditing(true)
+
+                cell.tf?.resignFirstResponder()
+//                if cell.tf?.placeholder == "Surname"{
+//                    dict["second_name"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "First Address Line"{
+//                    dict["address_1"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "Second Address Line"{
+//                    dict["address_2"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "Third Address Line"{
+//                    dict["address_3"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "Town"{
+//                    dict["town"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "Mobile number"{
+//                    dict["phone_number"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "County"{
+//                    dict["county"] = cell.tf?.text
+//                }
+//                if cell.tf?.placeholder == "Email"{
+//                    dict["email"] = cell.tf?.text
+//                }
+            }
+        }
+    }
+    
+    
+    
     
     func getAllValuesFromTxtFild()-> Dictionary<String,AnyObject>{
         var dict = Dictionary<String, AnyObject>()
@@ -840,6 +884,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 let cell = arrRegistrationFields[i] as! TitleTableViewCell
                 dict["title"] = cell.tfTitle?.text
                 dict["first_name"] = cell.tfName?.text
+                
             }
             
             if arrRegistrationFields[i].isKindOfClass(TxtFieldTableViewCell){
@@ -1330,7 +1375,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     @IBAction func addProfilePictureButtonPressed(sender: AnyObject) {
-        
+        self.resignAllTextfield()
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
         
         alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
@@ -1456,6 +1501,14 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func paymentButtonPressed(sender: UIButton) {
         
+        
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, forEvent:nil)
+        self.showAlt()
+        
+    }
+    
+    
+    func showAlt()  {
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
@@ -1463,10 +1516,32 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
         {
             let flagForUpdat: Bool = self.checkAnyInfoUpdatedFromPrevious()
-            if (isInfoUpdated == true || flagForUpdat == true){
-                let alert = UIAlertView(title: "Alert", message: "Would you like to save the changes to your personal settings?", delegate: self, cancelButtonTitle: "Yes")
-                alert.addButtonWithTitle("No")
-                alert.show()
+            if (self.isInfoUpdated == true || flagForUpdat == true){
+                
+                let uiAlert = UIAlertController(title: "Alert", message: "Would you like to save the changes to your personal settings?", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(uiAlert, animated: true, completion: nil)
+                
+                uiAlert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
+                    print("Click of default button")
+                    if let urlString = self.userInfoDict["imageURL"] as? String
+                    {
+                        if(urlString == "")
+                        {
+                            self.addProfilePictureButton.setImage(nil, forState: .Normal)
+                            self.addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
+                            self.addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
+                            self.addProfilePictureButton.titleLabel?.textAlignment = .Center
+                            self.addProfilePictureButton.titleLabel?.numberOfLines = 0
+                        }
+                    }
+                    self.navigateToPayment()
+                }))
+                
+                uiAlert.addAction(UIAlertAction(title: "Yes", style: .Cancel, handler: { action in
+                    print("Click of cancel button")
+                    self.isPressAlertYes = true
+                    self.callEditUserInfoAPI()
+                }))
             }
             else{
                 self.navigateToPayment()
@@ -1476,53 +1551,15 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        
+
     }
     
-    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
-        switch buttonIndex{
-        case 1:
-            if let urlString = userInfoDict["imageURL"] as? String
-            {
-                if(urlString == "")
-                {
-                    self.addProfilePictureButton.setImage(nil, forState: .Normal)
-                    addProfilePictureButton.setTitle("Add\n profile\n picture", forState: .Normal)
-                    addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.ByWordWrapping
-                    addProfilePictureButton.titleLabel?.textAlignment = .Center
-                    addProfilePictureButton.titleLabel?.numberOfLines = 0
-                }
-            }
-            self.navigateToPayment()
-        case 0: print("Red")
-        dispatch_async(dispatch_get_main_queue()) {
-            // do your stuff here
-            self.callEditUserInfoAPI()
-        }
-        dispatch_async(dispatch_get_main_queue())
-        {
-            self.navigateToPayment()
-            }
-        default: print("Is this part even possible?")
-        }
-    }
     
     func navigateToPayment() {
         isInfoUpdated = false
-//        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-//        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-//        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-//        
-//        if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
-//        {
-            let objSavedCardView = SASaveCardViewController()
-            objSavedCardView.isFromEditUserInfo = true
-            self.navigationController?.pushViewController(objSavedCardView, animated: true)
-//        }else {
-//            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
-//        }
-
+        let objSavedCardView = SASaveCardViewController()
+        objSavedCardView.isFromEditUserInfo = true
+        self.navigationController?.pushViewController(objSavedCardView, animated: true)
     }
     
     // MARK: - GetUserInfoDelegate
@@ -1599,9 +1636,21 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         {
             if(message == "UserData Updated Successfully")
             {
-                let alert = UIAlertView(title: "Alert", message: "Personal details updated", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                //                let alert = UIAlertView(title: "Updated", message: "Personal details updated", delegate: nil, cancelButtonTitle: "Ok")
+                //                alert.show()
                 self.createCells()
+                
+                let uiAlert = UIAlertController(title: "Updated", message: "Personal details updated", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(uiAlert, animated: true, completion: nil)
+                
+                uiAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
+                    print("Click of default button")
+                    if self.isPressAlertYes{
+                        self.navigateToPayment()
+                        self.isPressAlertYes = false
+                    }
+                }))
+                
             }
             else {
                 let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")

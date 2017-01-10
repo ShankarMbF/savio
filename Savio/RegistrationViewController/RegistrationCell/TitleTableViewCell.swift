@@ -120,6 +120,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         return true
     }
     func textFieldDidEndEditing(textField: UITextField){
+        textField.resignFirstResponder()
         self.removeKeyboardNotification()
         prevName = textField.text!
         self.delegate?.titleCellText(self)

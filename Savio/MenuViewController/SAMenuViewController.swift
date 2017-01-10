@@ -60,8 +60,6 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         for i in 0 ..< arr.count {
             var dict = arr[i] as! Dictionary<String,AnyObject>
             
-            
-            
             if dict["className"]!.isEqualToString("SAProgressViewController") {
                 dict["showInMenu"] = "No"
                 if (individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1){

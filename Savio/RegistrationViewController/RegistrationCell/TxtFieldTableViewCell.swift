@@ -94,6 +94,7 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     func textFieldDidEndEditing(textField: UITextField){
 //        self.removeKeyboardNotification()
+        textField.resignFirstResponder()
          self.delegate?.txtFieldCellText(self)
     }
     

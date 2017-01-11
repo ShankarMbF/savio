@@ -130,16 +130,27 @@ class ContactViewController: UIViewController {
                 var dict = contactArray[i] as Dictionary<String,AnyObject>
                 if let phone = dict["mobile_number"] as? String
                 {
-                    mobileArray.append(String(format:"+44%@",phone))
+                    mobileArray.append(String(format:"%@",phone))
                 }
                 if let email = dict["email"] as? String
                 {
                     emailArray.append(email)
                 }
+                var name = ""
                 if let first_name = dict["first_name"] as? String
                 {
-                    nameArray.append(first_name)
+                     name = first_name//String(format:"%@ %@",dict["first_name"] as! String,dict["second_name"] as! String)
+//                    nameArray.append(name)
                 }
+                if let last_name = dict["second_name"] as? String
+                {
+                    name = String(format:"%@ %@",name,last_name)
+                    //                    nameArray.append(name)
+                }
+                if name.characters.count > 0{
+                    nameArray.append(name)
+                }
+                
             }
         }
         //get all contact detail for invitation
@@ -151,7 +162,7 @@ class ContactViewController: UIViewController {
                 dict["mobile_number"] = num
                 dict["email_id"] = ""
                  dict["NOMID"] = "4"
-                text = mobileNum
+                text = num//mobileNum
                 print(dict["mobile_number"]!)
             }
             else {

@@ -58,6 +58,7 @@ class ContainerViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.ToggleCentreView), name: kNotificationToggleMenuView, object: nil)
         //---------------------------------------------------------------------------------------
     }
+    
     func setUpViewController()
     {
         // Set all plan flag

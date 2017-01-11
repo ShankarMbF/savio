@@ -27,7 +27,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //Hide navigationbar
-        self.callImportantAPI()
+        
         self.navigationController?.navigationBarHidden = true
 
         // Do any additional setup after loading the view.
@@ -42,6 +42,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         //setting signup button corner
         signUpBtn.layer.cornerRadius = 5.0
         idx = 0
+        self.callImportantAPI()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -212,6 +213,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     }
     
     func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse["content"]!)
         impText = objResponse["content"] as? String
     }
     

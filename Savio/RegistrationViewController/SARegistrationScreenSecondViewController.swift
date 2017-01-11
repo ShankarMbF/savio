@@ -276,7 +276,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Terms and Condidtions"//"Why do we need this information?"
-            objimpInfo.termsAndConditionTextView.text = termAndConditionText
+            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!,
+                                                              options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                              documentAttributes: nil)
+
+            objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
             objimpInfo.frame = self.view.frame
             objimpInfo.delegate = self
             objimpInfo.isFromRegistration = true
@@ -358,6 +362,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse["content"]!)
         termAndConditionText = objResponse["content"] as! String
     }
 

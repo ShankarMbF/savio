@@ -276,7 +276,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Terms and Condidtions"//"Why do we need this information?"
-            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!,
+            
+//            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
+//            print(termAndConditionText!)
+            
+            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                               options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                               documentAttributes: nil)
 

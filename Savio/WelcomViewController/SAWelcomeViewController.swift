@@ -145,7 +145,10 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
         let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-        objImpInfo.termsAndConditionTextView.text = impText
+        let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                          options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                          documentAttributes: nil)
+        objImpInfo.termsAndConditionTextView.attributedText = theAttributedString
         objImpInfo.frame = self.view.frame
         objImpInfo.isFromRegistration = false
         self.view.addSubview(objImpInfo)

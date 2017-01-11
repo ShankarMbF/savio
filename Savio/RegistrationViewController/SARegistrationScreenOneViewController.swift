@@ -478,7 +478,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
         let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
         objimpInfo.lblHeader.text = "Why do we need this information?"
-        objimpInfo.termsAndConditionTextView.text = impText
+        let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                          options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                          documentAttributes: nil)
+        
+        objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
         objimpInfo.frame = self.view.frame
         objimpInfo.isFromRegistration = false
         self.view.addSubview(objimpInfo)

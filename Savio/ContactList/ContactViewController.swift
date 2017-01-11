@@ -150,7 +150,6 @@ class ContactViewController: UIViewController {
                 if name.characters.count > 0{
                     nameArray.append(name)
                 }
-                
             }
         }
         //get all contact detail for invitation

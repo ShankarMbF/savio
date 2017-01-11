@@ -205,9 +205,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
                 else  if let error = error  {
                     dispatch_async(dispatch_get_main_queue()){
                     }
-                    
                 }
-                
             }
             dataTask.resume()
         }

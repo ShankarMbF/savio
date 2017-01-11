@@ -482,9 +482,9 @@
                 cost = Int(cell1.slider.value)
             }
             else {
-                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
-                cell1.slider.value = 0
-                cost = 0
+//                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
+//                cell1.slider.value = 0
+//                cost = 0
             }
             if(isClearPressed)
             {
@@ -526,6 +526,9 @@
                 cell1.datePickerTextField.text = datePickerDate
                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
+            }
+            if cost > 0 {
+                cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
             if(isClearPressed) {
                 let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -843,6 +846,7 @@
     
     func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
+        tblView.reloadData()
     }
     
     func datePickerText(date: Int,dateStr:String) {

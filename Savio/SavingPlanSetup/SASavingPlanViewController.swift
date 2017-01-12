@@ -1118,7 +1118,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //Clear all the data entered
     func clearButtonPressed()
     {
-        let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
+         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             

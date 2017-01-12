@@ -215,8 +215,23 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                         cell1.segmentBar.toggleButton(button)
                     }
                 }
+                else{
+                    if dateString == "" {
+                    dateString = "date"
+                    }
+                    cell1.dayDateLabel.text = dateString
+
+                }
                 if let payDate = parameterDict["payDate"] as? String {
                     cell1.dayDateTextField.text = payDate
+                }
+                else{
+                    //if date not available
+                    if selectedStr == "" {
+                    let str = "1"
+                    selectedStr = str
+                    }
+                    cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: selectedStr)
                 }
             }
             else {
@@ -231,7 +246,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 else {
                     //                    cell1.dayDateTextField.text = ""
-                    var str = "1"
+                    let str = "1"
                     selectedStr = str
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
@@ -259,7 +274,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0) {
-                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+//                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
@@ -270,7 +286,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0) {
-                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
+//                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
+                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
@@ -286,7 +303,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
                         }
                         else if ((dateDiff/168) == 0) {
-                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+//                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
@@ -297,11 +315,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
                         else if ((dateDiff/168)/4 == 0) {
-                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                         }
+//
                     }
                     
                 }
@@ -637,7 +656,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func clearButtonPressed()
     {
-        let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")

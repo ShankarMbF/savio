@@ -577,6 +577,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         {
             let wishListResponse = self.checkNullDataFromDict(objResponse)
             colors = wishListResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
+            print(wishListResponse)
             self.setUpView()
         }
         if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{

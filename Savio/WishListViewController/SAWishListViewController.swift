@@ -292,7 +292,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let objSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
+        let groupDict = wishListArray[sender.tag] 
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
+        objSavingPlanViewController.datePickerDate = groupDict["planEndDate"] as! String
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

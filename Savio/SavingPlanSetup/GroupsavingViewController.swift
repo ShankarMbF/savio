@@ -502,20 +502,7 @@
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             
-            if(itemDetailsDataDict["planEndDate"] != nil) {
-                cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
-                cell1.datePickerTextField.textColor = UIColor.whiteColor()
-                cell1.datePickerTextField.userInteractionEnabled = false
-                let date  = itemDetailsDataDict["planEndDate"] as? String
-                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "dd-MM-yyyy"
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
-                datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
-                dateDiff = Int(timeDifference/3600)
-                
-            }
-            else{
+            if(datePickerDate == "") {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                 let dateComponents = NSDateComponents()
@@ -526,7 +513,45 @@
                 cell1.datePickerTextField.text = datePickerDate
                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
-            }
+
+                
+                }
+                else{
+                cell1.datePickerTextField.text = datePickerDate
+                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+
+                }
+            
+            
+            
+            
+            
+//            if(itemDetailsDataDict["planEndDate"] != nil) {
+//                if(itemDetailsDataDict["planEndDate"] != nil) {
+//                cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
+//                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+//                cell1.datePickerTextField.userInteractionEnabled = false
+//                let date  = itemDetailsDataDict["planEndDate"] as? String
+//                let dateFormatter = NSDateFormatter()
+////                dateFormatter.dateFormat = "dd-MM-yyyy"
+//                dateFormatter.dateFormat = "yyyy-MM-dd"
+//                let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
+//                datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
+//                dateDiff = Int(timeDifference/3600)
+//                
+//            }
+//            else{
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+//                let dateComponents = NSDateComponents()
+//                let calender = NSCalendar.currentCalendar()
+//                dateComponents.month = 3
+//                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+//                datePickerDate = dateFormatter.stringFromDate(newDate!)
+//                cell1.datePickerTextField.text = datePickerDate
+//                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+//                dateDiff = Int(timeDifference/3600)
+//            }
             if cost > 0 {
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
@@ -862,7 +887,7 @@
         self.navigationController!.view.addSubview(self.objAnimView)
         
         if(isFromWishList) {
-            if(itemTitle != "" && cost != 0 && dateDiff != 0 && datePickerDate != "") {
+            if(itemTitle != "" && cost != 0 && datePickerDate != "") {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self
@@ -878,9 +903,9 @@
                 else if(cost == 0 ) {
                     self.displayAlert("Please enter amount for your saving plan")
                 }
-                else if(dateDiff == 0) {
-                    self.displayAlert("Please select date for your saving plan")
-                }
+//                else if(dateDiff == 0) {
+//                    self.displayAlert("Please select date for your saving plan")
+//                }
                 else  {
                     self.displayAlert("Please enter all details")
                 }
@@ -927,7 +952,7 @@
     
     
     func clearButtonPressed() {
-        let alert = UIAlertController(title: "Aru you sure?", message: "Do you want to clear all data", preferredStyle: UIAlertControllerStyle.Alert)
+         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             self.setUpView()

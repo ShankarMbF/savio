@@ -41,7 +41,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         let calender = NSCalendar.currentCalendar()
         dateComponents.month = 3
         let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-        self.datePickerView.minimumDate = NSDate()
+        self.datePickerView.minimumDate = newDate!//NSDate()
         self.datePickerView.date = newDate!
          datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
         

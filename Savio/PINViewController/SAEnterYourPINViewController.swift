@@ -46,6 +46,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         //Add shadowcolor to UIButtons
         
+        let myNumber = 505;
+        let outputNum = (NSInteger)(ceil(Double( myNumber)/1000) * 1000);
+        print(outputNum)
+        
         registerButton.layer.cornerRadius = 5
         btnVwBg.layer.cornerRadius = 5
       

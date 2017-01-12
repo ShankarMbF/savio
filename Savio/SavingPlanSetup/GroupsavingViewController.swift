@@ -512,9 +512,7 @@
                 datePickerDate = dateFormatter.stringFromDate(newDate!)
                 cell1.datePickerTextField.text = datePickerDate
                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
-                dateDiff = Int(timeDifference/3600)
-
-                
+                dateDiff = Int(timeDifference/3600)                
                 }
                 else{
                 cell1.datePickerTextField.text = datePickerDate
@@ -555,17 +553,17 @@
             if cost > 0 {
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
-            if(isClearPressed) {
-                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                let currentDate: NSDate = NSDate()
-                let components: NSDateComponents = NSDateComponents()
-                components.day = +7
-                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
-                
-            }
+//            if(isClearPressed) {
+//                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+//                let currentDate: NSDate = NSDate()
+//                let components: NSDateComponents = NSDateComponents()
+//                components.day = +7
+//                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+//                cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
+//                
+//            }
             return cell1
         }
         else if(indexPath.section == 3) {
@@ -955,8 +953,9 @@
          let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
-            self.setUpView()
+            
             self.dateDiff = 0
+            self.datePickerDate = ""
             self.cost = 0
             self.itemTitle = ""
             self.isClearPressed = true
@@ -969,10 +968,14 @@
             if(self.participantsArr.count > 0) {
                 self.participantsArr.removeAll()
             }
+            
             self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
+            self.setUpView()
+
             self.tblViewHt.constant = 500
             self.scrlView.contentOffset = CGPointMake(0, 20)
             self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+            
             self.tblView.reloadData()
             })
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))

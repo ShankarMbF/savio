@@ -41,18 +41,24 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let maxValue = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
+        
+        
         //Setting up Stat view UI
         self.setUpView()
         //--------------Draw Line chart on graph contentview----------------------------
         lineChart = LineChart()
         lineChart.clipsToBounds  = false
         lineChart.planTitle = self.planType
-        lineChart.maximumValue = 3000
+        lineChart.maximumValue = maxValue
         lineChart.minimumValue = 0
-        let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
+//        let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
+        let data: [CGFloat] = [0,100,200-1,350,400]
         
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1","2","3","4","5","6","7","8"]
+//        xLabels = ["1","2","3","4","5","6","7","8"]
+        xLabels = ["1","2","3","4"]
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity
@@ -75,6 +81,18 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         self.contentView?.addSubview(lineChart)
         //------------------------------------------------------------------------------------
+    }
+    
+    func calculateMaxPriceForYAxix(maxPrice:NSInteger) -> CGFloat {
+        var outputNum:CGFloat = 0.0
+        if(maxPrice < 1000){
+            outputNum = (CGFloat)(ceil(Double( maxPrice)/100) * 100);
+        }else{
+            outputNum = (CGFloat)(ceil(Double( maxPrice)/1000) * 1000);
+        }
+        
+        print(outputNum)
+        return outputNum
     }
     
     //Function invoke for formatting graph as per plan type.

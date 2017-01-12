@@ -486,7 +486,7 @@
 //                cell1.slider.value = 0
 //                cost = 0
             }
-            if(isClearPressed)
+            if(isClearPressed || cost == 0)
             {
                 isClearPressed = false
                 cell1.costTextField.attributedText = cell1.createAttributedString("£0")

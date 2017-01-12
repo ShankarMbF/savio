@@ -53,12 +53,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.planTitle = self.planType
         lineChart.maximumValue = maxValue
         lineChart.minimumValue = 0
-//        let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
-        let data: [CGFloat] = [0,100,200-1,350,400]
+        let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
+//        let data: [CGFloat] = [0,100,200-1,350,400]
         
         // simple line with custom x axis labels // hear need to pass json value
-//        xLabels = ["1","2","3","4","5","6","7","8"]
-        xLabels = ["1","2","3","4"]
+        xLabels = ["1","2","3","4","5","6","7","8"]
+//        xLabels = ["1","2","3","4","5"]
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity

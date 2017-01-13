@@ -20,6 +20,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var bottomViewDoneButton: UIButton!
     @IBOutlet weak var bottomViewNewCardbutton: UIButton!
     
+     var isFromGroupMemberPlan = false
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
     var isFromEditUserInfo = false
@@ -253,6 +254,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true
+        objPaymentView.isFromGroupMemberPlan = self.isFromGroupMemberPlan
         if(isFromImpulseSaving)
         {
             objPaymentView.isFromImpulseSaving = true
@@ -373,6 +375,15 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             let objSummaryView = SASavingSummaryViewController()
             self.navigationController?.pushViewController(objSummaryView, animated: true)
             
+        }
+        else if isFromGroupMemberPlan {
+            //Navigate to showing group progress
+            self.isFromGroupMemberPlan = false
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            let objThankyYouView = SAThankYouViewController()
+            self.navigationController?.pushViewController(objThankyYouView, animated: true)
+
         }
         else if (isFromImpulseSaving == true){
             let objAPI = API()

@@ -444,6 +444,7 @@
             cell1.titleTextField.textColor = UIColor(red: 161/256, green: 214/256, blue: 248/256, alpha: 1.0)
             return cell1
         }
+            
         else if(indexPath.section == 1){
             let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier", forIndexPath: indexPath) as! SavingPlanCostTableViewCell
             cell1.tblView = tblView

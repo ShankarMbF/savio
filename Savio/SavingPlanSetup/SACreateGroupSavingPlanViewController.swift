@@ -740,14 +740,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
-                   
+                    
                     NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
                     NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    
-                    let objPaymentView = SAPaymentFlowViewController()
-                    objPaymentView.isFromGroupMemberPlan = true
-                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                    let objAPI = API()
+                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                    {
+                        let objSavedCardView = SASaveCardViewController()
+                        objSavedCardView.isFromGroupMemberPlan = true
+                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
+                    }
+                    else{
+                        let objPaymentView = SAPaymentFlowViewController()
+                        objPaymentView.isFromGroupMemberPlan = true
+                        self.navigationController?.pushViewController(objPaymentView, animated: true)
+                    }
                     
                     objAnimView.removeFromSuperview()
                 }

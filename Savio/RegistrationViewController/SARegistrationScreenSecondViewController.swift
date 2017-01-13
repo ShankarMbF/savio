@@ -279,6 +279,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             
 //            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
 //            print(termAndConditionText!)
+//            if termAndConditionText?.characters.count > 0{
             
             let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                               options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],

@@ -657,15 +657,16 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         
         dictForTextFieldValue.updateValue(fullNameArr[0], forKey: "First Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[1], forKey: "Second Address Line")
-        dictForTextFieldValue.updateValue(fullNameArr[2], forKey: "Third Address Line")
+        dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-3], forKey: "Third Address Line")
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-2], forKey: "town")
         dictForTextFieldValue.updateValue(fullNameArr[fullNameArr.count-1], forKey: "County")
         
         userInfoDict.updateValue(fullNameArr[0], forKey: "address_1")
         userInfoDict.updateValue(fullNameArr[1], forKey: "address_2")
-        userInfoDict.updateValue(fullNameArr[2], forKey: "address_3")
+        userInfoDict.updateValue(fullNameArr[fullNameArr.count-3], forKey: "address_3")
         userInfoDict.updateValue(fullNameArr[fullNameArr.count-2], forKey: "town")
         userInfoDict.updateValue(fullNameArr[fullNameArr.count-1], forKey: "county")
+        print(userInfoDict)
         self.createCells()
     }
     

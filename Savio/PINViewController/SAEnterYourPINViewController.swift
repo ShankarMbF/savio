@@ -274,10 +274,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     //LogIn Delegate Methods
     
     func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+
         objAnimView.removeFromSuperview()
         let dict = objResponse["party"]
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-        print(udidDict)
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
@@ -329,7 +330,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        
     }
     
     

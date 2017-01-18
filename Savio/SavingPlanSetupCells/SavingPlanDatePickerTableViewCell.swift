@@ -34,7 +34,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         datePickerView.datePickerMode = UIDatePickerMode.Date
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "EEE dd/MM/yyyy"        
+        dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         let dateComponents = NSDateComponents()
         let calender = NSCalendar.currentCalendar()
         dateComponents.month = 3

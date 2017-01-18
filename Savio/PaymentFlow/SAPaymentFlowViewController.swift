@@ -54,8 +54,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     
     func setUpView(){
-       
-        
         let objAPI = API()
         if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
@@ -187,7 +185,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         txtCardNum3.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         txtCardNum4.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
 
-        
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
         saveButton.layer.cornerRadius = 2.0

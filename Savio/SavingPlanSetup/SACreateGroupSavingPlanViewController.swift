@@ -587,6 +587,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
         newDict["STATUS"] = "Active"
+        print(newDict)
         return newDict
     }
     
@@ -740,7 +741,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
-                    
                     NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
                     NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
@@ -782,7 +782,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                          NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
-                    print(dict)
+//                    print(dict)
                     
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
@@ -862,7 +862,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     let objPaymentView = SAPaymentFlowViewController()
                     self.navigationController?.pushViewController(objPaymentView, animated: true)
                 }
-
             }
         }
         objAnimView.removeFromSuperview()
@@ -882,7 +881,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         topBgImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
         cameraButton.hidden = true
         isImageClicked = true
-        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {

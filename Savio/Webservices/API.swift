@@ -1418,7 +1418,6 @@ class API: UIView,NSURLSessionDelegate {
                             {
                                 dispatch_async(dispatch_get_main_queue()){
                                     self.inviteMemberDelegate?.successResponseForInviteMembersAPI(dict)
-                                    print(dict)
                                 }
                             }
                         }

@@ -29,6 +29,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     var cardListResponse : Dictionary<String,AnyObject> = [:]
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -376,7 +377,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             self.navigationController?.pushViewController(objSummaryView, animated: true)
             
         }
-        else if isFromGroupMemberPlan {
+        else if isFromGroupMemberPlan == true {
             //Navigate to showing group progress
             self.isFromGroupMemberPlan = false
             NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")

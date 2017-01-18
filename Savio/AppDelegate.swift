@@ -100,6 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             }
         }
         else {
+
             //If no then Go to SAWelcomViewController
             objSAWelcomViewController = SAWelcomeViewController()
             //Set SAWelcomViewController as rootViewController of UINavigationViewController

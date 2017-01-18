@@ -390,6 +390,7 @@ class SAImpulseSavingViewController: UIViewController {
                 NSUserDefaults.standardUserDefaults().synchronize()
                 let objSavedCardView = SASaveCardViewController()
                 objSavedCardView.isFromImpulseSaving = true
+//                objSavedCardView.isFromGroupMemberPlan = self.
                 self.navigationController?.pushViewController(objSavedCardView, animated: true)
             }
     

@@ -256,11 +256,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true
         objPaymentView.isFromGroupMemberPlan = self.isFromGroupMemberPlan
-        if(isFromImpulseSaving)
+        if(isFromImpulseSaving == true)
         {
             objPaymentView.isFromImpulseSaving = true
         }
-        else if(isFromEditUserInfo)
+        else if(isFromEditUserInfo == true)
         {
             objPaymentView.isFromEditUserInfo = true
         }
@@ -375,7 +375,25 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         {
             let objSummaryView = SASavingSummaryViewController()
             self.navigationController?.pushViewController(objSummaryView, animated: true)
-            
+        }
+        else if isFromEditUserInfo == true {
+             var vw = UIViewController?()
+            var isAvailble: Bool = false
+            for var obj in (self.navigationController?.viewControllers)!{
+                if obj.isKindOfClass(SAEditUserInfoViewController) {
+                    isAvailble = true
+                    vw = obj as! SAEditUserInfoViewController
+                    break
+                }
+            }
+            if isAvailble {
+                self.navigationController?.popToViewController(vw!, animated: false)
+            }
+            else{
+                vw = SAEditUserInfoViewController()
+                self.navigationController?.pushViewController(vw!, animated: false)
+            }
+            self.navigationController?.popViewControllerAnimated(true)
         }
         else if isFromGroupMemberPlan == true {
             //Navigate to showing group progress

@@ -1631,6 +1631,7 @@ class API: UIView,NSURLSessionDelegate {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        print(dict)
                         if let code = dict["errorCode"] as? NSString
                         {
                             if(code == "200")

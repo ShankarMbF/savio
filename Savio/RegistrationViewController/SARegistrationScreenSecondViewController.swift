@@ -265,7 +265,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
                  print(udidDict)
-                
             } else {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
                  print(udidDict)
@@ -301,16 +300,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     func callTermAndConditionAPI() {
         let objAPI = API()
-////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-////        objAnimView.frame = self.view.frame
-////        objAnimView.animate()
-////        self.view.addSubview(objAnimView)
-//        objAPI.termConditionDelegate = self
-//        objAPI.termAndCondition()
-        
-        
-        
-        
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         
@@ -357,13 +346,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else {
         }
-
-        
-        
-        
-        
-        
-
     }
     
     func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){

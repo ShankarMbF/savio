@@ -219,7 +219,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     func cancelBarButtonPressed()
     {
-        expiryMonthYearTextField.resignFirstResponder()
+//        expiryMonthYearTextField.resignFirstResponder()
+        self.view.endEditing(true)
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {

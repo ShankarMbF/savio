@@ -80,6 +80,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             }
         }
         else{
+            
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.backButtonClicked), forControlEvents: .TouchUpInside)
             
@@ -89,16 +90,21 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             btnName.titleLabel!.font = UIFont(name: kBookFont, size: 15)
             btnName.addTarget(self, action: #selector(SASaveCardViewController.doneBtnClicked), forControlEvents: .TouchUpInside)
         }
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = leftBtnName
-        self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        if isFromSavingPlan == true || isFromGroupMemberPlan == true{
+            self.navigationItem.hidesBackButton = true
+        }
+        else{
+            let leftBarButton = UIBarButtonItem()
+            leftBarButton.customView = leftBtnName
+            self.navigationItem.leftBarButtonItem = leftBarButton
+        }
         
         //set Navigation right button nav-heart
-        
-        
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.customView = btnName
-        self.navigationItem.rightBarButtonItem = rightBarButton
+            let rightBarButton = UIBarButtonItem()
+            rightBarButton.customView = btnName
+            self.navigationItem.rightBarButtonItem = rightBarButton
+       
         
         cardViewOne.layer.borderWidth = 1
         cardViewOne.layer.cornerRadius = 5
@@ -288,7 +294,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             let objEditUserInfo = SAEditUserInfoViewController()
             self.navigationController?.pushViewController(objEditUserInfo, animated: true)
         }
-
     }
     
     //Call the API to set selected card as Default card

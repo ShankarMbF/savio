@@ -1311,7 +1311,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         if isOfferShow == false {
             //if yes create the saving plan
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-            self.objAnimView.frame = self.view.frame
+            self.objAnimView.frame = (self.navigationController?.view.frame)! //self.view.frame
             self.objAnimView.animate()
             self.navigationController?.view.addSubview(self.objAnimView)
             if(itemTitle != "" && self.getParameters()["AMOUNT"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && popOverSelectedStr != "") {

@@ -130,7 +130,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
         if (newLength > 4) {
-            return false;
+            let fullNameArr = textField.text!.componentsSeparatedByString(".")
+            print(fullNameArr)
+            if ((fullNameArr[0].characters.count - 1) > 4 && string != ""){
+                return false
+            }
+//            return false;
         }
         return true;
     }

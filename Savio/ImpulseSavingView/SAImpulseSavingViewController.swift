@@ -127,6 +127,15 @@ class SAImpulseSavingViewController: UIViewController {
     
     //Circle slider action method
     func valueChange(sender: CircleSlider) {
+        
+        let multipleAttributes: [String : AnyObject] = [
+            NSFontAttributeName: UIFont(name:kMediumFont, size: 32.0)!,
+            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue ]
+        
+//        var attr = [[NSFontAttributeName : UIFont(name: kMediumFont, size: 10)],[NSUnderlineStyleAttributeName :  NSUnderlineStyle.StyleNone.rawValue]]
+        
+       
+        
         let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue]
        // messagePopUpView.hidden = true
         priceTextField.borderStyle = UITextBorderStyle.RoundedRect
@@ -157,7 +166,8 @@ class SAImpulseSavingViewController: UIViewController {
         }
 
 //        let attrString2 = NSAttributedString(string: String(format:"£%d",Int(sender.value)), attributes: singleAttribute3)
-        let attrString2 = NSAttributedString(string: String(format:"£%.0f",calculatedValue), attributes: singleAttribute3)
+//        var attributedString = NSMutableAttributedString(strin)
+        let attrString2 = NSAttributedString(string: String(format:"£%.0f",calculatedValue), attributes: multipleAttributes)
         priceTextField.attributedText = attrString2
     }
     

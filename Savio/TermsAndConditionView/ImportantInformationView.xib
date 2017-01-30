@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C0c-tE-4TG">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0c-tE-4TG">
                     <rect key="frame" x="10" y="10" width="580" height="580"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Important Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pp-S0-ESN">
@@ -36,25 +36,12 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3W-4L-dLT">
-                            <rect key="frame" x="10" y="76" width="70" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="70" id="2QB-05-qdq"/>
-                                <constraint firstAttribute="height" constant="21" id="PGS-w7-qKa"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6rm-dp-8S9">
-                            <rect key="frame" x="10" y="489" width="560" height="42"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rm-dp-8S9">
+                            <rect key="frame" x="10" y="558" width="335" height="42"/>
                             <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="42" id="XPd-ke-TAi"/>
-                            </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slp-4J-ir4">
-                            <rect key="frame" x="10" y="489" width="560" height="40"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slp-4J-ir4">
+                            <rect key="frame" x="10" y="556" width="335" height="40"/>
                             <color key="backgroundColor" red="0.36470588240000001" green="0.37254901959999998" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="dhx-Sn-lmc"/>
@@ -82,7 +69,7 @@
                             </connections>
                         </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RB6-7D-MCA">
-                            <rect key="frame" x="10" y="100" width="335" height="442"/>
+                            <rect key="frame" x="10" y="69" width="335" height="473"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda..</string>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
@@ -91,29 +78,30 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="6rm-dp-8S9" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="04x-xu-WYB"/>
+                        <constraint firstItem="RB6-7D-MCA" firstAttribute="top" secondItem="6Pp-S0-ESN" secondAttribute="bottom" constant="8" id="412-PC-ubt"/>
                         <constraint firstItem="RB6-7D-MCA" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="5tv-vI-fyL"/>
-                        <constraint firstAttribute="trailing" secondItem="RB6-7D-MCA" secondAttribute="trailing" constant="10" id="6YF-9p-sSw"/>
-                        <constraint firstAttribute="trailing" secondItem="6rm-dp-8S9" secondAttribute="trailing" constant="10" id="Fa3-Lu-XJ5"/>
+                        <constraint firstAttribute="trailing" secondItem="RB6-7D-MCA" secondAttribute="trailing" constant="235" id="6YF-9p-sSw"/>
+                        <constraint firstItem="6rm-dp-8S9" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="16" id="Eej-mv-tz4"/>
                         <constraint firstItem="6Pp-S0-ESN" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="RBO-dN-8qO"/>
-                        <constraint firstItem="D3W-4L-dLT" firstAttribute="top" secondItem="6Pp-S0-ESN" secondAttribute="bottom" constant="15" id="SeG-Ve-tcz"/>
-                        <constraint firstItem="RB6-7D-MCA" firstAttribute="top" secondItem="D3W-4L-dLT" secondAttribute="bottom" constant="3" id="WPI-0s-Ni0"/>
-                        <constraint firstAttribute="trailing" secondItem="slp-4J-ir4" secondAttribute="trailing" constant="10" id="Wuq-QM-nJv"/>
+                        <constraint firstAttribute="trailing" secondItem="slp-4J-ir4" secondAttribute="trailing" constant="235" id="Wuq-QM-nJv"/>
+                        <constraint firstItem="slp-4J-ir4" firstAttribute="width" secondItem="6rm-dp-8S9" secondAttribute="width" id="b1E-JT-OCt"/>
+                        <constraint firstItem="slp-4J-ir4" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="14" id="bdw-47-oOO"/>
+                        <constraint firstItem="slp-4J-ir4" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="bsK-KG-18l"/>
                         <constraint firstItem="slp-4J-ir4" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="14" id="hJ4-rT-7kP"/>
-                        <constraint firstItem="6rm-dp-8S9" firstAttribute="top" secondItem="RB6-7D-MCA" secondAttribute="bottom" constant="14" id="hiz-nP-3AK"/>
-                        <constraint firstItem="RB6-7D-MCA" firstAttribute="centerX" secondItem="C0c-tE-4TG" secondAttribute="centerX" id="m3O-cY-OoH"/>
+                        <constraint firstItem="6rm-dp-8S9" firstAttribute="leading" secondItem="slp-4J-ir4" secondAttribute="leading" id="i1C-EO-ydX"/>
+                        <constraint firstItem="RB6-7D-MCA" firstAttribute="centerX" secondItem="C0c-tE-4TG" secondAttribute="centerX" constant="-112.5" id="m3O-cY-OoH"/>
                         <constraint firstItem="6Pp-S0-ESN" firstAttribute="top" secondItem="C0c-tE-4TG" secondAttribute="top" constant="40" id="oov-xw-6le"/>
                         <constraint firstItem="slp-4J-ir4" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="paJ-fF-x3h"/>
-                        <constraint firstItem="D3W-4L-dLT" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="v2B-yM-fZ9"/>
-                        <constraint firstAttribute="bottom" secondItem="slp-4J-ir4" secondAttribute="bottom" constant="51" id="wzT-Zw-vyp"/>
+                        <constraint firstItem="slp-4J-ir4" firstAttribute="height" secondItem="6rm-dp-8S9" secondAttribute="height" constant="-2" id="uN6-mJ-1ud"/>
+                        <constraint firstAttribute="bottom" secondItem="slp-4J-ir4" secondAttribute="bottom" constant="-16" id="wzT-Zw-vyp"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="C0c-tE-4TG" secondAttribute="bottom" constant="10" id="1jU-lb-RvJ"/>
+                <constraint firstAttribute="bottom" secondItem="C0c-tE-4TG" secondAttribute="bottom" constant="77" id="1jU-lb-RvJ"/>
                 <constraint firstItem="C0c-tE-4TG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="TQM-kE-ZRB"/>
-                <constraint firstAttribute="trailing" secondItem="C0c-tE-4TG" secondAttribute="trailing" constant="10" id="jk6-Lc-Ccx"/>
+                <constraint firstAttribute="trailing" secondItem="C0c-tE-4TG" secondAttribute="trailing" constant="-215" id="jk6-Lc-Ccx"/>
                 <constraint firstItem="C0c-tE-4TG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="kW7-LF-eny"/>
             </constraints>
             <connections>
@@ -122,7 +110,7 @@
                 <outlet property="lblHeader" destination="6Pp-S0-ESN" id="tb7-QP-Mir"/>
                 <outlet property="termsAndConditionTextView" destination="RB6-7D-MCA" id="ev3-J2-9Tp"/>
             </connections>
-            <point key="canvasLocation" x="379" y="331"/>
+            <point key="canvasLocation" x="378.5" y="330.5"/>
         </view>
     </objects>
 </document>

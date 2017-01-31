@@ -42,7 +42,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let maxValue = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
+        let maxValue:CGFloat = 3000.0//self.calculateMaxPriceForYAxix(NSInteger(cost)!)
         
         
         //Setting up Stat view UI

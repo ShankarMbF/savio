@@ -220,7 +220,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             attrText.addAttribute(NSFontAttributeName,
                                   value: UIFont(
                                     name: kMediumFont,
-                                    size: 16.0)!,
+                                    size: 15.0)!,
                                   range: NSRange(
                                     location: 3,
                                     length: itemTitle.characters.count))

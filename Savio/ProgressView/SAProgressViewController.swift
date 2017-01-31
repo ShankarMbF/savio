@@ -47,6 +47,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         savingPlanTitleLabel.hidden = true
+        savingPlanTitleLabel!.adjustsFontSizeToFitWidth = true
+
         self.view.addSubview(objAnimView)
         
         //Create API class object to get usersSaving Plan

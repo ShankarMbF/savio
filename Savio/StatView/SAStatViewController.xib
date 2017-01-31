@@ -272,10 +272,10 @@
                                 <constraint firstItem="jmE-Ve-npa" firstAttribute="top" secondItem="Zx6-CM-USF" secondAttribute="top" id="m0D-Hy-vWK"/>
                             </constraints>
                         </scrollView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iP-Zg-J9h">
-                            <rect key="frame" x="10" y="0.0" width="355" height="40"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iP-Zg-J9h">
+                            <rect key="frame" x="10" y="0.0" width="355" height="46"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="psi-qo-MNr"/>
+                                <constraint firstAttribute="height" constant="46" id="psi-qo-MNr"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

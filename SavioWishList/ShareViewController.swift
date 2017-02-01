@@ -209,7 +209,12 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
                                 defaults.setObject(self.dictGlobal, forKey: "ScrapingResult")
-                                self.textView.text = self.dictGlobal["title"] as! String
+                                let str = self.dictGlobal["title"] as! String
+                                var subStr = str
+                                if str.characters.count > 40 {
+                                    subStr = str[str.startIndex.advancedBy(0)...str.startIndex.advancedBy(40 - 1)]
+                                }
+                                self.textView.text = subStr//self.dictGlobal["title"] as! String
                                 self.priceTextField.text = self.dictGlobal["price"] as? String
                             });
                             self.showImage(self.currentImagePosition)

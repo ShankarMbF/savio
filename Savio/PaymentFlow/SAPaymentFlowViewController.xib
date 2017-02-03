@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -192,7 +192,7 @@
                                     <rect key="frame" x="30" y="215" width="315" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Jo-ZT-hde">
-                                            <rect key="frame" x="0.0" y="0.0" width="67.5" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="69" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="NGl-ya-vgJ"/>
                                             </constraints>
@@ -203,7 +203,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rJk-TW-mEJ">
-                                            <rect key="frame" x="82.5" y="0.0" width="67.5" height="40"/>
+                                            <rect key="frame" x="82.5" y="0.0" width="68.5" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Pzt-4M-DED"/>
                                             </constraints>
@@ -214,7 +214,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Un-iY-eP1">
-                                            <rect key="frame" x="165" y="0.0" width="67.5" height="40"/>
+                                            <rect key="frame" x="164.5" y="0.0" width="69" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="X4T-6T-Yh5"/>
                                             </constraints>
@@ -225,7 +225,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5D3-6j-APN">
-                                            <rect key="frame" x="247.5" y="0.0" width="67.5" height="40"/>
+                                            <rect key="frame" x="247" y="0.0" width="68" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="TmX-LQ-iHw"/>
                                             </constraints>
@@ -239,21 +239,21 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="rJk-TW-mEJ" firstAttribute="height" secondItem="7Jo-ZT-hde" secondAttribute="height" id="C40-1t-fMd"/>
-                                        <constraint firstItem="rJk-TW-mEJ" firstAttribute="leading" secondItem="7Jo-ZT-hde" secondAttribute="trailing" constant="15" id="CrN-z4-TRg"/>
+                                        <constraint firstItem="rJk-TW-mEJ" firstAttribute="leading" secondItem="7Jo-ZT-hde" secondAttribute="trailing" constant="13.5" id="CrN-z4-TRg"/>
                                         <constraint firstAttribute="height" constant="40" id="O3L-zW-cbL"/>
                                         <constraint firstItem="rJk-TW-mEJ" firstAttribute="top" secondItem="wkp-w9-f0L" secondAttribute="top" id="RqN-MX-sJN"/>
                                         <constraint firstAttribute="bottom" secondItem="5D3-6j-APN" secondAttribute="bottom" id="SAk-LM-qey"/>
                                         <constraint firstItem="3Un-iY-eP1" firstAttribute="top" secondItem="wkp-w9-f0L" secondAttribute="top" id="TBz-O4-UE1"/>
                                         <constraint firstItem="3Un-iY-eP1" firstAttribute="width" secondItem="7Jo-ZT-hde" secondAttribute="width" id="VPv-Ei-3SW"/>
                                         <constraint firstAttribute="bottom" secondItem="7Jo-ZT-hde" secondAttribute="bottom" id="b4i-iy-QIA"/>
-                                        <constraint firstItem="5D3-6j-APN" firstAttribute="leading" secondItem="3Un-iY-eP1" secondAttribute="trailing" constant="15" id="d0h-g7-3q8"/>
+                                        <constraint firstItem="5D3-6j-APN" firstAttribute="leading" secondItem="3Un-iY-eP1" secondAttribute="trailing" constant="13.5" id="d0h-g7-3q8"/>
                                         <constraint firstItem="7Jo-ZT-hde" firstAttribute="top" secondItem="wkp-w9-f0L" secondAttribute="top" id="iH4-09-C9l"/>
                                         <constraint firstItem="7Jo-ZT-hde" firstAttribute="leading" secondItem="wkp-w9-f0L" secondAttribute="leading" id="jNw-hX-Ize"/>
                                         <constraint firstAttribute="trailing" secondItem="5D3-6j-APN" secondAttribute="trailing" id="jr4-ke-K8R"/>
                                         <constraint firstItem="5D3-6j-APN" firstAttribute="height" secondItem="7Jo-ZT-hde" secondAttribute="height" id="kOD-zB-cFg"/>
                                         <constraint firstItem="5D3-6j-APN" firstAttribute="top" secondItem="wkp-w9-f0L" secondAttribute="top" id="mnJ-wI-Qhm"/>
-                                        <constraint firstItem="5D3-6j-APN" firstAttribute="width" secondItem="7Jo-ZT-hde" secondAttribute="width" id="qR1-v5-9Nc"/>
-                                        <constraint firstItem="3Un-iY-eP1" firstAttribute="leading" secondItem="rJk-TW-mEJ" secondAttribute="trailing" constant="15" id="tH7-es-8RK"/>
+                                        <constraint firstItem="5D3-6j-APN" firstAttribute="width" secondItem="7Jo-ZT-hde" secondAttribute="width" constant="-0.5" id="qR1-v5-9Nc"/>
+                                        <constraint firstItem="3Un-iY-eP1" firstAttribute="leading" secondItem="rJk-TW-mEJ" secondAttribute="trailing" constant="13.5" id="tH7-es-8RK"/>
                                         <constraint firstAttribute="bottom" secondItem="rJk-TW-mEJ" secondAttribute="bottom" id="uSz-gZ-9jg"/>
                                         <constraint firstAttribute="bottom" secondItem="3Un-iY-eP1" secondAttribute="bottom" id="vyn-Wy-Klc"/>
                                         <constraint firstItem="rJk-TW-mEJ" firstAttribute="width" secondItem="7Jo-ZT-hde" secondAttribute="width" id="wz1-pU-F72"/>

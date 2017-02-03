@@ -41,6 +41,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         self.setUPNavigation()
+        //Register UIApplication Will Enter Foreground Notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -91,6 +93,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAProgressViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
+        self.callWishListAPI()
+        
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
         {
@@ -122,6 +126,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     
     //set up the UIView
     func setUpView(){
+         self.callWishListAPI()
         planTitle = String(format: "My %@ plan",savingPlanDetailsDict["title"] as! String)
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
@@ -411,6 +416,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
                 
             }
+            let dataSave = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
 //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{

@@ -69,6 +69,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -76,7 +77,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
         savingPlanTitleLabel.hidden = true
         self.setUPNavigation()
-      
+        //Register UIApplication Will Enter Foreground Notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: UIApplicationWillEnterForegroundNotification, object: nil)
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame

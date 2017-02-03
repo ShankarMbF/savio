@@ -177,15 +177,19 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         // Load the PageView view from the SavingPageView.xib file and configure it properly.
         if colors.count > 0{
             
+            let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
+            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
             if(colors.count >= 5)
             {
                 for i in 0 ..< 5 {
                     heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                     heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
+//                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+//                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -265,10 +269,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 for i in 0 ..< colors.count {
                     heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                     heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
+//                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
-                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+//                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView

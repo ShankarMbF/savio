@@ -140,6 +140,14 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         return true;
     }
     
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).stringByReplacingCharactersInRange(range, withString: text)
+        let numberOfChars = newText.characters.count // for Swift use count(newText)
+        
+        return numberOfChars < 40;
+    }
+    
+    
     @IBAction func leftBtnPressed(sender: AnyObject) {
         currentImagePosition -= 1;
         if currentImagePosition < 0 {

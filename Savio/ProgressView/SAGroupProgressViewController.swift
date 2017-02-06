@@ -159,8 +159,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
         else{
-            self.callWishListAPI()
+//            self.callWishListAPI()
         }
+        self.callWishListAPI()
         
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -881,6 +882,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 
             }
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            let dataSave = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+            NSUserDefaults.standardUserDefaults().synchronize()
 
         }
         //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{

@@ -1105,7 +1105,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         datePickerDate = dateStr
         isDateChanged = true
         tblView.reloadData()
-
     }
     
     //This method navigates user to the cancelling saving plan.
@@ -1736,8 +1735,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
                 if(dateString == "day")
                 {
-                    if(dateDiff > 0)
+                    if(dateDiff > 0 && dateDiff/168 > 0)
                     {
+//                        if dateDiff/168 > 0 {
+//                            dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+//                        }
+//                        else{
+//                            dict["emi"] = String(format:"%d",cost)
+//                        }
                         dict["emi"] = String(format:"%d",cost/(dateDiff/168))
                     }
                     else {
@@ -1746,9 +1751,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     dict["payType"] = "Weekly"
                 }
                 else {
-                    if(dateDiff > 0)
+                    if(dateDiff > 0 && (dateDiff/168)/4 > 0)
                     {
+//                        let div = (dateDiff/168)/4
+//                        if div > 0 {
+//                        dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+//                        }
+//                        else{
+//                            dict["emi"] = String(format:"%d",cost)
+//                        }
                         dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+
                     }
                     else {
                         dict["emi"] = String(format:"%d",cost)
@@ -1822,12 +1835,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             pathComponents2 = dateStr.componentsSeparatedByString("-")
             dict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
             if(dateString == "day") {
-                let str = String(format:"%d",cost/(dateDiff/168))
-                dict["emi"] = str
+                if dateDiff/168 > 0 {
+                dict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                }
+                else{
+                     dict["emi"] = String(format:"%d",cost)
+                }
                 dict["payType"] = "Weekly"
             }
             else {
-                dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                
+                if ((dateDiff/168)/4) > 0{
+                    dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                }
+                else{
+                    dict["emi"] = String(format:"%d",cost)
+                }
                 dict["payType"] = "Monthly"
             }
             

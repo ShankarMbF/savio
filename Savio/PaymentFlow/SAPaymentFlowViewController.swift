@@ -393,7 +393,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             errorFlag = true
         }
         else if (self.checkTextFieldContentOnlyNumber(cardHoldersNameTextField.text!) == true) {
-            nameErrorLabel.text = "Name should contain alphabets only"
+            nameErrorLabel.text = "Your cardholder name should only contain letters"
             errorFlag = true
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
             cardHoldersNameTextField.textColor = UIColor.redColor()

@@ -819,7 +819,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
                 var newDict : Dictionary<String,AnyObject> = [:]
                 newDict["title"] = self.getParameters()["TITLE"]
-                newDict["amount"] = self.getParameters()["AMOUNT"]
+                let amt = self.getParameters()["AMOUNT"] as! String
+                newDict["amount"] = String(format:"%d",Int(amt)!/(participantsArr.count+1))//self.getParameters()["AMOUNT"]
                 newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
                 let dict = self.getParameters()["IMAGE"]
                 newDict["imageURL"] = dict
@@ -829,11 +830,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 dateParameter.dateFormat = "yyyy-MM-dd"
                 newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
                 if(dateString == "day") {
-                    newDict["emi"] = String(format:"%d",cost/(dateDiff/168))
+                    if (dateDiff/168) > 0 {
+                        
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                    }
+                    else{
+                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                    }
                     newDict["payType"] = "Weekly"
                 }
                 else {
-                    newDict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
+                    if ((dateDiff/168)/4) > 0 {
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                    }
+                    else{
+                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                    }
                     newDict["payType"] = "Monthly"
                 }
                 if offerArr.count>0 {
@@ -842,10 +854,20 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
      
               
                 if(dateString == "day") {
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/(dateDiff/168))
+                    if (dateDiff/168) > 0{
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                    }
+                    else{
+                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                    }
                 }
                 else {
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count))/((dateDiff/168)/4))
+                    if ((dateDiff/168)/4) > 0{
+                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                    }
+                    else{
+                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                    }
                 }
                 newDict["planType"] = "group"
                 

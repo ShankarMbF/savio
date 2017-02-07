@@ -181,6 +181,7 @@ class ContactViewController: UIViewController {
                 text = emailStr
             }
         }
+        
         if let firstName = contactDict["name"] as? String
         {
             dict["first_name"] = String(format: "%@", firstName)

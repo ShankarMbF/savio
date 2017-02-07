@@ -37,7 +37,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rm-dp-8S9">
-                            <rect key="frame" x="10" y="558" width="335" height="42"/>
+                            <rect key="frame" x="10" y="558" width="335" height="40"/>
                             <color key="backgroundColor" red="0.94117647059999998" green="0.63137254899999995" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slp-4J-ir4">
@@ -92,7 +92,7 @@
                         <constraint firstItem="RB6-7D-MCA" firstAttribute="centerX" secondItem="C0c-tE-4TG" secondAttribute="centerX" constant="-112.5" id="m3O-cY-OoH"/>
                         <constraint firstItem="6Pp-S0-ESN" firstAttribute="top" secondItem="C0c-tE-4TG" secondAttribute="top" constant="40" id="oov-xw-6le"/>
                         <constraint firstItem="slp-4J-ir4" firstAttribute="leading" secondItem="C0c-tE-4TG" secondAttribute="leading" constant="10" id="paJ-fF-x3h"/>
-                        <constraint firstItem="slp-4J-ir4" firstAttribute="height" secondItem="6rm-dp-8S9" secondAttribute="height" constant="-2" id="uN6-mJ-1ud"/>
+                        <constraint firstItem="slp-4J-ir4" firstAttribute="height" secondItem="6rm-dp-8S9" secondAttribute="height" id="uN6-mJ-1ud"/>
                         <constraint firstAttribute="bottom" secondItem="slp-4J-ir4" secondAttribute="bottom" constant="-16" id="wzT-Zw-vyp"/>
                     </constraints>
                 </view>

@@ -694,7 +694,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         let objSummaryView = SASavingSummaryViewController()
                         self.navigationController?.pushViewController(objSummaryView, animated: true)
                     }
-                    
                 }
             }
         }

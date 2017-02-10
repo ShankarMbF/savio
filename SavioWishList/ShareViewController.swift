@@ -36,7 +36,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         {
             if((NSKeyedUnarchiver.unarchiveObjectWithData(data) as! String) == "")
             {
-                let alert = UIAlertController(title: "Warning", message: "Please login to Savio first", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "You’re not logged into Savio", message: "Open the app and login or register before adding wish list items.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
                 { action -> Void in
                     self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
@@ -46,18 +46,18 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             else
             {
                 if self.textView.text.characters.count == 0 && self.priceTextField.text?.characters.count == 0 || self.imageView.image == nil {
-                    let alert = UIAlertController(title: "Warning", message: "Looks like required content is not scraped properly, please try again.", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Savio can’t get all the details of this item.", message: "Try again or enter the product name and price manually.", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 else if self.textView.text.characters.count == 0 {
-                    let alert = UIAlertController(title: "Warning", message: "Please enter title for product", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Savio can’t get all the details of this item.", message: "Please enter the product name", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
                 else if self.priceTextField.text!.characters.count == 0 {
                     
-                    let alert = UIAlertController(title: "Warning", message: "Please enter price for product", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Savio can’t get all the details of this item.", message: "Please enter the product price", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }

@@ -488,7 +488,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Your Wish List is empty!", message: "Use our mobile browser widget to add some things you want to buy. Go to www.getsavio.com to see how.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -1663,7 +1663,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             alert.show()
         }
         else if let message = objResponse["internalMessage"] as? String {
-            let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

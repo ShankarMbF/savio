@@ -545,13 +545,22 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         else if msgFromServer == "Enter your phone number as earlier" {
             returnMsg = "Please check your phone number and try again."
         }
+        else{
+             returnMsg = msgFromServer
+        }
         return returnMsg
     }
     
     func errorResponseForRegistrationAPI(error: String) {
         objAnimView.removeFromSuperview()
+        if(error == "No network found")
+        {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //OTP Verification Delegate Method

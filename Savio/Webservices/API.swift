@@ -315,6 +315,7 @@ class API: UIView,NSURLSessionDelegate {
                     }
                 }
                 else {
+                    print(response?.description)
                     if let error = error
                     {
                         //return error to viewcontroller
@@ -489,7 +490,6 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -509,6 +509,7 @@ class API: UIView,NSURLSessionDelegate {
                     
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        print(dict)
                         if let code = dict["errorCode"] as? NSString
                         {
                             if(code == "200")
@@ -526,30 +527,35 @@ class API: UIView,NSURLSessionDelegate {
                             else
                             {
                                 dispatch_async(dispatch_get_main_queue()){
-                                    self.logInDelegate?.errorResponseForOTPLogInAPI("Internal Server Error")
+                                    self.logInDelegate?.errorResponseForOTPLogInAPI(dict["internalMessage"] as! String)
                                 }
                             }
                         }
                         else {
                             if let code = dict["error"] as? NSString
                             {
-                                if(code == "Internal Server Error")
-                                {
-                                    dispatch_async(dispatch_get_main_queue()){
-                                        self.logInDelegate?.errorResponseForOTPLogInAPI("Internal Server Error")
-                                    }
+                                dispatch_async(dispatch_get_main_queue()){
+                                    self.logInDelegate?.errorResponseForOTPLogInAPI(code as String)
                                 }
-                                    
-                                else
-                                {
-                                    dispatch_async(dispatch_get_main_queue()){
-                                        self.logInDelegate?.errorResponseForOTPLogInAPI("Passcode is incorrect")
-                                    }
-                                }
+                                
+//                                if(code == "Internal Server Error")
+//                                {
+//                                    dispatch_async(dispatch_get_main_queue()){
+//                                        self.logInDelegate?.errorResponseForOTPLogInAPI(code as String)
+//                                    }
+//                                }
+//                                    
+//                                else
+//                                {
+//                                    dispatch_async(dispatch_get_main_queue()){
+//                                        self.logInDelegate?.errorResponseForOTPLogInAPI("Passcode is incorrect")
+//                                    }
+//                                }
                             }
                         }
                     }
                     else {
+                        print(response?.description)
                         dispatch_async(dispatch_get_main_queue()){
                             self.logInDelegate?.errorResponseForOTPLogInAPI((response?.description)!)
                         }
@@ -557,6 +563,8 @@ class API: UIView,NSURLSessionDelegate {
                 }
                 else if let error = error
                 {
+                    print(error.localizedDescription)
+
                     dispatch_async(dispatch_get_main_queue()){
                         self.logInDelegate?.errorResponseForOTPLogInAPI(error.localizedDescription)
                     }
@@ -823,6 +831,7 @@ class API: UIView,NSURLSessionDelegate {
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
+                        print(dict)
                         dispatch_async(dispatch_get_main_queue()){
                             self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
                         }

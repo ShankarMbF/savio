@@ -1792,7 +1792,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
@@ -1814,6 +1814,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //MARK: update saving plan methods
     func successResponseForUpdateSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         if let message = objResponse["message"] as? String
         {
             //Create a dictionary to send SASavingSummaryViewController

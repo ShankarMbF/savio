@@ -760,13 +760,18 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     objAnimView.removeFromSuperview()
                 }
                 else {
-                    let alert = UIAlertView(title: "Alert", message: "Internal Server Error", delegate: nil, cancelButtonTitle: "Ok")
+                    let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
                     alert.show()
                 }
             }
-            else {
-                let alert = UIAlertView(title: "Alert", message: "Internal Server Error", delegate: nil, cancelButtonTitle: "Ok")
+            else if let userMessage = objResponse["userMessage"] as? String{
+                let alert = UIAlertView(title: "Alert", message: userMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
+            }
+            else {
+                let alert = UIAlertView(title: "Alert", message: objResponse["error"] as? String, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+
             }
             objAnimView.removeFromSuperview()
         }

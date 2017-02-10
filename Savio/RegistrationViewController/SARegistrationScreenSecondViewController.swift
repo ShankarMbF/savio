@@ -496,7 +496,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()
-            let alert = UIAlertController(title: "Welcome back! You need to create you a new passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Welcome back! You need to create you a new Passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
@@ -513,9 +513,10 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
            let firstName = dict["first_name"] as! String
            let lastName = dict["second_name"] as! String
            let dateOfBirth = dict["date_of_birth"] as! String
-            let msg = objResponse["message"] as! String
+//            let msg = objResponse["message"] as! String
+            let msg = self.messageForUser(objResponse)
             
-            let alert = UIAlertController(title: "Looks like you have earlier enrolled personal details", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Welcome back!  Some of your details match our records but not all of them.", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
             { action -> Void in
                 self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
@@ -525,6 +526,27 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
     }
     
+    func messageForUser(response: Dictionary<String,AnyObject>)->String{
+        var returnMsg = ""
+        let msgFromServer = response["message"] as! String
+        
+        if msgFromServer == "Enter your firstname as earlier" {
+            returnMsg = "Please check your first name and try again."
+        }
+        else if msgFromServer == "Enter your lastname as earlier" {
+            returnMsg = "Please check your last name and try again."
+        }
+        else if msgFromServer == "Enter your firstname lastname as earlier" {
+            returnMsg = "Please check your first name and last name and try again."
+        }
+        else if msgFromServer == "Enter your date of birth as earlier" {
+            returnMsg = "Please check your date of birth and try again."
+        }
+        else if msgFromServer == "Enter your phone number as earlier" {
+            returnMsg = "Please check your phone number and try again."
+        }
+        return returnMsg
+    }
     
     func errorResponseForRegistrationAPI(error: String) {
         objAnimView.removeFromSuperview()

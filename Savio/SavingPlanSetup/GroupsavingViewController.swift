@@ -734,7 +734,6 @@
         if(section == 4) {
             if(participantsArr.count > 0) {
                 return 0
-                
             }
             else {
                 return 3

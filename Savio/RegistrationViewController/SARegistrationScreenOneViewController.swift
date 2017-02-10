@@ -420,10 +420,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
         if(checkTextFieldValidation() == false)
         {
-            if(validateForAlreadyRegisteredUser() == false)
-            {
-                return
-            }
+//            if(validateForAlreadyRegisteredUser() == false)
+//            {
+//                return
+//            }
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
             userInfoDict["title"] = titleTextField.text

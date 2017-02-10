@@ -20,6 +20,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     @IBOutlet weak var saveButtonBgView: UIView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var nameErrorLabel: UILabel!
+    @IBOutlet weak var nametxtfieldTopSpace: NSLayoutConstraint!
+
     @IBOutlet weak var cardNumberErrorLabel: UILabel!
     @IBOutlet weak var cardErrorLabelHt: NSLayoutConstraint!
     @IBOutlet weak var cardNumberTextFieldTopSpace: NSLayoutConstraint!
@@ -271,7 +273,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         else if(error?.localizedDescription == "Your card\'s security code is invalid") {
                             self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
                             self.cvvTextField.textColor = UIColor.redColor()
-                            self.cardNumberErrorLabel.text = "Your card security code is invalid"
+                            self.cardNumberErrorLabel.text = "Your card's security code is invalid"
                         }
                         else if(error?.localizedDescription == "Missing required param: exp_month.") {
                             self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -406,6 +408,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         
         //Validations for card holders name text field
         if(cardHoldersNameTextField.text?.characters.count == 0 && cardHoldersNameTextField.text?.characters.count == 0) {
+            nametxtfieldTopSpace.constant = 24
             nameErrorLabel.text = "Enter name on card"
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -413,18 +416,21 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             errorFlag = true
         }
         else if (self.checkTextFieldContentOnlyNumber(cardHoldersNameTextField.text!) == true) {
+            nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Your cardholder name should only contain letters"
             errorFlag = true
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
             cardHoldersNameTextField.textColor = UIColor.redColor()
         }
         else if (self.checkTextFieldContentSpecialChar(cardHoldersNameTextField.text!)) {
+            nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Name should not contain special characters"
             errorFlag = true
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
             cardHoldersNameTextField.textColor = UIColor.redColor()
         }
         else if cardHoldersNameTextField.text?.characters.count > 50 {
+            nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Wow, that’s such a long name we can’t save it"
             errorFlag = true
             cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -432,6 +438,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         else {
             nameErrorLabel.text = ""
+            nametxtfieldTopSpace.constant = 22
         }
         
         //Validations for card number text field

@@ -33,6 +33,7 @@
                 <outlet property="cvvTextField" destination="fP1-6N-mL0" id="USD-9K-QB2"/>
                 <outlet property="expiryMonthYearTextField" destination="ccv-bS-42D" id="qNT-mM-DMr"/>
                 <outlet property="nameErrorLabel" destination="fk9-Pe-gz9" id="9EU-Re-BMC"/>
+                <outlet property="nametxtfieldTopSpace" destination="m4b-va-ma1" id="7aN-Jm-JUx"/>
                 <outlet property="saveButton" destination="rX1-JL-Ifz" id="LKL-hT-qRL"/>
                 <outlet property="saveButtonBgView" destination="2Dd-gg-eOY" id="ZOn-Be-RUp"/>
                 <outlet property="scrlView" destination="vAF-rn-X3t" id="gqw-nd-NUu"/>
@@ -54,13 +55,13 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGu-G3-j8a">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fk9-Pe-gz9">
-                                    <rect key="frame" x="30" y="115" width="315" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fk9-Pe-gz9">
+                                    <rect key="frame" x="30" y="115" width="315" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="kLe-la-G0I"/>
-                                        <constraint firstAttribute="height" constant="21" id="shw-5m-KyU"/>
+                                        <constraint firstAttribute="height" constant="40" id="kLe-la-G0I"/>
+                                        <constraint firstAttribute="height" constant="40" id="shw-5m-KyU"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="13"/>
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -152,7 +153,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only valid debit cards are accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h40-nL-Ddz">
-                                    <rect key="frame" x="81" y="95" width="254" height="21"/>
+                                    <rect key="frame" x="81" y="95" width="254" height="14.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="254" id="suG-08-2sV"/>
                                     </constraints>
@@ -279,11 +280,9 @@
                                 <constraint firstItem="C5V-wd-mQA" firstAttribute="top" secondItem="MXu-0F-41k" secondAttribute="bottom" constant="35" id="MH2-4p-kDt"/>
                                 <constraint firstItem="fP1-6N-mL0" firstAttribute="leading" secondItem="ccv-bS-42D" secondAttribute="trailing" constant="10" id="MJN-xb-1TV"/>
                                 <constraint firstItem="h40-nL-Ddz" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" constant="20" id="P6d-wa-Mxg"/>
-                                <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="h40-nL-Ddz" secondAttribute="bottom" constant="24" id="Q1N-5M-o54"/>
                                 <constraint firstItem="wkp-w9-f0L" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" id="SaS-Tt-79u"/>
                                 <constraint firstItem="MXu-0F-41k" firstAttribute="leading" secondItem="jGu-G3-j8a" secondAttribute="leading" constant="30" id="WgW-fW-jMS"/>
                                 <constraint firstItem="J2W-8v-8AC" firstAttribute="centerX" secondItem="jGu-G3-j8a" secondAttribute="centerX" id="Wwj-1U-47R"/>
-                                <constraint firstItem="MXu-0F-41k" firstAttribute="top" secondItem="ji4-jD-oX0" secondAttribute="bottom" constant="62" id="XfJ-pg-aph"/>
                                 <constraint firstItem="h40-nL-Ddz" firstAttribute="leading" secondItem="nzE-TK-cBT" secondAttribute="trailing" constant="5" id="ZaW-Qe-daQ"/>
                                 <constraint firstAttribute="trailing" secondItem="fk9-Pe-gz9" secondAttribute="trailing" constant="30" id="cnR-PK-hy6"/>
                                 <constraint firstItem="wkp-w9-f0L" firstAttribute="top" secondItem="MXu-0F-41k" secondAttribute="bottom" constant="35" id="e6c-HH-Aka"/>

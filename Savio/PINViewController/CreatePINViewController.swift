@@ -232,9 +232,13 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     func errorResponseForOTPResetPasscodeAPI(error:String){
         objAnimView.removeFromSuperview()
-        
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
         
     }
     
@@ -263,8 +267,13 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     
     func errorResponseForRegistrationAPI(error:String){
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     func addTargetAndRadiusForTf(textField: UITextField) {

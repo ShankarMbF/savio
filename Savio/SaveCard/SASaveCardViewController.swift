@@ -366,8 +366,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Error reponse of GetListOfUsersCardsDelegate
     func errorResponseForGetListOfUsersCards(error: String) {
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //Success reponse of SetDefaultCardDelegate
@@ -461,8 +466,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
      //Success reponse of SetDefaultCardDelegate
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //Success reponse of ImpulseSavingDelegate
@@ -481,8 +491,12 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Success reponse of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
-        
+        }
     }
 }

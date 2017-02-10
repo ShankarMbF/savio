@@ -309,9 +309,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
 
     func errorResponseForOTPLogInAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
-        {
-            let alert = UIAlertView(title: "Warning", message: "No network found", delegate: nil, cancelButtonTitle: "Ok")
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
 
@@ -362,9 +361,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     }
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
-        {
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else if (error == "The request timed out")

@@ -502,8 +502,13 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     //get offerlist API's delegate method invoking when fail or error response getting from API request.
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //Function invoking for check null values in dictionary and replace null values with blank and return new dict

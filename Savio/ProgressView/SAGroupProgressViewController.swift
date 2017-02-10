@@ -855,8 +855,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
         objAnimView.removeFromSuperview()
     }
     
@@ -898,8 +903,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+//            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+//            alert.show()
         }
         else {
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

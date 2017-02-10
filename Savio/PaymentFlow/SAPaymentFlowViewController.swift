@@ -722,11 +722,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Error response of AddSavingCardDelegate
     func errorResponseForAddSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
-        {
-        let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
-        }else {
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -787,11 +786,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //error response of AddNewSavingCardDelegate
     func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
-        {
-            let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }else {
+        }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
@@ -819,11 +817,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Error response of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
-        {
-            let alert = UIAlertView(title: "Sorry, the connection was lost.", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }else {
+        }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

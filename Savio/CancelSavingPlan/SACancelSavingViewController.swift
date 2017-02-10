@@ -160,8 +160,13 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     //error rsponse of CancelSavingPlanDelegate
     func errorResponseForCancelSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
+        if error == "Network not available" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //Your saving plan is canceled, go to create new saving plan

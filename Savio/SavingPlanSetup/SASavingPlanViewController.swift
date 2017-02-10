@@ -1700,8 +1700,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
         objAnimView.removeFromSuperview()
     }
     
@@ -1808,8 +1813,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func errorResponseForPartySavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
+        }
     }
     
     //MARK: update saving plan methods
@@ -1874,8 +1884,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         objAnimView.removeFromSuperview()
         self.isPopoverValueChanged = false
         self.isCostChanged = false
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        if error == "Network not available" {
+            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
     //MARK: Offer delegate methods

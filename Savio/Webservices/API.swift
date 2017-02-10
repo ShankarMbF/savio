@@ -314,20 +314,11 @@ class API: UIView,NSURLSessionDelegate {
                         }
                     }
                 }
-                else {
+                else if let error = error {
                     print(response?.description)
-                    if let error = error
-                    {
-                        //return error to viewcontroller
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.delegate?.errorResponseForRegistrationAPI(error.localizedDescription)
-                        }
-                    }
-                    else
-                    {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.delegate?.errorResponseForRegistrationAPI("Internal server error")
-                        }
+                    //return error to viewcontroller
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.delegate?.errorResponseForRegistrationAPI(error.localizedDescription)
                     }
                 }
             }
@@ -902,17 +893,14 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getWishlistDelegate?.errorResponseForGetWishlistAPI(error.localizedDescription)
                     }
-                    
                 }
-                
-                
             }
             dataTask.resume()
         }
         else {
             self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
         }
-    }
+    }//17981.75
     
     
     //MARK: Get savings plan
@@ -1052,7 +1040,7 @@ class API: UIView,NSURLSessionDelegate {
                     }
                     else {
                         dispatch_async(dispatch_get_main_queue()){
-                            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("Error")
+                            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI((response?.description)!)
                         }
                     }
                 }
@@ -1060,9 +1048,7 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(error.localizedDescription)
                     }
-                    
                 }
-                
             }
             dataTask.resume()
         }
@@ -1302,10 +1288,7 @@ class API: UIView,NSURLSessionDelegate {
                     dispatch_async(dispatch_get_main_queue()){
                         self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI(error.localizedDescription)
                     }
-                    
-                    
                 }
-                
             }
             dataTask.resume()
         }

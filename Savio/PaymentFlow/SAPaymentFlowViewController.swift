@@ -190,7 +190,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
         saveButton.layer.cornerRadius = 2.0
-        
     }
     
     
@@ -241,10 +240,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             stripeCard.expYear = UInt(picker.year)
             stripeCard.expMonth = UInt(picker.month)
             stripeCard.name = cardHoldersNameTextField.text
-            
-//            do {
-//                try stripeCard.validateCardReturningError()
-               // Stripe create token closure
+                        
+            do {
+                try stripeCard.validateCardReturningError()
                 STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
                     print(token?.card?.type)
                     self.errorFlag = false
@@ -365,14 +363,14 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     }
                 })
 
-//            } catch {
-//               print("Error info: \(NSError.debugDescription())")
-//                self.objAnimView.removeFromSuperview()
-//                self.cardNumberErrorLabel.text = "Please valid debit card only"
-//                self.cardNumberTextFieldTopSpace.constant = 35
-//                self.cardNumView.constant = 35
-//            }
-            
+            } catch let underlyingError as NSError?{
+               print("Error info: \(underlyingError?.localizedDescription)")
+                self.objAnimView.removeFromSuperview()
+                self.cardNumberErrorLabel.text = underlyingError?.localizedDescription
+                self.cardNumberTextFieldTopSpace.constant = 35
+                self.cardNumView.constant = 35
+            }
+        
        
             
 //            var underlyingError: NSError?

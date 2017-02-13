@@ -453,6 +453,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             errorFlag = false
         }
     }
+
     
     @IBAction func backButtonPressed(sender: AnyObject) {
         //Go back to previous view controller
@@ -467,6 +468,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 break
             }
         }
+        
         if isAvailble {
             self.navigationController?.popToViewController(vw!, animated: false)
         }

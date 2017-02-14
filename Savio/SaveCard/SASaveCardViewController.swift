@@ -412,7 +412,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             NSUserDefaults.standardUserDefaults().synchronize()
             let objThankyYouView = SAThankYouViewController()
             self.navigationController?.pushViewController(objThankyYouView, animated: true)
-
         }
         else if (isFromImpulseSaving == true){
             let objAPI = API()

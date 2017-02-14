@@ -226,11 +226,17 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             arrayAddress.removeAll()
             dropDown.dataSource.removeAll()
         }
-        self.view.addSubview(objAnimView)
         findAddressErrorLabel.text = ""
         let objGetAddressAPI: API = API()
         objGetAddressAPI.delegate = self
         let trimmedString = findAddressTextField.text!.stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+        if trimmedString.characters.count == 0 {
+            let alert = UIAlertView(title: "Sorry!", message: "Please enter your postcode to find your address and try again", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+            return
+        }
+        self.view.addSubview(objAnimView)
         objGetAddressAPI.verifyPostCode(trimmedString)
         
     }

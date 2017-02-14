@@ -193,7 +193,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         
         if let message = objResponse["message"] as? String
         {
-            if(message == "Your PIN is updated Sucessfully")
+            if(message == "Your PIN is updated sucessfully")
             {
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 headerLabel.text = "Your passcode has been reset"
@@ -203,6 +203,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 self.lblConfirmPasscode.hidden = true
                 self.confirmPasscodeView.hidden = true
                 self.passcodeView.hidden = true
+            }
+            else {
+                let alert = UIAlertView(title: "Warning", message: message as! String, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
             }
         }
         else if let internalMessage = objResponse["internalMessage"] as? String
@@ -258,7 +262,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "Internal server error.", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Warning", message: message as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             

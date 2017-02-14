@@ -348,7 +348,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         //Showing offer image
         if let urlStr = cellDict!["offImage"] as? String {
             if urlStr != "" {
-                let url = NSURL(string: urlStr)
+                let str = urlStr.stringByReplacingOccurrencesOfString(" ", withString: "%20")
+                let url = NSURL(string: str)
                 
                 let request: NSURLRequest = NSURLRequest(URL: url!)
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in

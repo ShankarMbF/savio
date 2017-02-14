@@ -370,8 +370,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 self.cardNumberTextFieldTopSpace.constant = 35
                 self.cardNumView.constant = 35
             }
-        
-       
             
 //            var underlyingError: NSError?
 //            stripeCard.validateCardReturningError(&underlyingError)

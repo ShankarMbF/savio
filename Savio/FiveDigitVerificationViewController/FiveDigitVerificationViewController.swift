@@ -163,7 +163,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     @IBAction func clickOnResentCodeButton(sender: AnyObject) {
         //Set the OTPSentDelegate
         objAPI.otpSentDelegate = self
-        
+        codeDoesNotMatchLabel.hidden = true
+        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+
         //Resend the OTP to the mobile number present in keychain
         objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
         fiveDigitTextField.resignFirstResponder()

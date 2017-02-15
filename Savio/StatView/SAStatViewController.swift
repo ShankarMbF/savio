@@ -216,7 +216,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         if(planType == "Individual") {
-            let attrText = NSMutableAttributedString(string: String(format: "My %@ saving plan target is £%@",itemTitle,cost))
+            let attrText = NSMutableAttributedString(string: String(format: "My %@ plan target is £%@",itemTitle,cost))
             attrText.addAttribute(NSFontAttributeName,
                                   value: UIFont(
                                     name: kMediumFont,

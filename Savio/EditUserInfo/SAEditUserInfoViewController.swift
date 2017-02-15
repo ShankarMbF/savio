@@ -37,6 +37,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     var userBeforeEditInfoDict : Dictionary<String,AnyObject> = [:]
     var isInfoUpdated: Bool = false
     var isPressAlertYes: Bool = false
+//    var isPressAlertYes: Bool = false
     var queue = NSOperationQueue()
     
     //MARK: ViewController lifeCycle method.
@@ -1452,7 +1453,17 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         }
         return replaceDict
     }
-    
+    func changeMainDict() {
+        userBeforeEditInfoDict["title"] = userInfoDict["title"] as! String
+        userBeforeEditInfoDict["first_name"] = userInfoDict["first_name"] as! String
+        userBeforeEditInfoDict["second_name"] = userInfoDict["second_name"] as! String
+        userBeforeEditInfoDict["address_1"] = userInfoDict["address_1"] as! String
+        userBeforeEditInfoDict["address_2"] = userInfoDict["address_2"] as! String
+        userBeforeEditInfoDict["address_3"] = userInfoDict["address_3"] as! String
+        userBeforeEditInfoDict["town"] = userInfoDict["town"] as! String
+        userBeforeEditInfoDict["county"] = userInfoDict["county"] as! String
+        self.isInfoUpdated = false
+    }
     
     func checkAnyInfoUpdatedFromPrevious()-> Bool {
         var updateFlag: Bool = false
@@ -1644,6 +1655,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             {
                 //                let alert = UIAlertView(title: "Updated", message: "Personal details updated", delegate: nil, cancelButtonTitle: "Ok")
                 //                alert.show()
+                self.changeMainDict()
                 self.createCells()
                 
                 let uiAlert = UIAlertController(title: "Updated", message: "Personal details updated", preferredStyle: UIAlertControllerStyle.Alert)

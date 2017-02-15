@@ -223,7 +223,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                             break
                         }
                     }
-                    
                 })
                 self.presentViewController(alert, animated: true, completion: nil)
                 
@@ -290,7 +289,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         textField.addTarget(self, action: #selector(CreatePINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         textField.keyboardType = UIKeyboardType.NumberPad
         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        
     }
     
     func customizeTextFields() {
@@ -320,20 +318,18 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     break
                 }
             }
-            
         }else {
             
             for idx in 0...tag {
                 tag -= 1
                 if tag >= 0 {
-                let tfPre = arrayTextFields[tag]
-                if tfPre.text?.characters.count > 0 {
-                    tfPre.becomeFirstResponder()
-                    break
-                }
+                    let tfPre = arrayTextFields[tag]
+                    if tfPre.text?.characters.count > 0 {
+                        tfPre.becomeFirstResponder()
+                        break
+                    }
                 }
             }
-            
         }
     }
     

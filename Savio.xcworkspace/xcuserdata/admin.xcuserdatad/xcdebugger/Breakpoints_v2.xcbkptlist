@@ -378,7 +378,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-                  timestampString = "508923250.540745"
+                  timestampString = "508933001.652105"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1104"
@@ -393,7 +393,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/SavingPlanSetup/SASavingPlanViewController.swift"
-                  timestampString = "508923250.542818"
+                  timestampString = "508933001.654403"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1103"
@@ -490,7 +490,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.562032"
+                  timestampString = "508933001.675066"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "514"
@@ -505,7 +505,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.564191"
+                  timestampString = "508933001.67723"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "515"
@@ -538,7 +538,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.568539"
+                  timestampString = "508933001.681839"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "508"
@@ -553,7 +553,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.570611"
+                  timestampString = "508933001.684014"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "509"
@@ -698,7 +698,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.601267"
+                  timestampString = "508933001.716594"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1539"
@@ -713,7 +713,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.603327"
+                  timestampString = "508933001.718682"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1539"
@@ -762,7 +762,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.611451"
+                  timestampString = "508933001.726948"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1633"
@@ -777,7 +777,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.61356"
+                  timestampString = "508933001.729182"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1633"
@@ -794,11 +794,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Savio/RegistrationViewController/SARegistrationScreenSecondViewController.swift"
-            timestampString = "508920814.870097"
+            timestampString = "508932842.637566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "successResponseForRegistrationAPI(objResponse:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -874,7 +874,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.632967"
+                  timestampString = "508933001.751139"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "380"
@@ -889,7 +889,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.635034"
+                  timestampString = "508933001.753304"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "381"
@@ -922,7 +922,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.639213"
+                  timestampString = "508933001.759367"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "387"
@@ -937,7 +937,7 @@
                   moduleName = "Savio"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/admin/Documents/Prashant/SAvio/Savio/Webservices/API.swift"
-                  timestampString = "508923250.641283"
+                  timestampString = "508933001.761877"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "388"
@@ -976,6 +976,54 @@
             startingLineNumber = "582"
             endingLineNumber = "582"
             landmarkName = "successResponseForGetWishlistAPI(objResponse:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/Webservices/API.swift"
+            timestampString = "508932590.092141"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "registerTheUserWithTitle(dictParam:apiName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/PINViewController/CreatePINViewController.swift"
+            timestampString = "508933147.518643"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "successResponseForRegistrationAPI(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Savio/PINViewController/CreatePINViewController.swift"
+            timestampString = "508933197.478528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "successResponseForResetPasscodeAPI(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

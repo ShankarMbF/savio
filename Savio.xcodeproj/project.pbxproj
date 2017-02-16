@@ -2430,6 +2430,9 @@
 							com.apple.Push = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
 						};
 					};
 					C9E525A71CE986FA000FD01E = {
@@ -2451,6 +2454,9 @@
 								enabled = 1;
 							};
 							com.apple.Wallet = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
 								enabled = 0;
 							};
 						};

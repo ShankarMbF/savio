@@ -54,7 +54,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        self.callTermAndConditionAPI()
+        self.callTermAndConditionAPI(false)
     }
     
     override func viewDidLayoutSubviews() {
@@ -284,7 +284,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             
 //            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
 //            print(termAndConditionText!)
-//            if termAndConditionText?.characters.count > 0{
+            if termAndConditionText?.characters.count > 0{
             
             let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                               options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
@@ -295,6 +295,14 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             objimpInfo.delegate = self
             objimpInfo.isFromRegistration = true
             self.view.addSubview(objimpInfo)
+            }
+            else{
+                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+                objAnimView.frame = self.view.frame
+                objAnimView.animate()
+                self.view.addSubview(objAnimView)
+                self.callTermAndConditionAPI(true)
+            }
         }
         else
         {
@@ -304,7 +312,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
     }
     
-    func callTermAndConditionAPI() {
+    func callTermAndConditionAPI(flag:Bool) {
         let objAPI = API()
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
@@ -329,11 +337,28 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-//                        print(dict)
+                        print(dict["content"]!["content"] as! String)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             if dict["errorCode"] as! String == "200"{
+                                if flag == false {
                                 self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                                }
+                                else {
+                                     self.termAndConditionText = dict["content"]!["content"] as! String
+                                    self.objAnimView.removeFromSuperview()
+                                    self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                    self.objimpInfo.lblHeader.text = "Terms and Condidtions"
+                                    let theAttributedString = try! NSAttributedString(data: self.termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                                                      options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                                                      documentAttributes: nil)
+                                    
+                                    self.objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
+                                    self.objimpInfo.frame = self.view.frame
+                                    self.objimpInfo.delegate = self
+                                    self.objimpInfo.isFromRegistration = true
+                                    self.view.addSubview(self.objimpInfo)
+                                }
                             }
                         }
                     }

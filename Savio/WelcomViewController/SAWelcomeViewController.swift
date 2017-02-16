@@ -23,12 +23,14 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     //pageArr is an array which holds animation pages
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"]
     var impText: String?
+    var objAnimView = ImageViewAnimation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //Hide navigationbar
         
         self.navigationController?.navigationBarHidden = true
+        self.callImportantAPI(false)
 
         // Do any additional setup after loading the view.
     }
@@ -42,7 +44,6 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         //setting signup button corner
         signUpBtn.layer.cornerRadius = 5.0
         idx = 0
-        self.callImportantAPI()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -144,6 +145,9 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     
     //Function invoke when user tap on important Information link
     @IBAction func clickOnImportantLink(sender:UIButton){
+        
+        if impText?.characters.count > 0 {
+        
         let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
         let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                           options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
@@ -152,9 +156,17 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         objImpInfo.frame = self.view.frame
         objImpInfo.isFromRegistration = false
         self.view.addSubview(objImpInfo)
+        }
+        else{
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            self.view.addSubview(objAnimView)
+            self.callImportantAPI(true)
+        }
     }
     
-    func callImportantAPI() {
+    func callImportantAPI(flag:Bool) {
         let objAPI = API()
         ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         ////        objAnimView.frame = self.view.frame
@@ -192,8 +204,22 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
                         //                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
-                            if dict["errorCode"] as! String == "200"{
-                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                            if flag == false {
+                                if dict["errorCode"] as! String == "200"{
+                                    self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                                }
+                            }
+                            else{
+                                self.objAnimView.removeFromSuperview()
+                                self.impText = dict["content"]!["content"] as? String
+                                let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                let theAttributedString = try! NSAttributedString(data: self.impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                                                  options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                                                  documentAttributes: nil)
+                                objImpInfo.termsAndConditionTextView.attributedText = theAttributedString
+                                objImpInfo.frame = self.view.frame
+                                objImpInfo.isFromRegistration = false
+                                self.view.addSubview(objImpInfo)
                             }
                         }
                     }

@@ -45,12 +45,13 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     var dob = ""
     var lastOffset: CGPoint = CGPointZero
     var impText: String?
+     var objAnimView = ImageViewAnimation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
         // Do any additional setup after loading the view.
-        self.callImportantAPI()
+        self.callImportantAPI(false)
          let objApi = API()
          objApi.deleteKeychainValue("saveCardArray")
         objApi.deleteKeychainValue("savingPlanDict")
@@ -478,16 +479,25 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
-        let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-        objimpInfo.lblHeader.text = "Why do we need this information?"
-        let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
-                                                          options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-                                                          documentAttributes: nil)
-        
-        objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
-        objimpInfo.frame = self.view.frame
-        objimpInfo.isFromRegistration = false
-        self.view.addSubview(objimpInfo)
+        if impText?.characters.count > 0 {
+            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+            objimpInfo.lblHeader.text = "Why do we need this information?"
+            let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                              options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                              documentAttributes: nil)
+            
+            objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
+            objimpInfo.frame = self.view.frame
+            objimpInfo.isFromRegistration = false
+            self.view.addSubview(objimpInfo)
+        }
+        else{
+            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView.frame = self.view.frame
+            objAnimView.animate()
+            self.view.addSubview(objAnimView)
+            self.callImportantAPI(true)
+        }
     }
     
     
@@ -641,17 +651,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dob = dateOfBirth
     }
     
-    func callImportantAPI() {
+    func callImportantAPI(flag:Bool) {
         let objAPI = API()
-        ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-        ////        objAnimView.frame = self.view.frame
-        ////        objAnimView.animate()
-        ////        self.view.addSubview(objAnimView)
-        //        objAPI.termConditionDelegate = self
-        //        objAPI.termAndCondition()
-        
-        
-        
         
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
@@ -679,8 +680,24 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 //                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
-                            if dict["errorCode"] as! String == "200"{
-                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                            if flag == false{
+                                if dict["errorCode"] as! String == "200"{
+                                    self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                                }
+                            }
+                            else{
+                                self.objAnimView.removeFromSuperview()
+                                self.impText = dict["content"]!["content"] as? String
+                                let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                objimpInfo.lblHeader.text = "Why do we need this information?"
+                                let theAttributedString = try! NSAttributedString(data: self.impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                                                  options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                                                  documentAttributes: nil)
+                                
+                                objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
+                                objimpInfo.frame = self.view.frame
+                                objimpInfo.isFromRegistration = false
+                                self.view.addSubview(objimpInfo)
                             }
                         }
                     }

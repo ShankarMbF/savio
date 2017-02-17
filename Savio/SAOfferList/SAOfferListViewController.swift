@@ -123,9 +123,14 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData        {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
+            if wishListArray?.count > 0 {
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
            btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            }
+            else{
+                
+            }
         }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName

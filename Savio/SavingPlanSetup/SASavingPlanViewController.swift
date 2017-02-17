@@ -1623,12 +1623,23 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.title = "Update plan"
                 cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                 var pathComponents2 : NSArray!
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date = dateFormatter.dateFromString(itemDetailsDataDict["planEndDate"] as! String)
+                
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                let goodDate = dateFormatter.stringFromDate(date!)
+                print(goodDate)
+                
+                
                 pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")
                 datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
+                datePickerDate = goodDate
                 updateOfferArr = offerArr
                 tblView.reloadData()
 

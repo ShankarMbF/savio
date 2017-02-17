@@ -607,6 +607,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     //MARK: GetOfferlistAPI Delegate method
     func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse)
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
         for i in 0 ..< offerArr.count {

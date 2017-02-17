@@ -517,6 +517,8 @@
                 dateDiff = Int(timeDifference/3600)                
                 }
                 else{
+             
+                
                 cell1.datePickerTextField.text = datePickerDate
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
 

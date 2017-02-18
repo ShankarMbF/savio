@@ -3409,7 +3409,7 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
@@ -3436,7 +3436,7 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";

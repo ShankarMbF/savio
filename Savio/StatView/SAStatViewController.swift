@@ -263,7 +263,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         //Hide add offer button from offer list
-        obj.hideAddOfferButton = false
+        obj.hideAddOfferButton = true
+        obj.isComingProgress = true
+
         //navigate to offer list
         self.navigationController?.pushViewController(obj, animated: true)
     }

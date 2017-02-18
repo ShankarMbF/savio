@@ -51,7 +51,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         else{
             tabVw?.hidden = true
         }
-        self.setUpView()
+        self.setUpView()  
         
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
     }

@@ -294,7 +294,14 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         let objSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
         let groupDict = wishListArray[sender.tag] 
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
-        objSavingPlanViewController.datePickerDate = groupDict["planEndDate"] as! String
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.dateFromString(groupDict["planEndDate"] as! String)
+        
+        dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+        let goodDate = dateFormatter.stringFromDate(date!)
+        
+        objSavingPlanViewController.datePickerDate = goodDate
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

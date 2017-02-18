@@ -537,20 +537,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 cell1.datePickerTextField.text = datePickerDate
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
+                print(datePickerDate)
             }
             
             if(isClearPressed) {
                 
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                let dateComponents = NSDateComponents()
-                let calender = NSCalendar.currentCalendar()
-                dateComponents.month = 3
-                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-                datePickerDate = dateFormatter.stringFromDate(newDate!)
-                cell1.datePickerTextField.text = datePickerDate
-                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
-                dateDiff = Int(timeDifference/3600)
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+//                let dateComponents = NSDateComponents()
+//                let calender = NSCalendar.currentCalendar()
+//                dateComponents.month = 3
+//                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+//                datePickerDate = dateFormatter.stringFromDate(newDate!)
+//                cell1.datePickerTextField.text = datePickerDate
+//                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+//                dateDiff = Int(timeDifference/3600)
+                
                 
 //                if(isUpdatePlan) {
 //                    if(itemDetailsDataDict["planEndDate"] != nil) {
@@ -1131,6 +1133,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.dateString = "date"
                 self.popOverSelectedStr = "1"
                 self.isCostChanged = false
+                self.datePickerDate = ""
                 if(self.itemDetailsDataDict.keys.count > 0) {
                     self.itemDetailsDataDict.removeAll()
                 }
@@ -1144,6 +1147,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
 //                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
 //                self.scrlView.contentSize = CGSizeMake(0, ht)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+
                
             }
             else {
@@ -1624,7 +1628,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
                 var pathComponents2 : NSArray!
                 pathComponents2 = (itemDetailsDataDict["planEndDate"] as! String).componentsSeparatedByString("-")
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date = dateFormatter.dateFromString(itemDetailsDataDict["planEndDate"] as! String)
+                
+                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                let goodDate = dateFormatter.stringFromDate(date!)
+                print(goodDate)
+                
                 datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                datePickerDate = goodDate
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>

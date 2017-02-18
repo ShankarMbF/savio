@@ -595,6 +595,16 @@
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
 		CD370554CAA0EC2E0DB6EC86 /* Pods_SavioWishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */; };
+		D4B1EBB71E5834AB007219AD /* app_name.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAC1E5834AB007219AD /* app_name.rb */; };
+		D4B1EBB81E5834AB007219AD /* build_number_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAD1E5834AB007219AD /* build_number_icon.rb */; };
+		D4B1EBB91E5834AB007219AD /* color_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAE1E5834AB007219AD /* color_icon.rb */; };
+		D4B1EBBA1E5834AB007219AD /* update_app_identifier.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAF1E5834AB007219AD /* update_app_identifier.rb */; };
+		D4B1EBBB1E5834AB007219AD /* Appfile in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB01E5834AB007219AD /* Appfile */; };
+		D4B1EBBC1E5834AB007219AD /* icon_staging_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB21E5834AB007219AD /* icon_staging_badge.png */; };
+		D4B1EBBD1E5834AB007219AD /* icon_uat_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB31E5834AB007219AD /* icon_uat_badge.png */; };
+		D4B1EBBE1E5834AB007219AD /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB41E5834AB007219AD /* Fastfile */; };
+		D4B1EBBF1E5834AB007219AD /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D4B1EBB51E5834AB007219AD /* README.md */; };
+		D4B1EBC01E5834AB007219AD /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB61E5834AB007219AD /* report.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1215,6 +1225,16 @@
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		CA0372271D48D89D00FC5C1B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		CA0372281D48D89D00FC5C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		D4B1EBAC1E5834AB007219AD /* app_name.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = app_name.rb; sourceTree = "<group>"; };
+		D4B1EBAD1E5834AB007219AD /* build_number_icon.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_number_icon.rb; sourceTree = "<group>"; };
+		D4B1EBAE1E5834AB007219AD /* color_icon.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = color_icon.rb; sourceTree = "<group>"; };
+		D4B1EBAF1E5834AB007219AD /* update_app_identifier.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = update_app_identifier.rb; sourceTree = "<group>"; };
+		D4B1EBB01E5834AB007219AD /* Appfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Appfile; path = fastlane/Appfile; sourceTree = "<group>"; };
+		D4B1EBB21E5834AB007219AD /* icon_staging_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_staging_badge.png; sourceTree = "<group>"; };
+		D4B1EBB31E5834AB007219AD /* icon_uat_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_uat_badge.png; sourceTree = "<group>"; };
+		D4B1EBB41E5834AB007219AD /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Fastfile; path = fastlane/Fastfile; sourceTree = "<group>"; };
+		D4B1EBB51E5834AB007219AD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = fastlane/README.md; sourceTree = "<group>"; };
+		D4B1EBB61E5834AB007219AD /* report.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = report.xml; path = fastlane/report.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2137,6 +2157,7 @@
 		C9E5259F1CE986F9000FD01E = {
 			isa = PBXGroup;
 			children = (
+				D4B1EBAA1E5830AE007219AD /* Fastlane */,
 				CA0372271D48D89D00FC5C1B /* Fabric.framework */,
 				CA0372281D48D89D00FC5C1B /* Crashlytics.framework */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
@@ -2360,6 +2381,41 @@
 			name = lib;
 			sourceTree = "<group>";
 		};
+		D4B1EBAA1E5830AE007219AD /* Fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				D4B1EBAB1E5834AB007219AD /* actions */,
+				D4B1EBB01E5834AB007219AD /* Appfile */,
+				D4B1EBB11E5834AB007219AD /* badges */,
+				D4B1EBB41E5834AB007219AD /* Fastfile */,
+				D4B1EBB51E5834AB007219AD /* README.md */,
+				D4B1EBB61E5834AB007219AD /* report.xml */,
+			);
+			name = Fastlane;
+			sourceTree = "<group>";
+		};
+		D4B1EBAB1E5834AB007219AD /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				D4B1EBAC1E5834AB007219AD /* app_name.rb */,
+				D4B1EBAD1E5834AB007219AD /* build_number_icon.rb */,
+				D4B1EBAE1E5834AB007219AD /* color_icon.rb */,
+				D4B1EBAF1E5834AB007219AD /* update_app_identifier.rb */,
+			);
+			name = actions;
+			path = fastlane/actions;
+			sourceTree = "<group>";
+		};
+		D4B1EBB11E5834AB007219AD /* badges */ = {
+			isa = PBXGroup;
+			children = (
+				D4B1EBB21E5834AB007219AD /* icon_staging_badge.png */,
+				D4B1EBB31E5834AB007219AD /* icon_uat_badge.png */,
+			);
+			name = badges;
+			path = fastlane/badges;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2417,7 +2473,7 @@
 				TargetAttributes = {
 					A86681DC1CFEC26D0014DB59 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2428,7 +2484,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 0;
@@ -2437,7 +2493,7 @@
 					};
 					C9E525A71CE986FA000FD01E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2522,7 +2578,9 @@
 				A859DD8B1D50ACD000932150 /* baby-dropdown@1x.png in Resources */,
 				C975A9321D01952900184C8C /* group-save-category-icon@3x.png in Resources */,
 				C9ED803B1D1BC38A00058A96 /* menu-active-update.png in Resources */,
+				D4B1EBC01E5834AB007219AD /* report.xml in Resources */,
 				A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */,
+				D4B1EBB91E5834AB007219AD /* color_icon.rb in Resources */,
 				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A88E81D71D49EA0F00CAA00F /* stats-achievement-money.png in Resources */,
 				A89F77F61D8C069900EA932B /* SAThankYouViewController.xib in Resources */,
@@ -2533,6 +2591,7 @@
 				C9ED80491D1BC38A00058A96 /* menu-profile@3x.png in Resources */,
 				C90D39C81D068D2000F285BB /* dotted-box@3x.png in Resources */,
 				C9ED802D1D1BC38A00058A96 /* menu-active-progress@2x.png in Resources */,
+				D4B1EBB71E5834AB007219AD /* app_name.rb in Resources */,
 				A88E81F51D49EA0F00CAA00F /* target-score-crown@3x.png in Resources */,
 				A88E81E51D49EA0F00CAA00F /* stats-plan-tab-active@2x.png in Resources */,
 				C9E854F51CF44B4A006213BF /* down-arrow-45x45.png in Resources */,
@@ -2551,6 +2610,7 @@
 				A8BDCBDD1D05557500D4C47B /* generic-calendar@2x.png in Resources */,
 				C9FB592B1D1AA82D00C9B6AE /* ContactProfileTableViewCell.xib in Resources */,
 				C9ED803C1D1BC38A00058A96 /* menu-active-update@2x.png in Resources */,
+				D4B1EBBE1E5834AB007219AD /* Fastfile in Resources */,
 				A8BDCBD31D05557500D4C47B /* baby-calendar.png in Resources */,
 				A859DDAC1D50AD1F00932150 /* group-updown@1x.png in Resources */,
 				A859DDDE1D50AD4800932150 /* wedding-updown@3x.png in Resources */,
@@ -2621,7 +2681,9 @@
 				A8AEA9471CFFF9110069F22A /* ClearButtonTableViewCell.xib in Resources */,
 				C90D39D41D06CACA00F285BB /* detail-arrow-down@3x.png in Resources */,
 				C9E855011CF456CC006213BF /* savivo-logo.png in Resources */,
+				D4B1EBBA1E5834AB007219AD /* update_app_identifier.rb in Resources */,
 				C9ED80341D1BC38A00058A96 /* menu-active-spend@3x.png in Resources */,
+				D4B1EBBC1E5834AB007219AD /* icon_staging_badge.png in Resources */,
 				C975A90B1D01564E00184C8C /* divider-pound.png in Resources */,
 				A8A6C7861D2CE58B009B0D2F /* SAGroupProgressViewController.xib in Resources */,
 				A88E81C91D49EA0F00CAA00F /* group-save-stats-slider-tab.png in Resources */,
@@ -2636,6 +2698,7 @@
 				A859DDB71D50AD2B00932150 /* holiday-dropdown@3x.png in Resources */,
 				C9ED80291D1BC38A00058A96 /* menu-active-profile.png in Resources */,
 				C9361EB61D30C18300605E1B /* social-g+@2x.png in Resources */,
+				D4B1EBBB1E5834AB007219AD /* Appfile in Resources */,
 				C9ED803A1D1BC38A00058A96 /* menu-active-switch@3x.png in Resources */,
 				C975A93D1D01952900184C8C /* wedding-category-icon@2x.png in Resources */,
 				A88E81DE1D49EA0F00CAA00F /* stats-offers-tab-active.png in Resources */,
@@ -2825,6 +2888,7 @@
 				C91E23FC1D02D0D700DC6D29 /* nav-heart.png in Resources */,
 				A897514F1CEF099500F122AD /* CreatePINViewController.xib in Resources */,
 				C9ED803D1D1BC38A00058A96 /* menu-active-update@3x.png in Resources */,
+				D4B1EBBD1E5834AB007219AD /* icon_uat_badge.png in Resources */,
 				A850454D1CF823D8002E8B47 /* SwitchTableViewCell.xib in Resources */,
 				C97A351E1CF6D55D00BEB441 /* icon@3x.png in Resources */,
 				C9E854EB1CF43732006213BF /* down-arrow-1.png in Resources */,
@@ -2884,6 +2948,7 @@
 				A8BDCBD61D05557500D4C47B /* gadget-calendar.png in Resources */,
 				C975A9351D01952900184C8C /* holiday-category-icon@3x.png in Resources */,
 				A87CE8881D8FB7CA00270494 /* Visa@2x.png in Resources */,
+				D4B1EBB81E5834AB007219AD /* build_number_icon.rb in Resources */,
 				A8E3CA2B1D79AFD2002B792C /* Default-568h@2x.png in Resources */,
 				A858A5EE1D08127C0097546F /* baby-circle@3x.png in Resources */,
 				C91E23E81D029C3300DC6D29 /* SAWishListViewController.xib in Resources */,
@@ -3151,6 +3216,7 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
+				D4B1EBBF1E5834AB007219AD /* README.md in Sources */,
 				A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */,
 				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
@@ -3205,7 +3271,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3224,10 +3290,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "ea7c44cd-9a03-4267-8e60-c5758a1c160e";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_VERSION = 2.3;
 			};
@@ -3242,7 +3308,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3261,10 +3327,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "ea7c44cd-9a03-4267-8e60-c5758a1c160e";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3396,7 +3462,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3405,10 +3471,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3423,7 +3489,7 @@
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3432,10 +3498,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;

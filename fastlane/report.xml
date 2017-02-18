@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.001205">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000943">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: clear_derived_data" time="0.404116">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: badge" time="2.514499">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: update_app_identifier" time="0.006847">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: update_info_plist" time="0.220721">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: gym" time="379.564051">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: crashlytics" time="79.557966">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

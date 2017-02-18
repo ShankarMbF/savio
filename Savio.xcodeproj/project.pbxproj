@@ -2417,7 +2417,7 @@
 				TargetAttributes = {
 					A86681DC1CFEC26D0014DB59 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2428,7 +2428,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 0;
@@ -2437,7 +2437,7 @@
 					};
 					C9E525A71CE986FA000FD01E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2445,7 +2445,7 @@
 								enabled = 1;
 							};
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
 								enabled = 0;
@@ -3201,11 +3201,11 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3224,10 +3224,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "dfab160c-c93e-403b-a8d7-2386c3a8a193";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_VERSION = 2.3;
 			};
@@ -3239,10 +3239,10 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3261,10 +3261,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3393,10 +3393,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3405,10 +3405,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3421,9 +3421,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3432,10 +3432,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;

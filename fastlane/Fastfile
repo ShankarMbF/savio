@@ -1,0 +1,59 @@
+# More documentation about how to customize your build
+# can be found here:
+# https://docs.fastlane.tools
+fastlane_version "1.109.0"
+
+generated_fastfile_id "fd8bfe9a-1012-4d46-a87e-90205bfa3b5b”
+
+default_platform :ios
+
+platform :ios do
+
+  before_all do
+    ENV["BUILD_NUMBER"] = get_info_plist_value(path: “Savio/Info.plist", key: "CFBundleVersion")
+    ENV["app_identifier_uat"] = "com.mbf.savio"
+    
+    clear_derived_data
+  end
+  
+  lane :savio_uat do
+  
+    badge_version = "build-#{ENV["BUILD_NUMBER"]}-green"
+    badge_icon_name = "icon_uat_badge.png"
+      
+    badge(
+      shield: badge_version,
+      custom: "fastlane/badges/#{badge_icon_name}",
+      shield_gravity: "South",
+      shield_no_resize: true
+    )
+    
+    update_app_identifier(
+      xcodeproj: "Savio.xcodeproj", 
+      plist_path: "Savio/Info.plist",
+      app_identifier: ENV["app_identifier_uat"]
+    )
+    
+    update_info_plist(
+      scheme: "Savio",
+      plist_path: "Savio/Info.plist",
+      xcodeproj: "Savio.xcodeproj",
+	  app_identifier: ENV["app_identifier_uat"]
+    )
+    
+    gym(
+      toolchain: :swift_2_3,
+      workspace: "Savio.xcworkspace",
+      scheme: "Savio",
+      configuration: "UAT",
+	  use_legacy_build_api: true
+    )
+
+    crashlytics(
+      api_token: "761dec15218ab1b985ecd5f0070f7204b59a0826",
+      build_secret: "32352c5a20c162184b4601242467a0dda1febc0e33ddf6049a1b758078c21e8e",
+      groups: "qa-team"
+    )
+  end
+
+end

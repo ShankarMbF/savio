@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5132ECBAA376482C476A8F41 /* Pods_Savio.framework */; };
 		5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C45361DBE432300A7E938 /* Contacts.framework */; };
+		842E9FAC1E58459600B3258E /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = 842E9FAB1E58459600B3258E /* fastlane */; };
 		84BD31781DD0ACD5006014B2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BD31761DD0ACA9006014B2 /* UserNotifications.framework */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
@@ -628,6 +629,7 @@
 		550C45361DBE432300A7E938 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
 		72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SavioWishList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		842E9FAB1E58459600B3258E /* fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fastlane; sourceTree = "<group>"; };
 		84BD31761DD0ACA9006014B2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -2137,6 +2139,7 @@
 		C9E5259F1CE986F9000FD01E = {
 			isa = PBXGroup;
 			children = (
+				842E9FAB1E58459600B3258E /* fastlane */,
 				CA0372271D48D89D00FC5C1B /* Fabric.framework */,
 				CA0372281D48D89D00FC5C1B /* Crashlytics.framework */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
@@ -2417,7 +2420,7 @@
 				TargetAttributes = {
 					A86681DC1CFEC26D0014DB59 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2437,7 +2440,7 @@
 					};
 					C9E525A71CE986FA000FD01E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 235FYPWGUK;
+						DevelopmentTeam = ESS76MX5U7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2525,6 +2528,7 @@
 				A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */,
 				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A88E81D71D49EA0F00CAA00F /* stats-achievement-money.png in Resources */,
+				842E9FAC1E58459600B3258E /* fastlane in Resources */,
 				A89F77F61D8C069900EA932B /* SAThankYouViewController.xib in Resources */,
 				C975A9271D01952900184C8C /* baby-category-icon.png in Resources */,
 				A88E81EB1D49EA0F00CAA00F /* stats-slider-bar@2x.png in Resources */,
@@ -3201,11 +3205,11 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3224,10 +3228,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "dfab160c-c93e-403b-a8d7-2386c3a8a193";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_VERSION = 2.3;
 			};
@@ -3239,10 +3243,10 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3261,10 +3265,10 @@
 				INFOPLIST_FILE = SavioWishList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio.saviowishlist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0e1be03-6913-4360-a6cc-f701fd6d98fa";
-				PROVISIONING_PROFILE_SPECIFIER = SavioWishList;
+				PROVISIONING_PROFILE = "dfab160c-c93e-403b-a8d7-2386c3a8a193";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3393,10 +3397,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3405,10 +3409,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3421,9 +3425,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Savio/Savio.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 235FYPWGUK;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3432,10 +3436,10 @@
 				);
 				INFOPLIST_FILE = Savio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbf.savio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a5b56f6f-9b26-46d2-896c-6ccd9adc4909";
-				PROVISIONING_PROFILE_SPECIFIER = Savio;
+				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;

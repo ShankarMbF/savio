@@ -3,7 +3,7 @@
 //  Savio
 //
 //  Created by Prashant on 04/06/16.
-//  Copyright Â© 2016 Prashant. All rights reserved.
+//  Copyright © 2016 Prashant. All rights reserved.
 //
 
 import UIKit
@@ -301,7 +301,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         let goodDate = dateFormatter.stringFromDate(date!)
         
-        objSavingPlanViewController.datePickerDate = goodDate
+        objSavingPlanViewController.datePickerDate = goodDate //groupDict["planEndDate"] as! String
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

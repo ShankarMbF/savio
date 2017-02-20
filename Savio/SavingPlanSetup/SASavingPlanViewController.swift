@@ -530,41 +530,43 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
                 datePickerDate = dateFormatter.stringFromDate(newDate!)
                 cell1.datePickerTextField.text = datePickerDate
-                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
             }
             else
             {
                 cell1.datePickerTextField.text = datePickerDate
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
+                print(datePickerDate)
             }
             
             if(isClearPressed) {
                 
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                let dateComponents = NSDateComponents()
-                let calender = NSCalendar.currentCalendar()
-                dateComponents.month = 3
-                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-                datePickerDate = dateFormatter.stringFromDate(newDate!)
-                cell1.datePickerTextField.text = datePickerDate
-                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
-                dateDiff = Int(timeDifference/3600)
+                //                let dateFormatter = NSDateFormatter()
+                //                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                //                let dateComponents = NSDateComponents()
+                //                let calender = NSCalendar.currentCalendar()
+                //                dateComponents.month = 3
+                //                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+                //                datePickerDate = dateFormatter.stringFromDate(newDate!)
+                //                cell1.datePickerTextField.text = datePickerDate
+                //                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                //                dateDiff = Int(timeDifference/3600)
                 
-//                if(isUpdatePlan) {
-//                    if(itemDetailsDataDict["planEndDate"] != nil) {
-//                        cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
-//                        cell1.datePickerTextField.textColor = UIColor.whiteColor()
-//                        datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
-//                    }
-//                }
-//                else {
-//                    
-//                    let dateFormatter = NSDateFormatter()
-//                    dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
-//                }
+                
+                //                if(isUpdatePlan) {
+                //                    if(itemDetailsDataDict["planEndDate"] != nil) {
+                //                        cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
+                //                        cell1.datePickerTextField.textColor = UIColor.whiteColor()
+                //                        datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
+                //                    }
+                //                }
+                //                else {
+                //
+                //                    let dateFormatter = NSDateFormatter()
+                //                    dateFormatter.dateFormat = "EEE dd/MM/yyyy"
+                //                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
+                //                }
             }
             if(dateString == "date")
             {
@@ -626,74 +628,74 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
-//                    cell1.dayDateTextField.text = ""
+                    //                    cell1.dayDateTextField.text = ""
                     var str = "1"
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
             }
-//            if(isClearPressed)  {
-//                if(isUpdatePlan) {
-//                    if let payType = itemDetailsDataDict["payType"] as? NSString {
-//                        if(payType == "Week") {
-//                            let button = UIButton()
-//                            button.tag = 0
-//                            cell1.segmentBar.toggleButton(button)
-//                        }
-//                        else if(isChangeSegment) {
-//                            let button = UIButton()
-//                            button.tag = 1
-//                            cell1.segmentBar.toggleButton(button)
-//                        }
-//                    }
-//                    if let payDate = itemDetailsDataDict["payDate"] as? String {
-//                        if(isPopoverValueChanged)
-//                        {
-//                            if(popOverSelectedStr != "") {
-//                                if(dateString == "day") {
-//                                    cell1.dayDateTextField.text = popOverSelectedStr
-//                                }
-//                                else {
-//                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
-//                                }
-//                            }
-//                            else {
-//                                if(dateString == "day") {
-//                                    cell1.dayDateTextField.text = payDate
-//                                }
-//                                else {
-//                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
-//                                }
-//                            }
-//                        }
-//                        else {
-//                            if(dateString == "day") {
-//                                cell1.dayDateTextField.text = payDate
-//                            }
-//                            else {
-//                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
-//                            }
-//                        }
-//                    }
-//                }
-//                else {
-//                    if(isPopoverValueChanged) {
-//                        if(popOverSelectedStr != "") {
-//                            if(dateString == "day") {
-//                                cell1.dayDateTextField.text = popOverSelectedStr
-//                            }
-//                            else {
-//                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
-//                            }
-//                        }
-//                        else {
-//                            cell1.dayDateTextField.text = ""
-//                        }
-//                    }
-//                    else {
-//                        cell1.dayDateTextField.text = ""
-//                    }
-//                }
-//            }
+            //            if(isClearPressed)  {
+            //                if(isUpdatePlan) {
+            //                    if let payType = itemDetailsDataDict["payType"] as? NSString {
+            //                        if(payType == "Week") {
+            //                            let button = UIButton()
+            //                            button.tag = 0
+            //                            cell1.segmentBar.toggleButton(button)
+            //                        }
+            //                        else if(isChangeSegment) {
+            //                            let button = UIButton()
+            //                            button.tag = 1
+            //                            cell1.segmentBar.toggleButton(button)
+            //                        }
+            //                    }
+            //                    if let payDate = itemDetailsDataDict["payDate"] as? String {
+            //                        if(isPopoverValueChanged)
+            //                        {
+            //                            if(popOverSelectedStr != "") {
+            //                                if(dateString == "day") {
+            //                                    cell1.dayDateTextField.text = popOverSelectedStr
+            //                                }
+            //                                else {
+            //                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+            //                                }
+            //                            }
+            //                            else {
+            //                                if(dateString == "day") {
+            //                                    cell1.dayDateTextField.text = payDate
+            //                                }
+            //                                else {
+            //                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+            //                                }
+            //                            }
+            //                        }
+            //                        else {
+            //                            if(dateString == "day") {
+            //                                cell1.dayDateTextField.text = payDate
+            //                            }
+            //                            else {
+            //                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //                else {
+            //                    if(isPopoverValueChanged) {
+            //                        if(popOverSelectedStr != "") {
+            //                            if(dateString == "day") {
+            //                                cell1.dayDateTextField.text = popOverSelectedStr
+            //                            }
+            //                            else {
+            //                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
+            //                            }
+            //                        }
+            //                        else {
+            //                            cell1.dayDateTextField.text = ""
+            //                        }
+            //                    }
+            //                    else {
+            //                        cell1.dayDateTextField.text = ""
+            //                    }
+            //                }
+            //            }
             return cell1
         }
         else if(indexPath.section == 4) {
@@ -783,8 +785,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         //                            dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                         
                         let dt = dateFormatter.dateFromString(date!)!
-//                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
-                         let timeDifference : NSTimeInterval = dt.timeIntervalSinceDate(NSDate())
+                        //                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
+                        let timeDifference : NSTimeInterval = dt.timeIntervalSinceDate(NSDate())
                         dateDiff = Int(timeDifference/3600)
                         if(payType == "Month") {
                             if((dateDiff/168) == 1) {
@@ -827,7 +829,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                                 }
                             }
-
+                            
                         }
                     }
                 }
@@ -847,13 +849,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 return cell1
             }
             else{
-               
+                
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
                 cell1.tblView = tblView
                 cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell1
-
+                
             }
         }
         else if(indexPath.section == offerArr.count+7) {
@@ -1114,16 +1116,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
+    
     //Clear all the data entered
     func clearButtonPressed()
     {
-         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
             if(self.isUpdatePlan == false) {
                 self.setUpView()
-//                self.dateDiff = 0
+                //                self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
                 self.itemTitle = ""
@@ -1131,6 +1134,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.dateString = "date"
                 self.popOverSelectedStr = "1"
                 self.isCostChanged = false
+                self.datePickerDate = ""
                 if(self.itemDetailsDataDict.keys.count > 0) {
                     self.itemDetailsDataDict.removeAll()
                 }
@@ -1139,12 +1143,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if self.offerArr.count>0 {
                     self.offerArr.removeAll()
                 }
-                 self.tblView.reloadData()
+                self.tblView.reloadData()
                 self.scrlView.contentOffset = CGPointMake(0, 20)
-//                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
-//                self.scrlView.contentSize = CGSizeMake(0, ht)
+                //                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
+                //                self.scrlView.contentSize = CGSizeMake(0, ht)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-               
+                
+                
             }
             else {
                 self.isDateChanged = false
@@ -1165,11 +1170,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 //                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             }
             
-//            let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
-//            self.scrlView.contentSize = CGSizeMake(0, ht)
-
-//            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
-
+            //            let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
+            //            self.scrlView.contentSize = CGSizeMake(0, ht)
+            
+            //            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
+            
             
             })
         

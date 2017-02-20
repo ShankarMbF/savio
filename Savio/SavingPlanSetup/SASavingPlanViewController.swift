@@ -1147,8 +1147,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
 //                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
 //                self.scrlView.contentSize = CGSizeMake(0, ht)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
-
-               
             }
             else {
                 self.isDateChanged = false
@@ -1171,7 +1169,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
 //            let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
 //            self.scrlView.contentSize = CGSizeMake(0, ht)
-
 //            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
 
             

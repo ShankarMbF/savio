@@ -3,7 +3,7 @@
 //  Savio
 //
 //  Created by Prashant on 04/06/16.
-//  Copyright © 2016 Prashant. All rights reserved.
+//  Copyright 2016 Prashant. All rights reserved.
 //
 
 import UIKit

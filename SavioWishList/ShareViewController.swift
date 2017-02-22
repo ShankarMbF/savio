@@ -64,7 +64,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 
                else if((priceTextField.text! as NSString).floatValue > 3000)
                 {
-                    let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £3000", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
@@ -274,7 +274,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         if((priceTextField.text! as NSString).floatValue > 3000)
         {
-            let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £3000", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }

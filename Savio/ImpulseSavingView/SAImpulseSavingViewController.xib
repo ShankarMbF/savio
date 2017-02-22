@@ -148,7 +148,7 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="£00" textAlignment="center" minimumFontSize="36" translatesAutoresizingMaskIntoConstraints="NO" id="Kyo-nz-RKi">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="£0" textAlignment="center" minimumFontSize="36" translatesAutoresizingMaskIntoConstraints="NO" id="Kyo-nz-RKi">
                                             <rect key="frame" x="50" y="90" width="130" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="130" id="0CV-NU-SRV"/>

@@ -87,7 +87,7 @@ class SAImpulseSavingViewController: UIViewController {
             {
                priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
             }else {
-                priceLabel.text = "£00"
+                priceLabel.text = "£0"
             }
             cancleButton.hidden = true
             priceTextField.borderStyle = UITextBorderStyle.None

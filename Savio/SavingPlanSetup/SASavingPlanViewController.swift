@@ -351,6 +351,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isOfferDetailPressed = false
             obj.delegate = self
              obj.isComingProgress = false
+            obj.addedOfferArr = offerArr
             if(isUpdatePlan)
             {
                 obj.savID = 63//itemDetailsDataDict["sav_id"] as! NSNumber
@@ -1425,6 +1426,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             //Else go to SAOfferListViewController
             let obj = SAOfferListViewController()
              obj.isComingProgress = false
+            obj.addedOfferArr = offerArr
             if(isOfferDetailPressed) {
                 isOfferDetailPressed = false
                 tblViewHt.constant = tblView.frame.size.height - (90 + offerDetailHeight)
@@ -1640,6 +1642,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
                 }
+                print(offerArr)
                 updateOfferArr = offerArr
                 tblView.reloadData()
 
@@ -1906,6 +1909,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //MARK: Offer delegate methods
     func addedOffers(offerForSaveArr:Dictionary<String,AnyObject>) {
+        print(offerForSaveArr)
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {
             //            tblViewHt.constant = tblView.frame.size.height + 50

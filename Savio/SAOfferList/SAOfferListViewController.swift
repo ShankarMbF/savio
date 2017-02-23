@@ -35,6 +35,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     var delegate : SAOfferListViewDelegate?
     var objAnimView = ImageViewAnimation()
     var isComingProgress: Bool?
+    var addedOfferArr: Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
+
 
 
     // MARK: - view life cycle
@@ -148,6 +150,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                     }
                 }
             }
+            print(offerArr)
             tblView?.reloadData()
         }
         else {
@@ -468,6 +471,22 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
 
     //Function invoke on tapping add offer button
     func clickedOnAddOffer(sender: UIButton){
+        let offerDict = self.offerArr[sender.tag] as Dictionary<String,AnyObject>
+        print(offerDict["offId"]!)
+    
+        for i in 0 ..< addedOfferArr.count{
+            let newDict = addedOfferArr[i]
+            var msg = "Offer has already been added. Please select another."
+            if self.offerArr.count == 1{
+                msg = "Offer has already been added."
+            }
+            if offerDict["offId"] as! NSNumber == newDict["offId"] as! NSNumber {
+                let alert = UIAlertView(title: "Alert", message: msg, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
+                return
+            }
+        }
+       
         let alertController = UIAlertController(title: "Alert", message: "Your offer has been added to your plan and will be applied when you make your purchase through Savio.", preferredStyle: UIAlertControllerStyle.Alert)
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
@@ -496,6 +515,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 let dict = self.checkNullDataFromDict(obj[i] as Dictionary<String,AnyObject>)
                 offerArr.append(dict)
             }
+            print(offerArr)
         tblView?.reloadData()
         }
     }

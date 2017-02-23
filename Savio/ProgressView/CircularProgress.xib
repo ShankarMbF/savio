@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +25,7 @@
                     <rect key="frame" x="30" y="0.0" width="540" height="453"/>
                     <subviews>
                         <view tag="5" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
-                            <rect key="frame" x="170" y="126.5" width="200" height="200"/>
+                            <rect key="frame" x="170" y="127" width="200" height="200"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
                                     <rect key="frame" x="15" y="15" width="170" height="170"/>
@@ -33,63 +33,48 @@
                                 <activityIndicatorView opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="We0-eo-g6b">
                                     <rect key="frame" x="90" y="90" width="20" height="20"/>
                                 </activityIndicatorView>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                                    <rect key="frame" x="25" y="101" width="150" height="60"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="Tkm-p9-54I"/>
-                                        <constraint firstAttribute="height" constant="60" id="myv-oh-nu9"/>
-                                        <constraint firstAttribute="width" constant="150" id="xBj-9G-ey1"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="22"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Tkm-p9-54I"/>
-                                        </mask>
-                                    </variation>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
-                                    <rect key="frame" x="25" y="21" width="150" height="60"/>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdY-a0-Tz4">
+                                    <rect key="frame" x="25" y="53" width="150" height="80"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="Dil-4C-HQX"/>
-                                        <constraint firstAttribute="width" constant="150" id="Q5P-Hg-exK"/>
-                                        <constraint firstAttribute="height" constant="60" id="fum-cP-NlL"/>
-                                        <constraint firstAttribute="width" constant="128" id="zP2-0n-Ldn"/>
+                                        <constraint firstAttribute="height" constant="80" id="Yw5-uk-PVo"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="27"/>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="40"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="Dil-4C-HQX"/>
-                                            <exclude reference="zP2-0n-Ldn"/>
-                                        </mask>
-                                    </variation>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
+                                    <rect key="frame" x="75" y="111" width="50" height="45"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="RUf-At-mpu"/>
+                                        <constraint firstAttribute="height" constant="45" id="wpi-Me-2Jh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="14"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="24N-FK-d7V"/>
                                 <constraint firstAttribute="width" constant="200" id="2Bd-JI-oi1"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="3BS-tp-p0d"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="53" id="6ZS-Du-AII"/>
                                 <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="15" id="9UP-7I-eAb"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="lBD-XE-gZN" secondAttribute="centerX" id="JvZ-Ki-mAz"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="-22" id="GXv-tx-o2M"/>
                                 <constraint firstItem="We0-eo-g6b" firstAttribute="centerY" secondItem="kwY-gp-AnE" secondAttribute="centerY" id="MrW-3m-2F0"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="20" id="Mzw-jC-dHU"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="RcR-ju-m24"/>
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="15" id="VSq-oH-jvA"/>
+                                <constraint firstAttribute="trailing" secondItem="FdY-a0-Tz4" secondAttribute="trailing" constant="25" id="ZW7-qx-f8F"/>
                                 <constraint firstAttribute="width" secondItem="kwY-gp-AnE" secondAttribute="height" multiplier="1:1" id="ZeF-Xz-74Q"/>
                                 <constraint firstAttribute="trailing" secondItem="lBD-XE-gZN" secondAttribute="trailing" constant="15" id="aDM-ZD-8qJ"/>
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="15" id="dzj-Q2-bwV"/>
+                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="n9b-Nj-SWV"/>
                                 <constraint firstAttribute="height" constant="200" id="pyA-So-dWZ"/>
-                                <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="21" id="xyF-bG-Tio"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="vJq-p0-sSp"/>
                                 <constraint firstItem="We0-eo-g6b" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="yIt-v1-8fi"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="BPC-ZS-jyP"/>
-                                    <exclude reference="JvZ-Ki-mAz"/>
                                 </mask>
                             </variation>
                         </view>

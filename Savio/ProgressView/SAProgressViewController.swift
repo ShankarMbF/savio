@@ -217,16 +217,19 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 imgView.layer.cornerRadius = imgView.frame.width/2
             }
             else if(i == 1) {
+//                paidAmount = 1053
                 labelOne.hidden = false
-                labelOne.text = "0.0%"
+                labelOne.attributedText = self.createXLabelTextForPercent(i, text: "0")
                 labelTwo.hidden = false
-                labelTwo.text = String(format: "£ %0.2f added",paidAmount)
+                labelTwo.numberOfLines = 0
+                labelTwo.lineBreakMode = .ByWordWrapping
+                labelTwo.attributedText = self.createXLabelText(0, text: String(format: "%0.f added",paidAmount))//String(format: "£%0.f added",paidAmount)
                 imgView.hidden = true
                 activityIndicator.hidden = true
             }
             else {
                 labelOne.hidden = false
-                labelOne.text = String(format: "£ %0.2f",totalAmount - paidAmount)
+                labelOne.attributedText = self.createXLabelTextForLast(i, text: String(format: "%0.f",totalAmount - paidAmount))//String(format: "£%0.f",totalAmount - paidAmount)
                 labelTwo.hidden = false
                 labelTwo.text = "0 days to go"
                 imgView.hidden = true
@@ -240,6 +243,45 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         maskLayer.frame = self.planButton!.bounds
         maskLayer.path = maskPath.CGPath
         self.planButton?.layer.mask = maskLayer
+    }
+    
+    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
+        let normalscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:8)!,NSBaselineOffsetAttributeName:3])
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:15)
+        
+        
+        let superscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:0])
+        normalscript.appendAttributedString(superscript)
+         let newLinAttr = NSMutableAttributedString(string: "\n")
+        normalscript.appendAttributedString(newLinAttr)
+        return normalscript
+    }
+    
+    private func createXLabelTextForLast (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:15)
+        let normalscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:17)!,NSBaselineOffsetAttributeName:15])
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:40)
+        
+        
+        let superscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:0])
+        normalscript.appendAttributedString(superscript)
+        let newLinAttr = NSMutableAttributedString(string: "\n")
+        normalscript.appendAttributedString(newLinAttr)
+        return normalscript
+    }
+    
+    private func createXLabelTextForPercent (index: Int,text:String) -> NSMutableAttributedString {
+        let fontNormal:UIFont? = UIFont(name: kMediumFont, size:15)
+        let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:40)!,NSBaselineOffsetAttributeName:0])
+        let fontSuper:UIFont? = UIFont(name: kMediumFont, size:17)
+        
+        
+        let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
+        normalscript.appendAttributedString(superscript)
+        let newLinAttr = NSMutableAttributedString(string: "\n")
+        normalscript.appendAttributedString(newLinAttr)
+        return normalscript
     }
     
     //Function invoke for call get wish list API

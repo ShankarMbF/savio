@@ -280,7 +280,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["party_role"] =  4
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-            objimpInfo.lblHeader.text = "Terms and Condidtions"//"Why do we need this information?"
+            objimpInfo.lblHeader.text = "Terms and Conditions"//"Why do we need this information?"
             
 //            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
 //            print(termAndConditionText!)
@@ -348,7 +348,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                                      self.termAndConditionText = dict["content"]!["content"] as! String
                                     self.objAnimView.removeFromSuperview()
                                     self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-                                    self.objimpInfo.lblHeader.text = "Terms and Condidtions"
+                                    self.objimpInfo.lblHeader.text = "Terms and Conditions"
                                     let theAttributedString = try! NSAttributedString(data: self.termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                                                       options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                                                       documentAttributes: nil)

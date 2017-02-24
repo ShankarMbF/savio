@@ -6,11 +6,8 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-<<<<<<< HEAD
-		<string>group.com.savio.app</string>
-=======
+
 		<string>group.savio.web.share.extention</string>
->>>>>>> swift-2.3
 	</array>
 </dict>
 </plist>

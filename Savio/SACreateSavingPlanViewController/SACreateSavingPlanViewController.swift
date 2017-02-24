@@ -23,6 +23,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var contentView: UIView!                 //IBOutlet for scrollview container view
     //-----------------------------------------------------------------------------------------
     
+    
+    
     var objAnimView = ImageViewAnimation() //Object of custom loding indicator
     var heartBtn: UIButton = UIButton()    //Heart button on navigation bar
     var colors:[Dictionary<String,AnyObject>] = []
@@ -418,7 +420,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Your Wish List is empty!", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -561,7 +563,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {
@@ -595,7 +597,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {

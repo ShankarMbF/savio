@@ -495,7 +495,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAnimView.removeFromSuperview()
         if(error == "Network not available")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else if(error == "That postcode doesn't look right")
@@ -585,7 +585,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else {
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")

@@ -489,7 +489,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -1638,7 +1638,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     func errorResponseForGetUserInfoAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -1688,7 +1688,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func errorResponseForUpdateUserInfoAPI(error: String) {
         objAnimView?.removeFromSuperview()
         if error == "Network not available" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
 

@@ -346,7 +346,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func errorResponseForDeleteWishListAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -381,7 +381,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //Fail response GetWishlist API
     func errorResponseForGetWishlistAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

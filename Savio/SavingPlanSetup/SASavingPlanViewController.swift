@@ -1601,6 +1601,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //MARK: GetUsersSavingplanDelegate methods
     func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
         var isImgLoad = false
         if let message = objResponse["message"] as? String {
             if(message == "Success") {

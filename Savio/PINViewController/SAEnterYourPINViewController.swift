@@ -357,6 +357,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     {
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = false
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     func errorResponseForOTPSentAPI(error:String){
@@ -374,6 +375,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         {
         
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+            fiveDigitVerificationViewController.isComingFromRegistration = false
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
         }
         

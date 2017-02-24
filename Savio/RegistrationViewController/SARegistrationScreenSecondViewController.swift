@@ -598,11 +598,13 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     {
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+>>>>>>> swift-2.3
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
+<<<<<<< HEAD
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+=======
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+>>>>>>> swift-2.3
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -116,6 +124,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+<<<<<<< HEAD
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZbP-PN-zDR">
                     <rect key="frame" x="550" y="493" width="40" height="50"/>
                     <constraints>
@@ -123,10 +132,11 @@
                         <constraint firstAttribute="height" constant="50" id="N9X-ae-Jcu"/>
                     </constraints>
                 </imageView>
+=======
+>>>>>>> swift-2.3
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="f6b-kM-t6F" firstAttribute="top" secondItem="ZbP-PN-zDR" secondAttribute="bottom" constant="5" id="2eY-KO-1uJ"/>
                 <constraint firstItem="f6b-kM-t6F" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2ff-fS-8Mu"/>
                 <constraint firstItem="kSW-2g-1ev" firstAttribute="top" secondItem="aYI-xq-r0R" secondAttribute="bottom" constant="25" id="6ST-4K-Cpf"/>
                 <constraint firstItem="f6b-kM-t6F" firstAttribute="top" secondItem="Pw7-fY-1Wb" secondAttribute="bottom" constant="28" id="7LB-B2-5g3"/>
@@ -136,7 +146,6 @@
                 <constraint firstAttribute="trailing" secondItem="kSW-2g-1ev" secondAttribute="trailing" constant="30" id="CDM-GZ-jSD"/>
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="MLr-hG-rDz"/>
                 <constraint firstAttribute="trailing" secondItem="Pw7-fY-1Wb" secondAttribute="trailing" constant="50" id="NVF-xs-fyd"/>
-                <constraint firstAttribute="trailing" secondItem="ZbP-PN-zDR" secondAttribute="trailing" constant="10" id="OlS-Dd-K1Z"/>
                 <constraint firstAttribute="trailing" secondItem="aYI-xq-r0R" secondAttribute="trailing" constant="30" id="WCY-Uc-2lI"/>
                 <constraint firstItem="Pw7-fY-1Wb" firstAttribute="top" secondItem="kSW-2g-1ev" secondAttribute="bottom" constant="20" id="dg1-jz-7DM"/>
                 <constraint firstItem="aYI-xq-r0R" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="g1T-1x-Dtg"/>
@@ -156,7 +165,4 @@
             <point key="canvasLocation" x="221" y="203"/>
         </view>
     </objects>
-    <resources>
-        <image name="Arrow.png" width="77" height="91"/>
-    </resources>
 </document>

@@ -280,7 +280,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["party_role"] =  4
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-            objimpInfo.lblHeader.text = "Terms and Condidtions"//"Why do we need this information?"
+
+            objimpInfo.lblHeader.text = "Terms and Conditions"//"Why do we need this information?"
             
 //            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
 //            print(termAndConditionText!)
@@ -328,7 +329,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -348,7 +350,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                                      self.termAndConditionText = dict["content"]!["content"] as! String
                                     self.objAnimView.removeFromSuperview()
                                     self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-                                    self.objimpInfo.lblHeader.text = "Terms and Condidtions"
+
+                                    self.objimpInfo.lblHeader.text = "Terms and Conditions"
                                     let theAttributedString = try! NSAttributedString(data: self.termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
                                                                                       options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                                                       documentAttributes: nil)
@@ -598,11 +601,13 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     {
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     

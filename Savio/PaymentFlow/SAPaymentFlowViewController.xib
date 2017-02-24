@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+>>>>>>> swift-2.3
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -193,44 +197,76 @@
                                     <rect key="frame" x="30" y="215" width="315" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Jo-ZT-hde">
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="68" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="NGl-ya-vgJ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="13.5"/>
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="69" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="NGl-ya-vgJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+>>>>>>> swift-2.3
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="17N-sm-W7X"/>
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rJk-TW-mEJ">
+<<<<<<< HEAD
                                             <rect key="frame" x="82.5" y="0.0" width="68" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Pzt-4M-DED"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="13.5"/>
+=======
+                                            <rect key="frame" x="82.5" y="0.0" width="68.5" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Pzt-4M-DED"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+>>>>>>> swift-2.3
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="YAQ-Jr-WkP"/>
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Un-iY-eP1">
+<<<<<<< HEAD
                                             <rect key="frame" x="165" y="0.0" width="68" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="X4T-6T-Yh5"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="13.5"/>
+=======
+                                            <rect key="frame" x="164.5" y="0.0" width="69" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="X4T-6T-Yh5"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+>>>>>>> swift-2.3
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="M5j-Hf-acx"/>
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5D3-6j-APN">
+<<<<<<< HEAD
                                             <rect key="frame" x="247.5" y="0.0" width="68" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="TmX-LQ-iHw"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="13.5"/>
+=======
+                                            <rect key="frame" x="247" y="0.0" width="68" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="TmX-LQ-iHw"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="14"/>
+>>>>>>> swift-2.3
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="BJZ-34-WD9"/>

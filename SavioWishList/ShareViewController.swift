@@ -22,6 +22,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     var spinner =  UIActivityIndicatorView()
     var currentImagePosition: Int = 0;
     var dictGlobal : Dictionary  <String,AnyObject> = [:]
+    var isWebserviceCall: Bool = false
     
     @IBAction func cancelButtonTapped(sender: AnyObject) {
         self.extensionContext?.completeRequestReturningItems(nil, completionHandler: nil)
@@ -64,7 +65,9 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                 
                else if((priceTextField.text! as NSString).floatValue > 3000)
                 {
-                    let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+
+                    let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £3000", preferredStyle: UIAlertControllerStyle.Alert)
+                    
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
@@ -77,6 +80,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     if(Float(text!) < 3000)
                     {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                        if self.isWebserviceCall == false {
+                            self.isWebserviceCall = true
                         self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
                         self.spinner.hidesWhenStopped = true
                         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -100,6 +105,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         dict["SHAREDSAVINGPLANID"] = ""
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)
+                        }
                         
                     });
                     }
@@ -209,6 +215,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         for item: AnyObject in (self.extensionContext?.inputItems)! {
             let inputItem = item as! NSExtensionItem
             for provider: AnyObject in inputItem.attachments! {//group.savio.web.share.extention
+
                 let itemProvider = provider as! NSItemProvider
                 let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
                 if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
@@ -274,7 +281,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
         
         if((priceTextField.text! as NSString).floatValue > 3000)
         {
-            let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £ 3000", preferredStyle: UIAlertControllerStyle.Alert)
+
+            let alert = UIAlertController(title: "Whoa!", message: "The maximum you can top up is £3000", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -299,6 +307,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     func successResponseForShareExtensionAPI(objResponse: Dictionary<String, AnyObject>) {
         spinner.stopAnimating()
         spinner.hidden = true
+        isWebserviceCall = false
         print(objResponse)
         let alert = UIAlertController(title: "We've added this product to your wish list.", message: "Open the Savio app to start your saving plan.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
@@ -312,6 +321,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
     func errorResponseForShareExtensionAPI(error: String) {
         spinner.stopAnimating()
         spinner.hidden = true
+        isWebserviceCall = false
         if(error == "No network found")
         {
             let alert = UIAlertController(title: "Connection problem", message: "Savio needs the internet to Save wish list items. Check your data connection and try again.", preferredStyle: UIAlertControllerStyle.Alert)

@@ -67,7 +67,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
             slider.value = Float(textFieldValue)!
             delegate?.txtFieldCellText(self)
             if(Float(textFieldValue)! > 3000) {
-                let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+
+                let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }else{
@@ -198,7 +199,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         {
             self.costTextField.attributedText = self.createAttributedString("£3000")
             slider.value = 3000
-            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+
+            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             return false
         }
@@ -229,7 +231,8 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         slider.value = Float(textFieldValue)!
         delegate?.txtFieldCellText(self)
         if(Float(textFieldValue) > 3000) {
-            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+
+            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         return true

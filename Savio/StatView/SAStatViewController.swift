@@ -265,6 +265,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         //Hide add offer button from offer list
         obj.hideAddOfferButton = true
         obj.isComingProgress = true
+
         //navigate to offer list
         self.navigationController?.pushViewController(obj, animated: true)
     }

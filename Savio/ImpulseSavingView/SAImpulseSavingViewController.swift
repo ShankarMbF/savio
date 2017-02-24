@@ -270,7 +270,8 @@ class SAImpulseSavingViewController: UIViewController {
         if(Float(valueString)! > maxPrice)
         {
             circleSlider.value = 0.0
-            let msgStr = String(format: "The maximum you can top up is £ %.0f", maxPrice!)
+
+            let msgStr = String(format: "The maximum you can top up is £%.0f", maxPrice!)
             let alert = UIAlertView(title: "Whoa!", message: msgStr, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
             self.removeKeyboardNotification()
@@ -378,7 +379,8 @@ class SAImpulseSavingViewController: UIViewController {
         priceTextField.resignFirstResponder()
     
         if(Float(tfString) > maxPrice) {
-            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £ 3000", delegate: nil, cancelButtonTitle: "Ok")
+
+            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         self.removeKeyboardNotification()

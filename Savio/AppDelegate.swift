@@ -35,7 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         Stripe.setDefaultPublishableKey("pk_test_dfQyZuLy5OiRc24IspyuEhdD")
         
         Fabric.with([Crashlytics.self])
-        registerForPushNotifications(application)
+        
+
+        let notificationTypes: UIUserNotificationType = [.Badge, .Sound, .Alert]
+        let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        application.registerUserNotificationSettings(pushNotificationSettings)
+        application.registerForRemoteNotifications()
         
         // Check if launched from notification
         if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
@@ -178,15 +183,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     }
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [String : Any]) {
+        print(userInfo)
+    }
+    
     //Delegate method invoke when APNS is successfully registered, and provide deviceToken.
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+   func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        
+        print("DEVICE TOKEN = \(deviceToken)")
+
         let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
         var tokenString = ""
         
         for i in 0..<deviceToken.length {
             tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
         }
- 
+         print(tokenString)
         NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "APNSTOKEN")
         NSUserDefaults.standardUserDefaults().synchronize()
     }

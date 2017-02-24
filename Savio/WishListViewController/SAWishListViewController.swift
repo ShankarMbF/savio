@@ -3,7 +3,7 @@
 //  Savio
 //
 //  Created by Prashant on 04/06/16.
-//  Copyright © 2016 Prashant. All rights reserved.
+//  Copyright 2016 Prashant. All rights reserved.
 //
 
 import UIKit
@@ -294,16 +294,16 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         let objSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
         let groupDict = wishListArray[sender.tag] 
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
-        
+
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.dateFromString(groupDict["planEndDate"] as! String)
         
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         let goodDate = dateFormatter.stringFromDate(date!)
-        print(goodDate)
+
         
-        objSavingPlanViewController.datePickerDate = goodDate//groupDict["planEndDate"] as! String
+        objSavingPlanViewController.datePickerDate = goodDate //groupDict["planEndDate"] as! String
         self.navigationController?.pushViewController(objSavingPlanViewController, animated: true)
     }
     

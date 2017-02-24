@@ -22,6 +22,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     let objAPI = API()
     var objAnimView = ImageViewAnimation()
     var userInfoDict : Dictionary<String,AnyObject> = [:]
+    var isComingFromRegistration: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,24 +87,34 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     
     @IBAction func clickOnBackButton(sender: AnyObject) {
         /*
-        fiveDigitTextField.hidden = true
-        resentCodeButton.hidden = true
-        backButton.hidden = true
-        yourCodeSentLabel.hidden = false
-        headerText.text = "We've sent you a verification code"
-        gotItButton.setTitle("Got It", forState: UIControlState.Normal)
-        codeDoesNotMatchLabel.hidden = true
+         fiveDigitTextField.hidden = true
+         resentCodeButton.hidden = true
+         backButton.hidden = true
+         yourCodeSentLabel.hidden = false
+         headerText.text = "We've sent you a verification code"
+         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
+         codeDoesNotMatchLabel.hidden = true
          */
-        
-        for viewcontroller in self.navigationController!.viewControllers as Array {
-            if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
-                self.navigationController?.popToViewController(viewcontroller , animated: true)
-                break
+
+        if isComingFromRegistration == true {
+            for viewcontroller in self.navigationController!.viewControllers as Array {
+                if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                    self.navigationController?.popToViewController(viewcontroller , animated: true)
+                    break
+                }
             }
         }
-
-//        let saRegisterViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
-//        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
+        else{
+            for viewcontroller in self.navigationController!.viewControllers as Array {
+                if viewcontroller.isKindOfClass(SAEnterYourPINViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                    self.navigationController?.popToViewController(viewcontroller , animated: true)
+                    break
+                }
+            }
+        }
+        
+        //        let saRegisterViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
+        //        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
     }
     
     @IBAction func doneButtonToolBarPressed(sender: AnyObject) {

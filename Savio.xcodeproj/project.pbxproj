@@ -10,6 +10,18 @@
 		11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5132ECBAA376482C476A8F41 /* Pods_Savio.framework */; };
 		5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C45361DBE432300A7E938 /* Contacts.framework */; };
 		84BD31781DD0ACD5006014B2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BD31761DD0ACA9006014B2 /* UserNotifications.framework */; };
+
+		84E24F801E584CB200D47BC3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F731E584CB200D47BC3 /* .gitignore */; };
+		84E24F811E584CB200D47BC3 /* app_name.rb in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F751E584CB200D47BC3 /* app_name.rb */; };
+		84E24F821E584CB200D47BC3 /* build_number_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F761E584CB200D47BC3 /* build_number_icon.rb */; };
+		84E24F831E584CB200D47BC3 /* color_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F771E584CB200D47BC3 /* color_icon.rb */; };
+		84E24F841E584CB200D47BC3 /* update_app_identifier.rb in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F781E584CB200D47BC3 /* update_app_identifier.rb */; };
+		84E24F851E584CB200D47BC3 /* Appfile in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F791E584CB200D47BC3 /* Appfile */; };
+		84E24F861E584CB200D47BC3 /* icon_staging_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7B1E584CB200D47BC3 /* icon_staging_badge.png */; };
+		84E24F871E584CB200D47BC3 /* icon_uat_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7C1E584CB200D47BC3 /* icon_uat_badge.png */; };
+		84E24F881E584CB200D47BC3 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7D1E584CB200D47BC3 /* Fastfile */; };
+		84E24F891E584CB200D47BC3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 84E24F7E1E584CB200D47BC3 /* README.md */; };
+		84E24F8A1E584CB200D47BC3 /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7F1E584CB200D47BC3 /* report.xml */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -595,16 +607,7 @@
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
 		CD370554CAA0EC2E0DB6EC86 /* Pods_SavioWishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */; };
-		D4B1EBB71E5834AB007219AD /* app_name.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAC1E5834AB007219AD /* app_name.rb */; };
-		D4B1EBB81E5834AB007219AD /* build_number_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAD1E5834AB007219AD /* build_number_icon.rb */; };
-		D4B1EBB91E5834AB007219AD /* color_icon.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAE1E5834AB007219AD /* color_icon.rb */; };
-		D4B1EBBA1E5834AB007219AD /* update_app_identifier.rb in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBAF1E5834AB007219AD /* update_app_identifier.rb */; };
-		D4B1EBBB1E5834AB007219AD /* Appfile in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB01E5834AB007219AD /* Appfile */; };
-		D4B1EBBC1E5834AB007219AD /* icon_staging_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB21E5834AB007219AD /* icon_staging_badge.png */; };
-		D4B1EBBD1E5834AB007219AD /* icon_uat_badge.png in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB31E5834AB007219AD /* icon_uat_badge.png */; };
-		D4B1EBBE1E5834AB007219AD /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB41E5834AB007219AD /* Fastfile */; };
-		D4B1EBBF1E5834AB007219AD /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D4B1EBB51E5834AB007219AD /* README.md */; };
-		D4B1EBC01E5834AB007219AD /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = D4B1EBB61E5834AB007219AD /* report.xml */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -639,6 +642,18 @@
 		674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
 		72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SavioWishList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BD31761DD0ACA9006014B2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+
+		84E24F731E584CB200D47BC3 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		84E24F751E584CB200D47BC3 /* app_name.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = app_name.rb; sourceTree = "<group>"; };
+		84E24F761E584CB200D47BC3 /* build_number_icon.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = build_number_icon.rb; sourceTree = "<group>"; };
+		84E24F771E584CB200D47BC3 /* color_icon.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = color_icon.rb; sourceTree = "<group>"; };
+		84E24F781E584CB200D47BC3 /* update_app_identifier.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = update_app_identifier.rb; sourceTree = "<group>"; };
+		84E24F791E584CB200D47BC3 /* Appfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Appfile; sourceTree = "<group>"; };
+		84E24F7B1E584CB200D47BC3 /* icon_staging_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_staging_badge.png; sourceTree = "<group>"; };
+		84E24F7C1E584CB200D47BC3 /* icon_uat_badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_uat_badge.png; sourceTree = "<group>"; };
+		84E24F7D1E584CB200D47BC3 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
+		84E24F7E1E584CB200D47BC3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		84E24F7F1E584CB200D47BC3 /* report.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = report.xml; sourceTree = "<group>"; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -1295,6 +1310,40 @@
 				674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		84E24F721E584CB200D47BC3 /* fastlane */ = {
+			isa = PBXGroup;
+			children = (
+				84E24F731E584CB200D47BC3 /* .gitignore */,
+				84E24F741E584CB200D47BC3 /* actions */,
+				84E24F791E584CB200D47BC3 /* Appfile */,
+				84E24F7A1E584CB200D47BC3 /* badges */,
+				84E24F7D1E584CB200D47BC3 /* Fastfile */,
+				84E24F7E1E584CB200D47BC3 /* README.md */,
+				84E24F7F1E584CB200D47BC3 /* report.xml */,
+			);
+			path = fastlane;
+			sourceTree = "<group>";
+		};
+		84E24F741E584CB200D47BC3 /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				84E24F751E584CB200D47BC3 /* app_name.rb */,
+				84E24F761E584CB200D47BC3 /* build_number_icon.rb */,
+				84E24F771E584CB200D47BC3 /* color_icon.rb */,
+				84E24F781E584CB200D47BC3 /* update_app_identifier.rb */,
+			);
+			path = actions;
+			sourceTree = "<group>";
+		};
+		84E24F7A1E584CB200D47BC3 /* badges */ = {
+			isa = PBXGroup;
+			children = (
+				84E24F7B1E584CB200D47BC3 /* icon_staging_badge.png */,
+				84E24F7C1E584CB200D47BC3 /* icon_uat_badge.png */,
+			);
+			path = badges;
 			sourceTree = "<group>";
 		};
 		A8095B8C1CEDC4D5006366F7 /* KeyChainItemWrapper */ = {
@@ -2157,7 +2206,8 @@
 		C9E5259F1CE986F9000FD01E = {
 			isa = PBXGroup;
 			children = (
-				D4B1EBAA1E5830AE007219AD /* Fastlane */,
+
+				84E24F721E584CB200D47BC3 /* fastlane */,
 				CA0372271D48D89D00FC5C1B /* Fabric.framework */,
 				CA0372281D48D89D00FC5C1B /* Crashlytics.framework */,
 				C9E525AA1CE986FA000FD01E /* Savio */,
@@ -2484,6 +2534,9 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 0;
 							};
 							com.apple.iCloud = {
@@ -2569,6 +2622,7 @@
 				C975A9331D01952900184C8C /* holiday-category-icon.png in Resources */,
 				C9ED80311D1BC38A00058A96 /* menu-active-settings@3x.png in Resources */,
 				A858A5F41D08127C0097546F /* generic-circle@2x.png in Resources */,
+				84E24F811E584CB200D47BC3 /* app_name.rb in Resources */,
 				C9ED803F1D1BC38A00058A96 /* menu-active-whishlist@3x.png in Resources */,
 				A88E81EF1D49EA0F00CAA00F /* stats-spend-tab-active@3x.png in Resources */,
 				C90D39CB1D068D2000F285BB /* nav-back@3x.png in Resources */,
@@ -2580,7 +2634,8 @@
 				C9ED803B1D1BC38A00058A96 /* menu-active-update.png in Resources */,
 				D4B1EBC01E5834AB007219AD /* report.xml in Resources */,
 				A8B1CB581D87CAED00EB8772 /* SAPaymentFlowViewController.xib in Resources */,
-				D4B1EBB91E5834AB007219AD /* color_icon.rb in Resources */,
+
+				84E24F801E584CB200D47BC3 /* .gitignore in Resources */,
 				C9361EC21D30CD0E00605E1B /* SocialSharingView.xib in Resources */,
 				A88E81D71D49EA0F00CAA00F /* stats-achievement-money.png in Resources */,
 				A89F77F61D8C069900EA932B /* SAThankYouViewController.xib in Resources */,
@@ -2593,6 +2648,7 @@
 				C9ED802D1D1BC38A00058A96 /* menu-active-progress@2x.png in Resources */,
 				D4B1EBB71E5834AB007219AD /* app_name.rb in Resources */,
 				A88E81F51D49EA0F00CAA00F /* target-score-crown@3x.png in Resources */,
+				84E24F831E584CB200D47BC3 /* color_icon.rb in Resources */,
 				A88E81E51D49EA0F00CAA00F /* stats-plan-tab-active@2x.png in Resources */,
 				C9E854F51CF44B4A006213BF /* down-arrow-45x45.png in Resources */,
 				A858A6011D08127C0097546F /* ride-circle@3x.png in Resources */,
@@ -2801,6 +2857,7 @@
 				A82B9C8B1D0688B200BFD084 /* generic-calendar@3x.png in Resources */,
 				A859DDC41D50AD3500932150 /* home-updown@1x.png in Resources */,
 				A859DD9C1D50ACDD00932150 /* gadget-updown@3x.png in Resources */,
+				84E24F861E584CB200D47BC3 /* icon_staging_badge.png in Resources */,
 				C94A708D1CF55FA8002E9449 /* splash-logo.png in Resources */,
 				A86682081CFF09940014DB59 /* CalculationTableViewCell.xib in Resources */,
 				A8BDCBE11D05557500D4C47B /* generic-setup-bg@3x.png in Resources */,
@@ -2882,6 +2939,7 @@
 				A859DDAA1D50AD1F00932150 /* group-dropdown@2x.png in Resources */,
 				A841DAB01D507F9E00846F46 /* 9.png in Resources */,
 				C94F93AD1D1946910065F588 /* SASwitchViewController.xib in Resources */,
+				84E24F841E584CB200D47BC3 /* update_app_identifier.rb in Resources */,
 				A8BDCBEB1D05557500D4C47B /* holiday-setup-bg.png in Resources */,
 				A8BDCBE01D05557500D4C47B /* generic-setup-bg@2x.png in Resources */,
 				A859DDCD1D50AD3F00932150 /* ride-dropdown@1x.png in Resources */,
@@ -2914,6 +2972,7 @@
 				A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */,
 				A88E81D21D49EA0F00CAA00F /* stats-achievement-holder.png in Resources */,
 				A8BDCBE41D05557500D4C47B /* group-save-calendar@3x.png in Resources */,
+				84E24F8A1E584CB200D47BC3 /* report.xml in Resources */,
 				A88E81BE1D49EA0F00CAA00F /* group-stats-achievement-money-popup@2x.png in Resources */,
 				C9ED80571D1BC38A00058A96 /* menu-switch@2x.png in Resources */,
 				A88E81E21D49EA0F00CAA00F /* stats-offers-tab@2x.png in Resources */,
@@ -2948,8 +3007,9 @@
 				A8BDCBD61D05557500D4C47B /* gadget-calendar.png in Resources */,
 				C975A9351D01952900184C8C /* holiday-category-icon@3x.png in Resources */,
 				A87CE8881D8FB7CA00270494 /* Visa@2x.png in Resources */,
-				D4B1EBB81E5834AB007219AD /* build_number_icon.rb in Resources */,
+				84E24F881E584CB200D47BC3 /* Fastfile in Resources */,
 				A8E3CA2B1D79AFD2002B792C /* Default-568h@2x.png in Resources */,
+				84E24F821E584CB200D47BC3 /* build_number_icon.rb in Resources */,
 				A858A5EE1D08127C0097546F /* baby-circle@3x.png in Resources */,
 				C91E23E81D029C3300DC6D29 /* SAWishListViewController.xib in Resources */,
 				A88E81D51D49EA0F00CAA00F /* stats-achievement-money@2x.png in Resources */,
@@ -2998,6 +3058,7 @@
 				C975A9371D01952900184C8C /* home-category-icon@2x.png in Resources */,
 				A88E81FB1D49ED0400CAA00F /* stats-achievement-popup@3x.png in Resources */,
 				C9ED80591D1BC38A00058A96 /* menu-update.png in Resources */,
+				84E24F851E584CB200D47BC3 /* Appfile in Resources */,
 				A88E81E01D49EA0F00CAA00F /* stats-offers-tab-active@3x.png in Resources */,
 				A841DAB71D507F9E00846F46 /* 7@2x.png in Resources */,
 				A87016231D1C0C2500E58A6A /* CircularProgress.xib in Resources */,
@@ -3033,6 +3094,7 @@
 				A859DDB91D50AD2B00932150 /* holiday-updown@2x.png in Resources */,
 				C97A351B1CF6CC7900BEB441 /* icon.png in Resources */,
 				C9905FA11CED9EF700E63471 /* FindAddressTableViewCell.xib in Resources */,
+				84E24F871E584CB200D47BC3 /* icon_uat_badge.png in Resources */,
 				C9B6C8431D05711C00FCB00C /* SAOfferListViewController.xib in Resources */,
 				C9ED80501D1BC38A00058A96 /* menu-spend.png in Resources */,
 				C90D39C51D068D2000F285BB /* divider-savio@3x.png in Resources */,
@@ -3216,7 +3278,8 @@
 				C91E23E71D029C3300DC6D29 /* SAWishListViewController.swift in Sources */,
 				C9E535F31CF02C7F0017FBC6 /* SAEnterYourPINViewController.swift in Sources */,
 				A82B9C9B1D06DDDF00BFD084 /* slider.swift in Sources */,
-				D4B1EBBF1E5834AB007219AD /* README.md in Sources */,
+
+				84E24F891E584CB200D47BC3 /* README.md in Sources */,
 				A82D720E1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift in Sources */,
 				A8F820291D2E7FC800BB7537 /* SAImpulseSavingViewController.swift in Sources */,
 				C9F600541D17F8DF003155A2 /* SAMenuViewController.swift in Sources */,
@@ -3306,9 +3369,10 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = SavioWishList/SavioWishList.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Avinash Shridhar (47CJB63KBD)";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3329,8 +3393,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) '@executable_path/Frameworks' '@executable_path/../../Frameworks'";
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app.ShareExtensionSavio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+
+				PROVISIONING_PROFILE = "dfab160c-c93e-403b-a8d7-2386c3a8a193";
+				PROVISIONING_PROFILE_SPECIFIER = "Savio Extension Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
@@ -3473,7 +3538,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+
+				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3500,7 +3566,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ec2f5cd4-9641-4df2-8591-f04e0f515560";
+
+				PROVISIONING_PROFILE = "cd87b73c-94eb-47ae-ae44-41154ebbb63d";
 				PROVISIONING_PROFILE_SPECIFIER = "Savio Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

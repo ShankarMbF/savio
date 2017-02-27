@@ -27,7 +27,7 @@
                         <view tag="5" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-gp-AnE">
                             <rect key="frame" x="170" y="127" width="200" height="200"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SavioPlaceholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-XE-gZN">
                                     <rect key="frame" x="15" y="15" width="170" height="170"/>
                                 </imageView>
                                 <activityIndicatorView opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="We0-eo-g6b">
@@ -126,4 +126,7 @@
             <point key="canvasLocation" x="418" y="274.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="SavioPlaceholder.png" width="162" height="162"/>
+    </resources>
 </document>

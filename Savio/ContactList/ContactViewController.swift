@@ -99,6 +99,7 @@ class ContactViewController: UIViewController {
                 if let emailStr: String = contactDict["email"] as? String {
                     cell?.headerLbl?.text = "email"
                     cell?.detailLable?.text = emailStr
+                    cell?.inviteBtn?.enabled = false
                 }
             }
             return cell!

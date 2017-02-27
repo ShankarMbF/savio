@@ -691,6 +691,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
         }
         else {
+            
             let obj = SAOfferListViewController()
             obj.delegate = self
              obj.isComingProgress = false

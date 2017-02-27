@@ -363,6 +363,7 @@ class SAImpulseSavingViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = true
+        obj.isComingProgress = true
         self.navigationController?.pushViewController(obj, animated: true)
     }
     

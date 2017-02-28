@@ -505,7 +505,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict

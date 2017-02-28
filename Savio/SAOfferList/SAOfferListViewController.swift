@@ -533,9 +533,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
+        //check each key's value
         for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
-            //Check any key is NULL or Nil and replace it vith blank value
+            //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
             }
@@ -543,6 +544,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict

@@ -53,6 +53,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.setStatusBarBackgroundColor(UIColor.blackColor())
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
+        let passcode = NSUserDefaults.standardUserDefaults().valueForKey("myPasscode") as? String
+        
+        if passcode?.characters.count > 0{
+            //Go to SAEnterYourPINViewController
+            objEnterYourPinViewController = SAEnterYourPINViewController()
+            //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController
+            objSANav = UINavigationController(rootViewController: objEnterYourPinViewController!)
+            window?.rootViewController = objSANav
+        }else{
+            //If no then Go to SAWelcomViewController
+            objSAWelcomViewController = SAWelcomeViewController()
+            //Set SAWelcomViewController as rootViewController of UINavigationViewController
+            objSANav = UINavigationController(rootViewController: objSAWelcomViewController!)
+            window?.rootViewController = objSANav
+        }
+        
+     /*
         //Check if keychain has encrypted pin value.
         let objApi = API()
 //        objApi.deleteKeychainValue("savingPlanDict")
@@ -112,6 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             window?.rootViewController = objSANav
             
         }
+        */
         //Customize the UINavigationBar
         objSANav!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 20)!]
         objSANav?.navigationBarHidden = true

@@ -55,7 +55,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
       
         loginButton.layer.cornerRadius = 5
         
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAEnterYourPINViewController.doneBarButtonPressed(_:)))
@@ -247,7 +248,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
-            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+            var userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
             param["userID"] = userDict["partyId"]
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
@@ -281,9 +283,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
+//        NSUserDefaults.standardUserDefaults().setObject(userInfoDict, forKey: "userInfo")
         objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
         
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
+//       NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//        NSUserDefaults.standardUserDefaults().synchronize()
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         
         let groupPlan = objResponse["G"] as! NSNumber

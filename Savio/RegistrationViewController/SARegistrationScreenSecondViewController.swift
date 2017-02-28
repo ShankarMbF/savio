@@ -249,6 +249,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAnimView.animate()
         self.view.addSubview(objAnimView)
         objAPI.delegate = self
+        print("userInfoDict=\(userInfoDict)")
         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
         
     }
@@ -337,15 +338,17 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-                        print(dict["content"]!["content"] as! String)
+                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             if dict["errorCode"] as! String == "200"{
                                 if flag == false {
-                                self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+//                                    self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
+                                    self.successResponseFortermAndConditionAPI(self.checkNullDataFromDict(dict["content"] as! Dictionary))
                                 }
                                 else {
-                                     self.termAndConditionText = dict["content"]!["content"] as! String
+                                    let respoDict = self.checkNullDataFromDict(dict["content"]! as! Dictionary<String,AnyObject>)
+                                     self.termAndConditionText = respoDict["content"] as! String
                                     self.objAnimView.removeFromSuperview()
                                     self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                                     self.objimpInfo.lblHeader.text = "Terms and Conditions"
@@ -516,11 +519,20 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
-            objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
-            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
+//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
+//            NSUserDefaults.standardUserDefaults().synchronize()
+            objAPI.storeValueInKeychainForKey("userInfo", value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
+//            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
+//            {
+//                objAPI.deleteKeychainValue("myPasscode")
+//            }
+            
+            if let passcode = NSUserDefaults.standardUserDefaults().objectForKey("myPasscode") as? String
             {
-                objAPI.deleteKeychainValue("myPasscode")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("myPasscode")
+                NSUserDefaults.standardUserDefaults().synchronize()
             }
+            
             objAPI.otpSentDelegate = self
             objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "44")
         }
@@ -530,7 +542,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
-                objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//                NSUserDefaults.standardUserDefaults().synchronize()
+                objAPI.storeValueInKeychainForKey("userInfo", value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)
@@ -549,7 +563,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let alert = UIAlertController(title: "Welcome back!  Some of your details match our records but not all of them.", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
             { action -> Void in
-                self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
+//                self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
                 self.navigationController?.popViewControllerAnimated(true)
                 })
             self.presentViewController(alert, animated: true, completion: nil)
@@ -619,6 +633,32 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             }
         }
     }
+    
+    //function checking any key is null and return not null values in dictionary
+    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
+            }
+        }
+        return replaceDict
+    }
+
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)

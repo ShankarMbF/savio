@@ -41,7 +41,8 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPasscodeView.layer.cornerRadius = 3
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
         //add custom tool bar for UITextField
@@ -195,6 +196,9 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message == "Your PIN is updated Sucessfully")
             {
+//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//                NSUserDefaults.standardUserDefaults().synchronize()
+                
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 headerLabel.text = "Your passcode has been reset"
                 backButton.hidden = true
@@ -254,6 +258,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message as! String == "User sucessfully register")
             {
+//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//                NSUserDefaults.standardUserDefaults().synchronize()
+                
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
                 //Navigate user to HurrayViewController to start Saving plan

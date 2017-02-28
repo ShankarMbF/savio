@@ -25,9 +25,21 @@ class ContainerViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let objAPI = API()
-        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+//        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+//        {
+//            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//            {
+//                self.setUpViewController()
+//            }
+//            else {
+//                //Go to SAPaymentFlowViewController if you did not find the saved card details
+//                self.centreVC = SAPaymentFlowViewController()
+//            }
+//        }
+        
+        if let userPlan = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            if let savedCard =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
                 self.setUpViewController()
             }

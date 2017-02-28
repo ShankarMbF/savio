@@ -104,7 +104,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //----------------------------------------------------------------------------------------
         //------Create object of API class and request to server for get wishlist----------------
         let objAPI = API()
-        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         //provide the partyID as a parameter to API
         if(userDict["partyId"] is String)

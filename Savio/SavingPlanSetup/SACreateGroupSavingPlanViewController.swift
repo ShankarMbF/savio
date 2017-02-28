@@ -58,7 +58,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         participantsArr = parameterDict["participantsArr"] as! Array
         cost =  Int(parameterDict["amount"] as! String)!
         let objAPI = API()
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -750,8 +751,19 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     let objAPI = API()
-                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                    {
+//                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                    {
+//                        let objSavedCardView = SASaveCardViewController()
+//                        objSavedCardView.isFromGroupMemberPlan = true
+//                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
+//                    }
+//                    else{
+//                        let objPaymentView = SAPaymentFlowViewController()
+//                        objPaymentView.isFromGroupMemberPlan = true
+//                        self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                    }
+                    
+                    if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>> {
                         let objSavedCardView = SASaveCardViewController()
                         objSavedCardView.isFromGroupMemberPlan = true
                         self.navigationController?.pushViewController(objSavedCardView, animated: true)
@@ -887,9 +899,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 newDict["planType"] = "group"
                 
                 let objAPI = API()
+//                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
+//                NSUserDefaults.standardUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
                 
-                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                {
+//                    let objSavedCardView = SASaveCardViewController()
+//                    objSavedCardView.isFromSavingPlan = true
+//                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
+//                    
+//                }else {
+//                    let objPaymentView = SAPaymentFlowViewController()
+//                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                }
+                
+                if let saveCardArray =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true

@@ -160,9 +160,10 @@ class SASavingSummaryViewController: UIViewController {
         btnContinue!.layer.cornerRadius = 5
         
         let objAPI = API()
-        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+//        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            itemDataDict = objAPI.getValueFromKeychainOfKey("savingPlanDict") as! Dictionary<String, AnyObject>
+            itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
             
             //-------Check is invited user available or not and showing list----------------------------
             if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>

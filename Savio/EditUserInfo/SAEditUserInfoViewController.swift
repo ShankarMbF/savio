@@ -773,7 +773,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         self.navigationController!.view.addSubview(objAnimView!)
         
         let objAPI = API()
-        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
+        let dict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
         userInfoDict["ptyid"] = dict["partyId"]
         if(isImageClicked) {
             let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
@@ -964,7 +965,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             return
         }
         else {
-            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+//            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+            if(NSUserDefaults.standardUserDefaults().objectForKey("myMobile") as! String == dict["phone_number"] as! String)
             {
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame

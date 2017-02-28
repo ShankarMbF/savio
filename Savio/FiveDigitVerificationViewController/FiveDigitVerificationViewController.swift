@@ -38,7 +38,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
     func removeKeyboardNotification(){

@@ -343,7 +343,7 @@ class SAImpulseSavingViewController: UIViewController {
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        messagePopUpView.hidden = true
+//        messagePopUpView.hidden = true
         self.registerForKeyboardNotifications()
         return true
     }

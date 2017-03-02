@@ -186,8 +186,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             titleOrNameErrorLabel.text = "Name should contain alphabets only"
             if titleTextField.text?.characters.count==0 {
                 titleOrNameErrorLabel.text = "Please select a title and name should contain alphabets only"
-                errorFlag = true
             }
+            errorFlag = true
             nameTextField.layer.borderColor = UIColor.redColor().CGColor
             nameTextField.textColor = UIColor.redColor()
         }

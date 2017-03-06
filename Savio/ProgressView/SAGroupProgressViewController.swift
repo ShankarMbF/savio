@@ -291,6 +291,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 imgView.layer.cornerRadius = imgView.frame.size.height / 2
                 imgView.clipsToBounds = true
                 imgView.contentMode = UIViewContentMode.ScaleAspectFill
+                imgView.image = UIImage(named: "SavioPlaceholder")
               
                //Check if plan has image
                 if let url = NSURL(string:(savingPlanDetailsDict["image"] as? String)!)
@@ -425,7 +426,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         let objAPI = API()
         //get keychain values
-        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
@@ -461,7 +463,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -777,8 +779,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
+        //check each key's value
         for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
             }
@@ -786,7 +790,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict
@@ -856,7 +864,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     func errorResponseForGetUsersPlanAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -903,7 +911,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-//            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+//            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
 //            alert.show()
         }
         else {

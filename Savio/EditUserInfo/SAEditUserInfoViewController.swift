@@ -489,7 +489,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -773,7 +773,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         self.navigationController!.view.addSubview(objAnimView!)
         
         let objAPI = API()
-        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
+        let dict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
         userInfoDict["ptyid"] = dict["partyId"]
         if(isImageClicked) {
             let imageData:NSData = UIImageJPEGRepresentation(image1!, 1.0)!
@@ -964,7 +965,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
             return
         }
         else {
-            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+//            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+            if(NSUserDefaults.standardUserDefaults().objectForKey("myMobile") as! String == dict["phone_number"] as! String)
             {
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
@@ -1448,7 +1450,11 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict
@@ -1638,7 +1644,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     func errorResponseForGetUserInfoAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -1688,7 +1694,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func errorResponseForUpdateUserInfoAPI(error: String) {
         objAnimView?.removeFromSuperview()
         if error == "Network not available" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
 

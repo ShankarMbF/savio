@@ -185,7 +185,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -334,10 +334,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
-        
         return replaceDict
     }
     
@@ -367,7 +370,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForGetListOfUsersCards(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -466,7 +469,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -491,7 +494,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

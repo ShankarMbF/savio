@@ -22,6 +22,8 @@
 		84E24F881E584CB200D47BC3 /* Fastfile in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7D1E584CB200D47BC3 /* Fastfile */; };
 		84E24F891E584CB200D47BC3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 84E24F7E1E584CB200D47BC3 /* README.md */; };
 		84E24F8A1E584CB200D47BC3 /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7F1E584CB200D47BC3 /* report.xml */; };
+		84EA20341E63F826004DDEAE /* SavioPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EA20321E63F826004DDEAE /* SavioPlaceholder.png */; };
+		84EA20351E63F826004DDEAE /* SavioPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EA20331E63F826004DDEAE /* SavioPlaceholder@2x.png */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -654,6 +656,8 @@
 		84E24F7D1E584CB200D47BC3 /* Fastfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Fastfile; sourceTree = "<group>"; };
 		84E24F7E1E584CB200D47BC3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		84E24F7F1E584CB200D47BC3 /* report.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = report.xml; sourceTree = "<group>"; };
+		84EA20321E63F826004DDEAE /* SavioPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SavioPlaceholder.png; sourceTree = "<group>"; };
+		84EA20331E63F826004DDEAE /* SavioPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SavioPlaceholder@2x.png"; sourceTree = "<group>"; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -2279,6 +2283,8 @@
 		C9E525C11CE9A480000FD01E /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				84EA20321E63F826004DDEAE /* SavioPlaceholder.png */,
+				84EA20331E63F826004DDEAE /* SavioPlaceholder@2x.png */,
 				A87CE87D1D8FB7CA00270494 /* CardImages */,
 				A87CE8821D8FB7CA00270494 /* WarningSign */,
 				C9EF84EB1D82D41A00971510 /* PlaceHolder100x100.png */,
@@ -2967,6 +2973,7 @@
 				C9361EBE1D30C18300605E1B /* social-wa.png in Resources */,
 				A88E81CA1D49EA0F00CAA00F /* group-save-stats-slider-tab@2x.png in Resources */,
 				A88E81C21D49EA0F00CAA00F /* group-stats-achievement-smiley-popup@3x.png in Resources */,
+				84EA20351E63F826004DDEAE /* SavioPlaceholder@2x.png in Resources */,
 				A841DAB31D507F9E00846F46 /* 3@2x.png in Resources */,
 				C9ED80261D1BC38A00058A96 /* menu-active-offers.png in Resources */,
 				A8F8202A1D2E7FC800BB7537 /* SAImpulseSavingViewController.xib in Resources */,
@@ -3086,6 +3093,7 @@
 				A82D720F1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib in Resources */,
 				A859DD8D1D50ACD000932150 /* baby-dropdown@3x.png in Resources */,
 				C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */,
+				84EA20341E63F826004DDEAE /* SavioPlaceholder.png in Resources */,
 				C9ED80451D1BC38A00058A96 /* menu-offers@2x.png in Resources */,
 				A88E81C61D49EA0F00CAA00F /* generic-streak-popup.png in Resources */,
 				A858A5FC1D08127C0097546F /* home-circle.png in Resources */,

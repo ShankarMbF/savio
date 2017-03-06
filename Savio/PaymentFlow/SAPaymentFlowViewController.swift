@@ -57,9 +57,42 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     func setUpView(){
         let objAPI = API()
-        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+//        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+//        {
+//            if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//            {
+//                
+//                // self.navigationItem.setHidesBackButton(true, animated: false)
+//                let leftBtnName = UIButton()
+//                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+//                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+//                leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
+//                let leftBarButton = UIBarButtonItem()
+//                leftBarButton.customView = leftBtnName
+//                self.navigationItem.leftBarButtonItem = leftBarButton
+//                
+//                self.cancelButton.hidden = false
+//                
+//            }else {
+//                self.navigationItem.setHidesBackButton(true, animated: false)
+//            }
+//        }
+//        else {
+//            // self.navigationItem.setHidesBackButton(true, animated: false)
+//            let leftBtnName = UIButton()
+//            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
+//            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+//            leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
+//            let leftBarButton = UIBarButtonItem()
+//            leftBarButton.customView = leftBtnName
+//            self.navigationItem.leftBarButtonItem = leftBarButton
+//            
+//            self.cancelButton.hidden = false
+//        }
+//        
+        if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            if let _ =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
                 
                 // self.navigationItem.setHidesBackButton(true, animated: false)
@@ -90,6 +123,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             self.cancelButton.hidden = false
         }
         
+
         cardNumberTextFieldTopSpace.constant = 5
         cardNumView.constant = 5
         self.navigationController?.navigationBarHidden = false
@@ -283,7 +317,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         if token?.card?.funding.rawValue == 0 {
                             print(token?.card?.cvc)
                             let objAPI = API()
-                            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                            let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//                            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                             
                             var array : Array<Dictionary<String,AnyObject>> = []
                             //                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
@@ -292,7 +327,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             //If user is adding new card call AddNewSavingCardDelegate
                             if(self.addNewCard == true)
                             {
-                                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                                 {
                                     array = saveCardArray
                                     var cardNumberArray : Array<String> = []
@@ -305,8 +341,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     {
                                         array.append(dict1)
                                         NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+//                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
                                         NSUserDefaults.standardUserDefaults().synchronize()
                                         objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                                        
                                         
                                         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
                                         objAPI.addNewSavingCardDelegate = self
@@ -335,6 +373,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             else {
                                 array.append(dict1)
                                 NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+//                                NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
                                 NSUserDefaults.standardUserDefaults().synchronize()
                                 
                                 objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
@@ -726,7 +765,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     func errorResponseForAddSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -755,7 +794,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -790,7 +830,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -821,7 +861,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

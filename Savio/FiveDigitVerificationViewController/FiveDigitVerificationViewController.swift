@@ -38,7 +38,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
     func removeKeyboardNotification(){
@@ -230,7 +231,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             alert.show()
         }
         else if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

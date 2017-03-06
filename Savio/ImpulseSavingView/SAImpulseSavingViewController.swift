@@ -344,7 +344,7 @@ class SAImpulseSavingViewController: UIViewController {
     //UITextfieldDelegate method
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool
     {
-        messagePopUpView.hidden = true
+//        messagePopUpView.hidden = true
         self.registerForKeyboardNotifications()
         return true
     }
@@ -364,6 +364,7 @@ class SAImpulseSavingViewController: UIViewController {
         NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
         NSUserDefaults.standardUserDefaults().synchronize()
         obj.hideAddOfferButton = true
+        obj.isComingProgress = true
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
@@ -444,7 +445,7 @@ class SAImpulseSavingViewController: UIViewController {
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

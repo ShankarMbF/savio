@@ -736,7 +736,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             return
         }
         else {
-            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+//            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+            if(NSUserDefaults.standardUserDefaults().objectForKey("myMobile") as! String == dict["phone_number"] as! String)
             {
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
@@ -1246,6 +1247,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
+//            NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//            NSUserDefaults.standardUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
             objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
@@ -1255,6 +1258,8 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
+//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//                NSUserDefaults.standardUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)

@@ -21,7 +21,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     @IBOutlet weak var verticalScrlView: UIScrollView!      //IBoutlet for wishlist scrollview
     @IBOutlet weak var btnVwBg: UIView!                     //IBOutlet for button background view
     @IBOutlet weak var contentView: UIView!                 //IBOutlet for scrollview container view
+    
     //-----------------------------------------------------------------------------------------
+    
+    
     
     var objAnimView = ImageViewAnimation() //Object of custom loding indicator
     var heartBtn: UIButton = UIButton()    //Heart button on navigation bar
@@ -87,7 +90,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     {
         let objAPI = API()
         //get keychain values
-        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
@@ -418,7 +422,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Your Wish List is empty!", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -443,7 +447,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return tblArr.count;
+        return tblArr.count - 1;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
@@ -452,6 +456,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let cellDict = tblArr[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsZero
         cell.lblHeader!.text = cellDict["title"] as? String;
+        cell.suggestedHt.constant = self.heightForView((cellDict["savDescription"] as? String)!, font: UIFont(name: kLightFont, size: 11)!, width: (cell.lblDetail?.frame.size.width)!)
         cell.lblDetail?.text = cellDict["savDescription"] as? String
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])  //placeHolderImgArr[indexPath.row]
         
@@ -475,6 +480,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == tblArr.count - 1) {
+            return 200.0
+        }
         return 79.0
     }
     
@@ -526,10 +534,21 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
     }
     
+    //Function invoke for calculating height of lable as per given text, font and width
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
     //MARK: GetCategorysavingPlan API Delegate method
     func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
         //setup UI and reload tableview
-        
+        print(objResponse)
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
         {
             tblArr = tblArray
@@ -561,7 +580,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {
@@ -595,7 +614,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
         if(error == "No network found")
         {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {
@@ -640,24 +659,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        label.font = font
-        label.text = text
-        label.sizeToFit()
-        return label.frame.height
-    }
-    
-    
-    
+   
     /*
      // MARK: - Navigation
      

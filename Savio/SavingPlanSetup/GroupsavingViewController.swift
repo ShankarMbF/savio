@@ -62,7 +62,8 @@
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         
         let objAPI = API()
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         if let array =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
@@ -187,12 +188,12 @@
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -716,7 +717,7 @@
     func inviteButtonPressed()
     {
         if(participantsArr.count == 7) {
-            self.displayAlert(" You can't add more than 7 contacts into group saving plan")
+            self.displayAlert("You can't add more than 7 contacts into group saving plan", title: "Alert")
         }
         else {
             self.showAddressBook()
@@ -898,16 +899,16 @@
             else {
                 self.objAnimView.removeFromSuperview()
                 if(itemTitle == "") {
-                    self.displayAlert("Please enter title for your saving plan")
+                    self.displayAlert("Please enter title for your saving plan", title: "Missing information")
                 }
                 else if(cost == 0 ) {
-                    self.displayAlert("Please enter amount for your saving plan")
+                    self.displayAlert("Please enter amount for your saving plan", title: "Missing information")
                 }
 //                else if(dateDiff == 0) {
-//                    self.displayAlert("Please select date for your saving plan")
+//                    self.displayAlert("Please select date for your saving plan", title: "Missing information")
 //                }
                 else  {
-                    self.displayAlert("Please enter all details")
+                    self.displayAlert("Please enter all details", title: "Missing information")
                 }
             }
         }
@@ -922,31 +923,31 @@
             }
             else {
                 self.objAnimView.removeFromSuperview()
-                var array : Array<String> = []
                 self.objAnimView.removeFromSuperview()
+                var message = ""
                 
                 if(itemTitle == "") {
-                    array.append("  Please enter title.")
+                    message = "Please enter title."
                 }
-                if(cost == 0) {
-                    array.append("  Please enter amount.")
+                else if(cost == 0) {
+                    message = "Please enter amount."
                 }
-                if(dateDiff == 0 ) {
-                    array.append("  Please select date.")
+                else if(dateDiff == 0 ) {
+                    message = "Please select date."
                 }
-                if(participantsArr.count == 0) {
-                    array.append("  Please add atleast one contact.")
+                else if(participantsArr.count == 0) {
+                    message = "Please add atleast one contact."
                 }
-                self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
+                self.displayAlert(message, title: "Missing information")
             }
         }
     }
     
     
-    func displayAlert(message:String)
+    func displayAlert(message:String, title:String)
     {
         //Show of UIAlertView
-        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     

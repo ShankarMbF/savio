@@ -83,7 +83,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView!.registerNib(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
         
         let objAPI = API()
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -334,12 +335,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")            }
             else {
-                let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet. Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -1410,25 +1411,25 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             else {
                 //Handle the warnigs of required fields
-                var array : Array<String> = []
+                var message = ""
                 self.objAnimView.removeFromSuperview()
                 if(itemTitle == "")  {
-                    array.append("  Please enter title.")
+                    message = "Please enter title."
                 }
-                if(cost == 0)  {
-                    array.append("  Please enter amount.")
+                else if(cost == 0)  {
+                    message = "Please enter amount."
                 }
-                if(dateDiff == 0 ) {
-                    array.append("  Please select date.")
+                else if(dateDiff == 0 ) {
+                    message = "Please select date."
                 }
-                if(datePickerDate == "") {
-                    array.append("  Please choose the plan duration end date.")
+                else if(datePickerDate == "") {
+                    message = "Please choose the plan duration end date."
                 }
-                if(popOverSelectedStr == "") {
-                    array.append("  Please select payment date/day.")
+                else if(popOverSelectedStr == "") {
+                    message = "Please select payment date/day."
                 }
                 
-                self.displayAlert(String(format:"%@",array.joinWithSeparator("\n")))
+                self.displayAlert(message)
             }
         }
         else {
@@ -1463,7 +1464,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func displayAlert(message:String)
     {
         //Show of UIAlertView
-        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: "Missing information", message: message, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
     }
     
@@ -1585,7 +1586,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict
@@ -1727,7 +1732,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func errorResponseForGetUsersPlanAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -1805,13 +1810,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 dict["planType"] = "individual"
                 let objAPI = API()
+//                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
                 
                 NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
                 NSUserDefaults.standardUserDefaults().setValue("individualPlan", forKey: "usersPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
-                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true
@@ -1840,7 +1847,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func errorResponseForPartySavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -1897,6 +1904,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             dict["planType"] = "individual"
             
             let objAPI = API()
+//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
+//            NSUserDefaults.standardUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
@@ -1911,7 +1920,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         self.isPopoverValueChanged = false
         self.isCostChanged = false
         if error == "Network not available" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

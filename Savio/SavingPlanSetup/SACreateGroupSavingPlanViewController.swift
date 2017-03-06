@@ -58,7 +58,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         participantsArr = parameterDict["participantsArr"] as! Array
         cost =  Int(parameterDict["amount"] as! String)!
         let objAPI = API()
-        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -174,12 +175,12 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: "You don’t have anything in your wish list yet.  Get out there and set some goals!", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -692,6 +693,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             }
         }
         else {
+            
             let obj = SAOfferListViewController()
             obj.delegate = self
              obj.isComingProgress = false
@@ -734,7 +736,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
-                
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr
             }
         }
         return replaceDict
@@ -751,8 +757,19 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     let objAPI = API()
-                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                    {
+//                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                    {
+//                        let objSavedCardView = SASaveCardViewController()
+//                        objSavedCardView.isFromGroupMemberPlan = true
+//                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
+//                    }
+//                    else{
+//                        let objPaymentView = SAPaymentFlowViewController()
+//                        objPaymentView.isFromGroupMemberPlan = true
+//                        self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                    }
+                    
+                    if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>> {
                         let objSavedCardView = SASaveCardViewController()
                         objSavedCardView.isFromGroupMemberPlan = true
                         self.navigationController?.pushViewController(objSavedCardView, animated: true)
@@ -817,7 +834,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func errorResponseForPartySavingPlanAPI(error:String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -888,9 +905,22 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 newDict["planType"] = "group"
                 
                 let objAPI = API()
+//                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
+//                NSUserDefaults.standardUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
                 
-                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//                {
+//                    let objSavedCardView = SASaveCardViewController()
+//                    objSavedCardView.isFromSavingPlan = true
+//                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
+//                    
+//                }else {
+//                    let objPaymentView = SAPaymentFlowViewController()
+//                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                }
+                
+                if let saveCardArray =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true
@@ -907,7 +937,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     
     func errorResponseForInviteMembersAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")

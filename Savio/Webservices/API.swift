@@ -627,9 +627,13 @@ class API: UIView,NSURLSessionDelegate {
     //KeychainItemWrapper methods
     func storeValueInKeychainForKey(key:String,value:AnyObject){
         //Save the value of password into keychain
-        KeychainItemWrapper.save(key, data: value)
+//        KeychainItemWrapper.save(key, data: value)
         
 //        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
+        
+        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = NSKeyedArchiver.archivedDataWithRootObject(value)
         defaults.setObject(data, forKey: key)
@@ -854,7 +858,8 @@ class API: UIView,NSURLSessionDelegate {
     func getWishListForUser(userId : String)
     {
         
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -907,7 +912,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func getCategoriesForSavingPlan()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1009,7 +1015,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func getOfferListForSavingId()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1062,7 +1069,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func getUsersSavingPlan(str:String)
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1117,7 +1125,8 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Update saving plan
     func updateSavingPlan(dict:Dictionary<String,AnyObject>)
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1177,7 +1186,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func getUserInfo()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1243,7 +1253,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func updateUserInfo(dict:Dictionary<String,AnyObject>)
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1301,7 +1312,8 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Cancel saving plan
     func cancelSavingPlan()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1446,7 +1458,8 @@ class API: UIView,NSURLSessionDelegate {
     //MARK:Get list of users plan
     func getListOfUsersPlan()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1689,7 +1702,8 @@ class API: UIView,NSURLSessionDelegate {
     
     func getWishListOfUsersCards()
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1741,7 +1755,8 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : Set default card
     func setDefaultPaymentCard(dictParam:Dictionary<String,AnyObject>)
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber
@@ -1798,7 +1813,8 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : ImpulseSaving
     func impulseSaving(dictParam:Dictionary<String,AnyObject>)
     {
-        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
         let partyID = userInfoDict["partyId"] as! NSNumber

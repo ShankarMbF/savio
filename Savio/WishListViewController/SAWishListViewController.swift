@@ -104,7 +104,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //----------------------------------------------------------------------------------------
         //------Create object of API class and request to server for get wishlist----------------
         let objAPI = API()
-        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         //provide the partyID as a parameter to API
         if(userDict["partyId"] is String)
@@ -348,7 +349,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func errorResponseForDeleteWishListAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -383,7 +384,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //Fail response GetWishlist API
     func errorResponseForGetWishlistAPI(error: String) {
         if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: "Savio needs the internet to work. Check your data connection and try again.", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

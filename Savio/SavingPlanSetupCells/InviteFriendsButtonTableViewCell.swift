@@ -24,7 +24,8 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         costmaskLayer.path = costpath.CGPath
         BGContentView.layer.mask = costmaskLayer
         //************************************* cornerradious end
-        let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfodict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+//        let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
         attributedString.addAttribute(NSForegroundColorAttributeName,
                                      value: UIColor.whiteColor(),

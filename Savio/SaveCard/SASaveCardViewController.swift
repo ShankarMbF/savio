@@ -263,7 +263,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func removeCardFromList(sender: UIButton) {
         let dict = self.checkNullDataFromDict(savedCardArray[sender.tag])
         print("Remove card ends with \(dict["last4"] as! String)")
-        let uiAlert = UIAlertController(title: "Alert", message: "Would you like to save the changes to your personal settings?", preferredStyle: UIAlertControllerStyle.Alert)
+        let uiAlert = UIAlertController(title: "Alert", message: "Do you want remove card end with \(dict["last4"] as! String)?", preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(uiAlert, animated: true, completion: nil)
         
         uiAlert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in

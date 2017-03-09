@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "505"
             endingLineNumber = "505"
-            landmarkName = "successResponseImpulseSavingDelegateAPI(_:)"
+            landmarkName = "successResponseImpulseSavingDelegateAPI(objResponse:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "406"
             endingLineNumber = "406"
-            landmarkName = "successResponseForSetDefaultCard(_:)"
+            landmarkName = "successResponseForSetDefaultCard(objResponse:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "371"
             endingLineNumber = "371"
-            landmarkName = "successResponseForGetListOfUsersCards(_:)"
+            landmarkName = "successResponseForGetListOfUsersCards(objResponse:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -191,7 +191,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "424"
             endingLineNumber = "424"
-            landmarkName = "successResponseForSetDefaultCard(_:)"
+            landmarkName = "successResponseForSetDefaultCard(objResponse:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

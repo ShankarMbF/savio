@@ -244,6 +244,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cell.cardHolderNameLabel.attributedText = attributedString
         cell.removeCardButton.tag = indexPath.row
         cell.removeCardButton.addTarget(self, action: #selector(SASaveCardViewController.removeCardFromList(_:)), forControlEvents: .TouchUpInside)
+        if indexPath.row == 0 {
+            cell.removeCardButton.hidden = true
+            //Changing background color of selected row
+            cell.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+        }
         return cell
     }
     

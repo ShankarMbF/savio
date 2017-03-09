@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xl-KK-mrN">
@@ -68,7 +68,7 @@
                             <constraint firstAttribute="width" constant="22" id="hof-Pi-BMT"/>
                             <constraint firstAttribute="height" constant="22" id="ujt-Bo-4SA"/>
                         </constraints>
-                        <state key="normal" title="Button" image="Group-social-pop-up-close.png"/>
+                        <state key="normal" title="Button" image="social-pop-up-close.png"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -99,6 +99,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Group-social-pop-up-close.png" width="22" height="22"/>
+        <image name="social-pop-up-close.png" width="33" height="33"/>
     </resources>
 </document>

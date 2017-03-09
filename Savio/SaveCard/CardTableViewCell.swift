@@ -12,6 +12,8 @@ class CardTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cardImageView: UIImageView!
     @IBOutlet weak var cardHolderNameLabel: UILabel!
+    @IBOutlet weak var removeCardButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

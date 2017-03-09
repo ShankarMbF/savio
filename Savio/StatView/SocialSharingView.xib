@@ -24,15 +24,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R3R-lr-pVF">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R3R-lr-pVF">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
-                <view clipsSubviews="YES" tag="7" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cLg-cM-xJo">
-                    <rect key="frame" x="15" y="40" width="570" height="520"/>
+                <view clipsSubviews="YES" tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLg-cM-xJo">
+                    <rect key="frame" x="15" y="40" width="345" height="587"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cycle.png" translatesAutoresizingMaskIntoConstraints="NO" id="tq7-V3-DLg">
-                            <rect key="frame" x="198" y="30" width="175" height="175"/>
+                        <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cycle.png" translatesAutoresizingMaskIntoConstraints="NO" id="tq7-V3-DLg">
+                            <rect key="frame" x="85.5" y="30" width="175" height="175"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="175" id="7eG-1s-6IV"/>
                                 <constraint firstAttribute="width" constant="175" id="DN2-sy-5XZ"/>
@@ -51,8 +51,8 @@
                                 </mask>
                             </variation>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You're on a streak, you have saved every month for 4 months" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h32-KW-UwL">
-                            <rect key="frame" x="181" y="225" width="208" height="60"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're on a streak, you have saved every month for 4 months" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h32-KW-UwL">
+                            <rect key="frame" x="68.5" y="225" width="208" height="60"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="208" id="2gQ-J5-0eA"/>
                                 <constraint firstAttribute="height" constant="60" id="FcQ-l3-R97"/>
@@ -67,8 +67,8 @@
                                 </mask>
                             </variation>
                         </label>
-                        <button opaque="NO" tag="6" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMi-9w-Io8">
-                            <rect key="frame" x="538" y="10" width="22" height="22"/>
+                        <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMi-9w-Io8">
+                            <rect key="frame" x="313" y="10" width="22" height="22"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="hDJ-hq-b8k"/>
@@ -77,11 +77,11 @@
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="social-pop-up-close.png"/>
                         </button>
-                        <view tag="9" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0MA-GK-FIR">
-                            <rect key="frame" x="0.0" y="417" width="570" height="103"/>
+                        <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0MA-GK-FIR">
+                            <rect key="frame" x="0.0" y="484" width="345" height="103"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Share it!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
-                                    <rect key="frame" x="204" y="0.0" width="163" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share it!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGa-3E-DGD">
+                                    <rect key="frame" x="91.5" y="0.0" width="163" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="163" id="FN5-De-vUr"/>
                                         <constraint firstAttribute="height" constant="21" id="YVF-tD-oYV"/>
@@ -90,32 +90,32 @@
                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view tag="8" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TfT-4Z-lF0">
-                                    <rect key="frame" x="0.0" y="31" width="570" height="52"/>
+                                <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TfT-4Z-lF0">
+                                    <rect key="frame" x="0.0" y="31" width="345" height="52"/>
                                     <subviews>
-                                        <button opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCq-s7-AcI">
-                                            <rect key="frame" x="289" y="5" width="133" height="44"/>
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCq-s7-AcI">
+                                            <rect key="frame" x="176.5" y="5" width="76.5" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="VVi-hX-cXi"/>
                                             </constraints>
                                             <state key="normal" image="social-g+.png"/>
                                         </button>
-                                        <button opaque="NO" tag="5" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVZ-AA-pfv">
-                                            <rect key="frame" x="430" y="5" width="132" height="44"/>
+                                        <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVZ-AA-pfv">
+                                            <rect key="frame" x="261" y="5" width="76" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="rJe-qk-aKp"/>
                                             </constraints>
                                             <state key="normal" image="social-wa.png"/>
                                         </button>
-                                        <button opaque="NO" tag="2" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-0y-MsM">
-                                            <rect key="frame" x="8" y="5" width="133" height="44"/>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djw-0y-MsM">
+                                            <rect key="frame" x="8" y="5" width="76.5" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="9rh-gl-fgH"/>
                                             </constraints>
                                             <state key="normal" image="social-fb.png"/>
                                         </button>
-                                        <button opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ab-bZ-7Lr">
-                                            <rect key="frame" x="149" y="5" width="132" height="44"/>
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ab-bZ-7Lr">
+                                            <rect key="frame" x="92.5" y="5" width="76" height="44"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="8RV-cn-aaO"/>
                                             </constraints>

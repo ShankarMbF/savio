@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -17,10 +21,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="39"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xl-KK-mrN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="2"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="2" id="rUT-wA-aab"/>
@@ -30,11 +35,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTd-i4-mSD">
+                        <rect key="frame" x="13" y="5" width="240" height="30"/>
                         <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmZ-bA-DpD">
+                        <rect key="frame" x="0.0" y="44" width="320" height="2"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.56862745100000001" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="2" id="3Bh-fK-U52"/>
@@ -44,6 +51,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V3l-Ie-gXS">
+                        <rect key="frame" x="260" y="5" width="55" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="ch5-Jt-t9B"/>
                             <constraint firstAttribute="width" constant="55" id="sNT-kr-NWR"/>
@@ -54,8 +62,19 @@
                             </mask>
                         </variation>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIx-B7-Ywe">
+                        <rect key="frame" x="282" y="9" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="hof-Pi-BMT"/>
+                            <constraint firstAttribute="height" constant="22" id="ujt-Bo-4SA"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="Group-social-pop-up-close.png"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="HIx-B7-Ywe" secondAttribute="trailing" constant="8" id="7eW-fQ-QVO"/>
+                    <constraint firstItem="HIx-B7-Ywe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8YW-Qw-A3E"/>
+                    <constraint firstItem="HIx-B7-Ywe" firstAttribute="leading" secondItem="qTd-i4-mSD" secondAttribute="trailing" constant="29" id="EET-9P-p4T"/>
                     <constraint firstItem="hmZ-bA-DpD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EN6-8D-4El"/>
                     <constraint firstAttribute="bottom" secondItem="qTd-i4-mSD" secondAttribute="bottom" constant="4" id="Hxl-A1-qyX"/>
                     <constraint firstItem="0xl-KK-mrN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PJd-nW-gYg"/>
@@ -74,8 +93,12 @@
             <connections>
                 <outlet property="cardHolderNameLabel" destination="qTd-i4-mSD" id="1iS-xL-29k"/>
                 <outlet property="cardImageView" destination="V3l-Ie-gXS" id="MnY-VW-UOh"/>
+                <outlet property="removeCardButton" destination="HIx-B7-Ywe" id="U1z-u7-i4t"/>
             </connections>
             <point key="canvasLocation" x="42" y="254"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Group-social-pop-up-close.png" width="22" height="22"/>
+    </resources>
 </document>

@@ -242,6 +242,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             length:trimmedString.characters.count))
         
         cell.cardHolderNameLabel.attributedText = attributedString
+        cell.removeCardButton.tag = indexPath.row
+        cell.removeCardButton.addTarget(self, action: #selector(SASaveCardViewController.removeCardFromList(_:)), forControlEvents: .TouchUpInside)
         return cell
     }
     
@@ -255,6 +257,25 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         NSUserDefaults.standardUserDefaults().synchronize()
         let trimmedString: String = (dict["last4"] as? String)!
         cardLastFourDigitTextField.text = trimmedString
+        
+    }
+    
+    func removeCardFromList(sender: UIButton) {
+        let dict = self.checkNullDataFromDict(savedCardArray[sender.tag])
+        print("Remove card ends with \(dict["last4"] as! String)")
+        let uiAlert = UIAlertController(title: "Alert", message: "Would you like to save the changes to your personal settings?", preferredStyle: UIAlertControllerStyle.Alert)
+        self.presentViewController(uiAlert, animated: true, completion: nil)
+        
+        uiAlert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
+            print("Click of No button")
+            
+        }))
+        
+        uiAlert.addAction(UIAlertAction(title: "Yes", style: .Cancel, handler: { action in
+            print("Click of Yes button")
+            self.savedCardArray.removeAtIndex(sender.tag)
+            self.cardListView.reloadData()
+        }))
         
     }
     
@@ -462,9 +483,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
-            
         }
     }
+    
      //Success reponse of SetDefaultCardDelegate
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()

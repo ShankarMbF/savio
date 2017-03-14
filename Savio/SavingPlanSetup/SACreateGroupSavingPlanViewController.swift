@@ -39,6 +39,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var isImageClicked = false
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     var groupMemberCount = 0
+    var recurringAmount : CGFloat = 0
+
+    
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -274,25 +277,31 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
+                            recurringAmount = round(CGFloat(cost)/CGFloat(groupMemberCount))
                         }
                         else if ((dateDiff/168) == 0) {
 //                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
+                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
+                            recurringAmount = round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4)))
                         }
                         else if ((dateDiff/168)/4 == 0) {
 //                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
                              cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
+                             recurringAmount = round((CGFloat(cost)/CGFloat(participantsArr.count)))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4)))
                         }
                     }
                     
@@ -303,24 +312,30 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
+                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168)
                         }
                         else if ((dateDiff/168) == 0) {
 //                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
+                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
+                            recurringAmount = round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d month",round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat(participantsArr.count)/CGFloat((dateDiff/168)/4)))
                         }
                         else if ((dateDiff/168)/4 == 0) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat(participantsArr.count)))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4)))
                         }
 //
                     }
@@ -544,6 +559,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else {
             newDict["OFFERS"] = newOfferArray
         }
+        
+         newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
         return newDict
     }
     
@@ -590,6 +607,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         }
         newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
         newDict["STATUS"] = "Active"
+        newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
         print(newDict)
         return newDict
     }

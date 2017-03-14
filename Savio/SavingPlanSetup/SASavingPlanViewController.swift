@@ -47,6 +47,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     var isCostChanged = false
     
     var isComingGallary = false
+    var recurringAmount : CGFloat = 0
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
@@ -709,25 +710,31 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(dateString == "day") {
                     if((dateDiff/168) == 1) {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
+                        recurringAmount = round(CGFloat(cost))/CGFloat((dateDiff/168))
                     }
                     else if ((dateDiff/168) == 0) {
                         
                         cell1.calculationLabel.text = String(format: "You will need to top up £%d per week for 1 week",cost)
+                        recurringAmount = CGFloat(cost)
                     }
                     else {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
+                         recurringAmount = round(CGFloat(cost))/CGFloat((dateDiff/168))
                     }
                 }
                 else {
                     if((dateDiff/168)/4 == 1) {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        recurringAmount = round((CGFloat(cost))/(CGFloat((dateDiff/168)/4)))
                     }
                     else if ((dateDiff/168)/4 == 0) {
                         
                         cell1.calculationLabel.text = String(format: "You will need to top up £%d per month for 1 month",cost)
+                        recurringAmount = CGFloat(cost)
                     }
                     else {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                        recurringAmount = round((CGFloat(cost))/(CGFloat((dateDiff/168)/4)))
                     }
                 }
             }
@@ -737,23 +744,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if(dateString == "day") {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                            recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                         }
                         else if ((dateDiff/168) == 0) {
                             cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                            recurringAmount = 0
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                            recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                         }
                     }
                     else {
                         if((dateDiff/168)/4 == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/(CGFloat((dateDiff/168)/4))))
                         }
                         else if ((dateDiff/168)/4 == 0) {
                             cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
+                            recurringAmount = 0
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost)/(CGFloat((dateDiff/168)/4)))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/(CGFloat((dateDiff/168)/4))))
                         }
                     }
                 }
@@ -793,18 +806,22 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         if(payType == "Month") {
                             if((dateDiff/168) == 1) {
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                recurringAmount = round(CGFloat(cost)/(CGFloat((dateDiff/168)/4)))
                             }
                             else {
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                recurringAmount = round(CGFloat(cost)/(CGFloat((dateDiff/168)/4)))
                             }
                             
                         }
                         else {
                             if((dateDiff/168)/4 == 1) {
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                             }
                             else {
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                             }
                         }
                         
@@ -812,23 +829,29 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             if dateString == "day"{
                                 if((dateDiff/168) == 1) {
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d week",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                    recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                                 }
                                 else if ((dateDiff/168) == 0) {
                                     cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                                     recurringAmount = 0
                                 }
                                 else {
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
+                                     recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                                 }
                             }else{
                                 if((dateDiff/168)/4 == 1) {
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                    recurringAmount = round((CGFloat(cost))/(CGFloat((dateDiff/168)/4)))
                                 }
                                 else if ((dateDiff/168)/4 == 0) {
                                     
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%d per month for 1 month",cost)
+                                    recurringAmount = CGFloat(cost)
                                 }
                                 else {
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d months",round((CGFloat(cost))/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
+                                    recurringAmount = round((CGFloat(cost))/(CGFloat((dateDiff/168)/4)))
                                 }
                             }
 
@@ -1296,6 +1319,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         parameterDict["PARTY_SAVINGPLAN_TYPE"] = "Individual"
         parameterDict["STATUS"] = "Active"
+        print("recurring = \(recurringAmount)")
+        parameterDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
         return parameterDict
         
     }
@@ -1369,6 +1394,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["OFFERS"] = self.getParameters()["OFFERS"]
                     newDict["PARTY_SAVINGPLAN_ID"] = itemDetailsDataDict["partySavingPlanID"]
                     newDict["STATUS"] = "Active"
+                    print(recurringAmount)
+                    newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
+                    print(newDict)
                     objAPI.updateSavingPlan(newDict)
                 }
                 else  {
@@ -1396,6 +1424,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
                     newDict["PARTY_SAVINGPLAN_TYPE"] = self.getParameters()["PARTY_SAVINGPLAN_TYPE"]
                     newDict["STATUS"] = "Active"
+                    print(recurringAmount)
+                    newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
                     print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
@@ -1807,6 +1837,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
 //                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            
                 if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()

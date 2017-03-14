@@ -323,7 +323,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             var array : Array<Dictionary<String,AnyObject>> = []
                             //                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
                             let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":cardNum,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-                            
                             //If user is adding new card call AddNewSavingCardDelegate
                             if(self.addNewCard == true)
                             {
@@ -387,7 +386,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     self.addNewCard = false
                                 } else {
                                     let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
-                                    
+                                    print(dict)
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
                                 }

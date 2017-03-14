@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
@@ -29,6 +29,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     var savedCardArray : Array<Dictionary<String,AnyObject>> = []
     var cardListResponse : Dictionary<String,AnyObject> = [:]
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var removeCardTag : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -266,7 +267,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func removeCardFromList(sender: UIButton) {
-        let dict = self.checkNullDataFromDict(savedCardArray[sender.tag])
+        removeCardTag = sender.tag
+        let dict = self.checkNullDataFromDict(savedCardArray[removeCardTag])
         print("Remove card ends with \(dict["last4"] as! String)")
         let uiAlert = UIAlertController(title: "Alert", message: "Do you want remove card end with \(dict["last4"] as! String)?", preferredStyle: UIAlertControllerStyle.Alert)
         self.presentViewController(uiAlert, animated: true, completion: nil)
@@ -278,10 +280,20 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
         uiAlert.addAction(UIAlertAction(title: "Yes", style: .Cancel, handler: { action in
             print("Click of Yes button")
-            self.savedCardArray.removeAtIndex(sender.tag)
-            self.cardListView.reloadData()
-        }))
+            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            self.objAnimView.frame = self.view.frame
+            self.objAnimView.animate()
+            self.view.addSubview(self.objAnimView)
+
+            var paramDict : Dictionary<String,AnyObject> = [:]
+            paramDict["customerId"] = dict["customer"] as! String
+            paramDict["cardId"] = dict["id"] as! String
         
+            let objAPI = API()
+            objAPI.removeCardDelegate = self
+            objAPI.removeCarde(paramDict)
+            
+        }))
     }
     
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
@@ -388,8 +400,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0))as? CardTableViewCell
                 //Changing background color of selected row
                 selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+                let objAPI = API()
             }
         }
+        print(NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray"))
     }
     
     //Error reponse of GetListOfUsersCardsDelegate
@@ -527,4 +541,65 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         alert.show()
         }
     }
+    
+    // Remove Card API delegate methods
+    func successResponseForRemoveCardAPI(objResponse:Dictionary<String,AnyObject>){
+        print(objResponse)
+            self.savedCardArray.removeAtIndex(removeCardTag)
+            self.cardListView.reloadData()
+//        var arr = NSUserDefaults.standardUserDefaults().valueForKey(<#T##key: String##String#>)
+//        objAnimView.removeFromSuperview()
+        
+        
+//        if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//        {
+//            array = saveCardArray
+//            var cardNumberArray : Array<String> = []
+//            for i in 0 ..< array.count{
+//                let newDict = array[i]
+//                cardNumberArray.append(newDict["cardNumber"] as! String)
+//            }
+//            //                            if(cardNumberArray.contains(self.cardNumberTextField.text!) == false)
+//            if(cardNumberArray.contains(cardNum) == false)
+//            {
+//                array.append(dict1)
+//                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+//                //                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
+//                NSUserDefaults.standardUserDefaults().synchronize()
+//                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+//                
+//                
+//                let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+//                objAPI.addNewSavingCardDelegate = self
+//                objAPI.addNewSavingCard(dict)
+//                self.addNewCard = false
+//            }
+//            else {
+//                self.objAnimView.removeFromSuperview()
+//                //show alert view controller if card is already added
+//                let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+//                //alert view controll action method
+//                alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+//                { action -> Void in
+//                    self.navigationController?.popViewControllerAnimated(true)
+//                    })
+//                self.presentViewController(alertController, animated: true, completion: nil)
+//            }
+//        }
+        
+        
+    }
+    
+    func errorResponseForRemoveCardAPI(error:String){
+        print(error)
+        objAnimView.removeFromSuperview()
+        if error == "No network found" {
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+    
 }

@@ -681,7 +681,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                         let image = UIImage(data: data!)
                         dispatch_async(dispatch_get_main_queue(), {
                             cell?.userProfile.image = image
-                            
                             spinner.hidden = true
                             spinner.stopAnimating()
                         })

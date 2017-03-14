@@ -176,6 +176,12 @@ protocol ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error:String)
 }
 
+protocol RemoveCardDelegate
+{
+    func successResponseForRemoveCardAPI(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseForRemoveCardAPI(error:String)
+}
+
 
 class API: UIView,NSURLSessionDelegate {
     // Maintain
@@ -203,6 +209,7 @@ class API: UIView,NSURLSessionDelegate {
     var getListOfUsersCardDelegate : GetListOfUsersCardsDelegate?
     var setDefaultCardDelegate : SetDefaultCardDelegate?
     var impulseSavingDelegate : ImpulseSavingDelegate?
+    var removeCardDelegate : RemoveCardDelegate?
     
     
     //Checking Reachability function
@@ -1866,4 +1873,64 @@ class API: UIView,NSURLSessionDelegate {
             self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI("No network found")
         }
     }
+    
+    
+    //MARK: Delete item from wishlist
+    
+    func removeCarde(dict:Dictionary<String,AnyObject>)
+    {
+        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
+        let data = defaults.valueForKey("userInfo") as! NSData
+        let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
+        let cookie = userInfoDict["cookie"] as! String
+        let partyID = userInfoDict["partyId"] as! NSNumber
+        
+        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        //Check if network is present
+        if(self.isConnectedToNetwork())
+        {
+            urlconfig.timeoutIntervalForRequest = 30
+            urlconfig.timeoutIntervalForResource = 30
+            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            
+            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
+            request.HTTPMethod = "DELETE"
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.removeCardDelegate?.successResponseForRemoveCardAPI(dict)
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.removeCardDelegate?.errorResponseForRemoveCardAPI((response?.description)!)
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.removeCardDelegate?.errorResponseForRemoveCardAPI(error.localizedDescription)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
+        else {
+            self.removeCardDelegate?.errorResponseForRemoveCardAPI("No network found")
+        }
+        
+    }
+
 }

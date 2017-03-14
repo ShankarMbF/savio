@@ -127,7 +127,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //set up the UIView
     func setUpView(){
          self.callWishListAPI()
-        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["partySavingPlan"]!["title"] as! String)
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -136,25 +136,43 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                                 size: 16.0)!,
                               range: NSRange(
                                 location: 3,
-                                length: (savingPlanDetailsDict["title"] as! String).characters.count))
+                                length: (savingPlanDetailsDict["partySavingPlan"]!["title"] as! String).characters.count))
         
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
         
         //get the total amount of plan from the Dictionary
-        if let amount = savingPlanDetailsDict["amount"] as? NSNumber
+        if let amount = savingPlanDetailsDict["partySavingPlan"]!["amount"] as? NSNumber
         {
             totalAmount = amount.floatValue
         }
         //get the total paid amount of plan from the Dictionary
-        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
-        {
-            paidAmount = totalPaidAmount.floatValue
-        }
+//        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
+//        {
+//            paidAmount = totalPaidAmount.floatValue
+//        }
         
         //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
+         paidAmount = 0
+        if let transactionArray = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+        {
+            for i in 0 ..< transactionArray.count {
+                let transactionDict = transactionArray[i]
+                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+//                let str = String(format: "£%.0f",paidAmount)
+//                cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
+//                cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+//                cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
+//                cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+                
+            }
+            print("paidAmt = \(paidAmount)")
+        }
+        
+        let planEndDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
+        
         
         for i in 0 ..< 3
         {
@@ -175,8 +193,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
             activityIndicator.hidden = false
             //check if plan has image
-            if (!(savingPlanDetailsDict["image"] is NSNull) && i == 0){
-                if let url = NSURL(string:savingPlanDetailsDict["image"] as! String)
+            if (!(savingPlanDetailsDict["partySavingPlan"]!["image"] is NSNull) && i == 0){
+                if let url = NSURL(string:savingPlanDetailsDict["partySavingPlan"]!["image"] as! String)
                 {
                     //load image from url
                     let request: NSURLRequest = NSURLRequest(URL: url)
@@ -219,7 +237,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             else if(i == 1) {
 //                paidAmount = 1053
                 labelOne.hidden = false
-                labelOne.attributedText = self.createXLabelTextForPercent(i, text: "0")
+                labelOne.attributedText = self.createXLabelTextForPercent(i, text: String(format: "%0.f",(paidAmount*100)/totalAmount))
                 labelTwo.hidden = false
                 labelTwo.numberOfLines = 0
                 labelTwo.lineBreakMode = .ByWordWrapping
@@ -231,7 +249,39 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 labelOne.hidden = false
                 labelOne.attributedText = self.createXLabelTextForLast(i, text: String(format: "%0.f",totalAmount - paidAmount))//String(format: "£%0.f",totalAmount - paidAmount)
                 labelTwo.hidden = false
-                labelTwo.text = "0 days to go"
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let endDate = dateFormatter.dateFromString(planEndDate)
+                let timeDifference : NSTimeInterval = endDate!.timeIntervalSinceDate(NSDate())
+                var dateDiff = Int(timeDifference/3600)
+                var str = ""
+                if(savingPlanDetailsDict["partySavingPlan"]!["payType"] as! String == "Month")
+                {
+                    if((dateDiff/168)/4 == 1)
+                    {
+                        str = String(format :"%d month to go",(dateDiff/168)/4)
+                    }
+                    else
+                    {
+                        str = String(format :"%d months to go",(dateDiff/168)/4)
+                    }
+                    
+                }
+                else
+                {
+                    if((dateDiff/168) == 1)
+                    {
+                        str = String(format :"%d week to go",dateDiff/168)
+                    }
+                    else
+                    {
+                        str = String(format :"%d weeks to go",dateDiff/168)
+                    }
+                }
+                
+                
+                labelTwo.text = str//"0 days to go"
                 imgView.hidden = true
                 activityIndicator.hidden = true
             }
@@ -337,13 +387,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     
     //Goto stats tab
     @IBAction func clickOnStatButton(sender:UIButton){
-        if let title = savingPlanDetailsDict["title"] as? String
+        if let title = savingPlanDetailsDict["partySavingPlan"]!["title"] as? String
         {
             let obj = SAStatViewController()
             obj.itemTitle = title
             obj.planType = "Individual"
-            obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
-            obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
+            obj.cost =  String(format:"%@",savingPlanDetailsDict["partySavingPlan"]!["amount"] as! NSNumber)
+            obj.endDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
             self.navigationController?.pushViewController(obj, animated: false)
         }
         else {
@@ -415,7 +465,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         {
             if(message == "Success")
             {
-                savingPlanDetailsDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
+                savingPlanDetailsDict = objResponse//["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }
             else {

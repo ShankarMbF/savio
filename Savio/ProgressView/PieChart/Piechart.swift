@@ -107,12 +107,12 @@ public class Piechart: UIControl {
             else if index == slices.count - 1 && slice.text == "Error"{
                 //this will be the last slice
                 path.addArcWithCenter(center, radius: radius.outer - 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-                innerPath.addArcWithCenter(center, radius: radius.inner + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+//                innerPath.addArcWithCenter(center, radius: radius.inner + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             }
             else {
                 
                 path.addArcWithCenter(center, radius: radius.outer, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-                innerPath.addArcWithCenter(center, radius: radius.inner, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+//                innerPath.addArcWithCenter(center, radius: radius.inner, startAngle: startAngle, endAngle: endAngle, clockwise: true)
                 
             }
             
@@ -120,14 +120,18 @@ public class Piechart: UIControl {
             color.setFill()
             path.fill()
             
-            UIColor.whiteColor().setFill()
-            innerPath.fill()
+//            UIColor.whiteColor().setFill()
+//            innerPath.fill()
             
             // add white border to slice
             // increase start value for next slice
             startValue += slice.value / self.total
         }
-        
+        let innerPath = UIBezierPath()
+        innerPath.moveToPoint(center)
+        innerPath.addArcWithCenter(center, radius: radius.inner, startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
+        UIColor.whiteColor().setFill()
+        innerPath.fill()
     }
     
     

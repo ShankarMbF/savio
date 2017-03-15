@@ -195,25 +195,38 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             paidAmount = totalPaidAmount.floatValue
         }
         
+        let userDict = participantsArr[0]
+        
+        //Check if savingPlanTransactionList is present
+        if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+        {
+            for i in 0 ..< transactionArray.count {
+                let transactionDict = transactionArray[i]
+                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+            }
+        }
+        
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         groupMembersLabel.text = String(format:"Group members (%d)",participantsArr.count)
-        
+        var endValue = totalAmount
         for i in 0 ..< participantsArr.count
         {
             var error = Piechart.Slice()
-            error.value = 1
+            error.value = 100
             error.color = chartColors[i]
             error.text = "Success"
             pieChartSliceArray.append(error)
+            endValue = endValue - 100
         }
         
         if(pieChartSliceArray.count <= 8)
         {
             var error = Piechart.Slice()
-            error.value = 360.0 - CGFloat(pieChartSliceArray.count)
+            error.value = CGFloat(endValue)//360.0 - CGFloat(pieChartSliceArray.count)
+//            error.value = 360.0 - CGFloat(pieChartSliceArray.count)
             error.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
             error.text = "Error"
             pieChartSliceArray.append(error)
@@ -328,16 +341,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.text = String(format: "£ %0.2f saved",paidAmount)
                 circularView.hidden = false
                 
-                let userDict = participantsArr[0]
-                
-                //Check if savingPlanTransactionList is present
-                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-                {
-                    for i in 0 ..< transactionArray.count {
-                        let transactionDict = transactionArray[i]
-                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                    }
-                }
+//                let userDict = participantsArr[0]
+//                
+//                //Check if savingPlanTransactionList is present
+//                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+//                {
+//                    for i in 0 ..< transactionArray.count {
+//                        let transactionDict = transactionArray[i]
+//                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+//                    }
+//                }
                 
                 let text = String(format: "%d",Int(paidAmount * 100)/totalAmount)
              
@@ -387,7 +400,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.hidden = true
                 labelFive.hidden = true
                 labelSix.hidden = true
-                let text = String(format: "%d",paidAmount)
+                let text = String(format: "%.f",paidAmount)
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: kMediumFont, size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
                 let fontSuper:UIFont? = UIFont(name: kMediumFont, size:25)
@@ -395,15 +408,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 superscript.appendAttributedString(attString)
                 labelThree.attributedText = superscript
                 
-                let userDict = participantsArr[0]
-                //Check if savingPlanTransactionList array is present
-                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-                {
-                    for i in 0 ..< transactionArray.count {
-                        let transactionDict = transactionArray[i]
-                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-                    }
-                }
+//                let userDict = participantsArr[0]
+//                //Check if savingPlanTransactionList array is present
+//                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+//                {
+//                    for i in 0 ..< transactionArray.count {
+//                        let transactionDict = transactionArray[i]
+//                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+//                    }
+//                }
                 labelOne.text = String(format:"%d%% of your part",Int(paidAmount * 100)/totalAmount)
                 circularView.hidden = false
             }

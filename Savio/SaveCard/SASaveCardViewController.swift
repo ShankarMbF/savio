@@ -545,6 +545,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     // Remove Card API delegate methods
     func successResponseForRemoveCardAPI(objResponse:Dictionary<String,AnyObject>){
         print(objResponse)
+         objAnimView.removeFromSuperview()
             self.savedCardArray.removeAtIndex(removeCardTag)
             self.cardListView.reloadData()
 //        var arr = NSUserDefaults.standardUserDefaults().valueForKey(<#T##key: String##String#>)

@@ -527,7 +527,6 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             objImpulseView.isFromPayment = true
             self.navigationController?.pushViewController(objImpulseView, animated: true)
         }
-        
     }
     
     //Success reponse of ImpulseSavingDelegate

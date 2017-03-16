@@ -211,21 +211,32 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         groupMembersLabel.text = String(format:"Group members (%d)",participantsArr.count)
-        var endValue = totalAmount
+        var endValue = 0
         for i in 0 ..< participantsArr.count
         {
+            var errorValue : CGFloat = 1
+            let participantDict = participantsArr[i] as Dictionary<String,AnyObject>
+            print("participant = \(participantDict)")
+            if let transactionArray = participantDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+            {
+                errorValue = 0
+                for i in 0 ..< transactionArray.count {
+                    let transactionDict = transactionArray[i]
+                    errorValue = errorValue + CGFloat((transactionDict["amount"] as? NSNumber)!)
+                }
+            }
             var error = Piechart.Slice()
-            error.value = 100
+            error.value = errorValue
             error.color = chartColors[i]
             error.text = "Success"
             pieChartSliceArray.append(error)
-            endValue = endValue - 100
+            endValue = endValue + Int(errorValue)
         }
         
         if(pieChartSliceArray.count <= 8)
         {
             var error = Piechart.Slice()
-            error.value = CGFloat(endValue)//360.0 - CGFloat(pieChartSliceArray.count)
+            error.value = CGFloat(totalAmount - endValue)//360.0 - CGFloat(pieChartSliceArray.count)
 //            error.value = 360.0 - CGFloat(pieChartSliceArray.count)
             error.color = UIColor(red:234/255,green:235/255,blue:237/255,alpha:1)
             error.text = "Error"

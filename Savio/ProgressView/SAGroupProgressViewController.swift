@@ -198,13 +198,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let userDict = participantsArr[0]
         
         //Check if savingPlanTransactionList is present
-        if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-        {
-            for i in 0 ..< transactionArray.count {
-                let transactionDict = transactionArray[i]
-                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-            }
-        }
+//        if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+//        {
+//            for i in 0 ..< transactionArray.count {
+//                let transactionDict = transactionArray[i]
+//                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+//            }
+//        }
         
         horizontalScrollView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
         //Set page control pages
@@ -223,6 +223,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 for i in 0 ..< transactionArray.count {
                     let transactionDict = transactionArray[i]
                     errorValue = errorValue + CGFloat((transactionDict["amount"] as? NSNumber)!)
+                     paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
                 }
             }
             var error = Piechart.Slice()
@@ -404,6 +405,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             else
             {
+                let userDict = participantsArr[0]
+                //Check if savingPlanTransactionList array is present
+                var myAmt: Float = 0
+                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+                {
+                    for i in 0 ..< transactionArray.count {
+                        let transactionDict = transactionArray[i]
+                        myAmt = myAmt + Float((transactionDict["amount"] as? NSNumber)!)
+                    }
+                }
                 labelOne.hidden = false
                 labelTwo.hidden = false
                 labelTwo.text = " You saved"
@@ -411,7 +422,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelFour.hidden = true
                 labelFive.hidden = true
                 labelSix.hidden = true
-                let text = String(format: "%.f",paidAmount)
+                let text = String(format: "%.f",myAmt)
                 let attributes: Dictionary = [NSFontAttributeName:UIFont(name: kMediumFont, size: 45)!]
                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
                 let fontSuper:UIFont? = UIFont(name: kMediumFont, size:25)
@@ -419,16 +430,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 superscript.appendAttributedString(attString)
                 labelThree.attributedText = superscript
                 
-//                let userDict = participantsArr[0]
-//                //Check if savingPlanTransactionList array is present
-//                if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-//                {
-//                    for i in 0 ..< transactionArray.count {
-//                        let transactionDict = transactionArray[i]
-//                        paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
-//                    }
-//                }
-                labelOne.text = String(format:"%d%% of your part",Int(paidAmount * 100)/totalAmount)
+                
+                labelOne.text = String(format:"%d%% of your part",Int(myAmt * 100)/totalAmount)
+                circularView.angle = Double((myAmt * 360)/Float(totalAmount))
+
                 circularView.hidden = false
             }
             horizontalScrollView.addSubview(circularProgress)

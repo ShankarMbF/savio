@@ -918,6 +918,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                         newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
                     }
                 }
+                
+                newDict["emi"] = String(format:"%.f",recurringAmount)
                 newDict["planType"] = "group"
                 
                 let objAPI = API()

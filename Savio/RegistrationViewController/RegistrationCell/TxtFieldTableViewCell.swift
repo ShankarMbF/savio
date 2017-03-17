@@ -110,7 +110,7 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
             //            if (newLength > 50) {
             //                return false;
             //            }
-        }else if(textField.placeholder == "Mobile number" ){
+        }else if(textField.placeholder == kMobileNumber ){
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
             
         }

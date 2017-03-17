@@ -99,7 +99,7 @@ class NumericTextTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        if(textField.placeholder == "Mobile number" ){
+        if(textField.placeholder == kMobileNumber ){
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
             
         }

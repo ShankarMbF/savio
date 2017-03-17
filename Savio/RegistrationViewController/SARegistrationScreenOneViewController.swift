@@ -137,7 +137,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         mobileNumberTextField?.layer.cornerRadius = 2.0
         mobileNumberTextField?.layer.masksToBounds = true
         mobileNumberTextField?.layer.borderWidth=1.0
-        let placeholder4 = NSAttributedString(string:"Mobile number" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+        let placeholder4 = NSAttributedString(string:kMobileNumber , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         mobileNumberTextField?.attributedPlaceholder = placeholder4;
         mobileNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         //Add custom tool bar as input accessory view to mobile number textfield

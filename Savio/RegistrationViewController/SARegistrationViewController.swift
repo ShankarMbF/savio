@@ -173,13 +173,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                         cell.tf?.layer.borderColor = UIColor.redColor().CGColor
                     }
                 }
-                if (dictForTextFieldValue["errorMobile"] != nil && cell.tf?.placeholder == "Mobile number") {
+                if (dictForTextFieldValue["errorMobile"] != nil && cell.tf?.placeholder == kMobileNumber) {
                     let str = dictForTextFieldValue["errorMobile"]
                     if (str!.isEqualToString("Don't forget your mobile number")){
                         cell.tf?.layer.borderColor = UIColor.redColor().CGColor
                     }
                 }
-                if (dictForTextFieldValue["errorMobileValidation"] != nil && cell.tf?.placeholder == "Mobile number") {
+                if (dictForTextFieldValue["errorMobileValidation"] != nil && cell.tf?.placeholder == kMobileNumber) {
                     let str = dictForTextFieldValue["errorMobileValidation"]
                     if (str!.isEqualToString("That mobile number doesn’t look right")){
                         cell.tf?.textColor = UIColor.redColor()
@@ -298,13 +298,13 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
                 }
                 
-                if (dictForTextFieldValue["errorMobile"] != nil && cell.tf?.placeholder == "Mobile number") {
+                if (dictForTextFieldValue["errorMobile"] != nil && cell.tf?.placeholder == kMobileNumber) {
                     let str = dictForTextFieldValue["errorMobile"]
                     if (str!.isEqualToString("Don't forget your mobile number")){
                         cell.tf?.layer.borderColor = UIColor.redColor().CGColor
                     }
                 }
-                if (dictForTextFieldValue["errorMobileValidation"] != nil && cell.tf?.placeholder == "Mobile number") {
+                if (dictForTextFieldValue["errorMobileValidation"] != nil && cell.tf?.placeholder == kMobileNumber) {
                     let str = dictForTextFieldValue["errorMobileValidation"]
                     if (str!.isEqualToString("That mobile number doesn’t look right")){
                         cell.tf?.textColor = UIColor.redColor()
@@ -651,7 +651,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     dict["town"] = cell.tf?.text
                 }
                 
-                if cell.tf?.placeholder == "Mobile number"{
+                if cell.tf?.placeholder == kMobileNumber{
                     dict["phone_number"] = cell.tf?.text
                 }
                 if cell.tf?.placeholder == "County"{
@@ -942,7 +942,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
                     idx = 16
                 }
                 
-                if cell.tf?.placeholder == "Mobile number"{
+                if cell.tf?.placeholder == kMobileNumber{
                     let str = cell.tf?.text
                     if str==""{
                         errorFLag = true
@@ -1251,7 +1251,7 @@ class SARegistrationViewController: UIViewController,UITableViewDelegate,UITable
 //            NSUserDefaults.standardUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(dictForTextFieldValue["Mobile number"] as! String, country_code: "91")
+            objAPI.getOTPForNumber(dictForTextFieldValue[kMobileNumber] as! String, country_code: "91")
         }
         else if errorCode == 201 {
             let alert = UIAlertController(title: "Looks like you are an existing user, change your Passcode", message: "", preferredStyle: UIAlertControllerStyle.Alert)

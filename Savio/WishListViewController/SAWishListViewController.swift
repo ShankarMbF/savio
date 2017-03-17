@@ -298,7 +298,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.dateFromString(groupDict["planEndDate"] as! String)
-        
+        let timeDifference : NSTimeInterval = date!.timeIntervalSinceDate(NSDate())
+        objSavingPlanViewController.dateDiff = Int(timeDifference/3600)
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
         let goodDate = dateFormatter.stringFromDate(date!)
         

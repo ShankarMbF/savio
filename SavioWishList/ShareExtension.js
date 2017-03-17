@@ -17,9 +17,21 @@ MyExtensionJavaScriptClass.prototype = {
        // price = price.replace('£', '')
         return price.replace(/\s/g,'');
     },
+    
+    getURL: function(){
+       var canonical = "";
+               var links = document.getElementsByTagName("link");
+               for (var i = 0; i < links.length; i ++) {
+                   if (links[i].getAttribute("rel") === "canonical") {
+                       canonical = links[i].getAttribute("href")
+                   }
+               }
+       return canonical;
+   },
+
     run: function(arguments) {
     // Pass the baseURI of the webpage to the extension.
-        arguments.completionFunction({"url": document.baseURI, "host": document.location.hostname, "title": document.title, "price":this.getPrice(), "image": this.getImage()});
+        arguments.completionFunction({"url": document.baseURI, "host": document.location.hostname, "title": document.title, "price":this.getPrice(), "image": this.getImage(), "ProdURL": this.getURL()});
     },
 // Note that the finalize function is only available in iOS.
     finalize: function(arguments) {

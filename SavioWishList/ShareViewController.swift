@@ -101,10 +101,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         dict["AMOUNT"] = self.priceTextField.text?.stringByReplacingOccurrencesOfString("£", withString: "")
                         dict["PARTYID"] = userDict!["partyId"]
                         dict["SHAREDSAVINGPLANID"] = ""
+//                        dict["ProdURL"] = self.dictGlobal["ProdURL"]!
+                        print(dict)
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)
                         }
-                        
                     });
                     }
                     else {
@@ -113,7 +114,6 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
-                
             }
         }
         else {
@@ -220,6 +220,8 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         if let resultDict = result as? NSDictionary {
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
+                                print(self.dictGlobal)
+                                print("URL = \(self.dictGlobal["url"])")
                                 defaults.setObject(self.dictGlobal, forKey: "ScrapingResult")
                                 let str = self.dictGlobal["title"] as! String
                                 var subStr = str

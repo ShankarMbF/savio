@@ -891,8 +891,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -937,7 +937,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
+        if(error == kNonetworkfound)
         {
 //            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
 //            alert.show()

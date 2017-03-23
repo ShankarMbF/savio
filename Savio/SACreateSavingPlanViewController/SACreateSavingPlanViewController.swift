@@ -578,9 +578,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //function invoke when GetCategorysavingPlan API request fail
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
+        if(error == kNonetworkfound)
         {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {
@@ -612,9 +612,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
      //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
+        if(error == kNonetworkfound)
         {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else {

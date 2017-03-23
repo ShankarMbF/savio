@@ -409,8 +409,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Error reponse of GetListOfUsersCardsDelegate
     func errorResponseForGetListOfUsersCards(error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -508,8 +508,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
      //Success reponse of SetDefaultCardDelegate
     func errorResponseForSetDefaultCard(error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -532,8 +532,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Success reponse of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -593,8 +593,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForRemoveCardAPI(error:String){
         print(error)
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

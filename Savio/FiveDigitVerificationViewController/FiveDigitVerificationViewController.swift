@@ -229,8 +229,8 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             let alert = UIAlertView(title: "Incorrect verification code", message: "Please try again or request a new code.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-        else if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        else if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

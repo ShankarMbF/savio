@@ -37,13 +37,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     var xLabels: [String] = [] //Array for holding x-axis lable
     var documentInteractionController = UIDocumentInteractionController()  // UIDocumentInteractionController object for sharing data to whatsapp friends
     var shareImg: UIImage?
+    var xLableArray: Array<String>?
+    var dataArr: Array<CGFloat>?
     
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let maxValue:CGFloat = 3000.0//self.calculateMaxPriceForYAxix(NSInteger(cost)!)
-        
         
         //Setting up Stat view UI
         self.setUpView()
@@ -88,7 +88,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }else{
             outputNum = (CGFloat)(ceil(Double( maxPrice)/1000) * 1000);
         }
-        
         print(outputNum)
         return outputNum
     }
@@ -107,8 +106,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
     
-    
-    //MARK:- Delegate slider 
+    //MARK:- Delegate slider
     
     func scrollLineDragged(xValue: CGFloat, widhtContent: CGFloat) {
         let widthScrollView : CGFloat = self.scrollViewForGraph.frame.size.width
@@ -123,9 +121,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         }
     }
 
-    
     //MARK: -
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         var views: [String: AnyObject] = [:]
@@ -143,7 +139,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.contentView!.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[chart]-|", options: [], metrics: nil, views: views))
             self.widthOfContentView.constant = self.scrollViewForGraph.frame.width
             self.scrollViewForGraph.contentSize = CGSize(width: self.scrollViewForGraph.frame.width, height: self.scrollViewForGraph.frame.height)
-            
         }
         //add rounded corners plan button
         let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))

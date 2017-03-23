@@ -101,7 +101,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         dict["AMOUNT"] = self.priceTextField.text?.stringByReplacingOccurrencesOfString("£", withString: "")
                         dict["PARTYID"] = userDict!["partyId"]
                         dict["SHAREDSAVINGPLANID"] = ""
-//                        dict["ProdURL"] = self.dictGlobal["ProdURL"]!
+                        dict["SITEURL"] = self.dictGlobal["ProdURL"]!
                         print(dict)
                         objAPI.shareExtensionDelegate = self
                         objAPI.sendWishList(dict)

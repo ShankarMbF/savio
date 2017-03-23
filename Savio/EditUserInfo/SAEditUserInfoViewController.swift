@@ -1645,8 +1645,8 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func errorResponseForGetUserInfoAPI(error: String) {
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -1696,7 +1696,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     func errorResponseForUpdateUserInfoAPI(error: String) {
         objAnimView?.removeFromSuperview()
         if error == "Network not available" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
 

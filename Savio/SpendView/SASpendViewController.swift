@@ -13,11 +13,18 @@ class SASpendViewController: UIViewController {
     @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
     @IBOutlet weak var offersButton: UIButton!
+    @IBOutlet weak var congratsLbl: UILabel!
+    @IBOutlet weak var spendNowBtn: UIButton!
+    @IBOutlet weak var btnBg: UIView!
+    @IBOutlet weak var congratsView: UIView!
+    
+
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
+        congratsView.hidden = true
          self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
@@ -75,6 +82,7 @@ class SASpendViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+//        self.showCongratsView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -102,6 +110,28 @@ class SASpendViewController: UIViewController {
             let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
+    }
+    
+    func showCongratsView() {
+        congratsView.hidden = false
+        let str = "Congratulations,              you have reached your target for your Bike!"
+        let lenStr = "              you have reached your target for your"
+        
+//        let attrText = NSMutableAttributedString(string: String(format: "My %@ plan target is £%@",itemTitle,cost))
+        let attrText = NSMutableAttributedString(string: str)
+        attrText.addAttribute(NSFontAttributeName,
+                              value: UIFont(
+                                name: kLightFont,
+                                size: 20.0)!,
+                              range: NSRange(
+                                location: 16,
+                                length: lenStr.characters.count))
+        
+        congratsLbl.attributedText = attrText
+    }
+    
+   @IBAction func spendNowButtonClicked(sender:UIButton) {
+        print("Spend Button Clicked...")
     }
 
     @IBAction func planButtonPressed(sender: AnyObject) {

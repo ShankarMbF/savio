@@ -418,15 +418,15 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             self.navigationController?.popToViewController(vw!, animated: false)
         }
         else{
-        let obj = SAOfferListViewController()
-        obj.savID = 63
-        obj.isComingProgress = true
-        //save the Generic plan in NSUserDefaults, so it will show its specific offers
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        obj.hideAddOfferButton = true
-        self.navigationController?.pushViewController(obj, animated: false)
+            let obj = SAOfferListViewController()
+            obj.savID = 63
+            obj.isComingProgress = true
+            //save the Generic plan in NSUserDefaults, so it will show its specific offers
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
+            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            obj.hideAddOfferButton = true
+            self.navigationController?.pushViewController(obj, animated: false)
         }
     }
     
@@ -483,8 +483,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     }
     
     func errorResponseForGetUsersPlanAPI(error: String) {
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
         let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -528,7 +528,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "No network found")
+        if(error == kNonetworkfound)
         {
 //            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
 //            alert.show()

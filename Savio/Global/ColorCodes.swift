@@ -17,6 +17,7 @@ var kEmptyWishListMessage: String! = "You don’t have anything in your wish lis
 var kNoNetworkMessage: String! = "Savio needs the internet to work. Check your data connection and try again."
 var kMobileNumber: String! = "Mobile Number"
 
+
 //Structure defined for Color
 struct Color {
     static var groupPlan = 85

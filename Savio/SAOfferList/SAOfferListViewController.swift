@@ -520,11 +520,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     //get offerlist API's delegate method invoking when fail or error response getting from API request.
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
+        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
         alert.show()
         }
     }

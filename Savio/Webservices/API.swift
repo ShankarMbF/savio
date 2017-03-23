@@ -30,6 +30,9 @@ var changePhoneNumber : Bool = false
 var phoneNumber = ""
 var isFromForgotPasscode : Bool = false
 
+var kConnectionProblemTitle: String! = "Connection problem"
+var kNonetworkfound: String! = "No network found"
+
 protocol PostCodeVerificationDelegate {
     
     func success(addressArray:Array<String>)
@@ -334,7 +337,7 @@ class API: UIView,NSURLSessionDelegate {
         else {
             //Give error no network found
             dispatch_async(dispatch_get_main_queue()){
-                self.delegate?.errorResponseForRegistrationAPI("No network found")
+                self.delegate?.errorResponseForRegistrationAPI(kNonetworkfound)
             }
         }
     }
@@ -410,7 +413,7 @@ class API: UIView,NSURLSessionDelegate {
         else {
             //Give error no network found
             dispatch_async(dispatch_get_main_queue()){
-               self.otpSentDelegate?.errorResponseForOTPSentAPI("No network found")
+               self.otpSentDelegate?.errorResponseForOTPSentAPI(kNonetworkfound)
             }
         }
     }
@@ -476,7 +479,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI("No network found")
+            self.otpVerificationDelegate?.errorResponseForOTPVerificationAPI(kNonetworkfound)
         }
     }
     
@@ -572,7 +575,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            logInDelegate?.errorResponseForOTPLogInAPI("No network found")
+            logInDelegate?.errorResponseForOTPLogInAPI(kNonetworkfound)
         }
     }
     
@@ -625,7 +628,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI("No network found")
+            self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI(kNonetworkfound)
         }
         
     }
@@ -723,7 +726,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             dispatch_async(dispatch_get_main_queue()){
-                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI("No network found")
+                self.shareExtensionDelegate?.errorResponseForShareExtensionAPI(kNonetworkfound)
             }
         }
         
@@ -786,7 +789,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.deleteWishList?.errorResponseForDeleteWishListAPI("No network found")
+            self.deleteWishList?.errorResponseForDeleteWishListAPI(kNonetworkfound)
         }
         
     }
@@ -854,7 +857,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI("No network found")
+            self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(kNonetworkfound)
         }
         
     }
@@ -910,7 +913,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getWishlistDelegate?.errorResponseForGetWishlistAPI("No network found")
+            self.getWishlistDelegate?.errorResponseForGetWishlistAPI(kNonetworkfound)
         }
     }//17981.75
     
@@ -963,7 +966,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI("No network found")
+            self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI(kNonetworkfound)
         }
         
     }
@@ -1014,7 +1017,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
+            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(kNonetworkfound)
         }
         
     }
@@ -1067,7 +1070,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI("No network found")
+            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(kNonetworkfound)
         }
         
     }
@@ -1124,7 +1127,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI("No network found")
+            self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI(kNonetworkfound)
         }
         
     }
@@ -1250,7 +1253,7 @@ class API: UIView,NSURLSessionDelegate {
             
         }
         else {
-            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI("No network found")
+            self.getUserInfoDelegate?.errorResponseForGetUserInfoAPI(kNonetworkfound)
         }
     }
     
@@ -1457,7 +1460,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             dispatch_async(dispatch_get_main_queue()){
-                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI("No network found")
+                self.inviteMemberDelegate?.errorResponseForInviteMembersAPI(kNonetworkfound)
             }
         }
     }
@@ -1511,7 +1514,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI("No network found")
+            self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI(kNonetworkfound)
         }
         
     }
@@ -1607,7 +1610,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI("No network found")
+            addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI(kNonetworkfound)
         }
     }
     
@@ -1701,7 +1704,7 @@ class API: UIView,NSURLSessionDelegate {
         }
         else {
             //Give error no network found
-            addNewSavingCardDelegate?.errorResponseForAddNewSavingCardDelegateAPI("No network found")
+            addNewSavingCardDelegate?.errorResponseForAddNewSavingCardDelegateAPI(kNonetworkfound)
         }
     }
     
@@ -1755,7 +1758,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.getListOfUsersCardDelegate?.errorResponseForGetListOfUsersCards("No network found")
+            self.getListOfUsersCardDelegate?.errorResponseForGetListOfUsersCards(kNonetworkfound)
         }
     }
     
@@ -1813,7 +1816,7 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.setDefaultCardDelegate?.errorResponseForSetDefaultCard("No network found")
+            self.setDefaultCardDelegate?.errorResponseForSetDefaultCard(kNonetworkfound)
         }
     }
 
@@ -1870,13 +1873,12 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI("No network found")
+            self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI(kNonetworkfound)
         }
     }
     
     
     //MARK: Delete item from wishlist
-    
     func removeCarde(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
@@ -1928,9 +1930,8 @@ class API: UIView,NSURLSessionDelegate {
             dataTask.resume()
         }
         else {
-            self.removeCardDelegate?.errorResponseForRemoveCardAPI("No network found")
+            self.removeCardDelegate?.errorResponseForRemoveCardAPI(kNonetworkfound)
         }
-        
     }
 
 }

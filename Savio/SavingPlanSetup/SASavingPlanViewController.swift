@@ -1410,6 +1410,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["OFFERS"] = self.getParameters()["OFFERS"]
                     newDict["PARTY_ID"] = userInfoDict["partyId"]
                     newDict["SAV_PLAN_ID"] = "0"
+                    print(itemDetailsDataDict)
+                    if itemDetailsDataDict["wishsiteURL"] is NSNull {
+                       newDict["SAV_SITE_URL"] = ""
+                    }
+                    else{
+                        newDict["SAV_SITE_URL"] = itemDetailsDataDict["wishsiteURL"]
+                    }
+                    
                     if (topBackgroundImageView.image != nil) {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))

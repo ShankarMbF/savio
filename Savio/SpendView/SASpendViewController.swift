@@ -82,7 +82,14 @@ class SASpendViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-//        self.showCongratsView()
+        if NSUserDefaults.standardUserDefaults().objectForKey("SAV_SITE_URL") != nil{
+            // exist
+            self.showCongratsView()
+
+        }
+        else {
+            // not exist
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -130,8 +137,11 @@ class SASpendViewController: UIViewController {
         congratsLbl.attributedText = attrText
     }
     
-   @IBAction func spendNowButtonClicked(sender:UIButton) {
+    @IBAction func spendNowButtonClicked(sender:UIButton) {
         print("Spend Button Clicked...")
+        if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey("SAV_SITE_URL") as! String ){
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
 
     @IBAction func planButtonPressed(sender: AnyObject) {

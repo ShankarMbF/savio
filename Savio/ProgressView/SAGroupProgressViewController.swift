@@ -234,6 +234,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             endValue = endValue + Int(errorValue)
         }
         
+        
         if(pieChartSliceArray.count <= 8)
         {
             var error = Piechart.Slice()
@@ -244,6 +245,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             pieChartSliceArray.append(error)
             
         }
+        
+        if Int(paidAmount) == totalAmount {
+            let objAPI = API()
+            var link = "http://www.getsavio.com/"
+            if let key = savingPlanDetailsDict["SAV_SITE_URL"]! as? String {
+                link = key
+            }
+            objAPI.storeValueInKeychainForKey("SAV_SITE_URL", value:link )
+        }
+       
         
         for i in 0 ..< 3
         {
@@ -837,6 +848,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             {
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
                 print(objResponse)
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("SAV_SITE_URL")
+
 //                  newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
                 
                  var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>

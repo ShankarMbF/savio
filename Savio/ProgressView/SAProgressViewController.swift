@@ -171,6 +171,15 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             print("paidAmt = \(paidAmount)")
         }
         
+        if paidAmount == totalAmount {
+            let objAPI = API()
+            var link = "http://www.getsavio.com/"
+            if let key = savingPlanDetailsDict["partySavingPlan"]!["SAV_SITE_URL"] as? String {
+                link = key
+            }
+            objAPI.storeValueInKeychainForKey("SAV_SITE_URL", value:link )
+        }
+        
         let planEndDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
         
         
@@ -465,6 +474,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         {
             if(message == "Success")
             {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("SAV_SITE_URL")
+                NSUserDefaults.standardUserDefaults().synchronize()
                 savingPlanDetailsDict = objResponse//["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }

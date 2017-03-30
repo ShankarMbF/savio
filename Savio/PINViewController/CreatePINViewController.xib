@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,30 +48,30 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4N-aq-d7H">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4N-aq-d7H">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Omm-aY-3dO">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omm-aY-3dO">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="JsK-tA-Ay6">
-                                    <rect key="frame" x="280" y="36" width="40" height="40"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="savivo-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="JsK-tA-Ay6">
+                                    <rect key="frame" x="167.5" y="36" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="BUW-Bk-srY"/>
                                         <constraint firstAttribute="height" constant="40" id="DGf-iT-VlX"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter a new 4 digit Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-4Q-RGB">
-                                    <rect key="frame" x="30" y="84" width="540" height="66"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter a new 4 digit Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQJ-4Q-RGB">
+                                    <rect key="frame" x="30" y="84" width="315" height="77"/>
                                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="33"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Q0-5q-NPw" userLabel="confirm passcode">
-                                    <rect key="frame" x="30" y="369" width="540" height="42"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Q0-5q-NPw" userLabel="confirm passcode">
+                                    <rect key="frame" x="30" y="397.5" width="315" height="42"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nhf-Oq-2SD">
-                                            <rect key="frame" x="0.0" y="0.0" width="540" height="40"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nhf-Oq-2SD">
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="40"/>
                                             <color key="backgroundColor" red="0.95686274510000002" green="0.69019607839999997" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="HpY-h1-OPY"/>
@@ -98,20 +98,20 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You’ll use this code whenever you log in to your Savio account from this app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azQ-j7-Yur">
-                                    <rect key="frame" x="50" y="165" width="500" height="11"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ll use this code whenever you log in to your Savio account from this app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azQ-j7-Yur">
+                                    <rect key="frame" x="50" y="176" width="275" height="26"/>
                                     <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="11"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter 4 digit passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bw-Te-WsK">
-                                    <rect key="frame" x="50" y="184" width="500" height="15"/>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter 4 digit passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bw-Te-WsK">
+                                    <rect key="frame" x="50" y="210" width="275" height="17.5"/>
                                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="15"/>
                                     <color key="textColor" red="0.99215686270000003" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuH-dN-Xu0">
-                                    <rect key="frame" x="179" y="207" width="242" height="66"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iuH-dN-Xu0">
+                                    <rect key="frame" x="66.5" y="235.5" width="242" height="66"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J63-ce-dId">
                                             <rect key="frame" x="132" y="15" width="35" height="35"/>
@@ -193,8 +193,8 @@
                                         <constraint firstAttribute="trailing" secondItem="eOi-8G-ouH" secondAttribute="trailing" constant="17" id="yDk-C9-7v4"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mce-7d-49B">
-                                    <rect key="frame" x="179" y="288" width="242" height="66"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mce-7d-49B">
+                                    <rect key="frame" x="66.5" y="316.5" width="242" height="66"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d7Z-OQ-9UT">
                                             <rect key="frame" x="16" y="15" width="35" height="35"/>
@@ -288,8 +288,8 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFh-BL-cfT">
-                                    <rect key="frame" x="277" y="439" width="46" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFh-BL-cfT">
+                                    <rect key="frame" x="164.5" y="467.5" width="46" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="46" id="dsI-8d-LYs"/>
                                         <constraint firstAttribute="height" constant="30" id="ePM-hb-RER"/>
@@ -309,8 +309,8 @@
                                         <action selector="onclickBackButton:" destination="-1" eventType="touchUpInside" id="8SM-60-XhS"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirm passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVn-Ss-BrL">
-                                    <rect key="frame" x="50" y="273" width="500" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm passcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVn-Ss-BrL">
+                                    <rect key="frame" x="50" y="301.5" width="275" height="17.5"/>
                                     <fontDescription key="fontDescription" name="GothamRounded-Light" family="Gotham Rounded" pointSize="15"/>
                                     <color key="textColor" red="0.95294117649999999" green="0.68627450980000004" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>

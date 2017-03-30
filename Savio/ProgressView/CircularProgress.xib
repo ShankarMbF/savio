@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -44,9 +44,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-9J-PIg">
-                                    <rect key="frame" x="75" y="111" width="50" height="45"/>
+                                    <rect key="frame" x="72" y="111" width="56" height="45"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="50" id="RUf-At-mpu"/>
+                                        <constraint firstAttribute="width" constant="56" id="RUf-At-mpu"/>
                                         <constraint firstAttribute="height" constant="45" id="wpi-Me-2Jh"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="GothamRounded-Medium" family="Gotham Rounded" pointSize="14"/>
@@ -59,7 +59,8 @@
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="53" id="6ZS-Du-AII"/>
                                 <constraint firstAttribute="bottom" secondItem="lBD-XE-gZN" secondAttribute="bottom" constant="15" id="9UP-7I-eAb"/>
                                 <constraint firstAttribute="width" constant="250" id="BPC-ZS-jyP"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="-22" id="GXv-tx-o2M"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="top" secondItem="FdY-a0-Tz4" secondAttribute="bottom" constant="-22" id="LZX-Gn-F79"/>
+                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="Lvu-ic-IeE"/>
                                 <constraint firstItem="We0-eo-g6b" firstAttribute="centerY" secondItem="kwY-gp-AnE" secondAttribute="centerY" id="MrW-3m-2F0"/>
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="RcR-ju-m24"/>
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="15" id="VSq-oH-jvA"/>
@@ -69,7 +70,6 @@
                                 <constraint firstItem="lBD-XE-gZN" firstAttribute="top" secondItem="kwY-gp-AnE" secondAttribute="top" constant="15" id="dzj-Q2-bwV"/>
                                 <constraint firstItem="FdY-a0-Tz4" firstAttribute="leading" secondItem="kwY-gp-AnE" secondAttribute="leading" constant="25" id="n9b-Nj-SWV"/>
                                 <constraint firstAttribute="height" constant="200" id="pyA-So-dWZ"/>
-                                <constraint firstItem="qRB-9J-PIg" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="vJq-p0-sSp"/>
                                 <constraint firstItem="We0-eo-g6b" firstAttribute="centerX" secondItem="kwY-gp-AnE" secondAttribute="centerX" id="yIt-v1-8fi"/>
                             </constraints>
                             <variation key="default">

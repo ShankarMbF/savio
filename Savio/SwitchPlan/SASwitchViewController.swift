@@ -105,7 +105,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
     
     @IBAction func confirmButtonPressed(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
     }
     
@@ -117,11 +117,11 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -148,7 +148,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planOneType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planOneType, forKey: "UsersPlan")
+        NSUserDefaults.standardUserDefaults().setObject(planOneType, forKey: kUsersPlan)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
@@ -174,7 +174,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planTwoType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planTwoType, forKey: "UsersPlan")
+        NSUserDefaults.standardUserDefaults().setObject(planTwoType, forKey: kUsersPlan)
         NSUserDefaults.standardUserDefaults().synchronize()
         
     }
@@ -200,12 +200,12 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                     let dict = usersPlanArray[i] as Dictionary<String,AnyObject>
                     if(i == 0)
                     {
-                        planOneButton .setTitle(dict["title"] as? String , forState: .Normal)
+                        planOneButton .setTitle(dict[kTitle] as? String , forState: .Normal)
                         self.view.bringSubviewToFront(planOneButton)
                     }
                     else if(i == 1)
                     {
-                        planTwoButton .setTitle(dict["title"] as? String , forState: .Normal)
+                        planTwoButton .setTitle(dict[kTitle] as? String , forState: .Normal)
                         self.view.bringSubviewToFront(planTwoButton)
                     }
                     

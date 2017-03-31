@@ -127,7 +127,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //set up the UIView
     func setUpView(){
          self.callWishListAPI()
-        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["partySavingPlan"]!["title"] as! String)
+        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String)
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -136,13 +136,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                                 size: 16.0)!,
                               range: NSRange(
                                 location: 3,
-                                length: (savingPlanDetailsDict["partySavingPlan"]!["title"] as! String).characters.count))
+                                length: (savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String).characters.count))
         
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
         
         //get the total amount of plan from the Dictionary
-        if let amount = savingPlanDetailsDict["partySavingPlan"]!["amount"] as? NSNumber
+        if let amount = savingPlanDetailsDict["partySavingPlan"]![kAmount] as? NSNumber
         {
             totalAmount = amount.floatValue
         }
@@ -160,7 +160,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         {
             for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
-                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+                paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
 //                let str = String(format: "£%.0f",paidAmount)
 //                cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
 //                cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
@@ -174,10 +174,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         if paidAmount == totalAmount {
             let objAPI = API()
             var link = "http://www.getsavio.com/"
-            if let key = savingPlanDetailsDict["partySavingPlan"]!["SAV_SITE_URL"] as? String {
+            if let key = savingPlanDetailsDict["partySavingPlan"]![kSAVSITEURL] as? String {
                 link = key
             }
-            objAPI.storeValueInKeychainForKey("SAV_SITE_URL", value:link )
+            objAPI.storeValueInKeychainForKey(kSAVSITEURL, value:link )
         }
         
         let planEndDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
@@ -265,7 +265,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 let timeDifference : NSTimeInterval = endDate!.timeIntervalSinceDate(NSDate())
                 var dateDiff = Int(timeDifference/3600)
                 var str = ""
-                if(savingPlanDetailsDict["partySavingPlan"]!["payType"] as! String == "Month")
+                if(savingPlanDetailsDict["partySavingPlan"]!["payType"] as! String == kMonth)
                 {
                     if((dateDiff/168)/4 == 1)
                     {
@@ -348,18 +348,18 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
-        if(userDict["partyId"] is String)
+        if(userDict[kPartyID] is String)
         {
-            objAPI.getWishListForUser(userDict["partyId"] as! String)
+            objAPI.getWishListForUser(userDict[kPartyID] as! String)
         }
         else
         {
-            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+            objAPI.getWishListForUser(String(format: "%d",((userDict[kPartyID] as? NSNumber)?.doubleValue)!))
         }
     }
     
@@ -371,10 +371,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -396,13 +396,19 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     
     //Goto stats tab
     @IBAction func clickOnStatButton(sender:UIButton){
-        if let title = savingPlanDetailsDict["partySavingPlan"]!["title"] as? String
+        if let title = savingPlanDetailsDict["partySavingPlan"]![kTitle] as? String
         {
             let obj = SAStatViewController()
             obj.itemTitle = title
             obj.planType = "Individual"
-            obj.cost =  String(format:"%@",savingPlanDetailsDict["partySavingPlan"]!["amount"] as! NSNumber)
+            obj.cost =  String(format:"%@",savingPlanDetailsDict["partySavingPlan"]![kAmount] as! NSNumber)
             obj.endDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
+            print(savingPlanDetailsDict)
+            if let arr = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
+            
+            }
+            
+            obj.savingPlanDict = savingPlanDetailsDict
             self.navigationController?.pushViewController(obj, animated: false)
         }
         else {
@@ -474,7 +480,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         {
             if(message == "Success")
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("SAV_SITE_URL")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(kSAVSITEURL)
                 NSUserDefaults.standardUserDefaults().synchronize()
                 savingPlanDetailsDict = objResponse//["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()

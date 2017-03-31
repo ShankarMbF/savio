@@ -74,10 +74,10 @@ class ContainerViewController: UIViewController {
     func setUpViewController()
     {
         // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
         {
             //As per flag show the progress view of plan
             if usersPlan == "I"{
@@ -182,10 +182,10 @@ class ContainerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
             NSUserDefaults.standardUserDefaults().synchronize()
             //Assigning all plan flag
-            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
             
             var usersPlanFlag = ""
-            if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+            if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
             {
                 usersPlanFlag = usersPlan
                 //As per flag show the progress view of plan

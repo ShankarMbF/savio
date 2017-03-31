@@ -18,9 +18,9 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setup Menu as per plan created
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodOfReceivedNotification(_:)), name:"NotificationIdentifier", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodOfReceivedNotification(_:)), name:kNotificationIdentifier, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodForSelectRowAtIndexPath(_:)), name:"SelectRowIdentifier", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAMenuViewController.methodForSelectRowAtIndexPath(_:)), name:kSelectRowIdentifier, object: nil)
         //Set up UI for Menu
         self.setUpUI()
     }
@@ -52,9 +52,9 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         //Parsing Json file data
         let arr: NSArray = (try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])) as! NSArray
         //setting individual, group and group member plan's flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
         
         //Set up number of menu as per plan created
         for i in 0 ..< arr.count {
@@ -131,7 +131,7 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         //got individual menu's info
         let dict =  self.arrMenu[indexPath.row]
         //Showing Menu title
-        cell?.title?.text =  dict["title"] as? String
+        cell?.title?.text =  dict[kTitle] as? String
         //Showing menu icon
         let imageName =  dict["image"] as! String
         let imageIcon = UIImage(named: imageName)//?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)

@@ -182,11 +182,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -421,9 +421,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Success reponse of SetDefaultCardDelegate
     func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>)
     {
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
         if(isFromSavingPlan)
         {
             let objSummaryView = SASavingSummaryViewController()
@@ -451,7 +451,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         else if isFromGroupMemberPlan == true {
             //Navigate to showing group progress
             self.isFromGroupMemberPlan = false
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
             NSUserDefaults.standardUserDefaults().synchronize()
             let objThankyYouView = SAThankYouViewController()
             self.navigationController?.pushViewController(objThankyYouView, animated: true)
@@ -466,10 +466,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             dateFormatter.dateFormat = "yyyy-MM-dd"
             newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
             newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-            newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+            newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
             newDict["PAYMENT_TYPE"] = "debit"
             newDict["AUTH_CODE"] = "test"
-            newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+            newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
             print(newDict)
             objAPI.impulseSaving(newDict)
         }
@@ -478,26 +478,26 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             //Navigate user to Progress screen
             if(individualFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
             else if(groupMemberFlag == 1 || groupFlag == 1)
-            {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+            {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
             else if(groupMemberFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)

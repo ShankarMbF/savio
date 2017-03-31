@@ -410,17 +410,17 @@ class SAImpulseSavingViewController: UIViewController {
         {
             if let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
             { //Individual plan
-                if(plan == "individualPlan")
+                if(plan == kIndividualPlan)
                 {
                     let objProgressView = SAProgressViewController()
                     self.navigationController?.pushViewController(objProgressView, animated: true)
                 }
-                else if(plan == "groupPlan")
+                else if(plan == kGroupPlan)
                 {
                     let objProgressView = SAGroupProgressViewController()
                     self.navigationController?.pushViewController(objProgressView, animated: true)
                 }
-                else if(plan == "groupMemberPlan")
+                else if(plan == kGroupMemberPlan)
                 {
                     let objProgressView = SAGroupProgressViewController()
                     self.navigationController?.pushViewController(objProgressView, animated: true)
@@ -439,11 +439,11 @@ class SAImpulseSavingViewController: UIViewController {
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

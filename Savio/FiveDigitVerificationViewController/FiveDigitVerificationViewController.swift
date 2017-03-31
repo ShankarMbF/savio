@@ -38,7 +38,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
@@ -53,7 +53,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         if(isFromForgotPasscode == true)
         {
             isFromForgotPasscode = false
-            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
+            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
             
             fiveDigitTextField.hidden = false
             resentCodeButton.hidden = false
@@ -61,7 +61,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             yourCodeSentLabel.hidden = true
         }
         else {
-            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict["phone_number"]! as! String)
+            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
             fiveDigitTextField.hidden = true
             resentCodeButton.hidden = true
             backButton.hidden = false
@@ -178,7 +178,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
 
         //Resend the OTP to the mobile number present in keychain
-        objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
+        objAPI.getOTPForNumber(userInfoDict[kPhoneNumber]! as! String, country_code: "44")
         fiveDigitTextField.resignFirstResponder()
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)

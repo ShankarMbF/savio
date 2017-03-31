@@ -28,7 +28,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var cost : Int = 0
     var parameterDict : Dictionary<String,AnyObject> = [:]
     var dateDiff : Int = 0
-    var dateString = "date"
+    var dateString = kDate
     var isClearPressed = false
     var isDateChanged =  false
     var isOfferShow = false
@@ -59,15 +59,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         tblView!.registerNib(UINib(nibName: "OfferTableViewCell", bundle: nil), forCellReuseIdentifier: "OfferTableViewCellIdentifier")
         dateDiff =  Int(parameterDict["dateDiff"] as! String)!
         participantsArr = parameterDict["participantsArr"] as! Array
-        cost =  Int(parameterDict["amount"] as! String)!
+        cost =  Int(parameterDict[kAmount] as! String)!
         let objAPI = API()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict["phone_number"]!] as Dictionary<String,AnyObject>
+        let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict[kPhoneNumber]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBgImageView.layer.masksToBounds = true
-         dateString = "date"
+         dateString = kDate
         isDateChanged = true
         self.setUpView()
     }
@@ -95,7 +95,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
@@ -118,20 +118,20 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        if (parameterDict["imageURL"] as! String != "" &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
-            if let urlString = parameterDict["imageURL"] as? String {
+        if (parameterDict[kImageURL] as! String != "" &&  parameterDict["isUpdate"]!.isEqualToString("Yes")) {
+            if let urlString = parameterDict[kImageURL] as? String {
                 let data :NSData = NSData(base64EncodedString: urlString, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBgImageView.image = UIImage(data: data)
                 cameraButton.hidden = true
             }
         }
-        else if let image = parameterDict["imageURL"] as? String {
+        else if let image = parameterDict[kImageURL] as? String {
             if(image == "") {
                 self.cameraButton.hidden = false
                 topBgImageView.image = UIImage(named: "groupsave-setup-bg.png")
             }
             else {
-                let data :NSData = NSData(base64EncodedString: parameterDict["imageURL"] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+                let data :NSData = NSData(base64EncodedString: parameterDict[kImageURL] as! String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
                 topBgImageView.image = UIImage(data: data)
                 cameraButton.hidden = true
             }
@@ -174,16 +174,16 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if wishListArray!.count>0 {
-                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -214,7 +214,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.layer.masksToBounds = true
             if parameterDict["isUpdate"]!.isEqualToString("Yes") {
                 if let payType = parameterDict["payType"] as? NSString {
-                    if(payType == "Week") {
+                    if(payType == kWeek) {
                         let button = UIButton()
                         button.tag = 0
                         cell1.segmentBar.toggleButton(button)
@@ -222,7 +222,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 else{
                     if dateString == "" {
-                    dateString = "date"
+                    dateString = kDate
                     }
                     cell1.dayDateLabel.text = dateString
 
@@ -242,7 +242,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             else {
                 
                 if(selectedStr != "") {
-                    if(dateString == "day") {
+                    if(dateString == kDay) {
                         cell1.dayDateTextField.text = self.selectedStr
                     }
                     else {
@@ -274,7 +274,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 {
                     cell1.percentageCalculationLabel.text = String(format: "The plan is split equally between everyone. You have %.2f%% of the plan which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(groupMemberCount)),cost/(groupMemberCount),cost)
                     
-                    if(dateString == "day") {
+                    if(dateString == kDay) {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(groupMemberCount))/CGFloat(dateDiff/168),(dateDiff/168))
                             recurringAmount = round(CGFloat(cost)/CGFloat(groupMemberCount))
@@ -309,7 +309,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }else {
                     
                     cell1.percentageCalculationLabel.text = String(format: "The plan is split equally between everyone. You have %.2f%% of the plan which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
-                    if(dateString == "day") {
+                    if(dateString == kDay) {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
                              recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168)
@@ -487,11 +487,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     }
     
     func segmentBarChanged(str: String) {
-        if(str == "date") {
-            dateString = "date"
+        if(str == kDate) {
+            dateString = kDate
         }
         else {
-            dateString = "day"
+            dateString = kDay
         }
         isDateChanged = true
         tblView.reloadData()
@@ -518,35 +518,35 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         var newDict : Dictionary<String,AnyObject> = [:]
         if parameterDict["isUpdate"]!.isEqualToString("No") {
-            newDict["INIVITED_USER_LIST"] = participantsArr
+            newDict[kINIVITEDUSERLIST] = participantsArr
         }
-        newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
-        newDict["TITLE"] = parameterDict["title"]
-        newDict["AMOUNT"] = parameterDict["amount"]
-        newDict["PARTY_ID"] = parameterDict["pty_id"]
+        newDict[kPLANENDDATE] = parameterDict[kPLANENDDATE]
+        newDict[kTITLE] = parameterDict[kTitle]
+        newDict[kAMOUNT] = parameterDict[kAmount]
+        newDict[kPARTYID] = parameterDict["pty_id"]
         newDict["PARTY_SAVINGPLAN_ID"] = parameterDict["sharedPtySavingPlanId"]
-        if (parameterDict["imageURL"] != nil) {
-            if(parameterDict["imageURL"] as! String != "")  {
+        if (parameterDict[kImageURL] != nil) {
+            if(parameterDict[kImageURL] as! String != "")  {
                 let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
                 let dict = ["imageName.jpg":base64String]
-                newDict["IMAGE"] = dict
+                newDict[kIMAGE] = dict
             }
             else  {
                 let dict = ["imageName.jpg":""]
-                newDict["IMAGE"] = dict
+                newDict[kIMAGE] = dict
             }
         }
-        newDict["SAV_PLAN_ID"] = NSUserDefaults.standardUserDefaults().objectForKey("savPlanID")
+        newDict[kSAVPLANID] = NSUserDefaults.standardUserDefaults().objectForKey("savPlanID")
         newDict["WISHLIST_ID"] = parameterDict["wishList_ID"] as! NSNumber
-        newDict["PAY_DATE"] = selectedStr
-        if(dateString == "date") {
-            newDict["PAY_TYPE"] = "Month"
+        newDict[kPAYDATE] = selectedStr
+        if(dateString == kDate) {
+            newDict[kPAYTYPE] = kMonth
         }
         else {
-            newDict["PAY_TYPE"] = "Week"
+            newDict[kPAYTYPE] = kWeek
         }
-        newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
+        newDict[kPARTYSAVINGPLANTYPE] = "Group"
         newDict["STATUS"] = "Active"
         var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0 {
@@ -554,13 +554,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            newDict["OFFERS"] = newOfferArray
+            newDict[kOFFERS] = newOfferArray
         }
         else {
-            newDict["OFFERS"] = newOfferArray
+            newDict[kOFFERS] = newOfferArray
         }
         
-         newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
+         newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
         return newDict
     }
     
@@ -568,31 +568,31 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     func getParameters() -> Dictionary<String,AnyObject>
     {
         var newDict : Dictionary<String,AnyObject> = [:]
-        newDict["PLAN_END_DATE"] = parameterDict["PLAN_END_DATE"]
-        newDict["TITLE"] = parameterDict["title"]
-        newDict["AMOUNT"] = parameterDict["amount"]
-        newDict["PARTY_ID"] = parameterDict["pty_id"]
-        newDict["SAV_PLAN_ID"] = parameterDict["sav_id"]
-        if(parameterDict["imageURL"] as! String != "") {
-            let dict = ["imageName.jpg":parameterDict["imageURL"] as! String]
-            newDict["IMAGE"] = dict
+        newDict[kPLANENDDATE] = parameterDict[kPLANENDDATE]
+        newDict[kTITLE] = parameterDict[kTitle]
+        newDict[kAMOUNT] = parameterDict[kAmount]
+        newDict[kPARTYID] = parameterDict["pty_id"]
+        newDict[kSAVPLANID] = parameterDict["sav_id"]
+        if(parameterDict[kImageURL] as! String != "") {
+            let dict = ["imageName.jpg":parameterDict[kImageURL] as! String]
+            newDict[kIMAGE] = dict
         }
         else if(isImageClicked) {
             let imageData:NSData = UIImageJPEGRepresentation(topBgImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             let dict = ["imageName.jpg":base64String]
-            newDict["IMAGE"] = dict
+            newDict[kIMAGE] = dict
         }
         else {
             let dict = ["imageName.jpg":""]
-            newDict["IMAGE"] = dict
+            newDict[kIMAGE] = dict
         }
-        newDict["PAY_DATE"] = selectedStr as String
-        if(dateString == "date") {
-            newDict["PAY_TYPE"] = "Month"
+        newDict[kPAYDATE] = selectedStr as String
+        if(dateString == kDate) {
+            newDict[kPAYTYPE] = kMonth
         }
         else {
-            newDict["PAY_TYPE"] = "Week"
+            newDict[kPAYTYPE] = kWeek
         }
         var newOfferArray : Array<NSNumber> = []
         if offerArr.count>0 {
@@ -600,14 +600,14 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 let dict = offerArr[i]
                 newOfferArray.append(dict["offId"] as! NSNumber)
             }
-            newDict["OFFERS"] = newOfferArray
+            newDict[kOFFERS] = newOfferArray
         }
         else {
-            newDict["OFFERS"] = newOfferArray
+            newDict[kOFFERS] = newOfferArray
         }
-        newDict["PARTY_SAVINGPLAN_TYPE"] = "Group"
+        newDict[kPARTYSAVINGPLANTYPE] = "Group"
         newDict["STATUS"] = "Active"
-        newDict["RECURRING_AMOUNT"] = String(format: "%.f", recurringAmount)
+        newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
         print(newDict)
         return newDict
     }
@@ -768,8 +768,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         if(parameterDict["isUpdate"]!.isEqualToString("Yes")) {
             if let message = objResponse["message"] as? String {
                 if(message == "Party Saving Plan is succesfully added") {
-                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
-                    NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
+                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
+                    NSUserDefaults.standardUserDefaults().setValue(kGroupMemberPlan, forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     let objAPI = API()
 //                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
@@ -818,11 +818,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(message == "200") {
                     participantsArr.removeLast()
                     var dict : Dictionary<String,AnyObject> = [:]
-                    dict["INIVITED_USER_LIST"] = participantsArr
-                    dict["PARTY_ID"] = parameterDict["pty_id"]
+                    dict[kINIVITEDUSERLIST] = participantsArr
+                    dict[kPARTYID] = parameterDict["pty_id"]
                    
-                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: "PTY_SAVINGPLAN_ID")
-                         NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
+                    NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
+                         NSUserDefaults.standardUserDefaults().setValue(kGroupPlan, forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
 //                    print(dict)
@@ -866,33 +866,33 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             if(message == "Invited user successfully") {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
                 var newDict : Dictionary<String,AnyObject> = [:]
-                newDict["title"] = self.getParameters()["TITLE"]
-                let amt = self.getParameters()["AMOUNT"] as! String
-                newDict["amount"] = String(format:"%d",Int(amt)!/(participantsArr.count+1))//self.getParameters()["AMOUNT"]
-                newDict["PAY_DATE"] = self.getParameters()["PAY_DATE"]
-                let dict = self.getParameters()["IMAGE"]
-                newDict["imageURL"] = dict
-                newDict["INIVITED_USER_LIST"] = participantsArr
-                newDict["day"] = dateString
+                newDict[kTitle] = self.getParameters()[kTITLE]
+                let amt = self.getParameters()[kAMOUNT] as! String
+                newDict[kAmount] = String(format:"%d",Int(amt)!/(participantsArr.count+1))//self.getParameters()[kAMOUNT]
+                newDict[kPAYDATE] = self.getParameters()[kPAYDATE]
+                let dict = self.getParameters()[kIMAGE]
+                newDict[kImageURL] = dict
+                newDict[kINIVITEDUSERLIST] = participantsArr
+                newDict[kDay] = dateString
                 let dateParameter = NSDateFormatter()
                 dateParameter.dateFormat = "yyyy-MM-dd"
-                newDict["PLAN_END_DATE"] = self.getParameters()["PLAN_END_DATE"]
-                if(dateString == "day") {
+                newDict[kPLANENDDATE] = self.getParameters()[kPLANENDDATE]
+                if(dateString == kDay) {
                     if (dateDiff/168) > 0 {
                         
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
                     }
                     else{
-                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
                     }
                     newDict["payType"] = "Weekly"
                 }
                 else {
                     if ((dateDiff/168)/4) > 0 {
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
                     }
                     else{
-                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
                     }
                     newDict["payType"] = "Monthly"
                 }
@@ -901,24 +901,24 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
      
               
-                if(dateString == "day") {
+                if(dateString == kDay) {
                     if (dateDiff/168) > 0{
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
                     }
                     else{
-                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
                     }
                 }
                 else {
                     if ((dateDiff/168)/4) > 0{
-                    newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
                     }
                     else{
-                        newDict["emi"] = String(format:"%d",(cost/(participantsArr.count + 1)))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
                     }
                 }
                 
-                newDict["emi"] = String(format:"%.f",recurringAmount)
+                newDict[kEmi] = String(format:"%.f",recurringAmount)
                 newDict["planType"] = "group"
                 
                 let objAPI = API()

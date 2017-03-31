@@ -22,7 +22,8 @@ let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
 //let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
 
 //============AUTHY API KEY SANDBOX===============
-let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
+var APIKey = ""
 
 let custom_message = "Your Savio phone verification code is {{code}}"
 var checkString = ""
@@ -32,6 +33,12 @@ var isFromForgotPasscode : Bool = false
 
 var kConnectionProblemTitle: String! = "Connection problem"
 var kNonetworkfound: String! = "No network found"
+var kPhoneNumber : String! = "phone_number"
+var kUserInfo : String! = "userInfo"
+let kAUTHYAPIKEYSANDBOX : String = "AUTHY_API_KEY_SANDBOX"      //Use for sandbox
+let kAUTHYAPIKEYLIVE : String = "AUTHY_API_KEY_LIVE"            //Use for Live
+let kSTRIPEPUBLISHABLEKEY : String = "STRIPE_PUBLISHABLE_KEY"   //Use Strip publish key
+
 
 protocol PostCodeVerificationDelegate {
     
@@ -244,8 +251,9 @@ class API: UIView,NSURLSessionDelegate {
             let url = NSURL(string: urlString)
             let request = NSURLRequest(URL: url!)
             //Set time out after requesting 30 second
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -292,15 +300,18 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
+//            request.HTTPMethod = "POST"
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             // request.timeoutInterval  = 30
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+            let request = self.createRequest(NSURL(string: String(format:"%@/%@",baseURL,apiName))!, method: "POST", paramDict: dictParam,userInforDict: [:], isAuth: false)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -347,18 +358,22 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            let request = NSMutableURLRequest(URL: NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!)
-            
-            request.HTTPMethod = "POST"
-            //collect requierd parameter in dictionary
-            let params = ["api_key":APIKey,"via":"sms","phone_number":phoneNumber,"country_code":country_code,"locale":"en"] as Dictionary<String, String>
-            //set request parameter to request body
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            APIKey = valueForAPIKey(named: kAUTHYAPIKEYSANDBOX)
+//            let request = NSMutableURLRequest(URL: NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!)
+//            
+//            request.HTTPMethod = "POST"
+//            //collect requierd parameter in dictionary
+            let params = ["api_key":APIKey,"via":"sms",kPhoneNumber:phoneNumber,"country_code":country_code,"locale":"en"] as Dictionary<String, String>
+//            //set request parameter to request body
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
             // set time out interval
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+            let request = createRequest(NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!, method: "POST", paramDict: params,userInforDict: [:], isAuth: false)
+
             
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -421,11 +436,14 @@ class API: UIView,NSURLSessionDelegate {
     //Function performing action to
     func verifyOTP(phoneNumber:String,country_code:String,OTP:String)
     {
+        APIKey = valueForAPIKey(named: kAUTHYAPIKEYSANDBOX)
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 10
-            urlconfig.timeoutIntervalForResource = 10
+//            urlconfig.timeoutIntervalForRequest = 10
+//            urlconfig.timeoutIntervalForResource = 10
+            self.setTimeOutRequest(10)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let dataTask = session.dataTaskWithURL(NSURL(string: String(format: "http://sandbox-api.authy.com/protected/json/phones/verification/check?api_key=%@&via=sms&phone_number=%@&country_code=%@&verification_code=%@",APIKey,phoneNumber,country_code,OTP))!) { data, response, error in
@@ -491,16 +509,19 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            let request = createRequest(NSURL(string: String(format:"%@/Customers/Login",baseURL))!, method: "POST", paramDict: dictParam,userInforDict: [:], isAuth: false)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/Login",baseURL))!)
-            request.HTTPMethod = "POST"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/Login",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -589,16 +610,19 @@ class API: UIView,NSURLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            let request = createRequest(NSURL(string: String(format:"%@/Customers/ForgotPIN",baseURL))!, method: "POST", paramDict: dictParam,userInforDict: [:], isAuth: false)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/ForgotPIN",baseURL))!)
-            request.HTTPMethod = "POST"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/ForgotPIN",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -665,27 +689,30 @@ class API: UIView,NSURLSessionDelegate {
     func sendWishList(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 180
-            urlconfig.timeoutIntervalForResource = 180
+//            urlconfig.timeoutIntervalForRequest = 180
+//            urlconfig.timeoutIntervalForResource = 180
+            self.setTimeOutRequest(180)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
-            request.HTTPMethod = "POST"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/WishList",baseURL))!, method: "POST", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -738,28 +765,31 @@ class API: UIView,NSURLSessionDelegate {
     func deleteWishList(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
-            request.HTTPMethod = "DELETE"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!)
+//            request.HTTPMethod = "DELETE"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/WishList/%@",baseURL,dict["id"] as! NSNumber))!, method: "DELETE", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -800,35 +830,42 @@ class API: UIView,NSURLSessionDelegate {
     func createPartySavingPlan(dict:Dictionary<String,AnyObject>,isFromWishList:String)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        var request : NSMutableURLRequest
-        
-        if(isFromWishList == "FromWishList")
-        {
-            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-        }
-        else {
-            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
-        }
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        var request : NSMutableURLRequest
+//        var url: NSURL?
+//        
+//        if(isFromWishList == "FromWishList")
+//        {
+//            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
+//            url = NSURL(string: String(format:"%@/SavingPlans",baseURL))!
+//        }
+//        else {
+//            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
+//            url = NSURL(string: String(format:"%@/SavingPlans/",baseURL))!
+//        }
         
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 180
-            urlconfig.timeoutIntervalForResource = 180
+//            urlconfig.timeoutIntervalForRequest = 180
+//            urlconfig.timeoutIntervalForResource = 180
+            self.setTimeOutRequest(180)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            request.HTTPMethod = "POST"
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/SavingPlans",baseURL))!, method: "POST", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -868,24 +905,27 @@ class API: UIView,NSURLSessionDelegate {
     func getWishListForUser(userId : String)
     {
         
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/partyid?input=%@",baseURL,partyID))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/WishList/partyid?input=%@",baseURL,partyID))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/WishList/partyid?input=%@",baseURL,userInfoDict["partyId"] as! NSNumber))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
@@ -922,23 +962,26 @@ class API: UIView,NSURLSessionDelegate {
     
     func getCategoriesForSavingPlan()
     {
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/savingplan",baseURL))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/savingplan",baseURL))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/referencedata/savingplan",baseURL))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -971,78 +1014,83 @@ class API: UIView,NSURLSessionDelegate {
         
     }
     
-    func termAndCondition()
-    {
-        
-        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
-        let partyID = "956"
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        
-        //Check if network is present
-        if(self.isConnectedToNetwork())
-        {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
-            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-            
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            
-            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-                if let data = data
-                {
-                    print(response?.description)
-                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-                    if let dict = json as? Dictionary<String,AnyObject>
-                    {
-                        print(dict)
-                        dispatch_async(dispatch_get_main_queue())
-                        {
-                        }
-                    }
-                    else {
-                        dispatch_async(dispatch_get_main_queue()){
-                        }
-                    }
-                }
-                else  if let error = error  {
-                    dispatch_async(dispatch_get_main_queue()){
-                    }
-                    
-                }
-                
-            }
-            dataTask.resume()
-        }
-        else {
-            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(kNonetworkfound)
-        }
-        
-    }
+//    func termAndCondition()
+//    {
+//        
+//        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
+//        let partyID = "956"
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        
+//        //Check if network is present
+//        if(self.isConnectedToNetwork())
+//        {
+////            urlconfig.timeoutIntervalForRequest = 30
+////            urlconfig.timeoutIntervalForResource = 30
+//            self.setTimeOutRequest(30)
+//
+//            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+//            
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            
+//            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+//                if let data = data
+//                {
+//                    print(response?.description)
+//                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+//                    if let dict = json as? Dictionary<String,AnyObject>
+//                    {
+//                        print(dict)
+//                        dispatch_async(dispatch_get_main_queue())
+//                        {
+//                        }
+//                    }
+//                    else {
+//                        dispatch_async(dispatch_get_main_queue()){
+//                        }
+//                    }
+//                }
+//                else  if let error = error  {
+//                    dispatch_async(dispatch_get_main_queue()){
+//                    }
+//                    
+//                }
+//                
+//            }
+//            dataTask.resume()
+//        }
+//        else {
+//            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(kNonetworkfound)
+//        }
+//        
+//    }
     //MARK: Offer list
     
     func getOfferListForSavingId()
     {
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/offers",baseURL))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/offers",baseURL))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/referencedata/offers",baseURL))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1079,24 +1127,27 @@ class API: UIView,NSURLSessionDelegate {
     
     func getUsersSavingPlan(str:String)
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,partyID,str))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/SavingPlans?input=%@&type=%@",baseURL,userInfoDict["partyId"] as! NSNumber,str))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1135,29 +1186,32 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Update saving plan
     func updateSavingPlan(dict:Dictionary<String,AnyObject>)
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 180
-            urlconfig.timeoutIntervalForResource = 180
+//            urlconfig.timeoutIntervalForRequest = 180
+//            urlconfig.timeoutIntervalForResource = 180
+            self.setTimeOutRequest(180)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-            request.HTTPMethod = "PUT"
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
+//            request.HTTPMethod = "PUT"
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/SavingPlans",baseURL))!, method: "PUT", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1196,7 +1250,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func getUserInfo()
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         let cookie = userInfoDict["cookie"] as! String
@@ -1209,8 +1263,10 @@ class API: UIView,NSURLSessionDelegate {
         if(self.isConnectedToNetwork())
         {
             
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers/id/%@",baseURL,partyID))!)
@@ -1263,28 +1319,32 @@ class API: UIView,NSURLSessionDelegate {
     
     func updateUserInfo(dict:Dictionary<String,AnyObject>)
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers",baseURL))!)
-            request.HTTPMethod = "PUT"
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Customers",baseURL))!)
+//            request.HTTPMethod = "PUT"
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/Customers",baseURL))!, method: "PUT", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1322,27 +1382,31 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Cancel saving plan
     func cancelSavingPlan()
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/savings/%@",baseURL,partyID))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            request.HTTPMethod = "PUT"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/savings/%@",baseURL,partyID))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            request.HTTPMethod = "PUT"
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/savings/%@",baseURL,userInfoDict["partyId"] as! NSNumber))!, method: "PUT", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1392,27 +1456,32 @@ class API: UIView,NSURLSessionDelegate {
     func sendInviteMembersList(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 180
-            urlconfig.timeoutIntervalForResource = 180
+//            urlconfig.timeoutIntervalForRequest = 180
+//            urlconfig.timeoutIntervalForResource = 180
+            
+            self.setTimeOutRequest(180)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)
-            request.HTTPMethod = "POST"
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/InvitedUsers",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/InvitedUsers",baseURL))!, method: "POST", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             print("*******************************")
             print(dict)
@@ -1468,24 +1537,28 @@ class API: UIView,NSURLSessionDelegate {
     //MARK:Get list of users plan
     func getListOfUsersPlan()
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/%@",baseURL,partyID))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/%@",baseURL,partyID))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/SavingPlans/%@",baseURL,userInfoDict["partyId"] as! NSNumber))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1523,28 +1596,32 @@ class API: UIView,NSURLSessionDelegate {
     func addSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+//            
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/cards",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/cards",baseURL))!)
-            request.HTTPMethod = "POST"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest( NSURL(string: String(format:"%@/cards",baseURL))!, method: "POST", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1617,28 +1694,31 @@ class API: UIView,NSURLSessionDelegate {
     func addNewSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
-            request.HTTPMethod = "POST"
-            
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/card",baseURL))!, method: "POST", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1712,24 +1792,28 @@ class API: UIView,NSURLSessionDelegate {
     
     func getWishListOfUsersCards()
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card/%@",baseURL,partyID))!)
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card/%@",baseURL,partyID))!)
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/card/%@",baseURL,userInfoDict["partyId"] as! NSNumber))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1765,29 +1849,33 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : Set default card
     func setDefaultPaymentCard(dictParam:Dictionary<String,AnyObject>)
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
-            request.HTTPMethod = "PUT"
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
+//            request.HTTPMethod = "PUT"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            let request = createRequest(NSURL(string: String(format:"%@/card",baseURL))!, method: "PUT", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1823,29 +1911,34 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : ImpulseSaving
     func impulseSaving(dictParam:Dictionary<String,AnyObject>)
     {
-         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 60
-            urlconfig.timeoutIntervalForResource = 60
+//            urlconfig.timeoutIntervalForRequest = 60
+//            urlconfig.timeoutIntervalForResource = 60
+            self.setTimeOutRequest(60)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlanTransaction",baseURL))!)
-            request.HTTPMethod = "POST"
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlanTransaction",baseURL))!)
+//            request.HTTPMethod = "POST"
+//            
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/SavingPlanTransaction",baseURL))!, method: "POST", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1882,27 +1975,31 @@ class API: UIView,NSURLSessionDelegate {
     func removeCarde(dict:Dictionary<String,AnyObject>)
     {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
-        let data = defaults.valueForKey("userInfo") as! NSData
+        let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        let cookie = userInfoDict["cookie"] as! String
-        let partyID = userInfoDict["partyId"] as! NSNumber
-        
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+//        let cookie = userInfoDict["cookie"] as! String
+//        let partyID = userInfoDict["partyId"] as! NSNumber
+//        
+//        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+//        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            urlconfig.timeoutIntervalForRequest = 30
-            urlconfig.timeoutIntervalForResource = 30
+//            urlconfig.timeoutIntervalForRequest = 30
+//            urlconfig.timeoutIntervalForResource = 30
+            self.setTimeOutRequest(30)
+
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
-            request.HTTPMethod = "DELETE"
-            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
+//            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
+//            request.HTTPMethod = "DELETE"
+//            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
+//            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//            request.addValue("application/json", forHTTPHeaderField: "Accept")
 //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            
+            let request = createRequest(NSURL(string: String(format:"%@/card",baseURL))!, method: "DELETE", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
@@ -1932,6 +2029,37 @@ class API: UIView,NSURLSessionDelegate {
         else {
             self.removeCardDelegate?.errorResponseForRemoveCardAPI(kNonetworkfound)
         }
+    }
+    
+    func setTimeOutRequest(intrvl: NSTimeInterval) {
+        urlconfig.timeoutIntervalForRequest = intrvl
+        urlconfig.timeoutIntervalForResource = intrvl
+    }
+    func createRequest(requestURL:NSURL,method:String,paramDict:Dictionary<String,AnyObject>,userInforDict:Dictionary<String,AnyObject>,isAuth:Bool) -> NSMutableURLRequest {
+        let request = NSMutableURLRequest(URL: requestURL)
+        if method != "GET" {
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(paramDict, options: [])
+            request.HTTPMethod = method
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+        }
+        if isAuth{
+            let cookie = userInforDict["cookie"] as! String
+            let partyID = userInforDict["partyId"] as! NSNumber
+            let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
+            let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+        }
+        return request
+
+    }
+    
+    func valueForAPIKey(named keyname:String) -> String {
+//        let filePath = NSBundle.main().path(forResource: "ApiKeys", ofType: "plist")
+        let filePath = NSBundle.mainBundle().pathForResource("KeyConfig", ofType: "plist")
+        let plist = NSDictionary(contentsOfFile:filePath!)
+        let value = plist![keyname] as! String
+        return value
     }
 
 }

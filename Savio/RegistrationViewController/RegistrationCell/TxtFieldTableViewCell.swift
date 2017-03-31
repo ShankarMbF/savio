@@ -100,7 +100,7 @@ class TxtFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        if(textField.placeholder == "Surname" ){
+        if(textField.placeholder == kSurname ){
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 50)
             //            let currentCharacterCount = textField.text?.characters.count ?? 0
             //            if (range.length + range.location > currentCharacterCount){

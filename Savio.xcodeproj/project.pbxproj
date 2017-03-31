@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5132ECBAA376482C476A8F41 /* Pods_Savio.framework */; };
 		5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C45361DBE432300A7E938 /* Contacts.framework */; };
+		845423AE1E8CD10F00B7DF82 /* KeyConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 845423AD1E8CD10F00B7DF82 /* KeyConfig.plist */; };
 		84BD31781DD0ACD5006014B2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BD31761DD0ACA9006014B2 /* UserNotifications.framework */; };
 		84E24F801E584CB200D47BC3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F731E584CB200D47BC3 /* .gitignore */; };
 		84E24F811E584CB200D47BC3 /* app_name.rb in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F751E584CB200D47BC3 /* app_name.rb */; };
@@ -501,8 +502,6 @@
 		C9905FA51CED9EF700E63471 /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F981CED9EF700E63471 /* TitleTableViewCell.xib */; };
 		C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9905F991CED9EF700E63471 /* TxtFieldTableViewCell.swift */; };
 		C9905FA71CED9EF700E63471 /* TxtFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F9A1CED9EF700E63471 /* TxtFieldTableViewCell.xib */; };
-		C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9905F9B1CED9EF700E63471 /* SARegistrationViewController.swift */; };
-		C9905FA91CED9EF700E63471 /* SARegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */; };
 		C9905FAD1CEDCD1A00E63471 /* Registration.json in Resources */ = {isa = PBXBuildFile; fileRef = C9905FAC1CEDCD1A00E63471 /* Registration.json */; };
 		C99787191D08331B000D1FAA /* SASavingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99787171D08331A000D1FAA /* SASavingSummaryViewController.swift */; };
 		C997871A1D08331B000D1FAA /* SASavingSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C99787181D08331A000D1FAA /* SASavingSummaryViewController.xib */; };
@@ -641,6 +640,7 @@
 		550C45361DBE432300A7E938 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		674B99474E47E94F1143BE35 /* Pods-SavioWishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SavioWishList.release.xcconfig"; path = "Pods/Target Support Files/Pods-SavioWishList/Pods-SavioWishList.release.xcconfig"; sourceTree = "<group>"; };
 		72B2F7730924C3552BA4858D /* Pods_SavioWishList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SavioWishList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		845423AD1E8CD10F00B7DF82 /* KeyConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KeyConfig.plist; sourceTree = "<group>"; };
 		84BD31761DD0ACA9006014B2 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		84E24F731E584CB200D47BC3 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		84E24F751E584CB200D47BC3 /* app_name.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = app_name.rb; sourceTree = "<group>"; };
@@ -1131,8 +1131,6 @@
 		C9905F981CED9EF700E63471 /* TitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
 		C9905F991CED9EF700E63471 /* TxtFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TxtFieldTableViewCell.swift; sourceTree = "<group>"; };
 		C9905F9A1CED9EF700E63471 /* TxtFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TxtFieldTableViewCell.xib; sourceTree = "<group>"; };
-		C9905F9B1CED9EF700E63471 /* SARegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SARegistrationViewController.swift; sourceTree = "<group>"; };
-		C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SARegistrationViewController.xib; sourceTree = "<group>"; };
 		C9905FAC1CEDCD1A00E63471 /* Registration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Registration.json; sourceTree = "<group>"; };
 		C99787171D08331A000D1FAA /* SASavingSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SASavingSummaryViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C99787181D08331A000D1FAA /* SASavingSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SASavingSummaryViewController.xib; sourceTree = "<group>"; };
@@ -2123,8 +2121,6 @@
 				C9905FAC1CEDCD1A00E63471 /* Registration.json */,
 				C9905F8F1CED9EF700E63471 /* PageView.xib */,
 				C9905F901CED9EF700E63471 /* RegistrationCell */,
-				C9905F9B1CED9EF700E63471 /* SARegistrationViewController.swift */,
-				C9905F9C1CED9EF700E63471 /* SARegistrationViewController.xib */,
 				A82D720C1D5B10B70000BB2C /* SARegistrationScreenOneViewController.swift */,
 				A82D720D1D5B10B70000BB2C /* SARegistrationScreenOneViewController.xib */,
 				A892E6001D5C364100155B05 /* SARegistrationScreenSecondViewController.swift */,
@@ -2262,6 +2258,7 @@
 				C9E525B71CE986FA000FD01E /* Info.plist */,
 				A8095B9A1CEDC504006366F7 /* BridgingHeader.h */,
 				A8E3CA261D79ACFA002B792C /* Images.xcassets */,
+				845423AD1E8CD10F00B7DF82 /* KeyConfig.plist */,
 			);
 			path = Savio;
 			sourceTree = "<group>";
@@ -2829,7 +2826,6 @@
 				A859DD981D50ACDD00932150 /* gadget-dropdown@2x.png in Resources */,
 				C94A708E1CF55FA8002E9449 /* splash-logo@2x.png in Resources */,
 				C9ED805A1D1BC38A00058A96 /* menu-update@2x.png in Resources */,
-				C9905FA91CED9EF700E63471 /* SARegistrationViewController.xib in Resources */,
 				A8B5A5061D4A1F15005A607D /* Group-social-pop-up-close@3x.png in Resources */,
 				C91E23FB1D02D0D700DC6D29 /* nav-heart@2x.png in Resources */,
 				C94A708F1CF55FA8002E9449 /* splash-logo@3x.png in Resources */,
@@ -2911,6 +2907,7 @@
 				A8BDCBE91D05557500D4C47B /* holiday-calendar@2x.png in Resources */,
 				C9ED802B1D1BC38A00058A96 /* menu-active-profile@3x.png in Resources */,
 				C9361EBE1D30C18300605E1B /* social-wa.png in Resources */,
+				845423AE1E8CD10F00B7DF82 /* KeyConfig.plist in Resources */,
 				A88E81CA1D49EA0F00CAA00F /* group-save-stats-slider-tab@2x.png in Resources */,
 				A88E81C21D49EA0F00CAA00F /* group-stats-achievement-smiley-popup@3x.png in Resources */,
 				84EA20351E63F826004DDEAE /* SavioPlaceholder@2x.png in Resources */,
@@ -3200,7 +3197,6 @@
 				C95CD60E1CF2C7EE00013200 /* PickerTextfildTableViewCell.swift in Sources */,
 				C94F93B11D1969450065F588 /* SAProgressViewController.swift in Sources */,
 				C905719A1CFF020200ECC4FC /* SavingCategoryTableViewCell.swift in Sources */,
-				C9905FA81CED9EF700E63471 /* SARegistrationViewController.swift in Sources */,
 				A86682031CFF07C80014DB59 /* SetDayTableViewCell.swift in Sources */,
 				A8ABA8281D76C6CC00C58E7F /* TWMessageBarManager.m in Sources */,
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,

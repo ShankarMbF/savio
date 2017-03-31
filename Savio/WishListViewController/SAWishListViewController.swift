@@ -105,16 +105,16 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //------Create object of API class and request to server for get wishlist----------------
         let objAPI = API()
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         //provide the partyID as a parameter to API
-        if(userDict["partyId"] is String)
+        if(userDict[kPartyID] is String)
         {
-            objAPI.getWishListForUser(userDict["partyId"] as! String)
+            objAPI.getWishListForUser(userDict[kPartyID] as! String)
         }
         else
         {
-            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+            objAPI.getWishListForUser(String(format: "%d",((userDict[kPartyID] as? NSNumber)?.doubleValue)!))
         }
         //----------------------------------------------------------------------------------------
     }
@@ -141,13 +141,13 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //Get individual dictionary of wishlist product
         let cellDict = wishListArray[indexPath.row]
         //Set product title
-        cell.lblTitle!.text = cellDict["title"] as? String;
+        cell.lblTitle!.text = cellDict[kTitle] as? String;
         //set product amount
-        if(cellDict["amount"] is String){
-            cell.lblPrice.text = cellDict["amount"] as? String
+        if(cellDict[kAmount] is String){
+            cell.lblPrice.text = cellDict[kAmount] as? String
         }
         else{
-            cell.lblPrice.text = String(format: "%d", (cellDict["amount"] as! NSNumber).intValue)
+            cell.lblPrice.text = String(format: "%d", (cellDict[kAmount] as! NSNumber).intValue)
         }
         //Check wishlist product is invited for group member or not
         if let sharedPartySavingPlan =  cellDict["sharedPtySavingPlanId"] as? NSNumber
@@ -155,7 +155,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             //Not invited for group member
             if(sharedPartySavingPlan == 0)
             {
-                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0) {
+                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0) {
                     cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
@@ -168,7 +168,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             else
             {
                 //Invited for group member
-                if(NSUserDefaults.standardUserDefaults().objectForKey("groupMemberPlan") as? NSNumber == 0){
+                if(NSUserDefaults.standardUserDefaults().objectForKey(kGroupMemberPlan) as? NSNumber == 0){
                     cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
@@ -182,7 +182,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         else
         {
             //Not invited for group member
-            if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+            if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
                 cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                 cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.deleteButtonTopSpace.constant = 60
@@ -203,7 +203,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         cell.imgView.addSubview(spinner)
         spinner.startAnimating()
         
-        if let urlString = cellDict["imageURL"] as? String
+        if let urlString = cellDict[kImageURL] as? String
         {
             //get image URL from response dict
             let url = NSURL(string:urlString)
@@ -244,7 +244,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(sharedPartySavingPlan == 0)
             {
                 //If any plan is already created by login user then hide start saving button
-                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
                     return 310.0
                 }
                 else{
@@ -254,7 +254,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             else
             {
                 //If already join other group then hide Join button
-                if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
                     return 310.0
                 }
                 else{
@@ -264,7 +264,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         else
         {
-            if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 0){
+            if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
                 return 310.0
                 
             }

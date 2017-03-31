@@ -95,7 +95,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         newDict["imageName.jpg"] = base64String
                         dict["IMAGEURL"] = newDict
                         }
-                        let data = defaults.valueForKey("userInfo") as! NSData
+                        let data = defaults.valueForKey(kUserInfo) as! NSData
                         let userDict = NSKeyedUnarchiver.unarchiveObjectWithData(data)
                         dict["TITLE"] = self.textView.text
                         dict["AMOUNT"] = self.priceTextField.text?.stringByReplacingOccurrencesOfString("£", withString: "")

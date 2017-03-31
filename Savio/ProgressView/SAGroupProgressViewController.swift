@@ -30,6 +30,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     var  pieChartSliceArray: Array<Piechart.Slice> = []
     var chartValues : Array<Dictionary<String,AnyObject>> = [];
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
+    var statViewDetailsDict : Dictionary<String,AnyObject> =  [:]
     var piechart : Piechart?
     var planTitle = ""
     var totalAmount : Int = 0
@@ -89,9 +90,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let objAPI = API()
         objAPI.getSavingPlanDelegate = self
         
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
         {
             if(groupFlag == 1 && usersPlan == "G")
             {
@@ -172,7 +173,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setUpView(){
         savingPlanTitleLabel.hidden = false
         //create attribute text to savingPlanTitleLabel
-        planTitle = String(format: "Our %@ plan",savingPlanDetailsDict["title"] as! String)
+        planTitle = String(format: "Our %@ plan",savingPlanDetailsDict[kTitle] as! String)
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(
@@ -180,11 +181,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                                 size: 16.0)!,
                               range: NSRange(
                                 location: 4,
-                                length: (savingPlanDetailsDict["title"] as! String).characters.count))
+                                length: (savingPlanDetailsDict[kTitle] as! String).characters.count))
         
         savingPlanTitleLabel.attributedText = attrText
         //get the total amount of plan from the Dictionary
-        if let amount = savingPlanDetailsDict["amount"] as? NSNumber
+        if let amount = savingPlanDetailsDict[kAmount] as? NSNumber
         {
             totalAmount = amount.integerValue
         }
@@ -222,8 +223,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 errorValue = 0
                 for i in 0 ..< transactionArray.count {
                     let transactionDict = transactionArray[i]
-                    errorValue = errorValue + CGFloat((transactionDict["amount"] as? NSNumber)!)
-                     paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+                    errorValue = errorValue + CGFloat((transactionDict[kAmount] as? NSNumber)!)
+                     paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
                 }
             }
             var error = Piechart.Slice()
@@ -249,10 +250,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         if Int(paidAmount) == totalAmount {
             let objAPI = API()
             var link = "http://www.getsavio.com/"
-            if let key = savingPlanDetailsDict["SAV_SITE_URL"]! as? String {
+            if let key = savingPlanDetailsDict[kSAVSITEURL]! as? String {
                 link = key
             }
-            objAPI.storeValueInKeychainForKey("SAV_SITE_URL", value:link )
+            objAPI.storeValueInKeychainForKey(kSAVSITEURL, value:link )
         }
        
         
@@ -390,7 +391,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let timeDifference : NSTimeInterval = planEnddate.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
-                if(savingPlanDetailsDict["payType"] as! String == "Month")
+                if(savingPlanDetailsDict["payType"] as! String == kMonth)
                 {
                     if((dateDiff/168)/4 == 1)
                     {
@@ -423,7 +424,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     for i in 0 ..< transactionArray.count {
                         let transactionDict = transactionArray[i]
-                        myAmt = myAmt + Float((transactionDict["amount"] as? NSNumber)!)
+                        myAmt = myAmt + Float((transactionDict[kAmount] as? NSNumber)!)
                     }
                 }
                 labelOne.hidden = false
@@ -466,18 +467,18 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
-        if(userDict["partyId"] is String)
+        if(userDict[kPartyID] is String)
         {
-            objAPI.getWishListForUser(userDict["partyId"] as! String)
+            objAPI.getWishListForUser(userDict[kPartyID] as! String)
         }
         else
         {
-            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+            objAPI.getWishListForUser(String(format: "%d",((userDict[kPartyID] as? NSNumber)?.doubleValue)!))
         }
     }
 
@@ -500,10 +501,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -512,13 +513,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func statsButtonPressed(btn:UIButton)
     {
         let obj = SAStatViewController()
-        if let itemTitle = savingPlanDetailsDict["title"] as? String
+        if let itemTitle = savingPlanDetailsDict[kTitle] as? String
         {
         obj.itemTitle = itemTitle
         obj.planType = "Group"
-        obj.cost =  String(format:"%@",savingPlanDetailsDict["amount"] as! NSNumber)
+        obj.cost =  String(format:"%@",savingPlanDetailsDict[kAmount] as! NSNumber)
         obj.endDate = savingPlanDetailsDict["planEndDate"] as! String
         }
+        obj.savingPlanDict = statViewDetailsDict
         self.navigationController?.pushViewController(obj, animated: false)
     }
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -651,7 +653,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             paidAmount = 0
             for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
-                paidAmount = paidAmount + Float((transactionDict["amount"] as? NSNumber)!)
+                paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
                 let str = String(format: "£%.0f",paidAmount)
                 cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
@@ -664,7 +666,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
         
-            if(savingPlanDetailsDict["payType"] as! String == "Month")
+            if(savingPlanDetailsDict["payType"] as! String == kMonth)
             {
                 diff = (CGFloat(dateDiff)/168)/4
                 cell?.remainingAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
@@ -680,18 +682,18 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         if(cellDict["memberType"] as! String == "Owner")
         {
             cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
-            NSUserDefaults.standardUserDefaults().setValue("groupPlan", forKey: "usersPlan")
+            NSUserDefaults.standardUserDefaults().setValue(kGroupPlan, forKey: "usersPlan")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         else {
             cell?.nameLabel.text = cellDict["partyName"] as? String
-            NSUserDefaults.standardUserDefaults().setValue("groupMemberPlan", forKey: "usersPlan")
+            NSUserDefaults.standardUserDefaults().setValue(kGroupMemberPlan, forKey: "usersPlan")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
  
         cell?.payTypeLabel.text = String(format: "per %@",savingPlanDetailsDict["payType"] as! String).lowercaseString
-        if(savingPlanDetailsDict["payType"] as! String == "Month")
+        if(savingPlanDetailsDict["payType"] as! String == kMonth)
         {
                    cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round((Float(totalAmount)/Float(participantsArr.count))))
         }
@@ -846,14 +848,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             if(message == "Success")
             {
+                statViewDetailsDict = self.checkNullDataFromDict(objResponse)
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
                 print(objResponse)
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("SAV_SITE_URL")
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(kSAVSITEURL)
 
 //                  newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
                 
                  var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
-                NSUserDefaults.standardUserDefaults().setObject(ptyDict["partySavingPlanID"], forKey: "PTY_SAVINGPLAN_ID")
+                NSUserDefaults.standardUserDefaults().setObject(ptyDict["partySavingPlanID"], forKey: kPTYSAVINGPLANID)
                 NSUserDefaults.standardUserDefaults().synchronize()
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {

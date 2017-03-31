@@ -155,7 +155,8 @@ public class LineChart: UIView {
     private var drawingWidth: CGFloat = 0 {
         didSet {
 
-            let data = dataStore[0]
+//            let data = dataStore[0]
+            let data = x.labels.values
             x.linear = LinearScale(domain: [0.0, CGFloat(data.count - 1)], range: [0, drawingWidth])
             x.scale = x.linear.scale()
             x.invert = x.linear.invert()
@@ -169,6 +170,7 @@ public class LineChart: UIView {
     private var dataStore: [[CGFloat]] = []
     private var dotsDataStore: [[DotCALayer]] = []
     private var lineLayerStore: [CAShapeLayer] = []
+    public var impulseStore: [String] = []
     
     private var removeAll: Bool = false
     
@@ -346,7 +348,7 @@ public class LineChart: UIView {
     
     func setProgressForCircularFloatingProgressBar(index: Int)  {
         var data: [CGFloat] = self.dataStore[0]
-        if data.count > 0 {
+        if data.count > 0 && data.count > index {
             
             let currentValue: CGFloat = data[index] as CGFloat
             if currentValue >= 0 {
@@ -374,13 +376,23 @@ public class LineChart: UIView {
             // draw custom layer with another layer in the center
             let dotLayer = DotCALayer()
             dotLayer.dotInnerColor = self.colorGraphDot//colors[lineIndex]
+            if index == 0 {
+                dotLayer.dotInnerColor = UIColor.clearColor()//colors[lineIndex]
+            }
             dotLayer.innerRadius = dots.innerRadius
             
-            if index % 2 == 0  {
+//            if index % 2 == 0  {
+//                dotLayer.backgroundColor = UIColor.clearColor().CGColor
+//            } else {
+//                dotLayer.backgroundColor = UIColor(colorLiteralRed: 85.0/255.0, green: 87.0/255.0, blue: 86.0/255.0, alpha: 1).CGColor
+//
+//            }
+            
+            if impulseStore[index] != "IMPULSE"  {
                 dotLayer.backgroundColor = UIColor.clearColor().CGColor
             } else {
                 dotLayer.backgroundColor = UIColor(colorLiteralRed: 85.0/255.0, green: 87.0/255.0, blue: 86.0/255.0, alpha: 1).CGColor
-
+                
             }
             
             
@@ -453,7 +465,6 @@ public class LineChart: UIView {
             firstValue = 0
         }
         let stringValue: String = String.init(format: "%.0f", firstValue!)
-
         self.valueLabel.text = stringValue
         self.valueLabel.font =  UIFont(name: kMediumFont, size: 7)
         self.valueLabel.textAlignment = .Center
@@ -738,6 +749,7 @@ public class LineChart: UIView {
     
     private func drawXLabels() {
         let xAxisData = self.dataStore[0]
+//        let xAxisData = self.x.labels.values
         let y = graphHeight - x.axis.inset + 4 // 4 added for giving space to supercript
         let (_, _, step) = x.linear.ticks(xAxisData.count)
         let width = x.scale(step)
@@ -745,6 +757,7 @@ public class LineChart: UIView {
         for (index, _) in xAxisData.enumerate() {
             let xValue = self.x.scale(CGFloat(index)) + x.axis.inset - (width / 2)
             let label = UILabel(frame: CGRect(x: xValue, y: y, width: width, height: x.axis.inset))
+            label.font = UIFont(name: kMediumFont, size: 8)!
             if index == 0 {
                 label.textAlignment = .Right
             }
@@ -756,7 +769,8 @@ public class LineChart: UIView {
             }
             
             if (x.labels.values.count != 0) {
-                label.attributedText =  createXLabelText(index) //x.labels.values[index]
+//                label.attributedText =  createXLabelText(index) //x.labels.values[index]
+                label.text = x.labels.values[index]
             } else {
                 label.text = String(index)
             }

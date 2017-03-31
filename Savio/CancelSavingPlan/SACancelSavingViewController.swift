@@ -106,11 +106,11 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     func heartBtnClicked(){
         if wishListArray.count>0{
             //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -138,9 +138,9 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
             if (message == "Cancelled Plan successfully")
             {
                 //Remove the individualPlan's value from NSUserDefaults
-                NSUserDefaults.standardUserDefaults().setValue(0, forKey: "individualPlan")
+                NSUserDefaults.standardUserDefaults().setValue(0, forKey: kIndividualPlan)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 view1.hidden = true
                 view2.hidden = false
             }
@@ -171,7 +171,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     
     //Your saving plan is canceled, go to create new saving plan
     @IBAction func startNewSavingPlanButtonPressed(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SACreateSavingPlanViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SACreateSavingPlanViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SACreateSavingPlanViewController")
     }
 }

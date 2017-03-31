@@ -17,8 +17,8 @@ class CustomSegmentBar: UIView {
     var midOfToggleView: CGFloat?
     let sideOffset : CGFloat = 2.0
     let topOffset: CGFloat = 4.0
-    let leftTitle = "Month"
-    let rightTitle = "Week"
+    let leftTitle = kMonth
+    let rightTitle = kWeek
     
     let fontSize: CGFloat = 10.0
     var colorDataDict : Dictionary<String,AnyObject> =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>

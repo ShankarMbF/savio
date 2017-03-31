@@ -116,7 +116,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     {
         let dateComponents = NSDateComponents()
         let calender = NSCalendar.currentCalendar()
-        if(dateString == "date"){
+        if(dateString == kDate){
             dateComponents.month = 1
         }else {
             dateComponents.day = 7

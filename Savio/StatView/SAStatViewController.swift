@@ -34,16 +34,17 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     var itemTitle = ""
     var endDate = ""
     var cost = ""
-    var xLabels: [String] = [] //Array for holding x-axis lable
+    var xLabels: Array<String> = [] //Array for holding x-axis lable
     var documentInteractionController = UIDocumentInteractionController()  // UIDocumentInteractionController object for sharing data to whatsapp friends
     var shareImg: UIImage?
     var xLableArray: Array<String>?
-    var dataArr: Array<CGFloat>?
+    var dataArr: Array<CGFloat> = [0]
+    var savingPlanDict: Dictionary<String,AnyObject>?
     
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
-        let maxValue:CGFloat = 3000.0//self.calculateMaxPriceForYAxix(NSInteger(cost)!)
+        let maxValue:CGFloat = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
         
         //Setting up Stat view UI
         self.setUpView()
@@ -54,26 +55,47 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.maximumValue = maxValue
         lineChart.minimumValue = 0
         let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
-        
+        var imp: [String] = ["sub"]
+        xLabels.append("")
+        if let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
+      
+        for i in 0 ..< transactionArr.count {
+            let dict = transactionArr[i] as Dictionary<String,AnyObject>
+            imp.append(dict["paymentMode"] as! String)
+            dataArr.append(dict["amount"] as! CGFloat)
+            xLabels.append(dict["paymentDate"] as! String)
+            if i % 2 == 0 {
+                imp.append("Subscription")
+            }
+            else{
+                imp.append("IMPULSE")
+            }
+            }
+        }
+//        xLabels.append("newdate")
+        print(xLabels)
+        lineChart.impulseStore = imp
         // simple line with custom x axis labels // hear need to pass json value
-        xLabels = ["1","2","3","4","5","6","7","8"]
+//        xLabels = ["1","2","3","4","5","6","7","8"]
+//        xLabels = ["0","1","2"]
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity
         lineChart.x.grid.visible = true
         lineChart.y.grid.visible = true
+        print(dataArr)
         
         // hide dots visiblety in line chart
         lineChart.x.labels.visible = true
-        lineChart.x.grid.count = CGFloat(data.count)
+        lineChart.x.grid.count = CGFloat(data.count)    //dont change this
         lineChart.x.grid.color = UIColor.grayColor()
-        lineChart.y.grid.count = CGFloat(xLabels.count)
+        lineChart.y.grid.count = CGFloat(8)
         lineChart.y.grid.color = UIColor.grayColor()
         lineChart.scrollViewReference = self.scrollViewForGraph
         
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
-        lineChart.addLine(data)
+        lineChart.addLine(dataArr)   
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
         
@@ -236,11 +258,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     //Function invoke when user tapping on heart button from navigation bar.
     func heartBtnClicked(){
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

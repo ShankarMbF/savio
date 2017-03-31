@@ -101,7 +101,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         surnameTextField?.layer.cornerRadius = 2.0
         surnameTextField?.layer.masksToBounds = true
         surnameTextField?.layer.borderWidth=1.0
-        let placeholder2 = NSAttributedString(string:"Surname" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+        let placeholder2 = NSAttributedString(string:kSurname , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         surnameTextField?.attributedPlaceholder = placeholder2;
         surnameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
@@ -151,7 +151,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         emailTextField?.layer.cornerRadius = 2.0
         emailTextField?.layer.masksToBounds = true
         emailTextField?.layer.borderWidth=1.0
-        let placeholder5 = NSAttributedString(string:"Email" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+        let placeholder5 = NSAttributedString(string:kEmail , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         emailTextField?.attributedPlaceholder = placeholder5;
         emailTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
@@ -176,7 +176,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         
         //Validations for title and name text field
         if(titleTextField.text?.characters.count == 0 && nameTextField.text?.characters.count == 0) {
-            titleOrNameErrorLabel.text = "We need to know your title and name"
+            titleOrNameErrorLabel.text = kTitleAndNameMissingError
             titleTextField.layer.borderColor = UIColor.redColor().CGColor
             nameTextField.layer.borderColor = UIColor.redColor().CGColor
             nameTextField.textColor = UIColor.redColor()
@@ -203,7 +203,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             nameTextField.textColor = UIColor.redColor()
         }
         else if nameTextField.text?.characters.count > 50 {
-            titleOrNameErrorLabel.text = "Wow, that’s such a long name we can’t save it"
+            titleOrNameErrorLabel.text = kLongName
             errorFlag = true
             if(titleTextField.text?.characters.count == 0)
             {
@@ -213,12 +213,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             nameTextField.textColor = UIColor.redColor()
         }
         else if titleTextField.text == "" {
-            titleOrNameErrorLabel.text = "Please select a title"
+            titleOrNameErrorLabel.text = kTitleEmpty
             errorFlag = true
             titleTextField.textColor = UIColor.redColor()
         }
         else if nameTextField.text == "" {
-            titleOrNameErrorLabel.text = "We need to know what to call you"
+            titleOrNameErrorLabel.text = kEmptyName
             errorFlag = true
             nameTextField.layer.borderColor = UIColor.redColor().CGColor
             nameTextField.textColor = UIColor.redColor()
@@ -424,11 +424,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
-            userInfoDict["title"] = titleTextField.text
+            userInfoDict[kTitle] = titleTextField.text
             userInfoDict["first_name"] = nameTextField.text?.capitalizedString
             userInfoDict["second_name"] = surnameTextField.text?.capitalizedString
             userInfoDict["date_of_birth"] = dateOfBirthTextField.text
-            userInfoDict["phone_number"] =  String(format:"+44%@",mobileNumberTextField.text!)
+            userInfoDict[kPhoneNumber] =  String(format:"+44%@",mobileNumberTextField.text!)
             userInfoDict["email"] = emailTextField.text
             print(userInfoDict)
             
@@ -584,22 +584,27 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     //Function checking textfield content only number or not
     func checkTextFieldContentOnlyNumber(str:String)->Bool{
         let set = NSCharacterSet.decimalDigitCharacterSet()
-        if (str.rangeOfCharacterFromSet(set) != nil) {
-            return true
-        }
-        else {
-            return false
-        }
+//        if (str.rangeOfCharacterFromSet(set) != nil) {
+//            return true
+//        }
+//        else {
+//            return false
+//        }
+        return (str.rangeOfCharacterFromSet(set) != nil)
+
     }
     
     func checkTextFieldContentCharacters(str:String)->Bool{
         let set = NSCharacterSet.letterCharacterSet()
-        if (str.rangeOfCharacterFromSet(set) != nil) {
-            return true
-        }
-        else {
-            return false
-        }
+//        if (str.rangeOfCharacterFromSet(set) != nil) {
+//            return true
+//        }
+//        else {
+//            return false
+//        }
+        
+        return (str.rangeOfCharacterFromSet(set) != nil)
+
     }
     
     func phoneNumberValidation(value: String) -> Bool {

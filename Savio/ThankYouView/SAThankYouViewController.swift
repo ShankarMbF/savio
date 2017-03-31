@@ -75,11 +75,11 @@ class SAThankYouViewController: UIViewController {
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -93,36 +93,36 @@ class SAThankYouViewController: UIViewController {
      }
      */
     @IBAction func continueButtonPressed(sender: UIButton) {
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupPlan") as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey("groupMemberPlan") as! NSNumber
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
         
         let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
         //Individual plan
-        if(plan == "individualPlan" || individualFlag == 1)
+        if(plan == kIndividualPlan || individualFlag == 1)
         {
             let objProgressView = SAProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
             NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
         }
-        else if(plan == "groupPlan" || groupFlag == 1)//group plan
+        else if(plan == kGroupPlan || groupFlag == 1)//group plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
             NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             
             let objProgressView = SAGroupProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
         }
-        else if(plan == "groupMemberPlan" || groupMemberFlag == 1)//Group member plan
+        else if(plan == kGroupMemberPlan || groupMemberFlag == 1)//Group member plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
+            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
             NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             
             let objProgressView = SAGroupProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)

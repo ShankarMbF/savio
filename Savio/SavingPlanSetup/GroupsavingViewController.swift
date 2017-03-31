@@ -24,7 +24,7 @@
     var cost : Int = 0
     var imageDataDict : Dictionary<String,AnyObject> = [:]
     var dateDiff : Int = 0
-    var dateString = "date"
+    var dateString = kDate
     var popOverSelectedStr = ""
     var datePickerDate : String = ""
     var itemTitle : String = ""
@@ -62,7 +62,7 @@
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         
         let objAPI = API()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         if let array =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
@@ -92,7 +92,7 @@
         btnName.frame = CGRectMake(0, 0, 30, 30)
         btnName.setTitle("0", forState: UIControlState.Normal)
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.titleLabel!.font = UIFont(name: "GothamRounded-Book", size: 12)
+        btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.addTarget(self, action: #selector(GroupsavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
@@ -116,7 +116,7 @@
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         //Get image for the saving plan
-        if let urlString = itemDetailsDataDict["imageURL"] as? String {
+        if let urlString = itemDetailsDataDict[kImageURL] as? String {
             let url = NSURL(string:urlString)
             
             let request: NSURLRequest = NSURLRequest(URL: url!)
@@ -155,8 +155,8 @@
                 
             }
             isFromWishList = true
-            itemTitle = itemDetailsDataDict["title"] as! String
-            cost = Int(itemDetailsDataDict["amount"] as! NSNumber)
+            itemTitle = itemDetailsDataDict[kTitle] as! String
+            cost = Int(itemDetailsDataDict[kAmount] as! NSNumber)
             groupArrayCount = Int(itemDetailsDataDict["totalMembers"] as! NSNumber)
         }
         else {
@@ -184,16 +184,16 @@
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0 {
-                NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+                NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -408,7 +408,7 @@
     // MARK: - UITableViewDelegate methods
     //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if itemDetailsDataDict["title"] != nil {
+        if itemDetailsDataDict[kTitle] != nil {
             return 4
         } else {
             return 7
@@ -434,10 +434,10 @@
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             cell1.savingPlanTitleDelegate = self
-            if(itemDetailsDataDict["title"] != nil) {
-                cell1.titleTextField.text = itemDetailsDataDict["title"] as? String
+            if(itemDetailsDataDict[kTitle] != nil) {
+                cell1.titleTextField.text = itemDetailsDataDict[kTitle] as? String
                 cell1.titleTextField.userInteractionEnabled = false
-                itemTitle = itemDetailsDataDict["title"] as! String
+                itemTitle = itemDetailsDataDict[kTitle] as! String
             }
             if(isClearPressed) {
                 cell1.titleTextField.text = itemTitle
@@ -454,21 +454,21 @@
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             
-            if(itemDetailsDataDict["amount"] != nil)
+            if(itemDetailsDataDict[kAmount] != nil)
             {
-                if(itemDetailsDataDict["amount"] is String)
+                if(itemDetailsDataDict[kAmount] is String)
                 {
-                    let amountString = "£" + String(itemDetailsDataDict["amount"])
+                    let amountString = "£" + String(itemDetailsDataDict[kAmount])
                     
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
-                    cell1.slider.value = (itemDetailsDataDict["amount"] as! NSString).floatValue
+                    cell1.slider.value = (itemDetailsDataDict[kAmount] as! NSString).floatValue
                     cost = Int(cell1.slider.value)
                 }
                 else
                 {
-                    let amountString = "£" + String(format: "%d", (itemDetailsDataDict["amount"] as! NSNumber).intValue)
+                    let amountString = "£" + String(format: "%d", (itemDetailsDataDict[kAmount] as! NSNumber).intValue)
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
-                    cell1.slider.value = (itemDetailsDataDict["amount"] as! NSNumber).floatValue
+                    cell1.slider.value = (itemDetailsDataDict[kAmount] as! NSNumber).floatValue
                     cost = Int(cell1.slider.value)
                 }
                 cell1.costTextField.userInteractionEnabled = false
@@ -570,7 +570,7 @@
             return cell1
         }
         else if(indexPath.section == 3) {
-            if(itemDetailsDataDict["title"] == nil) {
+            if(itemDetailsDataDict[kTitle] == nil) {
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
                 if(participantsArr.count == 0) {
                     cell1.layer.cornerRadius = 5
@@ -584,7 +584,7 @@
                     maskLayer.path = maskPath.CGPath
                     cell1.layer.mask = maskLayer
                 }
-                if(itemDetailsDataDict["title"] != nil) {
+                if(itemDetailsDataDict[kTitle] != nil) {
                     cell1.inviteButton.userInteractionEnabled = false
                 }
                 cell1.inviteButton.addTarget(self, action: #selector(GroupsavingViewController.inviteButtonPressed), forControlEvents: .TouchUpInside)
@@ -610,7 +610,7 @@
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            if(itemDetailsDataDict["title"] != nil) {
+            if(itemDetailsDataDict[kTitle] != nil) {
                 cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
                 cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             }
@@ -625,7 +625,7 @@
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
-            if(itemDetailsDataDict["title"] != nil) {
+            if(itemDetailsDataDict[kTitle] != nil) {
                 cell1.clearButton.userInteractionEnabled = false
             }
             cell1.clearButton.addTarget(self, action: #selector(GroupsavingViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
@@ -793,43 +793,43 @@
             parameterDict["sharedPtySavingPlanId"] = itemDetailsDataDict["sharedPtySavingPlanId"] as! NSNumber
         }
         
-        if(itemDetailsDataDict["title"] != nil) {
-            parameterDict["title"] = itemDetailsDataDict["title"]
+        if(itemDetailsDataDict[kTitle] != nil) {
+            parameterDict[kTitle] = itemDetailsDataDict[kTitle]
             parameterDict["isUpdate"] = "Yes"
         }
         else {
-            parameterDict["title"] = itemTitle
+            parameterDict[kTitle] = itemTitle
             parameterDict["isUpdate"] = "No"
         }
         
-        if(itemDetailsDataDict["amount"] != nil) {
-            parameterDict["amount"]  = String(format: "%d", cost)
+        if(itemDetailsDataDict[kAmount] != nil) {
+            parameterDict[kAmount]  = String(format: "%d", cost)
         }
         else {
-            parameterDict["amount"] = String(format:"%d",cost)
+            parameterDict[kAmount] = String(format:"%d",cost)
         }
         
-        if(itemDetailsDataDict["imageURL"] != nil && (itemDetailsDataDict["imageURL"] as! String).characters.count != 0) {
+        if(itemDetailsDataDict[kImageURL] != nil && (itemDetailsDataDict[kImageURL] as! String).characters.count != 0) {
             
             let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
             let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            parameterDict["imageURL"] = base64String
+            parameterDict[kImageURL] = base64String
         }
         else {
             if(cameraButton.hidden == true) {
                 let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                 let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                parameterDict["imageURL"] = base64String
+                parameterDict[kImageURL] = base64String
             }
             else {
-                parameterDict["imageURL"] = ""
+                parameterDict[kImageURL] = ""
             }
         }
         
         let dateParameter = NSDateFormatter()
         dateParameter.dateFormat = "dd-MM-yyyy"
         if(itemDetailsDataDict["planEndDate"] != nil) {
-            parameterDict["PLAN_END_DATE"] = itemDetailsDataDict["planEndDate"]
+            parameterDict[kPLANENDDATE] = itemDetailsDataDict["planEndDate"]
         }
         else {
             if(datePickerDate != "") {
@@ -839,12 +839,12 @@
                 dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
                 var pathComponents2 : NSArray!
                 pathComponents2 = dateStr.componentsSeparatedByString("-")
-                parameterDict["PLAN_END_DATE"] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
             }
         }
         
         parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
-        parameterDict["pty_id"] = userInfoDict["partyId"]
+        parameterDict["pty_id"] = userInfoDict[kPartyID]
         if(itemDetailsDataDict["savingId"] != nil) {
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"]
         }
@@ -912,7 +912,7 @@
             }
         }
         else {
-            if(itemTitle != "" && self.getParameters()["amount"] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && participantsArr.count > 0) {
+            if(itemTitle != "" && self.getParameters()[kAmount] != nil && cost != 0 && dateDiff != 0 && datePickerDate != ""  && participantsArr.count > 0) {
                 let objGroupSavingPlanView = SACreateGroupSavingPlanViewController(nibName: "SACreateGroupSavingPlanViewController",bundle: nil)
                 objGroupSavingPlanView.parameterDict = self.getParameters()
                 objGroupSavingPlanView.delegate = self

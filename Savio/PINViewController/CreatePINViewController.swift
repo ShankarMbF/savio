@@ -41,7 +41,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPasscodeView.layer.cornerRadius = 3
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
@@ -158,7 +158,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     var updatePasscodeDict = Dictionary<String,AnyObject>()
-                    updatePasscodeDict["mobile_Number"] = userInfoDict["phone_number"]
+                    updatePasscodeDict["mobile_Number"] = userInfoDict[kPhoneNumber]
                     updatePasscodeDict["pin"] = passcode.MD5()
                     if(checkString == "ForgotPasscode")
                     {
@@ -264,7 +264,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
 //                NSUserDefaults.standardUserDefaults().synchronize()
                 
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
-                objAPI.storeValueInKeychainForKey("userInfo", value: objResponse["party"]!)
+                objAPI.storeValueInKeychainForKey(kUserInfo, value: objResponse["party"]!)
                 //Navigate user to HurrayViewController to start Saving plan
                 let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)

@@ -55,7 +55,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
       
         loginButton.layer.cornerRadius = 5
         
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
@@ -149,8 +149,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBAction func clickOnRegisterButton(sender: AnyObject) {
         if(registerButton.titleLabel?.text == "Register")
         {
-            let saRegisterViewController = SARegistrationViewController(nibName:"SARegistrationViewController",bundle: nil)
-            self.navigationController?.pushViewController(saRegisterViewController, animated: true)
+//            let saRegisterViewController = SARegistrationViewController(nibName:"SARegistrationViewController",bundle: nil)
+//            self.navigationController?.pushViewController(saRegisterViewController, animated: true)
         }
         else  {
             //Send the OTP to mobile number
@@ -162,7 +162,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             //
             
             objAPI.otpSentDelegate = self;
-            objAPI.getOTPForNumber(userInfoDict["phone_number"]! as! String, country_code: "44")
+            objAPI.getOTPForNumber(userInfoDict[kPhoneNumber]! as! String, country_code: "44")
             
             //Add animation of logo
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -217,6 +217,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         enterYourPasscodeLabel.hidden = false
         
     }
+   
     
     @IBAction func clickOnLoginButton(sender: AnyObject) {
         //LogInButton click
@@ -248,10 +249,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
-            var userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+            var userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
-            param["userID"] = userDict["partyId"]
+//            param[kUserInfo] = userDict[kPartyID]
+            param["userID"] = userDict[kPartyID]
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
             
@@ -262,6 +264,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             } else {
                 param["PNS_DEVICE_ID"] =  ""
             }
+            print(param)
             objAPI.logInWithUserID(param)
         }
     }
@@ -284,7 +287,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
 //        NSUserDefaults.standardUserDefaults().setObject(userInfoDict, forKey: "userInfo")
-        objAPI.storeValueInKeychainForKey("userInfo", value: userInfoDict)
+        objAPI.storeValueInKeychainForKey(kUserInfo, value: userInfoDict)
         
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
 //       NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
@@ -295,9 +298,9 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
      //Store the plan info in NSUserDefaults
-        NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: "groupPlan")
-        NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: "individualPlan")
-        NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: "groupMemberPlan")
+        NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: kGroupPlan)
+        NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: kIndividualPlan)
+        NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: kGroupMemberPlan)
         NSUserDefaults.standardUserDefaults().synchronize()
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
@@ -341,13 +344,13 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         var className :String = ""
         
         if individual == 1 {
-            className = "individualPlan"
+            className = kIndividualPlan
         }
         else if group == 1 {
-            className = "groupPlan"
+            className = kGroupPlan
         }
         else if member == 1 {
-            className = "groupMemberPlan"
+            className = kGroupMemberPlan
         }
         else {
             className = ""

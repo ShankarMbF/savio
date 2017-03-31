@@ -135,7 +135,7 @@ public final class DropDown: UIView {
 	GothamRounded-Medium 15.0
 	Changing the text font automatically reloads the drop down.
 	*/
-	public dynamic var textFont = UIFont(name: "GothamRounded-Book", size: 15) {
+	public dynamic var textFont = UIFont(name: kBookFont, size: 15) {
 		didSet { reloadAllComponents() }
 	}
 	

@@ -31,8 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     //Set up the window and UINavigationViewController
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //Import the library for finding crashesr
+         let objApi = API()
         
-        Stripe.setDefaultPublishableKey("pk_test_dfQyZuLy5OiRc24IspyuEhdD")
+        Stripe.setDefaultPublishableKey(objApi.valueForAPIKey(named: kSTRIPEPUBLISHABLEKEY))
         
         Fabric.with([Crashlytics.self])
         
@@ -251,7 +252,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             //Show the view with the content of the push
             completionHandler(UIBackgroundFetchResult.NewData);
             //Show notification in banner view
-            TWMessageBarManager.sharedInstance().showMessageWithTitle(apnsDict["title"] as? String, description: apnsDict["body"] as? String, type: TWMessageBarMessageType.Info)
+            TWMessageBarManager.sharedInstance().showMessageWithTitle(apnsDict[kTitle] as? String, description: apnsDict["body"] as? String, type: TWMessageBarMessageType.Info)
             //Change apps badge count
             UIApplication.sharedApplication().applicationIconBadgeNumber = Int(dict["badge"] as! NSNumber)
             

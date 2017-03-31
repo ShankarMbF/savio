@@ -99,7 +99,7 @@ class SASavingSummaryViewController: UIViewController {
         // Navigate app as per plan type
         let str = itemDataDict["planType"] as! String
         //Navigate to showing individual/group progress screen
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAProgressViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
         
     }
@@ -166,7 +166,7 @@ class SASavingSummaryViewController: UIViewController {
             itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
             
             //-------Check is invited user available or not and showing list----------------------------
-            if let arr =  itemDataDict["INIVITED_USER_LIST"] as? Array<Dictionary<String,AnyObject>>
+            if let arr =  itemDataDict[kINIVITEDUSERLIST] as? Array<Dictionary<String,AnyObject>>
             {
                 //Invited user list present
                 if arr.count > 0 {
@@ -243,14 +243,14 @@ class SASavingSummaryViewController: UIViewController {
                         }
                     }
                     //------------------------------------------------------------------------------------
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupPlan")
+                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 }
             }else {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: "individualPlan")
+                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
                 NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             }
             
             //-----------------End of showing Invited user list-------------------------------------------
@@ -389,21 +389,21 @@ class SASavingSummaryViewController: UIViewController {
             scrlVw?.contentSize = CGSizeMake(0, htContentView.constant )
             
             //SHOWING PLAN TITLE
-            lblTitle.text = itemDataDict["title"] as? String
+            lblTitle.text = itemDataDict[kTitle] as? String
             //Showing plan amount
-            if let amount = itemDataDict["amount"] as? String
+            if let amount = itemDataDict[kAmount] as? String
             {
                 lblPrice.text =  String(format:"£%@",amount)
             }
             else
             {
-                lblPrice.text =  String(format:"£%d",(itemDataDict["amount"] as? NSNumber)!)
+                lblPrice.text =  String(format:"£%d",(itemDataDict[kAmount] as? NSNumber)!)
             }
             
             //Showing plan image
-            if (itemDataDict["imageURL"] != nil) {
+            if (itemDataDict[kImageURL] != nil) {
                 
-                let newDict =  itemDataDict["imageURL"]
+                let newDict =  itemDataDict[kImageURL]
                 
                 if newDict!["imageName.jpg"] != nil {
                     
@@ -421,12 +421,12 @@ class SASavingSummaryViewController: UIViewController {
             dateFormatter.dateFormat = "dd-MM-yyyy"
             //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
             
-            lblDate.text = itemDataDict["PLAN_END_DATE"] as? String
+            lblDate.text = itemDataDict[kPLANENDDATE] as? String
             
-            lblMonth.text =  String(format: "£%@", itemDataDict["emi"] as! String)
+            lblMonth.text =  String(format: "£%@", itemDataDict[kEmi] as! String)
             print(itemDataDict)
             //Calculation of last date of EMI
-            if(itemDataDict["day"] as? String == "date")
+            if(itemDataDict[kDay] as? String == kDate)
             {
                 // calculation as per selection month
                 paymentLastDate.text =  "Monthly"
@@ -440,7 +440,7 @@ class SASavingSummaryViewController: UIViewController {
                 print(pathComponents2)
                 
                 //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
-                lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["PAY_DATE"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
+                lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict[kPAYDATE] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
             }
             else {
                 //calculation as per week
@@ -452,7 +452,7 @@ class SASavingSummaryViewController: UIViewController {
                 //                let str = "My String"
                 let subStr = todayDay[todayDay.startIndex.advancedBy(0)...todayDay.startIndex.advancedBy(2)]
                 let todayNum1 = self.nextDateFromDay(subStr)
-                let nextNum2 = self.nextDateFromDay(itemDataDict["PAY_DATE"] as! String)
+                let nextNum2 = self.nextDateFromDay(itemDataDict[kPAYDATE] as! String)
                 
                 if todayNum1 < nextNum2 {
                     daysToAdd = nextNum2 - todayNum1
@@ -557,11 +557,11 @@ class SASavingSummaryViewController: UIViewController {
     //function invoking on tapping on heart button
     func heartBtnClicked(){
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

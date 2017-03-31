@@ -90,18 +90,18 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
-        if(userDict["partyId"] is String)
+        if(userDict[kPartyID] is String)
         {
-            objAPI.getWishListForUser(userDict["partyId"] as! String)
+            objAPI.getWishListForUser(userDict[kPartyID] as! String)
         }
         else
         {
-            objAPI.getWishListForUser(String(format: "%d",((userDict["partyId"] as? NSNumber)?.doubleValue)!))
+            objAPI.getWishListForUser(String(format: "%d",((userDict[kPartyID] as? NSNumber)?.doubleValue)!))
         }
     }
     //Function invoke when UIApplicationWillEnterForegroundNotification brodcast
@@ -209,24 +209,24 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     lblNoWishList.hidden = true
                     //----------show product title--------------------
                     let lblTitle = testView.viewWithTag(3)! as! UILabel
-                    lblTitle.text = objDict["title"] as? String
+                    lblTitle.text = objDict[kTitle] as? String
                     lblTitle.hidden = false
                     //-----------------------------------------------
                     //-----------Show product cost-------------------
                     let lblCost = testView.viewWithTag(4)! as! UILabel
-                    if(objDict["amount"] is String)
+                    if(objDict[kAmount] is String)
                     {
-                        lblCost.text = objDict["amount"] as? String
+                        lblCost.text = objDict[kAmount] as? String
                     }
                     else
                     {
-                        lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
+                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).intValue)
                     }
                     //----------------------------------------------------
                     
                     //------------------Showing image of wishlist product---------------
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
-                    if let urlString = objDict["imageURL"] as? String
+                    if let urlString = objDict[kImageURL] as? String
                     {
                         //Get product URL
                         let url = NSURL(string:urlString)
@@ -292,23 +292,23 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     lblNoWishList.hidden = true
                     
                     let lblTitle = testView.viewWithTag(3)! as! UILabel
-                    lblTitle.text = objDict["title"] as? String
+                    lblTitle.text = objDict[kTitle] as? String
                     lblTitle.hidden = false
                     
                     let lblCost = testView.viewWithTag(4)! as! UILabel
                     
-                    if(objDict["amount"] is String)
+                    if(objDict[kAmount] is String)
                     {
-                        lblCost.text = objDict["amount"] as? String
+                        lblCost.text = objDict[kAmount] as? String
                     }
                     else
                     {
-                        lblCost.text = String(format: "%d", (objDict["amount"] as! NSNumber).intValue)
+                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).intValue)
                     }
                     
                     
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
-                    if let urlString = objDict["imageURL"] as? String
+                    if let urlString = objDict[kImageURL] as? String
                     {
                         let url = NSURL(string:urlString)
                         
@@ -418,11 +418,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func heartBtnClicked(){
         if colors.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -436,7 +436,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     @IBAction func clickedOnWishListButton(sender:UIButton){
-        NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
     }
     
@@ -455,7 +455,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let cell = NSBundle.mainBundle().loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil)![0] as! SavingCategoryTableViewCell
         let cellDict = tblArr[indexPath.row]
         cell.layoutMargins = UIEdgeInsetsZero
-        cell.lblHeader!.text = cellDict["title"] as? String;
+        cell.lblHeader!.text = cellDict[kTitle] as? String;
         cell.suggestedHt.constant = self.heightForView((cellDict["savDescription"] as? String)!, font: UIFont(name: kLightFont, size: 11)!, width: (cell.lblDetail?.frame.size.width)!)
         cell.lblDetail?.text = cellDict["savDescription"] as? String
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])  //placeHolderImgArr[indexPath.row]
@@ -488,7 +488,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //Check If any plan is created by login user
-        if(NSUserDefaults.standardUserDefaults().objectForKey("individualPlan") as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey("groupPlan") as? NSNumber == 1)
+        if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 1)
         {
             //if plan already created then restrict user to create all plan
             let alert = UIAlertView(title: "You already have an active plan", message: "Sorry, can only have one personal plan and be a member of one group plan at a time.", delegate: nil, cancelButtonTitle: "Ok")
@@ -556,7 +556,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             {
                 for i in 0 ..< tblArr.count {
                     let dict = tblArr[i] as Dictionary<String,AnyObject>
-                    if(dict["title"] as! String == "Group Save")
+                    if(dict[kTitle] as! String == "Group Save")
                     {
                         NSUserDefaults.standardUserDefaults().setObject(dict["savPlanID"], forKey: "savPlanID")
                         NSUserDefaults.standardUserDefaults().synchronize()

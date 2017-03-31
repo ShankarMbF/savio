@@ -82,7 +82,7 @@ class SASpendViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        if NSUserDefaults.standardUserDefaults().objectForKey("SAV_SITE_URL") != nil{
+        if NSUserDefaults.standardUserDefaults().objectForKey(kSAVSITEURL) != nil{
             // exist
             self.showCongratsView()
 
@@ -110,11 +110,11 @@ class SASpendViewController: UIViewController {
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName("SelectRowIdentifier", object: "SAWishListViewController")
+            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty.", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -139,17 +139,17 @@ class SASpendViewController: UIViewController {
     
     @IBAction func spendNowButtonClicked(sender:UIButton) {
         print("Spend Button Clicked...")
-        if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey("SAV_SITE_URL") as! String ){
+        if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSAVSITEURL) as! String ){
             UIApplication.sharedApplication().openURL(url)
         }
     }
 
     @IBAction func planButtonPressed(sender: AnyObject) {
         var vw = UIViewController?()
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey("individualPlan") as! NSNumber
+        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey("UsersPlan") as? String
+        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
         {
             usersPlanFlag = usersPlan
             //As per flag show the progress view of plan

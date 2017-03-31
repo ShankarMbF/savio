@@ -113,7 +113,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         townTextField?.layer.cornerRadius = 2.0
         townTextField?.layer.masksToBounds = true
         townTextField?.layer.borderWidth=1.0
-        let placeholder6 = NSAttributedString(string:"Town" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+        let placeholder6 = NSAttributedString(string:kTown , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         townTextField?.attributedPlaceholder = placeholder6;
         townTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
@@ -121,7 +121,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         countyTextField?.layer.cornerRadius = 2.0
         countyTextField?.layer.masksToBounds = true
         countyTextField?.layer.borderWidth=1.0
-        let placeholder7 = NSAttributedString(string:"County" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+        let placeholder7 = NSAttributedString(string:kCounty , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         countyTextField?.attributedPlaceholder = placeholder7;
         countyTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
@@ -521,7 +521,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let objAPI = API()
 //            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
 //            NSUserDefaults.standardUserDefaults().synchronize()
-            objAPI.storeValueInKeychainForKey("userInfo", value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
+            objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
 //            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
 //            {
 //                objAPI.deleteKeychainValue("myPasscode")
@@ -534,7 +534,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             }
             
             objAPI.otpSentDelegate = self
-            objAPI.getOTPForNumber(userInfoDict["phone_number"] as! String, country_code: "44")
+            objAPI.getOTPForNumber(userInfoDict[kPhoneNumber] as! String, country_code: "44")
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()
@@ -544,7 +544,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                 let objAPI = API()
 //                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
 //                NSUserDefaults.standardUserDefaults().synchronize()
-                objAPI.storeValueInKeychainForKey("userInfo", value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
+                objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)
@@ -554,9 +554,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         else if errorCode == 202 {
              objAnimView.removeFromSuperview()
             var dict = objResponse["party"] as! Dictionary<String,AnyObject>
-           let firstName = dict["first_name"] as! String
-           let lastName = dict["second_name"] as! String
-           let dateOfBirth = dict["date_of_birth"] as! String
+//           let firstName = dict["first_name"] as! String
+//           let lastName = dict["second_name"] as! String
+//           let dateOfBirth = dict["date_of_birth"] as! String
 //            let msg = objResponse["message"] as! String
             let msg = self.messageForUser(objResponse)
             

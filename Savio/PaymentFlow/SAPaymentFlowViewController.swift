@@ -259,7 +259,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        
+    
+     /*   objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.navigationController?.view.addSubview(self.objAnimView)
@@ -364,7 +366,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     }
                                 }
                                 else {
-                                    //Call AddSavingCardDelegate
+                                    //      Call AddSavingCardDelegate
                                     let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,kPTYSAVINGPLANID:NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
@@ -421,7 +423,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         else {
             errorFlag = false
             objAnimView.removeFromSuperview()
-        }
+        }*/
     }
     
     func setBarodrColor(borderColor: UIColor) {

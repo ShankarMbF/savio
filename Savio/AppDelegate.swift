@@ -12,7 +12,6 @@ import Crashlytics
 import UserNotifications
 import Stripe
 
-
 struct Device {
     static var udid = UIDevice.currentDevice().identifierForVendor!.UUIDString
 }
@@ -34,8 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
          let objApi = API()
         
         Stripe.setDefaultPublishableKey(objApi.valueForAPIKey(named: kSTRIPEPUBLISHABLEKEY))
-        
         Fabric.with([Crashlytics.self])
+        Fabric.with([STPAPIClient.self])
+        
+        STPPaymentConfiguration.sharedConfiguration().smsAutofillDisabled = true
         
         let notificationTypes: UIUserNotificationType = [.Badge, .Sound, .Alert]
         let pushNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)

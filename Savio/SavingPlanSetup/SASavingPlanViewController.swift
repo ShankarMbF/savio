@@ -1345,6 +1345,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let objAPI = API()
                 if(itemDetailsDataDict[kTitle] == nil) {
                     objAPI.partySavingPlanDelegate = self
+                    /*
+                     
+                     
+                     
+                     
+                     */
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan) {

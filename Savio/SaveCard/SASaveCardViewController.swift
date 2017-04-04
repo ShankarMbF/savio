@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Stripe
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,STPAddCardViewControllerDelegate,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
@@ -297,6 +298,20 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
+        /*
+         
+         
+         Strip SDK
+         
+         */
+ 
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        // STPAddCardViewController must be shown inside a UINavigationController.
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+        
+        /*
         let objPaymentView = SAPaymentFlowViewController()
         objPaymentView.addNewCard = true
         objPaymentView.isFromGroupMemberPlan = self.isFromGroupMemberPlan
@@ -308,7 +323,23 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         {
             objPaymentView.isFromEditUserInfo = true
         }
-        self.navigationController?.pushViewController(objPaymentView, animated: true)
+        self.navigationController?.pushViewController(objPaymentView, animated: true)*/
+    }
+    
+    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+        
+        print(token)
+//        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+//        objAPI.addNewSavingCardDelegate = self
+//        objAPI.addNewSavingCard(dict)
+        //Use token for backend process
+        self.dismissViewControllerAnimated(true, completion: {
+            completion(nil)
+        })
     }
     
     //Go to SAEditUserInfoViewController

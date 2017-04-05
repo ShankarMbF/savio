@@ -34,8 +34,13 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpView()
+//        self.setUpView()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+       self.setUpView()
     }
     
     func setUpView()
@@ -247,9 +252,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         cell.removeCardButton.tag = indexPath.row
         cell.removeCardButton.addTarget(self, action: #selector(SASaveCardViewController.removeCardFromList(_:)), forControlEvents: .TouchUpInside)
         if indexPath.row == 0 {
+            
             cell.removeCardButton.hidden = true
-            //Changing background color of selected row
-            cell.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
+            cell.cardImageView.hidden = true
+//            Changing background color of selected row
+//            cell.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         }
         return cell
     }
@@ -298,12 +305,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
-        /*
+     
          
          
-         Strip SDK
-         
-         */
+//         Strip SDK
+ 
  
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
@@ -332,10 +338,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
         
-        print(token)
-//        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
-//        objAPI.addNewSavingCardDelegate = self
-//        objAPI.addNewSavingCard(dict)
+        let objAPI = API()
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID)]
+        objAPI.addNewSavingCard(dict)
+
         //Use token for backend process
         self.dismissViewControllerAnimated(true, completion: {
             completion(nil)
@@ -550,13 +557,31 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     //Success reponse of ImpulseSavingDelegate
     func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
+       /* 
+         print(objResponse)
         if let _ = objResponse["message"] as? String
         {
             self.isFromImpulseSaving = false
             let objImpulseView = SAImpulseSavingViewController()
             objImpulseView.isFromPayment = true
             self.navigationController?.pushViewController(objImpulseView, animated: true)
+        } 
+         */
+        
+        print(objResponse)
+        objAnimView.removeFromSuperview()
+        if let errorCode = objResponse["errorCode"] as? NSString
+        {
+            if (errorCode == "200")
+            {
+                self.isFromImpulseSaving = false
+                let objImpulseView = SAImpulseSavingViewController()
+                objImpulseView.isFromPayment = true
+                self.navigationController?.pushViewController(objImpulseView, animated: true)
+            }
+        }else {
+            let alert = UIAlertView(title: "Sorry, transaction is not completed", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
@@ -623,6 +648,111 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func errorResponseForRemoveCardAPI(error:String){
         print(error)
+        objAnimView.removeFromSuperview()
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+ 
+    
+    // MARK: - API Response
+    //Success response of AddSavingCardDelegate
+    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
+            {
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
+                {
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to SAThankYouViewController
+                        self.isFromGroupMemberPlan = false
+                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    }
+                    else {
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    //Error response of AddSavingCardDelegate
+    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+    }
+    
+    //Success response of AddNewSavingCardDelegate
+    func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        
+        if let message = objResponse["message"] as? String{
+            if(message == "Successfull")
+            {
+                if(self.isFromGroupMemberPlan == true)
+                {
+                    //Navigate to showing group progress
+                    self.isFromGroupMemberPlan = false
+                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    let objThankyYouView = SAThankYouViewController()
+                    self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    
+                }else if(self.isFromImpulseSaving){
+                    let objAPI = API()
+                    objAPI.impulseSavingDelegate = self
+                    
+                    var newDict : Dictionary<String,AnyObject> = [:]
+                    let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+                    //                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+                    let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
+                    newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
+                    newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+                    newDict["PAYMENT_TYPE"] = "debit"
+                    newDict["AUTH_CODE"] = "test"
+                    newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
+                    print(newDict)
+                    objAPI.impulseSaving(newDict)
+                }
+                else if(isFromEditUserInfo)
+                {
+                    objAnimView.removeFromSuperview()
+                    let objSavedCardView = SASaveCardViewController()
+                    objSavedCardView.isFromEditUserInfo = true
+                    objSavedCardView.isFromImpulseSaving = false
+                    objSavedCardView.showAlert = true
+                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
+                }
+                else {
+                    objAnimView.removeFromSuperview()
+                    let objSummaryView = SASavingSummaryViewController()
+                    self.navigationController?.pushViewController(objSummaryView, animated: true)
+                }
+            }
+        }
+    }
+    
+    //error response of AddNewSavingCardDelegate
+    func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")

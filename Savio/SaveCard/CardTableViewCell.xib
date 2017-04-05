@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xl-KK-mrN">
@@ -50,8 +50,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V3l-Ie-gXS">
-                        <rect key="frame" x="260" y="5" width="55" height="30"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="social-pop-up-close.png" translatesAutoresizingMaskIntoConstraints="NO" id="V3l-Ie-gXS">
+                        <rect key="frame" x="260" y="10" width="55" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="ch5-Jt-t9B"/>
                             <constraint firstAttribute="width" constant="55" id="sNT-kr-NWR"/>
@@ -63,25 +63,24 @@
                         </variation>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIx-B7-Ywe">
-                        <rect key="frame" x="282" y="9" width="22" height="22"/>
+                        <rect key="frame" x="260" y="9" width="52" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="22" id="hof-Pi-BMT"/>
+                            <constraint firstAttribute="width" constant="52" id="hof-Pi-BMT"/>
                             <constraint firstAttribute="height" constant="22" id="ujt-Bo-4SA"/>
                         </constraints>
-                        <state key="normal" title="Button" image="social-pop-up-close.png"/>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="HIx-B7-Ywe" secondAttribute="trailing" constant="8" id="7eW-fQ-QVO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="HIx-B7-Ywe" secondAttribute="trailing" id="7eW-fQ-QVO"/>
                     <constraint firstItem="HIx-B7-Ywe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8YW-Qw-A3E"/>
-                    <constraint firstItem="HIx-B7-Ywe" firstAttribute="leading" secondItem="qTd-i4-mSD" secondAttribute="trailing" constant="29" id="EET-9P-p4T"/>
+                    <constraint firstItem="HIx-B7-Ywe" firstAttribute="leading" secondItem="qTd-i4-mSD" secondAttribute="trailing" constant="7" id="EET-9P-p4T"/>
                     <constraint firstItem="hmZ-bA-DpD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EN6-8D-4El"/>
                     <constraint firstAttribute="bottom" secondItem="qTd-i4-mSD" secondAttribute="bottom" constant="4" id="Hxl-A1-qyX"/>
                     <constraint firstItem="0xl-KK-mrN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="PJd-nW-gYg"/>
-                    <constraint firstAttribute="bottom" secondItem="V3l-Ie-gXS" secondAttribute="bottom" constant="4" id="QJS-fz-6I9"/>
+                    <constraint firstAttribute="bottom" secondItem="V3l-Ie-gXS" secondAttribute="bottom" constant="8" id="QJS-fz-6I9"/>
                     <constraint firstItem="0xl-KK-mrN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Uzs-ZU-c9r"/>
                     <constraint firstItem="hmZ-bA-DpD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="44" id="V70-G2-jU9"/>
-                    <constraint firstItem="V3l-Ie-gXS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Vkr-Ia-vIA"/>
+                    <constraint firstItem="V3l-Ie-gXS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Vkr-Ia-vIA"/>
                     <constraint firstAttribute="trailing" secondItem="V3l-Ie-gXS" secondAttribute="trailing" constant="5" id="ZVZ-kH-KCc"/>
                     <constraint firstItem="qTd-i4-mSD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="lSH-5T-pUf"/>
                     <constraint firstItem="qTd-i4-mSD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="pM1-L1-dOG"/>

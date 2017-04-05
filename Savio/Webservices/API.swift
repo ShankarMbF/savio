@@ -1695,6 +1695,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func addNewSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
+        print(dictParam)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
@@ -2037,6 +2038,7 @@ class API: UIView,NSURLSessionDelegate {
         urlconfig.timeoutIntervalForRequest = intrvl
         urlconfig.timeoutIntervalForResource = intrvl
     }
+    
     func createRequest(requestURL:NSURL,method:String,paramDict:Dictionary<String,AnyObject>,userInforDict:Dictionary<String,AnyObject>,isAuth:Bool) -> NSMutableURLRequest {
         let request = NSMutableURLRequest(URL: requestURL)
         if method != "GET" {

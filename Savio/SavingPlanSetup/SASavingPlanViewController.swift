@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Stripe
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate,GetUsersPlanDelegate,UpdateSavingPlanDelegate {
+class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate,GetUsersPlanDelegate,UpdateSavingPlanDelegate,STPAddCardViewControllerDelegate {
+    
     @IBOutlet weak var topBackgroundImageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var tblView: UITableView!
@@ -1346,11 +1348,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 if(itemDetailsDataDict[kTitle] == nil) {
                     objAPI.partySavingPlanDelegate = self
                     /*
-                     
-                     
-                     
-                     
+                     Stripe SDK
+                    
                      */
+           
+                    
+                    print("--------------------------------------")
+                    
                     objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan) {
@@ -1493,6 +1497,26 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.navigationController?.pushViewController(obj, animated: true)
         }
     }
+    
+    
+    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+        
+        let objAPI = API()
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),kPTYSAVINGPLANID:NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
+        print(dict)
+        objAPI.addNewSavingCard(dict)
+        
+        //Use token for backend process
+        self.dismissViewControllerAnimated(true, completion: {
+            completion(nil)
+        })
+    }
+
     
     //This method is used to show the customized alert message to user
     func displayAlert(message:String)
@@ -1857,8 +1881,16 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     self.navigationController?.pushViewController(objSavedCardView, animated: true)
                     
                 }else {
-                    let objPaymentView = SAPaymentFlowViewController()
-                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                    let objPaymentView = SAPaymentFlowViewController()
+//                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+
+                    let addCardViewController = STPAddCardViewController()
+                    addCardViewController.delegate = self
+                    // STPAddCardViewController must be shown inside a UINavigationController.
+                    let navigationController = UINavigationController(rootViewController: addCardViewController)
+                    self.presentViewController(navigationController, animated: true, completion: nil)
+                    
+                    print("----------------------------")
                 }
             }
             else {
@@ -1866,7 +1898,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 alert.show()
             }
         }
-        else if let message = objResponse["irnternalMessage"] as? String {
+        else if let message = objResponse["internalMessage"] as? String {
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

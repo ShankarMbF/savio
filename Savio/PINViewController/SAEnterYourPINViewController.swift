@@ -40,23 +40,11 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         super.viewDidLoad()
         
         self.customizeTextFields()
-        
-        // Do any additional setup after loading the view.
-        //change the border color and placeholder color of UITextField
-        
-        //Add shadowcolor to UIButtons
-        
-        let myNumber = 505;
-        let outputNum = (NSInteger)(ceil(Double( myNumber)/1000) * 1000);
-        print(outputNum)
-        
         registerButton.layer.cornerRadius = 5
         btnVwBg.layer.cornerRadius = 5
-      
         loginButton.layer.cornerRadius = 5
         
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAEnterYourPINViewController.doneBarButtonPressed(_:)))
@@ -72,7 +60,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         for tf: UITextField in arrayTextFields {
             tf.inputAccessoryView = customToolBar
         }
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -126,10 +114,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         scrlView?.setContentOffset(CGPointZero, animated: true)
     }
     
-
+    
     //UITextField delegate method
     func textFieldDidBeginEditing(textField: UITextField) {
-         activeTextField = textField
+        activeTextField = textField
         self.registerForKeyboardNotifications()
         errorLabel.hidden = true
     }
@@ -147,20 +135,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     
     @IBAction func clickOnRegisterButton(sender: AnyObject) {
-        if(registerButton.titleLabel?.text == "Register")
+        if(registerButton.titleLabel?.text != "Register")
         {
-//            let saRegisterViewController = SARegistrationViewController(nibName:"SARegistrationViewController",bundle: nil)
-//            self.navigationController?.pushViewController(saRegisterViewController, animated: true)
-        }
-        else  {
-            //Send the OTP to mobile number
-            
-            //Get the user details from Keychain
-            //
-            //            let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
-            //            self.navigationController?.pushViewController(objCreatePINView, animated: true)
-            //
-            
             objAPI.otpSentDelegate = self;
             objAPI.getOTPForNumber(userInfoDict[kPhoneNumber]! as! String, country_code: "44")
             
@@ -217,7 +193,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         enterYourPasscodeLabel.hidden = false
         
     }
-   
+    
     
     @IBAction func clickOnLoginButton(sender: AnyObject) {
         //LogInButton click
@@ -250,9 +226,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             self.view.addSubview(objAnimView)
             
             var userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
-//            param[kUserInfo] = userDict[kPartyID]
             param["userID"] = userDict[kPartyID]
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
@@ -280,48 +254,42 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
-
+        
         objAnimView.removeFromSuperview()
         let dict = objResponse["party"]
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
-//        NSUserDefaults.standardUserDefaults().setObject(userInfoDict, forKey: "userInfo")
         objAPI.storeValueInKeychainForKey(kUserInfo, value: userInfoDict)
-        
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
-//       NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//        NSUserDefaults.standardUserDefaults().synchronize()
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         
         let groupPlan = objResponse["G"] as! NSNumber
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
-     //Store the plan info in NSUserDefaults
+        //Store the plan info in NSUserDefaults
         NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: kGroupPlan)
         NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: kIndividualPlan)
         NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: kGroupMemberPlan)
         NSUserDefaults.standardUserDefaults().synchronize()
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
-        
         if (groupPlan == 1 || individualPlan == 1 || groupMemberPlan == 1) {
-                let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
-                self.navigationController?.pushViewController(objContainer, animated: true)
-        
+            let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+            self.navigationController?.pushViewController(objContainer, animated: true)
+            
         }else {
             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
             self.navigationController?.pushViewController(objHurrrayView, animated: true)
         }
     }
-
+    
     func errorResponseForOTPLogInAPI(error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-
         else if(error == "Passcode is incorrect")
         {
             errorLabel.hidden = false
@@ -381,10 +349,10 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         }
         else
         {
-        
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+            
+            let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
             fiveDigitVerificationViewController.isComingFromRegistration = false
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+            self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
         }
         
     }
@@ -437,9 +405,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                     break
                 }
             }
-            
         }else {
-            
             for idx in 0...tag {
                 tag -= 1
                 if tag >= 0 {
@@ -450,7 +416,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                     }
                 }
             }
-            
         }
     }
     

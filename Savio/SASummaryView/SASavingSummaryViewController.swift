@@ -160,7 +160,7 @@ class SASavingSummaryViewController: UIViewController {
         btnContinue!.layer.cornerRadius = 5
         
         let objAPI = API()
-//        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
             itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
@@ -172,7 +172,7 @@ class SASavingSummaryViewController: UIViewController {
                 if arr.count > 0 {
                     
                     //----------------Set up height as per invited user count-----------------------
-//                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
+                    //                    let ht = (lblName1?.frame.origin.y)! + (CGFloat(arr.count) * 30) as CGFloat
                     let ht = (CGFloat(arr.count) * 30) + 10 //as CGFloat
                     //            let ht = (lblName1?.frame.origin.y)! + (ct * (lblName1?.frame.size.height)!) as CGFloat
                     groupViewHt.constant = ht
@@ -306,15 +306,12 @@ class SASavingSummaryViewController: UIViewController {
             vwSummary?.layer.borderWidth = 1.5
             
             lblOffer?.hidden = true
-            //        topSpaceForContinue.constant = 30
-            //        topSpaceContonueView.constant = 30
             self.view.bringSubviewToFront(btnContinue!)
             htOfferView.constant = 0
             
             
             //----------Setting up UI for showing offer list---------------------------------------
             if let arrOff = itemDataDict ["offers"] as? Array<Dictionary<String,AnyObject>>{
-                //        let arrOff = itemDataDict ["offers"] as! Array<Dictionary<String,AnyObject>>
                 var topMargin: CGFloat = 0.0   // variable for ste top margine for each offer
                 for i in 0 ..< arrOff.count {
                     
@@ -372,20 +369,12 @@ class SASavingSummaryViewController: UIViewController {
                     }
                     //--------------------------------------------------------------------------------
                 }
-                 htOfferView.constant = CGFloat(arrOff.count) * 60 + 35
+                htOfferView.constant = CGFloat(arrOff.count) * 60 + 35
             }
-            //Setting up height of summary container view
-//            htDescriptionContentView.constant = summaryViewHt.constant//continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + htOfferView.constant + (groupViewHt.constant - 10)
-            
-//            htContentView.constant = (vwUpper?.frame.size.height)! + htDescriptionContentView.constant  //htContentView.constant + htOfferView.constant
-            
-            //Setting scrollview content size as per contentView
-//            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant - 30)
             
             htDescriptionContentView.constant = summaryViewHt.constant + htOfferView.constant + 200
             
             htContentView.constant =  (vwUpper?.frame.size.height)! + htDescriptionContentView.constant + 50
-//             htContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + 200 //htContentView.constant + htDescriptionContentView.constant
             scrlVw?.contentSize = CGSizeMake(0, htContentView.constant )
             
             //SHOWING PLAN TITLE
@@ -419,7 +408,6 @@ class SASavingSummaryViewController: UIViewController {
             // Set date as per date formatter
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy"
-            //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
             
             lblDate.text = itemDataDict[kPLANENDDATE] as? String
             
@@ -439,13 +427,12 @@ class SASavingSummaryViewController: UIViewController {
                 pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
                 print(pathComponents2)
                 
-                //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict[kPAYDATE] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
             }
             else {
                 //calculation as per week
-                 dateFormatter.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
-                 var daysToAdd : Double = 7
+                dateFormatter.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
+                var daysToAdd : Double = 7
                 
                 let todayDateArr =  dateFormatter.stringFromDate(NSDate()).componentsSeparatedByString(" ")
                 let todayDay = todayDateArr[0] as! String
@@ -463,7 +450,7 @@ class SASavingSummaryViewController: UIViewController {
                 else{
                     daysToAdd = 7
                 }
-
+                
                 paymentLastDate.text = "Weekly"
                 
                 let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
@@ -473,11 +460,9 @@ class SASavingSummaryViewController: UIViewController {
                 pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString(" ")
                 print(pathComponents2)
                 print(itemDataDict["payDate"])
-//                            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 print(itemDataDict["payDate"])
                 let daystr = pathComponents2[0] as! String
                 let strDay = daystr.stringByReplacingOccurrencesOfString(",", withString: "")
-//                let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, pathComponents2[0] as! String)
                 let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, strDay)
                 lblNextDebit.text = finalDate
                 lblNextDebit.font = UIFont.init(name: kBookFont, size: 15)
@@ -535,7 +520,6 @@ class SASavingSummaryViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
-        //        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
     }
     
     /*

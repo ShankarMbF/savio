@@ -40,7 +40,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     var offerArr: Array<Dictionary<String,AnyObject>> = []
     var groupMemberCount = 0
     var recurringAmount : CGFloat = 0
-
+    
     
     
     //MARK: ViewController lifeCycle method.
@@ -62,12 +62,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         cost =  Int(parameterDict[kAmount] as! String)!
         let objAPI = API()
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let dict = ["first_name":userInfoDict["first_name"]!,"email_id":userInfoDict["email"]!,"mobile_number":userInfoDict[kPhoneNumber]!] as Dictionary<String,AnyObject>
         participantsArr.append(dict)
         topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBgImageView.layer.masksToBounds = true
-         dateString = kDate
+        dateString = kDate
         isDateChanged = true
         self.setUpView()
     }
@@ -84,11 +83,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
         leftBtnName.frame = CGRectMake(0, 0, 30, 30)
         leftBtnName.addTarget(self, action: #selector(SACreateGroupSavingPlanViewController.backButtonClicked), forControlEvents: .TouchUpInside)
-        
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        
         //set Navigation right button nav-heart
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
@@ -111,7 +108,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
-            
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -140,7 +136,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             self.cameraButton.hidden = false
             topBgImageView.image = UIImage(named: "groupsave-setup-bg.png")
         }
-        
         if parameterDict["isUpdate"]!.isEqualToString("Yes") {
             isDateChanged = true
         }
@@ -151,7 +146,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     {
         if isOfferShow == true && offerArr.count > 0 {
             let obj = SAOfferListViewController()
-             obj.isComingProgress = false
+            obj.isComingProgress = false
             obj.delegate = self
             obj.addedOfferArr = offerArr
             if let savId = parameterDict["sav_id"] as? String {
@@ -222,10 +217,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 else{
                     if dateString == "" {
-                    dateString = kDate
+                        dateString = kDate
                     }
                     cell1.dayDateLabel.text = dateString
-
+                    
                 }
                 if let payDate = parameterDict["payDate"] as? String {
                     cell1.dayDateTextField.text = payDate
@@ -233,8 +228,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 else{
                     //if date not available
                     if selectedStr == "" {
-                    let str = "1"
-                    selectedStr = str
+                        let str = "1"
+                        selectedStr = str
                     }
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: selectedStr)
                 }
@@ -250,18 +245,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     }
                 }
                 else {
-                    //                    cell1.dayDateTextField.text = ""
                     let str = "1"
                     selectedStr = str
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
-
-               
-                
                 if(isClearPressed) {
                     cell1.dayDateTextField.text = ""
                 }
-                
             }
             return cell1
         }
@@ -280,9 +270,9 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             recurringAmount = round(CGFloat(cost)/CGFloat(groupMemberCount))
                         }
                         else if ((dateDiff/168) == 0) {
-//                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
+                            //                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
-                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
+                            recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((groupMemberCount))/CGFloat(dateDiff/168)),(dateDiff/168))
@@ -295,29 +285,26 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             recurringAmount = round((CGFloat(cost)/CGFloat(groupMemberCount)/CGFloat((dateDiff/168)/4)))
                         }
                         else if ((dateDiff/168)/4 == 0) {
-//                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
-                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
-                             recurringAmount = round((CGFloat(cost)/CGFloat(participantsArr.count)))
+                            //                            cell1.calculationLabel.text = "You will need to top up £0 per month for 0 month"
+                            cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat(participantsArr.count))),(dateDiff/168)/4)
+                            recurringAmount = round((CGFloat(cost)/CGFloat(participantsArr.count)))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             recurringAmount = round((CGFloat(cost)/CGFloat((groupMemberCount ))/CGFloat((dateDiff/168)/4)))
                         }
                     }
-                    
-                    
                 }else {
                     
                     cell1.percentageCalculationLabel.text = String(format: "The plan is split equally between everyone. You have %.2f%% of the plan which is £%d of the total goal of £%d",round(CGFloat(100)/CGFloat(participantsArr.count)),cost/(participantsArr.count),cost)
                     if(dateString == kDay) {
                         if((dateDiff/168) == 1) {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168),(dateDiff/168))
-                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168)
+                            recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))/CGFloat(dateDiff/168)
                         }
                         else if ((dateDiff/168) == 0) {
-//                            cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d week",round(CGFloat(cost)/CGFloat(participantsArr.count)),(dateDiff/168))
-                             recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
+                            recurringAmount = round(CGFloat(cost)/CGFloat(participantsArr.count))
                         }
                         else {
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((participantsArr.count))/CGFloat(dateDiff/168)),(dateDiff/168))
@@ -337,12 +324,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                             cell1.calculationLabel.text = String(format: "You will need to top up £%.2f per month for %d months",round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                             recurringAmount = round((CGFloat(cost)/CGFloat((participantsArr.count ))/CGFloat((dateDiff/168)/4)))
                         }
-//
                     }
-                    
                 }
             }
-     
+            
             if(isClearPressed) {
                 cell1.calculationLabel.text = ""
             }
@@ -381,7 +366,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             cell1.offerDetailLabel.text = dict["offTitle"] as? String
             cell1.descriptionLabel.text = dict["offSummary"] as? String
             let urlStr = dict["offImage"] as! String
-             let str = urlStr.stringByReplacingOccurrencesOfString(" ", withString: "%20")
+            let str = urlStr.stringByReplacingOccurrencesOfString(" ", withString: "%20")
             let url = NSURL(string: str)
             let request: NSURLRequest = NSURLRequest(URL: url!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
@@ -560,7 +545,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             newDict[kOFFERS] = newOfferArray
         }
         
-         newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
+        newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
         return newDict
     }
     
@@ -666,7 +651,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let obj = SAOfferListViewController()
             obj.delegate = self
             obj.addedOfferArr = offerArr
-             obj.isComingProgress = false
+            obj.isComingProgress = false
             if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
             }
@@ -712,7 +697,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         else {
             let obj = SAOfferListViewController()
             obj.delegate = self
-             obj.isComingProgress = false
+            obj.isComingProgress = false
             obj.addedOfferArr = offerArr
             if let savId = parameterDict["sav_id"] as? String {
                 obj.savID = Int(savId)!
@@ -772,17 +757,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     NSUserDefaults.standardUserDefaults().setValue(kGroupMemberPlan, forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     let objAPI = API()
-//                    if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-//                    {
-//                        let objSavedCardView = SASaveCardViewController()
-//                        objSavedCardView.isFromGroupMemberPlan = true
-//                        self.navigationController?.pushViewController(objSavedCardView, animated: true)
-//                    }
-//                    else{
-//                        let objPaymentView = SAPaymentFlowViewController()
-//                        objPaymentView.isFromGroupMemberPlan = true
-//                        self.navigationController?.pushViewController(objPaymentView, animated: true)
-//                    }
                     
                     if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>> {
                         let objSavedCardView = SASaveCardViewController()
@@ -809,7 +783,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             else {
                 let alert = UIAlertView(title: "Alert", message: objResponse["error"] as? String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
-
+                
             }
             objAnimView.removeFromSuperview()
         }
@@ -820,17 +794,13 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                     var dict : Dictionary<String,AnyObject> = [:]
                     dict[kINIVITEDUSERLIST] = participantsArr
                     dict[kPARTYID] = parameterDict["pty_id"]
-                   
+                    
                     NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
-                         NSUserDefaults.standardUserDefaults().setValue(kGroupPlan, forKey: "usersPlan")
+                    NSUserDefaults.standardUserDefaults().setValue(kGroupPlan, forKey: "usersPlan")
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    
-//                    print(dict)
-                    
                     let objAPI = API()
                     objAPI.inviteMemberDelegate = self
                     objAPI.sendInviteMembersList(dict)
-                    
                 }
                 else {
                     let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as! String, delegate: nil, cancelButtonTitle: "Ok")
@@ -844,7 +814,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 objAnimView.removeFromSuperview()
             }
         }
-        
     }
     
     func errorResponseForPartySavingPlanAPI(error:String) {
@@ -852,8 +821,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         objAnimView.removeFromSuperview()
     }
@@ -861,7 +830,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     //Delegate methods of Invite members API
     
     func successResponseForInviteMembersAPI(objResponse: Dictionary<String, AnyObject>) {
-            print(objResponse)
+        print(objResponse)
         if let message = objResponse["message"] as? String  {
             if(message == "Invited user successfully") {
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
@@ -880,7 +849,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if(dateString == kDay) {
                     if (dateDiff/168) > 0 {
                         
-                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
                     }
                     else{
                         newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
@@ -889,7 +858,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 else {
                     if ((dateDiff/168)/4) > 0 {
-                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
                     }
                     else{
                         newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
@@ -899,11 +868,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 if offerArr.count>0 {
                     newDict["offers"] = offerArr
                 }
-     
-              
+                
+                
                 if(dateString == kDay) {
                     if (dateDiff/168) > 0{
-                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168))
                     }
                     else{
                         newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
@@ -911,7 +880,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 }
                 else {
                     if ((dateDiff/168)/4) > 0{
-                    newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
+                        newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/((dateDiff/168)/4))
                     }
                     else{
                         newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1)))
@@ -922,20 +891,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                 newDict["planType"] = "group"
                 
                 let objAPI = API()
-//                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(newDict), forKey: "savingPlanDict")
-//                NSUserDefaults.standardUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(newDict))
-                
-//                if let saveCardArray =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-//                {
-//                    let objSavedCardView = SASaveCardViewController()
-//                    objSavedCardView.isFromSavingPlan = true
-//                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
-//                    
-//                }else {
-//                    let objPaymentView = SAPaymentFlowViewController()
-//                    self.navigationController?.pushViewController(objPaymentView, animated: true)
-//                }
                 
                 if let saveCardArray =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
@@ -957,8 +913,8 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         objAnimView.removeFromSuperview()
     }

@@ -168,16 +168,6 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     
     func callImportantAPI(flag:Bool) {
         let objAPI = API()
-        ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-        ////        objAnimView.frame = self.view.frame
-        ////        objAnimView.animate()
-        ////        self.view.addSubview(objAnimView)
-        //        objAPI.termConditionDelegate = self
-        //        objAPI.termAndCondition()
-        
-        
-        
-        
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         

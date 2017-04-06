@@ -91,7 +91,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let objAPI = API()
         //get keychain values
         let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
@@ -190,10 +189,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 for i in 0 ..< 5 {
                     heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                     heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
-                    
-//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-//                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -212,6 +207,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     lblTitle.text = objDict[kTitle] as? String
                     lblTitle.hidden = false
                     //-----------------------------------------------
+                    
                     //-----------Show product cost-------------------
                     let lblCost = testView.viewWithTag(4)! as! UILabel
                     if(objDict[kAmount] is String)
@@ -273,10 +269,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 for i in 0 ..< colors.count {
                     heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                     heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
-                    
-//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-//                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -287,7 +279,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     vw.layer.borderColor = UIColor.whiteColor().CGColor
                     
                     let objDict = colors[i] as Dictionary<String,AnyObject>
-                    
                     let lblNoWishList = testView.viewWithTag(5)! as! UILabel
                     lblNoWishList.hidden = true
                     
@@ -349,9 +340,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
                 }
-                
             }
-            
         }
         else {
             
@@ -389,8 +378,6 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             scrlView!.addSubview(testView)
             //---------------------------------------------------------------------------------------
         }
-        
-        
     }
     
     
@@ -564,16 +551,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                 }
             }
             else {
-                 tblArr = valueArray
+                tblArr = valueArray
             }
             self.setUpView()
             tblView?.scrollsToTop = true
             tblView?.reloadData()
             //Call get method of offer list
             self.callGetOfferListAPI()
-    
         }
-     
     }
     //function invoke when GetCategorysavingPlan API request fail
     func errorResponseForCategoriesSavingPlanAPI(error: String) {
@@ -584,8 +569,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             alert.show()
         }
         else {
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
@@ -609,7 +594,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
         }
     }
-     //function invoke when GetWishlist API request fail
+    //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
@@ -621,7 +606,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-
+        
     }
     
     //MARK: GetOfferlistAPI Delegate method
@@ -637,11 +622,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
     }
     
-     //function invoke when GetOfferlist API request fail
+    //function invoke when GetOfferlist API request fail
     func errorResponseForGetOfferlistAPI(error:String){
         objAnimView.removeFromSuperview()
     }
-
+    
     
     //function checking any key is null and return not null values in dictionary
     func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
@@ -668,7 +653,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         return replaceDict
     }
     
-   
+    
     /*
      // MARK: - Navigation
      

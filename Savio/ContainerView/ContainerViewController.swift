@@ -25,17 +25,6 @@ class ContainerViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let objAPI = API()
-//        if let userPlan = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
-//        {
-//            if let savedCard =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-//            {
-//                self.setUpViewController()
-//            }
-//            else {
-//                //Go to SAPaymentFlowViewController if you did not find the saved card details
-//                self.centreVC = SAPaymentFlowViewController()
-//            }
-//        }
         
         if let userPlan = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
@@ -87,7 +76,7 @@ class ContainerViewController: UIViewController {
             {
                 self.centreVC = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
             }
-
+            
         }
         else {
             if individualFlag == 1 { //Individual plan
@@ -239,10 +228,6 @@ class ContainerViewController: UIViewController {
                     break
                 }
             }
-
-//            self.navigationController?.popViewControllerAnimated(true)
-//            let alert = UIAlertView(title: "Alert", message: "Work in progress", delegate: nil, cancelButtonTitle: "OK")
-            
             
         default:
             let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")

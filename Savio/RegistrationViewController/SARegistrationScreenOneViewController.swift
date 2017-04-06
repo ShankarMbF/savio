@@ -45,16 +45,14 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     var dob = ""
     var lastOffset: CGPoint = CGPointZero
     var impText: String?
-     var objAnimView = ImageViewAnimation()
+    var objAnimView = ImageViewAnimation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         // Do any additional setup after loading the view.
         self.callImportantAPI(false)
-         let objApi = API()
-//         objApi.deleteKeychainValue("saveCardArray")
-//        objApi.deleteKeychainValue("savingPlanDict")
+        let objApi = API()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -89,7 +87,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         }
         
-         //Customization of name text field
+        //Customization of name text field
         nameTextField?.layer.cornerRadius = 2.0
         nameTextField?.layer.masksToBounds = true
         nameTextField?.layer.borderWidth=1.0
@@ -97,7 +95,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         nameTextField?.attributedPlaceholder = placeholder1;
         nameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-         //Customization of surname text field
+        //Customization of surname text field
         surnameTextField?.layer.cornerRadius = 2.0
         surnameTextField?.layer.masksToBounds = true
         surnameTextField?.layer.borderWidth=1.0
@@ -105,7 +103,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         surnameTextField?.attributedPlaceholder = placeholder2;
         surnameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
-         //Customization of DOB text field
+        //Customization of DOB text field
         dateOfBirthTextField?.layer.cornerRadius = 2.0
         dateOfBirthTextField?.layer.masksToBounds = true
         dateOfBirthTextField?.layer.borderWidth=1.0
@@ -147,7 +145,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         customToolBar2.items = [flexibleSpace1,doneButton]
         mobileNumberTextField.inputAccessoryView = customToolBar2
         
-         //Customization of email text field
+        //Customization of email text field
         emailTextField?.layer.cornerRadius = 2.0
         emailTextField?.layer.masksToBounds = true
         emailTextField?.layer.borderWidth=1.0
@@ -170,6 +168,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         surnameErrorLabel.text = ""
         dateOfBirthErrorLabel.text = ""
     }
+    
+    
     
     //Check all text fields validations
     func checkTextFieldValidation()->Bool{
@@ -257,10 +257,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 surnameErrorLabelHt.constant = 40
             }
             else {
-                 topSpaceForSurnameTextField.constant = 21
+                topSpaceForSurnameTextField.constant = 21
                 surnameErrorLabelHt.constant = 21
             }
-           
+            
             errorFlag = true
             surnameTextField.layer.borderColor = UIColor.redColor().CGColor
             surnameTextField.textColor = UIColor.redColor()
@@ -302,13 +302,13 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             mobileNumberErrorLabel.text = "That mobile number should be greater than 10 digits"
             if(UIScreen.mainScreen().bounds.width == 320)
             {
-            topSpaceForMobileNumberTextField.constant = 40
-            mobileNumberErrorLabelHt.constant = 40
+                topSpaceForMobileNumberTextField.constant = 40
+                mobileNumberErrorLabelHt.constant = 40
             }
             else
             {
                 topSpaceForMobileNumberTextField.constant = 21
-                   mobileNumberErrorLabelHt.constant = 21
+                mobileNumberErrorLabelHt.constant = 21
             }
             errorFlag = true
             mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
@@ -363,7 +363,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
- 
+    
     //Keyboard notification function
     @objc func keyboardWasShown(notification: NSNotification){
         //do stuff
@@ -386,42 +386,13 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         registerOneScrollView?.setContentOffset(lastOffset, animated: true)
     }
     
-//    func validateForAlreadyRegisteredUser()-> Bool
-//    {
-//        var success = true
-//        var message = ""
-//        if(fName.characters.count == 0) {
-//            return true
-//        }
-//        if(fName.lowercaseString != nameTextField.text?.lowercaseString) {
-//            success = false
-//            message = message + "name"
-//        }
-//        if(lName.lowercaseString != surnameTextField.text?.lowercaseString) {
-//            success = false
-//            let fieldString = message.characters.count > 0 ? ",Surname" : "Surname"
-//             message = message + fieldString
-//        }
-//        if(dob != dateOfBirthTextField.text) {
-//            success = false
-//            let fieldString = message.characters.count > 0 ? ",date of birth" : "date of birth"
-//            message = message + fieldString
-//        }
-//        
-//        if(success == false)  {
-//            message = "Enter your " + message + " as earlier"
-//            let alert = UIAlertView(title: "Warning", message: message, delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
-//        }
-//        return success
-//    }
     
     @IBAction func nextButtonPressed(sender: AnyObject) {
         //check validation of textfield
         
         if(checkTextFieldValidation() == false)
         {
-
+            
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
             userInfoDict[kTitle] = titleTextField.text
@@ -444,13 +415,13 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             let registrationSecondView = SARegistrationScreenSecondViewController()
             registrationSecondView.userInfoDict = userInfoDict
             self.navigationController?.pushViewController(registrationSecondView, animated: true)
-        
+            
         }
         else {
             errorFlag = false
         }
     }
-
+    
     
     @IBAction func backButtonPressed(sender: AnyObject) {
         //Go back to previous view controller
@@ -465,7 +436,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 break
             }
         }
-        
         if isAvailble {
             self.navigationController?.popToViewController(vw!, animated: false)
         }
@@ -496,10 +466,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
     }
     
-    
     //Textfield delegate methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        
         activeTextField = textField
         activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         activeTextField.textColor = UIColor.blackColor()
@@ -543,7 +511,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
         return true;
     }
-
+    
     //Dropdown methods
     func showOrDismiss(){
         if dropDown.hidden {
@@ -584,27 +552,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     //Function checking textfield content only number or not
     func checkTextFieldContentOnlyNumber(str:String)->Bool{
         let set = NSCharacterSet.decimalDigitCharacterSet()
-//        if (str.rangeOfCharacterFromSet(set) != nil) {
-//            return true
-//        }
-//        else {
-//            return false
-//        }
         return (str.rangeOfCharacterFromSet(set) != nil)
-
     }
     
     func checkTextFieldContentCharacters(str:String)->Bool{
         let set = NSCharacterSet.letterCharacterSet()
-//        if (str.rangeOfCharacterFromSet(set) != nil) {
-//            return true
-//        }
-//        else {
-//            return false
-//        }
-        
         return (str.rangeOfCharacterFromSet(set) != nil)
-
     }
     
     func phoneNumberValidation(value: String) -> Bool {
@@ -618,12 +571,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     func checkTextFieldContentSpecialChar(str:String)->Bool{
         let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
-        if (str.rangeOfCharacterFromSet(characterSet) != nil) {
-            return true
-        }
-        else {
-            return false
-        }
+        return (str.rangeOfCharacterFromSet(characterSet) != nil)
     }
     
     //Function invoke for validate the email
@@ -645,13 +593,6 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         return result
     }
     
-//    func getValues(firstName: String, lastName: String, dateOfBirth: String) {
-//        errorFlag = false
-//        fName = firstName
-//        lName = lastName
-//        dob = dateOfBirth
-//    }
-    
     func callImportantAPI(flag:Bool) {
         let objAPI = API()
         
@@ -669,16 +610,16 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/10",baseURL))!)
-//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
+            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
-//                    print(response?.description)
+                    //                    print(response?.description)
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
-//                        print(dict)
+                        //                        print(dict)
                         dispatch_async(dispatch_get_main_queue())
                         {
                             if flag == false{
@@ -718,7 +659,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
         else {
         }
-     }
+    }
     
     func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
         impText = objResponse["content"] as? String
@@ -727,8 +668,4 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     func errorResponseFortermAndConditionAPI(error:String){
         
     }
-    
-
-    
-    
 }

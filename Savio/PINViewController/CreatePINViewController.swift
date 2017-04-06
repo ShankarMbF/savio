@@ -42,7 +42,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
         //add custom tool bar for UITextField
@@ -53,13 +52,13 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
         self.arrayTextFields = [textFieldOne,
-            textFieldTwo,
-            textFieldThree,
-            textFieldFour,
-            textFieldReOne,
-            textFieldReTwo,
-            textFieldReThree,
-            textFieldReFour]
+                                textFieldTwo,
+                                textFieldThree,
+                                textFieldFour,
+                                textFieldReOne,
+                                textFieldReTwo,
+                                textFieldReThree,
+                                textFieldReFour]
         
         for tf: UITextField in arrayTextFields {
             tf.inputAccessoryView = customToolBar
@@ -73,19 +72,15 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         backgroundScrollView.contentSize = CGSizeMake(0, 500)
     }
     
-    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
         let currentCharacterCount = textField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
         if (newLength == 2) {
-            
             return false;
         }
-        
         return true;
     }
     
@@ -123,13 +118,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 //Show error when field is empty
                 enterFourDigitCodeLabel.hidden = false;
                 self.setAllPinEntryFieldsToColor(UIColor.redColor())
-                
-                
             }
             else if(textFieldOne.text  != textFieldReOne.text || textFieldTwo.text  != textFieldReTwo.text || textFieldThree.text  != textFieldReThree.text || textFieldFour.text  != textFieldReFour.text)
             {
                 //Show error when fields are not same
-                
                 enterFourDigitCodeLabel.hidden = false;
                 enterFourDigitCodeLabel.text = "Passcode do not match"
                 self.setAllPinEntryFieldsToColor(UIColor.redColor())
@@ -144,17 +136,14 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 }
                 else
                 {
-                    
                     //Add animation of logo
                     objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                     objAnimView.frame = self.view.frame
-                    
                     objAnimView.animate()
                     self.view.addSubview(objAnimView)
                     
                     let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
                     userInfoDict["pass_code"] = passcode.MD5()
-           
                     var newUserInfoDict = Dictionary<String,AnyObject>()
                     newUserInfoDict["party"] = userInfoDict
                     var updatePasscodeDict = Dictionary<String,AnyObject>()
@@ -170,9 +159,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
                     }
                 }
-                
             }
-            
         }
     }
     
@@ -184,12 +171,10 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         
     }
     
-    
     func successResponseForResetPasscodeAPI(objResponse:Dictionary<String,AnyObject>)
     {
         objAnimView.removeFromSuperview()
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
-        
         NSUserDefaults.standardUserDefaults().setObject(passcode, forKey: "pin")
         NSUserDefaults.standardUserDefaults().synchronize()
         
@@ -197,9 +182,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message == "Your PIN is updated Sucessfully")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().synchronize()
-                
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 headerLabel.text = "Your passcode has been reset"
                 backButton.hidden = true
@@ -228,26 +210,25 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                             break
                         }
                     }
-                })
+                    })
                 self.presentViewController(alert, animated: true, completion: nil)
                 
             }else{
-            let alert = UIAlertView(title: "Important Information", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+                let alert = UIAlertView(title: "Important Information", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
+                alert.show()
             }
         }
-        
     }
+    
     func errorResponseForOTPResetPasscodeAPI(error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else {
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
-        
     }
     
     func successResponseForRegistrationAPI(objResponse:Dictionary<String,AnyObject>){
@@ -259,10 +240,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message as! String == "User sucessfully register")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
-                
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: objResponse["party"]!)
                 //Navigate user to HurrayViewController to start Saving plan
@@ -273,7 +250,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 let alert = UIAlertView(title: "Warning", message: message as! String, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            
         }
     }
     
@@ -283,15 +259,14 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else {
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
     func addTargetAndRadiusForTf(textField: UITextField) {
         let borderWidth: CGFloat = 1
         let cornerRadius: CGFloat = 3
-        
         textField.layer.borderWidth = borderWidth
         textField.layer.cornerRadius = cornerRadius
         textField.layer.masksToBounds = true
@@ -343,8 +318,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     func makePreviousKeyfiledFirstResponder(idx: Int) {
-        
-      
         
     }
     
@@ -424,7 +397,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         textFieldReThree.text = ""
         textFieldReFour.text = ""
     }
-    
 }
 
 

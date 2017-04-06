@@ -47,7 +47,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     var objAnimView = ImageViewAnimation()
     var objimpInfo = ImportantInformationView()
     var termAndConditionText:String?
-
+    
     
     var registrationViewErrorDelegate: RegistrationViewErrorDelegate?
     
@@ -189,7 +189,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         return errorFlag
     }
     
-    
     //UITextfield delegate method
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
@@ -199,7 +198,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        
         activeTextField = textField
         activeTextField.textColor = UIColor.blackColor()
         if(textField == selectAddressTextField)
@@ -251,12 +249,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         objAPI.delegate = self
         print("userInfoDict=\(userInfoDict)")
         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
-        
     }
     
-    
     @IBAction func registerButtonPressed(sender: AnyObject) {
-        
         //Check the text field validations to go further for registration
         if(self.checkTextFieldValidation() == false)
         {
@@ -267,35 +262,31 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["county"] = countyTextField.text
             userInfoDict["post_code"] = findAddressTextField.text
             let udidDict : Dictionary<String,AnyObject>
-           
+            
             if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
-                 print(udidDict)
+                print(udidDict)
             } else {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
-                 print(udidDict)
+                print(udidDict)
             }
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
             userInfoDict["deviceRegistration"] =  udidArray
             userInfoDict["party_role"] =  4
             
             objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-            objimpInfo.lblHeader.text = "Terms and Conditions"//"Why do we need this information?"
-            
-//            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
-//            print(termAndConditionText!)
+            objimpInfo.lblHeader.text = "Terms and Conditions"
             if termAndConditionText?.characters.count > 0{
-            
-            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
-                                                              options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-                                                              documentAttributes: nil)
-
-            objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
-            objimpInfo.frame = self.view.frame
-            objimpInfo.delegate = self
-            objimpInfo.isFromRegistration = true
-            self.view.addSubview(objimpInfo)
+                let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                                                  options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                                                  documentAttributes: nil)
+                
+                objimpInfo.termsAndConditionTextView.attributedText = theAttributedString
+                objimpInfo.frame = self.view.frame
+                objimpInfo.delegate = self
+                objimpInfo.isFromRegistration = true
+                self.view.addSubview(objimpInfo)
             }
             else{
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -329,12 +320,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
             let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
-//            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
-//                    print(response?.description)
+                    //                    print(response?.description)
                     let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
@@ -343,12 +333,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                         {
                             if dict["errorCode"] as! String == "200"{
                                 if flag == false {
-//                                    self.successResponseFortermAndConditionAPI(dict["content"] as! Dictionary)
                                     self.successResponseFortermAndConditionAPI(self.checkNullDataFromDict(dict["content"] as! Dictionary))
                                 }
                                 else {
                                     let respoDict = self.checkNullDataFromDict(dict["content"]! as! Dictionary<String,AnyObject>)
-                                     self.termAndConditionText = respoDict["content"] as! String
+                                    self.termAndConditionText = respoDict["content"] as! String
                                     self.objAnimView.removeFromSuperview()
                                     self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                                     self.objimpInfo.lblHeader.text = "Terms and Conditions"
@@ -386,7 +375,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         print(objResponse["content"]!)
         termAndConditionText = objResponse["content"] as! String
     }
-
+    
     func errorResponseFortermAndConditionAPI(error:String){
         
     }
@@ -519,13 +508,13 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
-//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
-//            NSUserDefaults.standardUserDefaults().synchronize()
+            //            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
+            //            NSUserDefaults.standardUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
-//            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
-//            {
-//                objAPI.deleteKeychainValue("myPasscode")
-//            }
+            //            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
+            //            {
+            //                objAPI.deleteKeychainValue("myPasscode")
+            //            }
             
             if let passcode = NSUserDefaults.standardUserDefaults().objectForKey("myPasscode") as? String
             {
@@ -537,13 +526,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             objAPI.getOTPForNumber(userInfoDict[kPhoneNumber] as! String, country_code: "44")
         }
         else if errorCode == 201 {
-             objAnimView.removeFromSuperview()
+            objAnimView.removeFromSuperview()
             let alert = UIAlertController(title: "Welcome back! You need to create you a new Passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
@@ -552,18 +539,13 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             self.presentViewController(alert, animated: true, completion: nil)
         }
         else if errorCode == 202 {
-             objAnimView.removeFromSuperview()
+            objAnimView.removeFromSuperview()
             var dict = objResponse["party"] as! Dictionary<String,AnyObject>
-//           let firstName = dict["first_name"] as! String
-//           let lastName = dict["second_name"] as! String
-//           let dateOfBirth = dict["date_of_birth"] as! String
-//            let msg = objResponse["message"] as! String
             let msg = self.messageForUser(objResponse)
             
             let alert = UIAlertController(title: "Welcome back!  Some of your details match our records but not all of them.", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
             { action -> Void in
-//                self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
                 self.navigationController?.popViewControllerAnimated(true)
                 })
             self.presentViewController(alert, animated: true, completion: nil)
@@ -590,7 +572,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             returnMsg = "Please check your phone number and try again."
         }
         else{
-             returnMsg = msgFromServer
+            returnMsg = msgFromServer
         }
         return returnMsg
     }
@@ -602,8 +584,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else {
-        let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
@@ -658,11 +640,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         return replaceDict
     }
-
+    
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-
-
+        
+        
     }
 }

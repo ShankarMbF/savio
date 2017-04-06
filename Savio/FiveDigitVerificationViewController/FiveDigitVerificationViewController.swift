@@ -39,7 +39,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
     func removeKeyboardNotification(){
@@ -49,12 +48,10 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         objAnimView.removeFromSuperview()
-        
         if(isFromForgotPasscode == true)
         {
             isFromForgotPasscode = false
             yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
-            
             fiveDigitTextField.hidden = false
             resentCodeButton.hidden = false
             backButton.hidden = false
@@ -66,7 +63,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             resentCodeButton.hidden = true
             backButton.hidden = false
             yourCodeSentLabel.hidden = false
-            
         }
     }
     
@@ -87,15 +83,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     }
     
     @IBAction func clickOnBackButton(sender: AnyObject) {
-        /*
-         fiveDigitTextField.hidden = true
-         resentCodeButton.hidden = true
-         backButton.hidden = true
-         yourCodeSentLabel.hidden = false
-         headerText.text = "We've sent you a verification code"
-         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
-         codeDoesNotMatchLabel.hidden = true
-         */
         if isComingFromRegistration == true {
             for viewcontroller in self.navigationController!.viewControllers as Array {
                 if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
@@ -112,9 +99,6 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
                 }
             }
         }
-        
-        //        let saRegisterViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
-        //        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
     }
     
     @IBAction func doneButtonToolBarPressed(sender: AnyObject) {
@@ -150,23 +134,23 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             }
             else {
                 //Set the OTPVerificationDelegate
-      
+                
                 //---------------Remove below comment while testing on live authy---------------//
-             /*
-                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-                objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
-                objAnimView.animate()
-                self.view.addSubview(objAnimView)
- 
-                objAPI.otpVerificationDelegate = self
-                objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "44", OTP: fiveDigitTextField.text!)
-                codeDoesNotMatchLabel.hidden = true;
-                fiveDigitTextField.resignFirstResponder()
-*/
+                /*
+                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+                 objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+                 objAnimView.animate()
+                 self.view.addSubview(objAnimView)
+                 
+                 objAPI.otpVerificationDelegate = self
+                 objAPI.verifyOTP(userInfoDict["phone_number"]! as! String, country_code: "44", OTP: fiveDigitTextField.text!)
+                 codeDoesNotMatchLabel.hidden = true;
+                 fiveDigitTextField.resignFirstResponder()
+                 */
                 //---------------Comment below code while testing on live authy---------------//
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
-                self.navigationController?.pushViewController(objCreatePINView, animated: true) 
- 
+                self.navigationController?.pushViewController(objCreatePINView, animated: true)
+                
             }
         }
     }
@@ -176,7 +160,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         objAPI.otpSentDelegate = self
         codeDoesNotMatchLabel.hidden = true
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-
+        
         //Resend the OTP to the mobile number present in keychain
         objAPI.getOTPForNumber(userInfoDict[kPhoneNumber]! as! String, country_code: "44")
         fiveDigitTextField.resignFirstResponder()
@@ -212,20 +196,18 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         gotItButton.setTitle("Got It", forState: UIControlState.Normal)
     }
     
-    
     //OTP Verification Delegate Method
     func successResponseForOTPVerificationAPI(objResponse:Dictionary<String,AnyObject>)
     {
-         objAnimView.removeFromSuperview()
+        objAnimView.removeFromSuperview()
         let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
         self.navigationController?.pushViewController(objCreatePINView, animated: true)
     }
+    
     func errorResponseForOTPVerificationAPI(error:String){
         objAnimView.removeFromSuperview()
         if(error == "Verification code is incorrect.")
         {
-//            codeDoesNotMatchLabel.text = error
-//            codeDoesNotMatchLabel.hidden = false;
             let alert = UIAlertView(title: "Incorrect verification code", message: "Please try again or request a new code.", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

@@ -339,7 +339,6 @@
         }
         
         //Get Phone Number
-        
         var phoneNumber:String?;
         let unmanagedPhones:Unmanaged? = ABRecordCopyValue(person, kABPersonPhoneProperty);
         if(unmanagedPhones != nil) {
@@ -484,9 +483,7 @@
                 cost = Int(cell1.slider.value)
             }
             else {
-//                cell1.costTextField.attributedText = cell1.createAttributedString("£0")
-//                cell1.slider.value = 0
-//                cost = 0
+
             }
             if(isClearPressed || cost == 0)
             {
@@ -522,51 +519,9 @@
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
 
                 }
-            
-            
-            
-            
-            
-//            if(itemDetailsDataDict["planEndDate"] != nil) {
-//                if(itemDetailsDataDict["planEndDate"] != nil) {
-//                cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
-//                cell1.datePickerTextField.textColor = UIColor.whiteColor()
-//                cell1.datePickerTextField.userInteractionEnabled = false
-//                let date  = itemDetailsDataDict["planEndDate"] as? String
-//                let dateFormatter = NSDateFormatter()
-////                dateFormatter.dateFormat = "dd-MM-yyyy"
-//                dateFormatter.dateFormat = "yyyy-MM-dd"
-//                let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(NSDate())
-//                datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
-//                dateDiff = Int(timeDifference/3600)
-//                
-//            }
-//            else{
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                let dateComponents = NSDateComponents()
-//                let calender = NSCalendar.currentCalendar()
-//                dateComponents.month = 3
-//                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-//                datePickerDate = dateFormatter.stringFromDate(newDate!)
-//                cell1.datePickerTextField.text = datePickerDate
-//                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
-//                dateDiff = Int(timeDifference/3600)
-//            }
             if cost > 0 {
                 cell1.datePickerTextField.textColor = UIColor.whiteColor()
             }
-//            if(isClearPressed) {
-//                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-//                let currentDate: NSDate = NSDate()
-//                let components: NSDateComponents = NSDateComponents()
-//                components.day = +7
-//                let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                cell1.datePickerTextField.text = dateFormatter.stringFromDate(minDate)
-//                
-//            }
             return cell1
         }
         else if(indexPath.section == 3) {
@@ -637,11 +592,6 @@
             if(indexPath.row  == (participantsArr.count - 1)) {
                 let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
                 
-//                let maskPath1: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(1.0, 1.0))
-//                
-//                let combinedPath : CGMutablePathRef = CGPathCreateMutableCopy(maskPath.CGPath)!
-//                CGPathAddPath(combinedPath, nil, maskPath1.CGPath)
-                
                 let maskLayer: CAShapeLayer = CAShapeLayer()
                 maskLayer.frame = cell1.bounds
                 maskLayer.path = maskPath.CGPath
@@ -673,7 +623,6 @@
             }
             return cell1
         }
-        
     }
     
     func deleteContactButtonPressed(sender:UIButton)
@@ -903,9 +852,6 @@
                 else if(cost == 0 ) {
                     self.displayAlert("Please enter amount for your saving plan", title: "Missing information")
                 }
-//                else if(dateDiff == 0) {
-//                    self.displayAlert("Please select date for your saving plan", title: "Missing information")
-//                }
                 else  {
                     self.displayAlert("Please enter all details", title: "Missing information")
                 }
@@ -918,7 +864,6 @@
                 objGroupSavingPlanView.delegate = self
                 self.navigationController?.pushViewController(objGroupSavingPlanView, animated: true)
                 objAnimView.removeFromSuperview()
-                
             }
             else {
                 self.objAnimView.removeFromSuperview()

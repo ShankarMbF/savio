@@ -85,7 +85,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         let objAPI = API()
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -106,25 +105,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
         //Set the contentsize of UIScrollView
         if  isComingGallary == false {
-//        var ht: CGFloat = 00.0
-//        
-//        if (isUpdatePlan){
-//            let count = self.offerArr.count - self.updateOfferArr.count as Int
-//            if(count > 0) {
-//                ht = 60
-//            }
-//            else if (offerArr.count > 0){
-//                 ht = CGFloat(offerArr.count) * 90 + 70
-//            }
-//            else{
-//                ht = 60
-//            }
-//        }
-//        else{
-//            ht = 60
-//        }
-            
-//            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht )
             self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
         }
     }
@@ -214,13 +194,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             itemTitle = (itemDetailsDataDict[kTitle] as? String)!
             cost = Int(itemDetailsDataDict[kAmount] as! NSNumber)
             isPopoverValueChanged = true
-
-//            tblViewHt.constant = tblView.frame.size.height  + 40
-//            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
-
-            //            tblViewHt.constant = tblView.frame.size.height  + 40
-            //            scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
-
             isCostChanged = true
             
             imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
@@ -233,11 +206,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
             self.cameraButton.hidden = false
         }
-
-
-
-        
- 
         print("tblHT=\(tblViewHt.constant)")
         if(isUpdatePlan)
         {
@@ -286,15 +254,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else{
             tblViewHt.constant = tblView.frame.size.height  + 40
-
         }
-        
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant)
     }
     
     //set top image as per selected category
     func setTopImageAsPer(dict:Dictionary<String,AnyObject>) -> UIImage{
-        
         if(imageDataDict["savPlanID"] as! Int == 85) {
             return UIImage(named: "groupsave-setup-bg.png")!
         }
@@ -319,7 +284,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         else {
             return UIImage(named: "generic-setup-bg.png")!
         }
-        
     }
     
     //MARK: Bar button action
@@ -352,7 +316,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let obj = SAOfferListViewController()
             isOfferDetailPressed = false
             obj.delegate = self
-             obj.isComingProgress = false
+            obj.isComingProgress = false
             obj.addedOfferArr = offerArr
             if(isUpdatePlan)
             {
@@ -367,7 +331,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
             }
             self.navigationController?.pushViewController(obj, animated: true)
-            
         }
         else {
             self.navigationController?.popViewControllerAnimated(true)
@@ -423,14 +386,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //return the number of sections in table view.
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return offerArr.count+7
-//        if(isUpdatePlan)
-//        {
-//            return offerArr.count+8
-//        }
-//        else
-//        {
-//            return offerArr.count+7
-//        }
     }
     
     //return the number of rows in each section in table view.
@@ -520,11 +475,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             
             if(datePickerDate == "")
             {
-                //                let dateFormatter = NSDateFormatter()
-                //                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                //                cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
-                
-                
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                 let dateComponents = NSDateComponents()
@@ -533,7 +483,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
                 datePickerDate = dateFormatter.stringFromDate(newDate!)
                 cell1.datePickerTextField.text = datePickerDate
-                 let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
                 dateDiff = Int(timeDifference/3600)
             }
             else
@@ -543,34 +493,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 print(datePickerDate)
             }
             
-            if(isClearPressed) {
-                
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                let dateComponents = NSDateComponents()
-//                let calender = NSCalendar.currentCalendar()
-//                dateComponents.month = 3
-//                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-//                datePickerDate = dateFormatter.stringFromDate(newDate!)
-//                cell1.datePickerTextField.text = datePickerDate
-//                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
-//                dateDiff = Int(timeDifference/3600)
-                
-                
-//                if(isUpdatePlan) {
-//                    if(itemDetailsDataDict["planEndDate"] != nil) {
-//                        cell1.datePickerTextField.text = itemDetailsDataDict["planEndDate"] as? String
-//                        cell1.datePickerTextField.textColor = UIColor.whiteColor()
-//                        datePickerDate = (itemDetailsDataDict["planEndDate"] as? String)!
-//                    }
-//                }
-//                else {
-//                    
-//                    let dateFormatter = NSDateFormatter()
-//                    dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-//                    cell1.datePickerTextField.text = dateFormatter.stringFromDate(NSDate())
-//                }
-            }
             if(dateString == kDate)
             {
                 cell1.dateString = kDate
@@ -631,74 +553,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                 }
                 else {
-//                    cell1.dayDateTextField.text = ""
                     var str = "1"
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
             }
-//            if(isClearPressed)  {
-//                if(isUpdatePlan) {
-//                    if let payType = itemDetailsDataDict["payType"] as? NSString {
-//                        if(payType == "Week") {
-//                            let button = UIButton()
-//                            button.tag = 0
-//                            cell1.segmentBar.toggleButton(button)
-//                        }
-//                        else if(isChangeSegment) {
-//                            let button = UIButton()
-//                            button.tag = 1
-//                            cell1.segmentBar.toggleButton(button)
-//                        }
-//                    }
-//                    if let payDate = itemDetailsDataDict["payDate"] as? String {
-//                        if(isPopoverValueChanged)
-//                        {
-//                            if(popOverSelectedStr != "") {
-//                                if(dateString == "day") {
-//                                    cell1.dayDateTextField.text = popOverSelectedStr
-//                                }
-//                                else {
-//                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
-//                                }
-//                            }
-//                            else {
-//                                if(dateString == "day") {
-//                                    cell1.dayDateTextField.text = payDate
-//                                }
-//                                else {
-//                                    cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
-//                                }
-//                            }
-//                        }
-//                        else {
-//                            if(dateString == "day") {
-//                                cell1.dayDateTextField.text = payDate
-//                            }
-//                            else {
-//                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(payDate)!, text: payDate)
-//                            }
-//                        }
-//                    }
-//                }
-//                else {
-//                    if(isPopoverValueChanged) {
-//                        if(popOverSelectedStr != "") {
-//                            if(dateString == "day") {
-//                                cell1.dayDateTextField.text = popOverSelectedStr
-//                            }
-//                            else {
-//                                cell1.dayDateTextField.attributedText = self.createXLabelText(Int(popOverSelectedStr)!, text: popOverSelectedStr)
-//                            }
-//                        }
-//                        else {
-//                            cell1.dayDateTextField.text = ""
-//                        }
-//                    }
-//                    else {
-//                        cell1.dayDateTextField.text = ""
-//                    }
-//                }
-//            }
             return cell1
         }
         else if(indexPath.section == 4) {
@@ -719,7 +577,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     }
                     else {
                         cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
-                         recurringAmount = round(CGFloat(cost))/CGFloat((dateDiff/168))
+                        recurringAmount = round(CGFloat(cost))/CGFloat((dateDiff/168))
                     }
                 }
                 else {
@@ -775,33 +633,18 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     
                     if let payType = itemDetailsDataDict["payType"] as? NSString
                     {
-                        //                        if isChangeSegment{
-                        //                            print("change")
-                        //
-                        ////                            let dateFormatter = NSDateFormatter()
-                        ////                            dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                        ////                            let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
-                        ////                            datePickerTextField.text = pickrDate
-                        ////                            datePickerTextField.textColor = UIColor.whiteColor()
-                        ////
-                        ////                            let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
-                        //
-                        //                        }
                         let date  = itemDetailsDataDict["planEndDate"] as? String
                         
                         let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                         let currentDate: NSDate = NSDate()
                         let components: NSDateComponents = NSDateComponents()
-                        //                        components.day = +7
                         let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
                         
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd"
-                        //                            dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                         
                         let dt = dateFormatter.dateFromString(date!)!
-//                        let timeDifference : NSTimeInterval = dateFormatter.dateFromString(date!)!.timeIntervalSinceDate(minDate)
-                         let timeDifference : NSTimeInterval = dt.timeIntervalSinceDate(NSDate())
+                        let timeDifference : NSTimeInterval = dt.timeIntervalSinceDate(NSDate())
                         dateDiff = Int(timeDifference/3600)
                         if(payType == kMonth) {
                             if((dateDiff/168) == 1) {
@@ -812,7 +655,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per month for %d month",round(CGFloat(cost)/(CGFloat((dateDiff/168)/4))),(dateDiff/168)/4)
                                 recurringAmount = round(CGFloat(cost)/(CGFloat((dateDiff/168)/4)))
                             }
-                            
                         }
                         else {
                             if((dateDiff/168)/4 == 1) {
@@ -833,11 +675,11 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                 }
                                 else if ((dateDiff/168) == 0) {
                                     cell1.calculationLabel.text = "You will need to top up £0 per week for 0 week"
-                                     recurringAmount = 0
+                                    recurringAmount = 0
                                 }
                                 else {
                                     cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost)/CGFloat((dateDiff/168))),(dateDiff/168))
-                                     recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
+                                    recurringAmount = round(CGFloat(cost)/CGFloat((dateDiff/168)))
                                 }
                             }else{
                                 if((dateDiff/168)/4 == 1) {
@@ -854,7 +696,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                                     recurringAmount = round((CGFloat(cost))/(CGFloat((dateDiff/168)/4)))
                                 }
                             }
-
                         }
                     }
                 }
@@ -874,13 +715,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 return cell1
             }
             else{
-               
-                
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
                 cell1.tblView = tblView
                 cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell1
-
             }
         }
         else if(indexPath.section == offerArr.count+7) {
@@ -921,7 +759,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             cell1.detailOfferLabel.text = dict["offDesc"] as? String
                             cell1.offerDetailsButton.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
                             cell1.offerDetailsButton.imageEdgeInsets = UIEdgeInsetsMake(0, (cell1.offerDetailsButton.titleLabel?.frame.size.width)!, 0,-(((cell1.offerDetailsButton.titleLabel?.frame.size.width)!+30)))
-                            
                         }
                         else {
                             cell1.detailOfferLabel.hidden = true
@@ -943,7 +780,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     })
                 }
             })
-            
             return cell1
         }
     }
@@ -1099,7 +935,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             isChangeSegment = true
             isPopoverValueChanged = true
-
+            
             if(str == payTypeStr)  {
                 popOverSelectedStr = dateFromUpdatePlan
                 tblView.reloadData()
@@ -1109,8 +945,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 tblView.reloadData()
             }
             isClearPressed  = false
-            
-            
         }
         else {
             popOverSelectedStr = datePickerDate
@@ -1144,13 +978,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //Clear all the data entered
     func clearButtonPressed()
     {
-         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
             
             if(self.isUpdatePlan == false) {
                 self.setUpView()
-//                self.dateDiff = 0
+                //                self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
                 self.itemTitle = ""
@@ -1163,14 +997,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     self.itemDetailsDataDict.removeAll()
                 }
                 
-                self.tblViewHt.constant = 450.0//self.tblViewHt.constant - CGFloat(self.offerArr.count * 80)
+                self.tblViewHt.constant = 450.0
                 if self.offerArr.count>0 {
                     self.offerArr.removeAll()
                 }
-                 self.tblView.reloadData()
+                self.tblView.reloadData()
                 self.scrlView.contentOffset = CGPointMake(0, 20)
-//                let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
-//                self.scrlView.contentSize = CGSizeMake(0, ht)
                 self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             }
             else {
@@ -1189,13 +1021,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 self.tblView.reloadData()
                 self.scrlView.contentOffset = CGPointMake(0, 20)
-                //                self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
             }
-            
-//            let ht = self.upperView.frame.size.height + self.tblView.frame.size.height
-//            self.scrlView.contentSize = CGSizeMake(0, ht)
-//            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height)
-
             
             })
         
@@ -1322,7 +1148,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print("recurring = \(recurringAmount)")
         parameterDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
         return parameterDict
-        
     }
     
     //This method is used to send the users saving plan details to the server.
@@ -1380,7 +1205,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     if(topBackgroundImageView.image != nil && topBackgroundImageView.image != self.setTopImageAsPer(imageDataDict)) {
                         let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
                         let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                        
                         let dict = ["imageName.jpg":base64String]
                         newDict[kIMAGE] = dict
                     }
@@ -1389,7 +1213,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         newDict[kIMAGE] = dict
                     }
                     newDict[kPARTYSAVINGPLANTYPE] = self.getParameters()[kPARTYSAVINGPLANTYPE]
-                    
                     newDict[kPARTYID] = self.getParameters()[kPARTYID]
                     newDict[kOFFERS] = self.getParameters()[kOFFERS]
                     newDict["PARTY_SAVINGPLAN_ID"] = itemDetailsDataDict["partySavingPlanID"]
@@ -1412,7 +1235,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict[kSAVPLANID] = "0"
                     print(itemDetailsDataDict)
                     if itemDetailsDataDict["wishsiteURL"] is NSNull {
-                       newDict[kSAVSITEURL] = ""
+                        newDict[kSAVSITEURL] = ""
                     }
                     else{
                         newDict[kSAVSITEURL] = itemDetailsDataDict["wishsiteURL"]
@@ -1457,14 +1280,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else if(popOverSelectedStr == "") {
                     message = "Please select payment date/day."
                 }
-                
                 self.displayAlert(message)
             }
         }
         else {
             //Else go to SAOfferListViewController
             let obj = SAOfferListViewController()
-             obj.isComingProgress = false
+            obj.isComingProgress = false
             obj.addedOfferArr = offerArr
             if(isOfferDetailPressed) {
                 isOfferDetailPressed = false
@@ -1472,7 +1294,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width,scrlView.contentSize.height - (90 + offerDetailHeight))
             }
             obj.delegate = self
-            
             if(isUpdatePlan) {
                 obj.savID = 85//itemDetailsDataDict["sav_id"] as! NSNumber
             }
@@ -1500,7 +1321,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     func closeOfferButtonPressed(sender:UIButton)
     {
         let indx = sender.tag - 5
-        
         if(isUpdatePlan) {
             if(isOfferDetailPressed) {
                 if(indx != offerDetailTag - 5) {
@@ -1525,9 +1345,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             tblViewHt.constant =  tblView.frame.size.height - 80
         }
         offerArr.removeAtIndex(indx)
-       
+        
         tblView.reloadData()
-         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
+        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
         
         tblView.reloadData()
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
@@ -1633,8 +1453,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         cameraButton.hidden = true
         isImageClicked = true
         isComingGallary = true
-//        let ht = self.upperView.frame.size.height + self.tblView.frame.size.height + 50
-//        self.scrlView.contentSize = CGSizeMake(0, ht)
     }
     
     //Cancel the image picker action
@@ -1689,14 +1507,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 print(offerArr)
                 updateOfferArr = offerArr
                 tblView.reloadData()
-
-                tblViewHt.constant +=  100 + CGFloat(offerArr.count * 90)//tblView.frame.origin.y + tblView.frame.size.height + CGFloat(offerArr.count * 90)
-//                let ht =  tblView.frame.size.height//tblViewHt.constant//+ 100
-//                let ht = upperView.frame.size.height + tblView.frame.size.height + 100
-//                self.scrlView.contentSize = CGSizeMake(0, ht )
-              
-
                 
+                tblViewHt.constant +=  100 + CGFloat(offerArr.count * 90)
                 if !(itemDetailsDataDict["image"] is NSNull) {
                     isImgLoad = true
                     if  let url = NSURL(string:itemDetailsDataDict["image"] as! String) {
@@ -1715,9 +1527,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                             else {
                                 //Remove the spinner after image load
                                 dispatch_async(dispatch_get_main_queue(), {
-                                spinner.stopAnimating()
-                                spinner.hidden = true
-                                self.objAnimView.removeFromSuperview()
+                                    spinner.stopAnimating()
+                                    spinner.hidden = true
+                                    self.objAnimView.removeFromSuperview()
                                 })
                             }
                         })
@@ -1728,14 +1540,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     spinner.stopAnimating()
                     spinner.hidden = true
                 }
-                
-//                if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
-//                    offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
-//                }
-//                updateOfferArr = offerArr
-//                tblViewHt.constant = tblView.frame.origin.y + tblView.frame.size.height + CGFloat(offerArr.count * 80)
-//                let ht = upperView.frame.size.height + tblViewHt.constant//+ 100
-//                self.scrlView.contentSize = CGSizeMake(0, ht )
             }
             else {
                 let alert = UIAlertView(title: "Alert", message:message, delegate: nil, cancelButtonTitle: "Ok")
@@ -1751,7 +1555,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             tblView.reloadData()
         }
         if isImgLoad == false {
-          objAnimView.removeFromSuperview()
+            objAnimView.removeFromSuperview()
         }
     }
     
@@ -1760,8 +1564,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         objAnimView.removeFromSuperview()
     }
@@ -1798,12 +1602,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 {
                     if(dateDiff > 0 && dateDiff/168 > 0)
                     {
-//                        if dateDiff/168 > 0 {
-//                            dict["emi"] = String(format:"%d",cost/(dateDiff/168))
-//                        }
-//                        else{
-//                            dict["emi"] = String(format:"%d",cost)
-//                        }
                         dict[kEmi] = String(format:"%d",cost/(dateDiff/168))
                     }
                     else {
@@ -1814,15 +1612,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 else {
                     if(dateDiff > 0 && (dateDiff/168)/4 > 0)
                     {
-//                        let div = (dateDiff/168)/4
-//                        if div > 0 {
-//                        dict["emi"] = String(format:"%d",cost/((dateDiff/168)/4))
-//                        }
-//                        else{
-//                            dict["emi"] = String(format:"%d",cost)
-//                        }
                         dict[kEmi] = String(format:"%d",cost/((dateDiff/168)/4))
-
                     }
                     else {
                         dict[kEmi] = String(format:"%d",cost)
@@ -1835,15 +1625,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 dict["planType"] = "individual"
                 let objAPI = API()
-//                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
                 
                 NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
                 NSUserDefaults.standardUserDefaults().setValue(kIndividualPlan, forKey: "usersPlan")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
-//                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-            
                 if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 {
                     let objSavedCardView = SASaveCardViewController()
@@ -1876,8 +1663,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
@@ -1906,10 +1693,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             dict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
             if(dateString == kDay) {
                 if dateDiff/168 > 0 {
-                dict[kEmi] = String(format:"%d",cost/(dateDiff/168))
+                    dict[kEmi] = String(format:"%d",cost/(dateDiff/168))
                 }
                 else{
-                     dict[kEmi] = String(format:"%d",cost)
+                    dict[kEmi] = String(format:"%d",cost)
                 }
                 dict["payType"] = "Weekly"
             }
@@ -1930,8 +1717,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             dict["planType"] = "individual"
             
             let objAPI = API()
-//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
-//            NSUserDefaults.standardUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
@@ -1959,12 +1744,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(offerForSaveArr)
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {
-            //            tblViewHt.constant = tblView.frame.size.height + 50
-             tblViewHt.constant = tblViewHt.constant + 80
+            tblViewHt.constant = tblViewHt.constant + 80
             isOfferShow = false
             isComingGallary = false
-//            let ht = upperView.frame.size.height + tblViewHt.constant + 100// tblView.frame.size.height + 100
-//            self.scrlView.contentSize = CGSizeMake(0, ht )
         }
         else {
             tblViewHt.constant = tblView.frame.size.height + 80
@@ -1972,7 +1754,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isComingGallary = false
             let ht = upperView.frame.size.height + tblView.frame.size.height + 100
             self.scrlView.contentSize = CGSizeMake(0, ht )
-        }        
+        }
         tblView.reloadData()
         
     }
@@ -1982,6 +1764,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
-  
+    
     
 }

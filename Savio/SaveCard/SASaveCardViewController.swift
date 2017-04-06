@@ -9,7 +9,7 @@
 import UIKit
 import Stripe
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,STPAddCardViewControllerDelegate,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,STPAddCardViewControllerDelegate,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate,AddSavingCardDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!

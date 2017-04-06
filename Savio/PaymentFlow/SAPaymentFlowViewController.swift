@@ -10,7 +10,7 @@ import UIKit
 import PassKit
 import Stripe
 
-class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,ImpulseSavingDelegate{
+class SAPaymentFlowViewController: UIViewController,AddNewSavingCardDelegate{
     
     @IBOutlet weak var cardNumView: NSLayoutConstraint!
     @IBOutlet weak var cardHoldersNameTextField: UITextField!
@@ -743,7 +743,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     // MARK: - API Response
     //Success response of AddSavingCardDelegate
-    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+/*    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successful")
@@ -779,7 +779,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             alert.show()
         }
     }
-    
+    */
     //Success response of AddNewSavingCardDelegate
     func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
@@ -798,7 +798,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     
                 }else if(self.isFromImpulseSaving){
                     let objAPI = API()
-                    objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
                     let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
@@ -844,38 +843,5 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             alert.show()
         }
     }
-    
-    //Success response of ImpulseSavingDelegate
-    func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
-        objAnimView.removeFromSuperview()
-        if let errorCode = objResponse["errorCode"] as? NSString
-        {
-            if (errorCode == "200")
-            {
-                self.isFromImpulseSaving = false
-                let objImpulseView = SAImpulseSavingViewController()
-                objImpulseView.isFromPayment = true
-                self.navigationController?.pushViewController(objImpulseView, animated: true)
-            }
-        }else {
-            let alert = UIAlertView(title: "Sorry, transaction is not completed", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-    }
-    
-    //Error response of ImpulseSavingDelegate
-    func errorResponseForImpulseSavingDelegateAPI(error: String) {
-        objAnimView.removeFromSuperview()
-        if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }else{
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        
-    }
-    
 }
 

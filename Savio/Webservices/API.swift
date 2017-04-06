@@ -365,13 +365,7 @@ class API: UIView,NSURLSessionDelegate {
             //            request.HTTPMethod = "POST"
             //            //collect requierd parameter in dictionary
             let params = ["api_key":APIKey,"via":"sms",kPhoneNumber:phoneNumber,"country_code":country_code,"locale":"en"] as Dictionary<String, String>
-            //            //set request parameter to request body
-            //            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: [])
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            // set time out interval
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             let request = createRequest(NSURL(string:"http://sandbox-api.authy.com/protected/json/phones/verification/start")!, method: "POST", paramDict: params,userInforDict: [:], isAuth: false)
             
@@ -1600,28 +1594,13 @@ class API: UIView,NSURLSessionDelegate {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        //        let cookie = userInfoDict["cookie"] as! String
-        //        let partyID = userInfoDict["partyId"] as! NSNumber
-        //
-        //        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        //        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        
-        //Check if network is present
+
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 60
-            //            urlconfig.timeoutIntervalForResource = 60
+
             self.setTimeOutRequest(60)
             
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-            //
-            //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/cards",baseURL))!)
-            //            request.HTTPMethod = "POST"
-            //
-            //            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let request = createRequest( NSURL(string: String(format:"%@/cards",baseURL))!, method: "POST", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
@@ -1638,6 +1617,8 @@ class API: UIView,NSURLSessionDelegate {
                             {
                                 dispatch_async(dispatch_get_main_queue()){
                                     self.addSavingCardDelegate?.successResponseForAddSavingCardDelegateAPI(dict)
+                                    print(dict)
+                                    print("$$$$$$$$$$$$$$$$$$$$$$")
                                 }
                             }
                             else if(code == "204")

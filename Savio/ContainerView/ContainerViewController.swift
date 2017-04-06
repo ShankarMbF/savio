@@ -43,10 +43,10 @@ class ContainerViewController: UIViewController {
             {
                 self.setUpViewController()
             }
-            else {
-                //Go to SAPaymentFlowViewController if you did not find the saved card details
-                self.centreVC = SAPaymentFlowViewController()
-            }
+//            else {
+//                //Go to SAPaymentFlowViewController if you did not find the saved card details
+//                self.centreVC = SAPaymentFlowViewController()
+//            }
         }
         else {
             self.setUpViewController()
@@ -81,7 +81,7 @@ class ContainerViewController: UIViewController {
         {
             //As per flag show the progress view of plan
             if usersPlan == "I"{
-                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                self.centreVC = SAProgressViewController(nibName: " ", bundle: nil)
             }
             else
             {

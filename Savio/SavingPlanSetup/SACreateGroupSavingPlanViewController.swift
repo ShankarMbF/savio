@@ -7,14 +7,14 @@
 //
 
 import UIKit
-
+import Stripe
 
 protocol SACreateGroupSavingPlanDelegate {
     
     func clearAll()
 }
 
-class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate,InviteMembersDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,SegmentBarChangeDelegate,SAOfferListViewDelegate,PartySavingPlanDelegate,InviteMembersDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,STPAddCardViewControllerDelegate,AddSavingCardDelegate {
     
     @IBOutlet weak var tblViewHt: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
@@ -23,6 +23,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     @IBOutlet weak var topBgImageView: UIImageView!
     @IBOutlet weak var scrlView: UIScrollView!
     
+    var tokenstripeID : String = ""
     var participantsArr : Array<Dictionary<String,AnyObject>> = []
     var selectedStr = ""
     var cost : Int = 0
@@ -761,6 +762,40 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         return replaceDict
     }
     
+    // Stripe SDK Intagration
+    func StripeSDK() {
+        
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        // STPAddCardViewController must be shown inside a UINavigationController.
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
+    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+        
+        tokenstripeID = token.stripeID
+        let objAPI = API()
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),kPTYSAVINGPLANID:NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
+        print(dict)
+        objAPI.addSavingCardDelegate = self
+        objAPI.addSavingCard(dict)
+        
+        //Use token for backend process
+        self.dismissViewControllerAnimated(true, completion: {
+            completion(nil)
+        })
+        
+        print("+++++++++++++++++++++++++++++++")
+    }
+
+    
+    
     //Delegate methods of create group saving plan
     func successResponseForPartySavingPlanAPI(objResponse:Dictionary<String,AnyObject>)
     {
@@ -790,9 +825,10 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                         self.navigationController?.pushViewController(objSavedCardView, animated: true)
                     }
                     else{
-                        let objPaymentView = SAPaymentFlowViewController()
+                        /*let objPaymentView = SAPaymentFlowViewController()
                         objPaymentView.isFromGroupMemberPlan = true
-                        self.navigationController?.pushViewController(objPaymentView, animated: true)
+                        self.navigationController?.pushViewController(objPaymentView, animated: true)*/
+                        self.StripeSDK()
                     }
                     
                     objAnimView.removeFromSuperview()
@@ -980,6 +1016,45 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
     override func viewWillDisappear(animated: Bool) {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    // MARK: - API Response
+    //Success response of AddSavingCardDelegate
+    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
+            {
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
+                {
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to SAThankYouViewController
+                        self.isFromGroupMemberPlan = false
+                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
+                        NSUserDefaults.standardUserDefaults().synchronize()
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    }
+                    else {
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    //Error response of AddSavingCardDelegate
+    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
 }

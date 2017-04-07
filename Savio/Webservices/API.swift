@@ -1520,6 +1520,7 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : ImpulseSaving
     func impulseSaving(dictParam:Dictionary<String,AnyObject>)
     {
+        print(dictParam)
         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         
         //Check if network is present

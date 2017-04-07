@@ -469,6 +469,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
             newDict["PAYMENT_TYPE"] = "debit"
             newDict["AUTH_CODE"] = "test"
+            newDict["Consumer"] = "APP"
             newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
             print(newDict)
             objAPI.impulseSaving(newDict)

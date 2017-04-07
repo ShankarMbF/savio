@@ -138,7 +138,7 @@ class SASpendViewController: UIViewController {
     }
     
     @IBAction func spendNowButtonClicked(sender:UIButton) {
-        print("Spend Button Clicked...")
+        print("++++++ Spend Button Clicked... ++++++")
         if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSAVSITEURL) as! String ){
             UIApplication.sharedApplication().openURL(url)
         }

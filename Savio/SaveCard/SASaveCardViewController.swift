@@ -507,8 +507,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
             newDict["PAYMENT_TYPE"] = "debit"
             newDict["AUTH_CODE"] = "test"
+//            newDict["Consumer"] = "APP"
             newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
             print(newDict)
+            objAPI.impulseSavingDelegate = self
             objAPI.impulseSaving(newDict)
         }
         else {
@@ -603,6 +605,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
          objAnimView.removeFromSuperview()
             self.savedCardArray.removeAtIndex(removeCardTag)
             self.cardListView.reloadData()
+        
 //        var arr = NSUserDefaults.standardUserDefaults().valueForKey(<#T##key: String##String#>)
 //        objAnimView.removeFromSuperview()
         
@@ -657,7 +660,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             alert.show()
         }
     }
- 
+
     
     // MARK: - API Response
     //Success response of AddSavingCardDelegate
@@ -729,6 +732,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                     newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
                     newDict["PAYMENT_TYPE"] = "debit"
                     newDict["AUTH_CODE"] = "test"
+//                    newDict["consumer"] = "APP"
                     newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)

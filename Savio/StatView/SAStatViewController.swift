@@ -44,6 +44,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // y axis caluculation
         let maxValue:CGFloat = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
         
         //Setting up Stat view UI

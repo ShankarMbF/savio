@@ -786,11 +786,15 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         objAPI.addSavingCardDelegate = self
         objAPI.addSavingCard(dict)
         
+        //Add animation of logo
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        
         //Use token for backend process
         self.dismissViewControllerAnimated(true, completion: {
             completion(nil)
         })
-        
+
         print("+++++++++++++++++++++++++++++++")
     }
 
@@ -819,7 +823,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
 //                        self.navigationController?.pushViewController(objPaymentView, animated: true)
 //                    }
                     
-                    if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>> {
+                    if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") {
                         let objSavedCardView = SASaveCardViewController()
                         objSavedCardView.isFromGroupMemberPlan = true
                         self.navigationController?.pushViewController(objSavedCardView, animated: true)
@@ -830,8 +834,6 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
                         self.navigationController?.pushViewController(objPaymentView, animated: true)*/
                         self.StripeSDK()
                     }
-                    
-                    objAnimView.removeFromSuperview()
                 }
                 else {
                     let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
@@ -973,15 +975,16 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
 //                    self.navigationController?.pushViewController(objPaymentView, animated: true)
 //                }
                 
-                if let saveCardArray =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                if let _ = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray")
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true
                     self.navigationController?.pushViewController(objSavedCardView, animated: true)
                     
                 }else {
-                    let objPaymentView = SAPaymentFlowViewController()
-                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+//                    let objPaymentView = SAPaymentFlowViewController()
+//                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                    self.StripeSDK()
                 }
             }
         }
@@ -1018,8 +1021,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
-    // MARK: - API Response
-    //Success response of AddSavingCardDelegate
+    
     func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
@@ -1027,19 +1029,11 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
-                    if(self.isFromGroupMemberPlan == true)
-                    {
-                        //Navigate to SAThankYouViewController
-                        self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                        NSUserDefaults.standardUserDefaults().synchronize()
-                        let objThankyYouView = SAThankYouViewController()
-                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
-                    }
-                    else {
+                    NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                        objAnimView.removeFromSuperview()
                         let objSummaryView = SASavingSummaryViewController()
                         self.navigationController?.pushViewController(objSummaryView, animated: true)
-                    }
                 }
             }
         }
@@ -1056,5 +1050,4 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             alert.show()
         }
     }
-    
 }

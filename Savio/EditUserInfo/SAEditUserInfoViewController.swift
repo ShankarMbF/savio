@@ -190,6 +190,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 {
                     cell.tfTitle!.userInteractionEnabled = false
                     cell.tfTitle?.text = userInfoDict[kTitle] as? String
+                    
                 }
                 if (dictForTextFieldValue[kTitle] != nil){
                     cell.tfTitle?.text = dictForTextFieldValue[kTitle] as? String

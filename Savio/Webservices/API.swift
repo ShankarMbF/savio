@@ -193,6 +193,12 @@ protocol RemoveCardDelegate
     func errorResponseForRemoveCardAPI(error:String)
 }
 
+protocol GetAffiliatedTrackID
+{
+    func successResponseAffiliated(objResponse:Dictionary<String,AnyObject>)
+    func errorResponseAffiliated(error:String)
+}
+
 
 class API: UIView,NSURLSessionDelegate {
     // Maintain
@@ -221,6 +227,7 @@ class API: UIView,NSURLSessionDelegate {
     var setDefaultCardDelegate : SetDefaultCardDelegate?
     var impulseSavingDelegate : ImpulseSavingDelegate?
     var removeCardDelegate : RemoveCardDelegate?
+    var getAffiliateIdDelegate : GetAffiliatedTrackID?
     
     
     //Checking Reachability function
@@ -1594,7 +1601,7 @@ class API: UIView,NSURLSessionDelegate {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-
+        
         if(self.isConnectedToNetwork())
         {
 
@@ -2014,6 +2021,48 @@ class API: UIView,NSURLSessionDelegate {
             self.removeCardDelegate?.errorResponseForRemoveCardAPI(kNonetworkfound)
         }
     }
+    
+    func getAffiliateID(dict : Dictionary<String,AnyObject>) {
+        print(dict)
+
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        print(userInfoDict)
+        let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+        
+        
+        if(self.isConnectedToNetwork())
+        {
+            self.setTimeOutRequest(30)
+            let request = createRequest(NSURL(string: String(format:"%@/Affiliates/url",baseURL))!, method: "POST", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
+            
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                if let data = data
+                {
+                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    if let dict = json as? Dictionary<String,AnyObject>
+                    {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getAffiliateIdDelegate?.successResponseAffiliated(dict)
+                        }
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.getAffiliateIdDelegate?.errorResponseAffiliated((response?.description)!)
+                        }
+                    }
+                }
+                else  if let error = error  {
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.getAffiliateIdDelegate?.errorResponseAffiliated(error.localizedDescription)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
+    }
+
+    
     
     func setTimeOutRequest(intrvl: NSTimeInterval) {
         urlconfig.timeoutIntervalForRequest = intrvl

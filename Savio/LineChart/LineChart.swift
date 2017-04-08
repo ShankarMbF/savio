@@ -345,7 +345,7 @@ public class LineChart: UIView {
     }
     
     
-    
+    //   circle value ....
     func setProgressForCircularFloatingProgressBar(index: Int)  {
         var data: [CGFloat] = self.dataStore[0]
         if data.count > 0 && data.count > index {
@@ -420,7 +420,7 @@ public class LineChart: UIView {
 
     let progress = KDCircularProgress(frame: CGRect(x:  0, y: -17.0, width: 34, height: 34))
     
-    
+    // scrolling line
     func scrollLineMoved(gesture: UIPanGestureRecognizer) {
         let  transalation = gesture.locationInView(self)
         if  CGFloat(transalation.x) >= x.axis.inset && CGFloat(transalation.x) <=  self.drawingWidth + x.axis.inset {

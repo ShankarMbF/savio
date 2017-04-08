@@ -58,6 +58,8 @@ let kIMAGE: String = "IMAGE"
 let kPARTYSAVINGPLANTYPE : String = "PARTY_SAVINGPLAN_TYPE"
 let kRECURRINGAMOUNT : String = "RECURRING_AMOUNT"
 let kSAVSITEURL : String = "SAV_SITE_URL"
+let kSNSITEURL : String = "siteURL"
+
 let kImageURL : String = "imageURL"
 let kEmi: String = "emi"
 let kINIVITEDUSERLIST :String = "INIVITED_USER_LIST"

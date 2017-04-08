@@ -1498,11 +1498,13 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(dict)
         objAPI.addSavingCardDelegate = self
         objAPI.addSavingCard(dict)
-        
+    
         //Use token for backend process
         self.dismissViewControllerAnimated(true, completion: {
             completion(nil)
         })
+        
+        NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
         
         print("+++++++++++++++++++++++++++++++")
     }
@@ -2014,6 +2016,9 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
+                    NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    objAnimView.removeFromSuperview()
                     if(self.isFromGroupMemberPlan == true)
                     {
                         //Navigate to SAThankYouViewController
@@ -2024,6 +2029,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }
                     else {
+                        objAnimView.removeFromSuperview()
                         let objSummaryView = SASavingSummaryViewController()
                         self.navigationController?.pushViewController(objSummaryView, animated: true)
                     }

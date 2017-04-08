@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SASpendViewController: UIViewController {
+class SASpendViewController: UIViewController,GetAffiliatedTrackID {
     
     @IBOutlet weak var spendButton: UIButton!
     @IBOutlet weak var planButton: UIButton!
@@ -18,14 +18,17 @@ class SASpendViewController: UIViewController {
     @IBOutlet weak var btnBg: UIView!
     @IBOutlet weak var congratsView: UIView!
     
-
     
+    var AffURL : Dictionary<String,AnyObject> = [:]
+    let objAPI = API()
+    
+    var objAnimView = ImageViewAnimation()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         congratsView.hidden = true
-         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         spendButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.tintColor = UIColor.whiteColor()
         spendButton.setImage(UIImage(named: "stats-spend-tab-active.png"), forState: UIControlState.Normal)
@@ -34,14 +37,14 @@ class SASpendViewController: UIViewController {
         self.setUpView()
         // Do any additional setup after loading the view.
     }
- 
+    
     //Set up the NavigationBar
     func setUpView(){
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.translucent = false
         self.navigationController?.navigationBarHidden = false
-
+        
         //set Navigation left button
         let leftBtnName = UIButton()
         leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
@@ -82,10 +85,10 @@ class SASpendViewController: UIViewController {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        if NSUserDefaults.standardUserDefaults().objectForKey(kSAVSITEURL) != nil{
+        if NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) != nil{
             // exist
             self.showCongratsView()
-
+            
         }
         else {
             // not exist
@@ -121,10 +124,13 @@ class SASpendViewController: UIViewController {
     
     func showCongratsView() {
         congratsView.hidden = false
-        let str = "Congratulations,              you have reached your target for your Bike!"
+        let planTitle = NSUserDefaults.standardUserDefaults().objectForKey("PlanTitle")
+        print(planTitle)
+        let str = "Congratulations,\nyou have reached your target for your \(planTitle!) !"
         let lenStr = "              you have reached your target for your"
         
-//        let attrText = NSMutableAttributedString(string: String(format: "My %@ plan target is £%@",itemTitle,cost))
+        
+        //        let attrText = NSMutableAttributedString(string: String(format: "My %@ plan target is £%@",itemTitle,cost))
         let attrText = NSMutableAttributedString(string: str)
         attrText.addAttribute(NSFontAttributeName,
                               value: UIFont(
@@ -139,11 +145,25 @@ class SASpendViewController: UIViewController {
     
     @IBAction func spendNowButtonClicked(sender:UIButton) {
         print("Spend Button Clicked...")
-        if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSAVSITEURL) as! String ){
-            UIApplication.sharedApplication().openURL(url)
+        
+        //Add animation of logo
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        
+        let URL = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) as! String )
+        if URL?.host != "www.getsavio.com"{
+    /*      let strURL : String! = "\(URL?.scheme)://\(URL?.host)"
+            print(strURL)
+            AffURL["affiliate_url"] = strURL
+            
+            objAPI.getAffiliateIdDelegate = self
+            objAPI.getAffiliateID(AffURL)       */
+            UIApplication.sharedApplication().openURL(URL!)
+        }else{
+            UIApplication.sharedApplication().openURL(URL!)
         }
     }
-
+    
     @IBAction func planButtonPressed(sender: AnyObject) {
         var vw = UIViewController?()
         let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
@@ -238,5 +258,32 @@ class SASpendViewController: UIViewController {
             obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
+    }
+    
+    
+    //MARK: GetWishlist Delegate method
+    func successResponseAffiliated(objResponse: Dictionary<String, AnyObject>) {
+        print(objResponse)
+        if let status = objResponse["status"] as? String{
+            if status == "405" {
+                if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) as! String ){
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            }
+        }
+    }
+    //function invoke when GetWishlist API request fail
+    func errorResponseAffiliated(error: String) {
+        objAnimView.removeFromSuperview()
+        if(error == kNonetworkfound)
+        {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        else {
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
+        
     }
 }

@@ -127,7 +127,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //set up the UIView
     func setUpView(){
          self.callWishListAPI()
-        planTitle = String(format: "My %@ plan",savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String)
+        let partySavingplan = savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String
+        planTitle = String(format: "My %@ plan",partySavingplan)
+        
+        NSUserDefaults.standardUserDefaults().setObject(partySavingplan, forKey:"PlanTitle")
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -174,10 +179,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         if paidAmount == totalAmount {
             let objAPI = API()
             var link = "http://www.getsavio.com/"
-            if let key = savingPlanDetailsDict["partySavingPlan"]![kSAVSITEURL] as? String {
+            if let key = savingPlanDetailsDict["partySavingPlan"]![kSNSITEURL] as? String {
                 link = key
+                objAPI.storeValueInKeychainForKey("UrlAvailable", value: "isURLAvailable")
             }
-            objAPI.storeValueInKeychainForKey(kSAVSITEURL, value:link )
+            objAPI.storeValueInKeychainForKey(kSNSITEURL, value:link )
         }
         
         let planEndDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String

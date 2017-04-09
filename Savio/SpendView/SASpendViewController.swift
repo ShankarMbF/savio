@@ -127,7 +127,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         let planTitle = NSUserDefaults.standardUserDefaults().objectForKey("PlanTitle")
         print(planTitle)
         let str = "Congratulations,\nyou have reached your target for your \(planTitle!) !"
-        let lenStr = "              you have reached your target for your"
+        let lenStr = " you have reached your target for your "
         
         
         //        let attrText = NSMutableAttributedString(string: String(format: "My %@ plan target is £%@",itemTitle,cost))

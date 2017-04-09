@@ -60,7 +60,10 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         var imp: [String] = ["sub"]
         xLabels.append("")
         if let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
-      
+      print(savingPlanDict![""])
+            print(transactionArr)
+            
+            
         for i in 0 ..< transactionArr.count {
             let dict = transactionArr[i] as Dictionary<String,AnyObject>
             imp.append(dict["paymentMode"] as! String)

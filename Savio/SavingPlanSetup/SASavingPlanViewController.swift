@@ -1505,8 +1505,14 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         })
         
         NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         print("+++++++++++++++++++++++++++++++")
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        objAnimView.animate()
+        self.view.addSubview(objAnimView)
+
     }
     
     
@@ -1866,7 +1872,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 
                 //                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 
-                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray")
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true

@@ -41,10 +41,199 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     var dataArr: Array<CGFloat> = [0]
     var savingPlanDict: Dictionary<String,AnyObject>?
     
+    // new Array for Individual Graph chart
+    var MonthLabel: Array<String> = []
+    var xAxisLabels: Array<CGFloat> = []
+
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(savingPlanDict!)
+        let savingsPlan = savingPlanDict!["partySavingPlan"]
+        guard (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil else {
+            print(" There is no value ")
+//            self.lineChartFunct([0], xlabel: [])
+            return
+        }
+        let savingsPlanType = savingsPlan!["partySavingPlanType"] as! String
+        guard savingsPlanType == "Individual" else {
+            print("______________  guard Group Condition  ______________")
+            
+            guard savingPlanDict!["partySavingPlanMembers"] != nil else {
+                
+                guard savingsPlan!["payType"] as! String == "Week" else {
+                    //let getdate = self.createPlanDate( savingsPlan!["payDate"], planType: savingsPlanType, userDefault: "GrpCurrentDateForPlan")
+                   // print(getdate)
+                    
+                    print("guard for month")
+                    return
+                }
+                //let getdate = self.createPlanDate( savingsPlan!["payDate"], planType: savingsPlanType, userDefault: "GrpCurrentDateForPlan")
+                //print(getdate)
+                
+                print("Function For week")
+                return
+            }
+            return
+        }
+        print("Function For Individual")
+//        let Startdate = self.createPlanDate( savingsPlan!["payDate"], planType: savingsPlanType, userDefault: "IndCurrentDateForPlan")
+        let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+        print(transactionArr)
+        let Startdate = "1-04-2017"
+        print(Startdate)
+        guard savingsPlan!["payType"] as! String == "Week" else {
+            print("guard for month")
+            
+            // y axis caluculation
+            let maxValue:CGFloat = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
+            
+            //Setting up Stat view UI
+            self.setUpView()
+            //--------------Draw Line chart on graph contentview----------------------------
+            lineChart = LineChart()
+            lineChart.clipsToBounds  = false
+            lineChart.planTitle = self.planType
+            lineChart.maximumValue = maxValue
+            lineChart.minimumValue = 0
+            let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
+            var imp: [String] = ["sub"]
+            xLabels.append("")
+            
+            for i in 0 ..< transactionArr!.count {
+                let dict = transactionArr![i] as Dictionary<String,AnyObject>
+                imp.append(dict["paymentMode"] as! String)
+                dataArr.append(dict["amount"] as! CGFloat)
+                xLabels.append(dict["paymentMode"] as! String)
+                if i % 2 == 0 {
+                    imp.append("Subscription")
+                }
+                else{
+                    imp.append("IMPULSE")
+                }
+            }
+            
+            //   Amount Calculations
+            var tempAddValue : CGFloat = 0
+            for i in 0 ..< dataArr.count{
+                if xLabels[i] == "IMPULSE"{
+                    tempAddValue = tempAddValue + dataArr[i]
+                    print(tempAddValue)
+                    let counnt = dataArr.count - 1
+                    if i == counnt {
+                        xAxisLabels.append(tempAddValue)
+                        break
+                    }
+                }else{
+                    tempAddValue = tempAddValue + dataArr[i]
+                    xAxisLabels.append(tempAddValue)
+                    print(xAxisLabels)
+                }
+            }
+            
+            MonthLabel.append("")
+            // label Process
+            for i in 1 ..< xAxisLabels.count {
+                let month = "month \(i)"
+                MonthLabel.append(month)
+            }
+            
+            print(MonthLabel)
+            print(xLabels)
+            lineChart.impulseStore = imp
+            // simple line with custom x axis labels // hear need to pass json value
+            //        xLabels = ["1","2","3","4","5","6","7","8"]
+            //        xLabels = ["0","1","2"]
+            lineChart.animation.enabled = true
+            lineChart.area = true
+            // hide grid line Visiblity
+            lineChart.x.grid.visible = true
+            lineChart.y.grid.visible = true
+            print(dataArr)
+            
+            // hide dots visiblety in line chart
+            lineChart.x.labels.visible = true
+            lineChart.x.grid.count = CGFloat(data.count)    //dont change this
+            lineChart.x.grid.color = UIColor.grayColor()
+            lineChart.y.grid.count = CGFloat(8)
+            lineChart.y.grid.color = UIColor.grayColor()
+            lineChart.scrollViewReference = self.scrollViewForGraph
+            
+            lineChart.x.labels.values = MonthLabel
+            lineChart.y.labels.visible = true
+            lineChart.addLine(xAxisLabels)
+            lineChart.translatesAutoresizingMaskIntoConstraints = false
+            lineChart.delegate = self
+            
+            self.contentView?.addSubview(lineChart)
+            
+            return
+        }
+        print("Function For week")
+        
+        return
+        
+        
+        
+        /*if let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
+            print(transactionArr)
+            let savingsPlanType = savingPlanDict!["partySavingPlanType"]
+            if savingsPlanType as! String == "Individual" {
+                let savingplanpaytype = savingPlanDict!["payType"]
+                if savingplanpaytype as! String == "Week" {
+                    print("week")
+                }else{
+                    }
+            }
+        
+         
+         
+            if savingPlanDict["partySavingPlanType"] == "Individual"{
+                if savingPlanDict!["payType"] == "Week" {
+                    print("week")
+                }else{
+                    if let CheckPlanType = savingPlanDict["partySavingPlanType"]{
+                        if CheckPlanType as! String == "Individual"{
+                            let CurrentDateForplan = self.getCurrentDate()
+                            NSUserDefaults.standardUserDefaults().setObject(CurrentDateForplan, forKey: "IndCurrentDateForPlan")
+                            NSUserDefaults.standardUserDefaults().synchronize()
+                        }else if CheckPlanType as! String == "Group"
+                        {
+                            let CurrentDateForplan = self.getCurrentDate()
+                            NSUserDefaults.standardUserDefaults().setObject(CurrentDateForplan, forKey: "GrpCurrentDateForPlan")
+                            NSUserDefaults.standardUserDefaults().synchronize()
+                        }
+                    }
+                    let str = NSUserDefaults.standardUserDefaults().objectForKey("IndCurrentDateForPlan")
+                    savingPlanDict["payDate"]
+                }
+            }else{
+                if savingPlanDict!["partySavingPlanMembers"] != nil{
+                    
+                }
+            }
+            */
+        /*    for i in 0 ..< transactionArr.count {
+                let dict = transactionArr[i] as Dictionary<String,AnyObject>
+                imp.append(dict["paymentMode"] as! String)
+                dataArr.append(dict["amount"] as! CGFloat)
+                xLabels.append(dict["paymentDate"] as! String)
+                if i % 2 == 0 {
+                    imp.append("Subscription")
+                }
+                else{
+                    imp.append("IMPULSE")
+                }
+            }
+        */
+//        xLabels.append("newdate")
+               //------------------------------------------------------------------------------------
+    }
+    
+    
+    
+  /*  func lineChartFunct(dateArr : Array<CGFloat>, xlabel: Array<String>) {
         // y axis caluculation
         let maxValue:CGFloat = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
         
@@ -59,30 +248,12 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let data: [CGFloat] = [0,100,200-1,350,400,550,600,700]
         var imp: [String] = ["sub"]
         xLabels.append("")
-        if let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
-      print(savingPlanDict![""])
-            print(transactionArr)
-            
-            
-        for i in 0 ..< transactionArr.count {
-            let dict = transactionArr[i] as Dictionary<String,AnyObject>
-            imp.append(dict["paymentMode"] as! String)
-            dataArr.append(dict["amount"] as! CGFloat)
-            xLabels.append(dict["paymentDate"] as! String)
-            if i % 2 == 0 {
-                imp.append("Subscription")
-            }
-            else{
-                imp.append("IMPULSE")
-            }
-            }
-        }
-//        xLabels.append("newdate")
+        
         print(xLabels)
         lineChart.impulseStore = imp
         // simple line with custom x axis labels // hear need to pass json value
-//        xLabels = ["1","2","3","4","5","6","7","8"]
-//        xLabels = ["0","1","2"]
+        //        xLabels = ["1","2","3","4","5","6","7","8"]
+        //        xLabels = ["0","1","2"]
         lineChart.animation.enabled = true
         lineChart.area = true
         // hide grid line Visiblity
@@ -100,14 +271,28 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         lineChart.x.labels.values = xLabels
         lineChart.y.labels.visible = true
-        lineChart.addLine(dataArr)   
+        lineChart.addLine(dataArr)
         lineChart.translatesAutoresizingMaskIntoConstraints = false
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-        //------------------------------------------------------------------------------------
-    }
+
+    }*/
     
+    
+    func createPlanDate(PayDate : String, planType : String, userDefault : String) -> NSDate {
+        let grpCurrentdate = NSUserDefaults.standardUserDefaults().objectForKey(userDefault) as? String
+        let Date = "\(PayDate)-\(grpCurrentdate)"
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd-mm-yyyy"
+        let Idate = dateFormatter.dateFromString(Date)
+        return Idate!
+    }
+
+
+    //IndCurrentDateForPlan
+    //GrpCurrentDateForPlan
+
     func calculateMaxPriceForYAxix(maxPrice:NSInteger) -> CGFloat {
         var outputNum:CGFloat = 0.0
         if(maxPrice < 1000){

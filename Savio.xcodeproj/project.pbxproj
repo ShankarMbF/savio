@@ -608,6 +608,8 @@
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
 		D4B893B51E9377A10046E243 /* Stripe.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D4B893B41E9377A10046E243 /* Stripe.bundle */; };
+		D4D5957F1E9BB7FA0063805F /* utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5957E1E9BB7FA0063805F /* utility.swift */; };
+		D4D595811E9BB8410063805F /* SharePresistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D595801E9BB8410063805F /* SharePresistance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1241,6 +1243,8 @@
 		CA0372271D48D89D00FC5C1B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		CA0372281D48D89D00FC5C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		D4B893B41E9377A10046E243 /* Stripe.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Stripe.bundle; path = Stripe.framework/Stripe.bundle; sourceTree = "<group>"; };
+		D4D5957E1E9BB7FA0063805F /* utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utility.swift; sourceTree = "<group>"; };
+		D4D595801E9BB8410063805F /* SharePresistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePresistance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2219,6 +2223,8 @@
 		C9E525AA1CE986FA000FD01E /* Savio */ = {
 			isa = PBXGroup;
 			children = (
+				D4D5957E1E9BB7FA0063805F /* utility.swift */,
+				D4D595801E9BB8410063805F /* SharePresistance.swift */,
 				A8095C731CEDC6A3006366F7 /* Webservices */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
 				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
@@ -2242,13 +2248,13 @@
 				A897514B1CEF07D400F122AD /* PINViewController */,
 				C9905F8E1CED9EF700E63471 /* RegistrationViewController */,
 				A81D01441D892B2A00E58A97 /* SaveCard */,
-				C94CB9871D213E7D0040E150 /* StatView */,
 				A86F06401D1D15A600E1D821 /* SpendView */,
 				C94F93A91D1946480065F588 /* SwitchPlan */,
 				C99787161D0832E5000D1FAA /* SASummaryView */,
 				C9B6C83F1D0570EF00FCB00C /* SAOfferList */,
 				A86681EF1CFEF10A0014DB59 /* SavingPlanSetup */,
 				C90571931CFEAA8500ECC4FC /* SACreateSavingPlanViewController */,
+				C94CB9871D213E7D0040E150 /* StatView */,
 				A89F77F21D8C063B00EA932B /* ThankYouView */,
 				A8095B921CEDC4D5006366F7 /* TermsAndConditionView */,
 				C9854A891CED9A5000D09AB3 /* WelcomeViewController */,
@@ -3182,6 +3188,7 @@
 				A827961D1D1A71B300097E75 /* GroupsavingViewController.swift in Sources */,
 				C90571961CFEAA8500ECC4FC /* SACreateSavingPlanViewController.swift in Sources */,
 				A82796191D1A705100097E75 /* GroupParticipantNameTableViewCell.swift in Sources */,
+				D4D595811E9BB8410063805F /* SharePresistance.swift in Sources */,
 				C9905FA41CED9EF700E63471 /* TitleTableViewCell.swift in Sources */,
 				C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */,
 				C94CB9861D2138740040E150 /* LineChart.swift in Sources */,
@@ -3205,6 +3212,7 @@
 				A8ABA8281D76C6CC00C58E7F /* TWMessageBarManager.m in Sources */,
 				A82796291D1AA1ED00097E75 /* CreateSavingPlanTableViewCell.swift in Sources */,
 				A89A28041D34B6A400722A19 /* Piechart.swift in Sources */,
+				D4D5957F1E9BB7FA0063805F /* utility.swift in Sources */,
 				C9A807D41D33A3910053A07B /* SAEditUserInfoViewController.swift in Sources */,
 				C9905FA61CED9EF700E63471 /* TxtFieldTableViewCell.swift in Sources */,
 				C957E3F21D2E223100A1AD84 /* GroupProgressTableViewCell.swift in Sources */,

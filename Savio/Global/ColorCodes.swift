@@ -25,7 +25,7 @@ var kSecondAddressLine: String! = "Second Address Line"
 var kThirdAddressLine: String! = "Third Address Line"
 var kTown:String! = "Town"
 var kCounty: String! = "County"
-var kEmail: String! = "Email"
+var kEmail: String! = "email"
 var kMetaData:String! = "metaData"
 let kClassType: String! = "classType"
 let kErrorMobileValidation : String = "errorMobileValidation"
@@ -68,6 +68,9 @@ let kDate: String = "date"
 let kDay: String = "day"
 let kWeek : String = "Week"
 let kMonth : String = "Month"
+
+//function 
+
 
 //Structure defined for Color
 struct Color {

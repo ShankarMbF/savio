@@ -834,39 +834,12 @@ class API: UIView,NSURLSessionDelegate {
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
-        //        let cookie = userInfoDict["cookie"] as! String
-        //        let partyID = userInfoDict["partyId"] as! NSNumber
-        //
-        //        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        //        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        //        var request : NSMutableURLRequest
-        //        var url: NSURL?
-        //
-        //        if(isFromWishList == "FromWishList")
-        //        {
-        //            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans",baseURL))!)
-        //            url = NSURL(string: String(format:"%@/SavingPlans",baseURL))!
-        //        }
-        //        else {
-        //            request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/SavingPlans/",baseURL))!)
-        //            url = NSURL(string: String(format:"%@/SavingPlans/",baseURL))!
-        //        }
         
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 180
-            //            urlconfig.timeoutIntervalForResource = 180
             self.setTimeOutRequest(180)
             
             let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-            
-            //            request.HTTPMethod = "POST"
-            //
-            //            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            
             let request = createRequest(NSURL(string: String(format:"%@/SavingPlans",baseURL))!, method: "POST", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
@@ -877,7 +850,21 @@ class API: UIView,NSURLSessionDelegate {
                     {
                         print(dict)
                         dispatch_async(dispatch_get_main_queue()){
+                            
                             self.partySavingPlanDelegate?.successResponseForPartySavingPlanAPI(dict)
+                            
+                            if let CheckPlanType = dict["partySavingPlanType"]{
+                                if CheckPlanType as! String == "Individual"{
+                                    let CurrentDateForplan = self.getCurrentDate()
+                                    NSUserDefaults.standardUserDefaults().setObject(CurrentDateForplan, forKey: "IndCurrentDateForPlan")
+                                    NSUserDefaults.standardUserDefaults().synchronize()
+                                }else if CheckPlanType as! String == "Group"
+                                {
+                                    let CurrentDateForplan = self.getCurrentDate()
+                                    NSUserDefaults.standardUserDefaults().setObject(CurrentDateForplan, forKey: "GrpCurrentDateForPlan")
+                                    NSUserDefaults.standardUserDefaults().synchronize()
+                                }
+                            }
                         }
                     }
                     else
@@ -2096,4 +2083,15 @@ class API: UIView,NSURLSessionDelegate {
         return value
     }
     
+    func getCurrentDate() -> String{
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        
+        let year =  components.year
+        let month = components.month
+        let CurrentDateForplan = "\(year)-\(month)"
+        
+        return CurrentDateForplan
+    }
 }

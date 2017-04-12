@@ -839,7 +839,7 @@
                 dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
                 var pathComponents2 : NSArray!
                 pathComponents2 = dateStr.componentsSeparatedByString("-")
-                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[0] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String);
             }
         }
         

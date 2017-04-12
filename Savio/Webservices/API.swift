@@ -306,6 +306,7 @@ class API: UIView,NSURLSessionDelegate {
     func registerTheUserWithTitle(dictParam:Dictionary<String,AnyObject>,apiName:String)
     {
         //Check if network is present
+        print(dictParam)
         if(self.isConnectedToNetwork())
         {
             //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/%@",baseURL,apiName))!)
@@ -333,6 +334,7 @@ class API: UIView,NSURLSessionDelegate {
                         //return success response to viewcontroller
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.successResponseForRegistrationAPI(dict)
+                            print(dict)
                         }
                     }
                     else
@@ -340,6 +342,7 @@ class API: UIView,NSURLSessionDelegate {
                         //return error response to viewcontroller
                         dispatch_async(dispatch_get_main_queue()){
                             self.delegate?.errorResponseForRegistrationAPI((response?.description)!)
+                            print(response?.description)
                         }
                     }
                 }
@@ -822,6 +825,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func createPartySavingPlan(dict:Dictionary<String,AnyObject>,isFromWishList:String)
     {
+        print(dict)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>

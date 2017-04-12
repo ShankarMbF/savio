@@ -25,6 +25,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     var objAnimView = ImageViewAnimation()
     var planOneSharedSavingPlanID = ""
     var planTwoSharedSavingPlanID = ""
+    
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()

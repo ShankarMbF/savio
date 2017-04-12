@@ -786,16 +786,16 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
         objAPI.addSavingCardDelegate = self
         objAPI.addSavingCard(dict)
         
-        //Add animation of logo
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-        objAnimView.frame = self.view.frame
-        
         //Use token for backend process
         self.dismissViewControllerAnimated(true, completion: {
             completion(nil)
         })
 
         print("+++++++++++++++++++++++++++++++")
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        objAnimView.animate()
+        self.view.addSubview(objAnimView)
     }
 
     

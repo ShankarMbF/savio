@@ -66,7 +66,7 @@ class ContainerViewController: UIViewController {
         {
             //As per flag show the progress view of plan
             if usersPlan == "I"{
-                self.centreVC = SAProgressViewController(nibName: " ", bundle: nil)
+                self.centreVC = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             }
             else
             {

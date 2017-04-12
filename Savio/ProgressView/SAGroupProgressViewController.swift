@@ -250,7 +250,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         if Int(paidAmount) == totalAmount {
             let objAPI = API()
             var link = "http://www.getsavio.com/"
-            if let key = savingPlanDetailsDict[kSAVSITEURL]! as? String {
+            if let key = savingPlanDetailsDict[kSNSITEURL]! as? String {
                 link = key
             }
             objAPI.storeValueInKeychainForKey(kSAVSITEURL, value:link )

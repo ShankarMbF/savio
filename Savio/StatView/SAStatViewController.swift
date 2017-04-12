@@ -44,15 +44,20 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(savingPlanDict!)
         let savingsPlan = savingPlanDict!["partySavingPlan"]
-        guard (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil else {
-            print(" There is no value ")
-            self.lineChartFunct([],planType: "")
-            return
-        }
+//        guard (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil else {
+//            print(" There is no value ")
+//            self.lineChartFunct([],planType: "")
+//            return
+//        }
+        
         let savingsPlanType = savingsPlan!["partySavingPlanType"] as! String
         guard savingsPlanType == "Individual" else {
+            if (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil
+            {
+                print(" There is no value ")
+                self.lineChartFunct([],planType: "")
+            }
             print("______________  guard Group Condition  ______________")
             let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
 
@@ -61,18 +66,13 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 let SavingPlanMembers = savingPlanDict!["partySavingPlanMembers"] as? Array<Dictionary<String,AnyObject>>
                 let Transactions = SavingPlanMembers![0]["savingPlanTransactionList"]!
                 let finalAddValue = self.calcTotalAmount(Transactions as? Array<Dictionary<String, AnyObject>>)
-                
+            
                 guard savingsPlan!["payType"] as! String == "Week" else {
-                    self.lineChartFunct(transactionArr!,planType: "Month")
-                    print(finalAddValue)
-
+                    self.grouplineChartFunct(transactionArr!, planType: "Month", inviteAmount: finalAddValue)
                     print("guard for month")
                     return
                 }
-                self.lineChartFunct(transactionArr!,planType: "Week")
-//                let SavingPlanMembers = savingPlanDict!["partySavingPlanMembers"] as? Array<Dictionary<String,AnyObject>>
-//                print(SavingPlanMembers)
-
+                self.grouplineChartFunct(transactionArr!, planType: "Week", inviteAmount: finalAddValue)
                 print("Function For week")
                 return
             }
@@ -200,7 +200,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
 
     }
     
-    func grouplineChartFunct(transactionArr: Array<Dictionary<String,AnyObject>> , planType : String) {
+    func grouplineChartFunct(transactionArr: Array<Dictionary<String,AnyObject>> , planType : String , inviteAmount : CGFloat) {
         // y axis caluculation
         let maxValue:CGFloat = self.calculateMaxPriceForYAxix(NSInteger(cost)!)
         // new Array for Individual Graph chart
@@ -257,6 +257,35 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             let month = "\(planType) \(i)"
             MonthLabel.append(month)
         }
+        
+        // Add inviteAmount at Last 
+        print(inviteAmount)
+        
+        var finalarray = [CGFloat]()
+        finalarray.append(0.0)
+        
+        if xAxisLabels.count == 0 {
+            finalarray.append(inviteAmount)
+        }else{
+            var value = xAxisLabels.dropFirst(xAxisLabels.count - 1)
+            let value1 = CGFloat(value[xAxisLabels.count - 1]) + inviteAmount
+
+            xAxisLabels.removeLast()
+            xAxisLabels.append(value1)
+            
+        }
+        
+//        for i in 0 ..< xAxisLabels.count {
+//            if i == xAxisLabels.count - 1 {
+////                let lastArrObj = lastobj + inviteAmount
+////                print(lastArrObj)
+////                finalarray.append(lastArrObj)
+//            }else{
+//                finalarray.append(xAxisLabels[i])
+//            }
+//        }
+        
+        
         
         print(xLabels)
         lineChart.impulseStore = imp

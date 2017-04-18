@@ -1325,10 +1325,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 let objAPI = API()
                 if(itemDetailsDataDict[kTitle] == nil) {
                     objAPI.partySavingPlanDelegate = self
-                    /*
-                     Stripe SDK
-                     
-                     */
+                    /* Stripe SDK */
                     
                     print("!!!!!!!!!!!!!!!!!!Stripe SDK!!!!!!!!!!!!!!!!!!!!!")
                     
@@ -1383,7 +1380,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["STATUS"] = "Active"
                     print(recurringAmount)
                     newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
-                    print(newDict)
+//                    print(newDict)
                     objAPI.updateSavingPlan(newDict)
                 }
                 else  {
@@ -1397,7 +1394,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict[kOFFERS] = self.getParameters()[kOFFERS]
                     newDict[kPARTYID] = userInfoDict[kPartyID]
                     newDict[kSAVPLANID] = "0"
-                    print(itemDetailsDataDict)
+//                    print(itemDetailsDataDict)
                     if itemDetailsDataDict["wishsiteURL"] is NSNull {
                         newDict[kSAVSITEURL] = ""
                     }
@@ -1421,7 +1418,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     newDict["STATUS"] = "Active"
                     print(recurringAmount)
                     newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
-                    print(newDict)
+//                    print(newDict)
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
             }
@@ -1495,10 +1492,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let objAPI = API()
         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),kPTYSAVINGPLANID:NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
-        print(dict)
+//        print(dict)
         objAPI.addSavingCardDelegate = self
         objAPI.addSavingCard(dict)
-    
+        
         //Use token for backend process
         self.dismissViewControllerAnimated(true, completion: {
             completion(nil)
@@ -1512,7 +1509,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         objAnimView.animate()
         self.view.addSubview(objAnimView)
-
+        
     }
     
     
@@ -2002,7 +1999,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             isComingGallary = false
             let ht = upperView.frame.size.height + tblView.frame.size.height + 100
             self.scrlView.contentSize = CGSizeMake(0, ht )
-        }        
+        }
         tblView.reloadData()
         
     }

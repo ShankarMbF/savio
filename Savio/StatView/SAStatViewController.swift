@@ -45,11 +45,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         super.viewDidLoad()
         
         let savingsPlan = savingPlanDict!["partySavingPlan"]
-//        guard (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil else {
-//            print(" There is no value ")
-//            self.lineChartFunct([],planType: "")
-//            return
-//        }
+        guard (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil else {
+            print(" There is no value ")
+            self.lineChartFunct([],planType: "")
+            return
+        }
         
         let savingsPlanType = savingsPlan!["partySavingPlanType"] as! String
         guard savingsPlanType == "Individual" else {
@@ -66,7 +66,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 let SavingPlanMembers = savingPlanDict!["partySavingPlanMembers"] as? Array<Dictionary<String,AnyObject>>
                 let Transactions = SavingPlanMembers![0]["savingPlanTransactionList"]!
                 let finalAddValue = self.calcTotalAmount(Transactions as? Array<Dictionary<String, AnyObject>>)
-            
+
                 guard savingsPlan!["payType"] as! String == "Week" else {
                     self.grouplineChartFunct(transactionArr!, planType: "Month", inviteAmount: finalAddValue)
                     print("guard for month")
@@ -79,19 +79,18 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.lineChartFunct([],planType: "")
             return
         }
-         print("Function For Individual")
+        print("Function For Individual")
 
         let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         print(transactionArr)
         
         guard savingsPlan!["payType"] as! String == "Week" else {
             print("guard for month")
-            self.lineChartFunct(transactionArr!,planType: "Month")
-
+            self.lineChartFunct(transactionArr ?? Array<Dictionary<String,AnyObject>>(), planType: "Month")
             return
         }
         print("Function For week")
-        self.lineChartFunct(transactionArr!,planType: "Week")
+        self.lineChartFunct(transactionArr ?? Array<Dictionary<String,AnyObject>>(),planType: "Week")
         
         return
         
@@ -100,6 +99,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     func calcTotalAmount(TotalArr: Array<Dictionary<String,AnyObject>>?) -> CGFloat {
         print(TotalArr)
+        if TotalArr == nil{
+            return 0.0
+        }
         var AddedValue : Array<CGFloat> = [0]
         var sum : CGFloat = 0.0
         for i in 0 ..< TotalArr!.count
@@ -260,21 +262,21 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         // Add inviteAmount at Last 
         print(inviteAmount)
-        
-        var finalarray = [CGFloat]()
-        finalarray.append(0.0)
-        
-        if xAxisLabels.count == 0 {
-            finalarray.append(inviteAmount)
-        }else{
-            var value = xAxisLabels.dropFirst(xAxisLabels.count - 1)
-            let value1 = CGFloat(value[xAxisLabels.count - 1]) + inviteAmount
-
-            xAxisLabels.removeLast()
-            xAxisLabels.append(value1)
+        if inviteAmount != 0{
+            var finalarray = [CGFloat]()
+            finalarray.append(0.0)
             
+            if xAxisLabels.count == 0 {
+                finalarray.append(inviteAmount)
+            }else{
+                var value = xAxisLabels.dropFirst(xAxisLabels.count - 1)
+                let value1 = CGFloat(value[xAxisLabels.count - 1]) + inviteAmount
+                
+                xAxisLabels.removeLast()
+                xAxisLabels.append(value1)
+                
+            }
         }
-        
 //        for i in 0 ..< xAxisLabels.count {
 //            if i == xAxisLabels.count - 1 {
 ////                let lastArrObj = lastobj + inviteAmount

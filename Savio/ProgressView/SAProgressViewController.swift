@@ -35,6 +35,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -146,6 +147,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
         
+        print(savingPlanDetailsDict)
         //get the total amount of plan from the Dictionary
         if let amount = savingPlanDetailsDict["partySavingPlan"]![kAmount] as? NSNumber
         {
@@ -160,7 +162,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         //Set page control pages
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
-         paidAmount = 0
+        paidAmount = 0
+        NSUserDefaults.standardUserDefaults().setObject(totalAmount, forKey: "ImpMaxAmount")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         if let transactionArray = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
             for i in 0 ..< transactionArray.count {
@@ -174,6 +179,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 
             }
             print("paidAmt = \(paidAmount)")
+            let MaxAmount = totalAmount - paidAmount
+            print("MaxAmount = \(MaxAmount)")
+            NSUserDefaults.standardUserDefaults().setObject(MaxAmount, forKey: "ImpMaxAmount")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
         
         if paidAmount == totalAmount {

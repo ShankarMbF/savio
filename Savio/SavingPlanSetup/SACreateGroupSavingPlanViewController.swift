@@ -656,7 +656,7 @@ class SACreateGroupSavingPlanViewController: UIViewController,UITableViewDelegat
             if(selectedStr != "")  {
                 let objAPI = API()
                 objAPI.partySavingPlanDelegate = self
-                objAPI .createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
+                objAPI.createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
             }
             else {
                 self.objAnimView.removeFromSuperview()

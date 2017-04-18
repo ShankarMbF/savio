@@ -419,9 +419,14 @@ class SASavingSummaryViewController: UIViewController {
             // Set date as per date formatter
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy"
-            //lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
-            
+//            lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+            print(itemDataDict[kPLANENDDATE])
             lblDate.text = itemDataDict[kPLANENDDATE] as? String
+            
+            let dateAsString = itemDataDict[kPLANENDDATE] as? String
+            let date = dateFormatter.dateFromString(dateAsString!)
+            print(date)
+            
             
             lblMonth.text =  String(format: "£%@", itemDataDict[kEmi] as! String)
             print(itemDataDict)

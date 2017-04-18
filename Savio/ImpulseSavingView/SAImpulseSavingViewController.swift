@@ -67,7 +67,8 @@ class SAImpulseSavingViewController: UIViewController {
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        maxPrice = 3000.00
+        let ImpMaxAmount = NSUserDefaults.standardUserDefaults().valueForKey("ImpMaxAmount") as! Float
+        maxPrice = ImpMaxAmount
         self.buildCircleSlider()
         self.setUpView()
     }

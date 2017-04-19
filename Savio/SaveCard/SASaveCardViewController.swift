@@ -35,11 +35,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.setUpView()
-        // Do any additional setup after loading the view.
+//          Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
+       super.viewWillAppear(true)
        self.setUpView()
     }
     

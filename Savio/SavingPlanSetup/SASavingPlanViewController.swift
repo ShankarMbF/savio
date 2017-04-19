@@ -102,8 +102,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
-            objAPI.getUsersSavingPlan("i")
             objAPI.getSavingPlanDelegate = self
+            objAPI.getUsersSavingPlan("i")
         }
     }
     
@@ -692,10 +692,10 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     else if ((dateDiff/168) == 0) {
                         
                         cell1.calculationLabel.text = String(format: "You will need to top up £%d per week for 1 week",cost)
-                        recurringAmount = CGFloat(cost)
+                        recurringAmount = round(CGFloat(cost))
                     }
                     else {
-                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round(CGFloat(cost))/CGFloat((dateDiff/168)),(dateDiff/168))
+                        cell1.calculationLabel.text = String(format: "You will need to top up £%0.2f per week for %d weeks",round((CGFloat(cost))/CGFloat(dateDiff/168)),(dateDiff/168))
                         recurringAmount = round(CGFloat(cost))/CGFloat((dateDiff/168))
                     }
                 }

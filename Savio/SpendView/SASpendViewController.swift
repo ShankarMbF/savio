@@ -152,12 +152,12 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         
         let URL = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) as! String )
         if URL?.host != "www.getsavio.com"{
-            /*      let strURL : String! = "\(URL?.scheme)://\(URL?.host)"
+             let strURL : String! = "\(URL?.scheme)://\(URL?.host)"
              print(strURL)
              AffURL["affiliate_url"] = strURL
              
              objAPI.getAffiliateIdDelegate = self
-             objAPI.getAffiliateID(AffURL)       */
+             objAPI.getAffiliateID(AffURL)
             UIApplication.sharedApplication().openURL(URL!)
         }else{
             UIApplication.sharedApplication().openURL(URL!)

@@ -69,7 +69,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
@@ -88,7 +87,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         //Create object of API class to call the GETSavingPlanDelegate methods.
         let objAPI = API()
-        objAPI.getSavingPlanDelegate = self
         
         let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
         let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
@@ -96,10 +94,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             if(groupFlag == 1 && usersPlan == "G")
             {
+                objAPI.getSavingPlanDelegate = self
                 objAPI.getUsersSavingPlan("g")
             }
             else if(groupMemberFlag == 1  && usersPlan == "GM")
             {
+                objAPI.getSavingPlanDelegate = self
                 objAPI.getUsersSavingPlan("gm")
             }
 
@@ -107,10 +107,12 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         else {
         if(groupFlag == 1 )
         {
+            objAPI.getSavingPlanDelegate = self
             objAPI.getUsersSavingPlan("g")
         }
         else if(groupMemberFlag == 1)
         {
+            objAPI.getSavingPlanDelegate = self
             objAPI.getUsersSavingPlan("gm")
         }
         }
@@ -173,6 +175,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setUpView(){
         savingPlanTitleLabel.hidden = false
         //create attribute text to savingPlanTitleLabel
+        print(savingPlanDetailsDict)
         planTitle = String(format: "Our %@ plan",savingPlanDetailsDict[kTitle] as! String)
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -190,11 +193,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             totalAmount = amount.integerValue
         }
         
+        let PlanID = savingPlanDetailsDict["partySavingPlanID"]
+        NSUserDefaults.standardUserDefaults().setObject(PlanID , forKey:kPTYSAVINGPLANID)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
         {
             paidAmount = totalPaidAmount.floatValue
         }
+        
         
         let userDict = participantsArr[0]
         
@@ -227,6 +235,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                      paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
                 }
             }
+            
             var error = Piechart.Slice()
             error.value = errorValue
             error.color = chartColors[i]
@@ -235,7 +244,22 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             endValue = endValue + Int(errorValue)
         }
         
+        if let transactionArray = statViewDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
+        {
+            paidAmount = 0
+            for i in 0 ..< transactionArray.count {
+                let transactionDict = transactionArray[i]
+                paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
+            }
+        }
         
+        print("paidAmt = \(paidAmount)")
+        let indiviualAmount = totalAmount / participantsArr.count
+        let MaxAmount = indiviualAmount - Int(paidAmount)
+        print("MaxAmount = \(MaxAmount)")
+        NSUserDefaults.standardUserDefaults().setObject(MaxAmount, forKey: "ImpMaxAmount")
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         if(pieChartSliceArray.count <= 8)
         {
             var error = Piechart.Slice()
@@ -647,6 +671,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         cell?.topShadowView.backgroundColor = topLabelColors[indexPath.row]
         tblHt.constant = CGFloat(participantsArr.count * 50) + ht
         var diff : CGFloat = 0.0
+        
         //Check if savingPlanTransactionList array is present
         if let transactionArray = cellDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
@@ -657,11 +682,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 let str = String(format: "£%.0f",paidAmount)
                 cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+
                 cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
-                
+               
             }
         }
+            
         else  {
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
@@ -678,6 +705,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             cell?.remainingProgress.angle = 360
         }
+        
         //Check if user has Group/Individual plan
         if(cellDict["memberType"] as! String == "Owner")
         {
@@ -860,7 +888,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 NSUserDefaults.standardUserDefaults().synchronize()
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {
-                    
+                    print(".................... Party savings plan null .....................")
                 }
                 else
                 {

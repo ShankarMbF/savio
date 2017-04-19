@@ -684,6 +684,7 @@ class API: UIView,NSURLSessionDelegate {
     
     func sendWishList(dict:Dictionary<String,AnyObject>)
     {
+        print(dict)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>
@@ -721,6 +722,7 @@ class API: UIView,NSURLSessionDelegate {
                         {
                             dispatch_async(dispatch_get_main_queue()){
                                 self.shareExtensionDelegate?.successResponseForShareExtensionAPI(dict)
+                                print(dict)
                             }
                         }
                         else {
@@ -1875,6 +1877,7 @@ class API: UIView,NSURLSessionDelegate {
     //MARK : ImpulseSaving
     func impulseSaving(dictParam:Dictionary<String,AnyObject>)
     {
+        print(dictParam)
         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         
         //Check if network is present

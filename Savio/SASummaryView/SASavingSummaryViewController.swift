@@ -97,7 +97,7 @@ class SASavingSummaryViewController: UIViewController {
     // Function invoke on tapping continue button
     @IBAction func btnContinueClicked(sender: AnyObject) {
         // Navigate app as per plan type
-        let str = itemDataDict["planType"] as! String
+        
         //Navigate to showing individual/group progress screen
         NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
@@ -163,8 +163,10 @@ class SASavingSummaryViewController: UIViewController {
 //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
+            print(itemDataDict)
             itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
-            
+            print(itemDataDict)
+
             //-------Check is invited user available or not and showing list----------------------------
             if let arr =  itemDataDict[kINIVITEDUSERLIST] as? Array<Dictionary<String,AnyObject>>
             {
@@ -416,17 +418,26 @@ class SASavingSummaryViewController: UIViewController {
                 }
             }
             
-            // Set date as per date formatter
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "dd-MM-yyyy"
+            let str = itemDataDict["planType"] as! String
+            if (str == "group") {
+                let dateFormatter = NSDateFormatter()
+
+                dateFormatter.dateFormat = "YYYY-MM-DD"
+                let date = dateFormatter.dateFromString((itemDataDict[kPLANENDDATE] as? String)!)
+                
+                dateFormatter.dateFormat = "dd-MM-yyyy"
+                let goodDate = dateFormatter.stringFromDate(date!)
+                lblDate.text = goodDate
+                
+            }else{
+                
+                lblDate.text = itemDataDict[kPLANENDDATE] as? String
+            }
 //            lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
             print(itemDataDict[kPLANENDDATE])
-            lblDate.text = itemDataDict[kPLANENDDATE] as? String
-            
-            let dateAsString = itemDataDict[kPLANENDDATE] as? String
-            let date = dateFormatter.dateFromString(dateAsString!)
-            print(date)
-            
+           
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy"
             
             lblMonth.text =  String(format: "£%@", itemDataDict[kEmi] as! String)
             print(itemDataDict)
@@ -542,16 +553,6 @@ class SASavingSummaryViewController: UIViewController {
         scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
         //        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     
     //MARK: Bar button action

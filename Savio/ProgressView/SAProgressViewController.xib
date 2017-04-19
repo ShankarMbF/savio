@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -141,7 +141,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-nP-6gP">
-                    <rect key="frame" x="187.66666666666666" y="608" width="39" height="37"/>
+                    <rect key="frame" x="188" y="608" width="39" height="37"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="m20-UV-OCM"/>
                         <constraint firstAttribute="width" constant="39" id="w4E-H5-G1i"/>

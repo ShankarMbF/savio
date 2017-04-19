@@ -53,11 +53,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         let savingsPlanType = savingsPlan!["partySavingPlanType"] as! String
         guard savingsPlanType == "Individual" else {
-            if (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil
-            {
-                print(" There is no value ")
-                self.lineChartFunct([],planType: "")
-            }
+//            if (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil
+//            {
+//                print(" There is no value ")
+//                self.lineChartFunct([],planType: "")
+//            }
             print("______________  guard Group Condition  ______________")
             let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
 

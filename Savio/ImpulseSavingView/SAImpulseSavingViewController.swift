@@ -135,8 +135,6 @@ class SAImpulseSavingViewController: UIViewController {
         
 //        var attr = [[NSFontAttributeName : UIFont(name: kMediumFont, size: 10)],[NSUnderlineStyleAttributeName :  NSUnderlineStyle.StyleNone.rawValue]]
         
-       
-        
         let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue]
        // messagePopUpView.hidden = true
         priceTextField.borderStyle = UITextBorderStyle.RoundedRect
@@ -280,16 +278,14 @@ class SAImpulseSavingViewController: UIViewController {
         if combinedString.characters.count < 6 {
             var slideValue: Float = 0.0
             if (Float(valueString)! <= 100) {
-                
                 slideValue = Float(valueString)! / 2.0
-
-                
+                if maxPrice <= 100{
+                    slideValue = Float(valueString)! / (Float(maxPrice!)/100)}
             } else {
                 
                 let newCurrentValue = Float(valueString)! - 100.0
                 let newMaxPrice : Float = maxPrice! - 100.0
                 
- 
                 slideValue = (newCurrentValue * 50.0) / newMaxPrice
                 slideValue += 50.0
 

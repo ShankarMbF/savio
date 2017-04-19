@@ -35,7 +35,15 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        ProSetupView()
+    }
+    
+    func ProSetupView() {
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
@@ -51,13 +59,14 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         objAnimView.animate()
         savingPlanTitleLabel.hidden = true
         savingPlanTitleLabel!.adjustsFontSizeToFitWidth = true
-
+        
         self.view.addSubview(objAnimView)
         
         //Create API class object to get usersSaving Plan
         let objAPI = API()
-        objAPI.getSavingPlanDelegate = self
+        
         objAPI.getUsersSavingPlan("i")
+        objAPI.getSavingPlanDelegate = self
         
     }
     
@@ -110,7 +119,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
                 self.callWishListAPI()
-
+                
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
@@ -127,13 +136,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     
     //set up the UIView
     func setUpView(){
-         self.callWishListAPI()
+        self.callWishListAPI()
         let partySavingplan = savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String
         planTitle = String(format: "My %@ plan",partySavingplan)
         
         NSUserDefaults.standardUserDefaults().setObject(partySavingplan, forKey:"PlanTitle")
         NSUserDefaults.standardUserDefaults().synchronize()
-
+        
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
         attrText.addAttribute(NSFontAttributeName,
@@ -147,6 +156,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         savingPlanTitleLabel.attributedText = attrText
         savingPlanTitleLabel.hidden = false
         
+        let PlanID = savingPlanDetailsDict["partySavingPlan"]!["partySavingPlanID"]
+        NSUserDefaults.standardUserDefaults().setObject(PlanID , forKey:kPTYSAVINGPLANID)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
         print(savingPlanDetailsDict)
         //get the total amount of plan from the Dictionary
         if let amount = savingPlanDetailsDict["partySavingPlan"]![kAmount] as? NSNumber
@@ -154,10 +167,10 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             totalAmount = amount.floatValue
         }
         //get the total paid amount of plan from the Dictionary
-//        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
-//        {
-//            paidAmount = totalPaidAmount.floatValue
-//        }
+        //        if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
+        //        {
+        //            paidAmount = totalPaidAmount.floatValue
+        //        }
         
         //Set page control pages
         pageControl.currentPage = 0
@@ -171,11 +184,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             for i in 0 ..< transactionArray.count {
                 let transactionDict = transactionArray[i]
                 paidAmount = paidAmount + Float((transactionDict[kAmount] as? NSNumber)!)
-//                let str = String(format: "£%.0f",paidAmount)
-//                cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
-//                cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
-//                cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
-//                cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
+                //                let str = String(format: "£%.0f",paidAmount)
+                //                cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
+                //                cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
+                //                cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
+                //                cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
                 
             }
             print("paidAmt = \(paidAmount)")
@@ -259,7 +272,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 imgView.layer.cornerRadius = imgView.frame.width/2
             }
             else if(i == 1) {
-//                paidAmount = 1053
+                //                paidAmount = 1053
                 labelOne.hidden = false
                 labelOne.attributedText = self.createXLabelTextForPercent(i, text: String(format: "%0.f",(paidAmount*100)/totalAmount))
                 labelTwo.hidden = false
@@ -327,7 +340,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         
         let superscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:0])
         normalscript.appendAttributedString(superscript)
-         let newLinAttr = NSMutableAttributedString(string: "\n")
+        let newLinAttr = NSMutableAttributedString(string: "\n")
         normalscript.appendAttributedString(newLinAttr)
         return normalscript
     }
@@ -364,7 +377,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         let objAPI = API()
         //get keychain values
         let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
         //Call get method of wishlist API by providing partyID
@@ -420,7 +433,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             obj.endDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
             print(savingPlanDetailsDict)
             if let arr = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>> {
-            
+                
             }
             
             obj.savingPlanDict = savingPlanDetailsDict
@@ -519,8 +532,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         objAnimView.removeFromSuperview()
     }
@@ -529,8 +542,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
         if let error = objResponse["error"] as? String
         {
-//            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
+            //            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            //            alert.show()
         }
         else
         {
@@ -551,19 +564,19 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             NSUserDefaults.standardUserDefaults().synchronize()
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
-//        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
-//            if arr.count > 0{
-//                objAnimView.removeFromSuperview()
-//            }
-//        }
+        //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+        //            if arr.count > 0{
+        //                objAnimView.removeFromSuperview()
+        //            }
+        //        }
     }
     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
-//            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
+            //            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            //            alert.show()
         }
         else {
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -596,6 +609,6 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
         return replaceDict
     }
-
+    
     
 }

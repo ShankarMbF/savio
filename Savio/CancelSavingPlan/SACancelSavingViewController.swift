@@ -148,7 +148,6 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
                 let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            
         }
         else  if let message = objResponse["error"] as? String{
             let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")

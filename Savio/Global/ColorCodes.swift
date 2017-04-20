@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+typealias arrayOfDic = Array<Dictionary<String,Any>>
 
 var kLightFont: String! = "GothamRounded-Light"
 var kBookFont: String! = "GothamRounded-Book"
@@ -70,6 +71,7 @@ let kWeek : String = "Week"
 let kMonth : String = "Month"
 
 //function 
+let userDefaults = NSUserDefaults.standardUserDefaults()
 
 
 //Structure defined for Color

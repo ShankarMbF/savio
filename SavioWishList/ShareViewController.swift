@@ -80,11 +80,11 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                         if self.isWebserviceCall == false {
                             self.isWebserviceCall = true
-                        self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
-                        self.spinner.hidesWhenStopped = true
-                        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                        self.view.addSubview(self.spinner)
-                        self.spinner.startAnimating()
+//                        self.spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, 200)
+//                        self.spinner.hidesWhenStopped = true
+//                        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//                        self.view.addSubview(self.spinner)
+//                        self.spinner.startAnimating()
                         var dict : Dictionary<String,AnyObject> = [:]
                         
                         if(self.imageView.image != nil)

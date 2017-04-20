@@ -8,8 +8,10 @@
 
 import UIKit
 
+//typealias Function  = <#type expression#>
+
+
 class utility: NSObject {
 
-    
     
 }

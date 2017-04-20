@@ -12,10 +12,10 @@ import SystemConfiguration
 import Foundation
 
 //===========UAT===========
-//let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
+let baseURL = "http://54.229.66.32:80/SavioAPI/V1"
 
 //============DEV===============
-let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
+//let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
 
 //============AUTHY API KEY LIVE===============
 
@@ -661,7 +661,8 @@ class API: UIView,NSURLSessionDelegate {
         
         //        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+       
+        userDefaults.setObject(value, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
@@ -2045,7 +2046,6 @@ class API: UIView,NSURLSessionDelegate {
             request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
         }
         return request
-        
     }
     
     func valueForAPIKey(named keyname:String) -> String {

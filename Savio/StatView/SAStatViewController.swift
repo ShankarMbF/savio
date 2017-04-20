@@ -39,7 +39,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     var xLabels: Array<String> = [] //Array for holding x-axis lable
     var savingPlanDict: Dictionary<String,AnyObject>?
     
-
+    
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,20 +53,20 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         
         let savingsPlanType = savingsPlan!["partySavingPlanType"] as! String
         guard savingsPlanType == "Individual" else {
-//            if (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil
-//            {
-//                print(" There is no value ")
-//                self.lineChartFunct([],planType: "")
-//            }
+            //            if (savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>) != nil
+            //            {
+            //                print(" There is no value ")
+            //                self.lineChartFunct([],planType: "")
+            //            }
             print("______________  guard Group Condition  ______________")
             let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-
+            
             guard savingPlanDict!["partySavingPlanMembers"] == nil else {
                 
                 let SavingPlanMembers = savingPlanDict!["partySavingPlanMembers"] as? Array<Dictionary<String,AnyObject>>
                 let Transactions = SavingPlanMembers![0]["savingPlanTransactionList"]!
                 let finalAddValue = self.calcTotalAmount(Transactions as? Array<Dictionary<String, AnyObject>>)
-
+                
                 guard savingsPlan!["payType"] as! String == "Week" else {
                     self.grouplineChartFunct(transactionArr!, planType: "Month", inviteAmount: finalAddValue)
                     print("guard for month")
@@ -79,8 +79,9 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             self.lineChartFunct([],planType: "")
             return
         }
+        
         print("Function For Individual")
-
+        
         let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         print(transactionArr)
         
@@ -93,7 +94,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         self.lineChartFunct(transactionArr ?? Array<Dictionary<String,AnyObject>>(),planType: "Week")
         
         return
-        
         /*     xLabels.append("newdate")       */
     }
     
@@ -199,7 +199,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         lineChart.delegate = self
         
         self.contentView?.addSubview(lineChart)
-
+        
     }
     
     func grouplineChartFunct(transactionArr: Array<Dictionary<String,AnyObject>> , planType : String , inviteAmount : CGFloat) {
@@ -260,7 +260,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             MonthLabel.append(month)
         }
         
-        // Add inviteAmount at Last 
+        // Add inviteAmount at Last
         print(inviteAmount)
         if inviteAmount != 0{
             var finalarray = [CGFloat]()
@@ -277,15 +277,15 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
                 
             }
         }
-//        for i in 0 ..< xAxisLabels.count {
-//            if i == xAxisLabels.count - 1 {
-////                let lastArrObj = lastobj + inviteAmount
-////                print(lastArrObj)
-////                finalarray.append(lastArrObj)
-//            }else{
-//                finalarray.append(xAxisLabels[i])
-//            }
-//        }
+        //        for i in 0 ..< xAxisLabels.count {
+        //            if i == xAxisLabels.count - 1 {
+        ////                let lastArrObj = lastobj + inviteAmount
+        ////                print(lastArrObj)
+        ////                finalarray.append(lastArrObj)
+        //            }else{
+        //                finalarray.append(xAxisLabels[i])
+        //            }
+        //        }
         
         
         
@@ -328,11 +328,11 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let Idate = dateFormatter.dateFromString(Date)
         return Idate!
     }
-
-
+    
+    
     //IndCurrentDateForPlan
     //GrpCurrentDateForPlan
-
+    
     func calculateMaxPriceForYAxix(maxPrice:NSInteger) -> CGFloat {
         var outputNum:CGFloat = 0.0
         if(maxPrice < 1000){
@@ -372,7 +372,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
             }
         }
     }
-
+    
     //MARK: -
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -512,7 +512,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         //Hide add offer button from offer list
         obj.hideAddOfferButton = true
         obj.isComingProgress = true
-
+        
         //navigate to offer list
         self.navigationController?.pushViewController(obj, animated: true)
     }

@@ -422,12 +422,11 @@ class SASavingSummaryViewController: UIViewController {
             if (str == "group") {
                 let dateFormatter = NSDateFormatter()
 
-                dateFormatter.dateFormat = "YYYY-MM-DD"
+                dateFormatter.dateFormat = "yyyy-MM-dd"
                 let date = dateFormatter.dateFromString((itemDataDict[kPLANENDDATE] as? String)!)
                 
                 dateFormatter.dateFormat = "dd-MM-yyyy"
-                let goodDate = dateFormatter.stringFromDate(date!)
-                lblDate.text = goodDate
+                lblDate.text = dateFormatter.stringFromDate(date!)
                 
             }else{
                 

@@ -662,7 +662,7 @@ class API: UIView,NSURLSessionDelegate {
         //        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         
        
-        userDefaults.setObject(value, forKey: key)
+        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
         
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
@@ -1574,6 +1574,7 @@ class API: UIView,NSURLSessionDelegate {
     //MARK: Add saving card
     func addSavingCard(dictParam:Dictionary<String,AnyObject>)
     {
+        print(dictParam)
         let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.valueForKey(kUserInfo) as! NSData
         let userInfoDict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Dictionary<String,AnyObject>

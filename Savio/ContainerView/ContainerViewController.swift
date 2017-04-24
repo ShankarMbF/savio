@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Stripe
 
 let kNotificationToggleMenuView = "ToggleCentreView"   //NotificationIdentifier for toggle menu
 let kNotificationAddCentreView = "AddCentreView"       //NotificationIdentifier for menu selection
+var objAnimView = ImageViewAnimation()
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate,AddSavingCardDelegate,UIImagePickerControllerDelegate {
     //Create object for mnuviewcontroller
     var menuVC: UIViewController! = SAMenuViewController(nibName: "SAMenuViewController", bundle: nil)
     //Create object for showing selected menu
@@ -31,11 +33,21 @@ class ContainerViewController: UIViewController {
             if let savedCard =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray")
             {
                 self.setUpViewController()
+            }else {
+//                Go to SAPaymentFlowViewController if you did not find the saved card details
+//                self.centreVC = SAPaymentFlowViewController()
+                
+                let addCardViewController = STPAddCardViewController()
+                addCardViewController.delegate = self
+                // STPAddCardViewController must be shown inside a UINavigationController.
+                let navigationController = UINavigationController(rootViewController: addCardViewController)
+                self.presentViewController(navigationController, animated: true, completion: nil)
             }
         }
         else {
             self.setUpViewController()
         }
+        
         //--------------Setting up navigation controller--------------------------------
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
@@ -55,6 +67,35 @@ class ContainerViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.ToggleCentreView), name: kNotificationToggleMenuView, object: nil)
         //---------------------------------------------------------------------------------------
     }
+    
+    // Stripe Intagration
+    
+    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+        
+        let objAPI = API()
+        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
+
+        
+        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = self.view.frame
+        objAnimView.animate()
+        self.navigationController!.view.addSubview(objAnimView)
+        
+        objAPI.addSavingCardDelegate = self
+        objAPI.addSavingCard(dict)
+        
+        //Use token for backend process
+        self.dismissViewControllerAnimated(true, completion: {
+            completion(nil)
+        })
+    }
+    
     
     func setUpViewController()
     {
@@ -244,6 +285,35 @@ class ContainerViewController: UIViewController {
         self.navController.view.frame = self.view.frame
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
+    }
+    
+    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
+            {
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
+                {
+                    NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    objAnimView.removeFromSuperview()
+                    let objSummaryView = SASavingSummaryViewController()
+                    self.navigationController?.pushViewController(objSummaryView, animated: true)
+                }
+            }
+        }
+    }
+    
+    //Error response of AddSavingCardDelegate
+    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+        objAnimView.removeFromSuperview()
+        if error == kNonetworkfound {
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }else{
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
+        }
     }
     
 }

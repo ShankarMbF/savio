@@ -9,7 +9,7 @@
 import UIKit
 import Stripe
 
-class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,STPAddCardViewControllerDelegate,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate,AddSavingCardDelegate {
+class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,STPAddCardViewControllerDelegate,GetListOfUsersCardsDelegate,SetDefaultCardDelegate,ImpulseSavingDelegate,RemoveCardDelegate,AddSavingCardDelegate,AddNewSavingCardDelegate {
     
     @IBOutlet weak var cardListView: UITableView!
     @IBOutlet weak var cardViewOne: UIView!
@@ -180,7 +180,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             objAPI.setDefaultPaymentCard(newDict)
             
         } else{
-            let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "Click on Add New Card tab below and enter your card details", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -305,12 +305,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     @IBAction func addNewCardButtonPressed(sender: UIButton) {
-     
-         
-         
+       
 //         Strip SDK
- 
- 
+  
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
         // STPAddCardViewController must be shown inside a UINavigationController.
@@ -341,6 +338,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         let objAPI = API()
         let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID)]
+        
+        objAPI.addNewSavingCardDelegate = self
         objAPI.addNewSavingCard(dict)
 
         //Use token for backend process
@@ -387,7 +386,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             newDict["CUST_DEFAULT_CARD"] = dict["id"]
             objAPI.setDefaultPaymentCard(newDict)
         } else{
-            let alert = UIAlertView(title: "No data found", message: "Please try again later", delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Alert", message: "Click on Add New Card tab below and enter your card details", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         

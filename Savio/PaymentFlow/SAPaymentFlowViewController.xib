@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -153,7 +153,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only valid debit cards are accepted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h40-nL-Ddz">
-                                    <rect key="frame" x="81" y="95" width="254" height="14.5"/>
+                                    <rect key="frame" x="81" y="95" width="254" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="254" id="suG-08-2sV"/>
                                     </constraints>
@@ -204,7 +204,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rJk-TW-mEJ">
-                                            <rect key="frame" x="82.5" y="0.0" width="68.5" height="40"/>
+                                            <rect key="frame" x="83" y="0.0" width="68.5" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Pzt-4M-DED"/>
                                             </constraints>
@@ -215,7 +215,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Un-iY-eP1">
-                                            <rect key="frame" x="164.5" y="0.0" width="69" height="40"/>
+                                            <rect key="frame" x="165.5" y="0.0" width="69" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="X4T-6T-Yh5"/>
                                             </constraints>
@@ -226,7 +226,7 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5D3-6j-APN">
-                                            <rect key="frame" x="247" y="0.0" width="68" height="40"/>
+                                            <rect key="frame" x="247.5" y="0.0" width="67.5" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="TmX-LQ-iHw"/>
                                             </constraints>

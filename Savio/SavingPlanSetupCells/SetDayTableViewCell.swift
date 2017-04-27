@@ -9,26 +9,26 @@
 
 import UIKit
 
-protocol SegmentBarChangeDelegate {
+protocol SegmentBarChangeDelegate
+{
     func segmentBarChanged(str:String)
     func getDateTextField(str:String)
 }
 
-
-
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {
-    @IBOutlet weak var setDayDateButton: UIButton!
-    @IBOutlet weak var BGContentView: UIView!
-    @IBOutlet weak var dayDateTextField: UITextField!
-    @IBOutlet weak var dayDateLabel: UILabel!
-    @IBOutlet weak var titleLbl: UILabel!
+    
+    @IBOutlet weak var setDayDateButton : UIButton!
+    @IBOutlet weak var BGContentView    : UIView!
+    @IBOutlet weak var dayDateTextField : UITextField!
+    @IBOutlet weak var dayDateLabel     : UILabel!
+    @IBOutlet weak var titleLbl         : UILabel!
     @IBOutlet weak var dropDownImageView: UIImageView!
-    @IBOutlet weak var segmentBar: CustomSegmentBar!
+    @IBOutlet weak var segmentBar       : CustomSegmentBar!
     var acceptButton: UIBarButtonItem?
 
     var dayPickerView = UIPickerView()
-    let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
-    let dateArray : Array<String> = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]
+    let dayArray    : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+    let dateArray   : Array<String> = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]
     
     var segmentDelegate : SegmentBarChangeDelegate?
     var customToolBar : UIToolbar?

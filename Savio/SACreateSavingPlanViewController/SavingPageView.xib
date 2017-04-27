@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="gotham-rounded-book-2.otf">
+        <array key="gotham-rounded-book-2.otf">
             <string>GothamRounded-Book</string>
-            <string>GothamRounded-Book</string>
-            <string>GothamRounded-Book</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -31,7 +33,7 @@
                                 <constraint firstAttribute="height" constant="83" id="1ty-eO-pIh"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="11"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divider-pound.png" translatesAutoresizingMaskIntoConstraints="NO" id="wij-Ut-mOa">
@@ -48,7 +50,7 @@
                                 <constraint firstAttribute="height" constant="40" id="let-Gy-lf3"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="12"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="default">
                                 <mask key="constraints">
@@ -64,11 +66,11 @@
                                 <constraint firstAttribute="width" constant="87" id="qIV-Z9-B3m"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="GothamRounded-Book" family="Gotham Rounded" pointSize="12"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="uP2-Ie-Ro0" firstAttribute="leading" secondItem="SYK-zo-4rC" secondAttribute="leading" constant="30" id="4qt-j1-U2N"/>
                         <constraint firstItem="wij-Ut-mOa" firstAttribute="centerY" secondItem="SYK-zo-4rC" secondAttribute="centerY" id="60C-95-wly"/>
@@ -85,7 +87,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.50196078430000002" green="0.49803921569999998" blue="0.50980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.50196078430000002" green="0.49803921569999998" blue="0.50980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SYK-zo-4rC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="Tgy-7j-LFh"/>
                 <constraint firstItem="SYK-zo-4rC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WF2-Xo-U4J"/>
@@ -103,6 +105,6 @@
         </view>
     </objects>
     <resources>
-        <image name="divider-pound.png" width="94" height="16"/>
+        <image name="divider-pound.png" width="94" height="13"/>
     </resources>
 </document>

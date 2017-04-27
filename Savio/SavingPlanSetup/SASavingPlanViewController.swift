@@ -9,68 +9,74 @@
 import UIKit
 import Stripe
 
-class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,SavingPlanCostTableViewCellDelegate,SavingPlanDatePickerCellDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PartySavingPlanDelegate,SAOfferListViewDelegate,SavingPlanTitleTableViewCellDelegate,SegmentBarChangeDelegate,GetUsersPlanDelegate,UpdateSavingPlanDelegate,STPAddCardViewControllerDelegate,AddSavingCardDelegate {
+class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, SavingPlanCostTableViewCellDelegate, SavingPlanDatePickerCellDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PartySavingPlanDelegate, SAOfferListViewDelegate, SavingPlanTitleTableViewCellDelegate, SegmentBarChangeDelegate, GetUsersPlanDelegate, UpdateSavingPlanDelegate, STPAddCardViewControllerDelegate, AddSavingCardDelegate {
     
-    @IBOutlet weak var topBackgroundImageView: UIImageView!
-    @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var savingPlanTitleLabel: UILabel!
-    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
-    @IBOutlet weak var scrlView: UIScrollView!
-    @IBOutlet weak var upperView: UIView!
+    @IBOutlet weak var topBackgroundImageView   : UIImageView!
+    @IBOutlet weak var cameraButton             : UIButton!
+    @IBOutlet weak var tblView                  : UITableView!
+    @IBOutlet weak var savingPlanTitleLabel     : UILabel!
+    @IBOutlet weak var tblViewHt                : NSLayoutConstraint!
+    @IBOutlet weak var scrlView                 : UIScrollView!
+    @IBOutlet weak var upperView                : UIView!
     
-    var tokenstripeID : String = ""
-    var cost : Int = 0
-    var dateDiff : Int = 0
-    var dateString = kDate
-    var popOverSelectedStr = ""
-    var datePickerDate : String = ""
-    var itemTitle : String = ""
-    var imageDataDict : Dictionary<String,AnyObject> = [:]
+    var segmentDelegate : SegmentBarChangeDelegate?
+    
+    var tokenstripeID       : String    = ""
+    var datePickerDate      : String    = ""
+    var itemTitle           : String    = ""
+    var cost                : Int       = 0
+    var dateDiff            : Int       = 0
+    var recurringAmount     : CGFloat   = 0
+    var offerDetailHeight   : CGFloat   = 0.0
+    var isOfferShow         : Bool      = true
+    var imageDataDict       : Dictionary<String,AnyObject> = [:]
     var itemDetailsDataDict : Dictionary<String,AnyObject> = [:]
-    var offerCount = 0
-    var offerArr: Array<Dictionary<String,AnyObject>> = []
-    var updateOfferArr: Array<Dictionary<String,AnyObject>> = []
-    var userInfoDict  = Dictionary<String,AnyObject>()
-    var  objAnimView = ImageViewAnimation()
-    var isPopoverValueChanged = false
-    var isClearPressed = false
-    var isUpdatePlan = false
-    var isImageClicked = false
-    var isDateChanged = false
-    var isOfferDetailPressed = false
-    var isChangeSegment = false
-    var offerDetailHeight : CGFloat = 0.0
-    var offerDetailTag = 0
-    var prevOfferDetailTag = 0
-    var imagePicker = UIImagePickerController()
-    var isOfferShow: Bool = true
-    var payTypeStr = ""
-    var dateFromUpdatePlan = ""
-    var isCostChanged = false
+    var offerArr            : Array<Dictionary<String,AnyObject>> = []
+    var updateOfferArr      : Array<Dictionary<String,AnyObject>> = []
     
-    var isComingGallary = false
-    var recurringAmount : CGFloat = 0
+    var popOverSelectedStr  = ""
+    var payTypeStr          = ""
+    var dateFromUpdatePlan  = ""
+    var offerDetailTag      = 0
+    var prevOfferDetailTag  = 0
+    var offerCount          = 0
+    var imagePicker         = UIImagePickerController()
+    var userInfoDict        = Dictionary<String,AnyObject>()
+    var objAnimView         = ImageViewAnimation()
+    var dateString          = kDate
+
     
-    var isFromGroupMemberPlan = false
+    var isCostChanged           = false
+    var nextButtonTrigger       = false
+    var isComingGallary         = false
+    var isPopoverValueChanged   = false
+    var isClearPressed          = false
+    var isUpdatePlan            = false
+    var isImageClicked          = false
+    var isDateChanged           = false
+    var isOfferDetailPressed    = false
+    var isChangeSegment         = false
+    var isFromGroupMemberPlan   = false
     
     
     //MARK: ViewController lifeCycle method.
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         offerArr.removeAll()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         if(isUpdatePlan)
         {
             self.title = "Update plan"
-        }
-        else
+        }else
         {
             self.title = "Plan setup"
         }
         popOverSelectedStr = "1"
+        
         let font = UIFont(name: kBookFont, size: 15)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: font!]
+        
         self.navigationController?.navigationBarHidden = false
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -82,16 +88,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
         tblView!.registerNib(UINib(nibName: "SetDayTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanSetDateIdentifier")
         tblView!.registerNib(UINib(nibName: "CalculationTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCalculationIdentifier")
+        
         //OfferTableViewCell
         tblView!.registerNib(UINib(nibName: "OfferTableViewCell", bundle: nil), forCellReuseIdentifier: "OfferTableViewCellIdentifier")
         tblView!.registerNib(UINib(nibName: "NextButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "NextButtonCellIdentifier")
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
+        
         //CancelSavingPlanIdentifier
         tblView!.registerNib(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
         
         let objAPI = API()
         userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-        //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -107,24 +114,27 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         }
     }
     
-    override func viewDidLayoutSubviews() {
+    
+    //      Set the contentsize of UIScrollView
+    override func viewDidLayoutSubviews()
+    {
         super.viewDidLayoutSubviews()
-        
-        //Set the contentsize of UIScrollView
-        if  isComingGallary == false {
-            
+        if  isComingGallary == false
+        {
             self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblViewHt.constant )
         }
     }
     
     func setUpView(){
-        //set Navigation left button
+        //  set Navigation left button
         let leftBtnName = UIButton()
-        if (isUpdatePlan) {
+        if (isUpdatePlan)
+        {
             leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
             leftBtnName.addTarget(self, action: #selector(SASavingPlanViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
-        } else  {
+        } else
+        {
             leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
             leftBtnName.frame = CGRectMake(0, 0, 30, 30)
             leftBtnName.addTarget(self, action: #selector(SASavingPlanViewController.backButtonClicked), forControlEvents: .TouchUpInside)
@@ -132,8 +142,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
-        
-        //set Navigation right button nav-heart
+                
+        //  set Navigation right button nav-heart
         let btnName = UIButton()
         btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
         btnName.frame = CGRectMake(0, 0, 30, 30)
@@ -151,15 +161,17 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             }
-            else {
+            else
+            {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
         }
-        
+
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
         //Set up image
         if(itemDetailsDataDict[kImageURL] != nil && !(itemDetailsDataDict[kImageURL] is NSNull))
         {
@@ -521,7 +533,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
             if(isClearPressed) {
-                
+                print("Clear in Table Reload")
                 //                let dateFormatter = NSDateFormatter()
                 //                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
                 //                let dateComponents = NSDateComponents()
@@ -1087,8 +1099,6 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                 tblView.reloadData()
             }
             isClearPressed  = false
-            
-            
         }
         else {
             popOverSelectedStr = datePickerDate
@@ -1122,6 +1132,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
     //Clear all the data entered
     func clearButtonPressed()
     {
+        
         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
         { action -> Void in
@@ -1317,6 +1328,12 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         //Check if offers are already added or not
         if isOfferShow == false {
             //if yes create the saving plan
+            
+            if nextButtonTrigger == true {
+                nextButtonTrigger = false
+                return
+            }
+            
             self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = (self.navigationController?.view.frame)! //self.view.frame
             self.objAnimView.animate()
@@ -1328,7 +1345,7 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     /* Stripe SDK */
                     
                     print("!!!!!!!!!!!!!!!!!!Stripe SDK!!!!!!!!!!!!!!!!!!!!!")
-                    
+                    nextButtonTrigger = true
                     objAPI.createPartySavingPlan(self.getParameters(),isFromWishList: "notFromWishList")
                 }
                 else if(isUpdatePlan) {
@@ -1419,6 +1436,8 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
                     print(recurringAmount)
                     newDict[kRECURRINGAMOUNT] = String(format: "%.f", recurringAmount)
 //                    print(newDict)
+                    
+                    nextButtonTrigger = true
                     objAPI .createPartySavingPlan(newDict,isFromWishList: "FromWishList")
                 }
             }
@@ -1798,11 +1817,15 @@ class SASavingPlanViewController: UIViewController,UITableViewDelegate,UITableVi
         print(objResponse)
         if let message = objResponse["message"] as? String {
             if(message  == "Multiple representations of the same entity") {
+                nextButtonTrigger = false
+
                 let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
+                
             }
             else if(message == "Party Saving Plan is succesfully added") {
                 //Create a dictionary to send SASavingSummaryViewController
+                nextButtonTrigger = true
                 var dict :  Dictionary<String,AnyObject> = [:]
                 dict[kTitle] = self.getParameters()[kTITLE]
                 dict[kAmount] = self.getParameters()[kAMOUNT]

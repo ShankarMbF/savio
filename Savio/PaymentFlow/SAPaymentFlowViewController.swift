@@ -696,6 +696,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
         
     }
+    
     //Register keyboard notification
     func registerForKeyboardNotifications(){
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)

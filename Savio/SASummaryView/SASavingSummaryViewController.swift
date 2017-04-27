@@ -86,6 +86,11 @@ class SASavingSummaryViewController: UIViewController {
         self.setUpView() // Setup summary UI
         
         //Customize View's titel
+//        self.navigationController?.viewControllers = [self];
+        self.navigationController?.navigationBarHidden = true
+//        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+//        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+//        self.navigationController?.navigationBar.translucent = true
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
     }
     
@@ -97,7 +102,7 @@ class SASavingSummaryViewController: UIViewController {
     // Function invoke on tapping continue button
     @IBAction func btnContinueClicked(sender: AnyObject) {
         // Navigate app as per plan type
-        
+        print("click event")
         //Navigate to showing individual/group progress screen
         NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
@@ -108,8 +113,6 @@ class SASavingSummaryViewController: UIViewController {
     func setUpView(){
         NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
         NSUserDefaults.standardUserDefaults().synchronize()
-        
-        //  ----------------------------------------------------
         
         //--------------set Navigation left button------------
         let leftBtnName = UIButton()

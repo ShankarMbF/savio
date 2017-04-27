@@ -21,7 +21,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet weak var bottomViewDoneButton: UIButton!
     @IBOutlet weak var bottomViewNewCardbutton: UIButton!
     
-     var isFromGroupMemberPlan = false
+    var isFromGroupMemberPlan = false
     var isFromImpulseSaving = false
     var isFromSavingPlan = false
     var isFromEditUserInfo = false

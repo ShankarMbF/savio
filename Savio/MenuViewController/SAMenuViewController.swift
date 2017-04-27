@@ -43,6 +43,7 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.selectRow(NSIndexPath(forRow: 1,inSection: 0))
     }
     
+    
     //Function invoking for setup the UI
     func setUpUI() {
         //Create Menu's JSON file URL
@@ -150,7 +151,6 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         selectedCell?.icon?.image = imageIcon
 
         let className: String = dict["className"] as! String
-
         
         NSUserDefaults.standardUserDefaults().setObject(indexPath.row, forKey: "SelectedIndexPath")
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -158,9 +158,8 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         //Brodcast the notification for navigating flow
         if(isFromSummary == false)
         {
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
+            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: className)
         }
-        
     }
     
     // Just set it back in deselect

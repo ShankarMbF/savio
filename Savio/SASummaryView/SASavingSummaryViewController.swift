@@ -111,8 +111,8 @@ class SASavingSummaryViewController: UIViewController {
     
     //Function invoking for set up UI as per the individual or group plan
     func setUpView(){
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.removeObjectForKey("offerList")
+        userDefaults.synchronize()
         
         //--------------set Navigation left button------------
         let leftBtnName = UIButton()
@@ -156,7 +156,7 @@ class SASavingSummaryViewController: UIViewController {
         groupViewHt.constant = 0.0
         
         //-------Setup the continue button UI---------------
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
@@ -164,10 +164,10 @@ class SASavingSummaryViewController: UIViewController {
         
         let objAPI = API()
 //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
-        if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = userDefaults.objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
         {
             print(itemDataDict)
-            itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
+            itemDataDict = userDefaults.objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
             print(itemDataDict)
 
             //-------Check is invited user available or not and showing list----------------------------
@@ -248,20 +248,20 @@ class SASavingSummaryViewController: UIViewController {
                         }
                     }
                     //------------------------------------------------------------------------------------
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    userDefaults.setValue(1, forKey: kGroupPlan)
+                    userDefaults.synchronize()
                     NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 }
             }else {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(1, forKey: kIndividualPlan)
+                userDefaults.synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             }
             
             //-----------------End of showing Invited user list-------------------------------------------
             
             //--------showing wishlist count--------------------------------------------------------------
-            if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            if let str = userDefaults.objectForKey("wishlistArray") as? NSData
             {
                 let dataSave = str
                 wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -278,8 +278,8 @@ class SASavingSummaryViewController: UIViewController {
                 
                 let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
                 
-                NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setObject(dataNew, forKey: "wishlistArray")
+                userDefaults.synchronize()
                 
                 if(wishListArray.count > 0)
                 {

@@ -21,7 +21,7 @@ class CustomSegmentBar: UIView {
     let rightTitle = kWeek
     
     let fontSize: CGFloat = 10.0
-    var colorDataDict : Dictionary<String,AnyObject> =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+    var colorDataDict : Dictionary<String,AnyObject> =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
     var segmentSelected = { (idx: Int)  in
         
     }
@@ -81,6 +81,7 @@ class CustomSegmentBar: UIView {
     //Toggle between leftButton anf rightButton
     func toggleButton(sender: UIButton)  {
         segmentSelected(sender.tag)
+        
         if activeButton?.frame.origin.x == midOfToggleView {
             let widthActBtn = (self.frame.width - 2 * self.sideOffset ) / 2
             let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
@@ -102,7 +103,7 @@ class CustomSegmentBar: UIView {
             maskLayer3.path = maskPath3.CGPath
             self.activeButton?.layer.mask = maskLayer3
             self.activeButton?.setTitle(self.rightTitle, forState: UIControlState.Normal)
-            
+
         }
     }
     

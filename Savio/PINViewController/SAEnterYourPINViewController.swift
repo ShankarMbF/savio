@@ -55,7 +55,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
       
         loginButton.layer.cornerRadius = 5
         
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
@@ -249,7 +249,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
-            var userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+            var userDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
 //            param[kUserInfo] = userDict[kPartyID]
@@ -257,7 +257,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
             
-            if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+            if let apnsDeviceToken = userDefaults.valueForKey("APNSTOKEN") as? NSString
             {
                 param["PNS_DEVICE_ID"] =  apnsDeviceToken
                 
@@ -286,22 +286,22 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
-//        NSUserDefaults.standardUserDefaults().setObject(userInfoDict, forKey: "userInfo")
+//        userDefaults.setObject(userInfoDict, forKey: "userInfo")
         objAPI.storeValueInKeychainForKey(kUserInfo, value: userInfoDict)
         
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
-//       NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//        NSUserDefaults.standardUserDefaults().synchronize()
+//       userDefaults.setObject(passcode.MD5(), forKey: "myPasscode")
+//        userDefaults.synchronize()
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         
         let groupPlan = objResponse["G"] as! NSNumber
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
      //Store the plan info in NSUserDefaults
-        NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: kGroupPlan)
-        NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: kIndividualPlan)
-        NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: kGroupMemberPlan)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(groupPlan, forKey: kGroupPlan)
+        userDefaults.setObject(individualPlan, forKey: kIndividualPlan)
+        userDefaults.setObject(groupMemberPlan, forKey: kGroupMemberPlan)
+        userDefaults.synchronize()
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
         
@@ -355,8 +355,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         else {
             className = ""
         }
-        NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(className, forKey: "ShowProgress")
+        userDefaults.synchronize()
     }
     
     

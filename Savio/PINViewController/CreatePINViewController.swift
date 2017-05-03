@@ -41,7 +41,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPasscodeView.layer.cornerRadius = 3
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
@@ -190,15 +190,15 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         objAnimView.removeFromSuperview()
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
         
-        NSUserDefaults.standardUserDefaults().setObject(passcode, forKey: "pin")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(passcode, forKey: "pin")
+        userDefaults.synchronize()
         
         if let message = objResponse["message"] as? String
         {
             if(message == "Your PIN is updated Sucessfully")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                userDefaults.setObject(passcode.MD5(), forKey: "myPasscode")
+//                userDefaults.synchronize()
                 
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 headerLabel.text = "Your passcode has been reset"
@@ -259,9 +259,9 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message as! String == "User sucessfully register")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                userDefaults.setObject(passcode.MD5(), forKey: "myPasscode")
+//                userDefaults.setObject(objResponse["party"]!, forKey: "userInfo")
+//                userDefaults.synchronize()
                 
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: objResponse["party"]!)

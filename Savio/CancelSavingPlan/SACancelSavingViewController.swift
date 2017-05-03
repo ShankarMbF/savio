@@ -76,7 +76,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         btnName.addTarget(self, action: #selector(SACancelSavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -138,8 +138,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
             if (message == "Cancelled Plan successfully")
             {
                 //Remove the individualPlan's value from NSUserDefaults
-                NSUserDefaults.standardUserDefaults().setValue(0, forKey: kIndividualPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(0, forKey: kIndividualPlan)
+                userDefaults.synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 view1.hidden = true
                 view2.hidden = false

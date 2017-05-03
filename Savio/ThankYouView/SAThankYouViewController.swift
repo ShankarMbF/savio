@@ -48,7 +48,7 @@ class SAThankYouViewController: UIViewController {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAThankYouViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -95,24 +95,24 @@ class SAThankYouViewController: UIViewController {
     @IBAction func continueButtonPressed(sender: UIButton) {
         NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
         // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        let individualFlag = userDefaults.valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.valueForKey(kGroupMemberPlan) as! NSNumber
         
-        let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+        let plan = userDefaults.valueForKey("usersPlan") as? String
         //Individual plan
         if(plan == kIndividualPlan || individualFlag == 1)
         {
             let objProgressView = SAProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setValue(1, forKey: kIndividualPlan)
+            userDefaults.synchronize()
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
         }
         else if(plan == kGroupPlan || groupFlag == 1)//group plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setValue(1, forKey: kGroupPlan)
+            userDefaults.synchronize()
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             
             let objProgressView = SAGroupProgressViewController()
@@ -120,8 +120,8 @@ class SAThankYouViewController: UIViewController {
         }
         else if(plan == kGroupMemberPlan || groupMemberFlag == 1)//Group member plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setValue(1, forKey: kGroupMemberPlan)
+            userDefaults.synchronize()
             NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
             
             let objProgressView = SAGroupProgressViewController()

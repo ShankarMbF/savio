@@ -28,7 +28,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         super.awakeFromNib()
         costTextField.delegate = self
         //Get the dictionary of selected theme from NSUserdefaults
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         // corner Radius of costTextField
         costTextField.layer.cornerRadius = 4
         //set the color and corner radius for minus and plus button

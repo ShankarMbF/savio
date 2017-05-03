@@ -12,17 +12,20 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
     
     @IBOutlet weak var headerText: UILabel!
     
-    @IBOutlet var toolbar: UIToolbar!
+
+    @IBOutlet weak var yourCodeSentLabel    : UILabel!
     @IBOutlet weak var codeDoesNotMatchLabel: UILabel!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var gotItButton: UIButton!
-    @IBOutlet weak var resentCodeButton: UIButton!
-    @IBOutlet weak var fiveDigitTextField: UITextField!
-    @IBOutlet weak var yourCodeSentLabel: UILabel!
-    let objAPI = API()
+    @IBOutlet weak var backButton           : UIButton!
+    @IBOutlet weak var gotItButton          : UIButton!
+    @IBOutlet weak var resentCodeButton     : UIButton!
+    @IBOutlet weak var fiveDigitTextField   : UITextField!
+    @IBOutlet var toolbar                   : UIToolbar!
+    
+    let objAPI      = API()
     var objAnimView = ImageViewAnimation()
-    var userInfoDict : Dictionary<String,AnyObject> = [:]
+    
     var isComingFromRegistration: Bool = false
+    var userInfoDict            : Dictionary<String,AnyObject> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +36,13 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         fiveDigitTextField.layer.masksToBounds = true
         fiveDigitTextField.layer.borderWidth = 1
         fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
         //Set input accessory view to the UITextfield
         fiveDigitTextField.inputAccessoryView = toolbar
         
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
@@ -52,20 +56,19 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         
         if(isFromForgotPasscode == true)
         {
-            isFromForgotPasscode = false
-            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
-            
-            fiveDigitTextField.hidden = false
-            resentCodeButton.hidden = false
-            backButton.hidden = false
-            yourCodeSentLabel.hidden = true
+            isFromForgotPasscode        = false
+            yourCodeSentLabel.text      = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
+            fiveDigitTextField.hidden   = false
+            resentCodeButton.hidden     = false
+            backButton.hidden           = false
+            yourCodeSentLabel.hidden    = true
         }
         else {
-            yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
-            fiveDigitTextField.hidden = true
-            resentCodeButton.hidden = true
-            backButton.hidden = false
-            yourCodeSentLabel.hidden = false
+            yourCodeSentLabel.text      = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
+            fiveDigitTextField.hidden   = true
+            resentCodeButton.hidden     = true
+            backButton.hidden           = false
+            yourCodeSentLabel.hidden    = false
             
         }
     }
@@ -98,7 +101,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
          */
         if isComingFromRegistration == true {
             for viewcontroller in self.navigationController!.viewControllers as Array {
-                if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController)
+                {
+                    // change HomeVC to your viewcontroller in which you want to back.
                     self.navigationController?.popToViewController(viewcontroller , animated: true)
                     break
                 }
@@ -106,7 +111,9 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
         else{
             for viewcontroller in self.navigationController!.viewControllers as Array {
-                if viewcontroller.isKindOfClass(SAEnterYourPINViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                if viewcontroller.isKindOfClass(SAEnterYourPINViewController)
+                {
+                    // change HomeVC to your viewcontroller in which you want to back.
                     self.navigationController?.popToViewController(viewcontroller , animated: true)
                     break
                 }

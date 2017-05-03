@@ -79,7 +79,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SASwitchViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -149,8 +149,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planOneType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planOneType, forKey: kUsersPlan)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(planOneType, forKey: kUsersPlan)
+        userDefaults.synchronize()
     }
     
     @IBAction func planTwoButtonPressed(sender: AnyObject) {
@@ -175,8 +175,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planTwoType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planTwoType, forKey: kUsersPlan)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(planTwoType, forKey: kUsersPlan)
+        userDefaults.synchronize()
         
     }
     

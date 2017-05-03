@@ -19,7 +19,7 @@ class NextButtonTableViewCell: UITableViewCell {
    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         nextButton.layer.cornerRadius = 5
         nextButton.backgroundColor = self.setUpColor()
         btnVwBg.backgroundColor = self.setUpShadowColor()

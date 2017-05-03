@@ -30,7 +30,7 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         datePickerView.datePickerMode = UIDatePickerMode.Date
         
         let dateFormatter = NSDateFormatter()

@@ -18,6 +18,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tblViewHt                : NSLayoutConstraint!
     @IBOutlet weak var scrlView                 : UIScrollView!
     @IBOutlet weak var upperView                : UIView!
+    @IBOutlet weak var segmentBar       : CustomSegmentBar!
     
     var segmentDelegate : SegmentBarChangeDelegate?
     
@@ -98,7 +99,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         tblView!.registerNib(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
         
         let objAPI = API()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -151,7 +152,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.addTarget(self, action: #selector(SASavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
@@ -216,13 +217,13 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             isPopoverValueChanged = true
             isCostChanged = true
             
-            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+            imageDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
             self.cameraButton.hidden = false
         }
         else
         {
-            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+            imageDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             topBackgroundImageView.image = self.setTopImageAsPer(imageDataDict)
             self.cameraButton.hidden = false
         }
@@ -317,7 +318,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func heartBtnClicked(){
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData  {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
@@ -1145,6 +1146,8 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 self.itemTitle = ""
                 self.isClearPressed = true
                 self.dateString = kDate
+
+                
                 self.popOverSelectedStr = "1"
                 self.isCostChanged = false
                 self.datePickerDate = ""
@@ -1168,6 +1171,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 self.isCostChanged = false
                 self.isClearPressed = true
                 self.isPopoverValueChanged = false
+                self.segmentBarChanged(kDate)
                 self.setUpView()
                 
                 let count = self.offerArr.count - self.updateOfferArr.count as Int
@@ -1510,8 +1514,8 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         
         tokenstripeID = token.stripeID
         let objAPI = API()
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),kPTYSAVINGPLANID:NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
+        let userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),kPTYSAVINGPLANID:userDefaults.valueForKey(kPTYSAVINGPLANID) as! NSNumber]
 //        print(dict)
         objAPI.addSavingCardDelegate = self
         objAPI.addSavingCard(dict)
@@ -1521,8 +1525,8 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             completion(nil)
         })
         
-        NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(1, forKey: "saveCardArray")
+        userDefaults.synchronize()
         
         print("+++++++++++++++++++++++++++++++")
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -1884,16 +1888,16 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 }
                 dict["planType"] = "individual"
                 let objAPI = API()
-                //                NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
+                //                userDefaults.setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
                 
-                NSUserDefaults.standardUserDefaults().setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
-                NSUserDefaults.standardUserDefaults().setValue(kIndividualPlan, forKey: "usersPlan")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
+                userDefaults.setValue(kIndividualPlan, forKey: "usersPlan")
+                userDefaults.synchronize()
                 
                 //                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 
-                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray")
+                if let saveCardArray = userDefaults.objectForKey("saveCardArray")
                 {
                     let objSavedCardView = SASaveCardViewController()
                     objSavedCardView.isFromSavingPlan = true
@@ -1981,8 +1985,8 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             dict["planType"] = "individual"
             
             let objAPI = API()
-            //            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
-            //            NSUserDefaults.standardUserDefaults().synchronize()
+            //            userDefaults.setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
+            //            userDefaults.synchronize()
             objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict))
             let objSummaryView = SASavingSummaryViewController()
             objSummaryView.itemDataDict =  dict
@@ -2043,15 +2047,15 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
-                    NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    userDefaults.setObject(1, forKey: "saveCardArray")
+                    userDefaults.synchronize()
                     objAnimView.removeFromSuperview()
                     if(self.isFromGroupMemberPlan == true)
                     {
                         //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        userDefaults.setValue(1, forKey: kGroupMemberPlan)
+                        userDefaults.synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }

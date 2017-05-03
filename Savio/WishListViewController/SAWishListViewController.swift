@@ -57,7 +57,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAWishListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         //check if wishlist product is empty or not
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
@@ -77,8 +77,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         else {
             let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
-            NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(dataNew, forKey: "wishlistArray")
+            userDefaults.synchronize()
         }
         
         let rightBarButton = UIBarButtonItem()
@@ -105,7 +105,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         //------Create object of API class and request to server for get wishlist----------------
         let objAPI = API()
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         //provide the partyID as a parameter to API
         if(userDict[kPartyID] is String)
@@ -155,7 +155,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             //Not invited for group member
             if(sharedPartySavingPlan == 0)
             {
-                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0) {
+                if(userDefaults.objectForKey(kIndividualPlan) as? NSNumber == 0 && userDefaults.objectForKey(kGroupPlan) as? NSNumber == 0) {
                     cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
@@ -168,7 +168,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             else
             {
                 //Invited for group member
-                if(NSUserDefaults.standardUserDefaults().objectForKey(kGroupMemberPlan) as? NSNumber == 0){
+                if(userDefaults.objectForKey(kGroupMemberPlan) as? NSNumber == 0){
                     cell.btnSavingPlan?.setTitle("Join Group", forState: UIControlState.Normal)
                     cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.joinGroupSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.deleteButtonTopSpace.constant = 60
@@ -182,7 +182,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         else
         {
             //Not invited for group member
-            if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
+            if(userDefaults.objectForKey(kIndividualPlan) as? NSNumber == 0 && userDefaults.objectForKey(kGroupPlan) as? NSNumber == 0){
                 cell.btnSavingPlan?.setTitle("Start plan", forState: UIControlState.Normal)
                 cell.btnSavingPlan?.addTarget(self, action: #selector(SAWishListViewController.navigateToSetUpSavingPlan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.deleteButtonTopSpace.constant = 60
@@ -244,7 +244,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(sharedPartySavingPlan == 0)
             {
                 //If any plan is already created by login user then hide start saving button
-                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
+                if(userDefaults.objectForKey(kIndividualPlan) as? NSNumber == 0 && userDefaults.objectForKey(kGroupPlan) as? NSNumber == 0){
                     return 310.0
                 }
                 else{
@@ -254,7 +254,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             else
             {
                 //If already join other group then hide Join button
-                if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
+                if(userDefaults.objectForKey(kIndividualPlan) as? NSNumber == 0 && userDefaults.objectForKey(kGroupPlan) as? NSNumber == 0){
                     return 310.0
                 }
                 else{
@@ -264,7 +264,7 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         }
         else
         {
-            if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 0 && NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 0){
+            if(userDefaults.objectForKey(kIndividualPlan) as? NSNumber == 0 && userDefaults.objectForKey(kGroupPlan) as? NSNumber == 0){
                 return 310.0
                 
             }
@@ -277,8 +277,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //Function navigate when user tapping on start saving plan button and navigate to setup plan screen
     func navigateToSetUpSavingPlan(sender:UIButton) {
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         
         let objSavingPlanViewController = SASavingPlanViewController(nibName: "SASavingPlanViewController",bundle: nil)
         objSavingPlanViewController.itemDetailsDataDict = wishListArray[sender.tag]
@@ -289,8 +289,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func joinGroupSavingPlan(sender: UIButton)
     {
         let dict = ["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group Save","detail":"Set up savings goal between friends and family","savPlanID":85]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         
         let objSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
         let groupDict = wishListArray[sender.tag] 
@@ -331,8 +331,8 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             self.wishListTable?.reloadData()
             let dataNew = NSKeyedArchiver.archivedDataWithRootObject(self.wishListArray)
             
-            NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(dataNew, forKey: "wishlistArray")
+            userDefaults.synchronize()
             })
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)

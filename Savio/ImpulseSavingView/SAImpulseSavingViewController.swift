@@ -67,7 +67,7 @@ class SAImpulseSavingViewController: UIViewController {
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ImpMaxAmount = NSUserDefaults.standardUserDefaults().valueForKey("ImpMaxAmount") as! Float
+        let ImpMaxAmount = userDefaults.valueForKey("ImpMaxAmount") as! Float
         maxPrice = ImpMaxAmount
         self.buildCircleSlider()
         self.setUpView()
@@ -84,9 +84,9 @@ class SAImpulseSavingViewController: UIViewController {
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.hidden = true
             
-            if let _ = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
+            if let _ = userDefaults.valueForKey("ImpulseAmount") as? String
             {
-               priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+               priceLabel.text = String(format:"£%@",(userDefaults.valueForKey("ImpulseAmount") as? String)!)
             }else {
                 priceLabel.text = "£0"
             }
@@ -101,7 +101,7 @@ class SAImpulseSavingViewController: UIViewController {
             addFundsButton.backgroundColor = UIColor(red : 244/255,
                                                      green : 172/255,
                                                      blue : 58/255, alpha: 1)
-            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(userDefaults.valueForKey("ImpulseAmount") as? String)!)
             isFromPayment = false
             
   
@@ -226,7 +226,7 @@ class SAImpulseSavingViewController: UIViewController {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAImpulseSavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -357,8 +357,8 @@ class SAImpulseSavingViewController: UIViewController {
         obj.savID = 92
         //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         obj.hideAddOfferButton = true
         obj.isComingProgress = true
         self.navigationController?.pushViewController(obj, animated: true)
@@ -394,8 +394,8 @@ class SAImpulseSavingViewController: UIViewController {
                 alert.show()
             }
             else {
-                NSUserDefaults.standardUserDefaults().setValue(tfString, forKey: "ImpulseAmount")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(tfString, forKey: "ImpulseAmount")
+                userDefaults.synchronize()
                 let objSavedCardView = SASaveCardViewController()
                 objSavedCardView.isFromImpulseSaving = true
 //                objSavedCardView.isFromGroupMemberPlan = self.
@@ -405,7 +405,7 @@ class SAImpulseSavingViewController: UIViewController {
         }
         else
         {
-            if let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+            if let plan = userDefaults.valueForKey("usersPlan") as? String
             { //Individual plan
                 if(plan == kIndividualPlan)
                 {

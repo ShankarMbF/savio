@@ -69,7 +69,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             btnName.addTarget(self, action: #selector(SASaveCardViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
             
-            if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            if let str = userDefaults.objectForKey("wishlistArray") as? NSData
             {
                 let dataSave = str
                 wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -126,7 +126,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         objAnimView.animate()
         self.view.addSubview(self.objAnimView)
         
-        if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if var activeCard = userDefaults.valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
             if var trimmedString = activeCard["cardNumber"] as? String
             {
@@ -165,7 +165,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     func doneBtnClicked()
     {
-        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if let dict = userDefaults.valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
@@ -267,8 +267,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         
         let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
-        NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setValue(dict, forKey: "activeCard")
+        userDefaults.synchronize()
         let trimmedString: String = (dict["last4"] as? String)!
         cardLastFourDigitTextField.text = trimmedString
         
@@ -336,7 +336,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
         
         let objAPI = API()
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID)]
         
         objAPI.addNewSavingCardDelegate = self
@@ -373,7 +373,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     //Call the API to set selected card as Default card
     @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
-        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if let dict = userDefaults.valueForKey("activeCard") as? Dictionary<String,AnyObject>
         {
             objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
@@ -431,7 +431,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let dict = cardListResponse["exCollection"] as! Dictionary<String, AnyObject>
                 savedCardArray = dict["data"]! as! Array<Dictionary<String,AnyObject>>
                 let newDict = self.checkNullDataFromDict(savedCardArray[0])
-                NSUserDefaults.standardUserDefaults().setValue(newDict, forKey: "activeCard")
+                userDefaults.setValue(newDict, forKey: "activeCard")
                 cardListView.reloadData()
                 cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
                 let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0))as? CardTableViewCell
@@ -440,7 +440,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let objAPI = API()
             }
         }
-        print(NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray"))
+        print(userDefaults.valueForKey("saveCardArray"))
     }
     
     //Error reponse of GetListOfUsersCardsDelegate
@@ -458,9 +458,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //Success reponse of SetDefaultCardDelegate
     func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>)
     {
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        let individualFlag = userDefaults.valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.valueForKey(kGroupMemberPlan) as! NSNumber
         if(isFromSavingPlan)
         {
             let objSummaryView = SASavingSummaryViewController()
@@ -488,26 +488,26 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         else if isFromGroupMemberPlan == true {
             //Navigate to showing group progress
             self.isFromGroupMemberPlan = false
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setValue(1, forKey: kGroupMemberPlan)
+            userDefaults.synchronize()
             let objThankyYouView = SAThankYouViewController()
             self.navigationController?.pushViewController(objThankyYouView, animated: true)
         }
         else if (isFromImpulseSaving == true){
             let objAPI = API()
             objAPI.impulseSavingDelegate = self
-            let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            let dict = userDefaults.valueForKey("activeCard") as? Dictionary<String,AnyObject>
             var newDict : Dictionary<String,AnyObject> = [:]
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
             newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-            newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+            newDict[kAMOUNT] = userDefaults.valueForKey("ImpulseAmount")
             newDict["PAYMENT_TYPE"] = "debit"
             newDict["AUTH_CODE"] = "test"
             newDict["Consumer"] = "APP"
-            newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
+            newDict[kPTYSAVINGPLANID] = userDefaults.valueForKey(kPTYSAVINGPLANID) as! NSNumber
             print(newDict)
             objAPI.impulseSavingDelegate = self
             objAPI.impulseSaving(newDict)
@@ -517,16 +517,16 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             //Navigate user to Progress screen
             if(individualFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(1, forKey: kIndividualPlan)
+                userDefaults.synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
             else if(groupMemberFlag == 1 || groupFlag == 1)
-            {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
+            {   userDefaults.setValue(1, forKey: kGroupPlan)
+                userDefaults.synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
@@ -534,8 +534,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             }
             else if(groupMemberFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setValue(1, forKey: kGroupMemberPlan)
+                userDefaults.synchronize()
                 NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
@@ -605,11 +605,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             self.savedCardArray.removeAtIndex(removeCardTag)
             self.cardListView.reloadData()
         
-//        var arr = NSUserDefaults.standardUserDefaults().valueForKey(<#T##key: String##String#>)
+//        var arr = userDefaults.valueForKey(<#T##key: String##String#>)
 //        objAnimView.removeFromSuperview()
         
         
-//        if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+//        if let saveCardArray = userDefaults.objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
 //        {
 //            array = saveCardArray
 //            var cardNumberArray : Array<String> = []
@@ -621,9 +621,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
 //            if(cardNumberArray.contains(cardNum) == false)
 //            {
 //                array.append(dict1)
-//                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
-//                //                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                userDefaults.setValue(dict1, forKey: "activeCard")
+//                //                                        userDefaults.setObject(array, forKey: "saveCardArray")
+//                userDefaults.synchronize()
 //                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
 //                
 //                
@@ -674,8 +674,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                     {
                         //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        userDefaults.setValue(1, forKey: kGroupMemberPlan)
+                        userDefaults.synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }
@@ -711,8 +711,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 {
                     //Navigate to showing group progress
                     self.isFromGroupMemberPlan = false
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    userDefaults.setValue(1, forKey: kGroupMemberPlan)
+                    userDefaults.synchronize()
                     let objThankyYouView = SAThankYouViewController()
                     self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     
@@ -721,18 +721,18 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                     objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+                    let userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
                     //                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
                     let dateFormatter = NSDateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
                     newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-                    newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
+                    newDict[kAMOUNT] = userDefaults.valueForKey("ImpulseAmount")
                     newDict["PAYMENT_TYPE"] = "debit"
                     newDict["AUTH_CODE"] = "test"
                     newDict["consumer"] = "APP"
-                    newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
+                    newDict[kPTYSAVINGPLANID] = userDefaults.valueForKey(kPTYSAVINGPLANID) as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)
                 }

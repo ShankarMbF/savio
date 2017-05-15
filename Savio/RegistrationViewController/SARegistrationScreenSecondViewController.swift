@@ -7,13 +7,37 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 protocol RegistrationViewErrorDelegate {
-    func getValues(firstName:String,lastName:String,dateOfBirth:String)
+    func getValues(_ firstName:String,lastName:String,dateOfBirth:String)
     
 }
 
-class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate,NSURLSessionDelegate {
+class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate,URLSessionDelegate {
     
     @IBOutlet weak var registerScrollViewSecond: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -61,13 +85,13 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         super.viewDidLayoutSubviews()
         //set the height on contentview and content size of UIScrollview
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
-        registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        registerScrollViewSecond.contentSize = CGSize(width: 0, height: contentViewHt.constant + 20)
     }
     func setUpView()
     {
         //set the height on contentview and content size of UIScrollview
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
-        registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        registerScrollViewSecond.contentSize = CGSize(width: 0, height: contentViewHt.constant + 20)
         
         //Customization of find address text field
         findAddressTextField?.layer.cornerRadius = 2.0
@@ -75,7 +99,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         findAddressTextField?.layer.borderWidth=1.0
         let placeholder1 = NSAttributedString(string:"Postcode" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         findAddressTextField?.attributedPlaceholder = placeholder1;
-        findAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        findAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of select address text field
         selectAddressTextField?.layer.cornerRadius = 2.0
@@ -83,7 +107,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         selectAddressTextField?.layer.borderWidth=1.0
         let placeholder2 = NSAttributedString(string:"Select address" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         selectAddressTextField?.attributedPlaceholder = placeholder2;
-        selectAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        selectAddressTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of address line one text field
         addressLineOneTextField?.layer.cornerRadius = 2.0
@@ -91,7 +115,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineOneTextField?.layer.borderWidth=1.0
         let placeholder3 = NSAttributedString(string:"Address Line 1" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         addressLineOneTextField?.attributedPlaceholder = placeholder3;
-        addressLineOneTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        addressLineOneTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of address line two text field
         addressLineTwoTextField?.layer.cornerRadius = 2.0
@@ -99,7 +123,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineTwoTextField?.layer.borderWidth=1.0
         let placeholder4 = NSAttributedString(string:"Address Line 2" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         addressLineTwoTextField?.attributedPlaceholder = placeholder4;
-        addressLineTwoTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        addressLineTwoTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of address line three text field
         addressLineThreeTextField?.layer.cornerRadius = 2.0
@@ -107,7 +131,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         addressLineThreeTextField?.layer.borderWidth=1.0
         let placeholder5 = NSAttributedString(string:"Address Line 3" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         addressLineThreeTextField?.attributedPlaceholder = placeholder5;
-        addressLineThreeTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        addressLineThreeTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of town text field
         townTextField?.layer.cornerRadius = 2.0
@@ -115,7 +139,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         townTextField?.layer.borderWidth=1.0
         let placeholder6 = NSAttributedString(string:kTown , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         townTextField?.attributedPlaceholder = placeholder6;
-        townTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        townTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of county text field
         countyTextField?.layer.cornerRadius = 2.0
@@ -123,7 +147,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         countyTextField?.layer.borderWidth=1.0
         let placeholder7 = NSAttributedString(string:kCounty , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         countyTextField?.attributedPlaceholder = placeholder7;
-        countyTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        countyTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         findAddressButton.layer.cornerRadius = 2.0
         registerButtonBgView.layer.cornerRadius = 2.0
@@ -147,8 +171,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         if findAddressTextField.text=="" {
             errorFlag = true
             findAddressErrorLabel.text = "Don’t forget your postcode"
-            findAddressTextField.layer.borderColor = UIColor.redColor().CGColor
-            findAddressTextField.textColor = UIColor.redColor()
+            findAddressTextField.layer.borderColor = UIColor.red.cgColor
+            findAddressTextField.textColor = UIColor.red
         }
         
         //Validations for address line one text field
@@ -158,11 +182,11 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             addressLineOneErrolLabel.text = "Don’t forget your house number"
             addressLineOneTopSpace.constant = 21
             addressLineOneErrorLabelTopSpace.constant = 5
-            selectAddressTextField.hidden = true
-            addressDropDownButton.hidden = true
-            addressLineOneTextField.layer.borderColor = UIColor.redColor().CGColor
-            addressLineTwoTextField.layer.borderColor = UIColor.redColor().CGColor
-            addressLineThreeTextField.layer.borderColor = UIColor.redColor().CGColor
+            selectAddressTextField.isHidden = true
+            addressDropDownButton.isHidden = true
+            addressLineOneTextField.layer.borderColor = UIColor.red.cgColor
+            addressLineTwoTextField.layer.borderColor = UIColor.red.cgColor
+            addressLineThreeTextField.layer.borderColor = UIColor.red.cgColor
         }
         
         //Validations for town text field
@@ -171,7 +195,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             errorFlag = true
             townErrorLabel.text = "Don’t forget your town"
             townTextFieldTopSpace.constant = 21
-            townTextField.layer.borderColor = UIColor.redColor().CGColor
+            townTextField.layer.borderColor = UIColor.red.cgColor
         }
         
         //Validations for county text field
@@ -180,28 +204,28 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             errorFlag = true
             countyErrorLabel.text = "Don’t forget your county"
             countyTextFieldTopspace.constant = 21
-            countyTextField.layer.borderColor = UIColor.redColor().CGColor
+            countyTextField.layer.borderColor = UIColor.red.cgColor
         }
         
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
-        registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        registerScrollViewSecond.contentSize = CGSize(width: 0, height: contentViewHt.constant + 20)
         
         return errorFlag
     }
     
     
     //UITextfield delegate method
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
-        activeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        activeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         return true
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         activeTextField = textField
-        activeTextField.textColor = UIColor.blackColor()
+        activeTextField.textColor = UIColor.black
         if(textField == selectAddressTextField)
         {
             self.showOrDismiss()
@@ -210,14 +234,14 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        activeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        activeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
     }
     
-    @IBAction func findAddressButtonPressed(sender: AnyObject) {
+    @IBAction func findAddressButtonPressed(_ sender: AnyObject) {
         activeTextField.resignFirstResponder()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         if(arrayAddress.count > 0)
@@ -229,7 +253,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         findAddressErrorLabel.text = ""
         let objGetAddressAPI: API = API()
         objGetAddressAPI.delegate = self
-        let trimmedString = findAddressTextField.text!.stringByReplacingOccurrencesOfString(" ", withString: "")
+        let trimmedString = findAddressTextField.text!.replacingOccurrences(of: " ", with: "")
         
         if trimmedString.characters.count == 0 {
             let alert = UIAlertView(title: "Sorry!", message: "Please enter your postcode to find your address and try again", delegate: nil, cancelButtonTitle: "Ok")
@@ -242,9 +266,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     //Importanat information view delegate method
-    func acceptPolicy(obj:ImportantInformationView){
+    func acceptPolicy(_ obj:ImportantInformationView){
         let objAPI = API()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -255,39 +279,39 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     
-    @IBAction func registerButtonPressed(sender: AnyObject) {
+    @IBAction func registerButtonPressed(_ sender: AnyObject) {
         
         //Check the text field validations to go further for registration
         if(self.checkTextFieldValidation() == false)
         {
-            userInfoDict["address_1"] = addressLineOneTextField.text
-            userInfoDict["address_2"] = addressLineTwoTextField.text
-            userInfoDict["address_3"] = addressLineThreeTextField.text
-            userInfoDict["town"] = townTextField.text
-            userInfoDict["county"] = countyTextField.text
-            userInfoDict["post_code"] = findAddressTextField.text
+            userInfoDict["address_1"] = addressLineOneTextField.text as AnyObject
+            userInfoDict["address_2"] = addressLineTwoTextField.text as AnyObject
+            userInfoDict["address_3"] = addressLineThreeTextField.text as AnyObject
+            userInfoDict["town"] = townTextField.text as AnyObject
+            userInfoDict["county"] = countyTextField.text as AnyObject
+            userInfoDict["post_code"] = findAddressTextField.text as AnyObject
             let udidDict : Dictionary<String,AnyObject>
            
-            if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+            if let apnsDeviceToken = UserDefaults.standard.value(forKey: "APNSTOKEN") as? NSString
             {
-                udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
+                udidDict = ["DEVICE_ID":Device.udid as AnyObject, "PNS_DEVICE_ID": apnsDeviceToken]
                  print(udidDict)
             } else {
-                udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": ""]
+                udidDict = ["DEVICE_ID":Device.udid as AnyObject, "PNS_DEVICE_ID": "" as AnyObject]
                  print(udidDict)
             }
             let udidArray: Array<Dictionary<String,AnyObject>> = [udidDict]
-            userInfoDict["deviceRegistration"] =  udidArray
-            userInfoDict["party_role"] =  4
+            userInfoDict["deviceRegistration"] =  udidArray as AnyObject
+            userInfoDict["party_role"] =  4 as AnyObject
             
-            objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+            objimpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Terms and Conditions"//"Why do we need this information?"
             
 //            termAndConditionText = termAndConditionText?.stringByReplacingOccurrencesOfString("\"", withString: "&quot")
 //            print(termAndConditionText!)
             if termAndConditionText?.characters.count > 0{
             
-            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+            let theAttributedString = try! NSAttributedString(data: termAndConditionText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                               options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                               documentAttributes: nil)
 
@@ -298,7 +322,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             self.view.addSubview(objimpInfo)
             }
             else{
-                objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+                objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView.frame = self.view.frame
                 objAnimView.animate()
                 self.view.addSubview(objAnimView)
@@ -310,36 +334,36 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             self.checkTextFieldValidation()
         }
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
-        registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        registerScrollViewSecond.contentSize = CGSize(width: 0, height: contentViewHt.constant + 20)
     }
     
-    func callTermAndConditionAPI(flag:Bool) {
+    func callTermAndConditionAPI(_ flag:Bool) {
         let objAPI = API()
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let utf8str = String(format: "%@:%@",partyID,cookie).data(using: String.Encoding.utf8)
+        let base64Encoded = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        let urlconfig = URLSessionConfiguration.default
         //Check if network is present
         if(objAPI.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
-            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
+            let request = NSMutableURLRequest(url: URL(string: String(format:"%@/Content/9",baseURL))!)
 //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if let data = data
                 {
 //                    print(response?.description)
-                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         print(dict)
-                        dispatch_async(dispatch_get_main_queue())
+                        DispatchQueue.main.async
                         {
                             if dict["errorCode"] as! String == "200"{
                                 if flag == false {
@@ -350,9 +374,9 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                                     let respoDict = self.checkNullDataFromDict(dict["content"]! as! Dictionary<String,AnyObject>)
                                      self.termAndConditionText = respoDict["content"] as! String
                                     self.objAnimView.removeFromSuperview()
-                                    self.objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                    self.objimpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                                     self.objimpInfo.lblHeader.text = "Terms and Conditions"
-                                    let theAttributedString = try! NSAttributedString(data: self.termAndConditionText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                    let theAttributedString = try! NSAttributedString(data: self.termAndConditionText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                                                       options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                                                       documentAttributes: nil)
                                     
@@ -366,51 +390,51 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                         }
                     }
                     else {
-                        dispatch_async(dispatch_get_main_queue()){
+                        DispatchQueue.main.async{
                         }
                     }
                 }
                 else  if let error = error  {
-                    dispatch_async(dispatch_get_main_queue()){
+                    DispatchQueue.main.async{
                     }
                     
                 }
-            }
+            }) 
             dataTask.resume()
         }
         else {
         }
     }
     
-    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseFortermAndConditionAPI(_ objResponse:Dictionary<String,AnyObject>){
         print(objResponse["content"]!)
         termAndConditionText = objResponse["content"] as! String
     }
 
-    func errorResponseFortermAndConditionAPI(error:String){
+    func errorResponseFortermAndConditionAPI(_ error:String){
         
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SARegistrationScreenSecondViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (registerScrollViewSecond?.contentOffset)!
         let yOfTextField = activeTextField.frame.origin.y
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -420,29 +444,29 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         registerScrollViewSecond?.setContentOffset(lastOffset, animated: true)
     }
     
-    @IBAction func backButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonPressed(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func selectAddressArrowPressed(sender: AnyObject) {
+    @IBAction func selectAddressArrowPressed(_ sender: AnyObject) {
         self.showOrDismiss()
     }
     
-    func sortTwoString(value1: String, value2: String) -> Bool {
+    func sortTwoString(_ value1: String, value2: String) -> Bool {
         // One string is alphabetically first.
         // ... True means value1 precedes value2.
         return value1 < value2;
     }
     
     func showOrDismiss(){
-        if dropDown.hidden {
+        if dropDown.isHidden {
             dropDown.show()
         } else {
             dropDown.hide()
@@ -451,7 +475,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     //Set up drop down for address list
     func setUpDropDown(){
-        arrayAddress.sortInPlace { sortTwoString($0, value2: $1) }
+        arrayAddress.sort { sortTwoString($0, value2: $1) }
         dropDown.dataSource = arrayAddress
         self.dropDown.selectionBackgroundColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         // dropdown selection action
@@ -465,36 +489,36 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             self.townTextField.text = fullNameArr[fullNameArr.count-2]
             self.countyTextField.text = fullNameArr[fullNameArr.count-1]
             
-            self.addressLineOneTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.addressLineTwoTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.addressLineThreeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.townTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-            self.countyTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.addressLineOneTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+            self.addressLineTwoTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+            self.addressLineThreeTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+            self.townTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+            self.countyTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
             self.townTextFieldTopSpace.constant = 5
             self.countyTextFieldTopspace.constant = 5
         }
         //added bottom offset for dropdown
         dropDown.anchorView = selectAddressTextField
         dropDown.bottomOffset = CGPoint(x: 0, y:selectAddressTextField!.bounds.height)
-        dropDown.backgroundColor = UIColor.whiteColor()
+        dropDown.backgroundColor = UIColor.white
         
     }
     
     //Post code verification delegate methods
-    func success(addressArray: Array<String>) {
+    func success(_ addressArray: Array<String>) {
         objAnimView.removeFromSuperview()
         arrayAddress = addressArray
         addressLineOneTopSpace.constant = 40
-        selectAddressTextField.hidden = false
-        addressDropDownButton.hidden = false
+        selectAddressTextField.isHidden = false
+        addressDropDownButton.isHidden = false
         addressLineOneErrolLabel.text = ""
         contentViewHt.constant = backButton.frame.origin.y + backButton.frame.size.height + 40
-        registerScrollViewSecond.contentSize = CGSizeMake(0, contentViewHt.constant + 20)
+        registerScrollViewSecond.contentSize = CGSize(width: 0, height: contentViewHt.constant + 20)
         self.setUpDropDown()
         selectAddressTextField.becomeFirstResponder()
     }
     
-    func error(error: String) {
+    func error(_ error: String) {
         objAnimView.removeFromSuperview()
         if(error == "Network not available")
         {
@@ -513,7 +537,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
     }
     //Registration delegate methods
-    func successResponseForRegistrationAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForRegistrationAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         let errorCode = (objResponse["errorCode"] as! NSString).integerValue
         if errorCode == 200 {
@@ -521,16 +545,16 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let objAPI = API()
 //            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
 //            NSUserDefaults.standardUserDefaults().synchronize()
-            objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
+            objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>) as AnyObject)
 //            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
 //            {
 //                objAPI.deleteKeychainValue("myPasscode")
 //            }
             
-            if let passcode = NSUserDefaults.standardUserDefaults().objectForKey("myPasscode") as? String
+            if (UserDefaults.standard.object(forKey: "myPasscode") as? String) != nil
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("myPasscode")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.removeObject(forKey: "myPasscode")
+                UserDefaults.standard.synchronize()
             }
             
             objAPI.otpSentDelegate = self
@@ -538,18 +562,18 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else if errorCode == 201 {
              objAnimView.removeFromSuperview()
-            let alert = UIAlertController(title: "Welcome back! You need to create you a new Passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
+            let alert = UIAlertController(title: "Welcome back! You need to create you a new Passcode so you can login easily.", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
 //                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
 //                NSUserDefaults.standardUserDefaults().synchronize()
-                objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
+                objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>) as AnyObject)
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
                 self.navigationController?.pushViewController(objCreatePINView, animated: true)
             }))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
         else if errorCode == 202 {
              objAnimView.removeFromSuperview()
@@ -560,17 +584,17 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
 //            let msg = objResponse["message"] as! String
             let msg = self.messageForUser(objResponse)
             
-            let alert = UIAlertController(title: "Welcome back!  Some of your details match our records but not all of them.", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+            let alert = UIAlertController(title: "Welcome back!  Some of your details match our records but not all of them.", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default)
             { action -> Void in
 //                self.registrationViewErrorDelegate?.getValues(firstName, lastName: lastName, dateOfBirth: dateOfBirth)
-                self.navigationController?.popViewControllerAnimated(true)
+                self.navigationController?.popViewController(animated: true)
                 })
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func messageForUser(response: Dictionary<String,AnyObject>)->String{
+    func messageForUser(_ response: Dictionary<String,AnyObject>)->String{
         var returnMsg = ""
         let msgFromServer = response["message"] as! String
         
@@ -595,7 +619,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         return returnMsg
     }
     
-    func errorResponseForRegistrationAPI(error: String) {
+    func errorResponseForRegistrationAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
@@ -608,21 +632,21 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     //OTP Verification Delegate Method
-    func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
+    func successResponseForOTPSentAPI(_ objResponse:Dictionary<String,AnyObject>)
     {
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
         fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
-    func errorResponseForOTPSentAPI(error:String){
+    func errorResponseForOTPSentAPI(_ error:String){
         objAnimView.removeFromSuperview()
         let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
         fiveDigitVerificationViewController.isComingFromRegistration = true
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         let arr = self.view.subviews
         for obj in arr
@@ -635,7 +659,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     }
     
     //function checking any key is null and return not null values in dictionary
-    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
@@ -643,24 +667,24 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank
+                replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
                 }
-                replaceDict[key] = newArr
+                replaceDict[key] = newArr as AnyObject
             }
         }
         return replaceDict
     }
 
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
 

@@ -7,8 +7,32 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate,NSURLSessionDelegate{
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
+class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegate,UIScrollViewDelegate,URLSessionDelegate{
     
     @IBOutlet weak var registerOneScrollView: UIScrollView!
     @IBOutlet weak var titleOrNameErrorLabel: UILabel!
@@ -43,7 +67,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     var fName = ""
     var lName = ""
     var dob = ""
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     var impText: String?
      var objAnimView = ImageViewAnimation()
     
@@ -57,7 +81,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 //        objApi.deleteKeychainValue("savingPlanDict")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         errorFlag = false
         self.setUpView()
@@ -71,12 +95,12 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         titleTextField?.layer.borderWidth=1.0
         let placeholder = NSAttributedString(string:"Title" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         titleTextField?.attributedPlaceholder = placeholder;
-        titleTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        titleTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Setting drop down list for titleTextField
         dropDown.anchorView = titleTextField
-        dropDown.backgroundColor = UIColor.whiteColor()
-        self.dropDown.textColor = UIColor.blackColor()
+        dropDown.backgroundColor = UIColor.white
+        self.dropDown.textColor = UIColor.black
         self.dropDown.selectionBackgroundColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         dropDown.dataSource = [
             "Mr",
@@ -86,7 +110,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         //Selection action of dropdown
         dropDown.selectionAction = { [unowned self] (index, item) in
             self.titleTextField?.text = item
-            self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+            self.titleTextField.layer.borderColor =  UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         }
         
          //Customization of name text field
@@ -95,7 +119,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         nameTextField?.layer.borderWidth=1.0
         let placeholder1 = NSAttributedString(string:"Name" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         nameTextField?.attributedPlaceholder = placeholder1;
-        nameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        nameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
          //Customization of surname text field
         surnameTextField?.layer.cornerRadius = 2.0
@@ -103,7 +127,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         surnameTextField?.layer.borderWidth=1.0
         let placeholder2 = NSAttributedString(string:kSurname , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         surnameTextField?.attributedPlaceholder = placeholder2;
-        surnameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        surnameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
          //Customization of DOB text field
         dateOfBirthTextField?.layer.cornerRadius = 2.0
@@ -111,26 +135,26 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         dateOfBirthTextField?.layer.borderWidth=1.0
         let placeholder3 = NSAttributedString(string:"Date of birth" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         dateOfBirthTextField?.attributedPlaceholder = placeholder3;
-        dateOfBirthTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        dateOfBirthTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //add custom tool bar for UIDatePickerView
-        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SARegistrationScreenOneViewController.cancelBarButtonPressed))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        let customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SARegistrationScreenOneViewController.cancelBarButtonPressed))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
         //Set datepickerview as input view and customtoolbar as inputAccessoryViewto DOB textfield
         dateOfBirthTextField.inputView = datePickerView
         dateOfBirthTextField.inputAccessoryView = customToolBar
-        datePickerView.datePickerMode = UIDatePickerMode.Date
+        datePickerView.datePickerMode = UIDatePickerMode.date
         
         //get 18 years previous date
-        let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let currentDate: NSDate = NSDate()
-        let components: NSDateComponents = NSDateComponents()
+        let gregorian: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        let currentDate: Date = Date()
+        var components: DateComponents = DateComponents()
         components.year = -18
-        let minDate: NSDate = gregorian.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        let minDate: Date = (gregorian as NSCalendar).date(byAdding: components, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
         datePickerView.maximumDate = minDate
         
         //Customization of mobile number text field
@@ -139,11 +163,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         mobileNumberTextField?.layer.borderWidth=1.0
         let placeholder4 = NSAttributedString(string:kMobileNumber , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         mobileNumberTextField?.attributedPlaceholder = placeholder4;
-        mobileNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        mobileNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         //Add custom tool bar as input accessory view to mobile number textfield
-        let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
-        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        let customToolBar2 = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SARegistrationScreenOneViewController.doneBarButtonPressed))
+        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
         customToolBar2.items = [flexibleSpace1,doneButton]
         mobileNumberTextField.inputAccessoryView = customToolBar2
         
@@ -153,7 +177,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         emailTextField?.layer.borderWidth=1.0
         let placeholder5 = NSAttributedString(string:kEmail , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         emailTextField?.attributedPlaceholder = placeholder5;
-        emailTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        emailTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of next button
         nextButton?.layer.cornerRadius = 2.0
@@ -177,9 +201,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         //Validations for title and name text field
         if(titleTextField.text?.characters.count == 0 && nameTextField.text?.characters.count == 0) {
             titleOrNameErrorLabel.text = kTitleAndNameMissingError
-            titleTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.textColor = UIColor.redColor()
+            titleTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = UIColor.red
             errorFlag = true
         }
         else if (self.checkTextFieldContentOnlyNumber(nameTextField.text!) == true) {
@@ -188,8 +212,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                 titleOrNameErrorLabel.text = "Please select a title and name should contain alphabets only"
             }
             errorFlag = true
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.textColor = UIColor.redColor()
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = UIColor.red
         }
         else if (self.checkTextFieldContentSpecialChar(nameTextField.text!)) {
             titleOrNameErrorLabel.text = "Name should not contain special characters"
@@ -197,10 +221,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             {
                 titleOrNameErrorLabel.text = "Please select a title and name should not contain special characters"
             }
-            registerOneScrollView.contentSize = CGSizeMake(0, registerOneScrollView.contentSize.height + 20)
+            registerOneScrollView.contentSize = CGSize(width: 0, height: registerOneScrollView.contentSize.height + 20)
             errorFlag = true
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.textColor = UIColor.redColor()
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = UIColor.red
         }
         else if nameTextField.text?.characters.count > 50 {
             titleOrNameErrorLabel.text = kLongName
@@ -209,19 +233,19 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             {
                 titleOrNameErrorLabel.text = "Please select a title and such a long name we can’t save it"
             }
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.textColor = UIColor.redColor()
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = UIColor.red
         }
         else if titleTextField.text == "" {
             titleOrNameErrorLabel.text = kTitleEmpty
             errorFlag = true
-            titleTextField.textColor = UIColor.redColor()
+            titleTextField.textColor = UIColor.red
         }
         else if nameTextField.text == "" {
             titleOrNameErrorLabel.text = kEmptyName
             errorFlag = true
-            nameTextField.layer.borderColor = UIColor.redColor().CGColor
-            nameTextField.textColor = UIColor.redColor()
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = UIColor.red
         }
         else {
             titleOrNameErrorLabel.text = ""
@@ -232,26 +256,26 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             surnameErrorLabel.text = "We need to know your surname"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
-            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
-            surnameTextField.textColor = UIColor.redColor()
+            surnameTextField.layer.borderColor = UIColor.red.cgColor
+            surnameTextField.textColor = UIColor.red
         }
         else if(surnameTextField.text?.characters.count>50) {
             surnameErrorLabel.text = "Wow, that’s such a long surname we can’t save it"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
-            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
-            surnameTextField.textColor = UIColor.redColor()
+            surnameTextField.layer.borderColor = UIColor.red.cgColor
+            surnameTextField.textColor = UIColor.red
         }
         else if(self.checkTextFieldContentOnlyNumber(surnameTextField.text!) == true) {
             surnameErrorLabel.text = "Surname should contain alphabets only"
             topSpaceForSurnameTextField.constant = 21
             errorFlag = true
-            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
-            surnameTextField.textColor = UIColor.redColor()
+            surnameTextField.layer.borderColor = UIColor.red.cgColor
+            surnameTextField.textColor = UIColor.red
         }
         else if checkTextFieldContentSpecialChar(surnameTextField.text!) {
             surnameErrorLabel.text = "Surname should not contain special characters"
-            if(UIScreen.mainScreen().bounds.width == 320)
+            if(UIScreen.main.bounds.width == 320)
             {
                 topSpaceForSurnameTextField.constant = 40
                 surnameErrorLabelHt.constant = 40
@@ -262,8 +286,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             }
            
             errorFlag = true
-            surnameTextField.layer.borderColor = UIColor.redColor().CGColor
-            surnameTextField.textColor = UIColor.redColor()
+            surnameTextField.layer.borderColor = UIColor.red.cgColor
+            surnameTextField.textColor = UIColor.red
         }
         else {
             surnameErrorLabel.text = ""
@@ -275,8 +299,8 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             topSpaceForDateOfBirthTextField.constant = 21
             dateOfBirthErrorLabel.text = "We need to know your date of birth"
             errorFlag = true
-            dateOfBirthTextField.layer.borderColor = UIColor.redColor().CGColor
-            dateOfBirthTextField.textColor = UIColor.redColor()
+            dateOfBirthTextField.layer.borderColor = UIColor.red.cgColor
+            dateOfBirthTextField.textColor = UIColor.red
         }
         else  {
             topSpaceForDateOfBirthTextField.constant = 5
@@ -288,19 +312,19 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             mobileNumberErrorLabel.text = "Don't forget your mobile number"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
-            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-            mobileNumberTextField.textColor = UIColor.redColor()
+            mobileNumberTextField.layer.borderColor = UIColor.red.cgColor
+            mobileNumberTextField.textColor = UIColor.red
         }
         else if(self.checkTextFieldContentCharacters(mobileNumberTextField.text!) == true || self.phoneNumberValidation(mobileNumberTextField.text!)==false) {
             mobileNumberErrorLabel.text = "That mobile number doesn’t look right"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
-            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-            mobileNumberTextField.textColor = UIColor.redColor()
+            mobileNumberTextField.layer.borderColor = UIColor.red.cgColor
+            mobileNumberTextField.textColor = UIColor.red
         }
         else if(mobileNumberTextField.text?.characters.count < 10) {
             mobileNumberErrorLabel.text = "That mobile number should be greater than 10 digits"
-            if(UIScreen.mainScreen().bounds.width == 320)
+            if(UIScreen.main.bounds.width == 320)
             {
             topSpaceForMobileNumberTextField.constant = 40
             mobileNumberErrorLabelHt.constant = 40
@@ -311,16 +335,16 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                    mobileNumberErrorLabelHt.constant = 21
             }
             errorFlag = true
-            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-            mobileNumberTextField.textColor = UIColor.redColor()
-            registerOneScrollView.contentSize = CGSizeMake(0, registerOneScrollView.contentSize.height + 20)
+            mobileNumberTextField.layer.borderColor = UIColor.red.cgColor
+            mobileNumberTextField.textColor = UIColor.red
+            registerOneScrollView.contentSize = CGSize(width: 0, height: registerOneScrollView.contentSize.height + 20)
         }
         else if(mobileNumberTextField.text?.characters.count > 16) {
             mobileNumberErrorLabel.text = "That mobile number should be of 15 digits"
             topSpaceForMobileNumberTextField.constant = 21
             errorFlag = true
-            mobileNumberTextField.layer.borderColor = UIColor.redColor().CGColor
-            mobileNumberTextField.textColor = UIColor.redColor()
+            mobileNumberTextField.layer.borderColor = UIColor.red.cgColor
+            mobileNumberTextField.textColor = UIColor.red
         }
         else {
             topSpaceForMobileNumberTextField.constant = 5
@@ -334,15 +358,15 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             topspacefieldForEmailTextField.constant = 21
             emailErrorLabel.text = "Don't forget your email address"
             errorFlag = true
-            emailTextField.textColor = UIColor.redColor()
-            emailTextField.layer.borderColor = UIColor.redColor().CGColor
+            emailTextField.textColor = UIColor.red
+            emailTextField.layer.borderColor = UIColor.red.cgColor
         }
         else  if emailTextField.text?.characters.count>0 && (self.isValidEmail(emailTextField.text!)==false) {
             topspacefieldForEmailTextField.constant = 21
             emailErrorLabel.text = "That email address doesn’t look right"
             errorFlag = true
-            emailTextField.layer.borderColor = UIColor.redColor().CGColor
-            emailTextField.textColor = UIColor.redColor()
+            emailTextField.layer.borderColor = UIColor.red.cgColor
+            emailTextField.textColor = UIColor.red
             
         }
         else {
@@ -355,22 +379,22 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SARegistrationScreenOneViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
  
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (registerOneScrollView?.contentOffset)!
         let yOfTextField = activeTextField.frame.origin.y
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -380,9 +404,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         registerOneScrollView?.setContentOffset(lastOffset, animated: true)
     }
     
@@ -416,7 +440,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 //        return success
 //    }
     
-    @IBAction func nextButtonPressed(sender: AnyObject) {
+    @IBAction func nextButtonPressed(_ sender: AnyObject) {
         //check validation of textfield
         
         if(checkTextFieldValidation() == false)
@@ -424,21 +448,21 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 
             errorFlag = true
             var userInfoDict : Dictionary<String,AnyObject> = [:]
-            userInfoDict[kTitle] = titleTextField.text
-            userInfoDict["first_name"] = nameTextField.text?.capitalizedString
-            userInfoDict["second_name"] = surnameTextField.text?.capitalizedString
-            userInfoDict["date_of_birth"] = dateOfBirthTextField.text
-            userInfoDict[kPhoneNumber] =  String(format:"+44%@",mobileNumberTextField.text!)
-            userInfoDict["email"] = emailTextField.text
+            userInfoDict[kTitle] = titleTextField.text as AnyObject
+            userInfoDict["first_name"] = nameTextField.text?.capitalized as AnyObject
+            userInfoDict["second_name"] = surnameTextField.text?.capitalized as AnyObject
+            userInfoDict["date_of_birth"] = dateOfBirthTextField.text as AnyObject
+            userInfoDict[kPhoneNumber] =  String(format:"+44%@",mobileNumberTextField.text!) as AnyObject
+            userInfoDict["email"] = emailTextField.text as AnyObject
             print(userInfoDict)
             
             if(titleTextField.text == "Mr")
             {
-                userInfoDict["party_gender"] = "male"
+                userInfoDict["party_gender"] = "male" as AnyObject
             }
             else
             {
-                userInfoDict["party_gender"] = "female"
+                userInfoDict["party_gender"] = "female" as AnyObject
             }
             
             let registrationSecondView = SARegistrationScreenSecondViewController()
@@ -452,14 +476,14 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
 
     
-    @IBAction func backButtonPressed(sender: AnyObject) {
+    @IBAction func backButtonPressed(_ sender: AnyObject) {
         //Go back to previous view controller
         
         var isAvailble: Bool = false
         var vw = UIViewController?()
         vw = SAWelcomeViewController()
         for var obj in (self.navigationController?.viewControllers)!{
-            if obj.isKindOfClass(SAWelcomeViewController) {
+            if obj.isKind(of: SAWelcomeViewController.self) {
                 isAvailble = true
                 vw = obj as! SAWelcomeViewController
                 break
@@ -474,11 +498,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
     }
     
-    @IBAction func whyDoWeThisInfoButtonPressed(sender: AnyObject) {
+    @IBAction func whyDoWeThisInfoButtonPressed(_ sender: AnyObject) {
         if impText?.characters.count > 0 {
-            let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+            let objimpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
             objimpInfo.lblHeader.text = "Why do we need this information?"
-            let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+            let theAttributedString = try! NSAttributedString(data: impText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                               options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                               documentAttributes: nil)
             
@@ -488,7 +512,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             self.view.addSubview(objimpInfo)
         }
         else{
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(objAnimView)
@@ -498,11 +522,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     
     
     //Textfield delegate methods
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         activeTextField = textField
-        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        activeTextField.textColor = UIColor.blackColor()
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+        activeTextField.textColor = UIColor.black
         self.registerForKeyboardNotifications()
         if(textField == titleTextField)
         {
@@ -512,20 +536,20 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeTextField.resignFirstResponder()
-        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         self.removeKeyboardNotification()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         self.removeKeyboardNotification()
         return true
     }
     
-    func checkTextFieldTextLength(txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
+    func checkTextFieldTextLength(_ txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
         let currentCharacterCount = txtField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
@@ -537,7 +561,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if(activeTextField == mobileNumberTextField){
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
         }
@@ -546,7 +570,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 
     //Dropdown methods
     func showOrDismiss(){
-        if dropDown.hidden {
+        if dropDown.isHidden {
             dropDown.show()
         } else {
             dropDown.hide()
@@ -564,38 +588,38 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     func doneBarButtonPressed()
     {
         if(activeTextField == dateOfBirthTextField) {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
-            let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
+            let pickrDate = dateFormatter.string(from: datePickerView.date)
             dateOfBirthTextField.text = pickrDate
         }
         activeTextField.resignFirstResponder()
         self.removeKeyboardNotification()
     }
     
-    @IBAction func clickeOnDropDownArrow(sender:UIButton){
+    @IBAction func clickeOnDropDownArrow(_ sender:UIButton){
         self.showOrDismiss()
     }
     
-    @IBAction func showOrHideDropDownButtonPressed(sender: AnyObject) {
+    @IBAction func showOrHideDropDownButtonPressed(_ sender: AnyObject) {
         self.showOrDismiss()
     }
     
     //Function checking textfield content only number or not
-    func checkTextFieldContentOnlyNumber(str:String)->Bool{
-        let set = NSCharacterSet.decimalDigitCharacterSet()
+    func checkTextFieldContentOnlyNumber(_ str:String)->Bool{
+        let set = CharacterSet.decimalDigits
 //        if (str.rangeOfCharacterFromSet(set) != nil) {
 //            return true
 //        }
 //        else {
 //            return false
 //        }
-        return (str.rangeOfCharacterFromSet(set) != nil)
+        return (str.rangeOfCharacter(from: set) != nil)
 
     }
     
-    func checkTextFieldContentCharacters(str:String)->Bool{
-        let set = NSCharacterSet.letterCharacterSet()
+    func checkTextFieldContentCharacters(_ str:String)->Bool{
+        let set = CharacterSet.letters
 //        if (str.rangeOfCharacterFromSet(set) != nil) {
 //            return true
 //        }
@@ -603,22 +627,22 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 //            return false
 //        }
         
-        return (str.rangeOfCharacterFromSet(set) != nil)
+        return (str.rangeOfCharacter(from: set) != nil)
 
     }
     
-    func phoneNumberValidation(value: String) -> Bool {
-        let charcter  = NSCharacterSet(charactersInString: "0123456789").invertedSet
+    func phoneNumberValidation(_ value: String) -> Bool {
+        let charcter  = CharacterSet(charactersIn: "0123456789").inverted
         var filtered:NSString!
-        let inputString:NSArray = value.componentsSeparatedByCharactersInSet(charcter)
-        filtered = inputString.componentsJoinedByString("")
+        let inputString:NSArray = value.components(separatedBy: charcter)
+        filtered = inputString.componentsJoined(by: "") as NSString
         return  value == filtered
     }
     
     
-    func checkTextFieldContentSpecialChar(str:String)->Bool{
-        let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
-        if (str.rangeOfCharacterFromSet(characterSet) != nil) {
+    func checkTextFieldContentSpecialChar(_ str:String)->Bool{
+        let characterSet:CharacterSet = CharacterSet(charactersIn: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
+        if (str.rangeOfCharacter(from: characterSet) != nil) {
             return true
         }
         else {
@@ -627,14 +651,14 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     //Function invoke for validate the email
-    func isValidEmail(testStr:String) -> Bool {
+    func isValidEmail(_ testStr:String) -> Bool {
         
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        var result = emailTest.evaluateWithObject(testStr)
+        var result = emailTest.evaluate(with: testStr)
         if result {
             let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-            let matches = testStr.rangeOfString(regex, options: .RegularExpressionSearch)
+            let matches = testStr.range(of: regex, options: .regularExpression)
             if let _ = matches {
                 result = true
             }
@@ -652,34 +676,34 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
 //        dob = dateOfBirth
 //    }
     
-    func callImportantAPI(flag:Bool) {
+    func callImportantAPI(_ flag:Bool) {
         let objAPI = API()
         
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let utf8str = String(format: "%@:%@",partyID,cookie).data(using: String.Encoding.utf8)
+        let base64Encoded = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        let urlconfig = URLSessionConfiguration.default
         //Check if network is present
         if(objAPI.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
-            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/10",baseURL))!)
+            let request = NSMutableURLRequest(url: URL(string: String(format:"%@/Content/10",baseURL))!)
 //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:NSError?) -> Void in
                 if let data = data
                 {
 //                    print(response?.description)
-                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
 //                        print(dict)
-                        dispatch_async(dispatch_get_main_queue())
+                        DispatchQueue.main.async
                         {
                             if flag == false{
                                 if dict["errorCode"] as! String == "200"{
@@ -689,9 +713,9 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                             else{
                                 self.objAnimView.removeFromSuperview()
                                 self.impText = dict["content"]!["content"] as? String
-                                let objimpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                let objimpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                                 objimpInfo.lblHeader.text = "Why do we need this information?"
-                                let theAttributedString = try! NSAttributedString(data: self.impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                let theAttributedString = try! NSAttributedString(data: self.impText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                                                   options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                                                   documentAttributes: nil)
                                 
@@ -703,28 +727,28 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
                         }
                     }
                     else {
-                        dispatch_async(dispatch_get_main_queue()){
+                        DispatchQueue.main.async{
                         }
                     }
                 }
                 else  if let error = error  {
-                    dispatch_async(dispatch_get_main_queue()){
+                    DispatchQueue.main.async{
                     }
                     
                 }
                 
-            }
+            }) 
             dataTask.resume()
         }
         else {
         }
      }
     
-    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseFortermAndConditionAPI(_ objResponse:Dictionary<String,AnyObject>){
         impText = objResponse["content"] as? String
     }
     
-    func errorResponseFortermAndConditionAPI(error:String){
+    func errorResponseFortermAndConditionAPI(_ error:String){
         
     }
     

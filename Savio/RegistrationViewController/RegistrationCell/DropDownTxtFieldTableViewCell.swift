@@ -9,7 +9,7 @@
 import UIKit
 protocol DropDownTxtFieldTableViewCellDelegate {
     
-    func dropDownTxtFieldCellText(dropDownTextCell:DropDownTxtFieldTableViewCell)
+    func dropDownTxtFieldCellText(_ dropDownTextCell:DropDownTxtFieldTableViewCell)
 }
 
 class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
@@ -29,10 +29,10 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
         tf?.layer.cornerRadius = 2.0
         tf?.layer.masksToBounds = true
         tf?.layer.borderWidth=1.0
-        tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
+        tf?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).cgColor;
         
 //        tf!.attributedPlaceholder = NSAttributedString(string:placeHolder, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
-        tf?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        tf?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         
         
 //        let placeholder = NSAttributedString(string:"" , attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
@@ -43,13 +43,13 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
 ////        lableDict.setValue(addressArray, forKey: "dropDownArray")
             }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         self.setUpDropDown()
         self.showOrDismiss()
@@ -57,7 +57,7 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     func showOrDismiss(){
-        if dropDown.hidden {
+        if dropDown.isHidden {
             dropDown.show()
         } else {
             dropDown.hide()
@@ -65,7 +65,7 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
 
     func setUpDropDown(){
-        arr.sortInPlace { sortTwoString($0, value2: $1) }
+        arr.sort { sortTwoString($0, value2: $1) }
         dropDown.dataSource = arr
 
         dropDown.selectionAction = { [unowned self] (index, item) in
@@ -77,13 +77,13 @@ class DropDownTxtFieldTableViewCell: UITableViewCell,UITextFieldDelegate {
         dropDown.bottomOffset = CGPoint(x: 0, y:tf!.bounds.height)
     }
     
-    @IBAction func clickeOnDropDownArrow(sender:UIButton){
+    @IBAction func clickeOnDropDownArrow(_ sender:UIButton){
          self.setUpDropDown()
         self.showOrDismiss()
     }
     
     
-    func sortTwoString(value1: String, value2: String) -> Bool {
+    func sortTwoString(_ value1: String, value2: String) -> Bool {
         // One string is alphabetically first.
         // ... True means value1 precedes value2.
         return value1 < value2;

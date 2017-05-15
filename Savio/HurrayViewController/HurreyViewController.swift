@@ -17,12 +17,12 @@ class HurreyViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         btn?.layer.cornerRadius = 5.0
     }
  
-    @IBAction func createPlanPressed(sender: AnyObject) {
+    @IBAction func createPlanPressed(_ sender: AnyObject) {
         let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
         self.navigationController?.pushViewController(objContainer, animated: true)
     }

@@ -18,11 +18,11 @@ class ImageViewAnimation: UIView {
     var imageArray : [UIImage] = []
     var delegate : ImageViewAnimationProtocol?
     
-     func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIView? {
+     func loadFromNibNamed(_ nibNamed: String, bundle : Bundle? = nil) -> UIView? {
         return UINib(
             nibName: nibNamed,
             bundle: bundle
-            ).instantiateWithOwner(nil, options: nil)[0] as? UIView
+            ).instantiate(withOwner: nil, options: nil)[0] as? UIView
     }
     func animate() {
         //adding image names to array

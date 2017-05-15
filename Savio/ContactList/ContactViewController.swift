@@ -11,7 +11,7 @@ import UIKit
 //----------Custom protocol for add or skip contact-----------------------
 protocol SAContactViewDelegate {
     
-    func addedContact(contactDict:Dictionary<String,AnyObject>)
+    func addedContact(_ contactDict:Dictionary<String,AnyObject>)
     func skipContact()
 }
 //------------------------------------------------------------------------
@@ -34,11 +34,11 @@ class ContactViewController: UIViewController {
     }
     
     //MARK: TableView Delegate and Datasource method
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int  {
         return 1;
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         //by default 2 rows visible
         var count = 2
         //if mobile number and email id both available then 3 rows visible
@@ -48,16 +48,16 @@ class ContactViewController: UIViewController {
         return count;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell{
         if indexPath.row == 0{
             let cellID: String = "CellID"
             //create reusable custom cell from ContactProfileTableViewCell.xib to show user info
-            var cell: ContactProfileTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactProfileTableViewCell
+            var cell: ContactProfileTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellID) as? ContactProfileTableViewCell
             if cell == nil {
-                var nib :Array! = NSBundle.mainBundle().loadNibNamed("ContactProfileTableViewCell", owner: nil, options: nil)
+                var nib :Array! = Bundle.main.loadNibNamed("ContactProfileTableViewCell", owner: nil, options: nil)
                 cell = nib[0] as? ContactProfileTableViewCell
             }
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
             //Showing contact image
             cell?.personImage?.image = contactDict["imageData"] as? UIImage
             //Showing name
@@ -71,15 +71,15 @@ class ContactViewController: UIViewController {
         else {
             //create reusable custom cell from ContactTableViewCell.xib to show user contact
             let cellID: String = "ContactCell"
-            var cell: ContactTableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactTableViewCell
+            var cell: ContactTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellID) as? ContactTableViewCell
             if cell == nil {
-                var nib :Array! = NSBundle.mainBundle().loadNibNamed("ContactTableViewCell", owner: nil, options: nil)
+                var nib :Array! = Bundle.main.loadNibNamed("ContactTableViewCell", owner: nil, options: nil)
                 cell = nib[0] as? ContactTableViewCell
             }
-             cell?.selectionStyle = .None
+             cell?.selectionStyle = .none
             //setting up invite button
             cell?.inviteBtn?.tag = indexPath.row
-            cell?.inviteBtn?.addTarget(self, action: #selector(ContactViewController.clickOnInviteButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell?.inviteBtn?.addTarget(self, action: #selector(ContactViewController.clickOnInviteButton(_:)), for: UIControlEvents.touchUpInside)
             if indexPath.row == 1 {
                 //mobile number avalable then showing in contact list
                 if let mobileNum: String = contactDict["mobileNum"] as? String {
@@ -91,7 +91,7 @@ class ContactViewController: UIViewController {
                     if let emailStr: String = contactDict["email"] as? String {
                         cell?.headerLbl?.text = "email"
                         cell?.detailLable?.text = emailStr
-                         cell?.inviteBtn?.enabled = false
+                         cell?.inviteBtn?.isEnabled = false
                         cell?.inviteBtn?.alpha = 0.6
                     }
                 }
@@ -101,7 +101,7 @@ class ContactViewController: UIViewController {
                 if let emailStr: String = contactDict["email"] as? String {
                     cell?.headerLbl?.text = "email"
                     cell?.detailLable?.text = emailStr
-                    cell?.inviteBtn?.enabled = false
+                    cell?.inviteBtn?.isEnabled = false
                     cell?.inviteBtn?.alpha = 0.6
                 }
             }
@@ -109,7 +109,7 @@ class ContactViewController: UIViewController {
         }
     }
     //set row height
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 80.0
         }
@@ -119,7 +119,7 @@ class ContactViewController: UIViewController {
     }
     
     //function invoke when user tapped on invite button from cell
-    func clickOnInviteButton(sender:UIButton){
+    func clickOnInviteButton(_ sender:UIButton){
         var text: String = ""
         var name : String = ""
         var mobileArray : Array<String> = [] // holding available mobile number
@@ -127,7 +127,7 @@ class ContactViewController: UIViewController {
         var nameArray : Array<String> = []
         
         //Validating if user alredy select for invitation
-        if let contactArray = NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
+        if let contactArray = UserDefaults.standard.object(forKey: "InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
         {
             for i in 0 ..< contactArray.count {
                 
@@ -160,42 +160,42 @@ class ContactViewController: UIViewController {
         var dict : Dictionary<String,AnyObject> = [:]
         if sender.tag == 1 {
             if let mobileNum: String = contactDict["mobileNum"] as? String {
-                dict["mobile_number"] = mobileNum.stringByReplacingOccurrencesOfString("[^0-9]", withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+                dict["mobile_number"] = mobileNum.replacingOccurrences(of: "[^0-9]", with: "", options: NSString.CompareOptions.regularExpression, range: nil) as AnyObject
                 let num = String(format: "+44%@", dict["mobile_number"] as! String)
-                dict["mobile_number"] = num
-                dict["email_id"] = ""
-                 dict["NOMID"] = "4"
+                dict["mobile_number"] = num as AnyObject
+                dict["email_id"] = "" as AnyObject
+                 dict["NOMID"] = "4" as AnyObject
                 text = num//mobileNum
                 print(dict["mobile_number"]!)
             }
             else {
                 if let emailStr: String = contactDict["email"] as? String {
-                    dict["email_id"] = emailStr
-                    dict["mobile_number"] = ""
-                    dict["NOMID"] = "6"
+                    dict["email_id"] = emailStr as AnyObject
+                    dict["mobile_number"] = "" as AnyObject
+                    dict["NOMID"] = "6" as AnyObject
                     text = emailStr
                 }
             }
         }
         else {
             if let emailStr: String = contactDict["email"] as? String {
-                dict["email_id"] = emailStr
-                dict["mobile_number"] = ""
-                dict["NOMID"] = "6"
+                dict["email_id"] = emailStr as AnyObject
+                dict["mobile_number"] = "" as AnyObject
+                dict["NOMID"] = "6" as AnyObject
                 text = emailStr
             }
         }
         
         if let firstName = contactDict["name"] as? String
         {
-            dict["first_name"] = String(format: "%@", firstName)
+            dict["first_name"] = String(format: "%@", firstName) as AnyObject
             name = String(format: "%@", contactDict["name"] as! String)
         }
         
         if let lastName = contactDict["lastName"] as? String
         {
 //            dict["first_name"] = String(format: "%@ %@", contactDict["name"] as! String, lastName)
-            dict["second_name"] = String(format: "%@", lastName)
+            dict["second_name"] = String(format: "%@", lastName) as AnyObject
             name = String(format: "%@ %@", contactDict["name"] as! String, contactDict["lastName"] as! String)
         }
   
@@ -214,12 +214,12 @@ class ContactViewController: UIViewController {
             else {
                 //not selected then select contact for invitation
                 delegate?.addedContact(dict)
-                self.navigationController?.popViewControllerAnimated(true)
+                self.navigationController?.popViewController(animated: true)
             }
         }
         else {
             delegate?.addedContact(dict)
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }

@@ -38,64 +38,64 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
 //          Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(true)
        self.setUpView()
     }
     
     func setUpView()
     {
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         
         let btnName = UIButton()
         
         
         if(isFromEditUserInfo)
         {
-            leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+            leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.menuButtonClicked), for: .touchUpInside)
             
-            btnName.frame = CGRectMake(0, 0, 30, 30)
-            btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
+            btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
             btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-            btnName.setTitle("0", forState: UIControlState.Normal)
-            btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-            btnName.addTarget(self, action: #selector(SASaveCardViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+            btnName.setTitle("0", for: UIControlState())
+            btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+            btnName.addTarget(self, action: #selector(SASaveCardViewController.heartBtnClicked), for: .touchUpInside)
             
-            if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
             {
                 let dataSave = str
-                wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+                wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
                 if(wishListArray.count > 0)
                 {
-                    btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                    btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                    btnName.setTitleColor(UIColor.black, for: UIControlState())
                 }
                 else {
-                    btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                    btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                    btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
                 }
                 
-                btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+                btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
             }
         }
         else{
             
-            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.backButtonClicked), forControlEvents: .TouchUpInside)
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), for: UIControlState())
+            leftBtnName.addTarget(self, action: #selector(SASaveCardViewController.backButtonClicked), for: .touchUpInside)
             
-            btnName.frame = CGRectMake(0, 0, 60, 30)
-            btnName.setTitle("Done", forState: UIControlState.Normal)
-            btnName.setTitleColor(UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1), forState: UIControlState.Normal)
+            btnName.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
+            btnName.setTitle("Done", for: UIControlState())
+            btnName.setTitleColor(UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1), for: UIControlState())
             btnName.titleLabel!.font = UIFont(name: kBookFont, size: 15)
-            btnName.addTarget(self, action: #selector(SASaveCardViewController.doneBtnClicked), forControlEvents: .TouchUpInside)
+            btnName.addTarget(self, action: #selector(SASaveCardViewController.doneBtnClicked), for: .touchUpInside)
         }
         
         if isFromSavingPlan == true || isFromGroupMemberPlan == true{
@@ -115,22 +115,22 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
         cardViewOne.layer.borderWidth = 1
         cardViewOne.layer.cornerRadius = 5
-        cardViewOne.layer.borderColor = UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1).CGColor
+        cardViewOne.layer.borderColor = UIColor(red: 0.95, green: 0.69, blue: 0.25, alpha: 1).cgColor
         
         cardViewTwo.layer.borderWidth = 1
         cardViewTwo.layer.cornerRadius = 5
-        cardViewTwo.layer.borderColor = UIColor(red: 0.97, green: 0.87, blue: 0.69, alpha: 1).CGColor
+        cardViewTwo.layer.borderColor = UIColor(red: 0.97, green: 0.87, blue: 0.69, alpha: 1).cgColor
         
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(self.objAnimView)
         
-        if var activeCard = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if var activeCard = UserDefaults.standard.value(forKey: "activeCard") as? Dictionary<String,AnyObject>
         {
             if var trimmedString = activeCard["cardNumber"] as? String
             {
-                trimmedString = (activeCard["cardNumber"] as! NSString).substringFromIndex(max(activeCard["cardNumber"]!.length-4,0))
+                trimmedString = (activeCard["cardNumber"] as! NSString).substring(from: max(activeCard["cardNumber"]!.length-4,0))
                 cardLastFourDigitTextField.text = trimmedString
             }
             else if let trimmedString =  activeCard["last4"] as? String{
@@ -140,9 +140,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
         if(isFromEditUserInfo)
         {
-            self.topView.hidden = false
-            self.newCardButton.hidden  = true
-            self.bottomView.hidden = false
+            self.topView.isHidden = false
+            self.newCardButton.isHidden  = true
+            self.bottomView.isHidden = false
             
             if(showAlert == true)
             {
@@ -160,14 +160,14 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     //NavigationBar button methods
     func backButtonClicked()
     {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func doneBtnClicked()
     {
-        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+        if let dict = UserDefaults.standard.value(forKey: "activeCard") as? Dictionary<String,AnyObject>
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
@@ -188,8 +188,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -198,29 +198,29 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     // MARK: - Tableview Delegate & Datasource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
+    func numberOfSections(in tableView: UITableView) -> Int  {
         return 1;
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return savedCardArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         //--------create custom cell from CardTableViewCell.xib------------
-        let cell = NSBundle.mainBundle().loadNibNamed("CardTableViewCell", owner: nil, options: nil)![0] as! CardTableViewCell
+        let cell = Bundle.main.loadNibNamed("CardTableViewCell", owner: nil, options: nil)![0] as! CardTableViewCell
         let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
         
         let trimmedString: String = (dict["last4"] as? String)!
         //(dict["cardNumber"] as! NSString).substringFromIndex(max(dict["cardNumber"]!.length-4,0))
         let attributedString = NSMutableAttributedString(string: String(format: "%@ Ending in %@",dict["brand"] as! String,trimmedString))
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
+                                      value: UIColor.black,
                                       range: NSRange(
                                         location:0,
                                         length:(dict["brand"] as! String).characters.count))
@@ -229,7 +229,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             length:(dict["brand"] as! String).characters.count))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
+                                      value: UIColor.black,
                                       range: NSRange(
                                         location:((dict["brand"] as! String).characters.count),
                                         length:11))
@@ -239,7 +239,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             length:11))
         
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                      value: UIColor.blackColor(),
+                                      value: UIColor.black,
                                       range: NSRange(
                                         location:((dict["brand"] as! String).characters.count) + 11,
                                         length:trimmedString.characters.count))
@@ -250,52 +250,52 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
         cell.cardHolderNameLabel.attributedText = attributedString
         cell.removeCardButton.tag = indexPath.row
-        cell.removeCardButton.addTarget(self, action: #selector(SASaveCardViewController.removeCardFromList(_:)), forControlEvents: .TouchUpInside)
+        cell.removeCardButton.addTarget(self, action: #selector(SASaveCardViewController.removeCardFromList(_:)), for: .touchUpInside)
         if indexPath.row == 0 {
             
-            cell.removeCardButton.hidden = true
-            cell.cardImageView.hidden = true
+            cell.removeCardButton.isHidden = true
+            cell.cardImageView.isHidden = true
 //            Changing background color of selected row
 //            cell.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         }
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(indexPath)as? CardTableViewCell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell:CardTableViewCell? = cardListView!.cellForRow(at: indexPath)as? CardTableViewCell
         //Changing background color of selected row
         selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
         
         let dict = self.checkNullDataFromDict(savedCardArray[indexPath.row])
-        NSUserDefaults.standardUserDefaults().setValue(dict, forKey: "activeCard")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.setValue(dict, forKey: "activeCard")
+        UserDefaults.standard.synchronize()
         let trimmedString: String = (dict["last4"] as? String)!
         cardLastFourDigitTextField.text = trimmedString
         
     }
     
-    func removeCardFromList(sender: UIButton) {
+    func removeCardFromList(_ sender: UIButton) {
         removeCardTag = sender.tag
         let dict = self.checkNullDataFromDict(savedCardArray[removeCardTag])
         print("Remove card ends with \(dict["last4"] as! String)")
-        let uiAlert = UIAlertController(title: "Alert", message: "Do you want remove card end with \(dict["last4"] as! String)?", preferredStyle: UIAlertControllerStyle.Alert)
-        self.presentViewController(uiAlert, animated: true, completion: nil)
+        let uiAlert = UIAlertController(title: "Alert", message: "Do you want remove card end with \(dict["last4"] as! String)?", preferredStyle: UIAlertControllerStyle.alert)
+        self.present(uiAlert, animated: true, completion: nil)
         
-        uiAlert.addAction(UIAlertAction(title: "No", style: .Default, handler: { action in
+        uiAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
             print("Click of No button")
             
         }))
         
-        uiAlert.addAction(UIAlertAction(title: "Yes", style: .Cancel, handler: { action in
+        uiAlert.addAction(UIAlertAction(title: "Yes", style: .cancel, handler: { action in
             print("Click of Yes button")
-            self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            self.objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             self.objAnimView.frame = self.view.frame
             self.objAnimView.animate()
             self.view.addSubview(self.objAnimView)
 
             var paramDict : Dictionary<String,AnyObject> = [:]
-            paramDict["customerId"] = dict["customer"] as! String
-            paramDict["cardId"] = dict["id"] as! String
+            paramDict["customerId"] = dict["customer"] as! String as AnyObject
+            paramDict["cardId"] = dict["id"] as! String as AnyObject
         
             let objAPI = API()
             objAPI.removeCardDelegate = self
@@ -304,7 +304,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }))
     }
     
-    @IBAction func addNewCardButtonPressed(sender: UIButton) {
+    @IBAction func addNewCardButtonPressed(_ sender: UIButton) {
        
 //         Strip SDK
   
@@ -312,7 +312,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         addCardViewController.delegate = self
         // STPAddCardViewController must be shown inside a UINavigationController.
         let navigationController = UINavigationController(rootViewController: addCardViewController)
-        self.presentViewController(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
         
         /*
         let objPaymentView = SAPaymentFlowViewController()
@@ -329,41 +329,41 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         self.navigationController?.pushViewController(objPaymentView, animated: true)*/
     }
     
-    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         
         let objAPI = API()
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID)]
+        let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID as AnyObject)]
         
         objAPI.addNewSavingCardDelegate = self
         objAPI.addNewSavingCard(dict)
 
         //Use token for backend process
-        self.dismissViewControllerAnimated(true, completion: {
+        self.dismiss(animated: true, completion: {
             completion(nil)
         })
     }
     
     //Go to SAEditUserInfoViewController
-    @IBAction func profileButtonPressed(sender: UIButton) {
+    @IBAction func profileButtonPressed(_ sender: UIButton) {
 //        let objEditUserInfo = SAEditUserInfoViewController(nibName: "SAEditUserInfoViewController", bundle: nil)
 //        self.navigationController?.pushViewController(objEditUserInfo, animated: true)
-        var vw = UIViewController?()
+        var vw = UIViewController()
         var flag = false
         
         for var obj in (self.navigationController?.viewControllers)!{
-            if obj.isKindOfClass(SAEditUserInfoViewController) {
+            if obj.isKind(of: SAEditUserInfoViewController.self) {
                 vw = obj as! SAEditUserInfoViewController
                 flag = true
                 break
             }
         }
         if flag {
-            self.navigationController?.popToViewController(vw!, animated: true)
+            self.navigationController?.popToViewController(vw, animated: true)
         }
         else{
             let objEditUserInfo = SAEditUserInfoViewController()
@@ -372,10 +372,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Call the API to set selected card as Default card
-    @IBAction func bottomviewDoneButtonPressed(sender: UIButton) {
-        if let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+    @IBAction func bottomviewDoneButtonPressed(_ sender: UIButton) {
+        if let dict = UserDefaults.standard.value(forKey: "activeCard") as? Dictionary<String,AnyObject>
         {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(self.objAnimView)
@@ -391,11 +391,11 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         }
         
     }
-    @IBAction func paymentButtonPressed(sender: UIButton) {
+    @IBAction func paymentButtonPressed(_ sender: UIButton) {
     }
     
     //function checking any key is null and return not null values in dictionary
-    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
@@ -403,17 +403,17 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank
+                replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
                 }
-                replaceDict[key] = newArr
+                replaceDict[key] = newArr as AnyObject
             }
         }
         return replaceDict
@@ -421,7 +421,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
      // MARK: - API Response
     //Success reponse of GetListOfUsersCardsDelegate
-    func successResponseForGetListOfUsersCards(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForGetListOfUsersCards(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
@@ -431,20 +431,20 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 let dict = cardListResponse["exCollection"] as! Dictionary<String, AnyObject>
                 savedCardArray = dict["data"]! as! Array<Dictionary<String,AnyObject>>
                 let newDict = self.checkNullDataFromDict(savedCardArray[0])
-                NSUserDefaults.standardUserDefaults().setValue(newDict, forKey: "activeCard")
+                UserDefaults.standard.setValue(newDict, forKey: "activeCard")
                 cardListView.reloadData()
-                cardListView.selectRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0), animated: true, scrollPosition:UITableViewScrollPosition.Top)
-                let selectedCell:CardTableViewCell? = cardListView!.cellForRowAtIndexPath(NSIndexPath(forRow:0,inSection: 0))as? CardTableViewCell
+                cardListView.selectRow(at: IndexPath(row:0,section: 0), animated: true, scrollPosition:UITableViewScrollPosition.top)
+                let selectedCell:CardTableViewCell? = cardListView!.cellForRow(at: IndexPath(row:0,section: 0))as? CardTableViewCell
                 //Changing background color of selected row
                 selectedCell!.contentView.backgroundColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)
                 let objAPI = API()
             }
         }
-        print(NSUserDefaults.standardUserDefaults().valueForKey("saveCardArray"))
+        print(UserDefaults.standard.value(forKey: "saveCardArray"))
     }
     
     //Error reponse of GetListOfUsersCardsDelegate
-    func errorResponseForGetListOfUsersCards(error: String) {
+    func errorResponseForGetListOfUsersCards(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -456,58 +456,58 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Success reponse of SetDefaultCardDelegate
-    func successResponseForSetDefaultCard(objResponse: Dictionary<String, AnyObject>)
+    func successResponseForSetDefaultCard(_ objResponse: Dictionary<String, AnyObject>)
     {
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
         if(isFromSavingPlan)
         {
             let objSummaryView = SASavingSummaryViewController()
             self.navigationController?.pushViewController(objSummaryView, animated: true)
         }
         else if isFromEditUserInfo == true {
-             var vw = UIViewController?()
+             var vw = UIViewController()
             var isAvailble: Bool = false
             for var obj in (self.navigationController?.viewControllers)!{
-                if obj.isKindOfClass(SAEditUserInfoViewController) {
+                if obj.isKind(of: SAEditUserInfoViewController.self) {
                     isAvailble = true
                     vw = obj as! SAEditUserInfoViewController
                     break
                 }
             }
             if isAvailble {
-                self.navigationController?.popToViewController(vw!, animated: false)
+                self.navigationController?.popToViewController(vw, animated: false)
             }
             else{
                 vw = SAEditUserInfoViewController()
-                self.navigationController?.pushViewController(vw!, animated: false)
+                self.navigationController?.pushViewController(vw, animated: false)
             }
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
         else if isFromGroupMemberPlan == true {
             //Navigate to showing group progress
             self.isFromGroupMemberPlan = false
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.setValue(1, forKey: kGroupMemberPlan)
+            UserDefaults.standard.synchronize()
             let objThankyYouView = SAThankYouViewController()
             self.navigationController?.pushViewController(objThankyYouView, animated: true)
         }
         else if (isFromImpulseSaving == true){
             let objAPI = API()
             objAPI.impulseSavingDelegate = self
-            let dict = NSUserDefaults.standardUserDefaults().valueForKey("activeCard") as? Dictionary<String,AnyObject>
+            let dict = UserDefaults.standard.value(forKey: "activeCard") as? Dictionary<String,AnyObject>
             var newDict : Dictionary<String,AnyObject> = [:]
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             newDict["STRIPE_CUSTOMER_ID"] = dict!["customer"]
-            newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-            newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
-            newDict["PAYMENT_TYPE"] = "debit"
-            newDict["AUTH_CODE"] = "test"
-            newDict["Consumer"] = "APP"
-            newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
+            newDict["PAYMENT_DATE"] = dateFormatter.string(from: Date()) as AnyObject
+            newDict[kAMOUNT] = UserDefaults.standard.value(forKey: "ImpulseAmount") as AnyObject
+            newDict["PAYMENT_TYPE"] = "debit" as AnyObject
+            newDict["AUTH_CODE"] = "test" as AnyObject
+            newDict["Consumer"] = "APP" as AnyObject
+            newDict[kPTYSAVINGPLANID] = UserDefaults.standard.value(forKey: kPTYSAVINGPLANID) as! NSNumber
             print(newDict)
             objAPI.impulseSavingDelegate = self
             objAPI.impulseSaving(newDict)
@@ -517,26 +517,26 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             //Navigate user to Progress screen
             if(individualFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+                UserDefaults.standard.setValue(1, forKey: kIndividualPlan)
+                UserDefaults.standard.synchronize()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 
                 let objProgressView = SAProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
             else if(groupMemberFlag == 1 || groupFlag == 1)
-            {   NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+            {   UserDefaults.standard.setValue(1, forKey: kGroupPlan)
+                UserDefaults.standard.synchronize()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
             }
             else if(groupMemberFlag == 1)
             {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+                UserDefaults.standard.setValue(1, forKey: kGroupMemberPlan)
+                UserDefaults.standard.synchronize()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 
                 let objProgressView = SAGroupProgressViewController()
                 self.navigationController?.pushViewController(objProgressView, animated: true)
@@ -545,7 +545,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
      //Success reponse of SetDefaultCardDelegate
-    func errorResponseForSetDefaultCard(error: String) {
+    func errorResponseForSetDefaultCard(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -557,7 +557,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Success reponse of ImpulseSavingDelegate
-    func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseImpulseSavingDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
        /* 
          print(objResponse)
         if let _ = objResponse["message"] as? String
@@ -587,7 +587,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Success reponse of ImpulseSavingDelegate
-    func errorResponseForImpulseSavingDelegateAPI(error: String) {
+    func errorResponseForImpulseSavingDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -599,10 +599,10 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     // Remove Card API delegate methods
-    func successResponseForRemoveCardAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseForRemoveCardAPI(_ objResponse:Dictionary<String,AnyObject>){
         print(objResponse)
          objAnimView.removeFromSuperview()
-            self.savedCardArray.removeAtIndex(removeCardTag)
+            self.savedCardArray.remove(at: removeCardTag)
             self.cardListView.reloadData()
         
 //        var arr = NSUserDefaults.standardUserDefaults().valueForKey(<#T##key: String##String#>)
@@ -648,7 +648,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     
-    func errorResponseForRemoveCardAPI(error:String){
+    func errorResponseForRemoveCardAPI(_ error:String){
         print(error)
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
@@ -663,7 +663,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     
     // MARK: - API Response
     //Success response of AddSavingCardDelegate
-    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForAddSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successful")
@@ -674,8 +674,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                     {
                         //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        UserDefaults.standard.setValue(1, forKey: kGroupMemberPlan)
+                        UserDefaults.standard.synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }
@@ -689,7 +689,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Error response of AddSavingCardDelegate
-    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+    func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -701,7 +701,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //Success response of AddNewSavingCardDelegate
-    func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForAddNewSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         
         if let message = objResponse["message"] as? String{
@@ -711,8 +711,8 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 {
                     //Navigate to showing group progress
                     self.isFromGroupMemberPlan = false
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.setValue(1, forKey: kGroupMemberPlan)
+                    UserDefaults.standard.synchronize()
                     let objThankyYouView = SAThankYouViewController()
                     self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     
@@ -721,18 +721,18 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                     objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+                    let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
                     //                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
-                    let dateFormatter = NSDateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
-                    newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-                    newDict[kAMOUNT] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
-                    newDict["PAYMENT_TYPE"] = "debit"
-                    newDict["AUTH_CODE"] = "test"
-                    newDict["consumer"] = "APP"
-                    newDict[kPTYSAVINGPLANID] = NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber
+                    newDict["PAYMENT_DATE"] = dateFormatter.string(from: Date()) as AnyObject
+                    newDict[kAMOUNT] = UserDefaults.standard.value(forKey: "ImpulseAmount") as AnyObject
+                    newDict["PAYMENT_TYPE"] = "debit" as AnyObject
+                    newDict["AUTH_CODE"] = "test" as AnyObject
+                    newDict["consumer"] = "APP" as AnyObject
+                    newDict[kPTYSAVINGPLANID] = UserDefaults.standard.value(forKey: kPTYSAVINGPLANID) as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)
                 }
@@ -755,7 +755,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     //error response of AddNewSavingCardDelegate
-    func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
+    func errorResponseForAddNewSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")

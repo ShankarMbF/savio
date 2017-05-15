@@ -12,11 +12,11 @@ import UIKit
 extension String {
     func MD5() -> String {
         // Create pointer to the string as UTF8
-        var pointer = [UInt8](count: Int(CC_MD5_DIGEST_LENGTH), repeatedValue: 0)
+        var pointer = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
         
         // Create byte array of unsigned chars
-        if let data = self.dataUsingEncoding(NSUTF8StringEncoding) {
-            CC_MD5(data.bytes, CC_LONG(data.length), &pointer)
+        if let data = self.data(using: String.Encoding.utf8) {
+            CC_MD5((data as NSData).bytes, CC_LONG(data.count), &pointer)
         }
         
         var str = ""

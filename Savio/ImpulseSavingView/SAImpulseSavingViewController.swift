@@ -7,16 +7,51 @@
 //
 
 extension String {
-    func chopPrefix(count: Int = 1) -> String {
-        return self.substringFromIndex(self.startIndex.advancedBy(count))
+    func chopPrefix(_ count: Int = 1) -> String {
+        return self.substring(from: self.characters.index(self.startIndex, offsetBy: count))
     }
     
-    func chopSuffix(count: Int = 1) -> String {
-        return self.substringFromIndex(self.endIndex.advancedBy(-count))
+    func chopSuffix(_ count: Int = 1) -> String {
+        return self.substring(from: self.characters.index(self.endIndex, offsetBy: -count))
     }
 }
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var addFundsButton: UIButton!
@@ -45,63 +80,63 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
-    private var valueLabel: UILabel!
-    private var progressLabel: UILabel!
-    private var timer: NSTimer?
-    private var progressValue: Float = 0
-    var lastOffset: CGPoint = CGPointZero
+    fileprivate var valueLabel: UILabel!
+    fileprivate var progressLabel: UILabel!
+    fileprivate var timer: Timer?
+    fileprivate var progressValue: Float = 0
+    var lastOffset: CGPoint = CGPoint.zero
     var maxPrice: Float?
-    private var sliderOptions: [CircleSliderOption] {
+    fileprivate var sliderOptions: [CircleSliderOption] {
         return [
-            .BarColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
-            .ThumbImage(UIImage (named: "slider-handle@2x.png")),
-            .TrackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
-            .BarWidth(20),
-            .StartAngle(-90),
-            .MaxValue(100),
-            .MinValue(0),
-            .ThumbWidth(40)
+            .barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
+            .thumbImage(UIImage (named: "slider-handle@2x.png")),
+            .trackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
+            .barWidth(20),
+            .startAngle(-90),
+            .maxValue(100),
+            .minValue(0),
+            .thumbWidth(40)
         ]
     }
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ImpMaxAmount = NSUserDefaults.standardUserDefaults().valueForKey("ImpMaxAmount") as! Float
+        let ImpMaxAmount = UserDefaults.standard.value(forKey: "ImpMaxAmount") as! Float
         maxPrice = ImpMaxAmount
         self.buildCircleSlider()
         self.setUpView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if(isFromPayment)
         {
-            messagePopUpView.hidden = true
+            messagePopUpView.isHidden = true
             circularView.backgroundColor = UIColor(red : 244/255,
                                                    green : 172/255,
                                                    blue : 58/255, alpha: 1)
             circularView.layer.cornerRadius = circularView.frame.height / 2
-            priceTextField.hidden = true
+            priceTextField.isHidden = true
             
-            if let _ = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String
+            if let _ = UserDefaults.standard.value(forKey: "ImpulseAmount") as? String
             {
-               priceLabel.text = String(format:"£%@",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+               priceLabel.text = String(format:"£%@",(UserDefaults.standard.value(forKey: "ImpulseAmount") as? String)!)
             }else {
                 priceLabel.text = "£0"
             }
-            cancleButton.hidden = true
-            priceTextField.borderStyle = UITextBorderStyle.None
-            circleSlider.hidden = true
-            priceLabel.hidden = false
-            anotherStepLabel.hidden = false
-            savedPaymentLabel.hidden = false
-            addFundsButton.setTitle("Continue", forState: .Normal)
-            addFundsButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            cancleButton.isHidden = true
+            priceTextField.borderStyle = UITextBorderStyle.none
+            circleSlider.isHidden = true
+            priceLabel.isHidden = false
+            anotherStepLabel.isHidden = false
+            savedPaymentLabel.isHidden = false
+            addFundsButton.setTitle("Continue", for: UIControlState())
+            addFundsButton.setTitleColor(UIColor.white, for: UIControlState())
             addFundsButton.backgroundColor = UIColor(red : 244/255,
                                                      green : 172/255,
                                                      blue : 58/255, alpha: 1)
-            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount") as? String)!)
+            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(UserDefaults.standard.value(forKey: "ImpulseAmount") as? String)!)
             isFromPayment = false
             
   
@@ -114,12 +149,12 @@ class SAImpulseSavingViewController: UIViewController {
             }
     }
     //customization of circle slider
-    private func buildCircleSlider() {
-        self.circleSlider = CircleSlider(frame: CGRectMake(0, 0, circularView.frame.size.width, circularView.frame.size.height), options: self.sliderOptions)
-        self.circleSlider?.addTarget(self, action: #selector(SAImpulseSavingViewController.valueChange(_:)), forControlEvents: .ValueChanged)
+    fileprivate func buildCircleSlider() {
+        self.circleSlider = CircleSlider(frame: CGRect(x: 0, y: 0, width: circularView.frame.size.width, height: circularView.frame.size.height), options: self.sliderOptions)
+        self.circleSlider?.addTarget(self, action: #selector(SAImpulseSavingViewController.valueChange(_:)), for: .valueChanged)
         self.valueLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        self.valueLabel.textAlignment = .Center
-        self.valueLabel.center = CGPoint(x: CGRectGetWidth(self.circleSlider.bounds) * 0.5, y: CGRectGetHeight(self.circleSlider.bounds) * 0.5)
+        self.valueLabel.textAlignment = .center
+        self.valueLabel.center = CGPoint(x: self.circleSlider.bounds.width * 0.5, y: self.circleSlider.bounds.height * 0.5)
     
         self.circleSlider.addSubview(self.valueLabel)
         circularView.addSubview(circleSlider)
@@ -127,20 +162,20 @@ class SAImpulseSavingViewController: UIViewController {
     
     
     //Circle slider action method
-    func valueChange(sender: CircleSlider) {
+    func valueChange(_ sender: CircleSlider) {
         
         let multipleAttributes: [String : AnyObject] = [
             NSFontAttributeName: UIFont(name:kMediumFont, size: 32.0)!,
-            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue ]
+            NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue as AnyObject ]
         
 //        var attr = [[NSFontAttributeName : UIFont(name: kMediumFont, size: 10)],[NSUnderlineStyleAttributeName :  NSUnderlineStyle.StyleNone.rawValue]]
         
-        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue]
+        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue]
        // messagePopUpView.hidden = true
-        priceTextField.borderStyle = UITextBorderStyle.RoundedRect
+        priceTextField.borderStyle = UITextBorderStyle.roundedRect
         var calculatedValue: Float = 0.0
         if sender.value == 0 {
-             priceTextField.borderStyle = UITextBorderStyle.None
+             priceTextField.borderStyle = UITextBorderStyle.none
         }
         else if (maxPrice! <= 200) {
             calculatedValue = (maxPrice! / 100) * Float(sender.value)
@@ -170,10 +205,10 @@ class SAImpulseSavingViewController: UIViewController {
         priceTextField.attributedText = attrString2
     }
     
-    func createAttributedString(string: String) -> NSAttributedString {
+    func createAttributedString(_ string: String) -> NSAttributedString {
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
         
-        attributedString.addAttributes([ NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleNone.rawValue], range: NSRange(location: 0, length: string.characters.count))
+        attributedString.addAttributes([ NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue], range: NSRange(location: 0, length: string.characters.count))
 //        attributedString.addAttributes([NSFontAttributeName:UIFont(name: kMediumFont, size: 10)!], range: NSRange(location: 0, length: string.characters.count))
         return attributedString
     }
@@ -185,79 +220,79 @@ class SAImpulseSavingViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrlView.contentSize = CGSizeMake(0, UIScreen.mainScreen().bounds.height + 20)
+        scrlView.contentSize = CGSize(width: 0, height: UIScreen.main.bounds.height + 20)
         
         //add rounded corners to plan button
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.topRight, .topLeft]), cornerRadii: CGSize(width: 3.0, height: 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.planButton!.bounds
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         self.planButton?.layer.mask = maskLayer
     }
     
     func setUpView(){
         
-        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
-        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), for: UIControlState())
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), for: UIControlState())
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), for: UIControlState())
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         self.title = "Add more funds"
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SAImpulseSavingViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SAImpulseSavingViewController.menuButtonClicked), for: .touchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SAImpulseSavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SAImpulseSavingViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
             if(wishListArray.count > 0)
             {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
             }
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
         }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
         var customToolBar : UIToolbar?
-        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAImpulseSavingViewController.doneBarButtonPressed))
+        customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SAImpulseSavingViewController.doneBarButtonPressed))
         customToolBar!.items = [acceptButton]
         priceTextField.inputAccessoryView = customToolBar
-        priceTextField.layer.borderColor = UIColor.blackColor().CGColor
+        priceTextField.layer.borderColor = UIColor.black.cgColor
     }
     
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     //UITextfieldDelegate method
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if textField.text?.characters.count > 1  && string == "" {
             return true
         }
@@ -305,22 +340,22 @@ class SAImpulseSavingViewController: UIViewController {
     
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAImpulseSavingViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAImpulseSavingViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SAImpulseSavingViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SAImpulseSavingViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (scrlView?.contentOffset)!
         let yOfTextField = priceTextField.frame.height
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -330,42 +365,42 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        scrlView?.setContentOffset(CGPointZero, animated: true)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        scrlView?.setContentOffset(CGPoint.zero, animated: true)
     }
     
     
     //UITextfieldDelegate method
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
 //        messagePopUpView.hidden = true
         self.registerForKeyboardNotifications()
         return true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         self.removeKeyboardNotification()
         return true
     }
     
-    @IBAction func offersButtonPressed(sender: AnyObject) {
+    @IBAction func offersButtonPressed(_ sender: AnyObject) {
         let obj = SAOfferListViewController()
         obj.savID = 92
         //save the Generic plan in NSUserDefaults, so it will show its specific offers
-        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
+        UserDefaults.standard.set(dict, forKey:"colorDataDict")
+        UserDefaults.standard.synchronize()
         obj.hideAddOfferButton = true
         obj.isComingProgress = true
         self.navigationController?.pushViewController(obj, animated: true)
     }
     
     //Go to SASpendViewController
-    @IBAction func spendButtonPressed(sender: AnyObject) {
+    @IBAction func spendButtonPressed(_ sender: AnyObject) {
         let objPlan = SASpendViewController(nibName: "SASpendViewController",bundle: nil)
         self.navigationController?.pushViewController(objPlan, animated: false)
     }
@@ -383,7 +418,7 @@ class SAImpulseSavingViewController: UIViewController {
         
     }
     
-    @IBAction func addFundsButtonPressed(sender: AnyObject) {
+    @IBAction func addFundsButtonPressed(_ sender: AnyObject) {
         if(addFundsButton.titleLabel?.text == "MAKE PAYMENT")
         {
             var tfString: String = priceTextField.text!
@@ -394,8 +429,8 @@ class SAImpulseSavingViewController: UIViewController {
                 alert.show()
             }
             else {
-                NSUserDefaults.standardUserDefaults().setValue(tfString, forKey: "ImpulseAmount")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.setValue(tfString, forKey: "ImpulseAmount")
+                UserDefaults.standard.synchronize()
                 let objSavedCardView = SASaveCardViewController()
                 objSavedCardView.isFromImpulseSaving = true
 //                objSavedCardView.isFromGroupMemberPlan = self.
@@ -405,7 +440,7 @@ class SAImpulseSavingViewController: UIViewController {
         }
         else
         {
-            if let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+            if let plan = UserDefaults.standard.value(forKey: "usersPlan") as? String
             { //Individual plan
                 if(plan == kIndividualPlan)
                 {
@@ -428,16 +463,16 @@ class SAImpulseSavingViewController: UIViewController {
     }
     
     
-    @IBAction func CancelButtonPressed(sender: AnyObject) {
-            self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func CancelButtonPressed(_ sender: AnyObject) {
+            self.navigationController?.popViewController(animated: true)
     }
     
     
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")

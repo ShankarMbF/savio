@@ -19,16 +19,16 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         let objAPI = API()
         //************************************* cornerradious start
-        let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.TopRight, .TopLeft], cornerRadii: CGSizeMake(05,05))
+        let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.topRight, .topLeft], cornerRadii: CGSize(width: 05,height: 05))
         let costmaskLayer = CAShapeLayer()
-        costmaskLayer.path = costpath.CGPath
+        costmaskLayer.path = costpath.cgPath
         BGContentView.layer.mask = costmaskLayer
         //************************************* cornerradious end
-        let userInfodict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userInfodict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
         attributedString.addAttribute(NSForegroundColorAttributeName,
-                                     value: UIColor.whiteColor(),
+                                     value: UIColor.white,
                                      range: NSRange(
                                         location:0,
                                         length:(userInfodict["first_name"] as! String).characters.count))
@@ -46,7 +46,7 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
         inviteButton!.layer.masksToBounds = false
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

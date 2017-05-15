@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class SASavingSummaryViewController: UIViewController {
     //Set up IBoutlets
@@ -87,7 +111,7 @@ class SASavingSummaryViewController: UIViewController {
         
         //Customize View's titel
 //        self.navigationController?.viewControllers = [self];
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
 //        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
 //        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 //        self.navigationController?.navigationBar.translucent = true
@@ -100,25 +124,25 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     // Function invoke on tapping continue button
-    @IBAction func btnContinueClicked(sender: AnyObject) {
+    @IBAction func btnContinueClicked(_ sender: AnyObject) {
         // Navigate app as per plan type
         print("click event")
         //Navigate to showing individual/group progress screen
-        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAProgressViewController")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAProgressViewController")
         
     }
     
     //Function invoking for set up UI as per the individual or group plan
     func setUpView(){
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.removeObject(forKey: "offerList")
+        UserDefaults.standard.synchronize()
         
         //--------------set Navigation left button------------
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SASavingSummaryViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SASavingSummaryViewController.menuButtonClicked), for: .touchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -129,34 +153,34 @@ class SASavingSummaryViewController: UIViewController {
         //--------set Navigation right button nav-heart----------------------
         let btnName = UIButton()
         //        btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SASavingSummaryViewController.heartBtnClicked), for: .touchUpInside)
         
         //--------Hide all Invited user view for individual plan---------
-        lblName1?.hidden = true
-        lblName2?.hidden = true
-        lblName3?.hidden = true
-        lblName4?.hidden = true
-        lblName5?.hidden = true
-        lblName6?.hidden = true
-        lblName7?.hidden = true
+        lblName1?.isHidden = true
+        lblName2?.isHidden = true
+        lblName3?.isHidden = true
+        lblName4?.isHidden = true
+        lblName5?.isHidden = true
+        lblName6?.isHidden = true
+        lblName7?.isHidden = true
         
-        lblContact1?.hidden = true
-        lblContact2?.hidden = true
-        lblContact3?.hidden = true
-        lblContact4?.hidden = true
-        lblContact5?.hidden = true
-        lblContact6?.hidden = true
-        lblContact7?.hidden = true
+        lblContact1?.isHidden = true
+        lblContact2?.isHidden = true
+        lblContact3?.isHidden = true
+        lblContact4?.isHidden = true
+        lblContact5?.isHidden = true
+        lblContact6?.isHidden = true
+        lblContact7?.isHidden = true
         //-------------------------------------------------------------
         groupViewHt.constant = 0.0
         
         //-------Setup the continue button UI---------------
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
@@ -164,10 +188,10 @@ class SASavingSummaryViewController: UIViewController {
         
         let objAPI = API()
 //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
-        if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
         {
             print(itemDataDict)
-            itemDataDict = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as! Dictionary<String, AnyObject>
+            itemDataDict = UserDefaults.standard.object(forKey: "savingPlanDict") as! Dictionary<String, AnyObject>
             print(itemDataDict)
 
             //-------Check is invited user available or not and showing list----------------------------
@@ -203,44 +227,44 @@ class SASavingSummaryViewController: UIViewController {
                         
                         switch i {
                         case 0:
-                            lblName1?.hidden = false
-                            lblContact1?.hidden = false
+                            lblName1?.isHidden = false
+                            lblContact1?.isHidden = false
                             lblName1?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact1?.text = contactStr
                             
                         case 1:
-                            lblName2?.hidden = false
-                            lblContact2?.hidden = false
+                            lblName2?.isHidden = false
+                            lblContact2?.isHidden = false
                             lblName2?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact2?.text = contactStr
                             
                         case 2:
-                            lblName3?.hidden = false
-                            lblContact3?.hidden = false
+                            lblName3?.isHidden = false
+                            lblContact3?.isHidden = false
                             lblName3?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact3?.text = contactStr
                             
                         case 3:
-                            lblName4?.hidden = false
-                            lblContact4?.hidden = false
+                            lblName4?.isHidden = false
+                            lblContact4?.isHidden = false
                             lblName4?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact4?.text = contactStr
                             
                         case 4:
-                            lblName5?.hidden = false
-                            lblContact5?.hidden = false
+                            lblName5?.isHidden = false
+                            lblContact5?.isHidden = false
                             lblName5?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact5?.text = contactStr
                             
                         case 5:
-                            lblName6?.hidden = false
-                            lblContact6?.hidden = false
+                            lblName6?.isHidden = false
+                            lblContact6?.isHidden = false
                             lblName6?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact6?.text = contactStr
                             
                         case 6:
-                            lblName7?.hidden = false
-                            lblContact7?.hidden = false
+                            lblName7?.isHidden = false
+                            lblContact7?.isHidden = false
                             lblName7?.text = String(format: "%@ %@- ",dict["first_name"] as! String, dict["second_name"] as! String)
                             lblContact7?.text = contactStr
                             
@@ -248,23 +272,23 @@ class SASavingSummaryViewController: UIViewController {
                         }
                     }
                     //------------------------------------------------------------------------------------
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-                    NSUserDefaults.standardUserDefaults().synchronize()
-                    NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+                    UserDefaults.standard.setValue(1, forKey: kGroupPlan)
+                    UserDefaults.standard.synchronize()
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 }
             }else {
-                NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-                NSUserDefaults.standardUserDefaults().synchronize()
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+                UserDefaults.standard.setValue(1, forKey: kIndividualPlan)
+                UserDefaults.standard.synchronize()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
             }
             
             //-----------------End of showing Invited user list-------------------------------------------
             
             //--------showing wishlist count--------------------------------------------------------------
-            if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+            if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
             {
                 let dataSave = str
-                wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+                wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
                 
                 for i in 0 ..< wishListArray.count
                 {
@@ -276,22 +300,22 @@ class SASavingSummaryViewController: UIViewController {
                     }
                 }
                 
-                let dataNew = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
+                let dataNew = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
                 
-                NSUserDefaults.standardUserDefaults().setObject(dataNew, forKey: "wishlistArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.set(dataNew, forKey: "wishlistArray")
+                UserDefaults.standard.synchronize()
                 
                 if(wishListArray.count > 0)
                 {
-                    btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                    btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                    btnName.setTitleColor(UIColor.black, for: UIControlState())
                 }
                 else {
-                    btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                    btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                    btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                    btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
                 }
                 
-                btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+                btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
             }
             
             let rightBarButton = UIBarButtonItem()
@@ -301,19 +325,19 @@ class SASavingSummaryViewController: UIViewController {
             //-------------------------------------------------------------------------------------------------------------
             
             //Setup UI for showing plan image
-            vwCongrats?.layer.borderColor = UIColor.whiteColor().CGColor
+            vwCongrats?.layer.borderColor = UIColor.white.cgColor
             vwCongrats?.layer.borderWidth = 2.0
             vwScrContent?.layer.cornerRadius = 1.0
             vwScrContent?.layer.masksToBounds = true
             
             //Setup border to summary view
-            vwSummary?.layer.borderColor = UIColor.blackColor().CGColor
+            vwSummary?.layer.borderColor = UIColor.black.cgColor
             vwSummary?.layer.borderWidth = 1.5
             
-            lblOffer?.hidden = true
+            lblOffer?.isHidden = true
             //        topSpaceForContinue.constant = 30
             //        topSpaceContonueView.constant = 30
-            self.view.bringSubviewToFront(btnContinue!)
+            self.view.bringSubview(toFront: btnContinue!)
             htOfferView.constant = 0
             
             
@@ -323,9 +347,9 @@ class SASavingSummaryViewController: UIViewController {
                 var topMargin: CGFloat = 0.0   // variable for ste top margine for each offer
                 for i in 0 ..< arrOff.count {
                     
-                    lblOffer?.hidden = false
+                    lblOffer?.isHidden = false
                     // Load the SummaryPage view.
-                    let summaryPageView = NSBundle.mainBundle().loadNibNamed("SummaryPage", owner: self, options: nil)![0] as! UIView
+                    let summaryPageView = Bundle.main.loadNibNamed("SummaryPage", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
                     topMargin = CGFloat(i) * 60 + 35
                     //                summaryPageView.frame = CGRectMake(0, topMargin + 10, (vwOffer?.frame.size.width)!, 55)
@@ -339,11 +363,11 @@ class SASavingSummaryViewController: UIViewController {
                     //-------Setting Autolayout constrains to offer view-------------------------
                     summaryPageView.translatesAutoresizingMaskIntoConstraints = false
                     
-                    let topConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Top, relatedBy: .Equal, toItem: vwOffer!, attribute: .Top, multiplier: 1, constant: topMargin)
+                    let topConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .top, relatedBy: .equal, toItem: vwOffer!, attribute: .top, multiplier: 1, constant: topMargin)
                     
-                    let leadingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Leading, relatedBy: .Equal, toItem: vwOffer!, attribute: .Leading, multiplier: 1, constant: 0)
-                    let trailingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Trailing, relatedBy: .Equal, toItem: vwOffer!, attribute: .Trailing, multiplier: 1, constant: 0)
-                    let htConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 55)
+                    let leadingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .leading, relatedBy: .equal, toItem: vwOffer!, attribute: .leading, multiplier: 1, constant: 0)
+                    let trailingConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .trailing, relatedBy: .equal, toItem: vwOffer!, attribute: .trailing, multiplier: 1, constant: 0)
+                    let htConst = NSLayoutConstraint.init(item: summaryPageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 55)
                     vwOffer?.addConstraints([topConst, leadingConst, trailingConst, htConst])
                     //-------------------------------------------------------------------------------
                     
@@ -351,7 +375,7 @@ class SASavingSummaryViewController: UIViewController {
                     let objDict = arrOff[i]
                     let lblTitle = summaryPageView.viewWithTag(1)! as! UILabel
                     lblTitle.text = objDict["offCompanyName"] as? String
-                    lblTitle.hidden = false
+                    lblTitle.isHidden = false
                     
                     let lblDetail = summaryPageView.viewWithTag(2)! as! UILabel
                     lblDetail.text = objDict["offTitle"] as? String
@@ -362,18 +386,18 @@ class SASavingSummaryViewController: UIViewController {
                     if let urlStr = objDict["offImage"] as? String
                     {
                         let urlStr = urlStr
-                        let url = NSURL(string: urlStr)
+                        let url = URL(string: urlStr)
                         let bgImageView = summaryPageView.viewWithTag(4) as! UIImageView
-                        let request: NSURLRequest = NSURLRequest(URL: url!)
-                        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                            if (data != nil && data?.length > 0) {
+                        let request: URLRequest = URLRequest(url: url!)
+                        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                            if (data != nil && data?.count > 0) {
                                 let image = UIImage(data: data!)
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async(execute: {
                                     
                                     bgImageView.image = image
                                 })
                             }
-                        })
+                        } as! (URLResponse?, Data?, Error?) -> Void)
                     }
                     //--------------------------------------------------------------------------------
                 }
@@ -391,7 +415,7 @@ class SASavingSummaryViewController: UIViewController {
             
             htContentView.constant =  (vwUpper?.frame.size.height)! + htDescriptionContentView.constant + 50
 //             htContentView.constant = continueButtonBackgroundView.frame.origin.y + continueButtonBackgroundView.frame.size.height + 200 //htContentView.constant + htDescriptionContentView.constant
-            scrlVw?.contentSize = CGSizeMake(0, htContentView.constant )
+            scrlVw?.contentSize = CGSize(width: 0, height: htContentView.constant )
             
             //SHOWING PLAN TITLE
             lblTitle.text = itemDataDict[kTitle] as? String
@@ -412,8 +436,8 @@ class SASavingSummaryViewController: UIViewController {
                 
                 if newDict!["imageName.jpg"] != nil {
                     
-                    if let data :NSData = NSData(base64EncodedString: (newDict!["imageName.jpg"] as? String)!, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)! {
-                        topBgImageView.contentMode = UIViewContentMode.ScaleAspectFill
+                    if let data :Data = Data(base64Encoded: (newDict!["imageName.jpg"] as? String)!, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)! {
+                        topBgImageView.contentMode = UIViewContentMode.scaleAspectFill
                         topBgImageView.layer.masksToBounds = true
                         
                         topBgImageView.image = UIImage(data: data)
@@ -423,13 +447,13 @@ class SASavingSummaryViewController: UIViewController {
             
             let str = itemDataDict["planType"] as! String
             if (str == "group") {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
 
                 dateFormatter.dateFormat = "yyyy-MM-dd"
-                let date = dateFormatter.dateFromString((itemDataDict[kPLANENDDATE] as? String)!)
+                let date = dateFormatter.date(from: (itemDataDict[kPLANENDDATE] as? String)!)
                 
                 dateFormatter.dateFormat = "dd-MM-yyyy"
-                lblDate.text = dateFormatter.stringFromDate(date!)
+                lblDate.text = dateFormatter.string(from: date!)
                 
             }else{
                 
@@ -438,7 +462,7 @@ class SASavingSummaryViewController: UIViewController {
 //            lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
             print(itemDataDict[kPLANENDDATE])
            
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy"
             
             lblMonth.text =  String(format: "£%@", itemDataDict[kEmi] as! String)
@@ -448,13 +472,13 @@ class SASavingSummaryViewController: UIViewController {
             {
                 // calculation as per selection month
                 paymentLastDate.text =  "Monthly"
-                let dateComponents = NSDateComponents()
+                var dateComponents = DateComponents()
                 dateComponents.month = 1
-                let calender = NSCalendar.currentCalendar()
-                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+                let calender = Calendar.current
+                let newDate = (calender as NSCalendar).date(byAdding: dateComponents, to: Date(), options:NSCalendar.Options(rawValue: 0))
                 
                 var pathComponents2 : NSArray!
-                pathComponents2 = dateFormatter.stringFromDate(newDate!).componentsSeparatedByString("-")
+                pathComponents2 = dateFormatter.string(from: newDate!).components(separatedBy: "-") as [String] as NSArray
                 print(pathComponents2)
                 
                 //            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
@@ -465,10 +489,10 @@ class SASavingSummaryViewController: UIViewController {
                  dateFormatter.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
                  var daysToAdd : Double = 7
                 
-                let todayDateArr =  dateFormatter.stringFromDate(NSDate()).componentsSeparatedByString(" ")
-                let todayDay = todayDateArr[0] as! String
+                let todayDateArr =  dateFormatter.string(from: Date()).components(separatedBy: " ")
+                let todayDay = todayDateArr[0] 
                 //                let str = "My String"
-                let subStr = todayDay[todayDay.startIndex.advancedBy(0)...todayDay.startIndex.advancedBy(2)]
+                let subStr = todayDay[todayDay.characters.index(todayDay.startIndex, offsetBy: 0)...todayDay.characters.index(todayDay.startIndex, offsetBy: 2)]
                 let todayNum1 = self.nextDateFromDay(subStr)
                 let nextNum2 = self.nextDateFromDay(itemDataDict[kPAYDATE] as! String)
                 
@@ -484,17 +508,17 @@ class SASavingSummaryViewController: UIViewController {
 
                 paymentLastDate.text = "Weekly"
                 
-                let newDate = NSDate().dateByAddingTimeInterval(60*60*24 * daysToAdd)
+                let newDate = Date().addingTimeInterval(60*60*24 * daysToAdd)
                 var pathComponents2 : NSArray!
                 let str = self.daySuffix(from: newDate)
                 print(str)
-                pathComponents2 = dateFormatter.stringFromDate(newDate).componentsSeparatedByString(" ")
+                pathComponents2 = dateFormatter.string(from: newDate).components(separatedBy: " ") as [String] as NSArray
                 print(pathComponents2)
                 print(itemDataDict["payDate"])
 //                            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 print(itemDataDict["payDate"])
                 let daystr = pathComponents2[0] as! String
-                let strDay = daystr.stringByReplacingOccurrencesOfString(",", withString: "")
+                let strDay = daystr.replacingOccurrences(of: ",", with: "")
 //                let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, pathComponents2[0] as! String)
                 let finalDate = String(format:"%@ %@ %@ and then every %@",pathComponents2[0] as! String ,pathComponents2[1] as! String + str ,pathComponents2[2] as! String, strDay)
                 lblNextDebit.text = finalDate
@@ -506,7 +530,7 @@ class SASavingSummaryViewController: UIViewController {
     
     let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
     
-    func nextDateFromDay(dateStr:String) -> Double {
+    func nextDateFromDay(_ dateStr:String) -> Double {
         var remainingDay: Double = 0.0
         
         switch dateStr {
@@ -539,9 +563,9 @@ class SASavingSummaryViewController: UIViewController {
     }
     
     
-    func daySuffix(from date: NSDate) -> String {
-        let calendar = NSCalendar.currentCalendar()
-        let dayOfMonth = calendar.component(NSCalendarUnit.Day, fromDate: date)
+    func daySuffix(from date: Date) -> String {
+        let calendar = Calendar.current
+        let dayOfMonth = (calendar as NSCalendar).component(NSCalendar.Unit.day, from: date)
         switch dayOfMonth {
         case 1, 21, 31: return "st"
         case 2, 22: return "nd"
@@ -552,21 +576,21 @@ class SASavingSummaryViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrlVw?.contentSize = CGSizeMake(0, (superContainerView?.frame.size.height)!)
+        scrlVw?.contentSize = CGSize(width: 0, height: (superContainerView?.frame.size.height)!)
         //        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
     }
     
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     //function invoking on tapping on heart button
     func heartBtnClicked(){
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")

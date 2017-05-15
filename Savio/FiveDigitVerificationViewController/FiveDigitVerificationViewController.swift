@@ -32,21 +32,21 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         fiveDigitTextField.layer.cornerRadius = 2
         fiveDigitTextField.layer.masksToBounds = true
         fiveDigitTextField.layer.borderWidth = 1
-        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         //Set input accessory view to the UITextfield
         fiveDigitTextField.inputAccessoryView = toolbar
         
         gotItButton.layer.cornerRadius = 5
         //Get user details from Keychain
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         objAnimView.removeFromSuperview()
         
@@ -55,38 +55,38 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
             isFromForgotPasscode = false
             yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
             
-            fiveDigitTextField.hidden = false
-            resentCodeButton.hidden = false
-            backButton.hidden = false
-            yourCodeSentLabel.hidden = true
+            fiveDigitTextField.isHidden = false
+            resentCodeButton.isHidden = false
+            backButton.isHidden = false
+            yourCodeSentLabel.isHidden = true
         }
         else {
             yourCodeSentLabel.text = String(format:"Your code was sent to  %@",userInfoDict[kPhoneNumber]! as! String)
-            fiveDigitTextField.hidden = true
-            resentCodeButton.hidden = true
-            backButton.hidden = false
-            yourCodeSentLabel.hidden = false
+            fiveDigitTextField.isHidden = true
+            resentCodeButton.isHidden = true
+            backButton.isHidden = false
+            yourCodeSentLabel.isHidden = false
             
         }
     }
     
     //UITextField delegate method
-    func textFieldDidBeginEditing(textField: UITextField) {
-        if(UIScreen.mainScreen().bounds.size.height == 480)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if(UIScreen.main.bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y-40), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRect(x: view!.frame.origin.x, y: (view!.frame.origin.y-40), width: view!.frame.size.width, height: view!.frame.size.height)
             UIView.commitAnimations()
         }
-        codeDoesNotMatchLabel.hidden = true;
-        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        fiveDigitTextField.textColor = UIColor.blackColor()
+        codeDoesNotMatchLabel.isHidden = true;
+        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
+        fiveDigitTextField.textColor = UIColor.black
     }
     
-    @IBAction func clickOnBackButton(sender: AnyObject) {
+    @IBAction func clickOnBackButton(_ sender: AnyObject) {
         /*
          fiveDigitTextField.hidden = true
          resentCodeButton.hidden = true
@@ -98,7 +98,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
          */
         if isComingFromRegistration == true {
             for viewcontroller in self.navigationController!.viewControllers as Array {
-                if viewcontroller.isKindOfClass(SARegistrationScreenOneViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                if viewcontroller.isKind(of: SARegistrationScreenOneViewController.self) { // change HomeVC to your viewcontroller in which you want to back.
                     self.navigationController?.popToViewController(viewcontroller , animated: true)
                     break
                 }
@@ -106,7 +106,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
         else{
             for viewcontroller in self.navigationController!.viewControllers as Array {
-                if viewcontroller.isKindOfClass(SAEnterYourPINViewController) { // change HomeVC to your viewcontroller in which you want to back.
+                if viewcontroller.isKind(of: SAEnterYourPINViewController.self) { // change HomeVC to your viewcontroller in which you want to back.
                     self.navigationController?.popToViewController(viewcontroller , animated: true)
                     break
                 }
@@ -117,36 +117,36 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         //        self.navigationController?.pushViewController(saRegisterViewController, animated: true)
     }
     
-    @IBAction func doneButtonToolBarPressed(sender: AnyObject) {
-        if(UIScreen.mainScreen().bounds.size.height == 480)
+    @IBAction func doneButtonToolBarPressed(_ sender: AnyObject) {
+        if(UIScreen.main.bounds.size.height == 480)
         {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDelegate(self)
             UIView.setAnimationDuration(0.5)
             UIView.setAnimationBeginsFromCurrentState(true)
-            view!.frame = CGRectMake(view!.frame.origin.x, (view!.frame.origin.y+50), view!.frame.size.width, view!.frame.size.height)
+            view!.frame = CGRect(x: view!.frame.origin.x, y: (view!.frame.origin.y+50), width: view!.frame.size.width, height: view!.frame.size.height)
             UIView.commitAnimations()
         }
         fiveDigitTextField.resignFirstResponder()
     }
     
-    @IBAction func clickOnGotItButton(sender: AnyObject) {
+    @IBAction func clickOnGotItButton(_ sender: AnyObject) {
         
-        if(yourCodeSentLabel.hidden == false)
+        if(yourCodeSentLabel.isHidden == false)
         {
-            fiveDigitTextField.hidden = false
-            resentCodeButton.hidden = false
-            backButton.hidden = false
-            yourCodeSentLabel.hidden = true
+            fiveDigitTextField.isHidden = false
+            resentCodeButton.isHidden = false
+            backButton.isHidden = false
+            yourCodeSentLabel.isHidden = true
             headerText.text = "Enter your verification code"
-            gotItButton.setTitle("Confirm", forState: UIControlState.Normal)
+            gotItButton.setTitle("Confirm", for: UIControlState())
         }
         else  {
             if(fiveDigitTextField.text == "")
             {   //Show error when field is empty
-                fiveDigitTextField.layer.borderColor = UIColor.redColor().CGColor
+                fiveDigitTextField.layer.borderColor = UIColor.red.cgColor
                 codeDoesNotMatchLabel.text = "Please enter code"
-                codeDoesNotMatchLabel.hidden = false;
+                codeDoesNotMatchLabel.isHidden = false;
             }
             else {
                 //Set the OTPVerificationDelegate
@@ -171,56 +171,56 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
     }
     
-    @IBAction func clickOnResentCodeButton(sender: AnyObject) {
+    @IBAction func clickOnResentCodeButton(_ sender: AnyObject) {
         //Set the OTPSentDelegate
         objAPI.otpSentDelegate = self
-        codeDoesNotMatchLabel.hidden = true
-        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        codeDoesNotMatchLabel.isHidden = true
+        fiveDigitTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
 
         //Resend the OTP to the mobile number present in keychain
         objAPI.getOTPForNumber(userInfoDict[kPhoneNumber]! as! String, country_code: "44")
         fiveDigitTextField.resignFirstResponder()
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-        objAnimView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         objAnimView.animate()
         self.view.addSubview(objAnimView)
     }
     
     
     //OTP sent Delegate Method
-    func successResponseForOTPSentAPI(objResponse:Dictionary<String,AnyObject>)
+    func successResponseForOTPSentAPI(_ objResponse:Dictionary<String,AnyObject>)
     {
         objAnimView.removeFromSuperview()
-        fiveDigitTextField.hidden = true
-        resentCodeButton.hidden = true
-        backButton.hidden = true
-        yourCodeSentLabel.hidden = false
+        fiveDigitTextField.isHidden = true
+        resentCodeButton.isHidden = true
+        backButton.isHidden = true
+        yourCodeSentLabel.isHidden = false
         headerText.text = "We've sent you a verification code"
-        gotItButton.setTitle("Got It", forState: UIControlState.Normal)
-        codeDoesNotMatchLabel.hidden = true
+        gotItButton.setTitle("Got It", for: UIControlState())
+        codeDoesNotMatchLabel.isHidden = true
         
     }
-    func errorResponseForOTPSentAPI(error:String){
+    func errorResponseForOTPSentAPI(_ error:String){
         
         objAnimView.removeFromSuperview()
-        fiveDigitTextField.textColor = UIColor.redColor()
-        fiveDigitTextField.hidden = true
-        resentCodeButton.hidden = true
-        backButton.hidden = true
-        yourCodeSentLabel.hidden = false
+        fiveDigitTextField.textColor = UIColor.red
+        fiveDigitTextField.isHidden = true
+        resentCodeButton.isHidden = true
+        backButton.isHidden = true
+        yourCodeSentLabel.isHidden = false
         headerText.text = error//"We've sent you a verification code"
-        gotItButton.setTitle("Got It", forState: UIControlState.Normal)
+        gotItButton.setTitle("Got It", for: UIControlState())
     }
     
     
     //OTP Verification Delegate Method
-    func successResponseForOTPVerificationAPI(objResponse:Dictionary<String,AnyObject>)
+    func successResponseForOTPVerificationAPI(_ objResponse:Dictionary<String,AnyObject>)
     {
          objAnimView.removeFromSuperview()
         let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
         self.navigationController?.pushViewController(objCreatePINView, animated: true)
     }
-    func errorResponseForOTPVerificationAPI(error:String){
+    func errorResponseForOTPVerificationAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if(error == "Verification code is incorrect.")
         {

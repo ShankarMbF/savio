@@ -7,16 +7,40 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
 
 
-class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
+
+class SAWelcomeViewController: UIViewController, URLSessionDelegate {
     
     
     @IBOutlet weak var scrollView: UIScrollView!      //IBOutlet for scrollview
     @IBOutlet weak var pageControl: UIPageControl!    //IBOutlet for pagination
     @IBOutlet weak var signUpBtn: UIButton!           //IBOutlet for signup button
     
-    var timer: NSTimer?                               // variable for set delay time
+    var timer: Timer?                               // variable for set delay time
     
     //flag holds the
     var idx: Int = 0
@@ -29,13 +53,13 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         super.viewDidLoad()
         //Hide navigationbar
         
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         self.callImportantAPI(false)
 
         // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //Function invoke to configure scrollview for animating pages
         configureScrollView()
@@ -46,7 +70,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         idx = 0
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         idx = 0
         self.change()
@@ -60,7 +84,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     }
     
     //This function invoke when user tapping on sign up to savio button
-    @IBAction func clickOnSignUpButton(sender:UIButton){
+    @IBAction func clickOnSignUpButton(_ sender:UIButton){
         //create instance of SARegistrationViewController
         let objSARegistarionViewController = SARegistrationScreenOneViewController(nibName:"SARegistrationScreenOneViewController",bundle: nil)
         //Navigate to registration screen
@@ -70,28 +94,28 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     //Function invoking for configure the scrollview for page animation
     func configureScrollView() {
         // Enable paging.
-        scrollView.pagingEnabled = true
+        scrollView.isPagingEnabled = true
         // Set the following flag values.
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.scrollsToTop = false
         
         // Set the scrollview content size.
-        scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * CGFloat(pageArr.count), scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(pageArr.count), height: scrollView.frame.size.height)
         
         // Load the PageView view from the TestView.xib file and configure it properly.
         for i in 0 ..< pageArr.count {
             // Load the TestView view.
-            let testView = NSBundle.mainBundle().loadNibNamed("PageView", owner: self, options: nil)![0] as! UIView
+            let testView = Bundle.main.loadNibNamed("PageView", owner: self, options: nil)![0] as! UIView
             // Set its frame and the background color.
-            testView.frame = CGRectMake(CGFloat(i) * scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height)
+            testView.frame = CGRect(x: CGFloat(i) * scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
             // Set the proper message to the test view's label.
             let vw = testView.viewWithTag(1) as! UIImageView
             vw.image = UIImage(named: pageArr[i])
             // Add the test view as a subview to the scrollview.
             scrollView.addSubview(testView)
         }
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(SAWelcomeViewController.change), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(SAWelcomeViewController.change), userInfo: nil, repeats: true)
     }
     
     //Function invoking for configure the page control for animated pages
@@ -104,9 +128,9 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     
     
     // MARK: UIScrollViewDelegate method implementation
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
-        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
+        let currentPage = floor(scrollView.contentOffset.x / UIScreen.main.bounds.size.width);
         
         // Set the new page index to the page control.
         pageControl.currentPage = Int(currentPage)
@@ -138,18 +162,18 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
     
     
     // MARK: IBAction method implementation
-    @IBAction func changePage(sender: AnyObject) {
+    @IBAction func changePage(_ sender: AnyObject) {
         idx += 1
         self.change()
     }
     
     //Function invoke when user tap on important Information link
-    @IBAction func clickOnImportantLink(sender:UIButton){
+    @IBAction func clickOnImportantLink(_ sender:UIButton){
         
         if impText?.characters.count > 0 {
         
-        let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-        let theAttributedString = try! NSAttributedString(data: impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+        let objImpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+        let theAttributedString = try! NSAttributedString(data: impText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                           options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                           documentAttributes: nil)
         objImpInfo.termsAndConditionTextView.attributedText = theAttributedString
@@ -158,7 +182,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         self.view.addSubview(objImpInfo)
         }
         else{
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(objAnimView)
@@ -166,7 +190,7 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         }
     }
     
-    func callImportantAPI(flag:Bool) {
+    func callImportantAPI(_ flag:Bool) {
         let objAPI = API()
         ////        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         ////        objAnimView.frame = self.view.frame
@@ -181,28 +205,28 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         
-        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        let urlconfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let utf8str = String(format: "%@:%@",partyID,cookie).data(using: String.Encoding.utf8)
+        let base64Encoded = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        let urlconfig = URLSessionConfiguration.default
         //Check if network is present
         if(objAPI.isConnectedToNetwork())
         {
             urlconfig.timeoutIntervalForRequest = 30
             urlconfig.timeoutIntervalForResource = 30
-            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
+            let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/11",baseURL))!)
+            let request = NSMutableURLRequest(url: URL(string: String(format:"%@/Content/11",baseURL))!)
 //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
-            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if let data = data
                 {
                     //                    print(response?.description)
-                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+                    let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         //                        print(dict)
-                        dispatch_async(dispatch_get_main_queue())
+                        DispatchQueue.main.async
                         {
                             if flag == false {
                                 if dict["errorCode"] as! String == "200"{
@@ -212,8 +236,8 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
                             else{
                                 self.objAnimView.removeFromSuperview()
                                 self.impText = dict["content"]!["content"] as? String
-                                let objImpInfo = NSBundle.mainBundle().loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
-                                let theAttributedString = try! NSAttributedString(data: self.impText!.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!,
+                                let objImpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
+                                let theAttributedString = try! NSAttributedString(data: self.impText!.data(using: String.Encoding.utf8, allowLossyConversion: true)!,
                                                                                   options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
                                                                                   documentAttributes: nil)
                                 objImpInfo.termsAndConditionTextView.attributedText = theAttributedString
@@ -224,27 +248,27 @@ class SAWelcomeViewController: UIViewController, NSURLSessionDelegate {
                         }
                     }
                     else {
-                        dispatch_async(dispatch_get_main_queue()){
+                        DispatchQueue.main.async{
                         }
                     }
                 }
                 else  if let error = error  {
-                    dispatch_async(dispatch_get_main_queue()){
+                    DispatchQueue.main.async{
                     }
                 }
-            }
+            }) 
             dataTask.resume()
         }
         else {
         }
     }
     
-    func successResponseFortermAndConditionAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseFortermAndConditionAPI(_ objResponse:Dictionary<String,AnyObject>){
         print(objResponse["content"]!)
         impText = objResponse["content"] as? String
     }
     
-    func errorResponseFortermAndConditionAPI(error:String){
+    func errorResponseFortermAndConditionAPI(_ error:String){
         
     }
 

@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlistDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
@@ -38,7 +62,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ProSetupView()
     }
@@ -46,18 +70,18 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     func ProSetupView() {
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
-        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), forState: UIControlState.Normal)
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), for: UIControlState())
+        planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), for: UIControlState())
+        offersButton.setImage(UIImage(named: "stats-offers-tab.png"), for: UIControlState())
         self.setUPNavigation()
         //Register UIApplication Will Enter Foreground Notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
-        savingPlanTitleLabel.hidden = true
+        savingPlanTitleLabel.isHidden = true
         savingPlanTitleLabel!.adjustsFontSizeToFitWidth = true
         
         self.view.addSubview(objAnimView)
@@ -73,21 +97,21 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     //This method is used to set the contentSize of UIScrollView
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrlView.contentSize = CGSizeMake(3 * UIScreen.mainScreen().bounds.size.width, 0)
+        scrlView.contentSize = CGSize(width: 3 * UIScreen.main.bounds.size.width, height: 0)
     }
     
     //set up navigation view
     func setUPNavigation()
     {
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SAProgressViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SAProgressViewController.menuButtonClicked), for: .touchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -96,33 +120,33 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         
         //set Navigation right button nav-heart
         
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SAProgressViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SAProgressViewController.heartBtnClicked), for: .touchUpInside)
         
         self.callWishListAPI()
         
         //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
             if(wishListArray.count > 0)
             {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
                 self.callWishListAPI()
                 
             }
             
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
         }else{
             self.callWishListAPI()
         }
@@ -140,8 +164,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         let partySavingplan = savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String
         planTitle = String(format: "My %@ plan",partySavingplan)
         
-        NSUserDefaults.standardUserDefaults().setObject(partySavingplan, forKey:"PlanTitle")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(partySavingplan, forKey:"PlanTitle")
+        UserDefaults.standard.synchronize()
         
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
@@ -154,11 +178,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                                 length: (savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String).characters.count))
         
         savingPlanTitleLabel.attributedText = attrText
-        savingPlanTitleLabel.hidden = false
+        savingPlanTitleLabel.isHidden = false
         
         let PlanID = savingPlanDetailsDict["partySavingPlan"]!["partySavingPlanID"]
-        NSUserDefaults.standardUserDefaults().setObject(PlanID , forKey:kPTYSAVINGPLANID)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(PlanID , forKey:kPTYSAVINGPLANID)
+        UserDefaults.standard.synchronize()
         
         print(savingPlanDetailsDict)
         //get the total amount of plan from the Dictionary
@@ -176,8 +200,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         paidAmount = 0
-        NSUserDefaults.standardUserDefaults().setObject(totalAmount, forKey: "ImpMaxAmount")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(totalAmount, forKey: "ImpMaxAmount")
+        UserDefaults.standard.synchronize()
         
         if let transactionArray = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
@@ -194,8 +218,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             print("paidAmt = \(paidAmount)")
             let MaxAmount = totalAmount - paidAmount
             print("MaxAmount = \(MaxAmount)")
-            NSUserDefaults.standardUserDefaults().setObject(MaxAmount, forKey: "ImpMaxAmount")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(MaxAmount, forKey: "ImpMaxAmount")
+            UserDefaults.standard.synchronize()
         }
         
         if paidAmount == totalAmount {
@@ -203,9 +227,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             var link = "http://www.getsavio.com/"
             if let key = savingPlanDetailsDict["partySavingPlan"]![kSNSITEURL] as? String {
                 link = key
-                objAPI.storeValueInKeychainForKey("UrlAvailable", value: "isURLAvailable")
+                objAPI.storeValueInKeychainForKey("UrlAvailable", value: "isURLAvailable" as AnyObject)
             }
-            objAPI.storeValueInKeychainForKey(kSNSITEURL, value:link )
+            objAPI.storeValueInKeychainForKey(kSNSITEURL, value:link as AnyObject )
         }
         
         let planEndDate = savingPlanDetailsDict["partySavingPlan"]!["planEndDate"] as! String
@@ -214,8 +238,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         for i in 0 ..< 3
         {
             //load the CircularProgress.xib to create progress view
-            let circularProgress = NSBundle.mainBundle().loadNibNamed("CircularProgress", owner: self, options: nil)![0] as! UIView
-            circularProgress.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width,0,  scrlView.frame.size.width, scrlView.frame.size.height)
+            let circularProgress = Bundle.main.loadNibNamed("CircularProgress", owner: self, options: nil)![0] as! UIView
+            circularProgress.frame = CGRect(x: CGFloat(i) * UIScreen.main.bounds.size.width,y: 0,  width: scrlView.frame.size.width, height: scrlView.frame.size.height)
             scrlView.addSubview(circularProgress)
             
             //customization of KDCircularProgress
@@ -228,69 +252,69 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let labelTwo = circularProgress.viewWithTag(2) as! UILabel
             let imgView = circularProgress.viewWithTag(4) as! UIImageView
             let activityIndicator = circularProgress.viewWithTag(6) as! UIActivityIndicatorView
-            activityIndicator.hidden = false
+            activityIndicator.isHidden = false
             //check if plan has image
             if (!(savingPlanDetailsDict["partySavingPlan"]!["image"] is NSNull) && i == 0){
-                if let url = NSURL(string:savingPlanDetailsDict["partySavingPlan"]!["image"] as! String)
+                if let url = URL(string:savingPlanDetailsDict["partySavingPlan"]!["image"] as! String)
                 {
                     //load image from url
-                    let request: NSURLRequest = NSURLRequest(URL: url)
-                    NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        if(data?.length > 0){
+                    let request: URLRequest = URLRequest(url: url)
+                    NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                        if(data?.count > 0){
                             let image = UIImage(data: data!)
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 //Remove the activityIndicator after image load
                                 imgView.image = image
                                 activityIndicator.stopAnimating()
-                                activityIndicator.hidden = true
+                                activityIndicator.isHidden = true
                             })
                         }
                         else
                         {
                             //Remove the activityIndicator after image load
                             activityIndicator.stopAnimating()
-                            activityIndicator.hidden = true
+                            activityIndicator.isHidden = true
                         }
-                    })
+                    } as! (URLResponse?, Data?, Error?) -> Void)
                 }
                 else {
                     //Remove the activityIndicator if image is not present
                     activityIndicator.stopAnimating()
-                    activityIndicator.hidden = true
+                    activityIndicator.isHidden = true
                 }
             }
             else {
                 activityIndicator.stopAnimating()
-                activityIndicator.hidden = true
+                activityIndicator.isHidden = true
             }
             
             if(i == 0)
             {
-                labelOne.hidden = true
-                labelTwo.hidden = true
-                imgView.hidden = false
+                labelOne.isHidden = true
+                labelTwo.isHidden = true
+                imgView.isHidden = false
                 imgView.layer.cornerRadius = imgView.frame.width/2
             }
             else if(i == 1) {
                 //                paidAmount = 1053
-                labelOne.hidden = false
+                labelOne.isHidden = false
                 labelOne.attributedText = self.createXLabelTextForPercent(i, text: String(format: "%0.f",(paidAmount*100)/totalAmount))
-                labelTwo.hidden = false
+                labelTwo.isHidden = false
                 labelTwo.numberOfLines = 0
-                labelTwo.lineBreakMode = .ByWordWrapping
+                labelTwo.lineBreakMode = .byWordWrapping
                 labelTwo.attributedText = self.createXLabelText(0, text: String(format: "%0.f added",paidAmount))//String(format: "£%0.f added",paidAmount)
-                imgView.hidden = true
-                activityIndicator.hidden = true
+                imgView.isHidden = true
+                activityIndicator.isHidden = true
             }
             else {
-                labelOne.hidden = false
+                labelOne.isHidden = false
                 labelOne.attributedText = self.createXLabelTextForLast(i, text: String(format: "%0.f",totalAmount - paidAmount))//String(format: "£%0.f",totalAmount - paidAmount)
-                labelTwo.hidden = false
+                labelTwo.isHidden = false
                 
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
-                let endDate = dateFormatter.dateFromString(planEndDate)
-                let timeDifference : NSTimeInterval = endDate!.timeIntervalSinceDate(NSDate())
+                let endDate = dateFormatter.date(from: planEndDate)
+                let timeDifference : TimeInterval = endDate!.timeIntervalSince(Date())
                 var dateDiff = Int(timeDifference/3600)
                 var str = ""
                 if(savingPlanDetailsDict["partySavingPlan"]!["payType"] as! String == kMonth)
@@ -319,55 +343,55 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 
                 
                 labelTwo.text = str//"0 days to go"
-                imgView.hidden = true
-                activityIndicator.hidden = true
+                imgView.isHidden = true
+                activityIndicator.isHidden = true
             }
         }
         
         //customization of plan button as per the psd
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.planButton!.bounds, byRoundingCorners: ([.topRight, .topLeft]), cornerRadii: CGSize(width: 3.0, height: 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.planButton!.bounds
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         self.planButton?.layer.mask = maskLayer
     }
     
-    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+    fileprivate func createXLabelText (_ index: Int,text:String) -> NSMutableAttributedString {
         let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
         let normalscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:8)!,NSBaselineOffsetAttributeName:3])
         let fontSuper:UIFont? = UIFont(name: kMediumFont, size:15)
         
         
         let superscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:0])
-        normalscript.appendAttributedString(superscript)
+        normalscript.append(superscript)
         let newLinAttr = NSMutableAttributedString(string: "\n")
-        normalscript.appendAttributedString(newLinAttr)
+        normalscript.append(newLinAttr)
         return normalscript
     }
     
-    private func createXLabelTextForLast (index: Int,text:String) -> NSMutableAttributedString {
+    fileprivate func createXLabelTextForLast (_ index: Int,text:String) -> NSMutableAttributedString {
         let fontNormal:UIFont? = UIFont(name: kMediumFont, size:15)
         let normalscript = NSMutableAttributedString(string: "£", attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:17)!,NSBaselineOffsetAttributeName:15])
         let fontSuper:UIFont? = UIFont(name: kMediumFont, size:40)
         
         
         let superscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:0])
-        normalscript.appendAttributedString(superscript)
+        normalscript.append(superscript)
         let newLinAttr = NSMutableAttributedString(string: "\n")
-        normalscript.appendAttributedString(newLinAttr)
+        normalscript.append(newLinAttr)
         return normalscript
     }
     
-    private func createXLabelTextForPercent (index: Int,text:String) -> NSMutableAttributedString {
+    fileprivate func createXLabelTextForPercent (_ index: Int,text:String) -> NSMutableAttributedString {
         let fontNormal:UIFont? = UIFont(name: kMediumFont, size:15)
         let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:UIFont(name: kMediumFont, size:40)!,NSBaselineOffsetAttributeName:0])
         let fontSuper:UIFont? = UIFont(name: kMediumFont, size:17)
         
         
         let superscript = NSMutableAttributedString(string: "%", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:15])
-        normalscript.appendAttributedString(superscript)
+        normalscript.append(superscript)
         let newLinAttr = NSMutableAttributedString(string: "\n")
-        normalscript.appendAttributedString(newLinAttr)
+        normalscript.append(newLinAttr)
         return normalscript
     }
     
@@ -376,7 +400,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
         //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
@@ -393,29 +417,29 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")        }
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")        }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
-        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
+        let currentPage = floor(scrollView.contentOffset.x / UIScreen.main.bounds.size.width);
         // Set the new page index to the page control.
         pageControl!.currentPage = Int(currentPage)
     }
     
     //UIPageView control method
-    @IBAction func changePage(sender: AnyObject) {
+    @IBAction func changePage(_ sender: AnyObject) {
         var newFrame = scrlView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
         //scroll the content view so that the area defined by newFrame will be visible inside the scroll view
@@ -423,7 +447,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     }
     
     //Goto stats tab
-    @IBAction func clickOnStatButton(sender:UIButton){
+    @IBAction func clickOnStatButton(_ sender:UIButton){
         if let title = savingPlanDetailsDict["partySavingPlan"]![kTitle] as? String
         {
             let obj = SAStatViewController()
@@ -445,12 +469,12 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
     }
     
-    @IBAction func offersButtonPressed(sender: AnyObject) {
+    @IBAction func offersButtonPressed(_ sender: AnyObject) {
         var isAvailble: Bool = false
-        var vw = UIViewController?()
+        var vw = UIViewController()
         
         for var obj in (self.navigationController?.viewControllers)!{
-            if obj.isKindOfClass(SAOfferListViewController) {
+            if obj.isKind(of: SAOfferListViewController.self) {
                 isAvailble = true
                 vw = obj as! SAOfferListViewController
                 break
@@ -458,27 +482,27 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
             let obj = SAOfferListViewController()
             obj.savID = 63
             obj.isComingProgress = true
             //save the Generic plan in NSUserDefaults, so it will show its specific offers
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
+            UserDefaults.standard.set(dict, forKey:"colorDataDict")
+            UserDefaults.standard.synchronize()
             obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
     }
     
-    @IBAction func spendButtonPressed(sender: AnyObject) {
+    @IBAction func spendButtonPressed(_ sender: AnyObject) {
         var isAvailble: Bool = false
-        var vw = UIViewController?()
+        var vw = UIViewController()
         
         for var obj in (self.navigationController?.viewControllers)!{
-            if obj.isKindOfClass(SASpendViewController) {
+            if obj.isKind(of: SASpendViewController.self) {
                 isAvailble = true
                 vw = obj as! SASpendViewController
                 break
@@ -486,7 +510,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
             
@@ -495,39 +519,39 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
     }
     
-    @IBAction func impulseSavingButtonPressed(sender: UIButton) {
+    @IBAction func impulseSavingButtonPressed(_ sender: UIButton) {
         let objImpulseSave = SAImpulseSavingViewController()
         objImpulseSave.maxPrice = totalAmount
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
     
     //get users plan delegate methods
-    func successResponseForGetUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForGetUsersPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         if let message = objResponse["message"] as? String
         {
             if(message == "Success")
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kSAVSITEURL)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.removeObject(forKey: kSAVSITEURL)
+                UserDefaults.standard.synchronize()
                 savingPlanDetailsDict = objResponse//["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }
             else {
-                pageControl.hidden = true
+                pageControl.isHidden = true
                 let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
         }
         else {
-            pageControl.hidden = true
+            pageControl.isHidden = true
             let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         objAnimView.removeFromSuperview()
     }
     
-    func errorResponseForGetUsersPlanAPI(error: String) {
+    func errorResponseForGetUsersPlanAPI(_ error: String) {
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -539,7 +563,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     }
     
     //MARK: GetWishlist Delegate method
-    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
         if let error = objResponse["error"] as? String
         {
             //            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -551,18 +575,18 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             wishListArray = wishListResponse["wishListList"] as! Array<Dictionary<String,AnyObject>>
             if(wishListArray.count > 0)
             {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
                 
             }
-            let dataSave = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
-            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            let dataSave = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
+            UserDefaults.standard.set(dataSave, forKey: "wishlistArray")
+            UserDefaults.standard.synchronize()
+            btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
         }
         //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
         //            if arr.count > 0{
@@ -571,7 +595,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         //        }
     }
     //function invoke when GetWishlist API request fail
-    func errorResponseForGetWishlistAPI(error: String) {
+    func errorResponseForGetWishlistAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
@@ -586,7 +610,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     }
     
     //function checking any key is null and return not null values in dictionary
-    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
@@ -594,17 +618,17 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank
+                replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
                 }
-                replaceDict[key] = newArr
+                replaceDict[key] = newArr as AnyObject
             }
         }
         return replaceDict

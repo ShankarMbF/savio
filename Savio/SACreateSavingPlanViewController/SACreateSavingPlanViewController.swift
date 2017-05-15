@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,GetWishlistDelegate,CategoriesSavingPlan, GetOfferlistDelegate{
     //-------------Setup IBOutlets------------------------------------------------------------
@@ -33,14 +57,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     var tblArr : Array<Dictionary<String,AnyObject>> = []
     //Set default placeholder for all saving plan icon image
     var placeHolderImgArr: Array<String> = ["group-save-category-icon","wedding-category-icon","baby-category-icon","holiday-category-icon","ride-category-icon","home-category-icon","gadget-category-icon","generic-category-icon"]
-    var valueArray : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon","savLogo2x":"group-save-category-icon","savLogo3x":"group-save-category-icon","title":"Group goal","savDescription":"Set up a goal between friends and family","sav-id":"85"]
-        ,["savLogo1x":"wedding-category-icon","savLogo2x":"wedding-category-icon","savLogo3x":"wedding-category-icon","title":"Wedding","savDescription":"Get great deals on everything from flowers to videos","sav-id":"86"]
-        ,["savLogo1x":"baby-category-icon","savLogo2x":"baby-category-icon","savLogo3x":"baby-category-icon","title":"Baby","savDescription":"Get everything ready for the new arrival","sav-id":"87"],
-         ["savLogo1x":"holiday-category-icon","savLogo2x":"holiday-category-icon","savLogo3x":"holiday-category-icon","title":"Holiday","savDescription":"Get your money together to pay for big trip or mini break.","sav-id":"88"],
-         ["savLogo1x":"ride-category-icon","savLogo2x":"ride-category-icon","savLogo3x":"ride-category-icon","title":"Ride","savDescription":"There's always room for another bike.","sav-id":"89"],
-         ["savLogo1x":"home-category-icon","savLogo2x":"home-category-icon","savLogo3x":"home-category-icon","title":"Home","savDescription":"Time to make that project a reality.","sav-id":"90"],
-         ["savLogo1x":"gadget-category-icon","savLogo2x":"gadget-category-icon","savLogo3x":"gadget-category-icon","title":"Gadget","savDescription":"The one thing you really need, from smartphones to sewing machines.","sav-id":"91"],
-         ["savLogo1x":"generic-category-icon","savLogo2x":"generic-category-icon","savLogo3x":"generic-category-icon","title":"Generic plan","savDescription":"Not sure yet or just setting some money aside.","sav-id":"92"]]
+    var valueArray : Array<Dictionary<String,AnyObject>> = [["savLogo1x":"group-save-category-icon" as AnyObject,"savLogo2x":"group-save-category-icon" as AnyObject,"savLogo3x":"group-save-category-icon" as AnyObject,"title":"Group goal" as AnyObject,"savDescription":"Set up a goal between friends and family" as AnyObject,"sav-id":"85" as AnyObject]
+        ,["savLogo1x":"wedding-category-icon" as AnyObject,"savLogo2x":"wedding-category-icon" as AnyObject,"savLogo3x":"wedding-category-icon" as AnyObject,"title":"Wedding" as AnyObject,"savDescription":"Get great deals on everything from flowers to videos" as AnyObject,"sav-id":"86" as AnyObject]
+        ,["savLogo1x":"baby-category-icon" as AnyObject,"savLogo2x":"baby-category-icon" as AnyObject,"savLogo3x":"baby-category-icon" as AnyObject,"title":"Baby" as AnyObject,"savDescription":"Get everything ready for the new arrival" as AnyObject,"sav-id":"87" as AnyObject],
+         ["savLogo1x":"holiday-category-icon" as AnyObject ,"savLogo2x":"holiday-category-icon" as AnyObject,"savLogo3x":"holiday-category-icon" as AnyObject,"title":"Holiday" as AnyObject,"savDescription":"Get your money together to pay for big trip or mini break." as AnyObject,"sav-id":"88" as AnyObject],
+         ["savLogo1x":"ride-category-icon" as AnyObject,"savLogo2x":"ride-category-icon" as AnyObject,"savLogo3x":"ride-category-icon" as AnyObject,"title":"Ride" as AnyObject,"savDescription":"There's always room for another bike." as AnyObject,"sav-id":"89" as AnyObject],
+         ["savLogo1x":"home-category-icon" as AnyObject,"savLogo2x":"home-category-icon" as AnyObject,"savLogo3x":"home-category-icon" as AnyObject,"title":"Home" as AnyObject,"savDescription":"Time to make that project a reality." as AnyObject,"sav-id":"90" as AnyObject],
+         ["savLogo1x":"gadget-category-icon" as AnyObject,"savLogo2x":"gadget-category-icon" as AnyObject,"savLogo3x":"gadget-category-icon" as AnyObject,"title":"Gadget" as AnyObject,"savDescription":"The one thing you really need, from smartphones to sewing machines." as AnyObject,"sav-id":"91" as AnyObject],
+         ["savLogo1x":"generic-category-icon" as AnyObject,"savLogo2x":"generic-category-icon" as AnyObject,"savLogo3x":"generic-category-icon" as AnyObject,"title":"Generic plan" as AnyObject,"savDescription":"Not sure yet or just setting some money aside." as AnyObject,"sav-id":"92" as AnyObject]]
     
     let pageArr: Array<String> = ["Page5", "Page1", "Page2", "Page3", "Page4"] //Set up list of page on page controller
     
@@ -49,20 +73,20 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         super.viewDidLoad()
         //----------------------------------------Setting navigation Bar-------------------------------------------
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         //------------------------------------------------------------------------------------------------------------
         //Register UIApplication Will Enter Foreground Notification
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SACreateSavingPlanViewController.getWishListData(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SACreateSavingPlanViewController.getWishListData(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
-        tblView?.registerClass(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
-        tblView?.separatorInset = UIEdgeInsetsZero
+        tblView?.register(SavingCategoryTableViewCell.self, forCellReuseIdentifier: "SavingCategoryTableViewCell")
+        tblView?.separatorInset = UIEdgeInsets.zero
         //Setting up UI
         self.setUpView()
         //Setting up animation loader
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -74,7 +98,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         //------------------------------------------------------------
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setUpView()
     }
@@ -90,7 +114,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
@@ -105,7 +129,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
     }
     //Function invoke when UIApplicationWillEnterForegroundNotification brodcast
-    func getWishListData(notification:NSNotification)
+    func getWishListData(_ notification:Notification)
     {
         self.callWishListAPI()
     }
@@ -118,7 +142,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //Called to notify the view controller that its view has just laid out its subviews.
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        verticalScrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.width,  scrlView!.frame.size.height + tblView!.frame.size.height + suggestedHt.constant)
+        verticalScrlView.contentSize = CGSize(width: UIScreen.main.bounds.width,  height: scrlView!.frame.size.height + tblView!.frame.size.height + suggestedHt.constant)
     }
     
     //Function invoke for Set up the UI
@@ -128,9 +152,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         //--------set Navigation left button--------------------
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SACreateSavingPlanViewController.menuButtonClicked), for: .touchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
@@ -138,13 +162,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         self.title = "Create a plan"
         
         //---------------set Navigation right button nav-heart-------------------
-        heartBtn.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        heartBtn.frame = CGRectMake(0, 0, 30, 30)
+        heartBtn.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        heartBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         heartBtn.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         let heartCount:String = String(format: "%d",colors.count)
-        heartBtn.setTitle(heartCount, forState: UIControlState.Normal)
-        heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        heartBtn.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        heartBtn.setTitle(heartCount, for: UIControlState())
+        heartBtn.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        heartBtn.addTarget(self, action: #selector(SACreateSavingPlanViewController.heartBtnClicked), for: .touchUpInside)
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = heartBtn
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -163,7 +187,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         //------------------------------------------------------
         
         // Enable paging.
-        scrlView!.pagingEnabled = true
+        scrlView!.isPagingEnabled = true
         // Set the following flag values.
         scrlView!.showsHorizontalScrollIndicator = false
         scrlView!.showsVerticalScrollIndicator = false
@@ -172,45 +196,45 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         // Set the scrollview content size.
         if(colors.count >= 5)
         {
-            scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * 5, 0)
+            scrlView!.contentSize = CGSize(width: UIScreen.main.bounds.size.width * 5, height: 0)
         }
         else
         {
-            scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width * CGFloat(colors.count), 0)
+            scrlView!.contentSize = CGSize(width: UIScreen.main.bounds.size.width * CGFloat(colors.count), height: 0)
         }
         // Load the PageView view from the SavingPageView.xib file and configure it properly.
         if colors.count > 0{
             
-            let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
-            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            let dataSave = NSKeyedArchiver.archivedData(withRootObject: colors)
+            UserDefaults.standard.set(dataSave, forKey: "wishlistArray")
+            UserDefaults.standard.synchronize()
             
             if(colors.count >= 5)
             {
                 for i in 0 ..< 5 {
-                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                    heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                    heartBtn.setTitleColor(UIColor.black, for: UIControlState())
 //                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
 //                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
 //                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
-                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
+                    let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
-                    testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                    testView.frame = CGRect(x: CGFloat(i) * UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: scrlView!.frame.size.height)
                     let vw = testView.viewWithTag(2)! as UIView
                     vw.layer.borderWidth = 1
-                    vw.layer.borderColor = UIColor.whiteColor().CGColor
+                    vw.layer.borderColor = UIColor.white.cgColor
                     //Get individual product from wishlist
                     let objDict = colors[i] as Dictionary<String,AnyObject>
                     
                     let lblNoWishList = testView.viewWithTag(5)! as! UILabel
-                    lblNoWishList.hidden = true
+                    lblNoWishList.isHidden = true
                     //----------show product title--------------------
                     let lblTitle = testView.viewWithTag(3)! as! UILabel
                     lblTitle.text = objDict[kTitle] as? String
-                    lblTitle.hidden = false
+                    lblTitle.isHidden = false
                     //-----------------------------------------------
                     //-----------Show product cost-------------------
                     let lblCost = testView.viewWithTag(4)! as! UILabel
@@ -220,7 +244,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     }
                     else
                     {
-                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).intValue)
+                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).int32Value)
                     }
                     //----------------------------------------------------
                     
@@ -229,32 +253,32 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     if let urlString = objDict[kImageURL] as? String
                     {
                         //Get product URL
-                        let url = NSURL(string:urlString)
-                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        let url = URL(string:urlString)
+                        let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
                             // fetch image data from url
-                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                                if(data != nil && data?.length > 0)
+                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                                if(data != nil && data?.count > 0)
                                 {
                                     //showing image if data available
                                     let image = UIImage(data: data!)
-                                    dispatch_async(dispatch_get_main_queue(), {
+                                    DispatchQueue.main.async(execute: {
                                         bgImageView.image = image
                                     })
                                 }
-                            })
+                            } as! (URLResponse?, Data?, Error?) -> Void)
                         }
                     }
                     //---------------------------------------------------------------------
                     let imgEuro = testView.viewWithTag(6)! as! UIImageView
-                    imgEuro.hidden = false
+                    imgEuro.isHidden = false
                     
                     suggestedHt.constant = 113.0
                     suggestedTop.constant = 16.0
-                    btnWishList?.hidden = false
-                    pageControl?.hidden = false
-                    btnVwBg.hidden = false
+                    btnWishList?.isHidden = false
+                    pageControl?.isHidden = false
+                    btnVwBg.isHidden = false
                     //---------show at most 5 latest products to scrollview---------
                     if(colors.count >= 5)
                     {
@@ -263,7 +287,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     else {
                         pageControl?.numberOfPages = colors.count
                     }
-                    lblLine?.hidden = false
+                    lblLine?.isHidden = false
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
                     //-------------------------------------------------------------
@@ -271,29 +295,29 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
             else {
                 for i in 0 ..< colors.count {
-                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                    heartBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                    heartBtn.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                    heartBtn.setTitleColor(UIColor.black, for: UIControlState())
 //                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
 //                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
 //                    NSUserDefaults.standardUserDefaults().synchronize()
                     
                     // Load the TestView view.
-                    let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
+                    let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
                     // Set its frame and data to pageview
-                    testView.frame = CGRectMake(CGFloat(i) * UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, scrlView!.frame.size.height)
+                    testView.frame = CGRect(x: CGFloat(i) * UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: scrlView!.frame.size.height)
                     let vw = testView.viewWithTag(2)! as UIView
                     vw.layer.borderWidth = 1
-                    vw.layer.borderColor = UIColor.whiteColor().CGColor
+                    vw.layer.borderColor = UIColor.white.cgColor
                     
                     let objDict = colors[i] as Dictionary<String,AnyObject>
                     
                     let lblNoWishList = testView.viewWithTag(5)! as! UILabel
-                    lblNoWishList.hidden = true
+                    lblNoWishList.isHidden = true
                     
                     let lblTitle = testView.viewWithTag(3)! as! UILabel
                     lblTitle.text = objDict[kTitle] as? String
-                    lblTitle.hidden = false
+                    lblTitle.isHidden = false
                     
                     let lblCost = testView.viewWithTag(4)! as! UILabel
                     
@@ -303,39 +327,39 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     }
                     else
                     {
-                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).intValue)
+                        lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).int32Value)
                     }
                     
                     
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
                     if let urlString = objDict[kImageURL] as? String
                     {
-                        let url = NSURL(string:urlString)
+                        let url = URL(string:urlString)
                         
-                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
-                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                                if(data != nil && data?.length > 0)
+                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                                if(data != nil && data?.count > 0)
                                 {
                                     let image = UIImage(data: data!)
                                     
-                                    dispatch_async(dispatch_get_main_queue(), {
+                                    DispatchQueue.main.async(execute: {
                                         bgImageView.image = image
                                     })
                                 }
-                            })
+                            } as! (URLResponse?, Data?, Error?) -> Void)
                         }
                     }
                     
                     let imgEuro = testView.viewWithTag(6)! as! UIImageView
-                    imgEuro.hidden = false
+                    imgEuro.isHidden = false
                     
                     suggestedHt.constant = 113.0
                     suggestedTop.constant = 16.0
-                    btnWishList?.hidden = false
-                    pageControl?.hidden = false
-                    btnVwBg.hidden = false
+                    btnWishList?.isHidden = false
+                    pageControl?.isHidden = false
+                    btnVwBg.isHidden = false
                     if(colors.count >= 5)
                     {
                         pageControl?.numberOfPages = 5
@@ -344,7 +368,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                         pageControl?.numberOfPages = colors.count
                     }
                     
-                    lblLine?.hidden = false
+                    lblLine?.isHidden = false
                     
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
@@ -356,35 +380,35 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         else {
             
             //--------------If whishlist is empty setup UI--------------------------------------------
-            NSUserDefaults.standardUserDefaults().setObject(colors, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(colors, forKey: "wishlistArray")
+            UserDefaults.standard.synchronize()
             
-            scrlView!.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width , 0)
-            let testView = NSBundle.mainBundle().loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
+            scrlView!.contentSize = CGSize(width: UIScreen.main.bounds.size.width , height: 0)
+            let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
             // Set its frame and data to pageview
-            testView.frame = CGRectMake(scrlView!.bounds.origin.x, 0, scrlView!.frame.size.width, scrlView!.frame.size.height)
+            testView.frame = CGRect(x: scrlView!.bounds.origin.x, y: 0, width: scrlView!.frame.size.width, height: scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
             vw.layer.borderWidth = 1
-            vw.layer.borderColor = UIColor.whiteColor().CGColor
+            vw.layer.borderColor = UIColor.white.cgColor
             let lblNoWishList = testView.viewWithTag(5)! as! UILabel
-            lblNoWishList.hidden = false
+            lblNoWishList.isHidden = false
             let lblTitle = testView.viewWithTag(3)! as! UILabel
-            lblTitle.hidden = true
+            lblTitle.isHidden = true
             
             let lblCost = testView.viewWithTag(4)! as! UILabel
-            lblCost.hidden = true
+            lblCost.isHidden = true
             
             let imgEuro = testView.viewWithTag(6)! as! UIImageView
-            imgEuro.hidden = true
+            imgEuro.isHidden = true
             
             //-----Set topspace and height of view if empty wishlist-----
             suggestedHt.constant = 50.0
             suggestedTop.constant = -52.0
             //--------------------------------------------------------
-            btnVwBg.hidden = true
-            btnWishList?.hidden = true
-            pageControl?.hidden = true
-            lblLine?.hidden = true
+            btnVwBg.isHidden = true
+            btnWishList?.isHidden = true
+            pageControl?.isHidden = true
+            lblLine?.isHidden = true
             // Add the SavingPageView as a subview to the scrollview.
             scrlView!.addSubview(testView)
             //---------------------------------------------------------------------------------------
@@ -403,9 +427,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     // MARK: UIScrollViewDelegate method implementation
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
-        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
+        let currentPage = floor(scrollView.contentOffset.x / UIScreen.main.bounds.size.width);
         // Set the new page index to the page control.
         pageControl!.currentPage = Int(currentPage)
     }
@@ -413,13 +437,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     //MARK: Bar button action
     func menuButtonClicked(){
         //Brodcast notification for toggle menu
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     func heartBtnClicked(){
         if colors.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -428,33 +452,33 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     // MARK: IBAction method implementation
-    @IBAction func changePage(sender: AnyObject) {
+    @IBAction func changePage(_ sender: AnyObject) {
         // Calculate the frame that should scroll to based on the page control current page.
         var newFrame = scrlView!.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl!.currentPage)
         scrlView!.scrollRectToVisible(newFrame, animated: true)
     }
     
-    @IBAction func clickedOnWishListButton(sender:UIButton){
-        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+    @IBAction func clickedOnWishListButton(_ sender:UIButton){
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
     }
     
     
     //MARK: TableView Delegate and Datasource method
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
+    func numberOfSections(in tableView: UITableView) -> Int  {
         return 1;
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return tblArr.count - 1;
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = NSBundle.mainBundle().loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil)![0] as! SavingCategoryTableViewCell
+        let cell = Bundle.main.loadNibNamed("SavingCategoryTableViewCell", owner: nil, options: nil)![0] as! SavingCategoryTableViewCell
         let cellDict = tblArr[indexPath.row]
-        cell.layoutMargins = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsets.zero
         cell.lblHeader!.text = cellDict[kTitle] as? String;
         cell.suggestedHt.constant = self.heightForView((cellDict["savDescription"] as? String)!, font: UIFont(name: kLightFont, size: 11)!, width: (cell.lblDetail?.frame.size.width)!)
         cell.lblDetail?.text = cellDict["savDescription"] as? String
@@ -462,33 +486,33 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
         if (cellDict["savLogo1x"] != nil){
-            let request: NSURLRequest = NSURLRequest(URL: NSURL(string:cellDict["savLogo1x"] as! String)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+            let request: URLRequest = URLRequest(url: URL(string:cellDict["savLogo1x"] as! String)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
                 if(data != nil)
                 {
                     let image = UIImage(data: data!)
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         if image != nil {
                             cell.imgView?.image = image
                         }
                     })
                 }
-            })
+            } as! (URLResponse?, Data?, Error?) -> Void)
         }
         
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == tblArr.count - 1) {
             return 200.0
         }
         return 79.0
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Check If any plan is created by login user
-        if(NSUserDefaults.standardUserDefaults().objectForKey(kIndividualPlan) as? NSNumber == 1 || NSUserDefaults.standardUserDefaults().objectForKey(kGroupPlan) as? NSNumber == 1)
+        if(UserDefaults.standard.object(forKey: kIndividualPlan) as? NSNumber == 1 || UserDefaults.standard.object(forKey: kGroupPlan) as? NSNumber == 1)
         {
             //if plan already created then restrict user to create all plan
             let alert = UIAlertView(title: "You already have an active plan", message: "Sorry, can only have one personal plan and be a member of one group plan at a time.", delegate: nil, cancelButtonTitle: "Ok")
@@ -497,8 +521,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         else
         {
             //If plan is not created then allow user to create plan
-            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
+            UserDefaults.standard.synchronize()
             if(indexPath.row == 0)
             {
                 let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
@@ -506,8 +530,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
             else
             {
-                NSUserDefaults.standardUserDefaults().setObject( self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.set( self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
+                UserDefaults.standard.synchronize()
                 if(indexPath.row == 0)
                 {
                     let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
@@ -522,23 +546,23 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         }
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if( tblView!.respondsToSelector(Selector("setSeparatorInset:"))){
-            tblView!.separatorInset = UIEdgeInsetsZero
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if( tblView!.responds(to: #selector(setter: UITableViewCell.separatorInset))){
+            tblView!.separatorInset = UIEdgeInsets.zero
         }
-        if( tblView!.respondsToSelector(Selector("setLayoutMargins:"))){
-            tblView!.layoutMargins = UIEdgeInsetsZero
+        if( tblView!.responds(to: #selector(setter: UIView.layoutMargins))){
+            tblView!.layoutMargins = UIEdgeInsets.zero
         }
-        if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
-            cell.layoutMargins = UIEdgeInsetsZero
+        if(cell.responds(to: #selector(setter: UIView.layoutMargins))){
+            cell.layoutMargins = UIEdgeInsets.zero
         }
     }
     
     //Function invoke for calculating height of lable as per given text, font and width
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         label.sizeToFit()
@@ -546,7 +570,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     //MARK: GetCategorysavingPlan API Delegate method
-    func successResponseForCategoriesSavingPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForCategoriesSavingPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         //setup UI and reload tableview
         print(objResponse)
         if let tblArray = (objResponse["savingPlanList"] as? Array<Dictionary<String,AnyObject>>)
@@ -558,8 +582,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let dict = tblArr[i] as Dictionary<String,AnyObject>
                     if(dict[kTitle] as! String == "Group Save")
                     {
-                        NSUserDefaults.standardUserDefaults().setObject(dict["savPlanID"], forKey: "savPlanID")
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        UserDefaults.standard.set(dict["savPlanID"], forKey: "savPlanID")
+                        UserDefaults.standard.synchronize()
                     }
                 }
             }
@@ -576,7 +600,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
      
     }
     //function invoke when GetCategorysavingPlan API request fail
-    func errorResponseForCategoriesSavingPlanAPI(error: String) {
+    func errorResponseForCategoriesSavingPlanAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
@@ -590,7 +614,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     //MARK: GetWishlist Delegate method
-    func successResponseForGetWishlistAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
         if let error = objResponse["error"] as? String
         {
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
@@ -603,14 +627,14 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             print(wishListResponse)
             self.setUpView()
         }
-        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+        if let arr =  UserDefaults.standard.value(forKey: "offerList") as? Array<Dictionary<String,AnyObject>>{
             if arr.count > 0{
                 objAnimView.removeFromSuperview()
             }
         }
     }
      //function invoke when GetWishlist API request fail
-    func errorResponseForGetWishlistAPI(error: String) {
+    func errorResponseForGetWishlistAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
@@ -625,26 +649,26 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     }
     
     //MARK: GetOfferlistAPI Delegate method
-    func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseForGetOfferlistAPI(_ objResponse:Dictionary<String,AnyObject>){
         var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
         var arr: Array<Dictionary<String,AnyObject>> = []
         for i in 0 ..< offerArr.count {
             let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
             arr.append(dict)
         }
-        NSUserDefaults.standardUserDefaults().setObject(arr, forKey: "offerList")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(arr, forKey: "offerList")
+        UserDefaults.standard.synchronize()
         objAnimView.removeFromSuperview()
     }
     
      //function invoke when GetOfferlist API request fail
-    func errorResponseForGetOfferlistAPI(error:String){
+    func errorResponseForGetOfferlistAPI(_ error:String){
         objAnimView.removeFromSuperview()
     }
 
     
     //function checking any key is null and return not null values in dictionary
-    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
@@ -652,17 +676,17 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank
+                replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
                 }
-                replaceDict[key] = newArr
+                replaceDict[key] = newArr as AnyObject
             }
         }
         return replaceDict

@@ -24,44 +24,44 @@ class SAThankYouViewController: UIViewController {
     
     func setUpView()
     {
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         self.title = "Thank you"
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SAThankYouViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SAThankYouViewController.menuButtonClicked), for: .touchUpInside)
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SAThankYouViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SAThankYouViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
             if(wishListArray.count > 0)
             {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
             }
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
         }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -69,14 +69,14 @@ class SAThankYouViewController: UIViewController {
     }
     
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     func heartBtnClicked(){
         
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -92,37 +92,37 @@ class SAThankYouViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    @IBAction func continueButtonPressed(sender: UIButton) {
-        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
+    @IBAction func continueButtonPressed(_ sender: UIButton) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAProgressViewController")
         // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
         
-        let plan = NSUserDefaults.standardUserDefaults().valueForKey("usersPlan") as? String
+        let plan = UserDefaults.standard.value(forKey: "usersPlan") as? String
         //Individual plan
         if(plan == kIndividualPlan || individualFlag == 1)
         {
             let objProgressView = SAProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kIndividualPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+            UserDefaults.standard.setValue(1, forKey: kIndividualPlan)
+            UserDefaults.standard.synchronize()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
         }
         else if(plan == kGroupPlan || groupFlag == 1)//group plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+            UserDefaults.standard.setValue(1, forKey: kGroupPlan)
+            UserDefaults.standard.synchronize()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
             
             let objProgressView = SAGroupProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)
         }
         else if(plan == kGroupMemberPlan || groupMemberFlag == 1)//Group member plan
         {
-            NSUserDefaults.standardUserDefaults().setValue(1, forKey: kGroupMemberPlan)
-            NSUserDefaults.standardUserDefaults().synchronize()
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationIdentifier, object: nil)
+            UserDefaults.standard.setValue(1, forKey: kGroupMemberPlan)
+            UserDefaults.standard.synchronize()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
             
             let objProgressView = SAGroupProgressViewController()
             self.navigationController?.pushViewController(objProgressView, animated: true)

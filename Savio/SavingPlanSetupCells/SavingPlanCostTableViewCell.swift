@@ -7,8 +7,32 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 protocol SavingPlanCostTableViewCellDelegate {
-    func txtFieldCellText(txtFldCell:SavingPlanCostTableViewCell)
+    func txtFieldCellText(_ txtFldCell:SavingPlanCostTableViewCell)
 }
 class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     
@@ -22,37 +46,37 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     weak var view : UIScrollView?
     var delegate: SavingPlanCostTableViewCellDelegate?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     
     override func awakeFromNib() {
         super.awakeFromNib()
         costTextField.delegate = self
         //Get the dictionary of selected theme from NSUserdefaults
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         // corner Radius of costTextField
         costTextField.layer.cornerRadius = 4
         //set the color and corner radius for minus and plus button
         minusButton.layer.cornerRadius = minusButton.frame.size.height / 2
-        minusButton.setTitleColor(self.setUpColor(), forState: UIControlState.Normal)
+        minusButton.setTitleColor(self.setUpColor(), for: UIControlState())
         minusButton.layer.masksToBounds = true
         
         plusButton.layer.cornerRadius = plusButton.frame.size.height / 2
         plusButton.layer.masksToBounds = true
-        plusButton.setTitleColor(self.setUpColor(), forState: UIControlState.Normal)
+        plusButton.setTitleColor(self.setUpColor(), for: UIControlState())
         
         slider.thumbTintColor = self.setUpColor()
-        slider.setThumbImage(self.setUpImage(), forState: UIControlState.Normal)
-        slider.setThumbImage(self.setUpImage(), forState: UIControlState.Highlighted)
+        slider.setThumbImage(self.setUpImage(), for: UIControlState())
+        slider.setThumbImage(self.setUpImage(), for: UIControlState.highlighted)
         
         var customToolBar : UIToolbar?
-        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SavingPlanCostTableViewCell.doneBarButtonPressed))
+        customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SavingPlanCostTableViewCell.doneBarButtonPressed))
         customToolBar!.items = [acceptButton]
         costTextField.inputAccessoryView = customToolBar
         
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
@@ -115,7 +139,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //UISegmentcontrol value changed method
-    @IBAction func sliderValueChanged(sender: UISlider) {
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
         if(sender.value >= 2000) {
             sender.value = sender.value + 30;
         }
@@ -133,11 +157,11 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     func registerForKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanCostTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    @IBAction func plusButtonPressed(sender: AnyObject) {
+    @IBAction func plusButtonPressed(_ sender: AnyObject) {
         if(slider.value >= 2000) {
             slider.value = slider.value + 30;
         }
@@ -148,7 +172,7 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         delegate?.txtFieldCellText(self)
     }
     
-    @IBAction func minusButtonPressed(sender: AnyObject) {
+    @IBAction func minusButtonPressed(_ sender: AnyObject) {
         if(slider.value >= 2000) {
             slider.value = slider.value - 30;
         }
@@ -161,15 +185,15 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         //        let visibleRect = CGRect(x: 0, y: 0, width:  UIScreen.mainScreen().bounds.width, height: height)
         lastOffset = (view?.contentOffset)!
-        let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
+        let cellFrame = tblView?.rectForRow(at: (tblView?.indexPath(for: self))!)
         let yOfTextField = costTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
@@ -178,14 +202,14 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         view?.setContentOffset(lastOffset, animated: true)
     }
     
     //UITextfieldDelegate method
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.text?.characters.count > 1  && string == "" {
             return true
         }
@@ -209,20 +233,20 @@ class SavingPlanCostTableViewCell: UITableViewCell,UITextFieldDelegate {
         return false
     }
     
-    func createAttributedString(string: String) -> NSAttributedString {
+    func createAttributedString(_ string: String) -> NSAttributedString {
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttributes([NSFontAttributeName : UIFont.boldSystemFontOfSize(15)], range: NSRange(location: 0, length: 1))
+        attributedString.addAttributes([NSFontAttributeName : UIFont.boldSystemFont(ofSize: 15)], range: NSRange(location: 0, length: 1))
         attributedString.addAttributes([NSForegroundColorAttributeName : self.setUpColor()], range: NSRange(location: 0, length: 1))
         return attributedString
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         self.registerForKeyboardNotifications()
         return true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         var textFieldValue: String  = (costTextField?.text)!
         textFieldValue = textFieldValue.chopPrefix(1)

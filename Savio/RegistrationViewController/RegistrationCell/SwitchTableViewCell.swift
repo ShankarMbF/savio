@@ -9,7 +9,7 @@
 import UIKit
 
 protocol UISwitchTableViewDelegate{
-    func getStateOfSwitchClicked(state: String)
+    func getStateOfSwitchClicked(_ state: String)
 }
 class SwitchTableViewCell: UITableViewCell {
     
@@ -21,13 +21,13 @@ class SwitchTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     
-    @IBAction func otpSwitchChanged(sender: UISwitch) {
-        if( sender.on)
+    @IBAction func otpSwitchChanged(_ sender: UISwitch) {
+        if( sender.isOn)
         {
             otpLabel.text = "OTP will be send"
             delegate?.getStateOfSwitchClicked("OTP will be send")

@@ -11,8 +11,9 @@ import UIKit
 
 protocol SegmentBarChangeDelegate
 {
-    func segmentBarChanged(str:String)
-    func getDateTextField(str:String)
+    func segmentBarChanged(_ str:String)
+    func getDateTextField(_ str:String)
+    
 }
 
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {
@@ -37,35 +38,35 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     var dayDateStr : String = kDate
     weak var tblView : UITableView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     var updatedDateStr: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         BGContentView.layer.cornerRadius = 5
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         dayPickerView.delegate = self
         dayPickerView.dataSource = self
         let leftView = UIView()
-        leftView.frame = CGRectMake(0, 0, 5, 26)
-        leftView.backgroundColor = UIColor.clearColor()
+        leftView.frame = CGRect(x: 0, y: 0, width: 5, height: 26)
+        leftView.backgroundColor = UIColor.clear
         dayDateTextField.leftView = leftView
-        dayDateTextField.leftViewMode = UITextFieldViewMode.Always
+        dayDateTextField.leftViewMode = UITextFieldViewMode.always
         print(colorDataDict["savPlanID"])
         if(colorDataDict["savPlanID"] as! Int == 92) {
             titleLbl.text = "Adding funds every"
         }
         //add corner radius to textfield
-        let maskPath1: UIBezierPath = UIBezierPath(roundedRect: dayDateTextField!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskPath1: UIBezierPath = UIBezierPath(roundedRect: dayDateTextField!.bounds, byRoundingCorners: ([.topLeft, .bottomLeft]), cornerRadii: CGSize(width: 3.0, height: 3.0))
         let maskLayer1: CAShapeLayer = CAShapeLayer()
         maskLayer1.frame = dayDateTextField!.bounds
-        maskLayer1.path = maskPath1.CGPath
+        maskLayer1.path = maskPath1.cgPath
         dayDateTextField?.layer.mask = maskLayer1
         //Create custon tool bar for dayDateTextField
-        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-         acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SetDayTableViewCell.doneBarButtonPressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SetDayTableViewCell.cancelBarButtonPressed))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+         acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SetDayTableViewCell.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SetDayTableViewCell.cancelBarButtonPressed))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
 //        acceptButton?.enabled = false
         customToolBar!.items = [cancelButton,flexibleSpace,acceptButton!]
 
@@ -74,10 +75,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         dayDateTextField.inputAccessoryView = customToolBar
         
         //add corner radius to dropdownimageview
-        let maskPath2: UIBezierPath = UIBezierPath(roundedRect: dropDownImageView!.bounds, byRoundingCorners: ([.TopRight, .BottomRight]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskPath2: UIBezierPath = UIBezierPath(roundedRect: dropDownImageView!.bounds, byRoundingCorners: ([.topRight, .bottomRight]), cornerRadii: CGSize(width: 3.0, height: 3.0))
         let maskLayer2: CAShapeLayer = CAShapeLayer()
         maskLayer2.frame = dropDownImageView!.bounds
-        maskLayer2.path = maskPath2.CGPath
+        maskLayer2.path = maskPath2.cgPath
         dropDownImageView?.layer.mask = maskLayer2
         dropDownImageView.image = self.setDownWordImage()
         segmentBar.segmentSelected =  { (idx: Int)  in
@@ -128,44 +129,44 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     
-    private func createXLabelText (index: Int,text:String) -> NSMutableAttributedString {
+    fileprivate func createXLabelText (_ index: Int,text:String) -> NSMutableAttributedString {
         let fontNormal:UIFont? = UIFont(name: kMediumFont, size:10)
         let normalscript = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName:fontNormal!,NSBaselineOffsetAttributeName:0])
         let fontSuper:UIFont? = UIFont(name: kMediumFont, size:5)
         switch index {
         case 1:
             let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         case 2:
             let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         case 3:
             let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         case 21:
             let superscript = NSMutableAttributedString(string: "st", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         case 22:
             let superscript = NSMutableAttributedString(string: "nd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         case 23:
             let superscript = NSMutableAttributedString(string: "rd", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         default:
             let superscript = NSMutableAttributedString(string: "th", attributes: [NSFontAttributeName:fontSuper!,NSBaselineOffsetAttributeName:5])
-            normalscript.appendAttributedString(superscript)
+            normalscript.append(superscript)
             break
             
         }
@@ -174,10 +175,10 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func doneBarButtonPressed(){
-        dispatch_async(dispatch_get_main_queue()){
+        DispatchQueue.main.async{
             self.dayDateTextField.resignFirstResponder()
             self.dropDownImageView.image = self.setUpWordImage()
-            if(self.dayPickerView.selectedRowInComponent(0) == 0) {
+            if(self.dayPickerView.selectedRow(inComponent: 0) == 0) {
                 if(self.dayDateStr == kDate) {
                     
                     self.dayDateTextField.attributedText = self.createXLabelText(1, text: "1")
@@ -209,17 +210,17 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     func cancelBarButtonPressed(){
-        dispatch_async(dispatch_get_main_queue()){
+        DispatchQueue.main.async{
             self.dayDateTextField.resignFirstResponder()
         }
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
     {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         
         if(dayDateStr == kDay) {
@@ -230,7 +231,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if(dayDateStr == kDay) {
             return dayArray[row]
@@ -240,7 +241,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
   
             if(dayDateStr == kDay) {
                 dateStr =  dayArray[row]
@@ -250,7 +251,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
             }
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
 //        self.doneBarButtonPressed()
@@ -322,32 +323,32 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         return ColorCodes.colorForCode(colorDataDict["savPlanID"] as! Int)
     }
     
-    @IBAction func btnCLick(sender : AnyObject){
+    @IBAction func btnCLick(_ sender : AnyObject){
         self.dayDateTextField.becomeFirstResponder()
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         self.registerForKeyboardNotifications()
         return true
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SetDayTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SetDayTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SetDayTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SetDayTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         //        let visibleRect = CGRect(x: 0, y: 0, width:  UIScreen.mainScreen().bounds.width, height: height)
         lastOffset = (view?.contentOffset)!
-        let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
+        let cellFrame = tblView?.rectForRow(at: (tblView?.indexPath(for: self))!)
         
         let yOfTextField = dayDateTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -357,9 +358,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         view?.setContentOffset(lastOffset, animated: true)
     }
     

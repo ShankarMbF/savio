@@ -19,13 +19,13 @@ class NextButtonTableViewCell: UITableViewCell {
    override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         nextButton.layer.cornerRadius = 5
         nextButton.backgroundColor = self.setUpColor()
         btnVwBg.backgroundColor = self.setUpShadowColor()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

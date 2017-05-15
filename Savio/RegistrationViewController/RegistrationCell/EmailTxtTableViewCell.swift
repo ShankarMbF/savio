@@ -9,8 +9,8 @@
 import UIKit
 
 protocol EmailTxtTableViewCellDelegate {
-    func emailCellText(txtFldCell:EmailTxtTableViewCell)
-    func emailCellTextImmediate(txtFldCell:EmailTxtTableViewCell, text: String)
+    func emailCellText(_ txtFldCell:EmailTxtTableViewCell)
+    func emailCellTextImmediate(_ txtFldCell:EmailTxtTableViewCell, text: String)
 
 }
 
@@ -28,15 +28,15 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
         tf?.layer.cornerRadius = 2.0
         tf?.layer.masksToBounds = true
         tf?.layer.borderWidth=1.0
-        tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor;
-        tf?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        let placeholder = NSAttributedString(string:"" , attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+        tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
+        tf?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        let placeholder = NSAttributedString(string:"" , attributes: [NSForegroundColorAttributeName : UIColor.red])
         tf?.attributedPlaceholder = placeholder;
         tf?.delegate = self
 
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -44,18 +44,18 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EmailTxtTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
     
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
         /*
          let info: NSDictionary = notification.userInfo! as NSDictionary
@@ -69,42 +69,42 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
         
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
         let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, (kbSize?.height)!, 0.0)
         tblView?.contentInset = contentInsets
         tblView?.scrollIndicatorInsets = contentInsets
         
         var aRect = tf?.frame
         aRect?.size.height = (aRect?.size.height)! - (kbSize?.height)!
-        if !CGRectContainsPoint(aRect!, self.frame.origin) {
+        if !aRect!.contains(self.frame.origin) {
             tblView?.scrollRectToVisible(self.frame, animated: true)
         }
     }
     
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
           prevStr = (tf?.text)!
         
-        let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
+        let contentInsets: UIEdgeInsets =  UIEdgeInsets.zero;
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
         prevStr = (tf?.text)!
         self.delegate?.emailCellText(self)
 
     }
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
-        tf!.textColor = UIColor.blackColor()
+        tf!.textColor = UIColor.black
         self.registerForKeyboardNotifications()
         return true
     }
-    func textFieldDidEndEditing(textField: UITextField){
+    func textFieldDidEndEditing(_ textField: UITextField){
         //        self.removeKeyboardNotification()
        prevStr = (tf?.text)!
         self.delegate?.emailCellText(self)
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if(textField.placeholder == kMobileNumber ){
             return  self.checkTextFieldTextLength(textField, range: range, replacementString: string, len: 15)
@@ -120,14 +120,14 @@ class EmailTxtTableViewCell: UITableViewCell, UITextFieldDelegate {
     //        textField.resignFirstResponder()
     //        return true
     //    }
-    func textFieldShouldReturn(textField: UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         prevStr = (tf?.text)!
         self.delegate?.emailCellText(self)
         return true
     }
     
-    func checkTextFieldTextLength(txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
+    func checkTextFieldTextLength(_ txtField: UITextField,range: NSRange, replacementString string: String, len: Int) -> Bool {
         let currentCharacterCount = txtField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false

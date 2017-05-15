@@ -47,30 +47,30 @@
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "GothamRounded-Medium", size: 16)!]
         self.title = "Plan setup"
         
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         
-        tblView!.registerNib(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
-        tblView!.registerNib(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
-        tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
-        tblView!.registerNib(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
-        tblView!.registerNib(UINib(nibName: "InviteFriendsButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "InviteFriendsButtonCellIdentifier")
-        tblView!.registerNib(UINib(nibName: "GroupParticipantNameTableViewCell", bundle: nil), forCellReuseIdentifier: "GroupParticipantNameTableViewCellIdentifier")
-        tblView!.registerNib(UINib(nibName: "NextButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "NextButtonCellIdentifier")
-        tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
+        tblView!.register(UINib(nibName: "SavingPlanTitleTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanTitleIdentifier")
+        tblView!.register(UINib(nibName: "SavingPlanCostTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanCostIdentifier")
+        tblView!.register(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
+        tblView!.register(UINib(nibName: "SavingPlanDatePickerTableViewCell", bundle: nil), forCellReuseIdentifier: "SavingPlanDatePickerIdentifier")
+        tblView!.register(UINib(nibName: "InviteFriendsButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "InviteFriendsButtonCellIdentifier")
+        tblView!.register(UINib(nibName: "GroupParticipantNameTableViewCell", bundle: nil), forCellReuseIdentifier: "GroupParticipantNameTableViewCellIdentifier")
+        tblView!.register(UINib(nibName: "NextButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "NextButtonCellIdentifier")
+        tblView!.register(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         
         let objAPI = API()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        if let array =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        if let array =  UserDefaults.standard.object(forKey: "InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
+            UserDefaults.standard.removeObject(forKey: "InviteGroupArray")
+            UserDefaults.standard.synchronize()
         }
         
-        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        topBackgroundImageView.contentMode = UIViewContentMode.scaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
     }
@@ -78,9 +78,9 @@
     func setUpView(){
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(GroupsavingViewController.backButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-back.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(GroupsavingViewController.backButtonClicked), for: .touchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -88,26 +88,26 @@
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.addTarget(self, action: #selector(GroupsavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.addTarget(self, action: #selector(GroupsavingViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data {
             let dataSave = str
-            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
+            let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
+            btnName.setTitle(String(format:"%d",wishListArray!.count), for: UIControlState())
             //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
             if(wishListArray!.count > 0) {
                 
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
             }
         }
         
@@ -117,41 +117,41 @@
         
         //Get image for the saving plan
         if let urlString = itemDetailsDataDict[kImageURL] as? String {
-            let url = NSURL(string:urlString)
+            let url = URL(string:urlString)
             
-            let request: NSURLRequest = NSURLRequest(URL: url!)
+            let request: URLRequest = URLRequest(url: url!)
             if(urlString != "") {
                 
                 //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()
-                spinner.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, topBackgroundImageView.frame.size.height/2)
+                spinner.center = CGPoint(x: UIScreen.main.bounds.size.width/2, y: topBackgroundImageView.frame.size.height/2)
                 spinner.hidesWhenStopped = true
-                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+                spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
                 topBackgroundImageView.addSubview(spinner)
                 spinner.startAnimating()
                 //load the image from URL
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if(data?.length > 0) {
+                NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                    if((data?.count)! > 0) {
                         let image = UIImage(data: data!)
                         
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             //Remove the spinner after image load
                             spinner.stopAnimating()
-                            spinner.hidden = true
-                            self.cameraButton.hidden = true
+                            spinner.isHidden = true
+                            self.cameraButton.isHidden = true
                             self.topBackgroundImageView.image = image
                         })
                     }
                     else {
                         //Remove the spinner after image load
                         spinner.stopAnimating()
-                        spinner.hidden = true
+                        spinner.isHidden = true
                     }
-                })
+                } as! (URLResponse?, Data?, Error?) -> Void)
             }
             else {
-                imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-                cameraButton.hidden = false
+                imageDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+                cameraButton.isHidden = false
                 
             }
             isFromWishList = true
@@ -160,12 +160,12 @@
             groupArrayCount = Int(itemDetailsDataDict["totalMembers"] as! NSNumber)
         }
         else {
-            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-            self.cameraButton.hidden = false
+            imageDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+            self.cameraButton.isHidden = false
             isFromWishList = false
         }
         let ht : CGFloat = 100
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + ht)
+        scrlView.contentSize = CGSize(width: UIScreen.main.bounds.size.width, height: tblView.frame.origin.y + tblView.frame.size.height + ht)
         contentViewHt.constant = contentViewHt.constant + 35
         tblViewHt.constant = tblViewHt.constant + 35
         
@@ -174,18 +174,18 @@
     //Navigation bar button action methods
     func backButtonClicked()
     {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func heartBtnClicked(){
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data {
             
             let dataSave = str
-            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
+            let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
             
             if wishListArray!.count>0 {
-                NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
             }
             else {
                 let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -203,7 +203,7 @@
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         objAnimView.removeFromSuperview()
     }
@@ -212,8 +212,8 @@
         self.setUpView()
         self.dateDiff = 0
         self.cost = 0
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.removeObject(forKey: "InviteGroupArray")
+        UserDefaults.standard.synchronize()
         self.itemTitle = ""
         self.isClearPressed = true
         self.popOverSelectedStr = ""
@@ -225,61 +225,61 @@
         }
         self.topBackgroundImageView.image = UIImage(named:"groupsave-setup-bg.png")
         self.tblViewHt.constant = 500
-        self.scrlView.contentOffset = CGPointMake(0, 20)
-        self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+        self.scrlView.contentOffset = CGPoint(x: 0, y: 20)
+        self.scrlView.contentSize = CGSize(width: 0, height: self.tblView.frame.origin.y + self.tblViewHt.constant)
         self.tblView.reloadData()
     }
     
     
-    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    @IBAction func cameraButtonPressed(_ sender: AnyObject) {
         //Open camera or gallery as per users selection
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.actionSheet)
+        alertController.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.default)
         { action -> Void in
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
                 self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
                 self.imagePicker.allowsEditing = true
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             })
-        alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default)
+        alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
         { action -> Void in
             
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
                 self.imagePicker.delegate = self
-                self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
                 self.imagePicker.allowsEditing = true
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             })
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //MARK: - Addressbook integration
-    func requestForAccess(completionHandler: (accessGranted: Bool) -> Void) {
+    func requestForAccess(_ completionHandler: @escaping (_ accessGranted: Bool) -> Void) {
         switch ABAddressBookGetAuthorizationStatus(){
-        case .Authorized:
-            completionHandler(accessGranted: true)
+        case .authorized:
+            completionHandler(true)
             /* Access the address book */
-        case .NotDetermined:
+        case .notDetermined:
             var error: Unmanaged<CFError>?
             let addressBook = ABAddressBookCreateWithOptions(nil, &error).takeRetainedValue()
             ABAddressBookRequestAccessWithCompletion(addressBook,
                                                      {(granted: Bool, error: CFError!) in
-                                                        completionHandler(accessGranted: granted)
+                                                        completionHandler(granted)
             })
         default:
-            completionHandler(accessGranted: false)
+            completionHandler(false)
         }
     }
     
@@ -288,53 +288,53 @@
             if accessGranted {
                 self.addressBook = ABPeoplePickerNavigationController()
                 self.addressBook?.peoplePickerDelegate = self
-                self.presentViewController(self.addressBook!, animated: true, completion: nil)
+                self.present(self.addressBook!, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertController(title: "Can't access contacts", message: "Please allow Savio access to Contacts in Settings to invite your friends", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Can't access contacts", message: "Please allow Savio access to Contacts in Settings to invite your friends", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     
-    func peoplePickerNavigationControllerDidCancel(peoplePicker: ABPeoplePickerNavigationController) {
-        addressBook?.dismissViewControllerAnimated(true, completion: nil)
+    func peoplePickerNavigationControllerDidCancel(_ peoplePicker: ABPeoplePickerNavigationController) {
+        addressBook?.dismiss(animated: true, completion: nil)
     }
     
-    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, shouldContinueAfterSelectingPerson person: ABRecord) -> Bool {
+    func peoplePickerNavigationController(_ peoplePicker: ABPeoplePickerNavigationController, shouldContinueAfterSelectingPerson person: ABRecord) -> Bool {
         return true
     }
     
-    func peoplePickerNavigationController(peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
+    func peoplePickerNavigationController(_ peoplePicker: ABPeoplePickerNavigationController, didSelectPerson person: ABRecord) {
         var contactDict: Dictionary<String,AnyObject> = [:]
         //Get person's last name
         
         if  (ABRecordCopyValue(person, kABPersonLastNameProperty) != nil){
             
             if  (ABRecordCopyValue(person, kABPersonFirstNameProperty) != nil){
-                if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                    contactDict["name"] = firstName as! String
+                if let firstName: ABMultiValue = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                    contactDict["name"] = firstName as! String as AnyObject
                 }
             }
             else {
-                contactDict["name"] = ""
+                contactDict["name"] = "" as AnyObject
             }
             
-            if let lastName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
-                contactDict["lastName"] = lastName as! String
+            if let lastName: ABMultiValue = ABRecordCopyValue(person, kABPersonLastNameProperty).takeRetainedValue(){
+                contactDict["lastName"] = lastName as! String as AnyObject
             }
         }
         else { //Get person's first name
             if  (ABRecordCopyValue(person, kABPersonFirstNameProperty) != nil){
-                if let firstName: ABMultiValueRef = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
-                    contactDict["name"] = firstName as! String
+                if let firstName: ABMultiValue = ABRecordCopyValue(person, kABPersonFirstNameProperty).takeRetainedValue(){
+                    contactDict["name"] = firstName as! String as AnyObject
                 }
             }
             else {
-                contactDict["name"] = ""
+                contactDict["name"] = "" as AnyObject
             }
-            contactDict["lastName"] = ""
+            contactDict["lastName"] = "" as AnyObject
             
         }
         
@@ -349,7 +349,7 @@
             if(ABMultiValueGetCount(phoneNumbers) > 0) {
                 
                 phoneNumber = ABMultiValueCopyValueAtIndex(phoneNumbers, index).takeRetainedValue() as? String;
-                contactDict["mobileNum"] = phoneNumber
+                contactDict["mobileNum"] = phoneNumber as AnyObject
                 print(contactDict)
 
             } else {
@@ -359,11 +359,11 @@
         
         //Get person's email id
         if (ABRecordCopyValue(person, kABPersonEmailProperty) != nil)  {
-            let emails: ABMultiValueRef = ABRecordCopyValue(person, kABPersonEmailProperty).takeRetainedValue()
+            let emails: ABMultiValue = ABRecordCopyValue(person, kABPersonEmailProperty).takeRetainedValue()
             if ABMultiValueGetCount(emails) > 0 {
                 let index = 0 as CFIndex
                 let emailAddress = ABMultiValueCopyValueAtIndex(emails, index).takeRetainedValue() as! String
-                contactDict["email"] = emailAddress
+                contactDict["email"] = emailAddress as AnyObject
             } else {
                 print("No email address")
             }
@@ -377,7 +377,7 @@
         else {
             let picTemp2: NSObject? = Unmanaged<NSObject>.fromOpaque(picTemp1!.toOpaque()).takeRetainedValue()
             if picTemp2 != nil {
-                pic = UIImage(data: picTemp2! as! NSData)!
+                pic = UIImage(data: picTemp2! as! Data)!
                 contactDict["imageData"] = pic
             }
         }
@@ -389,14 +389,14 @@
     }
     
     //Add contact delegate methods
-    func addedContact(contactDict: Dictionary<String, AnyObject>) {
+    func addedContact(_ contactDict: Dictionary<String, AnyObject>) {
         isContactAdded = true
         participantsArr.append(contactDict)
-        NSUserDefaults.standardUserDefaults().setObject(participantsArr, forKey:"InviteGroupArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(participantsArr, forKey:"InviteGroupArray")
+        UserDefaults.standard.synchronize()
         contentViewHt.constant = contentViewHt.constant + 40
         tblViewHt.constant = tblViewHt.constant + 40
-        scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + 40)
+        scrlView.contentSize = CGSize(width: UIScreen.main.bounds.size.width, height: tblView.frame.origin.y + tblView.frame.size.height + 40)
         tblView.reloadData()
         print(participantsArr)
     }
@@ -407,7 +407,7 @@
     
     // MARK: - UITableViewDelegate methods
     //return the number of sections in table view.
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if itemDetailsDataDict[kTitle] != nil {
             return 4
         } else {
@@ -416,7 +416,7 @@
     }
     
     //return the number of rows in each section in table view.
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 4) {
             return participantsArr.count
         }
@@ -426,9 +426,9 @@
     }
     
     //create custom cell from their respective Identifiers.
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         if(indexPath.section == 0)  {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanTitleIdentifier", forIndexPath: indexPath) as! SavingPlanTitleTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "SavingPlanTitleIdentifier", for: indexPath) as! SavingPlanTitleTableViewCell
             cell1.tblView = tblView
             cell1.view = self.scrlView
             cell1.layer.cornerRadius = 5
@@ -436,7 +436,7 @@
             cell1.savingPlanTitleDelegate = self
             if(itemDetailsDataDict[kTitle] != nil) {
                 cell1.titleTextField.text = itemDetailsDataDict[kTitle] as? String
-                cell1.titleTextField.userInteractionEnabled = false
+                cell1.titleTextField.isUserInteractionEnabled = false
                 itemTitle = itemDetailsDataDict[kTitle] as! String
             }
             if(isClearPressed) {
@@ -447,7 +447,7 @@
         }
             
         else if(indexPath.section == 1){
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanCostIdentifier", forIndexPath: indexPath) as! SavingPlanCostTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "SavingPlanCostIdentifier", for: indexPath) as! SavingPlanCostTableViewCell
             cell1.tblView = tblView
             cell1.delegate = self
             cell1.view = self.scrlView
@@ -458,7 +458,7 @@
             {
                 if(itemDetailsDataDict[kAmount] is String)
                 {
-                    let amountString = "£" + String(itemDetailsDataDict[kAmount])
+                    let amountString = "£" + String(describing: itemDetailsDataDict[kAmount])
                     
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = (itemDetailsDataDict[kAmount] as! NSString).floatValue
@@ -466,15 +466,15 @@
                 }
                 else
                 {
-                    let amountString = "£" + String(format: "%d", (itemDetailsDataDict[kAmount] as! NSNumber).intValue)
+                    let amountString = "£" + String(format: "%d", (itemDetailsDataDict[kAmount] as! NSNumber).int32Value)
                     cell1.costTextField.attributedText = cell1.createAttributedString(amountString)
                     cell1.slider.value = (itemDetailsDataDict[kAmount] as! NSNumber).floatValue
                     cost = Int(cell1.slider.value)
                 }
-                cell1.costTextField.userInteractionEnabled = false
-                cell1.slider.userInteractionEnabled = false
-                cell1.minusButton.userInteractionEnabled = false
-                cell1.plusButton.userInteractionEnabled = false
+                cell1.costTextField.isUserInteractionEnabled = false
+                cell1.slider.isUserInteractionEnabled = false
+                cell1.minusButton.isUserInteractionEnabled = false
+                cell1.plusButton.isUserInteractionEnabled = false
                 cost = Int(cell1.slider.value)
             }
             else if( isContactAdded == true) {
@@ -498,7 +498,7 @@
             return cell1
         }
         else if(indexPath.section == 2) {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("SavingPlanDatePickerIdentifier", forIndexPath: indexPath) as! SavingPlanDatePickerTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "SavingPlanDatePickerIdentifier", for: indexPath) as! SavingPlanDatePickerTableViewCell
             cell1.tblView = tblView
             cell1.savingPlanDatePickerDelegate = self
             cell1.view = self.scrlView
@@ -506,20 +506,20 @@
             cell1.layer.masksToBounds = true
             
             if(datePickerDate == "") {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                let dateComponents = NSDateComponents()
-                let calender = NSCalendar.currentCalendar()
+                var dateComponents = DateComponents()
+                let calender = Calendar.current
                 dateComponents.month = 3
-                let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-                datePickerDate = dateFormatter.stringFromDate(newDate!)
+                let newDate = (calender as NSCalendar).date(byAdding: dateComponents, to: Date(), options:NSCalendar.Options(rawValue: 0))
+                datePickerDate = dateFormatter.string(from: newDate!)
                 cell1.datePickerTextField.text = datePickerDate
-                let timeDifference : NSTimeInterval = newDate!.timeIntervalSinceDate(NSDate())
+                let timeDifference : TimeInterval = newDate!.timeIntervalSince(Date())
                 dateDiff = Int(timeDifference/3600)                
                 }
                 else{
                 cell1.datePickerTextField.text = datePickerDate
-                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+                cell1.datePickerTextField.textColor = UIColor.white
 
                 }
             
@@ -554,7 +554,7 @@
 //                dateDiff = Int(timeDifference/3600)
 //            }
             if cost > 0 {
-                cell1.datePickerTextField.textColor = UIColor.whiteColor()
+                cell1.datePickerTextField.textColor = UIColor.white
             }
 //            if(isClearPressed) {
 //                let gregorian: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
@@ -571,71 +571,71 @@
         }
         else if(indexPath.section == 3) {
             if(itemDetailsDataDict[kTitle] == nil) {
-                let cell1 = tableView.dequeueReusableCellWithIdentifier("InviteFriendsButtonCellIdentifier", forIndexPath: indexPath) as! InviteFriendsButtonTableViewCell
+                let cell1 = tableView.dequeueReusableCell(withIdentifier: "InviteFriendsButtonCellIdentifier", for: indexPath) as! InviteFriendsButtonTableViewCell
                 if(participantsArr.count == 0) {
                     cell1.layer.cornerRadius = 5
                     cell1.layer.masksToBounds = true
                 }
                 else {
                     cell1.layer.cornerRadius = 0
-                    let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(5.0, 5.0))
+                    let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.topLeft,.topRight]), cornerRadii: CGSize(width: 5.0, height: 5.0))
                     let maskLayer: CAShapeLayer = CAShapeLayer()
                     maskLayer.frame = cell1.bounds
-                    maskLayer.path = maskPath.CGPath
+                    maskLayer.path = maskPath.cgPath
                     cell1.layer.mask = maskLayer
                 }
                 if(itemDetailsDataDict[kTitle] != nil) {
-                    cell1.inviteButton.userInteractionEnabled = false
+                    cell1.inviteButton.isUserInteractionEnabled = false
                 }
-                cell1.inviteButton.addTarget(self, action: #selector(GroupsavingViewController.inviteButtonPressed), forControlEvents: .TouchUpInside)
+                cell1.inviteButton.addTarget(self, action: #selector(GroupsavingViewController.inviteButtonPressed), for: .touchUpInside)
                 if(participantsArr.count > 0) {
-                    cell1.bottomBorderLabel.hidden = false
+                    cell1.bottomBorderLabel.isHidden = false
                 }
                 else {
-                    cell1.bottomBorderLabel.hidden = true
+                    cell1.bottomBorderLabel.isHidden = true
                 }
                 return cell1
             }
             else {
-                let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
+                let cell1 = tableView.dequeueReusableCell(withIdentifier: "NextButtonCellIdentifier", for: indexPath) as! NextButtonTableViewCell
                 cell1.tblView = tblView
                 
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), for: UIControlEvents.touchUpInside)
                 return cell1
             }
             
         }
         else if(indexPath.section == 5) {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("NextButtonCellIdentifier", forIndexPath: indexPath) as! NextButtonTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "NextButtonCellIdentifier", for: indexPath) as! NextButtonTableViewCell
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             if(itemDetailsDataDict[kTitle] != nil) {
-                cell1.nextButton.setTitle("Join group", forState: UIControlState.Normal)
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.setTitle("Join group", for: UIControlState())
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), for: UIControlEvents.touchUpInside)
             }
             else {
-                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell1.nextButton.addTarget(self, action: #selector(GroupsavingViewController.nextButtonPressed(_:)), for: UIControlEvents.touchUpInside)
             }
             return cell1
         }
         else if(indexPath.section ==  6) {
             
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "ClearButtonIdentifier", for: indexPath) as! ClearButtonTableViewCell
             cell1.tblView = tblView
             cell1.layer.cornerRadius = 5
             cell1.layer.masksToBounds = true
             if(itemDetailsDataDict[kTitle] != nil) {
-                cell1.clearButton.userInteractionEnabled = false
+                cell1.clearButton.isUserInteractionEnabled = false
             }
-            cell1.clearButton.addTarget(self, action: #selector(GroupsavingViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
+            cell1.clearButton.addTarget(self, action: #selector(GroupsavingViewController.clearButtonPressed), for: UIControlEvents.touchUpInside)
             return cell1
         }
             
         else {
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("GroupParticipantNameTableViewCellIdentifier", forIndexPath: indexPath) as! GroupParticipantNameTableViewCell
+            let cell1 = tableView.dequeueReusableCell(withIdentifier: "GroupParticipantNameTableViewCellIdentifier", for: indexPath) as! GroupParticipantNameTableViewCell
             if(indexPath.row  == (participantsArr.count - 1)) {
-                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight]), cornerRadii: CGSizeMake(5.0, 5.0))
+                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.bottomLeft,.bottomRight]), cornerRadii: CGSize(width: 5.0, height: 5.0))
                 
 //                let maskPath1: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.TopLeft,.TopRight]), cornerRadii: CGSizeMake(1.0, 1.0))
 //                
@@ -644,15 +644,15 @@
                 
                 let maskLayer: CAShapeLayer = CAShapeLayer()
                 maskLayer.frame = cell1.bounds
-                maskLayer.path = maskPath.CGPath
+                maskLayer.path = maskPath.cgPath
                 cell1.layer.mask = maskLayer
             }
             else {
-                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.BottomLeft,.BottomRight,.TopLeft,.TopRight]), cornerRadii: CGSizeMake(0, 0))
+                let maskPath: UIBezierPath = UIBezierPath(roundedRect: cell1.bounds, byRoundingCorners: ([.bottomLeft,.bottomRight,.topLeft,.topRight]), cornerRadii: CGSize(width: 0, height: 0))
                 let maskLayer: CAShapeLayer = CAShapeLayer()
                 maskLayer.frame = cell1.bounds
-                maskLayer.backgroundColor = UIColor(red:90/255,green:90/255,blue:100/255,alpha:1).CGColor
-                maskLayer.path = maskPath.CGPath
+                maskLayer.backgroundColor = UIColor(red:90/255,green:90/255,blue:100/255,alpha:1).cgColor
+                maskLayer.path = maskPath.cgPath
                 
                 cell1.layer.mask = maskLayer
             }
@@ -667,7 +667,7 @@
                 else {
                     cell1.phoneOrEmailLabel.text = dict["mobile_number"] as? String
                 }
-                cell1.deleteContactButton.addTarget(self, action:  #selector(GroupsavingViewController.deleteContactButtonPressed(_:)), forControlEvents: .TouchUpInside)
+                cell1.deleteContactButton.addTarget(self, action:  #selector(GroupsavingViewController.deleteContactButtonPressed(_:)), for: .touchUpInside)
                 cell1.deleteContactButton.tag = indexPath.row
                 
             }
@@ -676,10 +676,10 @@
         
     }
     
-    func deleteContactButtonPressed(sender:UIButton)
+    func deleteContactButtonPressed(_ sender:UIButton)
     {
-        let alert = UIAlertController(title: "Are you sure?", message: "You want to delete this person from list", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
+        let alert = UIAlertController(title: "Are you sure?", message: "You want to delete this person from list", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
         { action -> Void in
             // detect contact, which was deleted
             let deletedContact = self.participantsArr[sender.tag]
@@ -688,29 +688,29 @@
             
             // filter out deleted contacts from "InviteGroupArray"
             var newParticipantsArr =  Array<Dictionary<String,AnyObject>>()
-            if let contactsArray =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
+            if let contactsArray =  UserDefaults.standard.object(forKey: "InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
                 for contact in contactsArray {
-                    if let deletedContactEmail = deletedContactEmail where deletedContactEmail == contact["email_id"] as? String {
+                    if let deletedContactEmail = deletedContactEmail, deletedContactEmail == contact["email_id"] as? String {
                         continue
                     }
-                    if let deletedContactPhone = deletedContactPhone where deletedContactPhone == contact["mobile_number"] as? String {
+                    if let deletedContactPhone = deletedContactPhone, deletedContactPhone == contact["mobile_number"] as? String {
                         continue
                     }
                     newParticipantsArr.append(contact)
                 }
-                NSUserDefaults.standardUserDefaults().setObject(newParticipantsArr, forKey:"InviteGroupArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                UserDefaults.standard.set(newParticipantsArr, forKey:"InviteGroupArray")
+                UserDefaults.standard.synchronize()
             }
             
-            self.participantsArr.removeAtIndex(sender.tag)
+            self.participantsArr.remove(at: sender.tag)
             self.contentViewHt.constant = self.contentViewHt.constant - 40
             self.tblViewHt.constant = self.tblViewHt.constant - 40
-            self.scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.tblView.frame.origin.y + self.tblView.frame.size.height - 40)
+            self.scrlView.contentSize = CGSize(width: UIScreen.main.bounds.size.width, height: self.tblView.frame.origin.y + self.tblView.frame.size.height - 40)
             self.tblView.reloadData()
             
             })
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func inviteButtonPressed()
@@ -724,14 +724,14 @@
     }
     
     //This is UITableViewDelegate method used to set the view for UITableView header.
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view : UIView = UIView()
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         return view
     }
     
     //This is UITableViewDelegate method used to set the height of header.
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(section == 4) {
             if(participantsArr.count > 0) {
                 return 0
@@ -746,7 +746,7 @@
     }
     
     //This is UITableViewDelegate method used to set the height of rows per section.
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         if(indexPath.section == 0) {
             return 44
         }
@@ -795,38 +795,38 @@
         
         if(itemDetailsDataDict[kTitle] != nil) {
             parameterDict[kTitle] = itemDetailsDataDict[kTitle]
-            parameterDict["isUpdate"] = "Yes"
+            parameterDict["isUpdate"] = "Yes" as AnyObject
         }
         else {
-            parameterDict[kTitle] = itemTitle
-            parameterDict["isUpdate"] = "No"
+            parameterDict[kTitle] = itemTitle as AnyObject
+            parameterDict["isUpdate"] = "No" as AnyObject
         }
         
         if(itemDetailsDataDict[kAmount] != nil) {
-            parameterDict[kAmount]  = String(format: "%d", cost)
+            parameterDict[kAmount]  = String(format: "%d", cost) as AnyObject
         }
         else {
-            parameterDict[kAmount] = String(format:"%d",cost)
+            parameterDict[kAmount] = String(format:"%d",cost) as AnyObject
         }
         
         if(itemDetailsDataDict[kImageURL] != nil && (itemDetailsDataDict[kImageURL] as! String).characters.count != 0) {
             
-            let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-            let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-            parameterDict[kImageURL] = base64String
+            let imageData:Data = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+            let base64String = imageData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+            parameterDict[kImageURL] = base64String as AnyObject
         }
         else {
-            if(cameraButton.hidden == true) {
-                let imageData:NSData = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
-                let base64String = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-                parameterDict[kImageURL] = base64String
+            if(cameraButton.isHidden == true) {
+                let imageData:Data = UIImageJPEGRepresentation(topBackgroundImageView.image!, 1.0)!
+                let base64String = imageData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+                parameterDict[kImageURL] = base64String as AnyObject
             }
             else {
-                parameterDict[kImageURL] = ""
+                parameterDict[kImageURL] = "" as AnyObject
             }
         }
         
-        let dateParameter = NSDateFormatter()
+        let dateParameter = DateFormatter()
         dateParameter.dateFormat = "dd-MM-yyyy"
         if(itemDetailsDataDict["planEndDate"] != nil) {
             parameterDict[kPLANENDDATE] = itemDetailsDataDict["planEndDate"]
@@ -834,16 +834,22 @@
         else {
             if(datePickerDate != "") {
                 var pathComponents : NSArray!
-                pathComponents = (datePickerDate).componentsSeparatedByString(" ")
+                pathComponents = (datePickerDate).components(separatedBy: " ") as [String] as NSArray
                 var dateStr = pathComponents.lastObject as! String
-                dateStr = dateStr.stringByReplacingOccurrencesOfString("/", withString: "-")
+                dateStr = dateStr.replacingOccurrences(of: "/", with: "-")
                 var pathComponents2 : NSArray!
-                pathComponents2 = dateStr.componentsSeparatedByString("-")
-                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
+                pathComponents2 = [dateStr.components(separatedBy: "-").joined(separator: " ")] as [String] as NSArray
+                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String) as AnyObject;
+                
+                /*
+                 let invalidCharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ").inverted
+                 
+                 let filtered = replacementString.components(separatedBy: invalidCharSet).joined(separator: " ")
+                 */
             }
         }
         
-        parameterDict["INIVITED_DATE"] = dateParameter.stringFromDate(NSDate())
+        parameterDict["INIVITED_DATE"] = dateParameter.string(from: Date()) as AnyObject
         parameterDict["pty_id"] = userInfoDict[kPartyID]
         if(itemDetailsDataDict["savingId"] != nil) {
             parameterDict["sav_id"] = itemDetailsDataDict["savingId"]
@@ -859,29 +865,29 @@
                 parameterDict["sav_id"] = itemDetailsDataDict["sav-id"]
             }
         }
-        parameterDict["dateDiff"] = String(format:"%d",dateDiff)
-        parameterDict["participantsArr"] = participantsArr
+        parameterDict["dateDiff"] = String(format:"%d",dateDiff) as AnyObject
+        parameterDict["participantsArr"] = participantsArr as AnyObject
         parameterDict["payDate"] = itemDetailsDataDict["payDate"]
         return parameterDict
     }
     
-    func getTextFieldText(text: String) {
+    func getTextFieldText(_ text: String) {
         itemTitle = text
     }
     
-    func txtFieldCellText(txtFldCell: SavingPlanCostTableViewCell) {
+    func txtFieldCellText(_ txtFldCell: SavingPlanCostTableViewCell) {
         cost = Int(txtFldCell.slider.value)
         tblView.reloadData()
     }
     
-    func datePickerText(date: Int,dateStr:String) {
+    func datePickerText(_ date: Int,dateStr:String) {
         dateDiff = date
         datePickerDate = dateStr
     }
     
     
-    func nextButtonPressed(sender:UIButton) {
-        self.objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+    func nextButtonPressed(_ sender:UIButton) {
+        self.objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         self.objAnimView.frame = self.view.frame
         self.objAnimView.animate()
         self.navigationController!.view.addSubview(self.objAnimView)
@@ -943,7 +949,7 @@
     }
     
     
-    func displayAlert(message:String, title:String)
+    func displayAlert(_ message:String, title:String)
     {
         //Show of UIAlertView
         let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
@@ -952,8 +958,8 @@
     
     
     func clearButtonPressed() {
-         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default)
+         let alert = UIAlertController(title: "Are you sure?", message: "This will clear the information entered and start again.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default)
         { action -> Void in
             
             self.dateDiff = 0
@@ -965,8 +971,8 @@
             if(self.itemDetailsDataDict.keys.count > 0) {
                 self.itemDetailsDataDict.removeAll()
             }
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.removeObject(forKey: "InviteGroupArray")
+            UserDefaults.standard.synchronize()
             if(self.participantsArr.count > 0) {
                 self.participantsArr.removeAll()
             }
@@ -975,28 +981,28 @@
             self.setUpView()
 
             self.tblViewHt.constant = 500
-            self.scrlView.contentOffset = CGPointMake(0, 20)
-            self.scrlView.contentSize = CGSizeMake(0, self.tblView.frame.origin.y + self.tblViewHt.constant)
+            self.scrlView.contentOffset = CGPoint(x: 0, y: 20)
+            self.scrlView.contentSize = CGSize(width: 0, height: self.tblView.frame.origin.y + self.tblViewHt.constant)
             
             self.tblView.reloadData()
             })
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
     //MARK: UIImagePickerControllerDelegate methods
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        picker .dismissViewControllerAnimated(true, completion: nil)
-        topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker .dismiss(animated: true, completion: nil)
+        topBackgroundImageView.contentMode = UIViewContentMode.scaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         topBackgroundImageView?.image = (info[UIImagePickerControllerEditedImage] as? UIImage)
-        cameraButton.hidden = true
+        cameraButton.isHidden = true
         isImageclicked = true
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        picker .dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker .dismiss(animated: true, completion: nil)
     }
  }
 

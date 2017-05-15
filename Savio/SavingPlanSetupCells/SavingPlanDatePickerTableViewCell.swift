@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SavingPlanDatePickerCellDelegate {
-    func datePickerText(date:Int,dateStr:String)
+    func datePickerText(_ date:Int,dateStr:String)
     
 }
 class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
@@ -24,32 +24,32 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     var datePickerView:UIDatePicker = UIDatePicker()
     var savingPlanDatePickerDelegate : SavingPlanDatePickerCellDelegate?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     var dateString = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        datePickerView.datePickerMode = UIDatePickerMode.Date
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+        datePickerView.datePickerMode = UIDatePickerMode.date
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        let dateComponents = NSDateComponents()
-        let calender = NSCalendar.currentCalendar()
+        var dateComponents = DateComponents()
+        let calender = Calendar.current
         dateComponents.month = 3
-        let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
-        self.datePickerView.minimumDate = NSDate()
+        let newDate = (calender as NSCalendar).date(byAdding: dateComponents, to: Date(), options:NSCalendar.Options(rawValue: 0))
+        self.datePickerView.minimumDate = Date()
         self.datePickerView.date = newDate!
-         datePickerTextField.text = dateFormatter.stringFromDate(newDate!)
+         datePickerTextField.text = dateFormatter.string(from: newDate!)
         
         // cornerRadius changes
         datePickerTextField.layer.cornerRadius = 5
         BGContentView.layer.cornerRadius = 5
-        customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SavingPlanDatePickerTableViewCell.doneBarButtonPressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SavingPlanDatePickerTableViewCell.cancelBarButtonPressed))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SavingPlanDatePickerTableViewCell.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SavingPlanDatePickerTableViewCell.cancelBarButtonPressed))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
         customToolBar!.items = [cancelButton,flexibleSpace,acceptButton]
         datePickerTextField.delegate = self
         datePickerTextField.inputView = datePickerView
@@ -88,20 +88,20 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
         return UIImage(named:imageName)!
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     
     func doneBarButtonPressed(){
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-        let pickrDate = dateFormatter.stringFromDate(datePickerView.date)
+        let pickrDate = dateFormatter.string(from: datePickerView.date)
         datePickerTextField.text = pickrDate
-        datePickerTextField.textColor = UIColor.whiteColor()
+        datePickerTextField.textColor = UIColor.white
         
-        let timeDifference : NSTimeInterval = datePickerView.date.timeIntervalSinceDate(NSDate())
+        let timeDifference : TimeInterval = datePickerView.date.timeIntervalSince(Date())
         savingPlanDatePickerDelegate?.datePickerText(Int(timeDifference/3600),dateStr: datePickerTextField.text!)
         
         datePickerTextField.resignFirstResponder()
@@ -114,40 +114,40 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     func changeDatePickerViewDate()
     {
-        let dateComponents = NSDateComponents()
-        let calender = NSCalendar.currentCalendar()
+        var dateComponents = DateComponents()
+        let calender = Calendar.current
         if(dateString == kDate){
             dateComponents.month = 1
         }else {
             dateComponents.day = 7
         }
-        let newDate = calender.dateByAddingComponents(dateComponents, toDate: NSDate(), options:NSCalendarOptions(rawValue: 0))
+        let newDate = (calender as NSCalendar).date(byAdding: dateComponents, to: Date(), options:NSCalendar.Options(rawValue: 0))
         self.datePickerView.minimumDate = newDate
     }
     
     
-    @objc func datePickerWasShown(notification: NSNotification){
+    @objc func datePickerWasShown(_ notification: Notification){
         //do stuff
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
         let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, (kbSize?.height)!, 0.0)
         tblView?.contentInset = contentInsets
         tblView?.scrollIndicatorInsets = contentInsets
         var aRect = datePickerTextField?.frame
         aRect?.size.height = (aRect?.size.height)! - (kbSize?.height)!
-        if !CGRectContainsPoint(aRect!, self.frame.origin) {
+        if !aRect!.contains(self.frame.origin) {
             tblView?.scrollRectToVisible(self.frame, animated: true)
         }
     }
     
-    @objc func datePickerWillBeHidden(notification: NSNotification){
+    @objc func datePickerWillBeHidden(_ notification: Notification){
         //do stuff
-        let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
+        let contentInsets: UIEdgeInsets =  UIEdgeInsets.zero;
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         //self.changeDatePickerViewDate()
         self.registerForKeyboardNotifications()
@@ -155,20 +155,20 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanDatePickerTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanDatePickerTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanDatePickerTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanDatePickerTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 104 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (view?.contentOffset)!
-        let cellFrame = tblView?.rectForRowAtIndexPath((tblView?.indexPathForCell(self))!)
+        let cellFrame = tblView?.rectForRow(at: (tblView?.indexPath(for: self))!)
         
         let yOfTextField = datePickerTextField.frame.origin.y + (cellFrame?.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -178,9 +178,9 @@ class SavingPlanDatePickerTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         view?.setContentOffset(lastOffset, animated: true)
     }
     

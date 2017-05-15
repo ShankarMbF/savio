@@ -7,10 +7,34 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 //----------Custom protocol for add or skip offerlist-----------------------
 protocol SAOfferListViewDelegate {
-    func addedOffers(offerForSaveDict:Dictionary<String,AnyObject>)
+    func addedOffers(_ offerForSaveDict:Dictionary<String,AnyObject>)
     func skipOffers()
 }
 //--------------------------------------------------------------------------
@@ -43,15 +67,15 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
          offersButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
-        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
-        progressButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
-        offersButton.setImage(UIImage(named: "stats-offers-tab-active.png"), forState: UIControlState.Normal)
+        spendButton.setImage(UIImage(named: "stats-spend-tab.png"), for: UIControlState())
+        progressButton.setImage(UIImage(named: "stats-plan-tab.png"), for: UIControlState())
+        offersButton.setImage(UIImage(named: "stats-offers-tab-active.png"), for: UIControlState())
 
         if isComingProgress! {
-            tabVw?.hidden = false
+            tabVw?.isHidden = false
         }
         else{
-            tabVw?.hidden = true
+            tabVw?.isHidden = true
         }
         self.setUpView()  
         
@@ -61,10 +85,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //customization of spend button
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.spendButton!.bounds, byRoundingCorners: ([.TopRight, .TopLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.spendButton!.bounds, byRoundingCorners: ([.topRight, .topLeft]), cornerRadii: CGSize(width: 3.0, height: 3.0))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.spendButton!.bounds
-        maskLayer.path = maskPath.CGPath
+        maskLayer.path = maskPath.cgPath
         self.offersButton?.layer.mask = maskLayer
     }
 
@@ -77,23 +101,23 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func setUpView(){
         //--------------Setting navigation bar-------------------------------
         self.title = "Partner offers"
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         //--------------------------------------------------------------------
         
         //set Navigation left button as per hideAddOfferButton flag
         if(hideAddOfferButton)
         {
             let leftBtnName = UIButton()
-            leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+            leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+            leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.menuButtonClicked), for: .touchUpInside)
             
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
-            bottomview.hidden = true
+            bottomview.isHidden = true
             tblViewBottomSpace.constant = 0
             if isComingProgress! {
                 tblViewBottomSpace.constant = 40
@@ -102,32 +126,32 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         else {
             let leftBtnName = UIButton()
-            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.backButtonPress), forControlEvents: .TouchUpInside)
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), for: UIControlState())
+            leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            leftBtnName.addTarget(self, action: #selector(SAOfferListViewController.backButtonPress), for: .touchUpInside)
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
-            bottomview.hidden = false
+            bottomview.isHidden = false
             tblViewBottomSpace.constant = 40
         }
      
         
         //set Navigation right button nav-heart
         let btnName = UIButton()
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData        {
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data        {
             let dataSave = str
-            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
-            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-            btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
-           btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
+            btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+            btnName.setTitle(String(format:"%d",wishListArray!.count), for: UIControlState())
+           btnName.setTitleColor(UIColor.black, for: UIControlState())
         }
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
@@ -136,10 +160,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.cornerRadius = (closeLbl?.frame.size.width)!/2
         closeLbl?.layer.masksToBounds = false
         closeLbl?.layer.borderWidth = 2.0
-        closeLbl?.layer.borderColor = UIColor.whiteColor().CGColor
+        closeLbl?.layer.borderColor = UIColor.white.cgColor
         
         //filter the offerlist as per saving plan type
-        if let arr: Array<Dictionary<String,AnyObject>> = NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array {
+        if let arr: Array<Dictionary<String,AnyObject>> = UserDefaults.standard.value(forKey: "offerList") as? Array {
             for var dict:Dictionary<String,AnyObject> in arr {
                 let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
                 if savingArr.count > 0 {
@@ -158,7 +182,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let objAPI = API()
             //Check Network rechability
             if objAPI.isConnectedToNetwork() {
-            objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
             objAnimView.frame = self.view.frame
             objAnimView.animate()
             self.view.addSubview(objAnimView)
@@ -190,20 +214,20 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     // MARK: - Navigation Bar Button Action
     
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     //function invoke when user tapping on back button
     func backButtonPress()  {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     //function invoke when user tapping on heart button from navigation bar
     func heartBtnClicked(){
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData  {
-            let dataSave = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as! NSData
-            let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data  {
+            let dataSave = UserDefaults.standard.object(forKey: "wishlistArray") as! Data
+            let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
-                NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-                NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")            }
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")            }
             else {
                let alert = UIAlertView(title: "Wish list empty", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
@@ -216,12 +240,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     // MARK: - Button Action
-    @IBAction func spendButtonPressed(sender: AnyObject) {
+    @IBAction func spendButtonPressed(_ sender: AnyObject) {
         var isAvailble: Bool = false
         var vw = UIViewController?()
         
         for var obj in (self.navigationController?.viewControllers)!{
-            if obj.isKindOfClass(SASpendViewController) {
+            if obj.isKind(of: SASpendViewController.self) {
                 isAvailble = true
                 vw = obj as! SASpendViewController
                 break
@@ -238,19 +262,19 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
     }
     
-    @IBAction func progressButtonPressed(sender: AnyObject) {
+    @IBAction func progressButtonPressed(_ sender: AnyObject) {
         var vw = UIViewController?()
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
+        if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
         {
             usersPlanFlag = usersPlan
             //As per flag show the progress view of plan
              vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             if individualFlag == 1 && usersPlanFlag == "I"{
                 for var obj in (self.navigationController?.viewControllers)!{
-                    if obj.isKindOfClass(SAProgressViewController) {
+                    if obj.isKind(of: SAProgressViewController.self) {
                         isAvailble = true
                         vw = obj as! SAProgressViewController
                         break
@@ -261,7 +285,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             {
                 vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
                 for var obj in (self.navigationController?.viewControllers)!{
-                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                    if obj.isKind(of: SAGroupProgressViewController.self) {
                         isAvailble = true
                         vw = obj as! SAGroupProgressViewController
                         break
@@ -276,7 +300,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             if individualFlag == 1{
                  vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
                 for var obj in (self.navigationController?.viewControllers)!{
-                    if obj.isKindOfClass(SAProgressViewController) {
+                    if obj.isKind(of: SAProgressViewController.self) {
                         isAvailble = true
                         vw = obj as! SAProgressViewController
                         break
@@ -287,7 +311,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             {
                  vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
                 for var obj in (self.navigationController?.viewControllers)!{
-                    if obj.isKindOfClass(SAGroupProgressViewController) {
+                    if obj.isKind(of: SAGroupProgressViewController.self) {
                         isAvailble = true
                         vw = obj as! SAGroupProgressViewController
                         break
@@ -306,39 +330,39 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     
-    @IBAction func clickedOnSkipOffersBtn(sender:UIButton){
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func clickedOnSkipOffersBtn(_ sender:UIButton){
+        self.navigationController?.popViewController(animated: true)
         delegate?.skipOffers()
     }
     
     // MARK: - Tableview Delegate & Datasource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int  {
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int  {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return offerArr.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell{
         //Create custom cell from SAOfferListTableViewCell.xib
-        let cell = NSBundle.mainBundle().loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil)![0] as! SAOfferListTableViewCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        let cell = Bundle.main.loadNibNamed("SAOfferListTableViewCell", owner: nil, options: nil)![0] as! SAOfferListTableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         //Showing Add offer button as per flag
         if(hideAddOfferButton)
         {
-            cell.btnAddOffer?.hidden = true
+            cell.btnAddOffer?.isHidden = true
             cell.suggestedHt.constant = 10
         }
         else {
-            cell.btnAddOffer?.hidden = false
-            cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.btnAddOffer?.isHidden = false
+            cell.btnAddOffer?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnAddOffer(_:)), for: UIControlEvents.touchUpInside)
             cell.btnAddOffer?.tag = indexPath.row
             cell.suggestedHt.constant = 72
         }
 
-        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.btnOfferDetail?.addTarget(self, action: #selector(SAOfferListViewController.clickedOnOfferDetail(_:)), for: UIControlEvents.touchUpInside)
         cell.btnOfferDetail?.tag = indexPath.row
         let cellDict:Dictionary? = offerArr[indexPath.row]
         //--------------Showing offer detail-----------------------------
@@ -351,24 +375,24 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         //Showing offer image
         if let urlStr = cellDict!["offImage"] as? String {
             if urlStr != "" {
-                let str = urlStr.stringByReplacingOccurrencesOfString(" ", withString: "%20")
-                let url = NSURL(string: str)
+                let str = urlStr.replacingOccurrences(of: " ", with: "%20")
+                let url = URL(string: str)
                 
-                let request: NSURLRequest = NSURLRequest(URL: url!)
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if data != nil && data?.length > 0 {
+                let request: URLRequest = URLRequest(url: url!)
+                NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                    if data != nil && data?.count > 0 {
                         let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             cell.offerImage?.image = image
                         })
                     }
-                })
+                } as! (URLResponse?, Data?, Error?) -> Void)
             }
         }
         
         cell.btnOfferDetail?.titleEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.imageView?.frame.size.width)!, 0, -(((cell.btnOfferDetail!.imageView?.frame.size.width)!-30)))
         
-        cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-down.png"), forState: .Normal)
+        cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-down.png"), for: UIControlState())
         cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
         //Expand and collaps cell
         if prevIndxArr.count > 0 {
@@ -379,7 +403,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 //Check current cell call for expand
                 if prevIndxArr[i] == indexPath.row {
                     //Expand cell and show offer  detail
-                    cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-up.png"), forState: .Normal)
+                    cell.btnOfferDetail?.setImage(UIImage(named:"detail-arrow-up.png"), for: UIControlState())
                     cell.btnOfferDetail?.imageEdgeInsets = UIEdgeInsetsMake(0, (cell.btnOfferDetail?.titleLabel?.frame.size.width)!, 0, -(((cell.btnOfferDetail?.titleLabel?.frame.size.width)!+30)))
                     //Showing offer description
                     if let str1 = cellDict!["offDesc"] as? String  {
@@ -408,7 +432,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         //Calculating row height as per expanding and colapsing
         if prevIndxArr.count > 0 {
             for i in 0 ..< prevIndxArr.count {
@@ -428,8 +452,8 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     //Function invoke for expanding the cell and showing offer detail
-    func clickedOnOfferDetail(sender:UIButton) {
-        dispatch_async(dispatch_get_main_queue()){
+    func clickedOnOfferDetail(_ sender:UIButton) {
+        DispatchQueue.main.async{
             //Get cell index
         self.indx = sender.tag
         var isVisible = false
@@ -440,7 +464,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 //if cell is expanded then collaps it
                 if obj == sender.tag{
                   isVisible = true
-                    self.prevIndxArr.removeAtIndex(i)
+                    self.prevIndxArr.remove(at: i)
                     break
                 }
             }
@@ -458,10 +482,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
 
     //Function invoke for calculating height of lable as per given text, font and width
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         label.sizeToFit()
@@ -470,7 +494,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
 
     //Function invoke on tapping add offer button
-    func clickedOnAddOffer(sender: UIButton){
+    func clickedOnAddOffer(_ sender: UIButton){
         let offerDict = self.offerArr[sender.tag] as Dictionary<String,AnyObject>
         print(offerDict["offId"]!)
     
@@ -484,23 +508,23 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             }
         }
        
-        let alertController = UIAlertController(title: "Alert", message: "Your offer has been added to your plan and will be applied when you make your purchase through Savio.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Alert", message: "Your offer has been added to your plan and will be applied when you make your purchase through Savio.", preferredStyle: UIAlertControllerStyle.alert)
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (result : UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
             print("OK")
             //collecting all detail of offer and send it to setup view
             let cellDict = self.offerArr[sender.tag]
             self.delegate?.addedOffers(cellDict)
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
         alertController.addAction(okAction)
-       self.presentViewController(alertController, animated: true, completion: nil)
+       self.present(alertController, animated: true, completion: nil)
     }
     
     
     
     //get offerlist API's delegate method invoking when success response getting from API.
-    func successResponseForGetOfferlistAPI(objResponse:Dictionary<String,AnyObject>){
+    func successResponseForGetOfferlistAPI(_ objResponse:Dictionary<String,AnyObject>){
         objAnimView.removeFromSuperview()
         if offerArr.count > 0 {
             offerArr.removeAll()
@@ -518,7 +542,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     //get offerlist API's delegate method invoking when fail or error response getting from API request.
-    func errorResponseForGetOfferlistAPI(error:String){
+    func errorResponseForGetOfferlistAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -530,7 +554,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     //Function invoking for check null values in dictionary and replace null values with blank and return new dict
-    func checkNullDataFromDict(dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
@@ -538,17 +562,17 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank
+                replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
             }
             else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
                 }
-                replaceDict[key] = newArr
+                replaceDict[key] = newArr as AnyObject
             }
         }
         return replaceDict

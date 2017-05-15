@@ -9,6 +9,41 @@
 import UIKit
 import PassKit
 import Stripe
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNewSavingCardDelegate,ImpulseSavingDelegate{
  
@@ -35,7 +70,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     var objAnimView = ImageViewAnimation()
     var picker = MonthYearPickerView()
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     var activeTextField = UITextField()
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     var errorFlag = false
@@ -90,21 +125,21 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //            self.cancelButton.hidden = false
         //        }
         //
-        if let _ = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let _ =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            if let _ =  UserDefaults.standard.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
                 
                 // self.navigationItem.setHidesBackButton(true, animated: false)
                 let leftBtnName = UIButton()
-                leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-                leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-                leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
+                leftBtnName.setImage(UIImage(named: "nav-back.png"), for: UIControlState())
+                leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), for: .touchUpInside)
                 let leftBarButton = UIBarButtonItem()
                 leftBarButton.customView = leftBtnName
                 self.navigationItem.leftBarButtonItem = leftBarButton
                 
-                self.cancelButton.hidden = false
+                self.cancelButton.isHidden = false
                 
             }else {
                 self.navigationItem.setHidesBackButton(true, animated: false)
@@ -113,23 +148,23 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         else {
             // self.navigationItem.setHidesBackButton(true, animated: false)
             let leftBtnName = UIButton()
-            leftBtnName.setImage(UIImage(named: "nav-back.png"), forState: UIControlState.Normal)
-            leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-            leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), forControlEvents: .TouchUpInside)
+            leftBtnName.setImage(UIImage(named: "nav-back.png"), for: UIControlState())
+            leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            leftBtnName.addTarget(self, action: #selector(SAPaymentFlowViewController.backButtonPressd), for: .touchUpInside)
             let leftBarButton = UIBarButtonItem()
             leftBarButton.customView = leftBtnName
             self.navigationItem.leftBarButtonItem = leftBarButton
             
-            self.cancelButton.hidden = false
+            self.cancelButton.isHidden = false
         }
         
         
         cardNumberTextFieldTopSpace.constant = 5
         cardNumView.constant = 5
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         self.title = "Payment setup"
         
         //Customization of card holders name text field
@@ -138,7 +173,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         cardHoldersNameTextField?.layer.borderWidth=1.0
         let placeholder = NSAttributedString(string:"Name on Card" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         cardHoldersNameTextField?.attributedPlaceholder = placeholder;
-        cardHoldersNameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        cardHoldersNameTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Customization of card number text field
         cardNumberTextField?.layer.cornerRadius = 2.0
@@ -146,7 +181,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         cardNumberTextField?.layer.borderWidth=1.0
         let placeholder1 = NSAttributedString(string:"Card Number" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         cardNumberTextField?.attributedPlaceholder = placeholder1;
-        cardNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        cardNumberTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         
         //Customization of expiry month year text field
@@ -155,13 +190,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         expiryMonthYearTextField?.layer.borderWidth=1.0
         let placeholder2 = NSAttributedString(string:"MM/YY" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         expiryMonthYearTextField?.attributedPlaceholder = placeholder2;
-        expiryMonthYearTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        expiryMonthYearTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //add custom tool bar for UIDatePickerView
-        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SAPaymentFlowViewController.cancelBarButtonPressed))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        let customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SAPaymentFlowViewController.cancelBarButtonPressed))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
         //Set datepickerview as input view and customtoolbar as inputAccessoryView to expiry date textfield
@@ -172,22 +207,22 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         txtCardNum1?.layer.cornerRadius = 2.0
         txtCardNum1?.layer.masksToBounds = true
         txtCardNum1?.layer.borderWidth=1.0
-        txtCardNum1?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        txtCardNum1?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         txtCardNum2?.layer.cornerRadius = 2.0
         txtCardNum2?.layer.masksToBounds = true
         txtCardNum2?.layer.borderWidth=1.0
-        txtCardNum2?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        txtCardNum2?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         txtCardNum3?.layer.cornerRadius = 2.0
         txtCardNum3?.layer.masksToBounds = true
         txtCardNum3?.layer.borderWidth=1.0
-        txtCardNum3?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        txtCardNum3?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         txtCardNum4?.layer.cornerRadius = 2.0
         txtCardNum4?.layer.masksToBounds = true
         txtCardNum4?.layer.borderWidth=1.0
-        txtCardNum4?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        txtCardNum4?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         
         //Customization of cvv text field
@@ -196,12 +231,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         cvvTextField?.layer.borderWidth=1.0
         let placeholder3 = NSAttributedString(string:"CVV" , attributes: [NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
         cvvTextField?.attributedPlaceholder = placeholder3;
-        cvvTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        cvvTextField?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         //Add custom tool bar as input accessory view to card number textfield and cvv textfield
-        let customToolBar2 = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
-        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        let customToolBar2 = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(SAPaymentFlowViewController.doneBarButtonPressed))
+        let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil);
         customToolBar2.items = [flexibleSpace1,doneButton]
         cardNumberTextField.inputAccessoryView = customToolBar2
         cvvTextField.inputAccessoryView = customToolBar2
@@ -216,10 +251,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             
         }
         
-        txtCardNum1.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        txtCardNum2.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        txtCardNum3.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        txtCardNum4.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        txtCardNum1.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        txtCardNum2.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        txtCardNum3.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        txtCardNum4.addTarget(self, action: #selector(SAPaymentFlowViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         //Customization of save button background view and save button
         saveButtonBgView.layer.cornerRadius = 2.0
@@ -229,7 +264,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     func backButtonPressd()
     {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func doneBarButtonPressed()
@@ -238,12 +273,12 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         {
             if(String(format: "%02d/%d", picker.month, picker.year) == "00/0")
             {
-                let date = NSDate()
-                let calendar = NSCalendar.currentCalendar()
-                let components = calendar.components([.Day , .Month , .Year], fromDate: date)
-                self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month, components.year%100)
-                picker.year = components.year
-                picker.month = components.month
+                let date = Date()
+                let calendar = Calendar.current
+                let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
+                self.expiryMonthYearTextField.text = String(format: "%02d/%d", components.month!, components.year!%100)
+                picker.year = components.year!
+                picker.month = components.month!
             }
             else {
                 self.expiryMonthYearTextField.text = String(format: "%02d/%d", picker.month, picker.year%100)
@@ -258,8 +293,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         self.view.endEditing(true)
     }
     
-    @IBAction func saveButtonPressed(sender: AnyObject) {
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+    @IBAction func saveButtonPressed(_ sender: AnyObject) {
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.navigationController?.view.addSubview(self.objAnimView)
@@ -277,7 +312,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             
             do {
 //                try stripeCard.validateCardReturningError()
-                STPAPIClient.sharedClient().createTokenWithCard(stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
+                STPAPIClient.shared().createToken(withCard: stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
 //                    print(token?.card?.type)
                     self.errorFlag = false
                     print(error?.localizedDescription)
@@ -289,27 +324,27 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         self.cardNumView.constant = 35
                         if(error?.localizedDescription == "Your card\'s number is invalid")
                         {
-                            self.setBarodrColor(UIColor.redColor())
+                            self.setBarodrColor(UIColor.red)
                             //                        self.cardNumberTextField.layer.borderColor = UIColor.redColor().CGColor
                             //                        self.cardNumberTextField.textColor = UIColor.redColor()
                         } else if(error?.localizedDescription == "Your card\'s expiration year is invalid") {
-                            self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                            self.expiryMonthYearTextField.layer.borderColor = UIColor.red.cgColor
+                            self.expiryMonthYearTextField.textColor = UIColor.red
                             self.cardNumberErrorLabel.text = "Your card has expired"
                         }
                         else if(error?.localizedDescription == "Your card\'s expiration month is invalid") {
-                            self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                            self.expiryMonthYearTextField.layer.borderColor = UIColor.red.cgColor
+                            self.expiryMonthYearTextField.textColor = UIColor.red
                             self.cardNumberErrorLabel.text = "Your card has expired"
                         }
                         else if(error?.localizedDescription == "Your card\'s security code is invalid") {
-                            self.cvvTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.cvvTextField.textColor = UIColor.redColor()
+                            self.cvvTextField.layer.borderColor = UIColor.red.cgColor
+                            self.cvvTextField.textColor = UIColor.red
                             self.cardNumberErrorLabel.text = "Your card's security code is invalid"
                         }
                         else if(error?.localizedDescription == "Missing required param: exp_month.") {
-                            self.expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-                            self.expiryMonthYearTextField.textColor = UIColor.redColor()
+                            self.expiryMonthYearTextField.layer.borderColor = UIColor.red.cgColor
+                            self.expiryMonthYearTextField.textColor = UIColor.red
                             self.cardNumberErrorLabel.text = "Your card's expiration month is invalid"
                         }
                     }
@@ -317,18 +352,18 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                         if token?.card?.funding.rawValue == 0 {
                             print(token?.card?.cvc)
                             let objAPI = API()
-                            let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+                            let userInfoDict = UserDefaults.standard.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
                             //                            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                             
                             var array : Array<Dictionary<String,AnyObject>> = []
                             //                    let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":self.cardNumberTextField.text!,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
-                            let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text!,"cardNumber":cardNum,"cardExpMonth":self.picker.month,"cardExpDate":self.picker.year,"cvv":self.cvvTextField.text!]
+                            let dict1 : Dictionary<String,AnyObject> = ["cardHolderName":self.cardHoldersNameTextField.text! as AnyObject,"cardNumber":cardNum as AnyObject,"cardExpMonth":self.picker.month as AnyObject,"cardExpDate":self.picker.year as AnyObject,"cvv":self.cvvTextField.text! as AnyObject]
                             
                             //If user is adding new card call AddNewSavingCardDelegate
                             if(self.addNewCard == true)
                             {
                                 //                                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                                if let saveCardArray = NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                                if let saveCardArray = UserDefaults.standard.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
                                 {
                                     array = saveCardArray
                                     var cardNumberArray : Array<String> = []
@@ -340,13 +375,13 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     if(cardNumberArray.contains(cardNum) == false)
                                     {
                                         array.append(dict1)
-                                        NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                                        UserDefaults.standard.setValue(dict1, forKey: "activeCard")
                                         //                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
-                                        NSUserDefaults.standardUserDefaults().synchronize()
+                                        UserDefaults.standard.synchronize()
                                         objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
                                         
                                         
-                                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                                        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject]
                                         objAPI.addNewSavingCardDelegate = self
                                         objAPI.addNewSavingCard(dict)
                                         self.addNewCard = false
@@ -354,39 +389,39 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     else {
                                         self.objAnimView.removeFromSuperview()
                                         //show alert view controller if card is already added
-                                        let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.Alert)
+                                        let alertController = UIAlertController(title: "Warning", message: "You have already added this card", preferredStyle:UIAlertControllerStyle.alert)
                                         //alert view controll action method
-                                        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+                                        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default)
                                         { action -> Void in
-                                            self.navigationController?.popViewControllerAnimated(true)
+                                            self.navigationController?.popViewController(animated: true)
                                             })
-                                        self.presentViewController(alertController, animated: true, completion: nil)
+                                        self.present(alertController, animated: true, completion: nil)
                                     }
                                 }
                                 else {
                                     //Call AddSavingCardDelegate
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
                                 }
                             }
                             else {
                                 array.append(dict1)
-                                NSUserDefaults.standardUserDefaults().setValue(dict1, forKey: "activeCard")
+                                UserDefaults.standard.setValue(dict1, forKey: "activeCard")
                                 //                                NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
-                                NSUserDefaults.standardUserDefaults().synchronize()
+                                UserDefaults.standard.synchronize()
                                 
                                 objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
                                 
                                 if(self.addNewCard == true)
                                 {
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!]
+                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject]
                                     
                                     objAPI.addNewSavingCardDelegate = self
                                     objAPI.addNewSavingCard(dict)
                                     self.addNewCard = false
                                 } else {
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)!,"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber]
+                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
                                     
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
@@ -400,7 +435,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             self.cardNumView.constant = 35
                         }
                     }
-                })
+                } as! STPTokenCompletionBlock)
                 
             } catch let underlyingError as NSError?{
                 print("Error info: \(underlyingError?.localizedDescription)")
@@ -424,52 +459,52 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
     }
     
-    func setBarodrColor(borderColor: UIColor) {
-        txtCardNum1.layer.borderColor = borderColor.CGColor
+    func setBarodrColor(_ borderColor: UIColor) {
+        txtCardNum1.layer.borderColor = borderColor.cgColor
         txtCardNum1.textColor = borderColor
-        txtCardNum2.layer.borderColor = borderColor.CGColor
+        txtCardNum2.layer.borderColor = borderColor.cgColor
         txtCardNum2.textColor = borderColor
-        txtCardNum3.layer.borderColor = borderColor.CGColor
+        txtCardNum3.layer.borderColor = borderColor.cgColor
         txtCardNum3.textColor = borderColor
-        txtCardNum4.layer.borderColor = borderColor.CGColor
+        txtCardNum4.layer.borderColor = borderColor.cgColor
         txtCardNum4.textColor = borderColor
     }
     
     func checkTextFieldValidation()->Bool
     {
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        let date = Date()
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
         
         //Validations for card holders name text field
         if(cardHoldersNameTextField.text?.characters.count == 0 && cardHoldersNameTextField.text?.characters.count == 0) {
             nametxtfieldTopSpace.constant = 24
             nameErrorLabel.text = "Enter name on card"
-            cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardHoldersNameTextField.textColor = UIColor.redColor()
+            cardHoldersNameTextField.layer.borderColor = UIColor.red.cgColor
+            cardHoldersNameTextField.layer.borderColor = UIColor.red.cgColor
+            cardHoldersNameTextField.textColor = UIColor.red
             errorFlag = true
         }
         else if (self.checkTextFieldContentOnlyNumber(cardHoldersNameTextField.text!) == true) {
             nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Your cardholder name should only contain letters"
             errorFlag = true
-            cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardHoldersNameTextField.textColor = UIColor.redColor()
+            cardHoldersNameTextField.layer.borderColor = UIColor.red.cgColor
+            cardHoldersNameTextField.textColor = UIColor.red
         }
         else if (self.checkTextFieldContentSpecialChar(cardHoldersNameTextField.text!)) {
             nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Name should not contain special characters"
             errorFlag = true
-            cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardHoldersNameTextField.textColor = UIColor.redColor()
+            cardHoldersNameTextField.layer.borderColor = UIColor.red.cgColor
+            cardHoldersNameTextField.textColor = UIColor.red
         }
         else if cardHoldersNameTextField.text?.characters.count > 50 {
             nametxtfieldTopSpace.constant = 40
             nameErrorLabel.text = "Wow, that’s such a long name we can’t save it"
             errorFlag = true
-            cardHoldersNameTextField.layer.borderColor = UIColor.redColor().CGColor
-            cardHoldersNameTextField.textColor = UIColor.redColor()
+            cardHoldersNameTextField.layer.borderColor = UIColor.red.cgColor
+            cardHoldersNameTextField.textColor = UIColor.red
         }
         else {
             nameErrorLabel.text = ""
@@ -484,24 +519,24 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-            self.setBarodrColor(UIColor.redColor())
+            self.setBarodrColor(UIColor.red)
         }
         if cardNumStr.characters.count < 16 {
             cardNumberErrorLabel.text = "The card number looks wrong"
-            cardNumberErrorLabel.hidden = false
+            cardNumberErrorLabel.isHidden = false
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-            self.setBarodrColor(UIColor.redColor())
+            self.setBarodrColor(UIColor.red)
         }else if self.expiryMonthYearTextField.text == "" {
             cardNumberErrorLabel.text = "Some card details are missing"
-            cardNumberErrorLabel.hidden = false
+            cardNumberErrorLabel.isHidden = false
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
         }else if self.cvvTextField.text == "" {
             cardNumberErrorLabel.text = "Some card details are missing"
-            cardNumberErrorLabel.hidden = false
+            cardNumberErrorLabel.isHidden = false
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
@@ -543,20 +578,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-            cvvTextField.layer.borderColor = UIColor.redColor().CGColor
-            cvvTextField.textColor = UIColor.redColor()
-            expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-            expiryMonthYearTextField.textColor = UIColor.redColor()
+            cvvTextField.layer.borderColor = UIColor.red.cgColor
+            cvvTextField.textColor = UIColor.red
+            expiryMonthYearTextField.layer.borderColor = UIColor.red.cgColor
+            expiryMonthYearTextField.textColor = UIColor.red
         }
             
-        else if(expiryMonthYearTextField.text == String(format:"%d/%d",components.month,components.year))
+        else if(expiryMonthYearTextField.text == String(format:"%d/%d",components.month!,components.year!))
         {
             cardNumberErrorLabel.text = "The card number looks wrong"
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-            expiryMonthYearTextField.layer.borderColor = UIColor.redColor().CGColor
-            expiryMonthYearTextField.textColor = UIColor.redColor()
+            expiryMonthYearTextField.layer.borderColor = UIColor.red.cgColor
+            expiryMonthYearTextField.textColor = UIColor.red
         }
         else if(cvvTextField.text?.characters.count < 3)
         {
@@ -564,8 +599,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             cardNumberTextFieldTopSpace.constant = 35
             cardNumView.constant = 35
             errorFlag = true
-            cvvTextField.layer.borderColor = UIColor.redColor().CGColor
-            cvvTextField.textColor = UIColor.redColor()
+            cvvTextField.layer.borderColor = UIColor.red.cgColor
+            cvvTextField.textColor = UIColor.red
         }
         else {
             //            cardNumberErrorLabel.text = ""
@@ -576,9 +611,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         return errorFlag
     }
     
-    func checkTextFieldContentOnlyNumber(str:String)->Bool{
-        let set = NSCharacterSet.decimalDigitCharacterSet()
-        if (str.rangeOfCharacterFromSet(set) != nil) {
+    func checkTextFieldContentOnlyNumber(_ str:String)->Bool{
+        let set = CharacterSet.decimalDigits
+        if (str.rangeOfCharacter(from: set) != nil) {
             return true
         }
         else {
@@ -586,20 +621,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         }
     }
     
-    func checkTextFieldContentCharacters(str:String)->Bool{
-        let set = NSCharacterSet.letterCharacterSet()
-        if (str.rangeOfCharacterFromSet(set) != nil) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
-    
-    func checkTextFieldContentSpecialChar(str:String)->Bool{
-        let characterSet:NSCharacterSet = NSCharacterSet(charactersInString: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
-        if (str.rangeOfCharacterFromSet(characterSet) != nil) {
+    func checkTextFieldContentCharacters(_ str:String)->Bool{
+        let set = CharacterSet.letters
+        if (str.rangeOfCharacter(from: set) != nil) {
             return true
         }
         else {
@@ -608,24 +632,35 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     
-    @IBAction func cancelButtonPressed(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func checkTextFieldContentSpecialChar(_ str:String)->Bool{
+        let characterSet:CharacterSet = CharacterSet(charactersIn: "~!@#$%^&*()_-+={}|\\;:'\",.<>*/")
+        if (str.rangeOfCharacter(from: characterSet) != nil) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //UITextField delegate method
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
-        activeTextField.textColor = UIColor.blackColor()
+        activeTextField.textColor = UIColor.black
         self.registerForKeyboardNotifications()
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeTextField.resignFirstResponder()
-        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        activeTextField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         self.removeKeyboardNotification()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         textField.resignFirstResponder()
         self.removeKeyboardNotification()
@@ -633,7 +668,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     
-    func textFieldDidChange(textField: UITextField) {
+    func textFieldDidChange(_ textField: UITextField) {
         
         let text = textField.text
         var tag = textField.tag
@@ -669,10 +704,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
-        textField.textColor = UIColor.blackColor()
-        textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textField.textColor = UIColor.black
+        textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor
         
         if(textField == txtCardNum1 || textField == txtCardNum2 || textField == txtCardNum3 || textField == txtCardNum4) {
             
@@ -699,22 +734,22 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     //Register keyboard notification
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SAPaymentFlowViewController.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
+        let visibleAreaHeight = UIScreen.main.bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (scrlView?.contentOffset)!
         let yOfTextField = activeTextField.frame.height + 280
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -724,20 +759,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        scrlView?.setContentOffset(CGPointZero, animated: true)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        scrlView?.setContentOffset(CGPoint.zero, animated: true)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         objAnimView.removeFromSuperview()
     }
     
     // MARK: - API Response
     //Success response of AddSavingCardDelegate
-    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForAddSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successful")
@@ -748,8 +783,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     {
                         //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
-                        NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        UserDefaults.standard.setValue(1, forKey: "groupMemberPlan")
+                        UserDefaults.standard.synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }
@@ -763,7 +798,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //Error response of AddSavingCardDelegate
-    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+    func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
             let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -775,7 +810,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //Success response of AddNewSavingCardDelegate
-    func successResponseForAddNewSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForAddNewSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         
         if let message = objResponse["message"] as? String{
@@ -785,8 +820,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 {
                     //Navigate to showing group progress
                     self.isFromGroupMemberPlan = false
-                    NSUserDefaults.standardUserDefaults().setValue(1, forKey: "groupMemberPlan")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.setValue(1, forKey: "groupMemberPlan")
+                    UserDefaults.standard.synchronize()
                     let objThankyYouView = SAThankYouViewController()
                     self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     
@@ -795,17 +830,17 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey("userInfo") as! Dictionary<String,AnyObject>
+                    let userInfoDict = UserDefaults.standard.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
                     //                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
-                    let dateFormatter = NSDateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
-                    newDict["PAYMENT_DATE"] = dateFormatter.stringFromDate(NSDate())
-                    newDict["AMOUNT"] = NSUserDefaults.standardUserDefaults().valueForKey("ImpulseAmount")
-                    newDict["PAYMENT_TYPE"] = "debit"
-                    newDict["AUTH_CODE"] = "test"
-                    newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+                    newDict["PAYMENT_DATE"] = dateFormatter.string(from: Date()) as AnyObject
+                    newDict["AMOUNT"] = UserDefaults.standard.value(forKey: "ImpulseAmount") as AnyObject
+                    newDict["PAYMENT_TYPE"] = "debit" as AnyObject
+                    newDict["AUTH_CODE"] = "test" as AnyObject
+                    newDict["PTY_SAVINGPLAN_ID"] = UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber
                     print(newDict)
                     objAPI.impulseSaving(newDict)
                 }
@@ -828,7 +863,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //error response of AddNewSavingCardDelegate
-    func errorResponseForAddNewSavingCardDelegateAPI(error: String) {
+    func errorResponseForAddNewSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
             let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -840,7 +875,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //Success response of ImpulseSavingDelegate
-    func successResponseImpulseSavingDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseImpulseSavingDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         objAnimView.removeFromSuperview()
         if let errorCode = objResponse["errorCode"] as? NSString
@@ -859,7 +894,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     }
     
     //Error response of ImpulseSavingDelegate
-    func errorResponseForImpulseSavingDelegateAPI(error: String) {
+    func errorResponseForImpulseSavingDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == "No network found" {
             let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")

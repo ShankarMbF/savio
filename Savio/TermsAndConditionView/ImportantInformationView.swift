@@ -10,12 +10,12 @@ import UIKit
 
 extension NSObject {
     var theClassName: String {
-        return NSStringFromClass(self.dynamicType)
+        return NSStringFromClass(type(of: self))
     }
 }
 
 protocol ImportantInformationViewDelegate {
-    func acceptPolicy(obj:ImportantInformationView)
+    func acceptPolicy(_ obj:ImportantInformationView)
 }
 
 
@@ -31,15 +31,15 @@ class ImportantInformationView: UIView {
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         btnVeBg.layer.cornerRadius = 5.0
         //set the content offset for textview so it,will begin at point(0,0)
-        termsAndConditionTextView.contentOffset = CGPointMake(0, 0)
+        termsAndConditionTextView.contentOffset = CGPoint(x: 0, y: 0)
       }
     
     //Go to the previous ViewController
-    @IBAction func gotItButtonPressed(sender: AnyObject) {
+    @IBAction func gotItButtonPressed(_ sender: AnyObject) {
   
         if(isFromRegistration == false)
         {

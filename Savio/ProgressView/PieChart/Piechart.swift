@@ -3,8 +3,8 @@ import UIKit
 
 
 public protocol PiechartDelegate {
-    func setSubtitle(total: CGFloat, slice: Piechart.Slice) -> String
-    func setInfo(total: CGFloat, slice: Piechart.Slice) -> String
+    func setSubtitle(_ total: CGFloat, slice: Piechart.Slice) -> String
+    func setInfo(_ total: CGFloat, slice: Piechart.Slice) -> String
 }
 
 
@@ -12,7 +12,7 @@ public protocol PiechartDelegate {
 /**
  * Piechart
  */
-public class Piechart: UIControl {
+open class Piechart: UIControl {
     
     /**
      * Slice
@@ -36,18 +36,18 @@ public class Piechart: UIControl {
     /**
      * private
      */
-    private var total: CGFloat!
+    fileprivate var total: CGFloat!
     
     
     /**
      * public
      */
-    public var radius: Radius = Radius()
-    public var activeSlice: Int = -1
-    public var delegate: PiechartDelegate?
+    open var radius: Radius = Radius()
+    open var activeSlice: Int = -1
+    open var delegate: PiechartDelegate?
     
     
-    public var slices: [Slice] = [] {
+    open var slices: [Slice] = [] {
         didSet {
             total = 0
             for slice in slices {
@@ -67,18 +67,18 @@ public class Piechart: UIControl {
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
-        self.addTarget(self, action: #selector(Piechart.click as (Piechart) -> () -> ()), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(Piechart.click as (Piechart) -> () -> ()), for: .touchUpInside)
         
     }
     
     convenience init() {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
     
-    public override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    open override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
         let center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
         var startValue: CGFloat = 0
@@ -86,7 +86,7 @@ public class Piechart: UIControl {
         var endValue: CGFloat = 0
         var endAngle: CGFloat = 0
         
-        for (index, slice) in slices.enumerate() {
+        for (index, slice) in slices.enumerated() {
             
             startAngle = (startValue * 2 * CGFloat(M_PI)) - CGFloat(M_PI_2)
             endValue = startValue + (slice.value / self.total)
@@ -94,30 +94,30 @@ public class Piechart: UIControl {
             
             //Create Path
             let path = UIBezierPath()
-            path.moveToPoint(center)
+            path.move(to: center)
             
             // create center donut hole
             let innerPath = UIBezierPath()
             //innerPath.moveToPoint(center)
             
             if index == activeSlice {
-                path.addArcWithCenter(center, radius: radius.outer + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-                innerPath.addArcWithCenter(center, radius: radius.inner - 2.0 , startAngle: startAngle, endAngle: endAngle, clockwise: true)
+                path.addArc(withCenter: center, radius: radius.outer + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+                innerPath.addArc(withCenter: center, radius: radius.inner - 2.0 , startAngle: startAngle, endAngle: endAngle, clockwise: true)
             }
             else if index == slices.count - 1 && slice.text == "Error"{
                 //this will be the last slice
-                path.addArcWithCenter(center, radius: radius.outer - 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+                path.addArc(withCenter: center, radius: radius.outer - 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
 //                innerPath.addArcWithCenter(center, radius: radius.inner + 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
             }
             else {
                 
-                path.addArcWithCenter(center, radius: radius.outer, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+                path.addArc(withCenter: center, radius: radius.outer, startAngle: startAngle, endAngle: endAngle, clockwise: true)
 //                innerPath.addArcWithCenter(center, radius: radius.inner, startAngle: startAngle, endAngle: endAngle, clockwise: true)
                 
             }
             
             let color = slice.color
-            color.setFill()
+            color?.setFill()
             path.fill()
             
 //            UIColor.whiteColor().setFill()
@@ -128,9 +128,9 @@ public class Piechart: UIControl {
             startValue += slice.value / self.total
         }
         let innerPath = UIBezierPath()
-        innerPath.moveToPoint(center)
-        innerPath.addArcWithCenter(center, radius: radius.inner, startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
-        UIColor.whiteColor().setFill()
+        innerPath.move(to: center)
+        innerPath.addArc(withCenter: center, radius: radius.inner, startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
+        UIColor.white.setFill()
         innerPath.fill()
     }
     
@@ -139,7 +139,7 @@ public class Piechart: UIControl {
     {
         
     }
-    func click(index:Int) {
+    func click(_ index:Int) {
    
         activeSlice = index
         

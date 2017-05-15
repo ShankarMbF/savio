@@ -17,8 +17,8 @@ class slider: UISlider {
         // Drawing code
     }
     */
-    override func trackRectForBounds(bounds: CGRect) -> CGRect {
-        let rect:CGRect = CGRectMake(0, 10, UIScreen.mainScreen().bounds.width-140, 8)
+    override func trackRect(forBounds bounds: CGRect) -> CGRect {
+        let rect:CGRect = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width-140, height: 8)
         return rect
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol linkButtonTableViewCellDelegate {
     
-    func linkButtonClicked(sender:UIButton)
+    func linkButtonClicked(_ sender:UIButton)
 }
 
 class linkButtonTableViewCell: UITableViewCell {
@@ -24,13 +24,13 @@ class linkButtonTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    @IBAction func clickedOnLinkButton(sender:UIButton){
+    @IBAction func clickedOnLinkButton(_ sender:UIButton){
         delegate?.linkButtonClicked(sender);
     }
     

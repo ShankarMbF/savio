@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SavingPlanTitleTableViewCellDelegate {
-    func getTextFieldText(text:String)
+    func getTextFieldText(_ text:String)
     
 }
 class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
@@ -20,23 +20,23 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     weak var view : UIScrollView?
     var colorDataDict : Dictionary<String,AnyObject> = [:]
     var savingPlanTitleDelegate: SavingPlanTitleTableViewCellDelegate?
-    var lastOffset: CGPoint = CGPointZero
+    var lastOffset: CGPoint = CGPoint.zero
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         titleTextField.delegate = self
         titleTextField.layer.cornerRadius = 5
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     func registerForKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanTitleTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SavingPlanTitleTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanTitleTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingPlanTitleTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     //get the color for selected theme
@@ -47,13 +47,13 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     
   
     //Keyboard notification function
-    @objc func keyboardWasShown(notification: NSNotification){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+    @objc func keyboardWasShown(_ notification: Notification){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
         lastOffset = (view?.contentOffset)!
-        let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 64 - (kbSize?.height)! //64 height of nav bar + status bar
+        let visibleAreaHeight = UIScreen.main.bounds.height - 64 - (kbSize?.height)! //64 height of nav bar + status bar
         let yOfTextField = titleTextField.frame.origin.y + (self.superview?.frame.origin.y)! + (tblView!.frame.origin.y) + self.frame.size.height
 
         if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
@@ -63,27 +63,27 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //Keyboard notification function
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         view?.setContentOffset(lastOffset, animated: true)
     }
     
     //UITextfieldDelegate method
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
         titleTextField.textColor = setUpColor()
         self.registerForKeyboardNotifications()
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
         savingPlanTitleDelegate?.getTextFieldText(textField.text!)
     }
     
     //UITextfieldDelegate method
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let currentCharacterCount = textField.text?.characters.count ?? 0
         if (range.length + range.location > currentCharacterCount) {
@@ -97,7 +97,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     //UITextfieldDelegate method
-    func textFieldShouldReturn(textField: UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         titleTextField.textColor = setUpColor()
         return true

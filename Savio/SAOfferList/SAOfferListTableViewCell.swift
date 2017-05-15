@@ -33,26 +33,26 @@ class SAOfferListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+         colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         lblOfferDiscount?.textColor = self.setUpColor()
         btnAddOffer?.backgroundColor = self.setUpColor()
-        btnOfferDetail?.setTitleColor(self.setUpColor(), forState: UIControlState.Normal)
+        btnOfferDetail?.setTitleColor(self.setUpColor(), for: UIControlState())
         btnAddOffer!.layer.cornerRadius = 5
         btnOfferDetail?.tintColor = self.setUpColor()
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         

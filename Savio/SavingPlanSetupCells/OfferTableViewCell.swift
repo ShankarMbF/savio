@@ -28,11 +28,11 @@ class OfferTableViewCell: UITableViewCell {
         offerView.layer.cornerRadius = 5
         offerView.layer.masksToBounds = true
         offerView.clipsToBounds = true
-        offerDetailsButton.setImage(UIImage(named:"detail-arrow-down.png"), forState: .Normal)
+        offerDetailsButton.setImage(UIImage(named:"detail-arrow-down.png"), for: UIControlState())
         offerDetailsButton.imageEdgeInsets = UIEdgeInsetsMake(0, (offerDetailsButton.titleLabel?.frame.size.width)!, 0, -(((offerDetailsButton.titleLabel?.frame.size.width)!+30)))
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

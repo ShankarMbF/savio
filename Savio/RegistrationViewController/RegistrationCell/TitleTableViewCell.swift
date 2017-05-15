@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TitleTableViewCellDelegate {
-    func titleCellText(titleCell:TitleTableViewCell)
+    func titleCellText(_ titleCell:TitleTableViewCell)
 
 }
 
@@ -31,7 +31,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         tfTitle?.layer.masksToBounds = true
         tfTitle?.layer.borderWidth=1.0
 //        tfTitle?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
-        tfTitle?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        tfTitle?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         tfTitle?.delegate=self
 
         
@@ -39,7 +39,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         tfName?.layer.masksToBounds = true
         tfName?.layer.borderWidth=1.0
 //        tfName?.layer.borderColor = UIColor(red: 202/256.0, green: 175/256.0, blue: 120/256.0, alpha: 1.0).CGColor;
-        tfName?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        tfName?.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         tfName?.delegate=self
         
         dropDown.dataSource = [
@@ -64,53 +64,53 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
     func registerForKeyboardNotifications(){
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TitleTableViewCell.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TitleTableViewCell.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TitleTableViewCell.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TitleTableViewCell.keyboardWillBeHidden(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func removeKeyboardNotification(){
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     
     
-    @objc func keyboardWasShown(notification: NSNotification){
+    @objc func keyboardWasShown(_ notification: Notification){
         //do stuff
         
         var info = notification.userInfo as! Dictionary<String,AnyObject>
-        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        let kbSize = info[UIKeyboardFrameBeginUserInfoKey]?.cgRectValue.size
         let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, (kbSize?.height)!, 0.0)
         tblView?.contentInset = contentInsets
         tblView?.scrollIndicatorInsets = contentInsets
         
         var aRect = tfName?.frame
         aRect?.size.height = (aRect?.size.height)! - (kbSize?.height)!
-        if !CGRectContainsPoint(aRect!, self.frame.origin) {
+        if !aRect!.contains(self.frame.origin) {
             tblView?.scrollRectToVisible(self.frame, animated: true)
         }
  
     }
     
-    @objc func keyboardWillBeHidden(notification: NSNotification){
+    @objc func keyboardWillBeHidden(_ notification: Notification){
         //do stuff
         prevName = (tfName?.text)!
           self.delegate?.titleCellText(self)
-        let contentInsets: UIEdgeInsets =  UIEdgeInsetsZero;
+        let contentInsets: UIEdgeInsets =  UIEdgeInsets.zero;
         tblView?.contentInset = contentInsets;
         tblView?.scrollIndicatorInsets = contentInsets;
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
     {
-        textField.textColor = UIColor.blackColor()
+        textField.textColor = UIColor.black
         if textField == tfTitle{
             self.showOrDismiss()
             return false
@@ -119,7 +119,7 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         self.registerForKeyboardNotifications()
         return true
     }
-    func textFieldDidEndEditing(textField: UITextField){
+    func textFieldDidEndEditing(_ textField: UITextField){
         textField.resignFirstResponder()
         self.removeKeyboardNotification()
         prevName = textField.text!
@@ -130,14 +130,14 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
 //        textField.resignFirstResponder()
 //        return true
 //    }
-    func textFieldShouldReturn(textField: UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
           prevName = textField.text!
         self.delegate?.titleCellText(self)
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if(textField.placeholder == "Name" ){
             let currentCharacterCount = textField.text?.characters.count ?? 0
             if (range.length + range.location > currentCharacterCount){
@@ -159,14 +159,14 @@ class TitleTableViewCell: UITableViewCell,UITextFieldDelegate {
     }
     
     func showOrDismiss(){
-        if dropDown.hidden {
+        if dropDown.isHidden {
             dropDown.show()
         } else {
             dropDown.hide()
         }
     }
     
-    @IBAction func clickeOnDropDownArrow(sender:UIButton){
+    @IBAction func clickeOnDropDownArrow(_ sender:UIButton){
         self.showOrDismiss()
     }
     

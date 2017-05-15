@@ -25,20 +25,20 @@ class WishListTableViewCell: UITableViewCell {
         // Set attributed title to delete button
         let attributes = [
             NSForegroundColorAttributeName : UIColor(red:100/256, green: 101/256, blue: 109/256, alpha: 1),
-            NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue
-        ]
+            NSUnderlineStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue
+        ] as [String : Any]
         let attributedString = NSAttributedString(string: "Delete", attributes: attributes)
-        btnDelete?.setAttributedTitle(attributedString, forState: UIControlState.Normal)
+        btnDelete?.setAttributedTitle(attributedString, for: UIControlState())
         
         btnSavingPlan!.layer.cornerRadius = 5
         
         //set border to uiview
         vwProductDetail?.layer.borderWidth = 1.5
-        vwProductDetail?.layer.borderColor = UIColor.whiteColor().CGColor
+        vwProductDetail?.layer.borderColor = UIColor.white.cgColor
         
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

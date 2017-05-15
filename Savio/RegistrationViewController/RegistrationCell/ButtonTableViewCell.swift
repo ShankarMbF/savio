@@ -8,7 +8,7 @@
 
 import UIKit
 protocol ButtonCellDelegate {
-    func buttonOnCellClicked(sender:UIButton)
+    func buttonOnCellClicked(_ sender:UIButton)
 }
 class ButtonTableViewCell: UITableViewCell {
     
@@ -25,13 +25,13 @@ class ButtonTableViewCell: UITableViewCell {
         btn?.layer.masksToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-  @IBAction func btnClicked(sender:UIButton){
+  @IBAction func btnClicked(_ sender:UIButton){
         delegate?.buttonOnCellClicked(sender)
     }
     

@@ -28,9 +28,9 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let userPlan = NSUserDefaults.standardUserDefaults().objectForKey("savingPlanDict") as? Dictionary<String,AnyObject>
+        if let userPlan = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let savedCard =  NSUserDefaults.standardUserDefaults().objectForKey("saveCardArray")
+            if let savedCard =  UserDefaults.standard.object(forKey: "saveCardArray")
             {
                 self.setUpViewController()
             }else {
@@ -41,7 +41,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
                 addCardViewController.delegate = self
                 // STPAddCardViewController must be shown inside a UINavigationController.
                 let navigationController = UINavigationController(rootViewController: addCardViewController)
-                self.presentViewController(navigationController, animated: true, completion: nil)
+                self.present(navigationController, animated: true, completion: nil)
             }
         }
         else {
@@ -51,9 +51,9 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
         //--------------Setting up navigation controller--------------------------------
         self.navController = UINavigationController(rootViewController: self.centreVC)
         self.navController.view.frame = self.view.frame
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         //        self.navController.navigationBar.hidden = true
         
         self.view.addSubview(self.menuVC!.view)
@@ -63,26 +63,26 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
         //----------------------------------------------------------------------------------
         
         //------Register notfication for menu toggel and menu selection-----------------------
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.addCentreView(_:)), name: kNotificationAddCentreView, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContainerViewController.ToggleCentreView), name: kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContainerViewController.addCentreView(_:)), name: NSNotification.Name(rawValue: kNotificationAddCentreView), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ContainerViewController.ToggleCentreView), name: NSNotification.Name(rawValue: kNotificationToggleMenuView), object: nil)
         //---------------------------------------------------------------------------------------
     }
     
     // Stripe Intagration
     
-    func addCardViewControllerDidCancel(addCardViewController: STPAddCardViewController) {
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
         //        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func addCardViewController(addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         
         let objAPI = API()
-        let userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
         
-        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID),"PTY_SAVINGPLAN_ID":NSUserDefaults.standardUserDefaults().valueForKey(kPTYSAVINGPLANID) as! NSNumber]
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID as AnyObject),"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: kPTYSAVINGPLANID) as! NSNumber]
         
         
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.navigationController!.view.addSubview(objAnimView)
@@ -91,7 +91,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
         objAPI.addSavingCard(dict)
         
         //Use token for backend process
-        self.dismissViewControllerAnimated(true, completion: {
+        self.dismiss(animated: true, completion: {
             completion(nil)
         })
     }
@@ -100,10 +100,10 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     func setUpViewController()
     {
         // Set all plan flag
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
+        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
+        if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
         {
             //As per flag show the progress view of plan
             if usersPlan == "I"{
@@ -137,23 +137,23 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             newView.removeFromSuperview()
         } else {
             destination.origin.x += 250
-            newView.frame = CGRectMake(250, 40, self.navController.view.frame.width, self.navController.view.frame.height)
-            newView.backgroundColor = UIColor.clearColor()
+            newView.frame = CGRect(x: 250, y: 40, width: self.navController.view.frame.width, height: self.navController.view.frame.height)
+            newView.backgroundColor = UIColor.clear
             let tapGesture = UITapGestureRecognizer()
             tapGesture.numberOfTapsRequired = 1
             tapGesture.addTarget(self, action: #selector(ContainerViewController.newViewTouched(_:)))
             newView.addGestureRecognizer(tapGesture)
             self.view.addSubview(newView)
         }
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.navController.view.frame = destination
         })
     }
     
-    func newViewTouched(sender:UITapGestureRecognizer)
+    func newViewTouched(_ sender:UITapGestureRecognizer)
     {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.navController.view.frame = CGRectMake(0, 0, self.navController.view.frame.width, self.navController.view.frame.height)
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            self.navController.view.frame = CGRect(x: 0, y: 0, width: self.navController.view.frame.width, height: self.navController.view.frame.height)
         })
     }
     
@@ -164,7 +164,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     }
     
     //Function invoke when menu item selected and kNotificationAddCentreView notification is broadcast.
-    func addCentreView(notification: NSNotification) {
+    func addCentreView(_ notification: Notification) {
         let className = notification.object as! String
         
         
@@ -189,13 +189,13 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             
         case "SAOfferListViewController":
             
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
+            UserDefaults.standard.removeObject(forKey: "offerList")
             
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
+            UserDefaults.standard.set(dict, forKey:"colorDataDict")
+            UserDefaults.standard.synchronize()
             
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.synchronize()
             let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             obj.hideAddOfferButton = true
             obj.isComingProgress = false
@@ -208,13 +208,13 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             self.replaceViewController()
             
         case "SAProgressViewController":
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("offerList")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.removeObject(forKey: "offerList")
+            UserDefaults.standard.synchronize()
             //Assigning all plan flag
-            let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+            let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
             
             var usersPlanFlag = ""
-            if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
+            if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
             {
                 usersPlanFlag = usersPlan
                 //As per flag show the progress view of plan
@@ -243,9 +243,9 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             
             let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
             obj.isUpdatePlan = true
-            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
+            UserDefaults.standard.set(dict, forKey:"colorDataDict")
+            UserDefaults.standard.synchronize()
             self.centreVC = obj
             self.replaceViewController()
             
@@ -262,7 +262,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             var vw = UIViewController?()
             
             for var obj in (self.navigationController?.viewControllers)!{
-                if obj.isKindOfClass(SAEnterYourPINViewController) {
+                if obj.isKind(of: SAEnterYourPINViewController.self) {
                     vw = obj as! SAEnterYourPINViewController
                     self.navigationController?.popToViewController(vw!, animated: true)
                     break
@@ -277,23 +277,23 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     //Function invoke for replace the current menu class with selected menu class
     func replaceViewController() {
         self.navController = UINavigationController(rootViewController: self.centreVC)
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navController.view.frame = self.view.frame
         self.addChildViewController(self.navController)
         self.view.addSubview(self.navController!.view)
     }
     
-    func successResponseForAddSavingCardDelegateAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForAddSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         if let message = objResponse["message"] as? String{
             if(message == "Successful")
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
-                    NSUserDefaults.standardUserDefaults().setObject(1, forKey: "saveCardArray")
-                    NSUserDefaults.standardUserDefaults().synchronize()
+                    UserDefaults.standard.set(1, forKey: "saveCardArray")
+                    UserDefaults.standard.synchronize()
                     objAnimView.removeFromSuperview()
                     
                     //                     navigation to Summary Screen as well as for ProgressView (Force Close)
@@ -311,7 +311,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     }
     
     //Error response of AddSavingCardDelegate
-    func errorResponseForAddSavingCardDelegateAPI(error: String) {
+    func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")

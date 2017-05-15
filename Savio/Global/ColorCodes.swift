@@ -71,7 +71,7 @@ let kWeek : String = "Week"
 let kMonth : String = "Month"
 
 //function 
-let userDefaults = NSUserDefaults.standardUserDefaults()
+let userDefaults = UserDefaults.standard
 
 
 //Structure defined for Color
@@ -101,9 +101,9 @@ struct ShadowColor {
 class ColorCodes: NSObject {
     
     //This function will return the specific color code for selected theme
-    class func colorForCode( colorCode: Int) -> UIColor {
+    class func colorForCode( _ colorCode: Int) -> UIColor {
         
-        var color : UIColor! = UIColor.whiteColor()
+        var color : UIColor! = UIColor.white
         switch colorCode {
         case Color.groupPlan: color  = ColorCodes.getColor(r: 161, g: 214, b: 248, a: 1)
         case Color.weddingPlan: color  = ColorCodes.getColor(r: 189, g: 184, b: 235, a: 1)
@@ -114,15 +114,15 @@ class ColorCodes: NSObject {
         case Color.gadgetPlan: color  = ColorCodes.getColor(r: 205, g: 220, b: 57, a: 1)
         case Color.genericPlan: color  = ColorCodes.getColor(r: 244, g: 176, b: 58, a: 1)
             
-        default:  color = UIColor.blackColor()
+        default:  color = UIColor.black
         }
         return color
     }
 
     //This function will return the specific shadow color code for selected theme
-    class func colorForShadow( colorCode: Int) -> UIColor {
+    class func colorForShadow( _ colorCode: Int) -> UIColor {
         
-        var color : UIColor! = UIColor.whiteColor()
+        var color : UIColor! = UIColor.white
         switch colorCode {
             
         case ShadowColor.groupPlan: color  = ColorCodes.getColor(r: 122, g: 182, b: 240, a: 1)
@@ -134,13 +134,13 @@ class ColorCodes: NSObject {
         case ShadowColor.gadgetPlan: color  = ColorCodes.getColor(r: 166, g: 180, b: 60, a: 1)
         case ShadowColor.genericPlan: color  = ColorCodes.getColor(r: 244, g: 148, b: 54, a: 1)
             
-        default:  color = UIColor.blackColor()
+        default:  color = UIColor.black
         }
         return color
     }
 
     //This function is used to set the RGB contents.
-    class func getColor(r r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
+    class func getColor(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/256.0, green: g/256.0, blue: b/256.0, alpha: a);
     }
 

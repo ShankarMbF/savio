@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
@@ -30,7 +54,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
-        objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
@@ -49,20 +73,20 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrView?.contentSize = CGSizeMake(0, confirmBtn!.frame.origin.y + confirmBtn!.frame.size.height + 10)
+        scrView?.contentSize = CGSize(width: 0, height: confirmBtn!.frame.origin.y + confirmBtn!.frame.size.height + 10)
         //        scrlVw?.contentSize = CGSizeMake(0, htContentView.constant)
     }
     
     func setUpView(){
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         
         //set Navigation left button
         let leftBtnName = UIButton()
-        leftBtnName.setImage(UIImage(named: "nav-menu.png"), forState: UIControlState.Normal)
-        leftBtnName.frame = CGRectMake(0, 0, 30, 30)
-        leftBtnName.addTarget(self, action: #selector(SASwitchViewController.menuButtonClicked), forControlEvents: .TouchUpInside)
+        leftBtnName.setImage(UIImage(named: "nav-menu.png"), for: UIControlState())
+        leftBtnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        leftBtnName.addTarget(self, action: #selector(SASwitchViewController.menuButtonClicked), for: .touchUpInside)
         
         let leftBarButton = UIBarButtonItem()
         leftBarButton.customView = leftBtnName
@@ -72,30 +96,30 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         
         let btnName = UIButton()
         //        btnName.setImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-        btnName.frame = CGRectMake(0, 0, 30, 30)
+        btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+        btnName.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
-        btnName.setTitle("0", forState: UIControlState.Normal)
-        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
-        btnName.addTarget(self, action: #selector(SASwitchViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
+        btnName.setTitle("0", for: UIControlState())
+        btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
+        btnName.addTarget(self, action: #selector(SASwitchViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
+            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
             
             if(wishListArray.count > 0)
             {
                 
-                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor.black, for: UIControlState())
             }
             else {
-                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
-                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
+                btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
+                btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
                 
             }
-            btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
+            btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
             
         }
         
@@ -105,21 +129,21 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
     }
     
     
-    @IBAction func confirmButtonPressed(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAProgressViewController")
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAProgressViewController")
+    @IBAction func confirmButtonPressed(_ sender: AnyObject) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAProgressViewController")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAProgressViewController")
     }
     
     //MARK: Bar button action
     func menuButtonClicked(){
-        NSNotificationCenter.defaultCenter().postNotificationName(kNotificationToggleMenuView, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationToggleMenuView), object: nil)
     }
     
     func heartBtnClicked(){
         //check if wishlistArray count is greater than 0 . If yes, go to SAWishlistViewController
         if wishListArray.count>0{
-            NSNotificationCenter.defaultCenter().postNotificationName(kSelectRowIdentifier, object: "SAWishListViewController")
-            NSNotificationCenter.defaultCenter().postNotificationName(kNotificationAddCentreView, object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
             let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
@@ -127,10 +151,10 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         }
     }
     
-    @IBAction func planOneButtonPressed(sender: AnyObject) {
+    @IBAction func planOneButtonPressed(_ sender: AnyObject) {
         planTwoImageView.layer.borderWidth = 0
         planOneImageView.layer.borderWidth = 3
-        planOneImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
+        planOneImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).cgColor
         
         let dictOne = usersPlanArray[0] as Dictionary<String,AnyObject>
         
@@ -149,14 +173,14 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planOneType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planOneType, forKey: kUsersPlan)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(planOneType, forKey: kUsersPlan)
+        UserDefaults.standard.synchronize()
     }
     
-    @IBAction func planTwoButtonPressed(sender: AnyObject) {
+    @IBAction func planTwoButtonPressed(_ sender: AnyObject) {
         planOneImageView.layer.borderWidth = 0
         planTwoImageView.layer.borderWidth = 3
-        planTwoImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).CGColor
+        planTwoImageView.layer.borderColor = UIColor(red:244/255,green: 176/255,blue: 58/255,alpha: 1).cgColor
         
         let dictTwo = usersPlanArray[1] as Dictionary<String,AnyObject>
         
@@ -175,14 +199,14 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planTwoType = "I"
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(planTwoType, forKey: kUsersPlan)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(planTwoType, forKey: kUsersPlan)
+        UserDefaults.standard.synchronize()
         
     }
     
     //MARK: GetListOfUsersPlanDelegate methods
     
-    func successResponseForGetListOfUsersPlanAPI(objResponse: Dictionary<String, AnyObject>) {
+    func successResponseForGetListOfUsersPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         objAnimView.removeFromSuperview()
         print(objResponse)
         if let message = objResponse["message"] as? String
@@ -192,68 +216,68 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                 usersPlanArray = (objResponse["lstPartysavingplan"] as? Array<Dictionary<String,AnyObject>>)!
                 
                 for i in 0 ..< usersPlanArray.count {
-                    spinnerOne.hidden = false
+                    spinnerOne.isHidden = false
                     spinnerOne.startAnimating()
                     
-                    spinnerTwo.hidden = false
+                    spinnerTwo.isHidden = false
                     spinnerTwo.startAnimating()
                     
                     let dict = usersPlanArray[i] as Dictionary<String,AnyObject>
                     if(i == 0)
                     {
-                        planOneButton .setTitle(dict[kTitle] as? String , forState: .Normal)
-                        self.view.bringSubviewToFront(planOneButton)
+                        planOneButton .setTitle(dict[kTitle] as? String , for: UIControlState())
+                        self.view.bringSubview(toFront: planOneButton)
                     }
                     else if(i == 1)
                     {
-                        planTwoButton .setTitle(dict[kTitle] as? String , forState: .Normal)
-                        self.view.bringSubviewToFront(planTwoButton)
+                        planTwoButton .setTitle(dict[kTitle] as? String , for: UIControlState())
+                        self.view.bringSubview(toFront: planTwoButton)
                     }
                     
                     if let urlString = dict["image"] as? String
                     {
-                        let url = NSURL(string:urlString)
-                        let request: NSURLRequest = NSURLRequest(URL: url!)
+                        let url = URL(string:urlString)
+                        let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
-                            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { ( response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                                if data?.length > 0
+                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                                if data?.count > 0
                                 {
                                     let image = UIImage(data: data!)
-                                    dispatch_async(dispatch_get_main_queue(), {
+                                    DispatchQueue.main.async(execute: {
                                         if(i == 0)
                                         {
                                             self.planOneImageView.image = image
-                                            self.spinnerOne.hidden = true
+                                            self.spinnerOne.isHidden = true
                                             self.spinnerOne.stopAnimating()
                                         }
                                         else {
                                             self.planTwoImageView.image = image
-                                            self.spinnerTwo.hidden = true
+                                            self.spinnerTwo.isHidden = true
                                             self.spinnerTwo.stopAnimating()
                                         }
                                     })
                                 }
                                 else {
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        self.spinnerOne.hidden = true
+                                    DispatchQueue.main.async(execute: {
+                                        self.spinnerOne.isHidden = true
                                         self.spinnerOne.stopAnimating()
-                                        self.spinnerTwo.hidden = true
+                                        self.spinnerTwo.isHidden = true
                                         self.spinnerTwo.stopAnimating()
                                     })
                                 }
-                            })
+                            } as! (URLResponse?, Data?, Error?) -> Void)
                         }
                         else {
-                            self.spinnerOne.hidden = true
+                            self.spinnerOne.isHidden = true
                             self.spinnerOne.stopAnimating()
-                            self.spinnerTwo.hidden = true
+                            self.spinnerTwo.isHidden = true
                             self.spinnerTwo.stopAnimating()
                         }
                     }else {
-                        self.spinnerOne.hidden = true
+                        self.spinnerOne.isHidden = true
                         self.spinnerOne.stopAnimating()
-                        self.spinnerTwo.hidden = true
+                        self.spinnerTwo.isHidden = true
                         self.spinnerTwo.stopAnimating()
                     }
                     
@@ -269,7 +293,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         }
     }
     
-    func errorResponseForGetListOfUsersPlanAPI(error: String) {
+    func errorResponseForGetListOfUsersPlanAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")

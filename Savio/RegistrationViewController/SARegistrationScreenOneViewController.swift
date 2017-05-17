@@ -480,7 +480,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         //Go back to previous view controller
         
         var isAvailble: Bool = false
-        var vw = UIViewController?()
+        var vw = UIViewController()
         vw = SAWelcomeViewController()
         for var obj in (self.navigationController?.viewControllers)!{
             if obj.isKind(of: SAWelcomeViewController.self) {
@@ -491,10 +491,10 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
-            self.navigationController?.pushViewController(vw!, animated: false)
+            self.navigationController?.pushViewController(vw, animated: false)
         }
     }
     
@@ -632,10 +632,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     func phoneNumberValidation(_ value: String) -> Bool {
-        let charcter  = CharacterSet(charactersIn: "0123456789").inverted
-        var filtered:NSString!
-        let inputString:NSArray = value.components(separatedBy: charcter)
-        filtered = inputString.componentsJoined(by: "") as NSString
+        let charcter  = CharacterSet(charactersIn: "+0123456789").inverted
+        var filtered: String!
+        
+        let inputString: NSArray = value.components(separatedBy: charcter) as [String] as NSArray
+        filtered = (inputString.componentsJoined(by: "") as NSString) as String!
         return  value == filtered
     }
     
@@ -694,12 +695,11 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
             
             let request = NSMutableURLRequest(url: URL(string: String(format:"%@/Content/10",baseURL))!)
 //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-            
-            let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:NSError?) -> Void in
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if let data = data
                 {
 //                    print(response?.description)
-                    let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves)
+                    let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
 //                        print(dict)

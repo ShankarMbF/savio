@@ -706,7 +706,7 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
             obj.addedOfferArr = offerArr
             obj.isComingProgress = false
             if let savId = parameterDict["sav_id"] as? String {
-                obj.savID = Int(savId)!
+                obj.savID = Int(savId) as! NSNumber
             }
             else if let savId = parameterDict["sav_id"] as? NSNumber {
                 obj.savID = savId
@@ -763,7 +763,7 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
             obj.isComingProgress = false
             obj.addedOfferArr = offerArr
             if let savId = parameterDict["sav_id"] as? String {
-                obj.savID = Int(savId)
+                obj.savID = Int(savId) as! NSNumber
             }
             else if let savId = parameterDict["sav_id"] as? NSNumber {
                 obj.savID = savId
@@ -953,7 +953,8 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 UserDefaults.standard.removeObject(forKey: "InviteGroupArray")
                 var newDict : Dictionary<String,AnyObject> = [:]
                 newDict[kTitle] = self.getParameters()[kTITLE]
-                let amt = self.getParameters()[kAMOUNT] as! String
+                var amt = self.getParameters()[kAMOUNT] as! String
+                
                 newDict[kAmount] = String(format:"%d",Int(amt)!/(participantsArr.count+1))//self.getParameters()[kAMOUNT]
                 newDict[kPAYDATE] = self.getParameters()[kPAYDATE]
                 let dict = self.getParameters()[kIMAGE]

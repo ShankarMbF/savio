@@ -242,7 +242,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     // MARK: - Button Action
     @IBAction func spendButtonPressed(_ sender: AnyObject) {
         var isAvailble: Bool = false
-        var vw = UIViewController?()
+        var vw = UIViewController()
         
         for var obj in (self.navigationController?.viewControllers)!{
             if obj.isKind(of: SASpendViewController.self) {
@@ -253,7 +253,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
         
@@ -263,7 +263,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     
     @IBAction func progressButtonPressed(_ sender: AnyObject) {
-        var vw = UIViewController?()
+        var vw = UIViewController()
         let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
@@ -321,11 +321,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         }
        
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
             
-            self.navigationController?.pushViewController(vw!, animated: false)
+            self.navigationController?.pushViewController(vw, animated: false)
         }
     }
     

@@ -259,12 +259,12 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             
         case "SignOut":
             self.navController.removeFromParentViewController()
-            var vw = UIViewController?()
+            var vw = UIViewController()
             
             for var obj in (self.navigationController?.viewControllers)!{
                 if obj.isKind(of: SAEnterYourPINViewController.self) {
                     vw = obj as! SAEnterYourPINViewController
-                    self.navigationController?.popToViewController(vw!, animated: true)
+                    self.navigationController?.popToViewController(vw, animated: true)
                     break
                 }
             }

@@ -1,4 +1,4 @@
-//
+ //
 //  SASpendViewController.swift
 //  Savio
 //
@@ -165,7 +165,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
     }
     
     @IBAction func planButtonPressed(_ sender: AnyObject) {
-        var vw = UIViewController?()
+        var vw = UIViewController()
         let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
@@ -223,18 +223,18 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
             
-            self.navigationController?.pushViewController(vw!, animated: false)
+            self.navigationController?.pushViewController(vw, animated: false)
         }
     }
     
     //Go to SAOffersViewController
     @IBAction func offersButtonPressed(_ sender: AnyObject) {
         var isAvailble: Bool = false
-        var vw = UIViewController?()
+        var vw = UIViewController()
         
         for var obj in (self.navigationController?.viewControllers)!{
             if obj.isKind(of: SAOfferListViewController.self) {
@@ -245,7 +245,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         }
         
         if isAvailble {
-            self.navigationController?.popToViewController(vw!, animated: false)
+            self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
             let obj = SAOfferListViewController()

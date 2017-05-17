@@ -137,7 +137,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             }
             else
             {
-                if(textFieldOne.text?.characters.count < 1 || textFieldReOne.text?.characters.count < 1 || textFieldTwo.text?.characters.count < 1 || textFieldReTwo.text?.characters.count < 1 || textFieldThree.text?.characters.count < 1 || textFieldReThree.text?.characters.count < 1 || textFieldFour.text?.characters.count < 1 || textFieldReFour.text?.characters.count < 1)
+                if((textFieldOne.text?.characters.count)! < 1 || (textFieldReOne.text?.characters.count)! < 1 || (textFieldTwo.text?.characters.count)! < 1 || (textFieldReTwo.text?.characters.count)! < 1 || (textFieldThree.text?.characters.count)! < 1 || (textFieldReThree.text?.characters.count)! < 1 || (textFieldFour.text?.characters.count)! < 1 || (textFieldReFour.text?.characters.count)! < 1)
                 {
                     enterFourDigitCodeLabel.isHidden = false;
                     enterFourDigitCodeLabel.text = "Passcode should be of 4 digits"
@@ -200,7 +200,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
 //                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
 //                NSUserDefaults.standardUserDefaults().synchronize()
                 
-                objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
+                objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5() as AnyObject)
                 headerLabel.text = "Your passcode has been reset"
                 backButton.isHidden = true
                 confirmPIN .setTitle("Got It", for: UIControlState())
@@ -220,11 +220,11 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 let alert = UIAlertController(title: "Important Information", message: "Enter mobile number initially register with", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default)
                 { action -> Void in
-                    var vw = UIViewController?()
+                    var vw = UIViewController()
                     for var obj in (self.navigationController?.viewControllers)!{
                         if obj.isKind(of: SARegistrationScreenOneViewController.self) {
                             vw = obj as! SARegistrationScreenOneViewController
-                            self.navigationController?.popToViewController(vw!, animated: true)
+                            self.navigationController?.popToViewController(vw, animated: true)
                             break
                         }
                     }
@@ -263,7 +263,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
 //                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
 //                NSUserDefaults.standardUserDefaults().synchronize()
                 
-                objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
+                objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5() as AnyObject)
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: objResponse["party"]!)
                 //Navigate user to HurrayViewController to start Saving plan
                 let objEnterYourPinViewController = SAEnterYourPINViewController(nibName: "SAEnterYourPINViewController",bundle: nil)
@@ -333,7 +333,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 tag -= 1
                 if tag >= 0 {
                     let tfPre = arrayTextFields[tag]
-                    if tfPre.text?.characters.count > 0 {
+                    if (tfPre.text?.characters.count)! > 0 {
                         tfPre.becomeFirstResponder()
                         break
                     }

@@ -378,7 +378,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                         UserDefaults.standard.setValue(dict1, forKey: "activeCard")
                                         //                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
                                         UserDefaults.standard.synchronize()
-                                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                                        objAPI.storeValueInKeychainForKey("saveCardArray", value: array as AnyObject)
                                         
                                         
                                         let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject]
@@ -411,7 +411,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                 //                                NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
                                 UserDefaults.standard.synchronize()
                                 
-                                objAPI.storeValueInKeychainForKey("saveCardArray", value: array)
+                                objAPI.storeValueInKeychainForKey("saveCardArray", value: array as AnyObject)
                                 
                                 if(self.addNewCard == true)
                                 {
@@ -437,10 +437,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     }
                 } as! STPTokenCompletionBlock)
                 
-            } catch let underlyingError as NSError?{
-                print("Error info: \(underlyingError?.localizedDescription)")
+            } catch let underlyingError as NSError{
+                print("Error info: \(underlyingError.localizedDescription)")
                 self.objAnimView.removeFromSuperview()
-                self.cardNumberErrorLabel.text = underlyingError?.localizedDescription
+                self.cardNumberErrorLabel.text = underlyingError.localizedDescription
                 self.cardNumberTextFieldTopSpace.constant = 35
                 self.cardNumView.constant = 35
             }

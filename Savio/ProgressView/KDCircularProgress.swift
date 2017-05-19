@@ -430,7 +430,13 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
             let trackLineWidth = radius * trackThickness
             let progressLineWidth = radius * progressThickness
             let arcRadius = max(radius - trackLineWidth/2, radius - progressLineWidth/2)
-            CGContextAddArc(ctx, width/2.0, height/2.0, arcRadius, 0, CGFloat(M_PI * 2), 0)
+            
+//            issue in CGContextAddArc
+            let center = CGPoint(x:width/2.0, y:height/2.0)
+            let context : CGContext 
+            context.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2.0), clockwise: true)
+            
+//            CGContextAddArc(ctx, width/2.0, height/2.0, arcRadius, 0, CGFloat(M_PI * 2), 0)
             trackColor.set()
             ctx.setStrokeColor(trackColor.cgColor)
             ctx.setFillColor(progressInsideFillColor.cgColor)
@@ -445,7 +451,9 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
                 let fromAngle = Conversion.degreesToRadians(CGFloat(-startAngle))
                 let toAngle = Conversion.degreesToRadians(CGFloat((clockwise == true ? -reducedAngle : reducedAngle) - startAngle))
                 
-                CGContextAddArc(imageCtx, width/2.0, height/2.0, arcRadius, fromAngle, toAngle, clockwise == true ? 1 : 0)
+                let center = CGPoint(x:width/2.0, y:height/2.0)
+                context.addArc(center: center, radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: true)
+//   issue -  CGContextAddArc(imageCtx, width/2.0, height/2.0, arcRadius, fromAngle, toAngle, clockwise == true ? 1 : 0)
                 
                 let glowValue = GlowConstants.glowAmountForAngle(reducedAngle, glowAmount: glowAmount, glowMode: glowMode, size: width)
                 if glowValue > 0 {
@@ -479,7 +487,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
                 }
                 
                 let componentsArray = rgbColorsArray.flatMap { color -> [CGFloat] in
-                    let components: UnsafePointer<CGFloat> = color.cgColor.components
+                    let components: [CGFloat] = color.cgColor.components!
                     return [components[0], components[1], components[2], 1.0]
                 }
                 

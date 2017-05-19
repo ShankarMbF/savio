@@ -953,20 +953,23 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 UserDefaults.standard.removeObject(forKey: "InviteGroupArray")
                 var newDict : Dictionary<String,AnyObject> = [:]
                 newDict[kTitle] = self.getParameters()[kTITLE]
-                var amt = self.getParameters()[kAMOUNT] as! String
                 
-                newDict[kAmount] = String(format:"%d",Int(amt)!/(participantsArr.count+1))//self.getParameters()[kAMOUNT]
+                let amt = self.getParameters()[kAMOUNT] as! String
+                let amount = Int(Int(amt)! / (participantsArr.count+1))
+                newDict[kAmount] = String(format:"%d",amount) as AnyObject//self.getParameters()[kAMOUNT]
                 newDict[kPAYDATE] = self.getParameters()[kPAYDATE]
+                
                 let dict = self.getParameters()[kIMAGE]
                 newDict[kImageURL] = dict
                 newDict[kINIVITEDUSERLIST] = participantsArr as AnyObject
                 newDict[kDay] = dateString as AnyObject
+                
                 let dateParameter = DateFormatter()
                 dateParameter.dateFormat = "yyyy-MM-dd"
                 newDict[kPLANENDDATE] = self.getParameters()[kPLANENDDATE]
+                
                 if(dateString == kDay) {
                     if (dateDiff/168) > 0 {
-                        
                         newDict[kEmi] = String(format:"%d",(cost/(participantsArr.count + 1))/(dateDiff/168)) as AnyObject
                     }
                     else{
@@ -983,10 +986,10 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                     }
                     newDict["payType"] = "Monthly" as AnyObject
                 }
+                
                 if offerArr.count>0 {
                     newDict["offers"] = offerArr as AnyObject
                 }
-                
                 
                 if(dateString == kDay) {
                     if (dateDiff/168) > 0{
@@ -1031,8 +1034,6 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                     self.navigationController?.pushViewController(objSavedCardView, animated: true)
                     
                 }else {
-                    //                    let objPaymentView = SAPaymentFlowViewController()
-                    //                    self.navigationController?.pushViewController(objPaymentView, animated: true)
                     self.StripeSDK()
                 }
             }

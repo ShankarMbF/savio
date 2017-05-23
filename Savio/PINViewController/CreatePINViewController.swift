@@ -82,7 +82,6 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         }
         let newLength = currentCharacterCount + string.characters.count - range.length
         if (newLength == 2) {
-            
             return false;
         }
         

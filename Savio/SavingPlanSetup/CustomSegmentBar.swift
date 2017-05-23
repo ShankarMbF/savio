@@ -64,6 +64,15 @@ class CustomSegmentBar: UIView {
         self.rightButton?.tag = 0
         self.addSubview(self.rightButton!)
         
+        self.activebutton()
+    }
+    
+    func activebutton() {
+        
+        self.midOfToggleView = self.frame.width / 2
+        let widthActBtn = (self.frame.width - 2 * self.sideOffset ) / 2
+        let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
+        
         //Set the frame for activebutton and customize it
         self.activeButton = UIButton()
         self.activeButton?.backgroundColor = self.setUpColor()
@@ -76,11 +85,14 @@ class CustomSegmentBar: UIView {
         self.activeButton?.layer.mask = maskLayer3
         self.activeButton?.titleLabel?.font = UIFont(name: "GothamRounded-Medium", size: 10)
         self.addSubview(self.activeButton!)
+
     }
+    
     
     //Toggle between leftButton anf rightButton
     func toggleButton(sender: UIButton)  {
         segmentSelected(sender.tag)
+        
         if activeButton?.frame.origin.x == midOfToggleView {
             let widthActBtn = (self.frame.width - 2 * self.sideOffset ) / 2
             let heightActBtn = self.frame.height - (self.sideOffset  + self.topOffset)
@@ -102,7 +114,7 @@ class CustomSegmentBar: UIView {
             maskLayer3.path = maskPath3.CGPath
             self.activeButton?.layer.mask = maskLayer3
             self.activeButton?.setTitle(self.rightTitle, forState: UIControlState.Normal)
-            
+
         }
     }
     

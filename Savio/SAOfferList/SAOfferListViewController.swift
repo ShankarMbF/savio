@@ -478,7 +478,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let newDict = addedOfferArr[i]
           
             if offerDict["offId"] as! NSNumber == newDict["offId"] as! NSNumber {
-                let alert = UIAlertView(title: "Offer already added", message: "You have already added this offer to your savings plan", delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Offer already added", message: "You have already added this offer to your plan", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
                 return
             }

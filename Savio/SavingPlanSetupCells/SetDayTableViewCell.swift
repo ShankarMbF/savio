@@ -13,6 +13,7 @@ protocol SegmentBarChangeDelegate
 {
     func segmentBarChanged(str:String)
     func getDateTextField(str:String)
+    
 }
 
 class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate {

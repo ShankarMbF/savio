@@ -607,6 +607,8 @@
 		C9FD9A991CEEED5D006FF2C7 /* ErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD9A971CEEED5D006FF2C7 /* ErrorTableViewCell.swift */; };
 		C9FD9A9A1CEEED5D006FF2C7 /* ErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */; };
 		CA03722A1D48D89D00FC5C1B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA0372281D48D89D00FC5C1B /* Crashlytics.framework */; };
+		D4A594271ED3F007009919CA /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A594261ED3F007009919CA /* DefaultTextField.swift */; };
+		D4A594291ED3F11C009919CA /* PasscodeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A594281ED3F11B009919CA /* PasscodeTextField.swift */; };
 		D4B893B51E9377A10046E243 /* Stripe.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D4B893B41E9377A10046E243 /* Stripe.bundle */; };
 		D4D5957F1E9BB7FA0063805F /* utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5957E1E9BB7FA0063805F /* utility.swift */; };
 		D4D595811E9BB8410063805F /* SharePresistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D595801E9BB8410063805F /* SharePresistance.swift */; };
@@ -1242,6 +1244,8 @@
 		C9FD9A981CEEED5D006FF2C7 /* ErrorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorTableViewCell.xib; sourceTree = "<group>"; };
 		CA0372271D48D89D00FC5C1B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		CA0372281D48D89D00FC5C1B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		D4A594261ED3F007009919CA /* DefaultTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
+		D4A594281ED3F11B009919CA /* PasscodeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeTextField.swift; sourceTree = "<group>"; };
 		D4B893B41E9377A10046E243 /* Stripe.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Stripe.bundle; path = Stripe.framework/Stripe.bundle; sourceTree = "<group>"; };
 		D4D5957E1E9BB7FA0063805F /* utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utility.swift; sourceTree = "<group>"; };
 		D4D595801E9BB8410063805F /* SharePresistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePresistance.swift; sourceTree = "<group>"; };
@@ -2107,6 +2111,8 @@
 			isa = PBXGroup;
 			children = (
 				C97949721CEC987900416BD5 /* ColorCodes.swift */,
+				D4A594261ED3F007009919CA /* DefaultTextField.swift */,
+				D4A594281ED3F11B009919CA /* PasscodeTextField.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -3172,6 +3178,7 @@
 				C9905F9E1CED9EF700E63471 /* ButtonTableViewCell.swift in Sources */,
 				A8A6C7851D2CE58B009B0D2F /* SAGroupProgressViewController.swift in Sources */,
 				A8392A3B1CEEDA8300C7EE48 /* FiveDigitVerificationViewController.swift in Sources */,
+				D4A594291ED3F11C009919CA /* PasscodeTextField.swift in Sources */,
 				A8B5A5091D4A2C5A005A607D /* SavioLogoTableViewCell.swift in Sources */,
 				A87016211D1BFE1500E58A6A /* KDCircularProgress.swift in Sources */,
 				C9FB592A1D1AA82D00C9B6AE /* ContactProfileTableViewCell.swift in Sources */,
@@ -3182,6 +3189,7 @@
 				C9905FA01CED9EF700E63471 /* FindAddressTableViewCell.swift in Sources */,
 				A86681F21CFEF1220014DB59 /* SASavingPlanViewController.swift in Sources */,
 				A8AEA9461CFFF9110069F22A /* ClearButtonTableViewCell.swift in Sources */,
+				D4A594271ED3F007009919CA /* DefaultTextField.swift in Sources */,
 				A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */,
 				A8B74C3B1CEDD13E003A5D9A /* DataProtectionPolicy.swift in Sources */,
 				A8900C231D2FB27F00D8CD0F /* TrackLayer.swift in Sources */,

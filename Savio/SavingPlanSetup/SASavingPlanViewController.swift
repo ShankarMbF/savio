@@ -18,6 +18,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tblViewHt                : NSLayoutConstraint!
     @IBOutlet weak var scrlView                 : UIScrollView!
     @IBOutlet weak var upperView                : UIView!
+    @IBOutlet weak var segmentBar       : CustomSegmentBar!
     
     var segmentDelegate : SegmentBarChangeDelegate?
     
@@ -865,12 +866,13 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             }
             else{
                 
+                // **************** Clear Button Function Hit ***************** //
                 
                 let cell1 = tableView.dequeueReusableCellWithIdentifier("ClearButtonIdentifier", forIndexPath: indexPath) as! ClearButtonTableViewCell
                 cell1.tblView = tblView
                 cell1.clearButton.addTarget(self, action: #selector(SASavingPlanViewController.clearButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
-                return cell1
                 
+                return cell1
             }
         }
         else if(indexPath.section == offerArr.count+7) {
@@ -1138,13 +1140,33 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         { action -> Void in
             
             if(self.isUpdatePlan == false) {
+                
                 self.setUpView()
-                //                self.dateDiff = 0
+                                self.dateDiff = 0
                 self.cost = 0
                 self.isPopoverValueChanged = false
                 self.itemTitle = ""
                 self.isClearPressed = true
                 self.dateString = kDate
+                self.segmentDelegate = self
+                self.segmentBarChanged(kDate)
+                
+                let Identifire = self.tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SetDayTableViewCell
+                Identifire.segmentBar.activebutton()
+
+                self.isChangeSegment = false
+
+                
+                
+            /*
+                let Identifire = self.tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SetDayTableViewCell
+                let button = UIButton()
+                button.tag = 1
+                let rects : CGRect = CGRect(x: 0, y: 0, width: 105.0, height: 24.0)
+                Identifire.drawRect(rects)
+                Identifire.segmentBar.toggleButton(button)
+            */
+
                 self.popOverSelectedStr = "1"
                 self.isCostChanged = false
                 self.datePickerDate = ""

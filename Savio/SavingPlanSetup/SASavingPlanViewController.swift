@@ -1148,7 +1148,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 self.itemTitle = ""
                 self.isClearPressed = true
                 self.dateString = kDate
-<<<<<<< HEAD
+
                 self.segmentDelegate = self
                 self.segmentBarChanged(kDate)
                 
@@ -1168,10 +1168,6 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 Identifire.segmentBar.toggleButton(button)
             */
 
-=======
-
-                
->>>>>>> e1add8f07bba62de79b7ccf4058954ec971adf1a
                 self.popOverSelectedStr = "1"
                 self.isCostChanged = false
                 self.datePickerDate = ""

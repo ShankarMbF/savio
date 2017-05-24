@@ -10,32 +10,36 @@ import UIKit
 
 class SAEnterYourPINViewController: UIViewController, OTPSentDelegate, LogInDelegate, UIScrollViewDelegate {
     
-    @IBOutlet var toolBar: UIToolbar!
-    @IBOutlet weak var btnVwBg: UIView!
-    @IBOutlet weak var pinTextFieldsContainerView: UIView!
-    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet var toolBar   : UIToolbar!
     
-    @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
-    @IBOutlet weak var btnForgottPasscode: UIButton!
-    @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var lblSentYouCode: UILabel!
-    @IBOutlet weak var lblForgottonYourPasscode: UILabel!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var forgotPasscodeButton: UIButton!
-    @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var textFieldOne: UITextField!
-    @IBOutlet weak var textFieldTwo: UITextField!
-    @IBOutlet weak var textFieldThree: UITextField!
-    @IBOutlet weak var textFieldFour: UITextField!
-    @IBOutlet weak var enterYourPasscodeLabel: UILabel!
-    @IBOutlet weak var registerButtonBackgroundView: UIView!
     @IBOutlet weak var scrlView: UIScrollView!
     
-    let objAPI = API()
+    @IBOutlet weak var textFieldOne     : UITextField!
+    @IBOutlet weak var textFieldTwo     : UITextField!
+    @IBOutlet weak var textFieldThree   : UITextField!
+    @IBOutlet weak var textFieldFour    : UITextField!
+    
+    @IBOutlet weak var btnForgottPasscode   : UIButton!
+    @IBOutlet weak var btnCancel            : UIButton!
+    @IBOutlet weak var registerButton       : UIButton!
+    @IBOutlet weak var forgotPasscodeButton : UIButton!
+    @IBOutlet weak var loginButton          : UIButton!
+    
+    @IBOutlet weak var errorLabel               : UILabel!
+    @IBOutlet weak var lblSentYouCode           : UILabel!
+    @IBOutlet weak var enterYourPasscodeLabel   : UILabel!
+    @IBOutlet weak var lblForgottonYourPasscode : UILabel!
+    @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
+    
+    @IBOutlet weak var btnVwBg                      : UIView!
+    @IBOutlet weak var pinTextFieldsContainerView   : UIView!
+    @IBOutlet weak var registerButtonBackgroundView : UIView!
+
     var activeTxtField  : UITextField?
     var arrayTextFields : Array<UITextField>!
     var lastOffset      : CGPoint = CGPointZero
-    
+
+    let objAPI              = API()
     var activeTextField     = UITextField()
     var objAnimView         = ImageViewAnimation()
     var userInfoDict        = Dictionary<String,AnyObject>()

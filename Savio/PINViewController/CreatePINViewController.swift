@@ -8,29 +8,37 @@
 
 import UIKit
 
-class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ResetPasscodeDelegate{
+class CreatePINViewController: UIViewController, PostCodeVerificationDelegate, ResetPasscodeDelegate{
     
     @IBOutlet var toolBar: UIToolbar!
-    @IBOutlet weak var backgroundScrollView: UIScrollView!
-    @IBOutlet weak var enterFourDigitCodeLabel: UILabel!
+   
+    
+
+
     @IBOutlet weak var confirmPIN: UIButton!
-    @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var subHeaderLabel: UILabel!
-    @IBOutlet weak var textFieldOne: UITextField!
-    @IBOutlet weak var textFieldTwo: UITextField!
-    @IBOutlet weak var textFieldThree: UITextField!
-    @IBOutlet weak var textFieldFour: UITextField!
-    @IBOutlet weak var textFieldReOne: UITextField!
-    @IBOutlet weak var textFieldReTwo: UITextField!
-    @IBOutlet weak var textFieldReThree: UITextField!
-    @IBOutlet weak var textFieldReFour: UITextField!
-    @IBOutlet weak var lblConfirmPasscode: UILabel!
-    @IBOutlet weak var confirmPasscodeView: UIView!
-    @IBOutlet weak var passcodeView: UIView!
     @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var textFieldOne     : UITextField!
+    @IBOutlet weak var textFieldTwo     : UITextField!
+    @IBOutlet weak var textFieldThree   : UITextField!
+    @IBOutlet weak var textFieldFour    : UITextField!
+    @IBOutlet weak var textFieldReOne   : UITextField!
+    @IBOutlet weak var textFieldReTwo   : UITextField!
+    @IBOutlet weak var textFieldReThree : UITextField!
+    @IBOutlet weak var textFieldReFour  : UITextField!
+    
+    @IBOutlet weak var confirmPasscodeView  : UIView!
+    @IBOutlet weak var passcodeView         : UIView!
+    @IBOutlet weak var backgroundScrollView : UIScrollView!
+    
+    @IBOutlet weak var enterFourDigitCodeLabel  : UILabel!
+    @IBOutlet weak var headerLabel              : UILabel!
+    @IBOutlet weak var subHeaderLabel           : UILabel!
+    @IBOutlet weak var lblConfirmPasscode       : UILabel!
     
     var objAPI = API()
     var objAnimView = ImageViewAnimation()
+    var activeTxtField  : UITextField?
     var activeTextField = UITextField()
     var userInfoDict  = Dictionary<String,AnyObject>()
     var lastOffset: CGPoint = CGPointZero
@@ -67,13 +75,24 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if activeTxtField == nil {
+            textFieldOne.becomeFirstResponder()
+        } else {
+            activeTxtField?.userInteractionEnabled = true
+            activeTxtField?.becomeFirstResponder()
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // Set the scrollview content size.
         backgroundScrollView.contentSize = CGSizeMake(0, 500)
     }
     
-    
+/*
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         let currentCharacterCount = textField.text?.characters.count ?? 0
@@ -95,7 +114,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         enterFourDigitCodeLabel.hidden = true
     }
-    
+*/
     @IBAction func toolBarDoneButtonPressed(sender: AnyObject) {
         backgroundScrollView.contentOffset = CGPointMake(0, 0)
     }
@@ -131,6 +150,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 
                 enterFourDigitCodeLabel.hidden = false;
                 enterFourDigitCodeLabel.text = "Passcode do not match"
+                textFieldOne.userInteractionEnabled = true
                 self.setAllPinEntryFieldsToColor(UIColor.redColor())
                 self.resetTextOnAllTextFields()
             }
@@ -372,7 +392,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         else {
             yOfTextField = activeTextField.frame.height + confirmPasscodeView.frame.origin.y
         }
-        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+        if (yOfTextField - (lastOffset.y)) >= visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             backgroundScrollView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
@@ -392,6 +412,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         activeTextField.resignFirstResponder()
         self.removeKeyboardNotification()
     }
+    
     @IBAction func bgViewTapped(sender: AnyObject) {
         textFieldReOne.resignFirstResponder()
         textFieldReTwo.resignFirstResponder()
@@ -404,27 +425,77 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     }
     
     func setAllPinEntryFieldsToColor(color: UIColor) {
-        textFieldOne.layer.borderColor = color.CGColor
-        textFieldTwo.layer.borderColor = color.CGColor
-        textFieldThree.layer.borderColor = color.CGColor
-        textFieldFour.layer.borderColor = color.CGColor
-        textFieldReOne.layer.borderColor = color.CGColor
-        textFieldReTwo.layer.borderColor = color.CGColor
-        textFieldReThree.layer.borderColor = color.CGColor
-        textFieldReFour.layer.borderColor = color.CGColor
+        textFieldOne.layer.borderColor      = color.CGColor
+        textFieldTwo.layer.borderColor      = color.CGColor
+        textFieldThree.layer.borderColor    = color.CGColor
+        textFieldFour.layer.borderColor     = color.CGColor
+        textFieldReOne.layer.borderColor    = color.CGColor
+        textFieldReTwo.layer.borderColor    = color.CGColor
+        textFieldReThree.layer.borderColor  = color.CGColor
+        textFieldReFour.layer.borderColor   = color.CGColor
     }
     func resetTextOnAllTextFields() {
-        textFieldOne.text = ""
-        textFieldTwo.text = ""
-        textFieldThree.text = ""
-        textFieldFour.text = ""
-        textFieldReOne.text = ""
-        textFieldReTwo.text = ""
-        textFieldReThree.text = ""
-        textFieldReFour.text = ""
+        textFieldOne.text       = ""
+        textFieldTwo.text       = ""
+        textFieldThree.text     = ""
+        textFieldFour.text      = ""
+        textFieldReOne.text     = ""
+        textFieldReTwo.text     = ""
+        textFieldReThree.text   = ""
+        textFieldReFour.text    = ""
     }
-    
 }
 
 
-
+extension CreatePINViewController : UITextFieldDelegate {
+    
+    //UITextField delegate method
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeTxtField = textField
+        activeTextField = textField
+        self.registerForKeyboardNotifications()
+        self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
+        enterFourDigitCodeLabel.hidden = true
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if let passcodeTextField = textField as? PasscodeTextField {
+            let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            
+            if text.characters.count > 0 || string == "" {
+                if string == ""  {
+                    if passcodeTextField.previousTextField != nil {
+                        if passcodeTextField.text?.characters.count == 0 {
+                            passcodeTextField.previousTextField?.text = ""
+                        } else {
+                            passcodeTextField.text = ""
+                        }
+                        passcodeTextField.userInteractionEnabled = false
+                        passcodeTextField.previousTextField?.userInteractionEnabled = true
+                        passcodeTextField.previousTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = ""
+                        passcodeTextField.previousTextField?.userInteractionEnabled = true
+                        passcodeTextField.resignFirstResponder()
+                        return false
+                    }
+                } else {
+                    if passcodeTextField.nextTextField != nil {
+                        passcodeTextField.text = string
+                        passcodeTextField.userInteractionEnabled = false
+                        passcodeTextField.nextTextField?.userInteractionEnabled = true
+                        passcodeTextField.nextTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = string
+                        passcodeTextField.resignFirstResponder()
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+}

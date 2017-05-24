@@ -25,28 +25,32 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     @IBOutlet weak var titleLbl         : UILabel!
     @IBOutlet weak var dropDownImageView: UIImageView!
     @IBOutlet weak var segmentBar       : CustomSegmentBar!
+    
     var acceptButton: UIBarButtonItem?
-
-    var dayPickerView = UIPickerView()
+    
     let dayArray    : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
     let dateArray   : Array<String> = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28"]
     
+    weak var view       : UIScrollView?
+    weak var tblView    : UITableView?
     var segmentDelegate : SegmentBarChangeDelegate?
-    var customToolBar : UIToolbar?
-    weak var view : UIScrollView?
-    var dateStr : String = ""
-    var dayDateStr : String = kDate
-    weak var tblView : UITableView?
-    var colorDataDict : Dictionary<String,AnyObject> = [:]
-    var lastOffset: CGPoint = CGPointZero
-    var updatedDateStr: String?
+    var customToolBar   : UIToolbar?
+    var updatedDateStr  : String?
+    var dateStr         : String = ""
+    var dayDateStr      : String = kDate
+
+    var colorDataDict   : Dictionary<String,AnyObject> = [:]
+    var lastOffset      : CGPoint = CGPointZero
+    
+    var dayPickerView   = UIPickerView()
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         BGContentView.layer.cornerRadius = 5
-        colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
-        dayPickerView.delegate = self
-        dayPickerView.dataSource = self
+        colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+        dayPickerView.delegate      = self
+        dayPickerView.dataSource    = self
         let leftView = UIView()
         leftView.frame = CGRectMake(0, 0, 5, 26)
         leftView.backgroundColor = UIColor.clearColor()
@@ -56,6 +60,7 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         if(colorDataDict["savPlanID"] as! Int == 92) {
             titleLbl.text = "Adding funds every"
         }
+        
         //add corner radius to textfield
         let maskPath1: UIBezierPath = UIBezierPath(roundedRect: dayDateTextField!.bounds, byRoundingCorners: ([.TopLeft, .BottomLeft]), cornerRadii: CGSizeMake(3.0, 3.0))
         let maskLayer1: CAShapeLayer = CAShapeLayer()

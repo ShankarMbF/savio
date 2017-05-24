@@ -21,7 +21,7 @@ class CustomSegmentBar: UIView {
     let rightTitle = kWeek
     
     let fontSize: CGFloat = 10.0
-    var colorDataDict : Dictionary<String,AnyObject> =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+    var colorDataDict : Dictionary<String,AnyObject> =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
     var segmentSelected = { (idx: Int)  in
         
     }

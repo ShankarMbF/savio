@@ -62,12 +62,12 @@
         tblView!.registerNib(UINib(nibName: "ClearButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "ClearButtonIdentifier")
         
         let objAPI = API()
-        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
-        if let array =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+        if let array =  userDefaults.objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
+            userDefaults.removeObjectForKey("InviteGroupArray")
+            userDefaults.synchronize()
         }
         
         topBackgroundImageView.contentMode = UIViewContentMode.ScaleAspectFill
@@ -95,7 +95,7 @@
         btnName.titleLabel!.font = UIFont(name: kBookFont, size: 12)
         btnName.addTarget(self, action: #selector(GroupsavingViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setTitle(String(format:"%d",wishListArray!.count), forState: UIControlState.Normal)
@@ -150,7 +150,7 @@
                 })
             }
             else {
-                imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+                imageDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
                 cameraButton.hidden = false
                 
             }
@@ -160,7 +160,7 @@
             groupArrayCount = Int(itemDetailsDataDict["totalMembers"] as! NSNumber)
         }
         else {
-            imageDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+            imageDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
             self.cameraButton.hidden = false
             isFromWishList = false
         }
@@ -178,7 +178,7 @@
     }
     
     func heartBtnClicked(){
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData {
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData {
             
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>
@@ -212,8 +212,8 @@
         self.setUpView()
         self.dateDiff = 0
         self.cost = 0
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.removeObjectForKey("InviteGroupArray")
+        userDefaults.synchronize()
         self.itemTitle = ""
         self.isClearPressed = true
         self.popOverSelectedStr = ""
@@ -392,8 +392,8 @@
     func addedContact(contactDict: Dictionary<String, AnyObject>) {
         isContactAdded = true
         participantsArr.append(contactDict)
-        NSUserDefaults.standardUserDefaults().setObject(participantsArr, forKey:"InviteGroupArray")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(participantsArr, forKey:"InviteGroupArray")
+        userDefaults.synchronize()
         contentViewHt.constant = contentViewHt.constant + 40
         tblViewHt.constant = tblViewHt.constant + 40
         scrlView.contentSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, tblView.frame.origin.y + tblView.frame.size.height + 40)
@@ -688,7 +688,7 @@
             
             // filter out deleted contacts from "InviteGroupArray"
             var newParticipantsArr =  Array<Dictionary<String,AnyObject>>()
-            if let contactsArray =  NSUserDefaults.standardUserDefaults().objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
+            if let contactsArray =  userDefaults.objectForKey("InviteGroupArray") as? Array<Dictionary<String,AnyObject>>  {
                 for contact in contactsArray {
                     if let deletedContactEmail = deletedContactEmail where deletedContactEmail == contact["email_id"] as? String {
                         continue
@@ -698,8 +698,8 @@
                     }
                     newParticipantsArr.append(contact)
                 }
-                NSUserDefaults.standardUserDefaults().setObject(newParticipantsArr, forKey:"InviteGroupArray")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.setObject(newParticipantsArr, forKey:"InviteGroupArray")
+                userDefaults.synchronize()
             }
             
             self.participantsArr.removeAtIndex(sender.tag)
@@ -965,8 +965,9 @@
             if(self.itemDetailsDataDict.keys.count > 0) {
                 self.itemDetailsDataDict.removeAll()
             }
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("InviteGroupArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.removeObjectForKey("InviteGroupArray")
+            userDefaults.synchronize()
+            
             if(self.participantsArr.count > 0) {
                 self.participantsArr.removeAll()
             }

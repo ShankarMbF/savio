@@ -11,12 +11,12 @@ import UIKit
 class SharePresistance: NSObject {
 
 //    class func putUserDefaultString(SAString: String, key : String)  {
-//        NSUserDefaults.standardUserDefaults().setObject(SAString, forKey: key)
-//        NSUserDefaults.standardUserDefaults().synchronize()
+//        userDefaults.setObject(SAString, forKey: key)
+//        userDefaults.synchronize()
 //    }
 //    
 //    class func getUserDefaultString(key : String) -> String {
-//        let getValue = NSUserDefaults.standardUserDefaults().objectForKey(key)
+//        let getValue = userDefaults.objectForKey(key)
 //        return getValue
 //    }
     

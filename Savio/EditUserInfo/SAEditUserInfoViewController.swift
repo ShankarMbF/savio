@@ -109,7 +109,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SAEditUserInfoViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -790,7 +790,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         self.navigationController!.view.addSubview(objAnimView!)
         
         let objAPI = API()
-        let dict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let dict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
         userInfoDict["ptyid"] = dict[kPartyID]
         if(isImageClicked) {
@@ -983,7 +983,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         }
         else {
 //            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
-            if(NSUserDefaults.standardUserDefaults().objectForKey("myMobile") as! String == dict[kPhoneNumber] as! String)
+            if(userDefaults.objectForKey("myMobile") as! String == dict[kPhoneNumber] as! String)
             {
                 objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
@@ -1548,9 +1548,9 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     
     
     func showAlt()  {
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
-        let groupFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupPlan) as! NSNumber
-        let groupMemberFlag = NSUserDefaults.standardUserDefaults().valueForKey(kGroupMemberPlan) as! NSNumber
+        let individualFlag = userDefaults.valueForKey(kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.valueForKey(kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.valueForKey(kGroupMemberPlan) as! NSNumber
         
         if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
         {

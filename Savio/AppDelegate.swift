@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.setStatusBarBackgroundColor(UIColor.blackColor())
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
-        let passcode = NSUserDefaults.standardUserDefaults().valueForKey("myPasscode") as? String
+        let passcode = userDefaults.valueForKey("myPasscode") as? String
         
         if passcode?.characters.count > 0{
             //Go to SAEnterYourPINViewController
@@ -218,8 +218,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
         }
          print(tokenString)
-        NSUserDefaults.standardUserDefaults().setObject(tokenString, forKey: "APNSTOKEN")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(tokenString, forKey: "APNSTOKEN")
+        userDefaults.synchronize()
     }
     
     //Delegate method invoke when the APNS registration is failed

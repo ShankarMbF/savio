@@ -65,7 +65,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
         btnName.addTarget(self, action: #selector(SASpendViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -85,7 +85,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
-        if NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) != nil{
+        if userDefaults.objectForKey(kSNSITEURL) != nil{
             // exist
             self.showCongratsView()
             
@@ -124,7 +124,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
     
     func showCongratsView() {
         congratsView.hidden = false
-        let planTitle = NSUserDefaults.standardUserDefaults().objectForKey("PlanTitle")
+        let planTitle = userDefaults.objectForKey("PlanTitle")
         print(planTitle)
         let str = "Congratulations,\nyou have reached your target for your \(planTitle!) !"
         let lenStr = " you have reached your target for your "
@@ -150,7 +150,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         objAnimView = (NSBundle.mainBundle().loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         
-        let URL = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) as! String )
+        let URL = NSURL(string: userDefaults.objectForKey(kSNSITEURL) as! String )
         if URL?.host != "www.getsavio.com"{
              let strURL : String! = "\(URL?.scheme)://\(URL?.host)"
              print(strURL)
@@ -166,10 +166,10 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
     
     @IBAction func planButtonPressed(sender: AnyObject) {
         var vw = UIViewController?()
-        let individualFlag = NSUserDefaults.standardUserDefaults().valueForKey(kIndividualPlan) as! NSNumber
+        let individualFlag = userDefaults.valueForKey(kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
-        if let usersPlan = NSUserDefaults.standardUserDefaults().valueForKey(kUsersPlan) as? String
+        if let usersPlan = userDefaults.valueForKey(kUsersPlan) as? String
         {
             usersPlanFlag = usersPlan
             //As per flag show the progress view of plan
@@ -253,8 +253,8 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
             obj.isComingProgress = true
             //save the Generic plan in NSUserDefaults, so it will show its specific offers
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(dict, forKey:"colorDataDict")
+            userDefaults.synchronize()
             obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
@@ -266,7 +266,7 @@ class SASpendViewController: UIViewController,GetAffiliatedTrackID {
         print(objResponse)
         if let status = objResponse["status"] as? String{
             if status == "405" {
-                if let url = NSURL(string: NSUserDefaults.standardUserDefaults().objectForKey(kSNSITEURL) as! String ){
+                if let url = NSURL(string: userDefaults.objectForKey(kSNSITEURL) as! String ){
                     UIApplication.sharedApplication().openURL(url)
                 }
             }

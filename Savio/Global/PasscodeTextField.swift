@@ -22,7 +22,7 @@ class PasscodeTextField: UITextField {
             }
         }
     }
-    
+
     func canPerformAction(action: Selector, withSender sender: Any?) -> Bool {
         return false
     }

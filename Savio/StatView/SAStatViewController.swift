@@ -321,7 +321,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     
     func createPlanDate(PayDate : String, planType : String, userDefault : String) -> NSDate {
-        let grpCurrentdate = NSUserDefaults.standardUserDefaults().objectForKey(userDefault) as? String
+        let grpCurrentdate = userDefaults.objectForKey(userDefault) as? String
         let Date = "\(PayDate)-\(grpCurrentdate)"
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-mm-yyyy"
@@ -441,7 +441,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         btnName.addTarget(self, action: #selector(SAStatViewController.heartBtnClicked), forControlEvents: .TouchUpInside)
         
         //Showing wishlist count
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -507,8 +507,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let obj = SAOfferListViewController()
         obj.savID = 63
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-        NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         //Hide add offer button from offer list
         obj.hideAddOfferButton = true
         obj.isComingProgress = true

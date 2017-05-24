@@ -33,7 +33,7 @@ class SAOfferListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-         colorDataDict =  NSUserDefaults.standardUserDefaults().objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
+         colorDataDict =  userDefaults.objectForKey("colorDataDict") as! Dictionary<String,AnyObject>
         lblOfferDiscount?.textColor = self.setUpColor()
         btnAddOffer?.backgroundColor = self.setUpColor()
         btnOfferDetail?.setTitleColor(self.setUpColor(), forState: UIControlState.Normal)

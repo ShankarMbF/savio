@@ -268,7 +268,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["post_code"] = findAddressTextField.text
             let udidDict : Dictionary<String,AnyObject>
            
-            if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
+            if let apnsDeviceToken = userDefaults.valueForKey("APNSTOKEN") as? NSString
             {
                 udidDict = ["DEVICE_ID":Device.udid, "PNS_DEVICE_ID": apnsDeviceToken]
                  print(udidDict)
@@ -519,18 +519,18 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
-//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
-//            NSUserDefaults.standardUserDefaults().synchronize()
+//            userDefaults.setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
+//            userDefaults.synchronize()
             objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
 //            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
 //            {
 //                objAPI.deleteKeychainValue("myPasscode")
 //            }
             
-            if let passcode = NSUserDefaults.standardUserDefaults().objectForKey("myPasscode") as? String
+            if let passcode = userDefaults.objectForKey("myPasscode") as? String
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("myPasscode")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.removeObjectForKey("myPasscode")
+                userDefaults.synchronize()
             }
             
             objAPI.otpSentDelegate = self
@@ -542,8 +542,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.Cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                userDefaults.setObject(objResponse["party"]!, forKey: "userInfo")
+//                userDefaults.synchronize()
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>))
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)

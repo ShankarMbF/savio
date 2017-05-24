@@ -105,8 +105,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         
         self.callWishListAPI()
         
-        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
-        if let str = NSUserDefaults.standardUserDefaults().objectForKey("wishlistArray") as? NSData
+        //Check if userDefaults has value for "wishlistArray"
+        if let str = userDefaults.objectForKey("wishlistArray") as? NSData
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObjectWithData(dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -140,8 +140,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         let partySavingplan = savingPlanDetailsDict["partySavingPlan"]![kTitle] as! String
         planTitle = String(format: "My %@ plan",partySavingplan)
         
-        NSUserDefaults.standardUserDefaults().setObject(partySavingplan, forKey:"PlanTitle")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(partySavingplan, forKey:"PlanTitle")
+        userDefaults.synchronize()
         
         //create attribute text to savingPlanTitleLabel
         let attrText = NSMutableAttributedString(string: planTitle)
@@ -157,8 +157,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         savingPlanTitleLabel.hidden = false
         
         let PlanID = savingPlanDetailsDict["partySavingPlan"]!["partySavingPlanID"]
-        NSUserDefaults.standardUserDefaults().setObject(PlanID , forKey:kPTYSAVINGPLANID)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(PlanID , forKey:kPTYSAVINGPLANID)
+        userDefaults.synchronize()
         
         print(savingPlanDetailsDict)
         //get the total amount of plan from the Dictionary
@@ -176,8 +176,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         pageControl.currentPage = 0
         pageControl.numberOfPages = 3
         paidAmount = 0
-        NSUserDefaults.standardUserDefaults().setObject(totalAmount, forKey: "ImpMaxAmount")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        userDefaults.setObject(totalAmount, forKey: "ImpMaxAmount")
+        userDefaults.synchronize()
         
         if let transactionArray = savingPlanDetailsDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
         {
@@ -194,8 +194,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             print("paidAmt = \(paidAmount)")
             let MaxAmount = totalAmount - paidAmount
             print("MaxAmount = \(MaxAmount)")
-            NSUserDefaults.standardUserDefaults().setObject(MaxAmount, forKey: "ImpMaxAmount")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(MaxAmount, forKey: "ImpMaxAmount")
+            userDefaults.synchronize()
         }
         
         if paidAmount == totalAmount {
@@ -376,7 +376,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     {
         let objAPI = API()
         //get keychain values
-        let userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
         //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
@@ -466,8 +466,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             obj.isComingProgress = true
             //save the Generic plan in NSUserDefaults, so it will show its specific offers
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92]
-            NSUserDefaults.standardUserDefaults().setObject(dict, forKey:"colorDataDict")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(dict, forKey:"colorDataDict")
+            userDefaults.synchronize()
             obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
@@ -508,8 +508,8 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         {
             if(message == "Success")
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(kSAVSITEURL)
-                NSUserDefaults.standardUserDefaults().synchronize()
+                userDefaults.removeObjectForKey(kSAVSITEURL)
+                userDefaults.synchronize()
                 savingPlanDetailsDict = objResponse//["partySavingPlan"] as! Dictionary<String,AnyObject>
                 self.setUpView()
             }
@@ -560,11 +560,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 
             }
             let dataSave = NSKeyedArchiver.archivedDataWithRootObject(wishListArray)
-            NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            userDefaults.setObject(dataSave, forKey: "wishlistArray")
+            userDefaults.synchronize()
             btnName.setTitle(String(format:"%d",wishListArray.count), forState: UIControlState.Normal)
         }
-        //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+        //        if let arr =  userDefaults.valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
         //            if arr.count > 0{
         //                objAnimView.removeFromSuperview()
         //            }

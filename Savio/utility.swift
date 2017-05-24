@@ -8,8 +8,7 @@
 
 import UIKit
 
-//typealias Function  = <#type expression#>
-
+//typealias jsonFormat  = [key:String,value:AnyObject]
 
 class utility: NSObject {
 

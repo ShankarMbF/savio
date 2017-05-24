@@ -16,33 +16,34 @@ protocol SAOfferListViewDelegate {
 //--------------------------------------------------------------------------
 class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
-    @IBOutlet weak var tblViewBottomSpace: NSLayoutConstraint! //IBOutlet for setting bottom space of baleview
-    @IBOutlet weak var bottomview: UIView!                     //IBOutlet of UIView
-    @IBOutlet weak var tblView : UITableView?                  //IBOutlet for tableview
-    @IBOutlet weak var closeLbl : UILabel?                     //IBOutlet for UILable
-     @IBOutlet weak var tabVw : UIView?
-    @IBOutlet weak var progressButton: UIButton!
-    @IBOutlet weak var offersButton: UIButton!
+    @IBOutlet weak var tblViewBottomSpace   : NSLayoutConstraint!   //IBOutlet for setting bottom space of baleview
+    @IBOutlet weak var bottomview           : UIView!               //IBOutlet of UIView
+    @IBOutlet weak var tblView              : UITableView?          //IBOutlet for tableview
+    @IBOutlet weak var closeLbl             : UILabel?              //IBOutlet for UILable
+    @IBOutlet weak var tabVw                : UIView?
+    @IBOutlet weak var progressButton       : UIButton!
+    @IBOutlet weak var offersButton         : UIButton!
+    @IBOutlet weak var spendButton          : UIButton!
+
 //    @IBOutlet weak var planButton: UIButton!
-    @IBOutlet weak var spendButton: UIButton!
     
-    var indx : Int = 0
-    var  prevIndxArr: Array<Int> = []                          //Array for hold previous selected index
-    var rowHT : CGFloat = 310.0                                //set row height as per expand and collaps
-    var savID : NSNumber = 0
-    var hideAddOfferButton : Bool = false
-    var  offerArr: Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
-    var delegate : SAOfferListViewDelegate?
+    var indx        : Int           = 0
+    var prevIndxArr : Array<Int>    = []                          //Array for hold previous selected index
+    var rowHT       : CGFloat       = 310.0                                //set row height as per expand and collaps
+    var savID       : NSNumber      = 0
+    var hideAddOfferButton : Bool   = false
+    var offerArr    : Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
+    var delegate    : SAOfferListViewDelegate?
     var objAnimView = ImageViewAnimation()
     var isComingProgress: Bool?
     var addedOfferArr: Array<Dictionary<String,AnyObject>> = []   //Array for holding offer list
 
 
-
     // MARK: - view life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-         offersButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
+        
+        offersButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), forState: UIControlState.Normal)
         progressButton.setImage(UIImage(named: "stats-plan-tab.png"), forState: UIControlState.Normal)
         offersButton.setImage(UIImage(named: "stats-offers-tab-active.png"), forState: UIControlState.Normal)
@@ -493,10 +494,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             self.delegate?.addedOffers(cellDict)
             self.navigationController?.popViewControllerAnimated(true)
         }
+        alertController.title = nil
         alertController.addAction(okAction)
        self.presentViewController(alertController, animated: true, completion: nil)
     }
-    
     
     
     //get offerlist API's delegate method invoking when success response getting from API.
@@ -539,11 +540,9 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank
-            }
-            else if (ob is Dictionary<String,AnyObject>) {
+            }else if (ob is Dictionary<String,AnyObject>) {
                 replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>)
-            }
-            else if (ob is Array<Dictionary<String,AnyObject>>) {
+            }else if (ob is Array<Dictionary<String,AnyObject>>) {
                 var newArr: Array<Dictionary<String,AnyObject>> = []
                 for arrObj:Dictionary<String,AnyObject> in ob as! Array {
                     newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))

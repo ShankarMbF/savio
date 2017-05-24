@@ -78,11 +78,6 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
         self.setUpView()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     func setUpView(){
         //set Navigation left button
@@ -117,7 +112,6 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), forState: UIControlState.Normal)
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), forState: UIControlState.Normal)
             }
-            
         }
         
         let rightBarButton = UIBarButtonItem()

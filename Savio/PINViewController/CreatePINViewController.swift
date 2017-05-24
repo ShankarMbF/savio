@@ -362,8 +362,7 @@ class CreatePINViewController: UIViewController, PostCodeVerificationDelegate, R
     }
     
     func makePreviousKeyfiledFirstResponder(idx: Int) {
-        
-      
+    
         
     }
     

@@ -8,11 +8,13 @@
 
 import UIKit
 
-class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate,UIScrollViewDelegate {
+class SAEnterYourPINViewController: UIViewController, OTPSentDelegate, LogInDelegate, UIScrollViewDelegate {
+    
+    @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var btnVwBg: UIView!
     @IBOutlet weak var pinTextFieldsContainerView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet var toolBar: UIToolbar!
+    
     @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
     @IBOutlet weak var btnForgottPasscode: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
@@ -29,12 +31,14 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     @IBOutlet weak var registerButtonBackgroundView: UIView!
     @IBOutlet weak var scrlView: UIScrollView!
     
-    var lastOffset: CGPoint = CGPointZero
-    var activeTextField = UITextField()
-    var objAnimView = ImageViewAnimation()
     let objAPI = API()
-    var userInfoDict = Dictionary<String,AnyObject>()
-    var arrayTextFields: Array<UITextField>!
+    var activeTxtField  : UITextField?
+    var arrayTextFields : Array<UITextField>!
+    var lastOffset      : CGPoint = CGPointZero
+    
+    var activeTextField     = UITextField()
+    var objAnimView         = ImageViewAnimation()
+    var userInfoDict        = Dictionary<String,AnyObject>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,18 +54,17 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let outputNum = (NSInteger)(ceil(Double( myNumber)/1000) * 1000);
         print(outputNum)
         
-        registerButton.layer.cornerRadius = 5
-        btnVwBg.layer.cornerRadius = 5
-      
-        loginButton.layer.cornerRadius = 5
+        btnVwBg.layer.cornerRadius          = 5
+        loginButton.layer.cornerRadius      = 5
+        registerButton.layer.cornerRadius   = 5
         
-        userInfoDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+        userInfoDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+
         //add custom tool bar for UITextField
-        let customToolBar = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
-        let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAEnterYourPINViewController.doneBarButtonPressed(_:)))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SAEnterYourPINViewController.cancelBarButtonPressed(_:)))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
+        let customToolBar   = UIToolbar(frame:CGRectMake(0,0,UIScreen.mainScreen().bounds.size.width,44))
+        let acceptButton    = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action:#selector(SAEnterYourPINViewController.doneBarButtonPressed(_:)))
+        let cancelButton    = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SAEnterYourPINViewController.cancelBarButtonPressed(_:)))
+        let flexibleSpace   = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil);
         customToolBar.items = [cancelButton,flexibleSpace,acceptButton]
         
         self.arrayTextFields = [textFieldOne,
@@ -72,7 +75,17 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         for tf: UITextField in arrayTextFields {
             tf.inputAccessoryView = customToolBar
         }
-
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if activeTxtField == nil {
+            textFieldOne.becomeFirstResponder()
+        } else {
+            activeTxtField?.userInteractionEnabled = true
+            activeTxtField?.becomeFirstResponder()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -104,7 +117,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
-    //Keyboard notification function
+//    Keyboard notification function
+    
     @objc func keyboardWasShown(notification: NSNotification){
         //do stuff
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
@@ -113,38 +127,42 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let visibleAreaHeight = UIScreen.mainScreen().bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (scrlView?.contentOffset)!
         let yOfTextField = activeTextField.frame.height + pinTextFieldsContainerView.frame.origin.y
-        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+        if (yOfTextField - (lastOffset.y)) >= visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
     }
     
-    //Keyboard notification function
     @objc func keyboardWillBeHidden(notification: NSNotification){
         //do stuff
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         scrlView?.setContentOffset(CGPointZero, animated: true)
     }
     
-
-    //UITextField delegate method
-    func textFieldDidBeginEditing(textField: UITextField) {
-         activeTextField = textField
-        self.registerForKeyboardNotifications()
-        errorLabel.hidden = true
-    }
+//    end Keyboard notification function
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+/*    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         errorLabel.hidden = true
         textField.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
         let currentCharacterCount = textField.text?.characters.count ?? 0
         let newLength = currentCharacterCount + string.characters.count
         if (newLength > 1) {
             return false;
         }
+
+/*      Find the BackButton Trigger...
+        let char = string.cStringUsingEncoding(NSUTF8StringEncoding)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if (isBackSpace == -92) {
+            print("Backspace was pressed")
+        }
+*/
+
         return true;
     }
-    
+    */
     
     @IBAction func clickOnRegisterButton(sender: AnyObject) {
         if(registerButton.titleLabel?.text == "Register")
@@ -175,46 +193,51 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
     
     @IBAction func clickedOnForgotPasscode(sender: AnyObject) {
         
-        lblSentYouCode.hidden = false
-        lblForgottonYourPasscode.hidden = false
-        btnCancel.hidden = false
-        registerButton .setTitle("Send me a code", forState: UIControlState.Normal)
-        registerButtonBackgroundView.hidden = false
-        registerButton.hidden = false
-        forgotPasscodeButton.hidden = true
-        loginButton.hidden = true
-        btnVwBg.hidden = true
         checkString = "ForgotPasscode"
-        errorLabel.hidden = true
-        pinTextFieldsContainerView.hidden = true
         
-        enterYourPasscodeLabel.hidden = true
+        lblSentYouCode.hidden           = false
+        lblForgottonYourPasscode.hidden = false
+        btnCancel.hidden                = false
+        
+        registerButton .setTitle("Send me a code", forState: UIControlState.Normal)
+        
+        registerButtonBackgroundView.hidden = false
+        registerButton.hidden               = false
+        forgotPasscodeButton.hidden         = true
+        loginButton.hidden                  = true
+        btnVwBg.hidden                      = true
+        errorLabel.hidden                   = true
+        pinTextFieldsContainerView.hidden   = true
+        enterYourPasscodeLabel.hidden       = true
+
         textFieldOne.resignFirstResponder()
         textFieldTwo.resignFirstResponder()
         textFieldThree.resignFirstResponder()
         textFieldFour.resignFirstResponder()
-        textFieldOne.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        textFieldTwo.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        textFieldThree.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
-        textFieldFour.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        
+        textFieldOne.layer.borderColor      = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldTwo.layer.borderColor      = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldThree.layer.borderColor    = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
+        textFieldFour.layer.borderColor     = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).CGColor
         
     }
     
     
     @IBAction func onClickCancelButton(sender: AnyObject) {
         
-        lblSentYouCode.hidden = true
+        lblSentYouCode.hidden           = true
         lblForgottonYourPasscode.hidden = true
-        btnCancel.hidden = true
-        registerButton.hidden = true
+        btnCancel.hidden                = true
+        registerButton.hidden           = true
         
         registerButton .setTitle("Register", forState: UIControlState.Normal)
+        
         registerButtonBackgroundView.hidden = true
-        forgotPasscodeButton.hidden = false
-        loginButton.hidden = false
-        btnVwBg.hidden = false
-        pinTextFieldsContainerView.hidden = false
-        enterYourPasscodeLabel.hidden = false
+        forgotPasscodeButton.hidden         = false
+        loginButton.hidden                  = false
+        btnVwBg.hidden                      = false
+        pinTextFieldsContainerView.hidden   = false
+        enterYourPasscodeLabel.hidden       = false
         
     }
    
@@ -249,7 +272,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
-            var userDict = userDefaults.objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
+            var userDict = NSUserDefaults.standardUserDefaults().objectForKey(kUserInfo) as! Dictionary<String,AnyObject>
 //            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
 //            param[kUserInfo] = userDict[kPartyID]
@@ -257,7 +280,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5()
             
-            if let apnsDeviceToken = userDefaults.valueForKey("APNSTOKEN") as? NSString
+            if let apnsDeviceToken = NSUserDefaults.standardUserDefaults().valueForKey("APNSTOKEN") as? NSString
             {
                 param["PNS_DEVICE_ID"] =  apnsDeviceToken
                 
@@ -276,40 +299,41 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldFour.layer.borderColor = color.CGColor
     }
     
-    //LogIn Delegate Methods
-    
+//    LogIn Delegate Methods
+
     func successResponseForLogInAPI(objResponse: Dictionary<String, AnyObject>) {
-        print(objResponse)
 
         objAnimView.removeFromSuperview()
-        let dict = objResponse["party"]
-        let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
-        let udidArray = udidDict[0]
+        
+        let dict        = objResponse["party"]
+        let udidDict    = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
+        let udidArray   = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String
-//        userDefaults.setObject(userInfoDict, forKey: "userInfo")
+        
         objAPI.storeValueInKeychainForKey(kUserInfo, value: userInfoDict)
         
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
-//       userDefaults.setObject(passcode.MD5(), forKey: "myPasscode")
-//        userDefaults.synchronize()
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5())
         
-        let groupPlan = objResponse["G"] as! NSNumber
-        let individualPlan = objResponse["I"] as! NSNumber
+        let groupPlan       = objResponse["G"] as! NSNumber
+        let individualPlan  = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
-     //Store the plan info in NSUserDefaults
-        userDefaults.setObject(groupPlan, forKey: kGroupPlan)
-        userDefaults.setObject(individualPlan, forKey: kIndividualPlan)
-        userDefaults.setObject(groupMemberPlan, forKey: kGroupMemberPlan)
-        userDefaults.synchronize()
+        
+//      Store the plan info in NSUserDefaults
+        
+        NSUserDefaults.standardUserDefaults().setObject(groupPlan, forKey: kGroupPlan)
+        NSUserDefaults.standardUserDefaults().setObject(individualPlan, forKey: kIndividualPlan)
+        NSUserDefaults.standardUserDefaults().setObject(groupMemberPlan, forKey: kGroupMemberPlan)
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
         
-        if (groupPlan == 1 || individualPlan == 1 || groupMemberPlan == 1) {
-                let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
-                self.navigationController?.pushViewController(objContainer, animated: true)
-        
-        }else {
+        if (groupPlan == 1 || individualPlan == 1 || groupMemberPlan == 1)
+        {
+            let objContainer = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
+            self.navigationController?.pushViewController(objContainer, animated: true)
+        }else
+        {
             let objHurrrayView = HurreyViewController(nibName:"HurreyViewController",bundle: nil)
             self.navigationController?.pushViewController(objHurrrayView, animated: true)
         }
@@ -320,19 +344,17 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }
-
-        else if(error == "Passcode is incorrect")
+        }else if(error == "Passcode is incorrect")
         {
-            errorLabel.hidden = false
-            errorLabel.text = "Passcode is not correct"
-            textFieldOne.text = ""
-            textFieldTwo.text = ""
+            errorLabel.hidden   = false
+            errorLabel.text     = "Passcode is not correct"
+            textFieldOne.userInteractionEnabled = true
+            textFieldOne.text   = ""
+            textFieldTwo.text   = ""
             textFieldThree.text = ""
-            textFieldFour.text = ""
+            textFieldFour.text  = ""
             self.setAllPinEntryFieldsToColor( UIColor.redColor())
-        }
-        else
+        }else
         {
             let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
@@ -345,18 +367,15 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         
         if individual == 1 {
             className = kIndividualPlan
-        }
-        else if group == 1 {
+        }else if group == 1 {
             className = kGroupPlan
-        }
-        else if member == 1 {
+        }else if member == 1 {
             className = kGroupMemberPlan
-        }
-        else {
+        }else {
             className = ""
         }
-        userDefaults.setObject(className, forKey: "ShowProgress")
-        userDefaults.synchronize()
+        NSUserDefaults.standardUserDefaults().setObject(className, forKey: "ShowProgress")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     
@@ -368,61 +387,57 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         fiveDigitVerificationViewController.isComingFromRegistration = false
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
+    
+    
     func errorResponseForOTPSentAPI(error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }
-        else if (error == "The request timed out")
+        }else if (error == "The request timed out")
         {
             let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
-        }
-        else
+        }else
         {
-        
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+            let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
             fiveDigitVerificationViewController.isComingFromRegistration = false
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+            self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
         }
-        
     }
-    
     
     func customizeTextFields() {
         self.setAllPinEntryFieldsToColor( UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         
-        let borderWidth: CGFloat = 1
+        let borderWidth : CGFloat = 1
         let cornerRadius: CGFloat = 3
         
-        textFieldOne.layer.borderWidth = borderWidth
-        textFieldOne.layer.cornerRadius = cornerRadius
-        textFieldOne.layer.masksToBounds = true
+        textFieldOne.layer.borderWidth      = borderWidth
+        textFieldOne.layer.cornerRadius     = cornerRadius
+        textFieldOne.layer.masksToBounds    = true
         
+        textFieldTwo.layer.borderWidth      = borderWidth
+        textFieldTwo.layer.cornerRadius     = cornerRadius
+        textFieldTwo.layer.masksToBounds    = true
         
-        textFieldTwo.layer.borderWidth = borderWidth
-        textFieldTwo.layer.cornerRadius = cornerRadius
-        textFieldTwo.layer.masksToBounds = true
-        
-        textFieldThree.layer.borderWidth = borderWidth
-        textFieldThree.layer.cornerRadius = cornerRadius
-        textFieldThree.layer.masksToBounds = true
-        
-        textFieldFour.layer.borderWidth = borderWidth
-        textFieldFour.layer.cornerRadius = cornerRadius
-        textFieldFour.layer.masksToBounds = true
-        
+        textFieldThree.layer.borderWidth    = borderWidth
+        textFieldThree.layer.cornerRadius   = cornerRadius
+        textFieldThree.layer.masksToBounds  = true
+
+        textFieldFour.layer.borderWidth     = borderWidth
+        textFieldFour.layer.cornerRadius    = cornerRadius
+        textFieldFour.layer.masksToBounds   = true
+
         textFieldFour.keyboardType = UIKeyboardType.NumberPad
         
-        textFieldOne.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldTwo.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        textFieldThree.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldOne.addTarget(self, action : #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldTwo.addTarget(self, action : #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        textFieldThree.addTarget(self,action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         textFieldFour.addTarget(self, action: #selector(SAEnterYourPINViewController.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
     }
     
     func textFieldDidChange(textField: UITextField) {
-        
+
         let text = textField.text
         var tag = textField.tag
         if text?.utf16.count==1{
@@ -431,15 +446,12 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                     let tfNext = arrayTextFields[tag + 1]
                     tfNext.becomeFirstResponder()
                     break
-                }
-                else if tag == 3 {
+                }else if tag == 3 {
                     textField.resignFirstResponder()
                     break
                 }
             }
-            
         }else {
-            
             for idx in 0...tag {
                 tag -= 1
                 if tag >= 0 {
@@ -450,7 +462,6 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
                     }
                 }
             }
-            
         }
     }
     
@@ -461,4 +472,58 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldFour.resignFirstResponder()
     }
     
+}
+
+//MARK: - UITextField Methods
+
+extension SAEnterYourPINViewController: UITextFieldDelegate {
+
+    //UITextField delegate method
+    func textFieldDidBeginEditing(textField: UITextField) {
+        activeTextField = textField
+        activeTxtField = textField
+        self.registerForKeyboardNotifications()
+        errorLabel.hidden = true
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if let passcodeTextField = textField as? PasscodeTextField {
+            let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            
+            if text.characters.count > 0 || string == "" {
+                if string == ""  {
+                    if passcodeTextField.previousTextField != nil {
+                        if passcodeTextField.text?.characters.count == 0 {
+                            passcodeTextField.previousTextField?.text = ""
+                        } else {
+                            passcodeTextField.text = ""
+                        }
+                        passcodeTextField.userInteractionEnabled = false
+                        passcodeTextField.previousTextField?.userInteractionEnabled = true
+                        passcodeTextField.previousTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = ""
+                        passcodeTextField.previousTextField?.userInteractionEnabled = true
+                        passcodeTextField.resignFirstResponder()
+                        return false
+                    }
+                } else {
+                    if passcodeTextField.nextTextField != nil {
+                        passcodeTextField.text = string
+                        passcodeTextField.userInteractionEnabled = false
+                        passcodeTextField.nextTextField?.userInteractionEnabled = true
+                        passcodeTextField.nextTextField?.becomeFirstResponder()
+                    return false
+                    } else {
+                        passcodeTextField.text = string
+                        passcodeTextField.resignFirstResponder()
+                    return false
+                    }
+                }
+            }
+        }
+        return true
+    }
 }

@@ -15,64 +15,71 @@ var kLightFont  : String! = "GothamRounded-Light"
 var kBookFont   : String! = "GothamRounded-Book"
 var kMediumFont : String! = "GothamRounded-Medium"
 
+let kLable  : String! = "lable"
+var kTitle  : String! = "title"
+var kSurname: String! = "Surname"
+var kTown   : String! = "Town"
+var kCounty : String! = "County"
+var kEmail  : String! = "email"
+let kPartyID: String! = "partyId"
+let kAmount : String! = "amount"
 
-var kWishlistempty              : String! = "Wish list empty."
-var kEmptyWishListMessage       : String! = "You don’t have anything in your wish list yet. Get out there and set some goals!"
-var kNoNetworkMessage           : String! = "Savio needs the internet to work. Check your data connection and try again."
-var kMobileNumber               : String! = "Mobile Number"
-var kTitle                      : String! = "title"
-var kFirstAddressLine           : String! = "First Address Line"
-var kSurname                    : String! = "Surname"
-var kSecondAddressLine          : String! = "Second Address Line"
-var kThirdAddressLine           : String! = "Third Address Line"
-var kTown                       : String! = "Town"
-var kCounty                     : String! = "County"
-var kEmail                      : String! = "email"
-var kMetaData                   : String! = "metaData"
-let kClassType                  : String! = "classType"
-let kErrorMobileValidation      : String! = "errorMobileValidation"
-let kLable                      : String! = "lable"
-let kIsErrorShow                : String! = "isErrorShow"
-let kErrorTitle                 : String! = "errorTitle"
-let kTitleEmpty                 : String! = "Please select a title"
-let kTitleAndNameMissingError   : String! = "We need to know your title and name"
+var kMetaData   :String! = "metaData"
+let kClassType  : String! = "classType"
+let kIsErrorShow: String! = "isErrorShow"
+let kErrorTitle : String! = "errorTitle"
+let kTitleEmpty : String! = "Please select a title"
+
+var kMobileNumber   : String! = "Mobile Number"
+var kWishlistempty  : String! = "Wish list empty."
+
+var kFirstAddressLine   : String! = "First Address Line"
+var kSecondAddressLine  : String! = "Second Address Line"
+var kThirdAddressLine   : String! = "Third Address Line"
+
+let kErrorMobileValidation  : String = "errorMobileValidation"
+let kSelectRowIdentifier    : String = "SelectRowIdentifier"
+let kNotificationIdentifier : String = "NotificationIdentifier"
+
 let kEmptyName                  : String! = "We need to know what to call you"
 let kLongName                   : String! = "Wow, that’s such a long name we can’t save it"
-let kPartyID                    : String! = "partyId"
-let kAmount                     : String! = "amount"
+var kNoNetworkMessage           : String! = "Savio needs the internet to work. Check your data connection and try again."
+var kEmptyWishListMessage       : String! = "You don’t have anything in your wish list yet. Get out there and set some goals!"
+let kTitleAndNameMissingError   : String! = "We need to know your title and name"
 
-let kSelectRowIdentifier        : String = "SelectRowIdentifier"
-let kNotificationIdentifier     : String = "NotificationIdentifier"
 
-//      Parameters
-let kIndividualPlan             : String = "individualPlan"
-let kGroupPlan                  : String = "groupPlan"
-let kGroupMemberPlan            : String = "groupMemberPlan"
-let kUsersPlan                  : String = "UsersPlan"
-let kSAVPLANID                  : String = "SAV_PLAN_ID"
-let kTITLE                      : String = "TITLE"
-let kPARTYID                    : String = "PARTY_ID"
-let kOFFERS                     : String = "OFFERS"
-let kPAYDATE                    : String = "PAY_DATE"
-let kPAYTYPE                    : String = "PAY_TYPE"
-let kAMOUNT                     : String = "AMOUNT"
-let kPLANENDDATE                : String = "PLAN_END_DATE"
-let kIMAGE                      : String = "IMAGE"
-let kPARTYSAVINGPLANTYPE        : String = "PARTY_SAVINGPLAN_TYPE"
-let kRECURRINGAMOUNT            : String = "RECURRING_AMOUNT"
-let kSAVSITEURL                 : String = "SAV_SITE_URL"
-let kSNSITEURL                  : String = "siteURL"
 
-let kImageURL                   : String = "imageURL"
-let kEmi                        : String = "emi"
-let kINIVITEDUSERLIST           : String = "INIVITED_USER_LIST"
-let kPTYSAVINGPLANID            : String = "PTY_SAVINGPLAN_ID"
-let kDate                       : String = "date"
-let kDay                        : String = "day"
-let kWeek                       : String = "Week"
-let kMonth                      : String = "Month"
+let kIndividualPlan : String = "individualPlan"
+let kGroupPlan      : String = "groupPlan"
+let kGroupMemberPlan: String = "groupMemberPlan"
+let kUsersPlan      : String = "UsersPlan"
+let kSAVPLANID      : String = "SAV_PLAN_ID"
+let kTITLE          : String = "TITLE"
+let kPARTYID        : String = "PARTY_ID"
+let kOFFERS         : String = "OFFERS"
+let kPAYDATE        : String = "PAY_DATE"
+let kPAYTYPE        : String = "PAY_TYPE"
+let kAMOUNT         : String = "AMOUNT"
+let kPLANENDDATE    : String = "PLAN_END_DATE"
+let kRECURRINGAMOUNT: String = "RECURRING_AMOUNT"
+let kSAVSITEURL     : String = "SAV_SITE_URL"
+let kSNSITEURL      : String = "siteURL"
+let kIMAGE          : String = "IMAGE"
 
-//function
+let kDate           : String = "date"
+let kDay            : String = "day"
+let kWeek           : String = "Week"
+let kMonth          : String = "Month"
+
+let kImageURL       : String = "imageURL"
+let kEmi            : String = "emi"
+
+let kPARTYSAVINGPLANTYPE: String = "PARTY_SAVINGPLAN_TYPE"
+let kINIVITEDUSERLIST   :String = "INIVITED_USER_LIST"
+let kPTYSAVINGPLANID    :String = "PTY_SAVINGPLAN_ID"
+
+
+//function 
 let userDefaults = NSUserDefaults.standardUserDefaults()
 
 
@@ -120,7 +127,7 @@ class ColorCodes: NSObject {
         }
         return color
     }
-    
+
     //This function will return the specific shadow color code for selected theme
     class func colorForShadow( colorCode: Int) -> UIColor {
         
@@ -140,10 +147,10 @@ class ColorCodes: NSObject {
         }
         return color
     }
-    
+
     //This function is used to set the RGB contents.
     class func getColor(r r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> UIColor {
         return UIColor(red: r/256.0, green: g/256.0, blue: b/256.0, alpha: a);
     }
-    
+
 }

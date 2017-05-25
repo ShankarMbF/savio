@@ -7,40 +7,17 @@
 //
 
 import UIKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
-
-class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TxtFieldTableViewCellDelegate,TitleTableViewCellDelegate,FindAddressCellDelegate,ButtonCellDelegate,PostCodeVerificationDelegate,DropDownTxtFieldTableViewCellDelegate,PickerTxtFieldTableViewCellDelegate,ImportantInformationViewDelegate,NumericTxtTableViewCellDelegate,EmailTxtTableViewCellDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,GetUserInfoDelegate,UpdateUserInfoDelegate{
+class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TxtFieldTableViewCellDelegate, TitleTableViewCellDelegate, FindAddressCellDelegate, ButtonCellDelegate, PostCodeVerificationDelegate, DropDownTxtFieldTableViewCellDelegate, PickerTxtFieldTableViewCellDelegate, ImportantInformationViewDelegate, NumericTxtTableViewCellDelegate, EmailTxtTableViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GetUserInfoDelegate, UpdateUserInfoDelegate{
     
-    @IBOutlet weak var scrlView: UIScrollView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var addProfilePictureButton: UIButton!
+    @IBOutlet weak var scrlView     : UIScrollView!
+    @IBOutlet weak var spinner      : UIActivityIndicatorView!
+    @IBOutlet weak var contentView  : UIView!
+    @IBOutlet weak var tblViewHt    : NSLayoutConstraint!
+    @IBOutlet weak var tblView      : UITableView!
     @IBOutlet weak var contentViewHt: NSLayoutConstraint!
-    @IBOutlet weak var tblViewHt: NSLayoutConstraint!
-    @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var addProfilePictureButton: UIButton!
+
     
     var arrRegistration  = [Dictionary <String, AnyObject>]()     //Array for hold json file data to create UI
     var arrRegistrationFields = [UITableViewCell]()               //Array of textfield cell
@@ -64,15 +41,15 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
 //    var isPressAlertYes: Bool = false
     var queue = OperationQueue()
     
-    let kFirstName : String = "first_name"
+    let kFirstName  : String = "first_name"
     let kSecondName : String = "second_name"
-    let kAddress1 : String = "address_1"
-    let kAddress2 : String = "address_2"
-    let kAddress3 : String = "address_3"
-    let kTown : String  = "town"
-    let kCounty : String = "county"
-    let kPostCode : String = "post_code"
-    let kName : String = "name"
+    let kAddress1   : String = "address_1"
+    let kAddress2   : String = "address_2"
+    let kAddress3   : String = "address_3"
+    let kTown       : String = "town"
+    let kCounty     : String = "county"
+    let kPostCode   : String = "post_code"
+    let kName       : String = "name"
     let kTextField1 : String = "textField1"
     
 //    let kTitleAndNameMissingError : String = "We need to know your title and name"
@@ -83,6 +60,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         addProfilePictureButton.setTitle("Add\n profile\n picture", for: UIControlState())
         addProfilePictureButton.titleLabel?.lineBreakMode =  NSLineBreakMode.byWordWrapping
@@ -591,7 +569,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func txtFieldCellText(_ txtFldCell:TxtFieldTableViewCell){
-        if txtFldCell.tf?.text?.characters.count>0{
+        if (txtFldCell.tf?.text?.characters.count)!>0{
             
             dictForTextFieldValue.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: (txtFldCell.tf?.placeholder)!)
             
@@ -627,20 +605,19 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
     }
     
     func titleCellText(_ titleCell:TitleTableViewCell){
-        if titleCell.tfTitle?.text?.characters.count>0{
+        if (titleCell.tfTitle?.text?.characters.count)!>0{
             dictForTextFieldValue.updateValue((titleCell.tfTitle?.text)! as AnyObject, forKey: kTitle)
         }
-        if titleCell.tfName?.text?.characters.count>0{
+        if (titleCell.tfName?.text?.characters.count)!>0{
             dictForTextFieldValue.updateValue((titleCell.prevName as AnyObject), forKey: kName)
             userInfoDict.updateValue((titleCell.prevName as AnyObject), forKey: kFirstName)
         }
     }
     
 
-    
     func getTextFOrPostCode(_ findAddrCell: FindAddressTableViewCell)
     {
-        if findAddrCell.tfPostCode?.text?.characters.count>0{
+        if (findAddrCell.tfPostCode?.text?.characters.count)!>0{
             dictForTextFieldValue.updateValue((findAddrCell.tfPostCode?.text)! as AnyObject, forKey: (findAddrCell.tfPostCode?.placeholder)!)
             userInfoDict.updateValue((findAddrCell.tfPostCode?.text)! as AnyObject, forKey: kPostCode)
         }
@@ -652,7 +629,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         userInfoDict.updateValue((findAddrCell.tfPostCode?.text)! as AnyObject, forKey: kPostCode)
         
         let strCode = strPostCode
-        if strCode.characters.count == 0 {
+        if  strCode.characters.count == 0 {
             var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
             let lableDict = metadataDict[kLable]?.mutableCopy() as AnyObject
@@ -1077,7 +1054,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     errorFLag = true
                     dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
                 }
-                else if str?.characters.count > 50{
+                else if (str?.characters.count)! > 50{
                     errorMsg = kLongName
                     errorFLag = true
                     dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
@@ -1119,7 +1096,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     else {
                         dictForTextFieldValue.removeValue(forKey: "errorTxt")
                     }
-                    if(str?.characters.count>50){
+                    if((str?.characters.count)!>50){
                         errorMsg = kLongName
                         errorFLag = true
                         dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
@@ -1195,13 +1172,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                         errorMsg = "That mobile number doesn’t look right"
                         dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
                     }
-                    else if(str?.characters.count < 10)
+                    else if((str?.characters.count)! < 10)
                     {
                         errorFLag = true
                         errorMsg = "That mobile number should be greater than 10 digits"
                         dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
                     }
-                    else if(str?.characters.count > 16)
+                    else if((str?.characters.count)! > 16)
                     {
                         errorFLag = true
                         errorMsg = "That mobile number should be of 15 digits"
@@ -1224,7 +1201,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     else {
                         dictForTextFieldValue.removeValue(forKey: "errorEmail")
                     }
-                    if str?.characters.count>0 && (self.isValidEmail(str!)==false){
+                    if (str?.characters.count)!>0 && (self.isValidEmail(str!)==false){
                         errorFLag = true
                         errorMsg = "That email address doesn’t look right"
                         dictForTextFieldValue["errorEmailValid"] = errorMsg as AnyObject
@@ -1270,13 +1247,13 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     errorMsg = "That mobile number doesn’t look right"
                     dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
                 }
-                else if(str?.characters.count < 10)
+                else if((str?.characters.count)! < 10)
                 {
                     errorFLag = true
                     errorMsg = "That mobile number should be greater than 10 digits"
                     dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
                 }
-                else if(str?.characters.count > 16)
+                else if((str?.characters.count)! > 16)
                 {
                     errorFLag = true
                     errorMsg = "That mobile number should be of 15 digits"
@@ -1302,7 +1279,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     dictForTextFieldValue.removeValue(forKey: "errorEmail")
                 }
                 
-                if str?.characters.count>0 && (self.isValidEmail(str!)==false){
+                if (str?.characters.count)!>0 && (self.isValidEmail(str!)==false){
                     errorFLag = true
                     errorMsg = "That email address doesn’t look right"
                     dictForTextFieldValue["errorEmailValid"] = errorMsg as AnyObject
@@ -1645,7 +1622,7 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                     if(urlString != "")
                     {
                         NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
-                            if(data?.count > 0)
+                            if((data?.count)! > 0)
                             {
                                 let image = UIImage(data: data!)
                                 DispatchQueue.main.async(execute: {
@@ -1677,7 +1654,6 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
                 self.getJSONForUI()
                 //Setup Registration UI
                 self.createCells()
-                
                 
             }
             else {
@@ -1749,4 +1725,3 @@ class SAEditUserInfoViewController: UIViewController,UITableViewDelegate,UITable
         }
     }
 }
-

@@ -11,30 +11,6 @@ import Fabric
 import Crashlytics
 import UserNotifications
 import Stripe
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 struct Device {
     static var udid = UIDevice.current.identifierForVendor!.uuidString
@@ -81,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         let passcode = UserDefaults.standard.value(forKey: "myPasscode") as? String
         
-        if passcode?.characters.count > 0{
+        if (passcode?.characters.count)! > 0{
             //Go to SAEnterYourPINViewController
             objEnterYourPinViewController = SAEnterYourPINViewController()
             //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController

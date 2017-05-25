@@ -17,41 +17,6 @@ extension String {
 }
 
 import UIKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l <= r
-  default:
-    return !(rhs < lhs)
-  }
-}
-
 
 class SAImpulseSavingViewController: UIViewController {
     @IBOutlet weak var addFundsButton: UIButton!
@@ -86,6 +51,7 @@ class SAImpulseSavingViewController: UIViewController {
     fileprivate var progressValue: Float = 0
     var lastOffset: CGPoint = CGPoint.zero
     var maxPrice: Float?
+    
     fileprivate var sliderOptions: [CircleSliderOption] {
         return [
             .barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
@@ -293,7 +259,7 @@ class SAImpulseSavingViewController: UIViewController {
     
     //UITextfieldDelegate method
     func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if textField.text?.characters.count > 1  && string == "" {
+        if (textField.text?.characters.count)! > 1  && string == "" {
             return true
         }
         let combinedString = textField.text! + string
@@ -301,7 +267,7 @@ class SAImpulseSavingViewController: UIViewController {
         if valueString.characters.count == 0 {
             return false
         }
-        if(Float(valueString)! > maxPrice)
+        if(Float(valueString)! > maxPrice!)
         {
             circleSlider.value = 0.0
             let msgStr = String(format: "The maximum you can top up is £%.0f", maxPrice!)
@@ -314,7 +280,7 @@ class SAImpulseSavingViewController: UIViewController {
             var slideValue: Float = 0.0
             if (Float(valueString)! <= 100) {
                 slideValue = Float(valueString)! / 2.0
-                if maxPrice <= 100{
+                if Int(maxPrice!) <= 100{
                     slideValue = Float(valueString)! / (Float(maxPrice!)/100)}
             } else {
                 
@@ -410,7 +376,7 @@ class SAImpulseSavingViewController: UIViewController {
         tfString = tfString.chopPrefix(1)
         priceTextField.resignFirstResponder()
     
-        if(Float(tfString) > maxPrice) {
+        if(maxPrice! < Float(tfString)!) {
             let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }

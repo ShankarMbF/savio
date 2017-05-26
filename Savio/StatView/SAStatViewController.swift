@@ -83,7 +83,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         print("Function For Individual")
         
         let transactionArr = savingPlanDict!["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
-        print(transactionArr)
+        print(transactionArr!)
         
         guard savingsPlan!["payType"] as! String == "Week" else {
             print("guard for month")
@@ -98,7 +98,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     func calcTotalAmount(_ TotalArr: Array<Dictionary<String,AnyObject>>?) -> CGFloat {
-        print(TotalArr)
+        print(TotalArr!)
         if TotalArr == nil{
             return 0.0
         }
@@ -321,8 +321,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     
     
     func createPlanDate(_ PayDate : String, planType : String, userDefault : String) -> Date {
-        let grpCurrentdate = UserDefaults.standard.object(forKey: userDefault) as? String
-        let Date = "\(PayDate)-\(grpCurrentdate)"
+        let grpCurrentdate = userDefaults.object(forKey: userDefault) as? String
+        let Date = "\(PayDate)-\(String(describing: grpCurrentdate))"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-mm-yyyy"
         let Idate = dateFormatter.date(from: Date)
@@ -441,7 +441,7 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         btnName.addTarget(self, action: #selector(SAStatViewController.heartBtnClicked), for: .touchUpInside)
         
         //Showing wishlist count
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -507,8 +507,8 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
         let obj = SAOfferListViewController()
         obj.savID = 63
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
-        UserDefaults.standard.set(dict, forKey:"colorDataDict")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         //Hide add offer button from offer list
         obj.hideAddOfferButton = true
         obj.isComingProgress = true

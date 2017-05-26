@@ -206,7 +206,7 @@ class SAWelcomeViewController: UIViewController, URLSessionDelegate {
         let partyID = "956"
         
         let utf8str = String(format: "%@:%@",partyID,cookie).data(using: String.Encoding.utf8)
-        let base64Encoded = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        _ = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let urlconfig = URLSessionConfiguration.default
         //Check if network is present
         if(objAPI.isConnectedToNetwork())
@@ -252,7 +252,7 @@ class SAWelcomeViewController: UIViewController, URLSessionDelegate {
                         }
                     }
                 }
-                else  if let error = error  {
+                else  if error != nil  {
                     DispatchQueue.main.async{
                     }
                 }

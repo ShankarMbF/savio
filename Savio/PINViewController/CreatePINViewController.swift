@@ -41,7 +41,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         confirmPasscodeView.layer.cornerRadius = 3
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
-        userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
@@ -190,15 +190,15 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         objAnimView.removeFromSuperview()
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
         
-        UserDefaults.standard.set(passcode, forKey: "pin")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(passcode, forKey: "pin")
+        userDefaults.synchronize()
         
         if let message = objResponse["message"] as? String
         {
             if(message == "Your PIN is updated Sucessfully")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                NSuserDefaultsUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//                NSuserDefaultsUserDefaults().synchronize()
                 
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5() as AnyObject)
                 headerLabel.text = "Your passcode has been reset"
@@ -259,9 +259,9 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         {
             if(message as! String == "User sucessfully register")
             {
-//                NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                NSuserDefaultsUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//                NSuserDefaultsUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//                NSuserDefaultsUserDefaults().synchronize()
                 
                 objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5() as AnyObject)
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: objResponse["party"]!)
@@ -270,7 +270,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
                 self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: message as! String, delegate: nil, cancelButtonTitle: "Ok")
+                let alert = UIAlertView(title: "Warning", message: (message as! String), delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
             
@@ -329,7 +329,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
             }
         }else {
             
-            for idx in 0...tag {
+            for _ in 0...tag {
                 tag -= 1
                 if tag >= 0 {
                     let tfPre = arrayTextFields[tag]

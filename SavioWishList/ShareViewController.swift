@@ -98,7 +98,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                     var text = priceTextField.text
                     text = text?.replacingOccurrences(of: ",", with: "")
                     text = text?.replacingOccurrences(of: "£", with: "")
-                    print(text)
+                    print(text!)
                     if(Float(text!) < 3000)
                     {
                     DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
@@ -245,7 +245,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                             DispatchQueue.main.async(execute: {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
                                 print(self.dictGlobal)
-                                print("URL = \(self.dictGlobal["url"])")
+                                print("URL = \(String(describing: self.dictGlobal["url"]))")
                                 defaults.set(self.dictGlobal, forKey: "ScrapingResult")
                                 let str = self.dictGlobal["title"] as! String
                                 var subStr = str
@@ -261,7 +261,7 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         else {
                             print("no dictionary found")
                         }
-                    } as! NSItemProvider.CompletionHandler)
+                    } as? NSItemProvider.CompletionHandler)
                 }
                 else{
                    self.dictGlobal = defaults.value(forKey: "ScrapingResult") as! Dictionary<String,AnyObject>

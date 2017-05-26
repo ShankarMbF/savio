@@ -146,7 +146,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SAOfferListViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data        {
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data        {
             let dataSave = str
             let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
             btnName.setBackgroundImage(UIImage(named: "nav-heart-fill.png"), for: UIControlState())
@@ -163,7 +163,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         closeLbl?.layer.borderColor = UIColor.white.cgColor
         
         //filter the offerlist as per saving plan type
-        if let arr: Array<Dictionary<String,AnyObject>> = UserDefaults.standard.value(forKey: "offerList") as? Array {
+        if let arr: Array<Dictionary<String,AnyObject>> = userDefaults.value(forKey: "offerList") as? Array {
             for var dict:Dictionary<String,AnyObject> in arr {
                 let savingArr: Array<Dictionary<String,AnyObject>> = dict["savingPlanList"] as! Array
                 if savingArr.count > 0 {
@@ -222,8 +222,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     }
     //function invoke when user tapping on heart button from navigation bar
     func heartBtnClicked(){
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data  {
-            let dataSave = UserDefaults.standard.object(forKey: "wishlistArray") as! Data
+        
+        let str = userDefaults.object(forKey: "wishlistArray") as? Data
+        if  str != nil {
+            
+            let dataSave = userDefaults.object(forKey: "wishlistArray") as! Data
             let wishListArray = NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>
             if wishListArray!.count>0{
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
@@ -264,10 +267,10 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     
     @IBAction func progressButtonPressed(_ sender: AnyObject) {
         var vw = UIViewController()
-        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
+        let individualFlag = userDefaults.value(forKey: kIndividualPlan) as! NSNumber
         var isAvailble: Bool = false
         var usersPlanFlag = ""
-        if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
+        if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
         {
             usersPlanFlag = usersPlan
             //As per flag show the progress view of plan
@@ -557,6 +560,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
+        
         //check each key's value
         for key:String in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject

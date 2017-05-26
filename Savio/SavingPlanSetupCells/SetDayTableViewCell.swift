@@ -43,8 +43,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
         BGContentView.layer.cornerRadius = 5
-        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         dayPickerView.delegate = self
         dayPickerView.dataSource = self
         let leftView = UIView()
@@ -52,7 +53,9 @@ class SetDayTableViewCell: UITableViewCell,UIPopoverPresentationControllerDelega
         leftView.backgroundColor = UIColor.clear
         dayDateTextField.leftView = leftView
         dayDateTextField.leftViewMode = UITextFieldViewMode.always
-        print(colorDataDict["savPlanID"])
+        
+        print(colorDataDict["savPlanID"] ?? "Id is not pressent")
+        
         if(colorDataDict["savPlanID"] as! Int == 92) {
             titleLbl.text = "Adding funds every"
         }

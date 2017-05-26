@@ -168,7 +168,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         var errorFlag = false
         
         //Validations for find address text field
-        if findAddressTextField.text=="" {
+        if findAddressTextField.text == "" {
             errorFlag = true
             findAddressErrorLabel.text = "Don’t forget your postcode"
             findAddressTextField.layer.borderColor = UIColor.red.cgColor
@@ -292,7 +292,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             userInfoDict["post_code"] = findAddressTextField.text as AnyObject
             let udidDict : Dictionary<String,AnyObject>
            
-            if let apnsDeviceToken = UserDefaults.standard.value(forKey: "APNSTOKEN") as? NSString
+            if let apnsDeviceToken = userDefaults.value(forKey: "APNSTOKEN") as? NSString
             {
                 udidDict = ["DEVICE_ID":Device.udid as AnyObject, "PNS_DEVICE_ID": apnsDeviceToken]
                  print(udidDict)
@@ -543,18 +543,18 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         if errorCode == 200 {
             checkString = "Register"
             let objAPI = API()
-//            NSUserDefaults.standardUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
-//            NSUserDefaults.standardUserDefaults().synchronize()
+//            NSuserDefaultsUserDefaults().setObject(self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>), forKey: "userInfo")
+//            NSuserDefaultsUserDefaults().synchronize()
             objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>) as AnyObject)
 //            if let passcode = objAPI.getValueFromKeychainOfKey("myPasscode") as? String
 //            {
 //                objAPI.deleteKeychainValue("myPasscode")
 //            }
             
-            if (UserDefaults.standard.object(forKey: "myPasscode") as? String) != nil
+            if (userDefaults.object(forKey: "myPasscode") as? String) != nil
             {
-                UserDefaults.standard.removeObject(forKey: "myPasscode")
-                UserDefaults.standard.synchronize()
+                userDefaults.removeObject(forKey: "myPasscode")
+                userDefaults.synchronize()
             }
             
             objAPI.otpSentDelegate = self
@@ -566,8 +566,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             alert.addAction(UIAlertAction(title: "Create Passcode", style: UIAlertActionStyle.cancel, handler: { action -> Void in
                 checkString = "ForgotPasscode"
                 let objAPI = API()
-//                NSUserDefaults.standardUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
-//                NSUserDefaults.standardUserDefaults().synchronize()
+//                NSuserDefaultsUserDefaults().setObject(objResponse["party"]!, forKey: "userInfo")
+//                NSuserDefaultsUserDefaults().synchronize()
                 objAPI.storeValueInKeychainForKey(kUserInfo, value: self.checkNullDataFromDict(objResponse["party"]! as! Dictionary<String,AnyObject>) as AnyObject)
                 checkString = "ForgotPasscode"
                 let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
@@ -577,7 +577,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else if errorCode == 202 {
              objAnimView.removeFromSuperview()
-            var dict = objResponse["party"] as! Dictionary<String,AnyObject>
+            _ = objResponse["party"] as! Dictionary<String,AnyObject>
 //           let firstName = dict["first_name"] as! String
 //           let lastName = dict["second_name"] as! String
 //           let dateOfBirth = dict["date_of_birth"] as! String

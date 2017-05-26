@@ -28,9 +28,11 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let userPlan = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
+        let userPlan    = userDefaults.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
+        if (userPlan != nil)
         {
-            if let savedCard =  UserDefaults.standard.object(forKey: "saveCardArray")
+            let savedCard   = userDefaults.object(forKey: "saveCardArray")
+            if savedCard != nil
             {
                 self.setUpViewController()
             }else {
@@ -77,9 +79,9 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         
         let objAPI = API()
-        let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        let userInfoDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
         
-        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID as AnyObject),"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: kPTYSAVINGPLANID) as! NSNumber]
+        let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict[kPartyID] as! NSNumber,"STRIPE_TOKEN":(token.stripeID as AnyObject),"PTY_SAVINGPLAN_ID":userDefaults.value(forKey: kPTYSAVINGPLANID) as! NSNumber]
         
         
         objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
@@ -100,10 +102,10 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     func setUpViewController()
     {
         // Set all plan flag
-        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
-        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
-        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
-        if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
+        let individualFlag = userDefaults.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan) as! NSNumber
+        if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
         {
             //As per flag show the progress view of plan
             if usersPlan == "I"{
@@ -189,13 +191,13 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             
         case "SAOfferListViewController":
             
-            UserDefaults.standard.removeObject(forKey: "offerList")
+            userDefaults.removeObject(forKey: "offerList")
             
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
-            UserDefaults.standard.set(dict, forKey:"colorDataDict")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(dict, forKey:"colorDataDict")
+            userDefaults.synchronize()
             
-            UserDefaults.standard.synchronize()
+            userDefaults.synchronize()
             let obj = SAOfferListViewController(nibName: "SAOfferListViewController", bundle: nil)
             obj.hideAddOfferButton = true
             obj.isComingProgress = false
@@ -208,13 +210,13 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             self.replaceViewController()
             
         case "SAProgressViewController":
-            UserDefaults.standard.removeObject(forKey: "offerList")
-            UserDefaults.standard.synchronize()
+            userDefaults.removeObject(forKey: "offerList")
+            userDefaults.synchronize()
             //Assigning all plan flag
-            let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
+            let individualFlag = userDefaults.value(forKey: kIndividualPlan) as! NSNumber
             
             var usersPlanFlag = ""
-            if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
+            if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
             {
                 usersPlanFlag = usersPlan
                 //As per flag show the progress view of plan
@@ -244,8 +246,8 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             let obj = SASavingPlanViewController(nibName: "SASavingPlanViewController", bundle: nil)
             obj.isUpdatePlan = true
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
-            UserDefaults.standard.set(dict, forKey:"colorDataDict")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(dict, forKey:"colorDataDict")
+            userDefaults.synchronize()
             self.centreVC = obj
             self.replaceViewController()
             
@@ -292,8 +294,8 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
             {
                 if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
                 {
-                    UserDefaults.standard.set(1, forKey: "saveCardArray")
-                    UserDefaults.standard.synchronize()
+                    userDefaults.set(1, forKey: "saveCardArray")
+                    userDefaults.synchronize()
                     objAnimView.removeFromSuperview()
                     
                     //                     navigation to Summary Screen as well as for ProgressView (Force Close)

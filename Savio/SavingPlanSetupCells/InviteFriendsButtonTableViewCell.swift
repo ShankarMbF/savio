@@ -17,14 +17,14 @@ class InviteFriendsButtonTableViewCell: UITableViewCell {
     var userInfodict : Dictionary<String, AnyObject> = [:]
     override func awakeFromNib() {
         super.awakeFromNib()
-        let objAPI = API()
+        _ = API()
         //************************************* cornerradious start
         let costpath = UIBezierPath(roundedRect:BGContentView.bounds, byRoundingCorners:[.topRight, .topLeft], cornerRadii: CGSize(width: 05,height: 05))
         let costmaskLayer = CAShapeLayer()
         costmaskLayer.path = costpath.cgPath
         BGContentView.layer.mask = costmaskLayer
         //************************************* cornerradious end
-        let userInfodict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        let userInfodict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        let userInfodict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         let attributedString = NSMutableAttributedString(string: String(format: "%@ (organiser)",userInfodict["first_name"] as! String))
         attributedString.addAttribute(NSForegroundColorAttributeName,

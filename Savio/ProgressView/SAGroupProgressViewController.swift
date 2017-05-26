@@ -112,9 +112,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         //Create object of API class to call the GETSavingPlanDelegate methods.
         let objAPI = API()
         
-        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
-        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
-        if let usersPlan = UserDefaults.standard.value(forKey: kUsersPlan) as? String
+        let groupFlag = userDefaults.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan) as! NSNumber
+        if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
         {
             if(groupFlag == 1 && usersPlan == "G")
             {
@@ -168,8 +168,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SAGroupProgressViewController.heartBtnClicked), for: .touchUpInside)
         
-        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        //Check if NSuserDefaultsUserDefaults() has value for "wishlistArray"
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -218,8 +218,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         let PlanID = savingPlanDetailsDict["partySavingPlanID"]
-        UserDefaults.standard.set(PlanID , forKey:kPTYSAVINGPLANID)
-        UserDefaults.standard.synchronize()
+        userDefaults.set(PlanID , forKey:kPTYSAVINGPLANID)
+        userDefaults.synchronize()
         
         //get the total paid amount of plan from the Dictionary
         if let totalPaidAmount = savingPlanDetailsDict["totalPaidAmount"] as? NSNumber
@@ -228,7 +228,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         
         
-        let userDict = participantsArr[0]
+        _ = participantsArr[0]
         
         //Check if savingPlanTransactionList is present
 //        if let transactionArray = userDict["savingPlanTransactionList"] as? Array<Dictionary<String,AnyObject>>
@@ -281,8 +281,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let indiviualAmount = totalAmount / participantsArr.count
         let MaxAmount = indiviualAmount - Int(paidAmount)
         print("MaxAmount = \(MaxAmount)")
-        UserDefaults.standard.set(MaxAmount, forKey: "ImpMaxAmount")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(MaxAmount, forKey: "ImpMaxAmount")
+        userDefaults.synchronize()
 
         if(pieChartSliceArray.count <= 8)
         {
@@ -515,7 +515,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     {
         let objAPI = API()
         //get keychain values
-        let userDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
         //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
@@ -608,8 +608,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             obj.isComingProgress = true
             //save the Generic plan in NSUserDefaults, so it will show its specific offers
             let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
-            UserDefaults.standard.set(dict, forKey:"colorDataDict")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(dict, forKey:"colorDataDict")
+            userDefaults.synchronize()
             obj.hideAddOfferButton = true
             self.navigationController?.pushViewController(obj, animated: false)
         }
@@ -734,13 +734,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         if(cellDict["memberType"] as! String == "Owner")
         {
             cell?.nameLabel.text = String(format:"%@ (organiser)",(cellDict["partyName"] as? String)!)
-            UserDefaults.standard.setValue(kGroupPlan, forKey: "usersPlan")
-            UserDefaults.standard.synchronize()
+            userDefaults.setValue(kGroupPlan, forKey: "usersPlan")
+            userDefaults.synchronize()
         }
         else {
             cell?.nameLabel.text = cellDict["partyName"] as? String
-            UserDefaults.standard.setValue(kGroupMemberPlan, forKey: "usersPlan")
-            UserDefaults.standard.synchronize()
+            userDefaults.setValue(kGroupMemberPlan, forKey: "usersPlan")
+            userDefaults.synchronize()
         }
         
  
@@ -874,7 +874,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         let blank = ""
         //check each key's value
         for key:String in Array(dict.keys) {
-            let ob = dict[key]! as? AnyObject
+            let ob = dict[key]! as AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank as AnyObject
@@ -903,13 +903,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 statViewDetailsDict = self.checkNullDataFromDict(objResponse)
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
                 print(objResponse)
-                UserDefaults.standard.removeObject(forKey: kSAVSITEURL)
+                userDefaults.removeObject(forKey: kSAVSITEURL)
 
-//                  newDict["PTY_SAVINGPLAN_ID"] = NSUserDefaults.standardUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+//                  newDict["PTY_SAVINGPLAN_ID"] = NSuserDefaultsUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
                 
                  var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
-                UserDefaults.standard.set(ptyDict["partySavingPlanID"], forKey: kPTYSAVINGPLANID)
-                UserDefaults.standard.synchronize()
+                userDefaults.set(ptyDict["partySavingPlanID"], forKey: kPTYSAVINGPLANID)
+                userDefaults.synchronize()
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {
                     print(".................... Party savings plan null .....................")
@@ -971,7 +971,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     
     //MARK: GetWishlist Delegate method
     func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
-        if let error = objResponse["error"] as? String
+        let error = objResponse["error"] as? String
+        if error != nil
         {
 //            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
 //            alert.show()
@@ -992,11 +993,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
             let dataSave = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
-            UserDefaults.standard.set(dataSave, forKey: "wishlistArray")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(dataSave, forKey: "wishlistArray")
+            userDefaults.synchronize()
 
         }
-        //        if let arr =  NSUserDefaults.standardUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
+        //        if let arr =  NSuserDefaultsUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
         //            if arr.count > 0{
         //                objAnimView.removeFromSuperview()
         //            }

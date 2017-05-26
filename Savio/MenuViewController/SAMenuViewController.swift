@@ -35,7 +35,7 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func methodForSelectRowAtIndexPath(_ notification: Notification)
     {
-         if let indxPath = UserDefaults.standard.value(forKey: "SelectedIndexPath") as? Int
+         if let indxPath = userDefaults.value(forKey: "SelectedIndexPath") as? Int
          {
           self.deSelectRow(IndexPath(row: indxPath,section: 0))
         }
@@ -53,9 +53,9 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
         //Parsing Json file data
         let arr: NSArray = (try! JSONSerialization.jsonObject(with: jsonData, options: [])) as! NSArray
         //setting individual, group and group member plan's flag
-        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
-        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
-        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
+        let individualFlag = userDefaults.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan) as! NSNumber
         
         //Set up number of menu as per plan created
         for i in 0 ..< arr.count {
@@ -104,7 +104,7 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func deSelectRow(_ indexPath:IndexPath)
     {
-        let indxPath = UserDefaults.standard.value(forKey: "SelectedIndexPath") as? Int
+        let indxPath = userDefaults.value(forKey: "SelectedIndexPath") as? Int
         self.tableView(self.menuTable!, didDeselectRowAt: IndexPath(row: indxPath!,section:0))
         self.menuTable?.reloadData()
     }
@@ -152,8 +152,8 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
 
         let className: String = dict["className"] as! String
         
-        UserDefaults.standard.set(indexPath.row, forKey: "SelectedIndexPath")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(indexPath.row, forKey: "SelectedIndexPath")
+        userDefaults.synchronize()
         
         //Brodcast the notification for navigating flow
         if(isFromSummary == false)
@@ -165,7 +165,7 @@ class SAMenuViewController: UIViewController,UITableViewDelegate,UITableViewData
     // Just set it back in deselect
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
-        let indxPath = UserDefaults.standard.value(forKey: "SelectedIndexPath") as? Int
+        let indxPath = userDefaults.value(forKey: "SelectedIndexPath") as? Int
         self.menuTable?.deselectRow(at: IndexPath(row: indxPath!,section:0), animated: true)
         
         

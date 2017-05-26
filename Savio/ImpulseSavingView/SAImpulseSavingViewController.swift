@@ -54,21 +54,21 @@ class SAImpulseSavingViewController: UIViewController {
     
     fileprivate var sliderOptions: [CircleSliderOption] {
         return [
-            .barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
-            .thumbImage(UIImage (named: "slider-handle@2x.png")),
-            .trackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
-            .barWidth(20),
-            .startAngle(-90),
-            .maxValue(100),
-            .minValue(0),
-            .thumbWidth(40)
+//            .barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
+//            .thumbImage(UIImage (named: "slider-handle@2x.png")),
+//            .trackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
+//            .barWidth(20),
+//            .startAngle(-90),
+//            .maxValue(100),
+//            .minValue(0),
+//            .thumbWidth(40)
         ]
     }
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ImpMaxAmount = UserDefaults.standard.value(forKey: "ImpMaxAmount") as! Float
+        let ImpMaxAmount = userDefaults.value(forKey: "ImpMaxAmount") as! Float
         maxPrice = ImpMaxAmount
         self.buildCircleSlider()
         self.setUpView()
@@ -85,9 +85,9 @@ class SAImpulseSavingViewController: UIViewController {
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.isHidden = true
             
-            if let _ = UserDefaults.standard.value(forKey: "ImpulseAmount") as? String
+            if let _ = userDefaults.value(forKey: "ImpulseAmount") as? String
             {
-               priceLabel.text = String(format:"£%@",(UserDefaults.standard.value(forKey: "ImpulseAmount") as? String)!)
+               priceLabel.text = String(format:"£%@",(userDefaults.value(forKey: "ImpulseAmount") as? String)!)
             }else {
                 priceLabel.text = "£0"
             }
@@ -102,7 +102,7 @@ class SAImpulseSavingViewController: UIViewController {
             addFundsButton.backgroundColor = UIColor(red : 244/255,
                                                      green : 172/255,
                                                      blue : 58/255, alpha: 1)
-            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(UserDefaults.standard.value(forKey: "ImpulseAmount") as? String)!)
+            deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(userDefaults.value(forKey: "ImpulseAmount") as? String)!)
             isFromPayment = false
             
   
@@ -136,7 +136,7 @@ class SAImpulseSavingViewController: UIViewController {
         
 //        var attr = [[NSFontAttributeName : UIFont(name: kMediumFont, size: 10)],[NSUnderlineStyleAttributeName :  NSUnderlineStyle.StyleNone.rawValue]]
         
-        let singleAttribute3 = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue]
+        _ = [ NSUnderlineStyleAttributeName: NSUnderlineStyle.styleNone.rawValue]
        // messagePopUpView.hidden = true
         priceTextField.borderStyle = UITextBorderStyle.roundedRect
         var calculatedValue: Float = 0.0
@@ -227,7 +227,7 @@ class SAImpulseSavingViewController: UIViewController {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SAImpulseSavingViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -358,8 +358,8 @@ class SAImpulseSavingViewController: UIViewController {
         obj.savID = 92
         //save the Generic plan in NSUserDefaults, so it will show its specific offers
         let dict = ["savLogo":"generic-category-icon","title":"Generic plan","savDescription":"Don't want to be specific? No worries, we just can't give you any offers from our partners.","savPlanID" :92] as [String : Any]
-        UserDefaults.standard.set(dict, forKey:"colorDataDict")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(dict, forKey:"colorDataDict")
+        userDefaults.synchronize()
         obj.hideAddOfferButton = true
         obj.isComingProgress = true
         self.navigationController?.pushViewController(obj, animated: true)
@@ -395,8 +395,8 @@ class SAImpulseSavingViewController: UIViewController {
                 alert.show()
             }
             else {
-                UserDefaults.standard.setValue(tfString, forKey: "ImpulseAmount")
-                UserDefaults.standard.synchronize()
+                userDefaults.setValue(tfString, forKey: "ImpulseAmount")
+                userDefaults.synchronize()
                 let objSavedCardView = SASaveCardViewController()
                 objSavedCardView.isFromImpulseSaving = true
 //                objSavedCardView.isFromGroupMemberPlan = self.
@@ -406,7 +406,7 @@ class SAImpulseSavingViewController: UIViewController {
         }
         else
         {
-            if let plan = UserDefaults.standard.value(forKey: "usersPlan") as? String
+            if let plan = userDefaults.value(forKey: "usersPlan") as? String
             { //Individual plan
                 if(plan == kIndividualPlan)
                 {

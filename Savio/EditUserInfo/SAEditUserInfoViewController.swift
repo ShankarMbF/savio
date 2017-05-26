@@ -17,29 +17,31 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var tblView      : UITableView!
     @IBOutlet weak var contentViewHt: NSLayoutConstraint!
     @IBOutlet weak var addProfilePictureButton: UIButton!
-
     
-    var arrRegistration  = [Dictionary <String, AnyObject>]()     //Array for hold json file data to create UI
-    var arrRegistrationFields = [UITableViewCell]()               //Array of textfield cell
-    var dictForTextFieldValue : Dictionary<String, AnyObject> = [:] // dictionary for saving user data and error messages
-    var objAnimView : ImageViewAnimation?                     //Instance of ImageViewAnimation to showing loding aniation on API call
-    var arrAddress = [String]()
-    var firstName = ""
-    var lastName = ""
-    var dateOfBirth = ""
-    var phoneNumber = ""
-    var editUser = true
-    var isImageClicked = false
-    var image1 = UIImage(named: "img1")
-    var getUserInfoDelegate = GetUserInfoDelegate.self
-    var imagePicker = UIImagePickerController()
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
-    var userInfoDict : Dictionary<String,AnyObject> = [:]
-    var userBeforeEditInfoDict : Dictionary<String,AnyObject> = [:]
-    var isInfoUpdated: Bool = false
-    var isPressAlertYes: Bool = false
-//    var isPressAlertYes: Bool = false
-    var queue = OperationQueue()
+    var firstName       = ""
+    var lastName        = ""
+    var dateOfBirth     = ""
+    var phoneNumber     = ""
+    var editUser        = true
+    var isImageClicked  = false
+
+    var arrAddress              = [String]()
+    var image1                  = UIImage(named: "img1")
+    var getUserInfoDelegate     = GetUserInfoDelegate.self
+    var imagePicker             = UIImagePickerController()
+    var arrRegistration         = [Dictionary <String, AnyObject>]()        //  Array for hold json file data to create UI
+    var arrRegistrationFields   = [UITableViewCell]()                       //  Array of textfield cell
+    var queue                   = OperationQueue()
+    
+    var dictForTextFieldValue   : Dictionary<String, AnyObject> = [:]       //  dictionary for saving user data and error messages
+    var objAnimView             : ImageViewAnimation?                       //  Instance of ImageViewAnimation to showing loding aniation on API call
+    var wishListArray           : Array<Dictionary<String,AnyObject>> = []
+    var userInfoDict            : Dictionary<String,AnyObject> = [:]
+    var userBeforeEditInfoDict  : Dictionary<String,AnyObject> = [:]
+    var isInfoUpdated           : Bool = false
+    var isPressAlertYes         : Bool = false
+    //    var isPressAlertYes: Bool = false
+    
     
     let kFirstName  : String = "first_name"
     let kSecondName : String = "second_name"
@@ -52,11 +54,9 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     let kName       : String = "name"
     let kTextField1 : String = "textField1"
     
-//    let kTitleAndNameMissingError : String = "We need to know your title and name"
+    //    let kTitleAndNameMissingError : String = "We need to know your title and name"
     
-    
-    
-    
+ 
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,23 +72,25 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isInfoUpdated == false {
-        objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
-        objAnimView!.frame = self.view.frame
-        objAnimView!.animate()
-        self.view.addSubview(objAnimView!)
         
-        let objAPI = API()
-        objAPI.getUserInfoDelegate = self
-        objAPI.getUserInfo()
+        if isInfoUpdated == false {
+            objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
+            objAnimView!.frame = self.view.frame
+            objAnimView!.animate()
+            self.view.addSubview(objAnimView!)
+            
+            let objAPI = API()
+            objAPI.getUserInfoDelegate = self
+            objAPI.getUserInfo()
         }
+        
     }
     
     func setUPNavigation()
     {
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.black
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.isNavigationBarHidden    = false
+        self.navigationController?.navigationBar.barStyle   = UIBarStyle.black
+        self.navigationController?.navigationBar.tintColor  = UIColor.white
         self.navigationController?.navigationBar.isTranslucent = false
         
         //set Navigation left button
@@ -111,11 +113,11 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SAEditUserInfoViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        let dataSave = userDefaults.object(forKey: "wishlistArray") as? Data
+        
+        if (dataSave != nil)
         {
-            let dataSave = str
-            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
-            
+            wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave!) as? Array<Dictionary<String,AnyObject>>)!
             
             if(wishListArray.count > 0)
             {
@@ -125,8 +127,6 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             else {
                 btnName.setBackgroundImage(UIImage(named: "nav-heart.png"), for: UIControlState())
                 btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
-                
-                
             }
             
             btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
@@ -151,7 +151,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     func createCells(){
         // if any old cell belong in array then remove all
-        if arrRegistrationFields.count>0{
+        if arrRegistrationFields.count > 0{
             arrRegistrationFields.removeAll()
         }
         for i in 0 ..< arrRegistration.count {
@@ -161,6 +161,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             
             //Setup all error message lable tableViewCell
             if dict[kClassType]!.isEqual(to: "ErrorTableViewCell"){
+                
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! ErrorTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -177,12 +178,14 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             
             //SetUp Titel and Name textfield tableView cell and its validation messages
             if dict[kClassType]!.isEqual(to: "TitleTableViewCell"){
+                
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! TitleTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
-                cell.delegate = self
-                cell.tblView = tblView
-                cell.dict = dict as NSDictionary
+                cell.delegate   = self
+                cell.tblView    = tblView
+                cell.dict       = dict as NSDictionary
+                
                 let tfTitleDict = metadataDict[kTextField1]as! Dictionary<String,AnyObject>
                 cell.tfTitle?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
                 cell.tfName?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
@@ -198,7 +201,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     cell.tfTitle?.text = dictForTextFieldValue[kTitle] as? String
                 }
                 let tfNameDict = metadataDict["textField2"]as! Dictionary<String,AnyObject>
-                cell.tfName!.attributedPlaceholder = NSAttributedString(string:(tfNameDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
+                cell.tfName!.attributedPlaceholder = NSAttributedString(string:(tfNameDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName : UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 
                 if(editUser)
                 {
@@ -227,6 +230,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 
             }
             if dict[kClassType]!.isEqual(to: "TxtFieldTableViewCell"){
+                
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! TxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -336,6 +340,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             }
             
             if dict[kClassType]!.isEqual(to: "PickerTextfildTableViewCell"){
+                
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! PickerTextfildTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
@@ -357,11 +362,13 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             }
             
             if dict[kClassType]!.isEqual(to: "FindAddressTableViewCell"){
+                
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! FindAddressTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.delegate = self
                 cell.tblView = tblView
+                
                 cell.tfPostCode?.text = userInfoDict[kPostCode] as? String
                 cell.tfPostCode?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
                 let tfPostcodeDict = metadataDict[kTextField1]as! Dictionary<String,AnyObject>
@@ -389,7 +396,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             }
             
             if dict[kClassType]!.isEqual(to: "ButtonTableViewCell"){
-                let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
+                _ = dict[kMetaData] as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! ButtonTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.delegate = self
@@ -401,10 +408,11 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             if dict[kClassType]!.isEqual(to: "NumericTextTableViewCell"){
                 let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! NumericTextTableViewCell
+                
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
-                cell.delegate = self
-                cell.tblView = tblView
-                cell.tf?.textColor = UIColor.black
+                cell.delegate       = self
+                cell.tblView        = tblView
+                cell.tf?.textColor  = UIColor.black
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
                 cell.tf!.isUserInteractionEnabled = false
                 cell.tf?.text = userInfoDict[kPhoneNumber] as? String
@@ -469,14 +477,15 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             }
             
             if dict[kClassType]!.isEqual(to: "DropDownTxtFieldTableViewCell"){
-                let metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
+                
+                let metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! DropDownTxtFieldTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 cell.delegate = self
                 cell.tblView = tblView
                 cell.dict = dict as NSDictionary
                 cell.tf?.layer.borderColor = UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1).cgColor;
-                let tfTitleDict = metadataDict[kTextField1]as! Dictionary<String,AnyObject>
+                let tfTitleDict = metadataDict[kTextField1] as! Dictionary<String,AnyObject>
                 cell.tf!.attributedPlaceholder = NSAttributedString(string:(tfTitleDict["placeholder"] as? String)!, attributes:[NSForegroundColorAttributeName:UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1)])
                 if (dictForTextFieldValue[(cell.tf?.placeholder)!] != nil){
                     cell.tf?.text = dictForTextFieldValue[(cell.tf?.placeholder)!] as? String
@@ -484,13 +493,15 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 }
                 let arrDropDown = arrAddress
                 cell.arr = arrDropDown
-                if arrDropDown.count>0{
+                
+                if arrDropDown.count > 0
+                {
                     arrRegistrationFields.append(cell as UITableViewCell)
                 }
             }
         }
         
-        tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count+5))
+        tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count + 5))
         let height: CGFloat = 35 * (CGFloat(arrRegistrationFields.count) + 5 ) + 130
         scrlView.contentSize = CGSize(width: 0, height: height)
         
@@ -503,7 +514,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     func heartBtnClicked(){
         
-        if wishListArray.count>0{
+        if wishListArray.count > 0
+        {
             NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
@@ -539,6 +551,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     //MARK: UIImagePickerControllerDelegate methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
         picker .dismiss(animated: true, completion: nil)
         isImageClicked = true
         
@@ -569,34 +582,37 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func txtFieldCellText(_ txtFldCell:TxtFieldTableViewCell){
-        if (txtFldCell.tf?.text?.characters.count)!>0{
+        
+        let textFieldCharCount = txtFldCell.tf?.text?.characters.count
+        if (textFieldCharCount! > 0)
+        {
             
             dictForTextFieldValue.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: (txtFldCell.tf?.placeholder)!)
             
             if(txtFldCell.tf?.placeholder == kSurname)
             {
-//                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: kSecondName)
+                //                 userInfoDict.updateValue((txtFldCell.tf?.text)!, forKey: kSecondName)
                 userInfoDict[kSecondName] = txtFldCell.tf?.text as AnyObject
             }
             else if(txtFldCell.tf?.placeholder == kFirstAddressLine)
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress1)
+                userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress1)
             }
             else if(txtFldCell.tf?.placeholder == kTown)
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kTown)
+                userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kTown)
             }
             else if(txtFldCell.tf?.placeholder == kCounty)
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kCounty)
+                userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kCounty)
             }
             else if(txtFldCell.tf?.placeholder == kSecondAddressLine)
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress2)
+                userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress2)
             }
             else if(txtFldCell.tf?.placeholder == kThirdAddressLine)
             {
-                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress3)
+                userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress3)
             }
         }
         else {
@@ -614,7 +630,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-
+    
     func getTextFOrPostCode(_ findAddrCell: FindAddressTableViewCell)
     {
         if (findAddrCell.tfPostCode?.text?.characters.count)!>0{
@@ -704,7 +720,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func txtFieldCellTextImmediate(_ txtFldCell:TxtFieldTableViewCell, text: String){
-        if text.characters.count>0{
+        if text.characters.count > 0
+        {
             
             dictForTextFieldValue.updateValue(text as AnyObject, forKey: (txtFldCell.tf?.placeholder)!)
             
@@ -744,7 +761,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         if (dictForTextFieldValue["errorPostcodeValid"]==nil && checkTextFiledValidation() == false){
             //call term and condition screen
             var dict = self.getAllValuesFromTxtFild()
-            if(firstName.characters.count>0 && lastName.characters.count>0 )
+            if(firstName.characters.count > 0 ) && (lastName.characters.count > 0 )
             {
                 for i in 0 ..< arrRegistrationFields.count {
                     if arrRegistrationFields[i].isKind(of: TitleTableViewCell.self){
@@ -763,15 +780,17 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             else {
-              
+                
                 self.callEditUserInfoAPI()
             }
         }
         else {
             if dictForTextFieldValue["errorPostcodeValid"] != nil{
+                
                 var dict = arrRegistration[7] as Dictionary<String,AnyObject>
                 var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 let lableDict = (metadataDict[kLable]?.mutableCopy() as AnyObject)
+                
                 lableDict.setValue("Yes", forKey: kIsErrorShow)
                 lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
                 metadataDict[kLable] = lableDict
@@ -791,8 +810,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationController!.view.addSubview(objAnimView!)
         
         let objAPI = API()
-        let dict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
-//        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
+        let dict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        //        let dict = objAPI.getValueFromKeychainOfKey("userInfo")
         userInfoDict["ptyid"] = dict[kPartyID]
         if(isImageClicked) {
             let imageData:Data = UIImageJPEGRepresentation(image1!, 1.0)!
@@ -807,13 +826,14 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         
         let fName = userInfoDict[kFirstName] as! String
         let lName = userInfoDict[kSecondName] as! String
+        
         var param = userInfoDict as Dictionary<String,AnyObject>
         param[kTown] = userInfoDict[kTown]
         param[kFirstName] = fName.capitalized as AnyObject
         param[kSecondName] = lName.capitalized as AnyObject
-        
         param.removeValue(forKey: kTown)
         param["ptystatus"] = "ENABLE" as AnyObject
+        
         param.removeValue(forKey: "date_of_birth")
         param.removeValue(forKey: "pass_code")
         param.removeValue(forKey: kEmail)
@@ -821,6 +841,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         param.removeValue(forKey: kImageURL)
         param.removeValue(forKey: kPartyID)
         param.removeValue(forKey: "deviceRegistration")
+        
         if let firstAddress = param[kFirstAddressLine] as? String {
             param.removeValue(forKey: kFirstAddressLine)
         }
@@ -858,38 +879,38 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             if arrRegistrationFields[i].isKind(of: TitleTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! TitleTableViewCell
                 cell.endEditing(true)
-
+                
                 cell.tfName?.resignFirstResponder()
             }
             if arrRegistrationFields[i].isKind(of: TxtFieldTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
                 cell.endEditing(true)
-
+                
                 cell.tf?.resignFirstResponder()
-//                if cell.tf?.placeholder == "Surname"{
-//                    dict[kSecondName] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "First Address Line"{
-//                    dict[kAddress1] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "Second Address Line"{
-//                    dict[kAddress2] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "Third Address Line"{
-//                    dict[kAddress3] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "Town"{
-//                    dict[kTown] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "Mobile number"{
-//                    dict["phone_number"] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == "County"{
-//                    dict[kCounty] = cell.tf?.text
-//                }
-//                if cell.tf?.placeholder == kEmail{
-//                    dict[kEmail] = cell.tf?.text
-//                }
+                //                if cell.tf?.placeholder == "Surname"{
+                //                    dict[kSecondName] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "First Address Line"{
+                //                    dict[kAddress1] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "Second Address Line"{
+                //                    dict[kAddress2] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "Third Address Line"{
+                //                    dict[kAddress3] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "Town"{
+                //                    dict[kTown] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "Mobile number"{
+                //                    dict["phone_number"] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == "County"{
+                //                    dict[kCounty] = cell.tf?.text
+                //                }
+                //                if cell.tf?.placeholder == kEmail{
+                //                    dict[kEmail] = cell.tf?.text
+                //                }
             }
         }
     }
@@ -897,7 +918,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     
     
-    func getAllValuesFromTxtFild()-> Dictionary<String,AnyObject>{
+    func getAllValuesFromTxtFild() -> Dictionary<String,AnyObject>{
         var dict = Dictionary<String, AnyObject>()
         
         for i in 0 ..< arrRegistrationFields.count {
@@ -983,8 +1004,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             return
         }
         else {
-//            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
-            if(UserDefaults.standard.object(forKey: "myMobile") as! String == dict[kPhoneNumber] as! String)
+            //            if(objAPI.getValueFromKeychainOfKey("myMobile") as! String == dict["phone_number"] as! String)
+            if(userDefaults.object(forKey: "myMobile") as! String == dict[kPhoneNumber] as! String)
             {
                 objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
                 objAnimView!.frame = self.view.frame
@@ -1002,31 +1023,17 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     //Function checking textfield content only number or not
-    func checkTextFieldContentOnlyNumber(_ str:String)->Bool{
+    func checkTextFieldContentOnlyNumber(_ str:String) -> Bool{
         let set = CharacterSet.decimalDigits
-//        if (str.rangeOfCharacterFromSet(set) != nil) {
-//            return true
-//        }
-//        else {
-//            return false
-//        }
-        
         return (str.rangeOfCharacter(from: set) != nil)
     }
     
-    func checkTextFieldContentCharacters(_ str:String)->Bool{
+    func checkTextFieldContentCharacters(_ str:String) -> Bool{
         let set = CharacterSet.letters
-//        if (str.rangeOfCharacterFromSet(set) != nil) {
-//            return true
-//        }
-//        else {
-//            return false
-//        }
         return (str.rangeOfCharacter(from: set) != nil)
-
     }
     
-    func checkTextFiledValidation()->Bool{
+    func checkTextFiledValidation() -> Bool{
         var returnFlag = false
         self.getJSONForUI()
         var idx = 0
@@ -1037,47 +1044,48 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             if arrRegistrationFields[i].isKind(of: TitleTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! TitleTableViewCell
                 let str = cell.tfName?.text
-                
-                if (self.checkTextFieldContentOnlyNumber(str!) == true){
-                    errorMsg = "Name should contain alphabets only"
-                    if cell.tfTitle?.text?.characters.count==0 {
-                        errorMsg = "Please select a title and name should contain alphabets only"
+                if let str = str {
+                    if (self.checkTextFieldContentOnlyNumber(str) == true){
+                        errorMsg = "Name should contain alphabets only"
+                        if cell.tfTitle?.text?.characters.count==0 {
+                            errorMsg = "Please select a title and name should contain alphabets only"
+                        }
+                        errorFLag = true
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
                     }
-                    errorFLag = true
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else if checkTextFieldContentSpecialChar(str!){
-                    errorMsg = "Name should not contain special characters"
-                    if cell.tfTitle?.text?.characters.count==0 {
-                        errorMsg = "Please select a title and name should not contain special characters"
+                    else if checkTextFieldContentSpecialChar(str){
+                        errorMsg = "Name should not contain special characters"
+                        if cell.tfTitle?.text?.characters.count==0 {
+                            errorMsg = "Please select a title and name should not contain special characters"
+                        }
+                        errorFLag = true
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
                     }
-                    errorFLag = true
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else if (str?.characters.count)! > 50{
-                    errorMsg = kLongName
-                    errorFLag = true
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else if(cell.tfTitle?.text?.characters.count == 0 && cell.tfName?.text?.characters.count == 0){
-                    errorMsg = kTitleAndNameMissingError
-                    errorFLag = true
-                    cell.tfTitle?.layer.borderColor = UIColor.red.cgColor
-                    cell.tfName?.layer.borderColor = UIColor.red.cgColor
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else if cell.tfTitle?.text == ""{
-                    errorMsg = kTitleEmpty
-                    errorFLag = true
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else if str==""{
-                    errorMsg = kEmptyName
-                    errorFLag = true
-                    dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
-                }
-                else {
-                    dictForTextFieldValue.removeValue(forKey: kErrorTitle)
+                    else if (str.characters.count) > 50{
+                        errorMsg = kLongName
+                        errorFLag = true
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
+                    }
+                    else if(cell.tfTitle?.text?.characters.count == 0 && cell.tfName?.text?.characters.count == 0){
+                        errorMsg = kTitleAndNameMissingError
+                        errorFLag = true
+                        cell.tfTitle?.layer.borderColor = UIColor.red.cgColor
+                        cell.tfName?.layer.borderColor = UIColor.red.cgColor
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
+                    }
+                    else if cell.tfTitle?.text == ""{
+                        errorMsg = kTitleEmpty
+                        errorFLag = true
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
+                    }
+                    else if str == ""{
+                        errorMsg = kEmptyName
+                        errorFLag = true
+                        dictForTextFieldValue[kErrorTitle] = errorMsg as AnyObject
+                    }
+                    else {
+                        dictForTextFieldValue.removeValue(forKey: kErrorTitle)
+                    }
                 }
                 
                 dict = arrRegistration[1] as Dictionary<String,AnyObject>
@@ -1088,39 +1096,45 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
                 if cell.tf?.placeholder == kSurname{
                     let str = cell.tf?.text
-                    if str==""{
-                        errorFLag = true
-                        errorMsg = "We need to know your surname"
-                        dictForTextFieldValue["errorTxt"] = errorMsg as AnyObject
+                    
+                    if let str = str{
+                        
+                        if str == ""{
+                            errorFLag   = true
+                            errorMsg    = "We need to know your surname"
+                            dictForTextFieldValue["errorTxt"] = errorMsg as AnyObject
+                        }
+                        else {
+                            dictForTextFieldValue.removeValue(forKey: "errorTxt")
+                        }
+                        if((str.characters.count) > 50){
+                            errorMsg    = kLongName
+                            errorFLag   = true
+                            dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
+                        }
+                        else if(self.checkTextFieldContentOnlyNumber(str) == true){
+                            errorMsg = "Surname should contain alphabets only"
+                            errorFLag = true
+                            dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
+                        }
+                        else if checkTextFieldContentSpecialChar(str){
+                            errorMsg = "Surname should not contain special characters"
+                            errorFLag = true
+                            dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
+                        }
+                        else {
+                            dictForTextFieldValue.removeValue(forKey: "errorSurname")
+                        }
+                        
                     }
-                    else {
-                        dictForTextFieldValue.removeValue(forKey: "errorTxt")
-                    }
-                    if((str?.characters.count)!>50){
-                        errorMsg = kLongName
-                        errorFLag = true
-                        dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
-                    }
-                    else if(self.checkTextFieldContentOnlyNumber(str!) == true){
-                        errorMsg = "Surname should contain alphabets only"
-                        errorFLag = true
-                        dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
-                    }
-                    else if checkTextFieldContentSpecialChar(str!){
-                        errorMsg = "Surname should not contain special characters"
-                        errorFLag = true
-                        dictForTextFieldValue["errorSurname"] = errorMsg as AnyObject
-                    }
-                    else {
-                        dictForTextFieldValue.removeValue(forKey: "errorSurname")
-                    }
-                    dict = arrRegistration[3]as Dictionary<String,AnyObject>
+                    
+                    dict = arrRegistration[3] as Dictionary<String,AnyObject>
                     idx = 3
                 }
                 
                 if cell.tf?.placeholder == kFirstAddressLine{
                     let str = cell.tf?.text
-                    if str==""{
+                    if str == "" {
                         errorFLag = true
                         errorMsg = "Don’t forget your house number"
                         dictForTextFieldValue["errorFirstAddress"] = errorMsg as AnyObject
@@ -1132,9 +1146,9 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     idx = 10
                 }
                 
-                if cell.tf?.placeholder == kTown{
+                if cell.tf?.placeholder == kTown {
                     let str = cell.tf?.text
-                    if str==""{
+                    if str == ""{
                         errorFLag = true
                         errorMsg = "Don’t forget your town"
                         dictForTextFieldValue["errorTown"] = errorMsg as AnyObject
@@ -1148,7 +1162,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 
                 if cell.tf?.placeholder == kCounty{
                     let str = cell.tf?.text
-                    if str==""{
+                    if str == ""{
                         errorFLag = true
                         errorMsg = "Don’t forget your county"
                         dictForTextFieldValue["errorCounty"] = errorMsg as AnyObject
@@ -1162,7 +1176,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 
                 if cell.tf?.placeholder == kMobileNumber{
                     let str = cell.tf?.text
-                    if str==""{
+                    if str == "" {
                         errorFLag = true
                         errorMsg = "Don't forget your mobile number"
                         dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
@@ -1201,7 +1215,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     else {
                         dictForTextFieldValue.removeValue(forKey: "errorEmail")
                     }
-                    if (str?.characters.count)!>0 && (self.isValidEmail(str!)==false){
+                    if ((str?.characters.count)! > 0) && (self.isValidEmail(str!)==false){
                         errorFLag = true
                         errorMsg = "That email address doesn’t look right"
                         dictForTextFieldValue["errorEmailValid"] = errorMsg as AnyObject
@@ -1209,7 +1223,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     else {
                         dictForTextFieldValue.removeValue(forKey: "errorEmailValid")
                     }
-                    dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                    dict = arrRegistration[21] as Dictionary<String,AnyObject>
                     idx = 21
                 }
                 
@@ -1218,7 +1232,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             if arrRegistrationFields[i].isKind(of: FindAddressTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! FindAddressTableViewCell
                 let str = cell.tfPostCode?.text
-                if str==""{
+                if str == "" {
                     errorFLag = true
                     errorMsg = "Don’t forget your postcode"
                     dictForTextFieldValue["errorPostcode"] = errorMsg as AnyObject
@@ -1229,7 +1243,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     dictForTextFieldValue.removeValue(forKey: "errorPostcode")
                     dictForTextFieldValue.removeValue(forKey: "errorPostcodeValid")
                 }
-                dict = arrRegistration[7]as Dictionary<String,AnyObject>
+                dict = arrRegistration[7] as Dictionary<String,AnyObject>
                 idx = 7
             }
             
@@ -1237,7 +1251,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 let cell = arrRegistrationFields[i] as! NumericTextTableViewCell
                 let str = cell.tf?.text
                 
-                if str==""{
+                if str == "" {
                     errorFLag = true
                     errorMsg = "Don't forget your mobile number"
                     dictForTextFieldValue[kErrorMobileValidation] = errorMsg as AnyObject
@@ -1263,14 +1277,14 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     dictForTextFieldValue.removeValue(forKey: kErrorMobileValidation)
                 }
                 
-                dict = arrRegistration[19]as Dictionary<String,AnyObject>
+                dict = arrRegistration[19] as Dictionary<String,AnyObject>
                 idx = 19
                 
             }
             if arrRegistrationFields[i].isKind(of: EmailTxtTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! EmailTxtTableViewCell
                 let str = cell.tf?.text
-                if str==""{
+                if str == "" {
                     errorFLag = true
                     errorMsg = "Don't forget your email address"
                     dictForTextFieldValue["errorEmail"] = errorMsg as AnyObject
@@ -1279,7 +1293,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                     dictForTextFieldValue.removeValue(forKey: "errorEmail")
                 }
                 
-                if (str?.characters.count)!>0 && (self.isValidEmail(str!)==false){
+                if ((str?.characters.count)! > 0) && (self.isValidEmail(str!)==false){
                     errorFLag = true
                     errorMsg = "That email address doesn’t look right"
                     dictForTextFieldValue["errorEmailValid"] = errorMsg as AnyObject
@@ -1287,7 +1301,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 else {
                     dictForTextFieldValue.removeValue(forKey: "errorEmailValid")
                 }
-                dict = arrRegistration[21]as Dictionary<String,AnyObject>
+                dict = arrRegistration[21] as Dictionary<String,AnyObject>
                 idx = 21
             }
             
@@ -1295,7 +1309,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             if arrRegistrationFields[i].isKind(of: PickerTextfildTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! PickerTextfildTableViewCell
                 let str = cell.tfDatePicker?.text
-                if str==""{
+                if str == "" {
                     errorFLag = true
                     errorMsg = "We need to know your date of birth"
                     dictForTextFieldValue["errorDOB"] = errorMsg as AnyObject
@@ -1303,7 +1317,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 else {
                     dictForTextFieldValue.removeValue(forKey: "errorDOB")
                 }
-                dict = arrRegistration[5]as Dictionary<String,AnyObject>
+                dict = arrRegistration[5] as Dictionary<String,AnyObject>
                 idx = 5
             }
             
@@ -1313,7 +1327,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 let lableDict = (metadataDict[kLable]?.mutableCopy() as AnyObject)
                 
                 lableDict.setValue("Yes", forKey: kIsErrorShow)
-                if errorMsg.characters.count>0{
+                if (errorMsg.characters.count > 0){
                     lableDict.setValue(errorMsg, forKey: kTitle)
                 }
                 metadataDict[kLable] = lableDict
@@ -1332,8 +1346,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         let charcter  = CharacterSet(charactersIn: "+0123456789").inverted
         var filtered:NSString!
         let inputString : NSArray = value.components(separatedBy: charcter) as [String] as NSArray
-        filtered = inputString.componentsJoined(by: "") as NSString
         
+        filtered = inputString.componentsJoined(by: "") as NSString
         return  value == String(filtered)
     }
     
@@ -1359,31 +1373,37 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     //PostCode Verification Delegate Method
     func success(_ addressArray:Array<String>){
+        
         objAnimView?.removeFromSuperview()
         self.getJSONForUI()
         var dict = arrRegistration[8] as Dictionary<String,AnyObject>
-        var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
+        var metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
         let lableDict = metadataDict[kTextField1]?.mutableCopy() as AnyObject
+        
         lableDict.setValue(addressArray, forKey: "dropDownArray")
         metadataDict[kTextField1] = lableDict
         dict[kMetaData] = metadataDict as AnyObject
         arrRegistration[8] = dict
         arrAddress = addressArray
         dictForTextFieldValue.removeValue(forKey: "errorPostcodeValid")
+        
         self.createCells()
+        
     }
     func error(_ error:String){
         objAnimView?.removeFromSuperview()
         if(error == "That postcode doesn't look right"){
-            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
-            var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-            let lableDict = metadataDict[kLable]?.mutableCopy() as AnyObject
+            var dict            = arrRegistration[7] as Dictionary<String,AnyObject>
+            var metadataDict    = dict[kMetaData] as! Dictionary<String,AnyObject>
+            let lableDict       = metadataDict[kLable]?.mutableCopy() as AnyObject
+            
             lableDict.setValue("Yes", forKey: kIsErrorShow)
             lableDict.setValue(error, forKey: kTitle)
             metadataDict[kLable] = lableDict
             dict[kMetaData] = metadataDict as AnyObject
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
             arrRegistration[7] = dict
+            
             self.createCells()
         }
         else {
@@ -1402,6 +1422,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     
     @IBAction func addProfilePictureButtonPressed(_ sender: AnyObject) {
+        
         self.resignAllTextfield()
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle:UIAlertControllerStyle.actionSheet)
         
@@ -1410,7 +1431,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
                 
-                self.imagePicker.delegate = self
+                self.imagePicker.delegate   = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
                 self.imagePicker.allowsEditing = true
                 
@@ -1420,12 +1441,12 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
                 alert.show()
             }
-            })
+        })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
         { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
-                self.imagePicker.delegate = self
+                self.imagePicker.delegate   = self
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
                 self.imagePicker.allowsEditing = true
                 
@@ -1436,7 +1457,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 alert.show()
             }
             
-            })
+        })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         
@@ -1445,28 +1466,28 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     //Go to Payment screen
     
-  /*
-    ["partyRole": 4, kTitle: Mr, "date_of_birth": 23/11/1998, kCounty:  London, kTown: <null>, "house_number": <null>, kSecondName: Labale, "partyStatus": ENABLE, kEmail: pavan@vsplc.com, "confirm_pin": <null>, "partyGender": <null>, kPostCode: se16at, kAddress2:  26 Arch Street, kFirstName: Pavan, "imageURL": <null>, "deviceRegistration": <__NSSingleObjectArrayI 0x60800020f8a0>(
-    {
-    COOKIE = "4ec3414a-19c1-439e-8136-90c852e613bc";
-    "DEVICE_ID" = "631CB809-9288-4A30-BACC-632C604960B6";
-    "DEV_ID" = 56;
-    "PNS_DEVICE_ID" = "";
-    "PTY_AUTH_PIN" = "<null>";
-    STATUS = ENABLE;
-    }
-    )
-    , kAddress3:  , "pass_code": 81dc9bdb52d04dc20036dbd8313ed055, kAddress1: Flat 11, "partyId": 1025, "phone_number": +441591591591, "stripeCustomerId": cus_9c8sDkhTRTzuPS, "stripeStatusCode": 01, "pin": 81dc9bdb52d04dc20036dbd8313ed055]*/
+    /*
+     ["partyRole": 4, kTitle: Mr, "date_of_birth": 23/11/1998, kCounty:  London, kTown: <null>, "house_number": <null>, kSecondName: Labale, "partyStatus": ENABLE, kEmail: pavan@vsplc.com, "confirm_pin": <null>, "partyGender": <null>, kPostCode: se16at, kAddress2:  26 Arch Street, kFirstName: Pavan, "imageURL": <null>, "deviceRegistration": <__NSSingleObjectArrayI 0x60800020f8a0>(
+     {
+     COOKIE = "4ec3414a-19c1-439e-8136-90c852e613bc";
+     "DEVICE_ID" = "631CB809-9288-4A30-BACC-632C604960B6";
+     "DEV_ID" = 56;
+     "PNS_DEVICE_ID" = "";
+     "PTY_AUTH_PIN" = "<null>";
+     STATUS = ENABLE;
+     }
+     )
+     , kAddress3:  , "pass_code": 81dc9bdb52d04dc20036dbd8313ed055, kAddress1: Flat 11, "partyId": 1025, "phone_number": +441591591591, "stripeCustomerId": cus_9c8sDkhTRTzuPS, "stripeStatusCode": 01, "pin": 81dc9bdb52d04dc20036dbd8313ed055]*/
     
     
     func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
         var replaceDict: Dictionary<String,AnyObject> = dict
         let blank = ""
         //check each key's value
-        for key:String in Array(dict.keys) {
+        for key in Array(dict.keys) {
             let ob = dict[key]! as? AnyObject
             //if value is Null or nil replace its value with blank
-            if (ob is NSNull)  || ob == nil {
+            if (ob is NSNull)  || (ob == nil) {
                 replaceDict[key] = blank as AnyObject
             }
             else if (ob is Dictionary<String,AnyObject>) {
@@ -1482,15 +1503,16 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         }
         return replaceDict
     }
+    
     func changeMainDict() {
-        userBeforeEditInfoDict[kTitle] = userInfoDict[kTitle] as! String as AnyObject
-        userBeforeEditInfoDict[kFirstName] = userInfoDict[kFirstName] as! String as AnyObject
+        userBeforeEditInfoDict[kTitle]      = userInfoDict[kTitle] as! String as AnyObject
+        userBeforeEditInfoDict[kFirstName]  = userInfoDict[kFirstName] as! String as AnyObject
         userBeforeEditInfoDict[kSecondName] = userInfoDict[kSecondName] as! String as AnyObject
-        userBeforeEditInfoDict[kAddress1] = userInfoDict[kAddress1] as! String as AnyObject
-        userBeforeEditInfoDict[kAddress2] = userInfoDict[kAddress2] as! String as AnyObject
-        userBeforeEditInfoDict[kAddress3] = userInfoDict[kAddress3] as! String as AnyObject
-        userBeforeEditInfoDict[kTown] = userInfoDict[kTown] as! String as AnyObject
-        userBeforeEditInfoDict[kCounty] = userInfoDict[kCounty] as! String as AnyObject
+        userBeforeEditInfoDict[kAddress1]   = userInfoDict[kAddress1] as! String as AnyObject
+        userBeforeEditInfoDict[kAddress2]   = userInfoDict[kAddress2] as! String as AnyObject
+        userBeforeEditInfoDict[kAddress3]   = userInfoDict[kAddress3] as! String as AnyObject
+        userBeforeEditInfoDict[kTown]       = userInfoDict[kTown] as! String as AnyObject
+        userBeforeEditInfoDict[kCounty]     = userInfoDict[kCounty] as! String as AnyObject
         self.isInfoUpdated = false
     }
     
@@ -1498,13 +1520,13 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
         var updateFlag: Bool = false
         let titleSTr = userBeforeEditInfoDict[kTitle] as! String
         let firstName = userBeforeEditInfoDict[kFirstName] as! String
-         let lastName = userBeforeEditInfoDict[kSecondName] as! String
-         let address1 = userBeforeEditInfoDict[kAddress1] as! String
+        let lastName = userBeforeEditInfoDict[kSecondName] as! String
+        let address1 = userBeforeEditInfoDict[kAddress1] as! String
         let address2 = userBeforeEditInfoDict[kAddress2] as! String
         let address3 = userBeforeEditInfoDict[kAddress3] as! String
         let town = userBeforeEditInfoDict[kTown] as! String
         let country = userBeforeEditInfoDict[kCounty] as! String
-
+        
         
         if titleSTr != (userInfoDict[kTitle] as! String){
             updateFlag = true
@@ -1542,17 +1564,17 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
     
     @IBAction func paymentButtonPressed(_ sender: UIButton) {
         
-        
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         self.showAlt()
         
     }
     
     
-    func showAlt()  {
-        let individualFlag = UserDefaults.standard.value(forKey: kIndividualPlan) as! NSNumber
-        let groupFlag = UserDefaults.standard.value(forKey: kGroupPlan) as! NSNumber
-        let groupMemberFlag = UserDefaults.standard.value(forKey: kGroupMemberPlan) as! NSNumber
+    func showAlt() {
+        
+        let individualFlag = userDefaults.value(forKey: kIndividualPlan) as! NSNumber
+        let groupFlag = userDefaults.value(forKey: kGroupPlan) as! NSNumber
+        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan) as! NSNumber
         
         if(individualFlag == 1 || groupFlag == 1 || groupMemberFlag == 1)
         {
@@ -1592,7 +1614,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
-
+        
     }
     
     
@@ -1610,11 +1632,11 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                 
                 userInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
                 dictForTextFieldValue = self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
-
+                
                 //Get Registration UI Json data
                 userBeforeEditInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
-
-                               print(userBeforeEditInfoDict)
+                
+                print(userBeforeEditInfoDict)
                 if let urlString = userInfoDict[kImageURL] as? String
                 {
                     let url = URL(string:urlString)
@@ -1637,7 +1659,7 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
                                 self.spinner.stopAnimating()
                                 self.spinner.isHidden = true
                             }
-                        } as! (URLResponse?, Data?, Error?) -> Void)
+                            } as! (URLResponse?, Data?, Error?) -> Void)
                     }
                     else{
                         self.spinner.stopAnimating()
@@ -1669,8 +1691,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         objAnimView!.removeFromSuperview()
     }
@@ -1719,9 +1741,8 @@ class SAEditUserInfoViewController: UIViewController, UITableViewDelegate, UITab
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
 }

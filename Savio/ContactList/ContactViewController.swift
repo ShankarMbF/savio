@@ -127,7 +127,7 @@ class ContactViewController: UIViewController {
         var nameArray : Array<String> = []
         
         //Validating if user alredy select for invitation
-        if let contactArray = UserDefaults.standard.object(forKey: "InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
+        if let contactArray = userDefaults.object(forKey: "InviteGroupArray") as? Array<Dictionary<String,AnyObject>>
         {
             for i in 0 ..< contactArray.count {
                 

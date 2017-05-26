@@ -91,7 +91,6 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     
     
     func setUpView(){
-        let objAPI = API()
         //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
         //        {
         //            if let _ =  objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
@@ -125,9 +124,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
         //            self.cancelButton.hidden = false
         //        }
         //
-        if let _ = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = userDefaults.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
         {
-            if let _ =  UserDefaults.standard.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
+            if let _ =  userDefaults.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
             {
                 
                 // self.navigationItem.setHidesBackButton(true, animated: false)
@@ -315,7 +314,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 STPAPIClient.shared().createToken(withCard: stripeCard, completion: { (token: STPToken?, error: NSError?) -> Void in
 //                    print(token?.card?.type)
                     self.errorFlag = false
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription as Any)
                     if((error) != nil)
                     {
                         self.objAnimView.removeFromSuperview()
@@ -350,9 +349,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     }
                     else {
                         if token?.card?.funding.rawValue == 0 {
-                            print(token?.card?.cvc)
+//                            print(token?.card?.cvc)
                             let objAPI = API()
-                            let userInfoDict = UserDefaults.standard.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
+                            let userInfoDict = userDefaults.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
                             //                            let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                             
                             var array : Array<Dictionary<String,AnyObject>> = []
@@ -363,7 +362,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             if(self.addNewCard == true)
                             {
                                 //                                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
-                                if let saveCardArray = UserDefaults.standard.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
+                                if let saveCardArray = userDefaults.object(forKey: "saveCardArray") as? Array<Dictionary<String,AnyObject>>
                                 {
                                     array = saveCardArray
                                     var cardNumberArray : Array<String> = []
@@ -375,9 +374,9 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     if(cardNumberArray.contains(cardNum) == false)
                                     {
                                         array.append(dict1)
-                                        UserDefaults.standard.setValue(dict1, forKey: "activeCard")
-                                        //                                        NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
-                                        UserDefaults.standard.synchronize()
+                                        userDefaults.setValue(dict1, forKey: "activeCard")
+                                        //                                        NSuserDefaultsUserDefaults().setObject(array, forKey: "saveCardArray")
+                                        userDefaults.synchronize()
                                         objAPI.storeValueInKeychainForKey("saveCardArray", value: array as AnyObject)
                                         
                                         
@@ -400,16 +399,16 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                 }
                                 else {
                                     //Call AddSavingCardDelegate
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
+                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":userDefaults.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
                                 }
                             }
                             else {
                                 array.append(dict1)
-                                UserDefaults.standard.setValue(dict1, forKey: "activeCard")
-                                //                                NSUserDefaults.standardUserDefaults().setObject(array, forKey: "saveCardArray")
-                                UserDefaults.standard.synchronize()
+                                userDefaults.setValue(dict1, forKey: "activeCard")
+                                //                                NSuserDefaultsUserDefaults().setObject(array, forKey: "saveCardArray")
+                                userDefaults.synchronize()
                                 
                                 objAPI.storeValueInKeychainForKey("saveCardArray", value: array as AnyObject)
                                 
@@ -421,7 +420,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                                     objAPI.addNewSavingCard(dict)
                                     self.addNewCard = false
                                 } else {
-                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
+                                    let dict : Dictionary<String,AnyObject> = ["PTY_ID":userInfoDict["partyId"] as! NSNumber,"STRIPE_TOKEN":(token?.tokenId)! as AnyObject,"PTY_SAVINGPLAN_ID":userDefaults.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber]
                                     
                                     objAPI.addSavingCardDelegate = self
                                     objAPI.addSavingCard(dict)
@@ -435,7 +434,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                             self.cardNumView.constant = 35
                         }
                     }
-                } as! STPTokenCompletionBlock)
+                } as? STPTokenCompletionBlock)
                 
             } catch let underlyingError as NSError{
                 print("Error info: \(underlyingError.localizedDescription)")
@@ -687,7 +686,7 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
             
         }else if text?.characters.count == 0 {
             
-            for idx in 0...tag {
+            for _ in 0...tag {
                 tag -= 1
                 if tag >= 0 {
                     let tfPre = arrayTextFields[tag]
@@ -783,8 +782,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     {
                         //Navigate to SAThankYouViewController
                         self.isFromGroupMemberPlan = false
-                        UserDefaults.standard.setValue(1, forKey: "groupMemberPlan")
-                        UserDefaults.standard.synchronize()
+                        userDefaults.setValue(1, forKey: "groupMemberPlan")
+                        userDefaults.synchronize()
                         let objThankyYouView = SAThankYouViewController()
                         self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     }
@@ -820,8 +819,8 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 {
                     //Navigate to showing group progress
                     self.isFromGroupMemberPlan = false
-                    UserDefaults.standard.setValue(1, forKey: "groupMemberPlan")
-                    UserDefaults.standard.synchronize()
+                    userDefaults.setValue(1, forKey: "groupMemberPlan")
+                    userDefaults.synchronize()
                     let objThankyYouView = SAThankYouViewController()
                     self.navigationController?.pushViewController(objThankyYouView, animated: true)
                     
@@ -830,18 +829,20 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                     objAPI.impulseSavingDelegate = self
                     
                     var newDict : Dictionary<String,AnyObject> = [:]
-                    let userInfoDict = UserDefaults.standard.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
+                    _ = userDefaults.object(forKey: "userInfo") as! Dictionary<String,AnyObject>
                     //                    let userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
                     let cardDict = objResponse["card"] as? Dictionary<String,AnyObject>
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
-                    newDict["STRIPE_CUSTOMER_ID"] = cardDict!["customer"]
-                    newDict["PAYMENT_DATE"] = dateFormatter.string(from: Date()) as AnyObject
-                    newDict["AMOUNT"] = UserDefaults.standard.value(forKey: "ImpulseAmount") as AnyObject
-                    newDict["PAYMENT_TYPE"] = "debit" as AnyObject
-                    newDict["AUTH_CODE"] = "test" as AnyObject
-                    newDict["PTY_SAVINGPLAN_ID"] = UserDefaults.standard.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber
+                    
+                    newDict["STRIPE_CUSTOMER_ID"]   = cardDict!["customer"]
+                    newDict["PAYMENT_DATE"]         = dateFormatter.string(from: Date()) as AnyObject
+                    newDict["AMOUNT"]               = userDefaults.value(forKey: "ImpulseAmount") as AnyObject
+                    newDict["PAYMENT_TYPE"]         = "debit" as AnyObject
+                    newDict["AUTH_CODE"]            = "test" as AnyObject
+                    newDict["PTY_SAVINGPLAN_ID"]    = userDefaults.value(forKey: "PTY_SAVINGPLAN_ID") as! NSNumber
                     print(newDict)
+                    
                     objAPI.impulseSaving(newDict)
                 }
                 else if(isFromEditUserInfo)

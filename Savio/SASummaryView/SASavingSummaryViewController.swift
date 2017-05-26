@@ -135,8 +135,8 @@ class SASavingSummaryViewController: UIViewController {
     
     //Function invoking for set up UI as per the individual or group plan
     func setUpView(){
-        UserDefaults.standard.removeObject(forKey: "offerList")
-        UserDefaults.standard.synchronize()
+        userDefaults.removeObject(forKey: "offerList")
+        userDefaults.synchronize()
         
         //--------------set Navigation left button------------
         let leftBtnName = UIButton()
@@ -180,7 +180,7 @@ class SASavingSummaryViewController: UIViewController {
         groupViewHt.constant = 0.0
         
         //-------Setup the continue button UI---------------
-        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
         btnContinue?.backgroundColor = self.setUpColor()
         continueButtonBackgroundView.backgroundColor = self.setUpShadowColor()
         continueButtonBackgroundView.layer.cornerRadius = 5
@@ -188,10 +188,10 @@ class SASavingSummaryViewController: UIViewController {
         
         let objAPI = API()
 //        if let _ = objAPI.getValueFromKeychainOfKey("savingPlanDict") as? Dictionary<String,AnyObject>
-        if let _ = UserDefaults.standard.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
+        if let _ = userDefaults.object(forKey: "savingPlanDict") as? Dictionary<String,AnyObject>
         {
             print(itemDataDict)
-            itemDataDict = UserDefaults.standard.object(forKey: "savingPlanDict") as! Dictionary<String, AnyObject>
+            itemDataDict = userDefaults.object(forKey: "savingPlanDict") as! Dictionary<String, AnyObject>
             print(itemDataDict)
 
             //-------Check is invited user available or not and showing list----------------------------
@@ -272,20 +272,20 @@ class SASavingSummaryViewController: UIViewController {
                         }
                     }
                     //------------------------------------------------------------------------------------
-                    UserDefaults.standard.setValue(1, forKey: kGroupPlan)
-                    UserDefaults.standard.synchronize()
+                    userDefaults.setValue(1, forKey: kGroupPlan)
+                    userDefaults.synchronize()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 }
             }else {
-                UserDefaults.standard.setValue(1, forKey: kIndividualPlan)
-                UserDefaults.standard.synchronize()
+                userDefaults.setValue(1, forKey: kIndividualPlan)
+                userDefaults.synchronize()
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
             }
             
             //-----------------End of showing Invited user list-------------------------------------------
             
             //--------showing wishlist count--------------------------------------------------------------
-            if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+            if let str = userDefaults.object(forKey: "wishlistArray") as? Data
             {
                 let dataSave = str
                 wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -302,8 +302,8 @@ class SASavingSummaryViewController: UIViewController {
                 
                 let dataNew = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
                 
-                UserDefaults.standard.set(dataNew, forKey: "wishlistArray")
-                UserDefaults.standard.synchronize()
+                userDefaults.set(dataNew, forKey: "wishlistArray")
+                userDefaults.synchronize()
                 
                 if(wishListArray.count > 0)
                 {
@@ -514,7 +514,7 @@ class SASavingSummaryViewController: UIViewController {
                 print(str)
                 pathComponents2 = dateFormatter.string(from: newDate).components(separatedBy: " ") as [String] as NSArray
                 print(pathComponents2)
-                print(itemDataDict["payDate"])
+                print(itemDataDict["payDate"] ?? "payDate ")
 //                            lblNextDebit.text = String(format:"%@-%@-%@",itemDataDict["payDate"] as! String,pathComponents2[1] as! String,pathComponents2[2] as! String)
                 print(itemDataDict["payDate"])
                 let daystr = pathComponents2[0] as! String
@@ -525,7 +525,6 @@ class SASavingSummaryViewController: UIViewController {
                 lblNextDebit.font = UIFont.init(name: kBookFont, size: 15)
             }
         }
-        
     }
     
     let dayArray : Array<String> = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]

@@ -103,7 +103,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SASwitchViewController.heartBtnClicked), for: .touchUpInside)
         
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -161,7 +161,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         var planOneType = ""
         if(dictOne["partySavingPlanType"] as! String == "Group")
         {
-            if let sharedSavingPlanID = dictOne["sharedSavingPlanID"] as? NSNumber
+            let sharedSavingPlanID = dictOne["sharedSavingPlanID"] as? NSNumber
+            if (sharedSavingPlanID != nil)
             {
                 planOneType = "GM"
             }
@@ -173,8 +174,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planOneType = "I"
         }
         
-        UserDefaults.standard.set(planOneType, forKey: kUsersPlan)
-        UserDefaults.standard.synchronize()
+        userDefaults.set(planOneType, forKey: kUsersPlan)
+        userDefaults.synchronize()
     }
     
     @IBAction func planTwoButtonPressed(_ sender: AnyObject) {
@@ -187,7 +188,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
         var planTwoType = ""
         if(dictTwo["partySavingPlanType"] as! String == "Group")
         {
-            if let sharedSavingPlanID = dictTwo["sharedSavingPlanID"] as? NSNumber
+            if (dictTwo["sharedSavingPlanID"] as? NSNumber) != nil
             {
                 planTwoType = "GM"
             }
@@ -199,8 +200,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
             planTwoType = "I"
         }
         
-        UserDefaults.standard.set(planTwoType, forKey: kUsersPlan)
-        UserDefaults.standard.synchronize()
+        userDefaults.set(planTwoType, forKey: kUsersPlan)
+        userDefaults.synchronize()
         
     }
     

@@ -114,7 +114,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     {
         let objAPI = API()
         //get keychain values
-        let userDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        let userDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        let userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         objAPI.getWishlistDelegate = self
         
@@ -206,8 +206,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         if colors.count > 0{
             
             let dataSave = NSKeyedArchiver.archivedData(withRootObject: colors)
-            UserDefaults.standard.set(dataSave, forKey: "wishlistArray")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(dataSave, forKey: "wishlistArray")
+            userDefaults.synchronize()
             
             if(colors.count >= 5)
             {
@@ -216,8 +216,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     heartBtn.setTitleColor(UIColor.black, for: UIControlState())
 //                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
-//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-//                    NSUserDefaults.standardUserDefaults().synchronize()
+//                    NSuserDefaultsUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+//                    NSuserDefaultsUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -299,8 +299,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     heartBtn.setTitleColor(UIColor.black, for: UIControlState())
 //                    let dataSave = NSKeyedArchiver.archivedDataWithRootObject(colors)
                     
-//                    NSUserDefaults.standardUserDefaults().setObject(dataSave, forKey: "wishlistArray")
-//                    NSUserDefaults.standardUserDefaults().synchronize()
+//                    NSuserDefaultsUserDefaults().setObject(dataSave, forKey: "wishlistArray")
+//                    NSuserDefaultsUserDefaults().synchronize()
                     
                     // Load the TestView view.
                     let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -380,8 +380,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         else {
             
             //--------------If whishlist is empty setup UI--------------------------------------------
-            UserDefaults.standard.set(colors, forKey: "wishlistArray")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(colors, forKey: "wishlistArray")
+            userDefaults.synchronize()
             
             scrlView!.contentSize = CGSize(width: UIScreen.main.bounds.size.width , height: 0)
             let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
@@ -512,7 +512,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Check If any plan is created by login user
-        if(UserDefaults.standard.object(forKey: kIndividualPlan) as? NSNumber == 1 || UserDefaults.standard.object(forKey: kGroupPlan) as? NSNumber == 1)
+        if(userDefaults.object(forKey: kIndividualPlan) as? NSNumber == 1 || userDefaults.object(forKey: kGroupPlan) as? NSNumber == 1)
         {
             //if plan already created then restrict user to create all plan
             let alert = UIAlertView(title: "You already have an active plan", message: "Sorry, can only have one personal plan and be a member of one group plan at a time.", delegate: nil, cancelButtonTitle: "Ok")
@@ -521,8 +521,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         else
         {
             //If plan is not created then allow user to create plan
-            UserDefaults.standard.set(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
-            UserDefaults.standard.synchronize()
+            userDefaults.set(self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
+            userDefaults.synchronize()
             if(indexPath.row == 0)
             {
                 let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
@@ -530,8 +530,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             }
             else
             {
-                UserDefaults.standard.set( self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
-                UserDefaults.standard.synchronize()
+                userDefaults.set( self.checkNullDataFromDict(tblArr[indexPath.row]), forKey:"colorDataDict")
+                userDefaults.synchronize()
                 if(indexPath.row == 0)
                 {
                     let objGroupSavingPlanViewController = GroupsavingViewController(nibName: "GroupsavingViewController",bundle: nil)
@@ -582,8 +582,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let dict = tblArr[i] as Dictionary<String,AnyObject>
                     if(dict[kTitle] as! String == "Group Save")
                     {
-                        UserDefaults.standard.set(dict["savPlanID"], forKey: "savPlanID")
-                        UserDefaults.standard.synchronize()
+                        userDefaults.set(dict["savPlanID"], forKey: "savPlanID")
+                        userDefaults.synchronize()
                     }
                 }
             }
@@ -627,7 +627,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             print(wishListResponse)
             self.setUpView()
         }
-        if let arr =  UserDefaults.standard.value(forKey: "offerList") as? Array<Dictionary<String,AnyObject>>{
+        if let arr =  userDefaults.value(forKey: "offerList") as? Array<Dictionary<String,AnyObject>>{
             if arr.count > 0{
                 objAnimView.removeFromSuperview()
             }
@@ -656,8 +656,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
             arr.append(dict)
         }
-        UserDefaults.standard.set(arr, forKey: "offerList")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(arr, forKey: "offerList")
+        userDefaults.synchronize()
         objAnimView.removeFromSuperview()
     }
     
@@ -673,7 +673,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         let blank = ""
         //check each key's value
         for key:String in Array(dict.keys) {
-            let ob = dict[key]! as? AnyObject
+            let ob = dict[key]! as AnyObject
             //if value is Null or nil replace its value with blank
             if (ob is NSNull)  || ob == nil {
                 replaceDict[key] = blank as AnyObject

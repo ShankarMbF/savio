@@ -79,7 +79,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
       
         loginButton.layer.cornerRadius = 5
         
-        userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        userInfoDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         //add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
@@ -273,7 +273,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             objAnimView.animate()
             self.view.addSubview(objAnimView)
             
-            var userDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+            var userDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
 //            var userDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
             var param = Dictionary<String,AnyObject>()
 //            param[kUserInfo] = userDict[kPartyID]
@@ -281,7 +281,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             let pinPassword = textFieldOne.text! + textFieldTwo.text! + textFieldThree.text! + textFieldFour.text!
             param["pin"] = pinPassword.MD5() as AnyObject
             
-            if let apnsDeviceToken = UserDefaults.standard.value(forKey: "APNSTOKEN") as? NSString
+            if let apnsDeviceToken = userDefaults.value(forKey: "APNSTOKEN") as? NSString
             {
                 param["PNS_DEVICE_ID"] =  apnsDeviceToken
                 
@@ -310,22 +310,22 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let udidDict = dict!["deviceRegistration"] as! Array<Dictionary<String,AnyObject>>
         let udidArray = udidDict[0]
         userInfoDict["cookie"] = udidArray["COOKIE"] as! String as AnyObject
-//        NSUserDefaults.standardUserDefaults().setObject(userInfoDict, forKey: "userInfo")
+//        NSuserDefaultsUserDefaults().setObject(userInfoDict, forKey: "userInfo")
         objAPI.storeValueInKeychainForKey(kUserInfo, value: userInfoDict as AnyObject)
         
         let passcode = self.textFieldOne.text! + self.textFieldTwo.text! + self.textFieldThree.text! + self.textFieldFour.text!
-//       NSUserDefaults.standardUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
-//        NSUserDefaults.standardUserDefaults().synchronize()
+//       NSuserDefaultsUserDefaults().setObject(passcode.MD5(), forKey: "myPasscode")
+//        NSuserDefaultsUserDefaults().synchronize()
         objAPI.storeValueInKeychainForKey("myPasscode", value: passcode.MD5() as AnyObject)
         
         let groupPlan = objResponse["G"] as! NSNumber
         let individualPlan = objResponse["I"] as! NSNumber
         let groupMemberPlan = objResponse["GM"] as! NSNumber
      //Store the plan info in NSUserDefaults
-        UserDefaults.standard.set(groupPlan, forKey: kGroupPlan)
-        UserDefaults.standard.set(individualPlan, forKey: kIndividualPlan)
-        UserDefaults.standard.set(groupMemberPlan, forKey: kGroupMemberPlan)
-        UserDefaults.standard.synchronize()
+        userDefaults.set(groupPlan, forKey: kGroupPlan)
+        userDefaults.set(individualPlan, forKey: kIndividualPlan)
+        userDefaults.set(groupMemberPlan, forKey: kGroupMemberPlan)
+        userDefaults.synchronize()
         
         self.setUpMenu(groupPlan, individual: individualPlan, member: groupMemberPlan)
         
@@ -379,8 +379,8 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         else {
             className = ""
         }
-        UserDefaults.standard.set(className, forKey: "ShowProgress")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(className, forKey: "ShowProgress")
+        userDefaults.synchronize()
     }
     
     
@@ -464,7 +464,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
             
         }else {
             
-            for idx in 0...tag {
+            for _ in 0...tag {
                 tag -= 1
                 if tag >= 0 {
                     let tfPre = arrayTextFields[tag]

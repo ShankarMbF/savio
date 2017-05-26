@@ -721,7 +721,7 @@ class API: UIView,URLSessionDelegate {
                 if let data = data
                 {
                     let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject
-                    print(json)
+                    print(json!)
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         if(dict["errorCode"] as! String == "200")
@@ -1561,7 +1561,7 @@ class API: UIView,URLSessionDelegate {
                         }
                     }
                 }
-                else  if let error = error
+                else  if error != nil
                 {
                     DispatchQueue.main.async{
                         self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI((response?.description)!)
@@ -2068,7 +2068,7 @@ class API: UIView,URLSessionDelegate {
         
         let year =  components.year
         let month = components.month
-        let CurrentDateForplan = "\(year)-\(month)"
+        let CurrentDateForplan = "\(String(describing: year))-\(String(describing: month))"
         
         return CurrentDateForplan
     }

@@ -44,7 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         application.registerForRemoteNotifications()
         
         // Check if launched from notification
-        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
+        let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject]
+        if notification != nil {
             // Do the stuff after geting Notification when app is not running mode
         }
         
@@ -55,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.setStatusBarBackgroundColor(UIColor.black)
         UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
         
-        let passcode = UserDefaults.standard.value(forKey: "myPasscode") as? String
+        let passcode = userDefaults.value(forKey: "myPasscode") as? String
         
         if (passcode?.characters.count)! > 0{
             //Go to SAEnterYourPINViewController
@@ -202,7 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [String : Any]) {
+    private func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [String : Any]) {
         print(userInfo)
     }
     
@@ -218,8 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
         }
          print(tokenString)
-        UserDefaults.standard.set(tokenString, forKey: "APNSTOKEN")
-        UserDefaults.standard.synchronize()
+        userDefaults.set(tokenString, forKey: "APNSTOKEN")
+        userDefaults.synchronize()
     }
     
     //Delegate method invoke when the APNS registration is failed

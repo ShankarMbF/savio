@@ -75,8 +75,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
         btnName.setTitleColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1), for: UIControlState())
         btnName.addTarget(self, action: #selector(SACancelSavingViewController.heartBtnClicked), for: .touchUpInside)
         
-        //Check if NSUserDefaults.standardUserDefaults() has value for "wishlistArray"
-        if let str = UserDefaults.standard.object(forKey: "wishlistArray") as? Data
+        //Check if NSuserDefaultsUserDefaults() has value for "wishlistArray"
+        if let str = userDefaults.object(forKey: "wishlistArray") as? Data
         {
             let dataSave = str
             wishListArray = (NSKeyedUnarchiver.unarchiveObject(with: dataSave) as? Array<Dictionary<String,AnyObject>>)!
@@ -138,8 +138,8 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
             if (message == "Cancelled Plan successfully")
             {
                 //Remove the individualPlan's value from NSUserDefaults
-                UserDefaults.standard.setValue(0, forKey: kIndividualPlan)
-                UserDefaults.standard.synchronize()
+                userDefaults.setValue(0, forKey: kIndividualPlan)
+                userDefaults.synchronize()
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationIdentifier), object: nil)
                 view1.isHidden = true
                 view2.isHidden = false

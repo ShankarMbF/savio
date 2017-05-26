@@ -27,7 +27,7 @@ class SavingPlanTitleTableViewCell: UITableViewCell,UITextFieldDelegate {
         // Initialization code
         titleTextField.delegate = self
         titleTextField.layer.cornerRadius = 5
-        colorDataDict =  UserDefaults.standard.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
+        colorDataDict =  userDefaults.object(forKey: "colorDataDict") as! Dictionary<String,AnyObject>
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

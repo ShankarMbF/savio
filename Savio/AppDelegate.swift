@@ -57,8 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.lightContent, animated: true)
         
         let passcode = userDefaults.value(forKey: "myPasscode") as? String
+        let charCount = passcode?.characters.count ?? 0
         
-        if (passcode?.characters.count)! > 0{
+        if charCount > 0 {
             //Go to SAEnterYourPINViewController
             objEnterYourPinViewController = SAEnterYourPINViewController()
             //Set SAEnterYourPINViewController as rootViewController of UINavigationViewController

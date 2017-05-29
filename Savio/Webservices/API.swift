@@ -261,15 +261,14 @@ class API: UIView,URLSessionDelegate {
             //Get Address API URL
             let urlString = String(format:"https://api.getaddress.io/v2/uk/%@?api-key=McuJM5nIIEqqGRVCRUBztQ4159",postcode)
             
-            let url = URL(string: urlString)
+            let url     = URL(string: urlString)
             let request = URLRequest(url: url!)
+            
             //Set time out after requesting 30 second
             self.setTimeOutRequest(30)
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
-            let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:NSError?) -> Void in
+            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                print("Response: \(String(describing: response))")
                 if let data = data
                 {
                     let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject
@@ -297,8 +296,9 @@ class API: UIView,URLSessionDelegate {
                         self.delegate?.error(error.localizedDescription)
                     }
                 }
-            } as! (Data?, URLResponse?, Error?) -> Void) 
-            dataTask.resume()
+            })
+            task.resume()
+
         }
         else {
             //Give error no network found

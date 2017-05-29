@@ -844,9 +844,9 @@
                 pathComponents = (datePickerDate).components(separatedBy: " ") as [String] as NSArray
                 var dateStr = pathComponents.lastObject as! String
                 dateStr = dateStr.replacingOccurrences(of: "/", with: "-")
-                var pathComponents2 : NSArray!
-                pathComponents2 = [dateStr.components(separatedBy: "-").joined(separator: " ")] as [String] as NSArray
-                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String) as AnyObject;
+//                var pathComponents2 : NSArray!
+                let pathComponents2 = dateStr.components(separatedBy: "-")
+                parameterDict[kPLANENDDATE] = String(format: "%@-%@-%@",pathComponents2[2] ,pathComponents2[1] ,pathComponents2[0]) as AnyObject;
                 
                 /*
                  let invalidCharSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ").inverted

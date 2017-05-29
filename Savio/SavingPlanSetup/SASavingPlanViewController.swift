@@ -65,11 +65,11 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     var offerDetailTag      = 0
     var prevOfferDetailTag  = 0
     var offerCount          = 0
-    var imagePicker         = UIImagePickerController()
-    var userInfoDict        = [String:AnyObject]()
-    var objAnimView         = ImageViewAnimation()
+    
     var dateString          = kDate
-
+    var objAnimView         = ImageViewAnimation()
+    var imagePicker         = UIImagePickerController()
+    var userInfoDict        = Dictionary<String,AnyObject>()
     
     var isCostChanged           = false
     var nextButtonTrigger       = false
@@ -123,7 +123,8 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         tblView!.register(UINib(nibName: "CancelButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "CancelSavingPlanIdentifier")
         
         let objAPI = API()
-//        userInfoDict.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+
+        userInfoDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
         topBackgroundImageView.contentMode = UIViewContentMode.scaleAspectFill
         topBackgroundImageView.layer.masksToBounds = true
         
@@ -1779,12 +1780,10 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let date = dateFormatter.date(from: itemDetailsDataDict["planEndDate"] as! String)
                 
-                dateFormatter.dateFormat = "EEE dd/MM/yyyy"
-                let goodDate = dateFormatter.string(from: date!)
-                print(goodDate)
+                dateFormatter.dateFormat = "dd-MM-yyyy"   //  optional :""EEE dd-MM-yyyy""
+                let byDate = dateFormatter.string(from: date!)
                 
-                datePickerDate = String(format: "%@-%@-%@",pathComponents2[2] as! String,pathComponents2[1] as! String,pathComponents2[0] as! String);
-                datePickerDate = goodDate
+                datePickerDate = byDate
                 popOverSelectedStr = itemDetailsDataDict["payDate"] as! String
                 if (!(objResponse["offerList"] is NSNull) && objResponse["offerList"] != nil ){
                     offerArr = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>

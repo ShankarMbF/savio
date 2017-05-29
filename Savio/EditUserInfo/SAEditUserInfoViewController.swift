@@ -1340,7 +1340,6 @@ extension SAEditUserInfoViewController: GetUserInfoDelegate {
                     self.spinner.isHidden = true
                 }
                 
-                
                 self.getJSONForUI()
                 //Setup Registration UI
                 self.createCells()

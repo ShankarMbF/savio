@@ -439,7 +439,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 labelSix.attributedText = attString
                 
                 //calculate the time difference between todays date and plan end date
-                timeSince = self.timeBetween(Date(), endDate: planEnddate)
+//                timeSince = self.timeBetween(Date(), endDate: planEnddate)
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 let timeDifference : TimeInterval = planEnddate.timeIntervalSince(Date())
@@ -539,9 +539,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func timeBetween(_ startDate: Date, endDate: Date) -> [Int]
     {
         let calendar = Calendar.current
-        
         let components = (calendar as NSCalendar).components([.day, .month, .year], from: startDate, to: endDate, options: [])
-        
         return [components.day!, components.hour!, components.minute!]
     }
     

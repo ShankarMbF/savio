@@ -54,14 +54,15 @@ class SAImpulseSavingViewController: UIViewController {
     
     fileprivate var sliderOptions: [CircleSliderOption] {
         return [
-//            .barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
-//            .thumbImage(UIImage (named: "slider-handle@2x.png")),
-//            .trackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
-//            .barWidth(20),
-//            .startAngle(-90),
-//            .maxValue(100),
-//            .minValue(0),
-//            .thumbWidth(40)
+            CircleSliderOption.startAngle(-90),
+            CircleSliderOption.thumbImage(UIImage (named: "slider-handle@2x.png")),
+            CircleSliderOption.barColor(UIColor(red: 234/255, green: 235/255, blue: 237/255, alpha: 1)),
+            CircleSliderOption.trackingColor(UIColor(red: 244/255, green: 176/255, blue: 58/255, alpha: 1)),
+            CircleSliderOption.barWidth(20),
+            CircleSliderOption.thumbWidth(40),
+            CircleSliderOption.maxValue(100),
+            CircleSliderOption.minValue(0),
+            CircleSliderOption.sliderEnabled(true),
         ]
     }
     

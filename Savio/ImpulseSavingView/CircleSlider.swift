@@ -9,17 +9,17 @@
 import UIKit
 
 public enum CircleSliderOption {
-    case startAngle(Double)
-    case barColor(UIColor)
-    case trackingColor(UIColor)
-    case thumbColor(UIColor)
-    case barWidth(CGFloat)
-    case thumbWidth(CGFloat)
-    case thumbImage(UIImage?)
-    case maxValue(Float)
-    case minValue(Float)
-    case sliderEnabled(Bool)
-    case thumbOffset(Bool)
+    case startAngle     (Double)
+    case barColor       (UIColor)
+    case trackingColor  (UIColor)
+    case thumbColor     (UIColor)
+    case barWidth       (CGFloat)
+    case thumbWidth     (CGFloat)
+    case thumbImage     (UIImage?)
+    case maxValue       (Float)
+    case minValue       (Float)
+    case sliderEnabled  (Bool)
+    case thumbOffset    (Bool)
 }
 
 open class CircleSlider: UIControl {
@@ -68,14 +68,16 @@ open class CircleSlider: UIControl {
     fileprivate var barColor           = UIColor.lightGray
     fileprivate var trackingColor      = UIColor.blue
     fileprivate var thumbColor         = UIColor.clear
-    fileprivate var thumbImage: UIImage?
-    fileprivate var barWidth: CGFloat  = 20
-    fileprivate var maxValue: Float    = 100
-    fileprivate var minValue: Float    = 0
+    
     fileprivate var sliderEnabled      = true
     fileprivate var thumbOffset        = true
-    fileprivate var _thumbWidth: CGFloat?
-    fileprivate var thumbWidth: CGFloat {
+    
+    fileprivate var thumbImage  : UIImage?
+    fileprivate var barWidth    : CGFloat  = 20
+    fileprivate var maxValue    : Float    = 100
+    fileprivate var minValue    : Float    = 0
+    fileprivate var _thumbWidth : CGFloat?
+    fileprivate var thumbWidth  : CGFloat {
         get {
             if let retValue = self._thumbWidth {
                 return retValue

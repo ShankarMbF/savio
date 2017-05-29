@@ -241,7 +241,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                         let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
-                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                                print("Response: \(String(describing: response))")
                                 if data?.count > 0
                                 {
                                     let image = UIImage(data: data!)
@@ -267,7 +268,8 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                                         self.spinnerTwo.stopAnimating()
                                     })
                                 }
-                            } as! (URLResponse?, Data?, Error?) -> Void)
+                            })
+                            task.resume()
                         }
                         else {
                             self.spinnerOne.isHidden = true

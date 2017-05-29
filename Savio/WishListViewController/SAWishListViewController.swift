@@ -235,7 +235,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
             if(urlString != "")
             {
                 //request server to fetch image data
-                NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+
+                let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    print("Response: \(String(describing: response))")
                     //if imagedata getting then show image
                     if data?.count > 0{
                         let image = UIImage(data: data!)
@@ -251,7 +253,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
                             spinner.stopAnimating()
                         })
                     }
-                } as! (URLResponse?, Data?, Error?) -> Void)
+                })
+                
+                task.resume()
             }
         }
         //----------------------------------------------------------------------------------

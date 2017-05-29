@@ -383,7 +383,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 {
                     //load image from URL
                     let request: URLRequest = URLRequest(url: url)
-                    NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                    let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                        print("Response: \(String(describing: response))")
                         if(data != nil && data!.count>0)
                         {
                             let image = UIImage(data: data!)
@@ -399,7 +400,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                             self.spinner.stopAnimating()
                             self.spinner.isHidden = true
                         }
-                } as! (URLResponse?, Data?, Error?) -> Void)
+
+                    })
+                    
+                    task.resume()
+                    
                 }
                 piechart!.addSubview(imgView)
             }
@@ -769,7 +774,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             if(urlString != "")
             {
                 spinner.startAnimating()
-                NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                
+                let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    print("Response: \(String(describing: response))")
                     if data?.count > 0
                     {
                         let image = UIImage(data: data!)
@@ -786,7 +793,9 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                             spinner.stopAnimating()
                         })
                     }
-                } as! (URLResponse?, Data?, Error?) -> Void)
+                })
+                
+                task.resume()
             }
         }
         

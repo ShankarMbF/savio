@@ -258,7 +258,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                         if(urlString != "")
                         {
                             // fetch image data from url
-                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                            
+                            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                                print("Response: \(String(describing: response))")
                                 if(data != nil && data?.count > 0)
                                 {
                                     //showing image if data available
@@ -267,7 +269,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                                         bgImageView.image = image
                                     })
                                 }
-                            } as! (URLResponse?, Data?, Error?) -> Void)
+                            })
+                            task.resume()
                         }
                     }
                     //---------------------------------------------------------------------
@@ -339,7 +342,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                         let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
-                            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                            
+                            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                                print("Response: \(String(describing: response))")
+                                
                                 if(data != nil && data?.count > 0)
                                 {
                                     let image = UIImage(data: data!)
@@ -348,7 +354,9 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                                         bgImageView.image = image
                                     })
                                 }
-                            } as! (URLResponse?, Data?, Error?) -> Void)
+                            })
+                            
+                            task.resume()
                         }
                     }
                     
@@ -486,8 +494,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         
         cell.imgView?.image = UIImage(named: placeHolderImgArr[indexPath.row])
         if (cellDict["savLogo1x"] != nil){
+            
             let request: URLRequest = URLRequest(url: URL(string:cellDict["savLogo1x"] as! String)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+            
+            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                print("Response: \(String(describing: response))")
                 if(data != nil)
                 {
                     let image = UIImage(data: data!)
@@ -497,7 +508,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                         }
                     })
                 }
-            } as! (URLResponse?, Data?, Error?) -> Void)
+            })
+            task.resume()
         }
         
         return cell

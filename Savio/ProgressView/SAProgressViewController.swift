@@ -259,7 +259,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 {
                     //load image from url
                     let request: URLRequest = URLRequest(url: url)
-                    NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                    
+                    let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                        print("Response: \(String(describing: response))")
                         if(data?.count > 0){
                             let image = UIImage(data: data!)
                             DispatchQueue.main.async(execute: {
@@ -275,7 +277,9 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                             activityIndicator.stopAnimating()
                             activityIndicator.isHidden = true
                         }
-                    } as! (URLResponse?, Data?, Error?) -> Void)
+                    })
+                    
+                    task.resume()
                 }
                 else {
                     //Remove the activityIndicator if image is not present

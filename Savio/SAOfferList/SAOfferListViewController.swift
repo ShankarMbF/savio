@@ -380,16 +380,18 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             if urlStr != "" {
                 let str = urlStr.replacingOccurrences(of: " ", with: "%20")
                 let url = URL(string: str)
-                
                 let request: URLRequest = URLRequest(url: url!)
-                NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    print("Response: \(String(describing: response))")
                     if data != nil && data?.count > 0 {
                         let image = UIImage(data: data!)
                         DispatchQueue.main.async(execute: {
                             cell.offerImage?.image = image
                         })
                     }
-                } as! (URLResponse?, Data?, Error?) -> Void)
+                })
+                
+                task.resume()
             }
         }
         

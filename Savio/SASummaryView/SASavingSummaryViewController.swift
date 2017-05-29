@@ -389,7 +389,9 @@ class SASavingSummaryViewController: UIViewController {
                         let url = URL(string: urlStr)
                         let bgImageView = summaryPageView.viewWithTag(4) as! UIImageView
                         let request: URLRequest = URLRequest(url: url!)
-                        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main, completionHandler: { ( response: URLResponse?,data: Data?,error: NSError?) -> Void in
+                        
+                        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                            print("Response: \(String(describing: response))")
                             if (data != nil && data?.count > 0) {
                                 let image = UIImage(data: data!)
                                 DispatchQueue.main.async(execute: {
@@ -397,7 +399,9 @@ class SASavingSummaryViewController: UIViewController {
                                     bgImageView.image = image
                                 })
                             }
-                        } as! (URLResponse?, Data?, Error?) -> Void)
+                        })
+                        
+                        task.resume()
                     }
                     //--------------------------------------------------------------------------------
                 }

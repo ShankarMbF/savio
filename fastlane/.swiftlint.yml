@@ -10,7 +10,7 @@ disabled_rules:
 opt_in_rules: 
 
 included:
-  - Lea_iOS
+  - Savio
 # paths to ignore during linting. Takes precedence over `included`.
 excluded:
   - src/Pods

@@ -1,0 +1,157 @@
+# More documentation about how to customize your build
+# can be found here:
+# https://docs.fastlane.tools
+fastlane_version "1.109.0"
+
+generated_fastfile_id "fd8bfe9a-1012-4d46-a87e-90205bfa3b5a"
+
+default_platform :ios
+
+platform :ios do 
+
+  before_all do
+    
+	# The Environemt Variable below are updated by jenkins, DO NOT CHANGE IT.
+	ENV["FASTLANE_PASSWORD"] = "MyApplePass"
+	ENV["CRASHLYTICS_API_TOKEN"] = "crshapitoken"
+	ENV["CRASHLYTICS_BUILD_SECRET"] = "crshbuildsecret"
+	ENV["CRASHLYTICS_GROUP"] = "crshgrp"
+	ENV["PROVISIONING_PROFILE"] = "provisngProfile"
+	
+	sh 'mkdir ../reports || true'
+	sh 'mkdir ../dist || true'
+	
+    clear_derived_data
+  end
+  
+  desc "Does a static analysis of the project. Configure the options in .swiftlint.yml"
+	lane :lint do
+		swiftlint(
+			mode: :lint,
+			output_file: 'reports/checkstyle-report.xml',
+			config_file: 'fastlane/.swiftlint.yml',
+			ignore_exit_status: true
+		)
+		
+	end
+	
+  lane :dev_release do |options|
+  
+	badge_version = "build-#{ENV["BUILD_NUMBER"]}-blue"
+    badge_icon_name = "icon_staging_badge.png"
+	PROJECT_NAME = options[:ProjectName]
+	
+	# Fetch the username to use to communicate with Apple from either the Appfile or from .env
+    username = CredentialsManager::AppfileConfig.try_fetch_value(:apple_id)
+	teamid = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
+	appIdentifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+	
+	cocoapods
+	
+    badge( 
+      shield: badge_version,
+      custom: "fastlane/badges/#{badge_icon_name}",
+      shield_gravity: "South",
+      shield_no_resize: true
+    )
+    
+	update_app_identifier(
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj", 
+      plist_path: "#{PROJECT_NAME}/Info.plist",
+      app_identifier: appIdentifier
+    )
+	
+	update_info_plist(
+      scheme: "#{PROJECT_NAME}",
+      plist_path: "#{PROJECT_NAME}/Info.plist",
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj",
+      app_identifier: appIdentifier
+    )
+		
+	cert(
+		development: true,
+		username: username,
+		team_id: teamid,
+		force: false
+	)
+	
+	# Handles app provisioning
+    sigh( 	
+		development: true,
+		force: true, 
+		app_identifier: ENV["app_identifier_staging"],
+		username: username,
+		provisioning_name: ENV["PROVISIONING_PROFILE"],
+		ignore_profiles_with_different_name: true,
+		filename: "#{appIdentifier}.mobileprovision",
+		output_path: '/Users/jenkins/Library/MobileDevice/Provisioning Profiles/'
+	)	
+	
+	enable_automatic_code_signing(path: "#{PROJECT_NAME}.xcodeproj", use_automatic_signing: true);
+	
+	gym(
+      toolchain: :swift_3_0,
+      workspace: "#{PROJECT_NAME}.xcworkspace",
+      scheme: "#{PROJECT_NAME}",
+      configuration: "Release",
+	  clean: true
+	  )
+	  
+	
+    crashlytics(
+		api_token: ENV["CRASHLYTICS_API_TOKEN"],
+		build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
+		groups: ENV["CRASHLYTICS_GROUP"]
+    )
+	
+  end
+  
+  lane :uat_release do
+  
+    badge_version = "build-#{ENV["BUILD_NUMBER"]}-green"
+    badge_icon_name = "icon_uat_badge.png"
+      
+    badge(
+      shield: badge_version,
+      custom: "fastlane/badges/#{badge_icon_name}",
+      shield_gravity: "South",
+      shield_no_resize: true
+    )
+    
+    update_app_identifier(
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj", 
+      plist_path: "#{PROJECT_NAME}/Info.plist",
+      app_identifier: ENV["app_identifier_uat"]
+    )
+    
+    update_info_plist(
+      scheme: "#{PROJECT_NAME}",
+      plist_path: "#{PROJECT_NAME}/Info.plist",
+      xcodeproj: "#{PROJECT_NAME}.xcodeproj",
+	  app_identifier: ENV["app_identifier_uat"]
+    )
+    
+    gym(
+      toolchain: :swift_3_0,
+      workspace: "#{PROJECT_NAME}.xcworkspace",
+      scheme: "#{PROJECT_NAME}",
+      configuration: "UAT",
+	#  use_legacy_build_api: true
+    )
+
+    crashlytics(
+		api_token: ENV["CRASHLYTICS_API_TOKEN"],
+		build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],
+		groups: ENV["CRASHLYTICS_GROUP"]
+    )
+  end
+  
+  # A helper lane for refreshing provisioning profiles.
+#  lane :refresh_profiles do
+#    match(
+#	  type: "development"
+#      force_for_new_devices: true
+#	)
+#  end
+
+end

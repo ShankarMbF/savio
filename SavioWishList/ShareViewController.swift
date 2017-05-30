@@ -239,8 +239,9 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
             for provider: Any in inputItem.attachments! {//group.com.mbf.savio
                 let itemProvider = provider as! NSItemProvider
                 let defaults: UserDefaults = UserDefaults(suiteName: "group.savio.web.share.extention")!
-                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
-                    itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String, options: nil, completionHandler: { (result: NSSecureCoding?, error: NSError!) -> Void in
+                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String)
+                {
+                    itemProvider.loadItem(forTypeIdentifier: kUTTypePropertyList as String, options: nil, completionHandler: { (result, error) -> Void in
                         if let resultDict = result as? NSDictionary {
                             DispatchQueue.main.async(execute: {
                                 self.dictGlobal = resultDict[NSExtensionJavaScriptPreprocessingResultsKey] as! [String : AnyObject]
@@ -261,9 +262,9 @@ class ShareViewController: UIViewController,UITextFieldDelegate,ShareExtensionDe
                         else {
                             print("no dictionary found")
                         }
-                    } as? NSItemProvider.CompletionHandler)
+                    })
                 }
-                else{
+                else {
                    self.dictGlobal = defaults.value(forKey: "ScrapingResult") as! Dictionary<String,AnyObject>
                     DispatchQueue.main.async(execute: {
                         self.textView.text = self.dictGlobal["title"] as! String

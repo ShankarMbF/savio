@@ -49,8 +49,8 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     let kAddress1   : String = "address_1"
     let kAddress2   : String = "address_2"
     let kAddress3   : String = "address_3"
-    let kTown       : String = "town"
-    let kCounty     : String = "county"
+    let kTown       : String = "Town"
+    let kCounty     : String = "County"
     let kPostCode   : String = "post_code"
     let kName       : String = "name"
     let kTextField1 : String = "textField1"
@@ -323,11 +323,11 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                     }
                     else if(cell.tf?.placeholder == kTown)
                     {
-                        cell.tf?.text = userInfoDict[kTown] as? String
+                        cell.tf?.text = userInfoDict["town"] as? String
                     }
                     else if(cell.tf?.placeholder == kCounty)
                     {
-                        cell.tf?.text = userInfoDict[kCounty] as? String
+                        cell.tf?.text = userInfoDict["county"] as? String
                     }
                     else if(cell.tf?.placeholder == kSecondAddressLine)
                     {

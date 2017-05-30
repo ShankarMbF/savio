@@ -5,6 +5,7 @@ use_frameworks!
 
 
 target 'Savio' do
+    use_frameworks!
     pod 'Fabric'
     pod 'Stripe'
     pod 'Google/SignIn'
@@ -12,5 +13,6 @@ target 'Savio' do
 end
 
 target 'SavioWishList' do
-
+    use_frameworks!
+    
 end

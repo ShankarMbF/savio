@@ -68,7 +68,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         addProfilePictureButton.titleLabel?.textAlignment = .center
         addProfilePictureButton.titleLabel?.numberOfLines = 0
         addProfilePictureButton.layer.cornerRadius = addProfilePictureButton.frame.size.height/2
-        //        self.setUPNavigation()
+        self.setUPNavigation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1507,16 +1507,16 @@ extension SAEditUserInfoViewController: FindAddressCellDelegate {
 
         let strCode = strPostCode
         if  strCode.characters.count == 0 {
-            var dict = arrRegistration[7]
-            var metadataDict = dict[kMetaData] as? [String: AnyObject]
+            var dict = arrRegistration[7] as? Dictionary<String, AnyObject>
+            var metadataDict = dict?[kMetaData] as? Dictionary<String, AnyObject>
             let lableDict = metadataDict?[kLable]
             lableDict?.setValue("Yes", forKey: kIsErrorShow)
             lableDict?.setValue("Don’t forget your postcode", forKey: kTitle)
             dictForTextFieldValue["errorPostcode"] = "Don’t forget your postcode" as AnyObject
 
             metadataDict?[kLable] = lableDict
-            dict[kMetaData] = metadataDict as AnyObject
-            arrRegistration[7] = dict
+            dict?[kMetaData] = metadataDict as AnyObject
+            arrRegistration[7] = dict!
             self.createCells()
         }
         else if checkTextFieldContentSpecialChar(strPostCode){

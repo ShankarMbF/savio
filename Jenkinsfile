@@ -27,6 +27,7 @@ node ('iOS_Slave_London_Office') {
 		sh "sed -i -e 's/crshbuildsecret/${env.CRASHLYTICS_BUILD_SECRET}/g' fastlane/Fastfile"
 		sh "sed -i -e 's/crshgrp/${env.CRASHLYTICS_GROUP}/g' fastlane/Fastfile"
 		sh "sed -i -e 's/provisngProfile/${env.Provisioning_Name}/g' fastlane/Fastfile"
+		sh "sed -i -e 's/schmeName/${env.Scheme}/g' fastlane/Fastfile"
 	}
 	
 	stage ('Lint') {

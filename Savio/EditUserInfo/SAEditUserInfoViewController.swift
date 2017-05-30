@@ -1300,9 +1300,10 @@ extension SAEditUserInfoViewController: GetUserInfoDelegate {
                 userBeforeEditInfoDict =  self.checkNullDataFromDict(objResponse["party"] as! Dictionary<String,AnyObject>)
                 
                 print(userBeforeEditInfoDict)
-                if let urlString = userInfoDict[kImageURL] as? String
+                let urlString = userInfoDict[kImageURL] as? String
+                if urlString != ""
                 {
-                    let url = URL(string:urlString)
+                    let url = URL(string:urlString!)
                     let request: URLRequest = URLRequest(url: url!)
                     if(urlString != "")
                     {
@@ -1508,27 +1509,27 @@ extension SAEditUserInfoViewController: FindAddressCellDelegate {
         if  strCode.characters.count == 0 {
             var dict = arrRegistration[7]
             var metadataDict = dict[kMetaData] as? [String: AnyObject]
-//            let lableDict = metadataDict?[kLable]?.mutableCopy()
-//            lableDict.setValue("Yes", forKey: kIsErrorShow)
-//            lableDict.setValue("Don’t forget your postcode", forKey: kTitle)
-//            dictForTextFieldValue["errorPostcode"] = "Don’t forget your postcode" as AnyObject
+            let lableDict = metadataDict?[kLable]
+            lableDict?.setValue("Yes", forKey: kIsErrorShow)
+            lableDict?.setValue("Don’t forget your postcode", forKey: kTitle)
+            dictForTextFieldValue["errorPostcode"] = "Don’t forget your postcode" as AnyObject
 
-//            metadataDict[kLable] = lableDict
-//            dict[kMetaData] = metadataDict as AnyObject
-//            arrRegistration[7] = dict
-//            self.createCells()
+            metadataDict?[kLable] = lableDict
+            dict[kMetaData] = metadataDict as AnyObject
+            arrRegistration[7] = dict
+            self.createCells()
         }
         else if checkTextFieldContentSpecialChar(strPostCode){
-//            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
-//            var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-//            let lableDict = (metadataDict[kLable]?.mutableCopy() as AnyObject)
-//            lableDict.setValue("Yes", forKey: kIsErrorShow)
-//            lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
-//            metadataDict[kLable] = lableDict
-//            dict[kMetaData] = metadataDict as AnyObject
-//            dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
-//            arrRegistration[7] = dict
-//            self.createCells()
+            var dict = arrRegistration[7] as Dictionary<String,AnyObject>
+            var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
+            let lableDict = metadataDict[kLable]
+            lableDict?.setValue("Yes", forKey: kIsErrorShow)
+            lableDict?.setValue("That postcode doesn't look right", forKey: kTitle)
+            metadataDict[kLable] = lableDict
+            dict[kMetaData] = metadataDict as AnyObject
+            dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
+            arrRegistration[7] = dict
+            self.createCells()
         }
         else {
             objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)

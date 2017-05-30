@@ -268,7 +268,7 @@ class API: UIView,URLSessionDelegate {
             self.setTimeOutRequest(30)
             
             let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-                print("Response: \(String(describing: response))")
+                print("post Code Response: \(String(describing: response))")
                 if let data = data
                 {
                     let json: AnyObject? = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableLeaves) as AnyObject

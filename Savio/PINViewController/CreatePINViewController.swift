@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ResetPasscodeDelegate{
+class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,ResetPasscodeDelegate{
     
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var backgroundScrollView: UIScrollView!
@@ -73,7 +73,7 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         backgroundScrollView.contentSize = CGSize(width: 0, height: 500)
     }
     
-    
+ /*
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let currentCharacterCount = textField.text?.characters.count ?? 0
@@ -96,10 +96,12 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
         self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
         enterFourDigitCodeLabel.isHidden = true
     }
+    */
     
     @IBAction func toolBarDoneButtonPressed(_ sender: AnyObject) {
         backgroundScrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
+    
     @IBAction func onclickBackButton(_ sender: AnyObject) {
         isFromForgotPasscode = true
         self.navigationController?.popViewController(animated: true)
@@ -427,5 +429,57 @@ class CreatePINViewController: UIViewController,UITextFieldDelegate,PostCodeVeri
     
 }
 
+//MARK: - UITextField Methods
 
+extension CreatePINViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+        self.registerForKeyboardNotifications()
+        self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
+        enterFourDigitCodeLabel.isHidden = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
 
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let passcodeTextField = textField as? PasscodeTextField {
+            let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+            
+            if text.characters.count > 0 || string == "" {
+                if string == ""  {
+                    if passcodeTextField.previousTextField != nil {
+                        if passcodeTextField.text?.characters.count == 0 {
+                            passcodeTextField.previousTextField?.text = ""
+                        } else {
+                            passcodeTextField.text = ""
+                        }
+                        
+                        passcodeTextField.isUserInteractionEnabled = false
+                        passcodeTextField.previousTextField?.isUserInteractionEnabled = true
+                        passcodeTextField.previousTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = ""
+                    }
+                } else {
+                    if passcodeTextField.nextTextField != nil {
+                        passcodeTextField.text = string
+                        passcodeTextField.isUserInteractionEnabled = false
+                        passcodeTextField.nextTextField?.isUserInteractionEnabled = true
+                        passcodeTextField.nextTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = string
+                        passcodeTextField.resignFirstResponder()
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+}

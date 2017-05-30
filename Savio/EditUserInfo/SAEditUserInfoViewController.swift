@@ -1507,28 +1507,31 @@ extension SAEditUserInfoViewController: FindAddressCellDelegate {
 
         let strCode = strPostCode
         if  strCode.characters.count == 0 {
-            var dict = arrRegistration[7] as? Dictionary<String, AnyObject>
-            var metadataDict = dict?[kMetaData] as? Dictionary<String, AnyObject>
-/*            let lableDict = metadataDict?[kLable]
-            lableDict?.setValue("Yes", forKey: kIsErrorShow)
-            lableDict?.setValue("Don’t forget your postcode", forKey: kTitle)
+            var dict = arrRegistration[7] as Dictionary<String, AnyObject>
+            var metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
+            
+            let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
+            lableDict.setValue("Yes", forKey: kIsErrorShow)
+            lableDict.setValue("Don’t forget your postcode", forKey: kTitle)
             dictForTextFieldValue["errorPostcode"] = "Don’t forget your postcode" as AnyObject
 
-            metadataDict?[kLable] = lableDict
-            dict?[kMetaData] = metadataDict as AnyObject
-            arrRegistration[7] = dict!*/
+            metadataDict[kLable] = lableDict
+            dict[kMetaData] = metadataDict as AnyObject
+            arrRegistration[7] = dict
             self.createCells()
         }
         else if checkTextFieldContentSpecialChar(strPostCode){
             var dict = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-/*            let lableDict = metadataDict[kLable]
-            lableDict?.setValue("Yes", forKey: kIsErrorShow)
-            lableDict?.setValue("That postcode doesn't look right", forKey: kTitle)
+            
+            let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
+
+            lableDict.setValue("Yes", forKey: kIsErrorShow)
+            lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
             metadataDict[kLable] = lableDict
             dict[kMetaData] = metadataDict as AnyObject
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
-            arrRegistration[7] = dict*/
+            arrRegistration[7] = dict
             self.createCells()
         }
         else {
@@ -1583,7 +1586,8 @@ extension SAEditUserInfoViewController : ButtonCellDelegate
                 
                 var dict = arrRegistration[7] as Dictionary<String,AnyObject>
                 var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-                let lableDict = (metadataDict[kLable] as AnyObject)
+                
+                let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
                 
                 lableDict.setValue("Yes", forKey: kIsErrorShow)
                 lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
@@ -1609,9 +1613,10 @@ extension SAEditUserInfoViewController : PostCodeVerificationDelegate {
         var dict = arrRegistration[8] as Dictionary<String,AnyObject>
         var metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
         
-        let lableDict : NSMutableDictionary = metadataDict[kTextField1] as! [String:AnyObject] as! NSMutableDictionary
+        let lableDict = NSMutableDictionary(dictionary: metadataDict[kTextField1] as! Dictionary<String,AnyObject>)
         lableDict.setValue(addressArray, forKey: "dropDownArray")
         metadataDict[kTextField1] = lableDict
+        
         dict[kMetaData] = metadataDict as AnyObject
         arrRegistration[8] = dict
         arrAddress = addressArray

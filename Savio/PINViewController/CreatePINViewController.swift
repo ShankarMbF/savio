@@ -12,9 +12,6 @@ class CreatePINViewController: UIViewController, PostCodeVerificationDelegate, R
     
     @IBOutlet var toolBar: UIToolbar!
    
-    
-
-
     @IBOutlet weak var confirmPIN: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
@@ -189,9 +186,7 @@ class CreatePINViewController: UIViewController, PostCodeVerificationDelegate, R
                         objAPI.registerTheUserWithTitle(userInfoDict,apiName: "Customers")
                     }
                 }
-                
             }
-            
         }
     }
     

@@ -17,6 +17,7 @@ platform :ios do
 	ENV["CRASHLYTICS_BUILD_SECRET"] = "crshbuildsecret"
 	ENV["CRASHLYTICS_GROUP"] = "crshgrp"
 	ENV["PROVISIONING_PROFILE"] = "provisngProfile"
+	ENV["SCHEME_NAME"] = "schmeName"
 	
 	sh 'mkdir ../reports || true'
 	sh 'mkdir ../dist || true'
@@ -62,7 +63,7 @@ platform :ios do
     )
 	
 	update_info_plist(
-      scheme: "#{PROJECT_NAME}",
+      scheme: ENV["SCHEME_NAME"],
       plist_path: "#{PROJECT_NAME}/Info.plist",
       xcodeproj: "#{PROJECT_NAME}.xcodeproj",
       app_identifier: appIdentifier
@@ -92,7 +93,7 @@ platform :ios do
 	gym(
       toolchain: :swift_3_0,
       workspace: "#{PROJECT_NAME}.xcworkspace",
-      scheme: "#{PROJECT_NAME}",
+      scheme: ENV["SCHEME_NAME"],
       configuration: "Release",
 	  clean: true
 	  )
@@ -125,7 +126,7 @@ platform :ios do
     )
     
     update_info_plist(
-      scheme: "#{PROJECT_NAME}",
+      scheme: ENV["SCHEME_NAME"],
       plist_path: "#{PROJECT_NAME}/Info.plist",
       xcodeproj: "#{PROJECT_NAME}.xcodeproj",
 	  app_identifier: ENV["app_identifier_uat"]
@@ -134,7 +135,7 @@ platform :ios do
     gym(
       toolchain: :swift_3_0,
       workspace: "#{PROJECT_NAME}.xcworkspace",
-      scheme: "#{PROJECT_NAME}",
+      scheme: ENV["SCHEME_NAME"],
       configuration: "UAT",
 	#  use_legacy_build_api: true
     )

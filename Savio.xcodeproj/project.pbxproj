@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		11132DFE199D42DD79377AEF /* Pods_Savio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5132ECBAA376482C476A8F41 /* Pods_Savio.framework */; };
-		3202232FA2B20603139939E7 /* libPods-SavioWishList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00BC2BC788F9AFCCD110E00E /* libPods-SavioWishList.a */; };
 		5533AB481DBE4640000B964E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550C45361DBE432300A7E938 /* Contacts.framework */; };
 		845423AE1E8CD10F00B7DF82 /* KeyConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 845423AD1E8CD10F00B7DF82 /* KeyConfig.plist */; };
 		84BD31781DD0ACD5006014B2 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BD31761DD0ACA9006014B2 /* UserNotifications.framework */; };
@@ -25,6 +24,7 @@
 		84E24F8A1E584CB200D47BC3 /* report.xml in Resources */ = {isa = PBXBuildFile; fileRef = 84E24F7F1E584CB200D47BC3 /* report.xml */; };
 		84EA20341E63F826004DDEAE /* SavioPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EA20321E63F826004DDEAE /* SavioPlaceholder.png */; };
 		84EA20351E63F826004DDEAE /* SavioPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EA20331E63F826004DDEAE /* SavioPlaceholder@2x.png */; };
+		9C01B306FA932FFA32FA8E25 /* Pods_SavioWishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD47721DD459AC473396CD /* Pods_SavioWishList.framework */; };
 		A8095B951CEDC4D5006366F7 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */; };
 		A8095B961CEDC4D5006366F7 /* ImageViewAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */; };
 		A8095B971CEDC4D5006366F7 /* ImageViewAnimation.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8095B911CEDC4D5006366F7 /* ImageViewAnimation.xib */; };
@@ -637,7 +637,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00BC2BC788F9AFCCD110E00E /* libPods-SavioWishList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SavioWishList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1347881F18F59B9339D86D76 /* Pods-Savio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.release.xcconfig"; sourceTree = "<group>"; };
 		2B313607087BCF796C17D44A /* Pods-Savio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Savio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Savio/Pods-Savio.debug.xcconfig"; sourceTree = "<group>"; };
 		5132ECBAA376482C476A8F41 /* Pods_Savio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Savio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -658,6 +657,7 @@
 		84E24F7F1E584CB200D47BC3 /* report.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = report.xml; sourceTree = "<group>"; };
 		84EA20321E63F826004DDEAE /* SavioPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SavioPlaceholder.png; sourceTree = "<group>"; };
 		84EA20331E63F826004DDEAE /* SavioPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SavioPlaceholder@2x.png"; sourceTree = "<group>"; };
+		A7AD47721DD459AC473396CD /* Pods_SavioWishList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SavioWishList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8095B8D1CEDC4D5006366F7 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		A8095B8E1CEDC4D5006366F7 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		A8095B901CEDC4D5006366F7 /* ImageViewAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewAnimation.swift; sourceTree = "<group>"; };
@@ -1253,7 +1253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A86681EE1CFEE91F0014DB59 /* MobileCoreServices.framework in Frameworks */,
-				3202232FA2B20603139939E7 /* libPods-SavioWishList.a in Frameworks */,
+				9C01B306FA932FFA32FA8E25 /* Pods_SavioWishList.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1291,7 +1291,7 @@
 				550C45361DBE432300A7E938 /* Contacts.framework */,
 				A86B73041D3612240075F501 /* SafariServices.framework */,
 				5132ECBAA376482C476A8F41 /* Pods_Savio.framework */,
-				00BC2BC788F9AFCCD110E00E /* libPods-SavioWishList.a */,
+				A7AD47721DD459AC473396CD /* Pods_SavioWishList.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

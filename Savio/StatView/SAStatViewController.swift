@@ -39,7 +39,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     var xLabels: Array<String> = [] //Array for holding x-axis lable
     var savingPlanDict: Dictionary<String,AnyObject>?
     
-    
     // MARK: - View life cycle method
     override func viewDidLoad() {
         super.viewDidLoad()

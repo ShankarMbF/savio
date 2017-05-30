@@ -2,7 +2,6 @@
 platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 
-
 target 'Savio' do
     use_frameworks!
     pod 'Fabric'
@@ -12,5 +11,6 @@ target 'Savio' do
 end
 
 target 'SavioWishList' do
-	
+    use_frameworks!
+
 end

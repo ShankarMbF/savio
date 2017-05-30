@@ -74,15 +74,16 @@ internal class TrackLayer: CAShapeLayer {
         
         let center = CGPoint(x: centerX, y: centerY)
         
-        let context = UIGraphicsGetCurrentContext()
-        context?.addArc(center: center, radius: radius, startAngle: CGFloat(Math.degreesToRadians(self.setting.startAngle - M_PI * 0.5)), endAngle: CGFloat(Math.degreesToRadians(adjustDegree - M_PI * 0.5)), clockwise: true)
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.addArc(center: center, radius: radius, startAngle: CGFloat(Math.degreesToRadians(self.setting.startAngle - M_PI * 0.5)), endAngle: CGFloat(Math.degreesToRadians(adjustDegree - M_PI * 0.5)), clockwise: true)
+
+        ctx.addArc(center: center, radius: radius, startAngle: CGFloat(Math.degreesToRadians(self.setting.startAngle - .pi * 0.5)), endAngle: CGFloat(Math.degreesToRadians(adjustDegree - .pi * 0.5)), clockwise: false)
         
 //        CGContextAddArc(ctx, centerX, centerY, radius,
 //                        CGFloat(Math.degreesToRadians(self.setting.startAngle - M_PI * 0.5)),
 //                        CGFloat(Math.degreesToRadians(adjustDegree - M_PI * 0.5)), 0)
-        // context.addArc(center: center, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI * 2.0), clockwise: true)
+//         context?.addArc(center: center, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI * 2.0), clockwise: true)
 
-        
         ctx.closePath();
         ctx.fillPath();
     }

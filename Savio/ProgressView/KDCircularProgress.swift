@@ -435,8 +435,8 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
             let center = CGPoint(x:width/2.0, y:height/2.0)
             
 //          issue in swift 3 : 'CGContextAddArc' is unavailable: Use addArc(center:radius:startAngle:endAngle:clockwise:)
-            let context = UIGraphicsGetCurrentContext()
-            context?.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2.0), clockwise: true)
+//            let context = UIGraphicsGetCurrentContext()
+            ctx.addArc(center: center, radius: arcRadius, startAngle: 0, endAngle: CGFloat(M_PI * 2.0), clockwise: true)
             
 //            CGContextAddArc(ctx, width/2.0, height/2.0, arcRadius, 0, CGFloat(M_PI * 2), 0)
             trackColor.set()
@@ -454,7 +454,7 @@ open class KDCircularProgress: UIView,CAAnimationDelegate {
                 let toAngle = Conversion.degreesToRadians(CGFloat((clockwise == true ? -reducedAngle : reducedAngle) - startAngle))
                 
                 let center = CGPoint(x:width/2.0, y:height/2.0)
-                context?.addArc(center: center, radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: true)
+                imageCtx.addArc(center: center, radius: arcRadius, startAngle: fromAngle, endAngle: toAngle, clockwise: true)
 //   issue -  CGContextAddArc(imageCtx, width/2.0, height/2.0, arcRadius, fromAngle, toAngle, clockwise == true ? 1 : 0)
                 
                 let glowValue = GlowConstants.glowAmountForAngle(reducedAngle, glowAmount: glowAmount, glowMode: glowMode, size: width)

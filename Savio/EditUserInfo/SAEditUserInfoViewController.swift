@@ -920,15 +920,15 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
             if(errorFLag == true){
                 returnFlag = true
                 var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-//                let lableDict = (metadataDict[kLable]?.mutableCopy() as AnyObject)
-//                
-//                lableDict.setValue("Yes", forKey: kIsErrorShow)
-//                if (errorMsg.characters.count > 0){
-//                    lableDict.setValue(errorMsg, forKey: kTitle)
-//                }
-//                metadataDict[kLable] = lableDict
-//                dict[kMetaData] = metadataDict as AnyObject
-//                arrRegistration[idx] = dict
+                let lableDict = (metadataDict[kLable] as AnyObject)
+                
+                lableDict.setValue("Yes", forKey: kIsErrorShow)
+                if (errorMsg.characters.count > 0){
+                    lableDict.setValue(errorMsg, forKey: kTitle)
+                }
+                metadataDict[kLable] = lableDict
+                dict[kMetaData] = metadataDict as AnyObject
+                arrRegistration[idx] = dict
             }
             
         }
@@ -1582,15 +1582,15 @@ extension SAEditUserInfoViewController : ButtonCellDelegate
             if dictForTextFieldValue["errorPostcodeValid"] != nil{
                 
                 var dict = arrRegistration[7] as Dictionary<String,AnyObject>
-//                var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-//                let lableDict = (metadataDict[kLable]?.mutableCopy() as AnyObject)
-//                
-//                lableDict.setValue("Yes", forKey: kIsErrorShow)
-//                lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
-//                metadataDict[kLable] = lableDict
-//                dict[kMetaData] = metadataDict as AnyObject
-//                dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
-//                arrRegistration[7] = dict
+                var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
+                let lableDict = (metadataDict[kLable] as AnyObject)
+                
+                lableDict.setValue("Yes", forKey: kIsErrorShow)
+                lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
+                metadataDict[kLable] = lableDict
+                dict[kMetaData] = metadataDict as AnyObject
+                dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
+                arrRegistration[7] = dict
                 self.createCells()
             }
         }
@@ -1606,16 +1606,16 @@ extension SAEditUserInfoViewController : PostCodeVerificationDelegate {
         
         objAnimView?.removeFromSuperview()
         self.getJSONForUI()
-//        var dict = arrRegistration[8] as Dictionary<String,AnyObject>
-//        var metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
-//        let lableDict = metadataDict[kTextField1]?.mutableCopy() as AnyObject
-//        
-//        lableDict.setValue(addressArray, forKey: "dropDownArray")
-//        metadataDict[kTextField1] = lableDict
-//        dict[kMetaData] = metadataDict as AnyObject
-//        arrRegistration[8] = dict
-//        arrAddress = addressArray
-//        dictForTextFieldValue.removeValue(forKey: "errorPostcodeValid")
+        var dict = arrRegistration[8] as Dictionary<String,AnyObject>
+        var metadataDict = dict[kMetaData] as! Dictionary<String,AnyObject>
+        
+        let lableDict = metadataDict[kTextField1] as AnyObject
+        lableDict.setValue(addressArray, forKey: "dropDownArray")
+        metadataDict[kTextField1] = lableDict
+        dict[kMetaData] = metadataDict as AnyObject
+        arrRegistration[8] = dict
+        arrAddress = addressArray
+        dictForTextFieldValue.removeValue(forKey: "errorPostcodeValid")
         
         self.createCells()
         
@@ -1626,14 +1626,14 @@ extension SAEditUserInfoViewController : PostCodeVerificationDelegate {
         if(error == "That postcode doesn't look right"){
             var dict            = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict    = dict[kMetaData] as! Dictionary<String,AnyObject>
-//            let lableDict       = metadataDict[kLable]?.mutableCopy() as AnyObject
-//            
-//            lableDict.setValue("Yes", forKey: kIsErrorShow)
-//            lableDict.setValue(error, forKey: kTitle)
-//            metadataDict[kLable] = lableDict
-//            dict[kMetaData] = metadataDict as AnyObject
-//            dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
-//            arrRegistration[7] = dict
+            let lableDict       = metadataDict[kLable] as AnyObject
+            
+            lableDict.setValue("Yes", forKey: kIsErrorShow)
+            lableDict.setValue(error, forKey: kTitle)
+            metadataDict[kLable] = lableDict
+            dict[kMetaData] = metadataDict as AnyObject
+            dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
+            arrRegistration[7] = dict
             
             self.createCells()
         }

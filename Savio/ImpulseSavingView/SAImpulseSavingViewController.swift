@@ -62,7 +62,7 @@ class SAImpulseSavingViewController: UIViewController {
             CircleSliderOption.thumbWidth(40),
             CircleSliderOption.maxValue(100),
             CircleSliderOption.minValue(0),
-            CircleSliderOption.sliderEnabled(true),
+            CircleSliderOption.sliderEnabled(true)
         ]
     }
     

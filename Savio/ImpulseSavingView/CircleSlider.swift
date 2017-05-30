@@ -11,7 +11,7 @@ import UIKit
 public enum CircleSliderOption {
     case startAngle     (Double)
     case barColor       (UIColor)
-    case trackingColor  (UIColor)
+    case trackingColor  (UIColor?)
     case thumbColor     (UIColor)
     case barWidth       (CGFloat)
     case thumbWidth     (CGFloat)
@@ -165,7 +165,7 @@ open class CircleSlider: UIControl {
             case let .barColor(value):
                 self.barColor = value
             case let .trackingColor(value):
-                self.trackingColor = value
+                self.trackingColor = value!
             case let .thumbColor(value):
                 self.thumbColor = value
             case let .barWidth(value):

@@ -35,26 +35,28 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlistDelegate {
     var wishListArray : Array<Dictionary<String,AnyObject>> = []
     
-    @IBOutlet weak var calculationLabel: UILabel!
-    @IBOutlet weak var percentageLabel: UILabel!
-    @IBOutlet weak var circularProgressOne: KDCircularProgress!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var scrlView: UIScrollView!
-    @IBOutlet weak var makeImpulseSavingButton: UIButton!
-    @IBOutlet weak var savingPlanTitleLabel: UILabel!
-    @IBOutlet weak var statsButton: UIButton!
-    @IBOutlet weak var progressButton: UIButton!
-    @IBOutlet weak var offersButton: UIButton!
-    @IBOutlet weak var planButton: UIButton!
-    @IBOutlet weak var spendButton: UIButton!
+    @IBOutlet weak var calculationLabel     : UILabel!
+    @IBOutlet weak var percentageLabel      : UILabel!
+    @IBOutlet weak var pageControl          : UIPageControl!
+    @IBOutlet weak var scrlView             : UIScrollView!
+    @IBOutlet weak var savingPlanTitleLabel : UILabel!
+    @IBOutlet weak var circularProgressOne  : KDCircularProgress!
     
+    @IBOutlet weak var makeImpulseSavingButton  : UIButton!
+    @IBOutlet weak var statsButton              : UIButton!
+    @IBOutlet weak var progressButton           : UIButton!
+    @IBOutlet weak var offersButton             : UIButton!
+    @IBOutlet weak var planButton               : UIButton!
+    @IBOutlet weak var spendButton              : UIButton!
+    
+    var planTitle   = ""
+    let spinner     = UIActivityIndicatorView()
     var objAnimView = ImageViewAnimation()
-    var totalAmount : Float = 0.0
-    var paidAmount : Float = 0.0
-    var planTitle = ""
-    let spinner =  UIActivityIndicatorView()
+    let btnName     = UIButton()
+
     var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
-    let btnName = UIButton()
+    var totalAmount     : Float = 0.0
+    var paidAmount      : Float = 0.0
     
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {

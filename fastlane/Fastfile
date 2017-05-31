@@ -79,7 +79,7 @@ platform :ios do
 	# Handles app provisioning
     sigh( 	
 		development: true,
-		force: true, 
+		force: false, 
 		app_identifier: ENV["app_identifier_staging"],
 		username: username,
 		provisioning_name: ENV["PROVISIONING_PROFILE"],

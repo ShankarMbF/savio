@@ -85,6 +85,7 @@ platform :ios do
 		provisioning_name: ENV["PROVISIONING_PROFILE"],
 		ignore_profiles_with_different_name: true,
 		filename: "#{appIdentifier}.mobileprovision",
+        skip_certificate_verification: true,
 		output_path: '/Users/jenkins/Library/MobileDevice/Provisioning Profiles/'
 	)	
 	

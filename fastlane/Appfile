@@ -7,10 +7,12 @@
 apple_id "shzshi@gmail.com" # Your Apple ID
 team_id "ESS76MX5U7"
 
-for_lane 'ios dev_release' do
-	app_identifier "com.savio.app.dev" # the bundle identifier of your app
-end
+for_platform :ios do
+	for_lane 'dev_release' do
+		app_identifier "com.madebyfire.lea.dev" # the bundle identifier of your app
+	end
 
-for_lane 'ios uat_release' do
-	app_identifier "com.mbf.savio" # the bundle identifier of your app
+	for_lane 'uat_release' do
+		app_identifier "com.madebyfire.lea" # the bundle identifier of your app
+	end
 end

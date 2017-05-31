@@ -9,10 +9,10 @@ team_id "ESS76MX5U7"
 
 for_platform :ios do
 	for_lane 'dev_release' do
-		app_identifier "com.madebyfire.lea.dev" # the bundle identifier of your app
+		app_identifier "com.savio.app.dev" # the bundle identifier of your app
 	end
 
 	for_lane 'uat_release' do
-		app_identifier "com.madebyfire.lea" # the bundle identifier of your app
+		app_identifier "com.savio.app" # the bundle identifier of your app
 	end
 end

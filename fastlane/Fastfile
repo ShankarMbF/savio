@@ -95,6 +95,7 @@ platform :ios do
       toolchain: :swift_3_0,
       workspace: "#{PROJECT_NAME}.xcworkspace",
       scheme: ENV["SCHEME_NAME"],
+      export_method: "development",
       configuration: "Release",
 	  clean: true
 	  )

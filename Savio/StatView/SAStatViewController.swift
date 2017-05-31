@@ -97,7 +97,6 @@ class SAStatViewController: UIViewController, LineChartDelegate, UIDocumentInter
     }
     
     func calcTotalAmount(_ TotalArr: Array<Dictionary<String,AnyObject>>?) -> CGFloat {
-        print(TotalArr!)
         if TotalArr == nil{
             return 0.0
         }

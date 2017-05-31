@@ -32,7 +32,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSentDelegate,LogInDelegate,UIScrollViewDelegate {
+class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelegate,UIScrollViewDelegate {
     @IBOutlet weak var btnVwBg: UIView!
     @IBOutlet weak var pinTextFieldsContainerView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
@@ -137,7 +137,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         let visibleAreaHeight = UIScreen.main.bounds.height - 30 - (kbSize?.height)! //64 height of nav bar + status bar + tab bar
         lastOffset = (scrlView?.contentOffset)!
         let yOfTextField = activeTextField.frame.height + pinTextFieldsContainerView.frame.origin.y
-        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+        if (yOfTextField - (lastOffset.y)) >= visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             scrlView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
@@ -150,7 +150,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         scrlView?.setContentOffset(CGPoint.zero, animated: true)
     }
     
-
+/*
     //UITextField delegate method
     func textFieldDidBeginEditing(_ textField: UITextField) {
          activeTextField = textField
@@ -169,6 +169,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         return true;
     }
     
+  */
     
     @IBAction func clickOnRegisterButton(_ sender: AnyObject) {
         if(registerButton.titleLabel?.text == "Register")
@@ -350,6 +351,7 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         {
             errorLabel.isHidden = false
             errorLabel.text = "Passcode is not correct"
+            textFieldOne.isUserInteractionEnabled = true
             textFieldOne.text = ""
             textFieldTwo.text = ""
             textFieldThree.text = ""
@@ -485,4 +487,59 @@ class SAEnterYourPINViewController: UIViewController,UITextFieldDelegate,OTPSent
         textFieldFour.resignFirstResponder()
     }
     
+}
+
+
+//MARK: - UITextField Methods
+
+extension SAEnterYourPINViewController : UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+        self.registerForKeyboardNotifications()
+        self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let passcodeTextField = textField as? PasscodeTextField {
+            let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+            
+            if text.characters.count > 0 || string == "" {
+                if string == ""  {
+                    if passcodeTextField.previousTextField != nil {
+                        if passcodeTextField.text?.characters.count == 0 {
+                            passcodeTextField.previousTextField?.text = ""
+                        } else {
+                            passcodeTextField.text = ""
+                        }
+                        
+                        passcodeTextField.isUserInteractionEnabled = false
+                        passcodeTextField.previousTextField?.isUserInteractionEnabled = true
+                        passcodeTextField.previousTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = ""
+                    }
+                } else {
+                    if passcodeTextField.nextTextField != nil {
+                        passcodeTextField.text = string
+                        passcodeTextField.isUserInteractionEnabled = false
+                        passcodeTextField.nextTextField?.isUserInteractionEnabled = true
+                        passcodeTextField.nextTextField?.becomeFirstResponder()
+                        return false
+                    } else {
+                        passcodeTextField.text = string
+                        passcodeTextField.resignFirstResponder()
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
 }

@@ -49,8 +49,8 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     let kAddress1   : String = "address_1"
     let kAddress2   : String = "address_2"
     let kAddress3   : String = "address_3"
-    let kTown       : String = "Town"
-    let kCounty     : String = "County"
+    let kTown       : String = "town"
+    let kCounty     : String = "county"
     let kPostCode   : String = "post_code"
     let kName       : String = "name"
     let kTextField1 : String = "textField1"
@@ -169,6 +169,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                 let cell = Bundle.main.loadNibNamed(dict[kClassType] as! String, owner: nil, options: nil)![0] as! ErrorTableViewCell
                 cell.selectionStyle = UITableViewCellSelectionStyle.none
                 let tfTitleDict = metadataDict[kLable]as! Dictionary<String,AnyObject>
+                
                 //Set Error messages to error lable
                 cell.lblError?.text = tfTitleDict[kTitle] as? String
                 let isErrorShow = tfTitleDict[kIsErrorShow] as! String
@@ -321,13 +322,13 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                     {
                         cell.tf?.text = userInfoDict[kAddress1] as? String
                     }
-                    else if(cell.tf?.placeholder == kTown)
+                    else if(cell.tf?.placeholder == "Town")
                     {
-                        cell.tf?.text = userInfoDict["town"] as? String
+                        cell.tf?.text = userInfoDict[kTown] as? String
                     }
-                    else if(cell.tf?.placeholder == kCounty)
+                    else if(cell.tf?.placeholder == "County")
                     {
-                        cell.tf?.text = userInfoDict["county"] as? String
+                        cell.tf?.text = userInfoDict[kCounty] as? String
                     }
                     else if(cell.tf?.placeholder == kSecondAddressLine)
                     {
@@ -506,12 +507,10 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         
         tblViewHt.constant =  CGFloat(35 * (arrRegistrationFields.count + 5))
         let height: CGFloat = 35 * (CGFloat(arrRegistrationFields.count) + 5 ) + 130
-        scrlView.contentSize = CGSize(width: 0, height: height)
+        scrlView.contentSize = CGSize(width: self.view.frame.size.width, height: height)
         
         tblView.reloadData()
     }
-    
-    
     
     
     func resignAllTextfield(){
@@ -920,9 +919,10 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
             if(errorFLag == true){
                 returnFlag = true
                 var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
-                let lableDict = (metadataDict[kLable] as AnyObject)
                 
+                let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
                 lableDict.setValue("Yes", forKey: kIsErrorShow)
+                
                 if (errorMsg.characters.count > 0){
                     lableDict.setValue(errorMsg, forKey: kTitle)
                 }
@@ -1588,9 +1588,9 @@ extension SAEditUserInfoViewController : ButtonCellDelegate
                 var metadataDict = dict[kMetaData]as! Dictionary<String,AnyObject>
                 
                 let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
-                
                 lableDict.setValue("Yes", forKey: kIsErrorShow)
                 lableDict.setValue("That postcode doesn't look right", forKey: kTitle)
+                
                 metadataDict[kLable] = lableDict
                 dict[kMetaData] = metadataDict as AnyObject
                 dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject
@@ -1631,10 +1631,11 @@ extension SAEditUserInfoViewController : PostCodeVerificationDelegate {
         if(error == "That postcode doesn't look right"){
             var dict            = arrRegistration[7] as Dictionary<String,AnyObject>
             var metadataDict    = dict[kMetaData] as! Dictionary<String,AnyObject>
-            let lableDict       = metadataDict[kLable] as AnyObject
             
+            let lableDict = NSMutableDictionary(dictionary: metadataDict[kLable] as! Dictionary<String,AnyObject>)
             lableDict.setValue("Yes", forKey: kIsErrorShow)
             lableDict.setValue(error, forKey: kTitle)
+            
             metadataDict[kLable] = lableDict
             dict[kMetaData] = metadataDict as AnyObject
             dictForTextFieldValue["errorPostcodeValid"] = "That postcode doesn't look right" as AnyObject

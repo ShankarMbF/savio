@@ -522,6 +522,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             self.delegate?.addedOffers(cellDict)
             self.navigationController?.popViewController(animated: true)
         }
+        alertController.title = nil
         alertController.addAction(okAction)
        self.present(alertController, animated: true, completion: nil)
     }

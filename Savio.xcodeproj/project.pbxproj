@@ -1899,7 +1899,8 @@
 				A8F820221D2E667C00BB7537 /* SACancelSavingViewController.swift */,
 				A8F820231D2E667C00BB7537 /* SACancelSavingViewController.xib */,
 			);
-			path = CancelSavingPlan;
+			name = CancelSavingPlan;
+			path = ../CancelSavingPlan;
 			sourceTree = "<group>";
 		};
 		A8F820261D2E7FA600BB7537 /* ImpulseSavingView */ = {
@@ -2233,7 +2234,6 @@
 				D4D595801E9BB8410063805F /* SharePresistance.swift */,
 				A8095C731CEDC6A3006366F7 /* Webservices */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
-				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,
 				C9F6004C1D17ED01003155A2 /* ContainerView */,
 				C95CD6101CF2C92100013200 /* DropDownList */,
@@ -2384,6 +2384,7 @@
 		C9F6004C1D17ED01003155A2 /* ContainerView */ = {
 			isa = PBXGroup;
 			children = (
+				A8F820211D2E665800BB7537 /* CancelSavingPlan */,
 				C9F6004D1D17ED43003155A2 /* ContainerViewController.swift */,
 				C9F6004E1D17ED43003155A2 /* ContainerViewController.xib */,
 			);

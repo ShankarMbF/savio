@@ -12,29 +12,35 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
     
     @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var backgroundScrollView: UIScrollView!
-    @IBOutlet weak var enterFourDigitCodeLabel: UILabel!
-    @IBOutlet weak var confirmPIN: UIButton!
-    @IBOutlet weak var headerLabel: UILabel!
-    @IBOutlet weak var subHeaderLabel: UILabel!
-    @IBOutlet weak var textFieldOne: UITextField!
-    @IBOutlet weak var textFieldTwo: UITextField!
-    @IBOutlet weak var textFieldThree: UITextField!
-    @IBOutlet weak var textFieldFour: UITextField!
-    @IBOutlet weak var textFieldReOne: UITextField!
-    @IBOutlet weak var textFieldReTwo: UITextField!
-    @IBOutlet weak var textFieldReThree: UITextField!
-    @IBOutlet weak var textFieldReFour: UITextField!
-    @IBOutlet weak var lblConfirmPasscode: UILabel!
-    @IBOutlet weak var confirmPasscodeView: UIView!
-    @IBOutlet weak var passcodeView: UIView!
-    @IBOutlet weak var backButton: UIButton!
     
-    var objAPI = API()
-    var objAnimView = ImageViewAnimation()
+    @IBOutlet weak var confirmPIN   : UIButton!
+    @IBOutlet weak var backButton   : UIButton!
+
+    @IBOutlet weak var textFieldOne     : UITextField!
+    @IBOutlet weak var textFieldTwo     : UITextField!
+    @IBOutlet weak var textFieldThree   : UITextField!
+    @IBOutlet weak var textFieldFour    : UITextField!
+    @IBOutlet weak var textFieldReOne   : UITextField!
+    @IBOutlet weak var textFieldReTwo   : UITextField!
+    @IBOutlet weak var textFieldReThree : UITextField!
+    @IBOutlet weak var textFieldReFour  : UITextField!
+    
+    @IBOutlet weak var confirmPasscodeView  : UIView!
+    @IBOutlet weak var passcodeView         : UIView!
+
+    @IBOutlet weak var lblConfirmPasscode       : UILabel!
+    @IBOutlet weak var enterFourDigitCodeLabel  : UILabel!
+    @IBOutlet weak var headerLabel              : UILabel!
+    @IBOutlet weak var subHeaderLabel           : UILabel!
+    
+    var objAPI          = API()
+    var objAnimView     = ImageViewAnimation()
     var activeTextField = UITextField()
-    var userInfoDict  = Dictionary<String,AnyObject>()
-    var lastOffset: CGPoint = CGPoint.zero
-    var arrayTextFields: Array<UITextField>!
+    var userInfoDict    = Dictionary<String,AnyObject>()
+    
+    var lastOffset      : CGPoint = CGPoint.zero
+    var arrayTextFields : Array<UITextField>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,10 +48,10 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
         confirmPIN.layer.cornerRadius = 3
         self.customizeTextFields()
         userInfoDict = userDefaults.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
-//        userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
+//      userInfoDict = objAPI.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         self.registerForKeyboardNotifications()
         
-        //add custom tool bar for UITextField
+//        add custom tool bar for UITextField
         let customToolBar = UIToolbar(frame:CGRect(x: 0,y: 0,width: UIScreen.main.bounds.size.width,height: 44))
         let acceptButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action:#selector(CreatePINViewController.doneBarButtonPressed(_:)))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(CreatePINViewController.cancelBarButtonPressed(_:)))
@@ -65,6 +71,17 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
             tf.inputAccessoryView = customToolBar
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if activeTextField == nil {
+            textFieldOne.becomeFirstResponder()
+        } else {
+            activeTextField.isUserInteractionEnabled = true
+            activeTextField.becomeFirstResponder()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -375,7 +392,7 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
         else {
             yOfTextField = activeTextField.frame.height + confirmPasscodeView.frame.origin.y
         }
-        if (yOfTextField - (lastOffset.y)) > visibleAreaHeight {
+        if (yOfTextField - (lastOffset.y)) >= visibleAreaHeight {
             let diff = yOfTextField - visibleAreaHeight
             backgroundScrollView?.setContentOffset(CGPoint(x: 0, y: diff), animated: true)
         }
@@ -437,7 +454,6 @@ extension CreatePINViewController: UITextFieldDelegate {
         activeTextField = textField
         self.registerForKeyboardNotifications()
         self.setAllPinEntryFieldsToColor(UIColor(red: 0.94, green: 0.58, blue: 0.20, alpha: 1))
-        enterFourDigitCodeLabel.isHidden = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

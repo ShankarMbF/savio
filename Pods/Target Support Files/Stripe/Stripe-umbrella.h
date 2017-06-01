@@ -32,6 +32,7 @@
 #import "STPFile.h"
 #import "STPFormEncodable.h"
 #import "STPImageLibrary.h"
+#import "STPNullabilityMacros.h"
 #import "STPPaymentActivityIndicatorView.h"
 #import "STPPaymentCardTextField.h"
 #import "STPPaymentConfiguration.h"

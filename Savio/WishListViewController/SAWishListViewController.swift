@@ -229,11 +229,12 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
         
         if let urlString = cellDict[kImageURL] as? String
         {
-            //get image URL from response dict
-            let url = URL(string:urlString)
-            let request: URLRequest = URLRequest(url: url!)
             if(urlString != "")
             {
+                //get image URL from response dict
+                let url = URL(string:urlString)
+                let request: URLRequest = URLRequest(url: url!)
+                
                 //request server to fetch image data
 
                 let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in

@@ -1239,6 +1239,11 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     
     func checkAnyInfoUpdatedFromPrevious()-> Bool {
         var updateFlag: Bool = false
+
+        guard userBeforeEditInfoDict.count == 0 else {
+            return updateFlag
+        }
+        
         let titleSTr = userBeforeEditInfoDict[kTitle] as! String
         let firstName = userBeforeEditInfoDict[kFirstName] as! String
         let lastName = userBeforeEditInfoDict[kSecondName] as! String
@@ -1833,7 +1838,7 @@ extension SAEditUserInfoViewController :  UpdateUserInfoDelegate {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: "Timeout", message: error, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

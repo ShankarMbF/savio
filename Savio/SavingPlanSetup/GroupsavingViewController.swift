@@ -118,10 +118,11 @@
         
         //Get image for the saving plan
         if let urlString = itemDetailsDataDict[kImageURL] as? String {
-            let url = URL(string:urlString)
-            
-            let request: URLRequest = URLRequest(url: url!)
+
             if(urlString != "") {
+
+                let url = URL(string:urlString)
+                let request: URLRequest = URLRequest(url: url!)
                 
                 //Add spinner to UIImageView until image loads
                 let spinner =  UIActivityIndicatorView()

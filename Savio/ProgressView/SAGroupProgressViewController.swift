@@ -766,11 +766,11 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         
         if let urlString = cellDict["partyImageUrl"] as? String
         {
-            let url = URL(string:urlString)
-            let request: URLRequest = URLRequest(url: url!)
-            
             if(urlString != "")
             {
+                let url = URL(string:urlString)
+                let request: URLRequest = URLRequest(url: url!)
+                
                 spinner.startAnimating()
                 
                 let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
@@ -1015,8 +1015,8 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
-//            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         else {
             let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")

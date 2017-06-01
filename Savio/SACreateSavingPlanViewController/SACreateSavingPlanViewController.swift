@@ -252,11 +252,13 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
                     if let urlString = objDict[kImageURL] as? String
                     {
-                        //Get product URL
-                        let url = URL(string:urlString)
-                        let request: URLRequest = URLRequest(url: url!)
+
                         if(urlString != "")
                         {
+                            //Get product URL
+                            let url = URL(string:urlString)
+                            let request: URLRequest = URLRequest(url: url!)
+                            
                             // fetch image data from url
                             
                             let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
@@ -337,11 +339,11 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
                     let bgImageView = testView.viewWithTag(1) as! UIImageView
                     if let urlString = objDict[kImageURL] as? String
                     {
-                        let url = URL(string:urlString)
                         
-                        let request: URLRequest = URLRequest(url: url!)
                         if(urlString != "")
                         {
+                            let url = URL(string:urlString)
+                            let request: URLRequest = URLRequest(url: url!)
                             
                             let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                                 print("Response: \(String(describing: response))")

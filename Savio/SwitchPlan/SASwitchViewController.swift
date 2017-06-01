@@ -239,6 +239,7 @@ class SASwitchViewController: UIViewController,GetListOfUsersPlanDelegate {
                     {
                         let url = URL(string:urlString)
                         let request: URLRequest = URLRequest(url: url!)
+                        
                         if(urlString != "")
                         {
                             let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in

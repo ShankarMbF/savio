@@ -79,12 +79,13 @@ platform :ios do
 	# Handles app provisioning
     sigh( 	
 		development: true,
-		force: true, 
+		force: false, 
 		app_identifier: ENV["app_identifier_staging"],
 		username: username,
 		provisioning_name: ENV["PROVISIONING_PROFILE"],
 		ignore_profiles_with_different_name: true,
 		filename: "#{appIdentifier}.mobileprovision",
+        skip_certificate_verification: true,
 		output_path: '/Users/jenkins/Library/MobileDevice/Provisioning Profiles/'
 	)	
 	
@@ -94,6 +95,7 @@ platform :ios do
       toolchain: :swift_3_0,
       workspace: "#{PROJECT_NAME}.xcworkspace",
       scheme: ENV["SCHEME_NAME"],
+      export_method: "development",
       configuration: "Release",
 	  clean: true
 	  )

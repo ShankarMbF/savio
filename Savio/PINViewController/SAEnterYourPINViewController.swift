@@ -151,7 +151,8 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
     }
     
 /*
-    //UITextField delegate method
+     
+//    UITextField delegate method
     func textFieldDidBeginEditing(_ textField: UITextField) {
          activeTextField = textField
         self.registerForKeyboardNotifications()

@@ -1240,7 +1240,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     func checkAnyInfoUpdatedFromPrevious()-> Bool {
         var updateFlag: Bool = false
 
-        guard userBeforeEditInfoDict.count == 0 else {
+        guard userBeforeEditInfoDict.count != 0 else {
             return updateFlag
         }
         

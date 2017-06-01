@@ -361,7 +361,7 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
         }
         else
         {
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }
@@ -403,7 +403,7 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
         }
         else if (error == "The request timed out")
         {
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         else

@@ -563,7 +563,7 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         objAnimView.removeFromSuperview()
@@ -606,11 +606,11 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
-            //            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            //            alert.show()
+            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
         else {
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         

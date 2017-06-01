@@ -1364,7 +1364,7 @@ extension SAEditUserInfoViewController: GetUserInfoDelegate {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
         objAnimView!.removeFromSuperview()
@@ -1838,7 +1838,7 @@ extension SAEditUserInfoViewController :  UpdateUserInfoDelegate {
             let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }else{
-            let alert = UIAlertView(title: "Timeout", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

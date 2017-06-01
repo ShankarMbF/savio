@@ -17,31 +17,26 @@ import Foundation
 //============DEV===============
 let baseURL = "http://52.209.205.151:8080/SavioAPI/V1"
 
-//============AUTHY API KEY LIVE===============
+var APIKey          = ""
+var checkString     = ""
+var phoneNumber     = ""
+var isFromForgotPasscode    : Bool = false
+var changePhoneNumber       : Bool = false
 
-//let APIKey = "Ppia3IHl0frDIgr711SlZWUBlpWdNfDs"
-
-//============AUTHY API KEY SANDBOX===============
-//let APIKey = "bcdfb7ce5e6854dcfe65ce5dd0d568c7"
-
-var APIKey = ""
-
-let custom_message = "Your Savio phone verification code is {{code}}"
-var checkString = ""
-var changePhoneNumber : Bool = false
-var phoneNumber = ""
-var isFromForgotPasscode : Bool = false
-
-var kConnectionProblemTitle: String!    = "Connection problem"
-var kNonetworkfound: String!            = "No network found"
-var kPhoneNumber : String!              = "phone_number"
-var kUserInfo : String!                 = "userInfo"
-let kAUTHYAPIKEYSANDBOX : String        = "AUTHY_API_KEY_SANDBOX"       //Use for sandbox
-let kAUTHYAPIKEYLIVE : String           = "AUTHY_API_KEY_LIVE"          //Use for Live
-let kSTRIPEPUBLISHABLEKEY : String      = "STRIPE_PUBLISHABLE_KEY"      //Use Strip publish key
+let custom_message  = "Your Savio phone verification code is {{code}}"
 
 
-protocol PostCodeVerificationDelegate {
+var kConnectionProblemTitle : String!   = "Connection problem"
+var kNonetworkfound         : String!   = "No network found"
+var kPhoneNumber            : String!   = "phone_number"
+var kUserInfo               : String!   = "userInfo"
+let kAUTHYAPIKEYSANDBOX     : String    = "AUTHY_API_KEY_SANDBOX"       //Use for sandbox
+let kAUTHYAPIKEYLIVE        : String    = "AUTHY_API_KEY_LIVE"          //Use for Live
+let kSTRIPEPUBLISHABLEKEY   : String    = "STRIPE_PUBLISHABLE_KEY"      //Use Strip publish key
+
+
+protocol PostCodeVerificationDelegate
+{
     
     func success(_ addressArray:Array<String>)
     func error(_ error:String)
@@ -50,54 +45,63 @@ protocol PostCodeVerificationDelegate {
     func errorResponseForRegistrationAPI(_ error:String)
 }
 
-protocol TermAndConditionDelegate{
+protocol TermAndConditionDelegate
+{
     
     func successResponseFortermAndConditionAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseFortermAndConditionAPI(_ error:String)
 }
 
-protocol OTPSentDelegate{
+protocol OTPSentDelegate
+{
     
     func successResponseForOTPSentAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForOTPSentAPI(_ error:String)
 }
 
-protocol OTPVerificationDelegate{
+protocol OTPVerificationDelegate
+{
     
     func successResponseForOTPVerificationAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForOTPVerificationAPI(_ error:String)
 }
 
-protocol LogInDelegate{
+protocol LogInDelegate
+{
     
     func successResponseForLogInAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForOTPLogInAPI(_ error:String)
 }
 
-protocol ResetPasscodeDelegate{
+protocol ResetPasscodeDelegate
+{
     
     func successResponseForResetPasscodeAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForOTPResetPasscodeAPI(_ error:String)
 }
-protocol ShareExtensionDelegate{
+protocol ShareExtensionDelegate
+{
     
     func successResponseForShareExtensionAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForShareExtensionAPI(_ error:String)
 }
 
-protocol GetWishlistDelegate{
+protocol GetWishlistDelegate
+{
     
     func successResponseForGetWishlistAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetWishlistAPI(_ error:String)
 }
 
-protocol GetOfferlistDelegate{
+protocol GetOfferlistDelegate
+{
     
     func successResponseForGetOfferlistAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetOfferlistAPI(_ error:String)
 }
 
-protocol PartySavingPlanDelegate{
+protocol PartySavingPlanDelegate
+{
     
     func successResponseForPartySavingPlanAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForPartySavingPlanAPI(_ error:String)
@@ -105,18 +109,21 @@ protocol PartySavingPlanDelegate{
 
 protocol CategoriesSavingPlan
 {
+    
     func successResponseForCategoriesSavingPlanAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForCategoriesSavingPlanAPI(_ error:String)
 }
 
 protocol DeleteWishListDelegate
 {
+    
     func successResponseForDeleteWishListAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForDeleteWishListAPI(_ error:String)
 }
 
 protocol GetUsersPlanDelegate
 {
+    
     func successResponseForGetUsersPlanAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetUsersPlanAPI(_ error:String)
 }
@@ -129,105 +136,119 @@ protocol UpdateSavingPlanDelegate
 
 protocol GetUserInfoDelegate
 {
+    
     func successResponseForGetUserInfoAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetUserInfoAPI(_ error:String)
 }
 
 protocol UpdateUserInfoDelegate
 {
+    
     func successResponseForUpdateUserInfoAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForUpdateUserInfoAPI(_ error:String)
 }
 
 protocol CancelSavingPlanDelegate
 {
+    
     func successResponseForCancelSavingPlanAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForCancelSavingPlanAPI(_ error:String)
 }
 
 protocol InviteMembersDelegate
 {
+    
     func successResponseForInviteMembersAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForInviteMembersAPI(_ error:String)
 }
 
 protocol GetListOfUsersPlanDelegate
 {
+    
     func successResponseForGetListOfUsersPlanAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetListOfUsersPlanAPI(_ error:String)
 }
 
 protocol AddSavingCardDelegate
 {
+    
     func successResponseForAddSavingCardDelegateAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForAddSavingCardDelegateAPI(_ error:String)
 }
 
 protocol AddNewSavingCardDelegate
 {
+    
     func successResponseForAddNewSavingCardDelegateAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForAddNewSavingCardDelegateAPI(_ error:String)
 }
 
 protocol GetListOfUsersCardsDelegate
 {
+    
     func successResponseForGetListOfUsersCards(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForGetListOfUsersCards(_ error:String)
 }
 
 protocol SetDefaultCardDelegate
 {
+    
     func successResponseForSetDefaultCard(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForSetDefaultCard(_ error:String)
 }
 
 protocol ImpulseSavingDelegate
 {
+    
     func successResponseImpulseSavingDelegateAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForImpulseSavingDelegateAPI(_ error:String)
 }
 
 protocol RemoveCardDelegate
 {
+    
     func successResponseForRemoveCardAPI(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseForRemoveCardAPI(_ error:String)
 }
 
 protocol GetAffiliatedTrackID
 {
+    
     func successResponseAffiliated(_ objResponse:Dictionary<String,AnyObject>)
     func errorResponseAffiliated(_ error:String)
 }
 
 
 class API: UIView,URLSessionDelegate {
+    
     // Maintain
     let urlconfig = URLSessionConfiguration.default
-    var delegate: PostCodeVerificationDelegate?
-    var otpSentDelegate : OTPSentDelegate?
-    var otpVerificationDelegate : OTPVerificationDelegate?
-    var logInDelegate : LogInDelegate?
-    var resetPasscodeDelegate : ResetPasscodeDelegate?
-    var shareExtensionDelegate : ShareExtensionDelegate?
-    var getWishlistDelegate : GetWishlistDelegate?
-    var getofferlistDelegate : GetOfferlistDelegate?
-    var partySavingPlanDelegate : PartySavingPlanDelegate?
-    var categorySavingPlanDelegate : CategoriesSavingPlan?
-    var deleteWishList : DeleteWishListDelegate?
-    var getSavingPlanDelegate : GetUsersPlanDelegate?
-    var updateSavingPlanDelegate : UpdateSavingPlanDelegate?
-    var getUserInfoDelegate : GetUserInfoDelegate?
-    var cancelSavingPlanDelegate : CancelSavingPlanDelegate?
-    var inviteMemberDelegate : InviteMembersDelegate?
-    var updateUserInfoDelegate : UpdateUserInfoDelegate?
-    var getListOfUsersPlanDelegate : GetListOfUsersPlanDelegate?
-    var addSavingCardDelegate : AddSavingCardDelegate?
-    var addNewSavingCardDelegate : AddNewSavingCardDelegate?
-    var getListOfUsersCardDelegate : GetListOfUsersCardsDelegate?
-    var setDefaultCardDelegate : SetDefaultCardDelegate?
-    var impulseSavingDelegate : ImpulseSavingDelegate?
-    var removeCardDelegate : RemoveCardDelegate?
-    var getAffiliateIdDelegate : GetAffiliatedTrackID?
+    
+    var delegate                    : PostCodeVerificationDelegate?
+    var otpSentDelegate             : OTPSentDelegate?
+    var otpVerificationDelegate     : OTPVerificationDelegate?
+    var logInDelegate               : LogInDelegate?
+    var resetPasscodeDelegate       : ResetPasscodeDelegate?
+    var shareExtensionDelegate      : ShareExtensionDelegate?
+    var getWishlistDelegate         : GetWishlistDelegate?
+    var getofferlistDelegate        : GetOfferlistDelegate?
+    var partySavingPlanDelegate     : PartySavingPlanDelegate?
+    var categorySavingPlanDelegate  : CategoriesSavingPlan?
+    var deleteWishList              : DeleteWishListDelegate?
+    var getSavingPlanDelegate       : GetUsersPlanDelegate?
+    var updateSavingPlanDelegate    : UpdateSavingPlanDelegate?
+    var getUserInfoDelegate         : GetUserInfoDelegate?
+    var cancelSavingPlanDelegate    : CancelSavingPlanDelegate?
+    var inviteMemberDelegate        : InviteMembersDelegate?
+    var updateUserInfoDelegate      : UpdateUserInfoDelegate?
+    var getListOfUsersPlanDelegate  : GetListOfUsersPlanDelegate?
+    var addSavingCardDelegate       : AddSavingCardDelegate?
+    var addNewSavingCardDelegate    : AddNewSavingCardDelegate?
+    var getListOfUsersCardDelegate  : GetListOfUsersCardsDelegate?
+    var setDefaultCardDelegate      : SetDefaultCardDelegate?
+    var impulseSavingDelegate       : ImpulseSavingDelegate?
+    var removeCardDelegate          : RemoveCardDelegate?
+    var getAffiliateIdDelegate      : GetAffiliatedTrackID?
     
     
     //Checking Reachability function
@@ -298,7 +319,7 @@ class API: UIView,URLSessionDelegate {
                 }
             })
             task.resume()
-
+            
         }
         else {
             //Give error no network found
@@ -320,15 +341,13 @@ class API: UIView,URLSessionDelegate {
             //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             //            request.addValue("application/json", forHTTPHeaderField: "Accept")
             
-            // request.timeoutInterval  = 30
-            //            urlconfig.timeoutIntervalForRequest = 60
-            //            urlconfig.timeoutIntervalForResource = 60
             self.setTimeOutRequest(60)
+            
             let request = self.createRequest(URL(string: String(format:"%@/%@",baseURL,apiName))!, method: "POST", paramDict: dictParam,userInforDict: [:], isAuth: false)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 //If data is not nil
                 if data != nil
                 {
@@ -358,7 +377,7 @@ class API: UIView,URLSessionDelegate {
                         self.delegate?.errorResponseForRegistrationAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -371,6 +390,7 @@ class API: UIView,URLSessionDelegate {
     
     //MARK: OTP generate and verification
     func getOTPForNumber(_ phoneNumber:String,country_code:String) {
+        
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -432,7 +452,7 @@ class API: UIView,URLSessionDelegate {
                         self.otpSentDelegate?.errorResponseForOTPSentAPI((error?.localizedDescription)!)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -450,8 +470,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 10
-            //            urlconfig.timeoutIntervalForResource = 10
+
             self.setTimeOutRequest(10)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -502,7 +521,7 @@ class API: UIView,URLSessionDelegate {
                     }
                 }
                 
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -517,6 +536,7 @@ class API: UIView,URLSessionDelegate {
     func logInWithUserID(_ dictParam:Dictionary<String,AnyObject>)
     {
         print(" logInWithUserID == \(dictParam)")
+        
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -592,7 +612,7 @@ class API: UIView,URLSessionDelegate {
                         self.logInDelegate?.errorResponseForOTPLogInAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -608,11 +628,10 @@ class API: UIView,URLSessionDelegate {
     func resetPasscodeOfUserID(_ dictParam:Dictionary<String,AnyObject>)
     {
         print(dictParam)
+        
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -648,7 +667,7 @@ class API: UIView,URLSessionDelegate {
                         self.resetPasscodeDelegate?.errorResponseForOTPResetPasscodeAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -666,7 +685,7 @@ class API: UIView,URLSessionDelegate {
         
         //        let defaults: NSUserDefaults = NSUserDefaults(suiteName: "group.savio.web.share.extention")!
         
-       
+        
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
         
@@ -702,8 +721,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 180
-            //            urlconfig.timeoutIntervalForResource = 180
+
             self.setTimeOutRequest(180)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -748,11 +766,9 @@ class API: UIView,URLSessionDelegate {
                     DispatchQueue.main.async{
                         self.shareExtensionDelegate?.errorResponseForShareExtensionAPI(error.localizedDescription)
                     }
-                    
-                    
                 }
                 
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -780,8 +796,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -818,7 +833,7 @@ class API: UIView,URLSessionDelegate {
                     
                 }
                 
-            }) 
+            })
             
             dataTask.resume()
         }
@@ -882,7 +897,7 @@ class API: UIView,URLSessionDelegate {
                         self.partySavingPlanDelegate?.errorResponseForPartySavingPlanAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -909,8 +924,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -925,8 +939,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getWishlistDelegate?.successResponseForGetWishlistAPI(dict)
+                            {
+                                self.getWishlistDelegate?.successResponseForGetWishlistAPI(dict)
                         }
                     }
                     else  {
@@ -941,7 +955,7 @@ class API: UIView,URLSessionDelegate {
                         self.getWishlistDelegate?.errorResponseForGetWishlistAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -973,8 +987,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.categorySavingPlanDelegate?.successResponseForCategoriesSavingPlanAPI(dict)
+                            {
+                                self.categorySavingPlanDelegate?.successResponseForCategoriesSavingPlanAPI(dict)
                         }
                     }
                     else {
@@ -988,7 +1002,7 @@ class API: UIView,URLSessionDelegate {
                         self.categorySavingPlanDelegate?.errorResponseForCategoriesSavingPlanAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1065,8 +1079,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1082,9 +1095,9 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
-                            print()
+                            {
+                                self.getofferlistDelegate?.successResponseForGetOfferlistAPI(dict)
+                                print()
                         }
                     }
                     else {
@@ -1098,7 +1111,7 @@ class API: UIView,URLSessionDelegate {
                         self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1123,8 +1136,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1140,8 +1152,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getSavingPlanDelegate?.successResponseForGetUsersPlanAPI(dict)
+                            {
+                                self.getSavingPlanDelegate?.successResponseForGetUsersPlanAPI(dict)
                         }
                     }
                     else {
@@ -1157,7 +1169,7 @@ class API: UIView,URLSessionDelegate {
                         self.getSavingPlanDelegate?.errorResponseForGetUsersPlanAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             
             dataTask.resume()
         }
@@ -1182,8 +1194,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 180
-            //            urlconfig.timeoutIntervalForResource = 180
+
             self.setTimeOutRequest(180)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1221,7 +1232,7 @@ class API: UIView,URLSessionDelegate {
                     }
                 }
                 
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1247,8 +1258,6 @@ class API: UIView,URLSessionDelegate {
         if(self.isConnectedToNetwork())
         {
             
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1265,8 +1274,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getUserInfoDelegate?.successResponseForGetUserInfoAPI(dict)
+                            {
+                                self.getUserInfoDelegate?.successResponseForGetUserInfoAPI(dict)
                         }
                     }
                     else
@@ -1287,7 +1296,7 @@ class API: UIView,URLSessionDelegate {
                 }
                 
                 
-            }) 
+            })
             dataTask.resume()
             
             
@@ -1315,8 +1324,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1354,7 +1362,7 @@ class API: UIView,URLSessionDelegate {
                         self.updateUserInfoDelegate?.errorResponseForUpdateUserInfoAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1378,8 +1386,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1399,8 +1406,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.cancelSavingPlanDelegate?.successResponseForCancelSavingPlanAPI(dict)
+                            {
+                                self.cancelSavingPlanDelegate?.successResponseForCancelSavingPlanAPI(dict)
                         }
                     }
                     else
@@ -1408,8 +1415,6 @@ class API: UIView,URLSessionDelegate {
                         DispatchQueue.main.async{
                             self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI((response?.description)!)
                         }
-                        
-                        
                     }
                 }
                 else  if let error = error
@@ -1418,12 +1423,8 @@ class API: UIView,URLSessionDelegate {
                     DispatchQueue.main.async{
                         self.cancelSavingPlanDelegate?.errorResponseForCancelSavingPlanAPI(error.localizedDescription)
                     }
-                    
-                    
                 }
-                
-                
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1450,9 +1451,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 180
-            //            urlconfig.timeoutIntervalForResource = 180
-            
+
             self.setTimeOutRequest(180)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1508,7 +1507,7 @@ class API: UIView,URLSessionDelegate {
                     }
                 }
                 
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1533,8 +1532,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1551,8 +1549,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getListOfUsersPlanDelegate?.successResponseForGetListOfUsersPlanAPI(dict)
+                            {
+                                self.getListOfUsersPlanDelegate?.successResponseForGetListOfUsersPlanAPI(dict)
                         }
                     }
                     else {
@@ -1567,7 +1565,7 @@ class API: UIView,URLSessionDelegate {
                         self.getListOfUsersPlanDelegate?.errorResponseForGetListOfUsersPlanAPI((response?.description)!)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1653,7 +1651,7 @@ class API: UIView,URLSessionDelegate {
                         self.addSavingCardDelegate?.errorResponseForAddSavingCardDelegateAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1677,8 +1675,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 60
-            //            urlconfig.timeoutIntervalForResource = 60
+
             self.setTimeOutRequest(60)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1751,7 +1748,7 @@ class API: UIView,URLSessionDelegate {
                         self.addNewSavingCardDelegate?.errorResponseForAddNewSavingCardDelegateAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1776,8 +1773,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 60
-            //            urlconfig.timeoutIntervalForResource = 60
+
             self.setTimeOutRequest(60)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1794,8 +1790,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.getListOfUsersCardDelegate?.successResponseForGetListOfUsersCards(dict)
+                            {
+                                self.getListOfUsersCardDelegate?.successResponseForGetListOfUsersCards(dict)
                         }
                     }
                     else  {
@@ -1810,7 +1806,7 @@ class API: UIView,URLSessionDelegate {
                         self.getListOfUsersCardDelegate?.errorResponseForGetListOfUsersCards(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1833,8 +1829,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 60
-            //            urlconfig.timeoutIntervalForResource = 60
+
             self.setTimeOutRequest(60)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1856,8 +1851,8 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.setDefaultCardDelegate?.successResponseForSetDefaultCard(dict)
+                            {
+                                self.setDefaultCardDelegate?.successResponseForSetDefaultCard(dict)
                         }
                     }
                     else  {
@@ -1872,7 +1867,7 @@ class API: UIView,URLSessionDelegate {
                         self.setDefaultCardDelegate?.errorResponseForSetDefaultCard(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1902,9 +1897,9 @@ class API: UIView,URLSessionDelegate {
                     if let dict = json as? Dictionary<String,AnyObject>
                     {
                         DispatchQueue.main.async
-                        {
-                            self.impulseSavingDelegate?.successResponseImpulseSavingDelegateAPI(dict)
-                            print(dict)
+                            {
+                                self.impulseSavingDelegate?.successResponseImpulseSavingDelegateAPI(dict)
+                                print(dict)
                         }
                     }
                     else  {
@@ -1918,7 +1913,7 @@ class API: UIView,URLSessionDelegate {
                         self.impulseSavingDelegate?.errorResponseForImpulseSavingDelegateAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             dataTask.resume()
         }
         else {
@@ -1942,8 +1937,7 @@ class API: UIView,URLSessionDelegate {
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
-            //            urlconfig.timeoutIntervalForRequest = 30
-            //            urlconfig.timeoutIntervalForResource = 30
+
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
@@ -1978,7 +1972,7 @@ class API: UIView,URLSessionDelegate {
                         self.removeCardDelegate?.errorResponseForRemoveCardAPI(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             
             dataTask.resume()
         }
@@ -2021,7 +2015,7 @@ class API: UIView,URLSessionDelegate {
                         self.getAffiliateIdDelegate?.errorResponseAffiliated(error.localizedDescription)
                     }
                 }
-            }) 
+            })
             
             dataTask.resume()
         }

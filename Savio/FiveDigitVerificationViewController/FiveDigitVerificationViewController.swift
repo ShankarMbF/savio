@@ -235,7 +235,7 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         }
         else
         {
-            let alert = UIAlertView(title: "Warning", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
     }

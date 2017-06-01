@@ -622,8 +622,8 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             alert.show()
         }
         else {
-        let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
+            alert.show()
         }
     }
     
@@ -656,7 +656,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             alert.show()
         }
         else {
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
             alert.show()
         }
 

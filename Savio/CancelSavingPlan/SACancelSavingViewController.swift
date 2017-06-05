@@ -110,8 +110,7 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -145,13 +144,11 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
                 view2.isHidden = false
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: "Internal Server Error")
             }
         }
         else  if let message = objResponse["error"] as? String{
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
         }
         
     }
@@ -160,11 +157,9 @@ class SACancelSavingViewController: UIViewController,CancelSavingPlanDelegate {
     func errorResponseForCancelSavingPlanAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == "Network not available" {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kConnectionProblemTitle)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

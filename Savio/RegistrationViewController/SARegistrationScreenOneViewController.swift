@@ -748,11 +748,7 @@ class SARegistrationScreenOneViewController: UIViewController,UITextFieldDelegat
     }
     
     func errorResponseFortermAndConditionAPI(_ error:String){
-        let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
     }
-    
 
-    
-    
 }

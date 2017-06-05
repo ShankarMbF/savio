@@ -555,8 +555,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")        }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -952,26 +951,22 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             {
                 pageControl.isHidden = true
                 groupMembersLabel.isHidden = true
-                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Alert", UIMessage: message)
             }
         }
         else
         {
             pageControl.isHidden = true
-            let alert = UIAlertView(title: "Alert", message: "Internal server error", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: "Internal server error")
         }
         objAnimView.removeFromSuperview()
     }
     
     func errorResponseForGetUsersPlanAPI(_ error: String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }
@@ -1013,14 +1008,10 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if(error == kNonetworkfound)
-        {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+        }else{
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

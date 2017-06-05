@@ -359,13 +359,11 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")            }
             else {
-                let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
             }
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -415,10 +413,9 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             }
             else {
                 //Give alert if camera is not available
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
-            })
+        })
         //alert view controll action method
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
         { action -> Void in
@@ -432,11 +429,10 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             }
             else {
                 //Give alert if camera is not available
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
             
-            })
+        })
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
@@ -1595,9 +1591,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     //This method is used to show the customized alert message to user
     func displayAlert(_ message:String)
     {
-        //Show of UIAlertView
-        let alert = UIAlertView(title: "Missing information", message: message, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        AlertContoller(UITitle: "Missing information", UIMessage: message)
     }
     
     //Delete the offer from added offers
@@ -1844,15 +1838,15 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 //                self.scrlView.contentSize = CGSizeMake(0, ht )
             }
             else {
-                let alert = UIAlertView(title: "Alert", message:message, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                
+                AlertContoller(UITitle: nil, UIMessage: message)
                 isUpdatePlan = false
                 tblView.reloadData()
             }
         }
         else if let message = objResponse["error"] as? String {
-            let alert = UIAlertView(title: "Alert", message: message , delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
+
             isUpdatePlan = false
             tblView.reloadData()
         }
@@ -1863,11 +1857,9 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     
     func errorResponseForGetUsersPlanAPI(_ error: String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }
@@ -1878,11 +1870,9 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         print(objResponse)
         if let message = objResponse["message"] as? String {
             if(message  == "Multiple representations of the same entity") {
-                nextButtonTrigger = false
 
-                let alert = UIAlertView(title: "Alert", message: "You have already created one saving plan.", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-                
+                nextButtonTrigger = false
+                AlertContoller(UITitle: nil, UIMessage: "You have already created one saving plan.")
             }
             else if(message == "Party Saving Plan is succesfully added") {
                 //Create a dictionary to send SASavingSummaryViewController
@@ -1968,28 +1958,23 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: message)
             }
         }
         else if let message = objResponse["internalMessage"] as? String {
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
         }
         else if let message = objResponse["error"] as? String {
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
         }
     }
     
     func errorResponseForPartySavingPlanAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -2057,12 +2042,10 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         objAnimView.removeFromSuperview()
         self.isPopoverValueChanged = false
         self.isCostChanged = false
-        if error == "Network not available" {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -2130,11 +2113,9 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

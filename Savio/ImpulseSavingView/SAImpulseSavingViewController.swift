@@ -272,8 +272,8 @@ class SAImpulseSavingViewController: UIViewController {
         {
             circleSlider.value = 0.0
             let msgStr = String(format: "The maximum you can top up is £%.0f", maxPrice!)
-            let alert = UIAlertView(title: "Whoa!", message: msgStr, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Whoa!", UIMessage: msgStr)
+
             self.removeKeyboardNotification()
             return false
         }
@@ -378,8 +378,7 @@ class SAImpulseSavingViewController: UIViewController {
         priceTextField.resignFirstResponder()
     
         if(maxPrice! < Float(tfString)!) {
-            let alert = UIAlertView(title: "Whoa!", message: "The maximum you can top up is £3000", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Whoa!", UIMessage: "The maximum you can top up is £3000")
         }
         self.removeKeyboardNotification()
         
@@ -392,8 +391,7 @@ class SAImpulseSavingViewController: UIViewController {
             tfString = tfString.chopPrefix(1)
             if(tfString == "00" || tfString == "0")
             {
-                let alert = UIAlertView(title: "Hmmm", message: "You can't top up with no money, that won't get you anywhere!", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Hmmm", UIMessage: "You can't top up with no money, that won't get you anywhere!")
             }
             else {
                 userDefaults.setValue(tfString, forKey: "ImpulseAmount")
@@ -442,8 +440,7 @@ class SAImpulseSavingViewController: UIViewController {
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     

@@ -377,11 +377,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     func errorResponseForDeleteWishListAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -412,11 +410,9 @@ class SAWishListViewController: UIViewController,GetWishlistDelegate,DeleteWishL
     //Fail response GetWishlist API
     func errorResponseForGetWishlistAPI(_ error: String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }

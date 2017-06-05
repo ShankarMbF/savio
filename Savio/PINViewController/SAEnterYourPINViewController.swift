@@ -344,8 +344,9 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
     func errorResponseForOTPLogInAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+            
         }
 
         else if(error == "Passcode is incorrect")
@@ -361,8 +362,8 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
         }
         else
         {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
+
         }
     }
     
@@ -395,16 +396,15 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
         fiveDigitVerificationViewController.isComingFromRegistration = false
         self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
     }
+    
     func errorResponseForOTPSentAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNonetworkfound)
         }
         else if (error == "The request timed out")
         {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         else
         {

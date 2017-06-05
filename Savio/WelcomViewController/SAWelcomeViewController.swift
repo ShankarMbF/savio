@@ -269,8 +269,11 @@ class SAWelcomeViewController: UIViewController, URLSessionDelegate {
     }
     
     func errorResponseFortermAndConditionAPI(_ error:String){
-        let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+        }else{
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
+        }
     }
 
 }

@@ -146,8 +146,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             
             if(showAlert == true)
             {
-                let alert = UIAlertView(title: "Alert", message: "This card will be saved as default card", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: "This card will be saved as default card")
             }
         }
         
@@ -180,8 +179,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             objAPI.setDefaultPaymentCard(newDict)
             
         } else{
-            let alert = UIAlertView(title: "Alert", message: "Click on Add New Card tab below and enter your card details", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: "Click on Add New Card tab below and enter your card details")
         }
     }
     
@@ -192,8 +190,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -278,7 +275,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         removeCardTag = sender.tag
         let dict = self.checkNullDataFromDict(savedCardArray[removeCardTag])
         print("Remove card ends with \(dict["last4"] as! String)")
+        
         let uiAlert = UIAlertController(title: "Alert", message: "Do you want remove card end with \(dict["last4"] as! String)?", preferredStyle: UIAlertControllerStyle.alert)
+        uiAlert.title = nil
         self.present(uiAlert, animated: true, completion: nil)
         
         uiAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
@@ -386,8 +385,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
             newDict["CUST_DEFAULT_CARD"] = dict["id"]
             objAPI.setDefaultPaymentCard(newDict)
         } else{
-            let alert = UIAlertView(title: "Alert", message: "Click on Add New Card tab below and enter your card details", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: "Click on Add New Card tab below and enter your card details")
         }
         
     }
@@ -446,11 +444,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForGetListOfUsersCards(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -547,11 +543,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForSetDefaultCard(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -580,8 +574,7 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
                 self.navigationController?.pushViewController(objImpulseView, animated: true)
             }
         }else {
-            let alert = UIAlertView(title: "Sorry, transaction is not completed", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Sorry, transaction is not completed", UIMessage: "Please try again.")
         }
     }
     
@@ -589,11 +582,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForImpulseSavingDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -651,11 +642,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
         print(error)
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
 
@@ -691,11 +680,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -757,11 +744,9 @@ class SASaveCardViewController: UIViewController,UITableViewDelegate,UITableView
     func errorResponseForAddNewSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

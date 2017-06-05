@@ -271,8 +271,7 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
                 }
             }
         default:
-            let alert = UIAlertView(title: "Alert", message: "Your saving plan is created successfully", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: "Your saving plan is created successfully")
         }
     }
     
@@ -316,11 +315,9 @@ class ContainerViewController: UIViewController,STPAddCardViewControllerDelegate
     func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

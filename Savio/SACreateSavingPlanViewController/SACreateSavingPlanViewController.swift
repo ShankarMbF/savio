@@ -456,8 +456,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -529,8 +528,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         if(userDefaults.object(forKey: kIndividualPlan) as? NSNumber == 1 || userDefaults.object(forKey: kGroupPlan) as? NSNumber == 1)
         {
             //if plan already created then restrict user to create all plan
-            let alert = UIAlertView(title: "You already have an active plan", message: "Sorry, can only have one personal plan and be a member of one group plan at a time.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "You already have an active plan", UIMessage: "Sorry, can only have one personal plan and be a member of one group plan at a time.")
         }
         else
         {
@@ -618,12 +616,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
         objAnimView.removeFromSuperview()
         if(error == kNonetworkfound)
         {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNonetworkfound)
         }
         else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -631,8 +627,7 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
     func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
         if let error = objResponse["error"] as? String
         {
-            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: error)
         }
         else
         {
@@ -650,14 +645,10 @@ class SACreateSavingPlanViewController: UIViewController,UITableViewDelegate,UIT
      //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if(error == kNonetworkfound)
-        {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }
-        else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+        }else{
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
 
     }

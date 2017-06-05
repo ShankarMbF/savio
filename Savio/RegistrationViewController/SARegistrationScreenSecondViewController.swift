@@ -256,8 +256,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         let trimmedString = findAddressTextField.text!.replacingOccurrences(of: " ", with: "")
         
         if trimmedString.characters.count == 0 {
-            let alert = UIAlertView(title: "Sorry!", message: "Please enter your postcode to find your address and try again", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Sorry!", UIMessage: "Please enter your postcode to find your address and try again")
             return
         }
         self.view.addSubview(objAnimView)
@@ -520,10 +519,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     func error(_ error: String) {
         objAnimView.removeFromSuperview()
-        if(error == "Network not available")
-        {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }
         else if(error == "That postcode doesn't look right")
         {
@@ -531,9 +528,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
         else
         {
-            let alert = UIAlertView(title: "Sorry!", message: "We can't look up your postcode, please enter your address below.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-            
+            AlertContoller(UITitle: "Sorry!", UIMessage: "We can't look up your postcode, please enter your address below.")
         }
     }
     //Registration delegate methods
@@ -621,13 +616,10 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
     
     func errorResponseForRegistrationAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if(error == kNonetworkfound)
-        {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
-        }else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+        }else{
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

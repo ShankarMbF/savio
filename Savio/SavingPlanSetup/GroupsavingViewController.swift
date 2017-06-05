@@ -196,13 +196,11 @@
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
             }
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -251,10 +249,9 @@
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
-            })
+        })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
         { action -> Void in
             
@@ -265,10 +262,9 @@
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
-            })
+        })
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
@@ -724,7 +720,7 @@
     func inviteButtonPressed()
     {
         if(participantsArr.count == 7) {
-            self.displayAlert("You can't add more than 7 contacts into group saving plan", title: "Alert")
+            AlertContoller(UITitle: nil, UIMessage: "You can't add more than 7 contacts into group saving plan")
         }
         else {
             self.showAddressBook()
@@ -912,16 +908,17 @@
             else {
                 self.objAnimView.removeFromSuperview()
                 if(itemTitle == "") {
-                    self.displayAlert("Please enter title for your saving plan", title: "Missing information")
+                    AlertContoller(UITitle: "Missing information", UIMessage: "Please enter title for your saving plan")
                 }
                 else if(cost == 0 ) {
-                    self.displayAlert("Please enter amount for your saving plan", title: "Missing information")
+                    AlertContoller(UITitle: "Missing information", UIMessage: "Please enter amount for your saving plan")
                 }
 //                else if(dateDiff == 0) {
-//                    self.displayAlert("Please select date for your saving plan", title: "Missing information")
+//                AlertContoller(UITitle: "Missing information", UIMessage: "Please select date for your saving plan")
+
 //                }
                 else  {
-                    self.displayAlert("Please enter all details", title: "Missing information")
+                    AlertContoller(UITitle: "Missing information", UIMessage: "Please enter all details")
                 }
             }
         }
@@ -951,17 +948,9 @@
                 else if(participantsArr.count == 0) {
                     message = "Please add atleast one contact."
                 }
-                self.displayAlert(message, title: "Missing information")
+                AlertContoller(UITitle: "Missing information", UIMessage: message)
             }
         }
-    }
-    
-    
-    func displayAlert(_ message:String, title:String)
-    {
-        //Show of UIAlertView
-        let alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
     }
     
     

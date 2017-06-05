@@ -210,13 +210,11 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
             }
             else {
-                let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
             }
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     //TableViewDelegate methods
@@ -545,9 +543,7 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
     
     func displayAlert(_ message:String)
     {
-        //Show of UIAlertView
-        let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-        alert.show()
+        AlertContoller(UITitle: nil, UIMessage: message)
     }
     
     //Dictionary to join the Group plan.
@@ -661,8 +657,7 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
             })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
@@ -674,8 +669,7 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
             })
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
@@ -891,18 +885,14 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                     }
                 }
                 else {
-                    let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
+                    self.AlertContoller(UITitle: nil, UIMessage: message)
                 }
             }
             else if let userMessage = objResponse["userMessage"] as? String{
-                let alert = UIAlertView(title: "Alert", message: userMessage, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: nil, UIMessage: userMessage)
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: objResponse["error"] as? String, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
-                
+                self.AlertContoller(UITitle: nil, UIMessage: (objResponse["error"] as? String)!)
             }
             objAnimView.removeFromSuperview()
         }
@@ -926,14 +916,12 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
                     
                 }
                 else {
-                    let alert = UIAlertView(title: "Warning", message: objResponse["userMessage"] as? String, delegate: nil, cancelButtonTitle: "Ok")
-                    alert.show()
+                    AlertContoller(UITitle: "Warning", UIMessage: (objResponse["userMessage"] as? String)!)
                     objAnimView.removeFromSuperview()
                 }
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: objResponse["error"] as? String, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Warning", UIMessage: (objResponse["error"] as? String)!)
                 objAnimView.removeFromSuperview()
             }
         }
@@ -942,11 +930,9 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
     
     func errorResponseForPartySavingPlanAPI(_ error:String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }
@@ -1050,11 +1036,9 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
     
     func errorResponseForInviteMembersAPI(_ error: String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }
@@ -1100,11 +1084,9 @@ class SACreateGroupSavingPlanViewController: UIViewController, UITableViewDelega
     func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
 }

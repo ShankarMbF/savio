@@ -220,23 +220,19 @@ class FiveDigitVerificationViewController: UIViewController,UITextFieldDelegate,
         let objCreatePINView = CreatePINViewController(nibName: "CreatePINViewController",bundle: nil)
         self.navigationController?.pushViewController(objCreatePINView, animated: true)
     }
+    
     func errorResponseForOTPVerificationAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if(error == "Verification code is incorrect.")
         {
-//            codeDoesNotMatchLabel.text = error
-//            codeDoesNotMatchLabel.hidden = false;
-            let alert = UIAlertView(title: "Incorrect verification code", message: "Please try again or request a new code.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Incorrect verification code", UIMessage: "Please try again or request a new code.")
         }
         else if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }
         else
         {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
 }

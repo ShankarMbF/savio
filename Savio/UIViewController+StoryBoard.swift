@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController {
 
-    func alertContoll(UITitle : String?, UIMessage : String){
+    func AlertContoller(UITitle : String?, UIMessage : String){
         let alertController = UIAlertController(title: UITitle, message: UIMessage, preferredStyle: .alert)
         
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)

@@ -18,6 +18,7 @@ protocol SAContactViewDelegate {
 
 class ContactViewController: UIViewController {
     
+    var invited = "You have already invited this contact"
     var contactDict: Dictionary<String,AnyObject> = [:] //Dictionary for holding contact info
     var delegate : SAContactViewDelegate?
     
@@ -204,11 +205,10 @@ class ContactViewController: UIViewController {
             //checking is contact alredy selected
             if(mobileArray.contains(text) || nameArray.contains(name))
             {
-                alertContoll(UITitle: nil, UIMessage: "You have already invited this contact")
+                AlertContoller(UITitle: nil, UIMessage: invited)
             }
             else if(emailArray.contains(text) || nameArray.contains(name)) {
-                let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: invited)
             }
             else {
                 //not selected then select contact for invitation

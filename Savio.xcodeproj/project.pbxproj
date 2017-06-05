@@ -1250,7 +1250,7 @@
 		D4B893B41E9377A10046E243 /* Stripe.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Stripe.bundle; path = Stripe.framework/Stripe.bundle; sourceTree = "<group>"; };
 		D4D5957E1E9BB7FA0063805F /* utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utility.swift; sourceTree = "<group>"; };
 		D4D595801E9BB8410063805F /* SharePresistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePresistance.swift; sourceTree = "<group>"; };
-		D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
+		D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+StoryBoard.swift"; path = "../UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2113,6 +2113,7 @@
 		C97949711CEC987900416BD5 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */,
 				D49FB3AA1EDD9D9D00D17B01 /* DefaultTextField.swift */,
 				D49FB3AB1EDD9D9D00D17B01 /* PasscodeTextField.swift */,
 				C97949721CEC987900416BD5 /* ColorCodes.swift */,
@@ -2234,7 +2235,6 @@
 			children = (
 				D4D5957E1E9BB7FA0063805F /* utility.swift */,
 				D4D595801E9BB8410063805F /* SharePresistance.swift */,
-				D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */,
 				A8095C731CEDC6A3006366F7 /* Webservices */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,

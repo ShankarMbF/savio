@@ -229,8 +229,7 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
                 self.passcodeView.isHidden = true
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: message , delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Warning", UIMessage: message)
             }
         }
         else if let internalMessage = objResponse["internalMessage"] as? String
@@ -251,8 +250,7 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
                 self.present(alert, animated: true, completion: nil)
                 
             }else{
-            let alert = UIAlertView(title: "Important Information", message: internalMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+                AlertContoller(UITitle: "Important Information", UIMessage: internalMessage)
             }
         }
         
@@ -260,11 +258,9 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
     func errorResponseForOTPResetPasscodeAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNonetworkfound)
         }else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         
     }
@@ -289,8 +285,7 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
                 self.navigationController?.pushViewController(objEnterYourPinViewController, animated: true)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: (message as! String), delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Warning", UIMessage: (message as! String))
             }
             
         }
@@ -299,11 +294,9 @@ class CreatePINViewController: UIViewController,PostCodeVerificationDelegate,Res
     func errorResponseForRegistrationAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNonetworkfound)
         }else {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

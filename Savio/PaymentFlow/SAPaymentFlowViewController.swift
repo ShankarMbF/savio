@@ -799,12 +799,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //Error response of AddSavingCardDelegate
     func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -866,12 +864,10 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
     //error response of AddNewSavingCardDelegate
     func errorResponseForAddNewSavingCardDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     
@@ -889,20 +885,17 @@ class SAPaymentFlowViewController: UIViewController,AddSavingCardDelegate,AddNew
                 self.navigationController?.pushViewController(objImpulseView, animated: true)
             }
         }else {
-            let alert = UIAlertView(title: "Sorry, transaction is not completed", message: "Please try again.", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: "Sorry, transaction is not completed", UIMessage: "Please try again.")
         }
     }
     
     //Error response of ImpulseSavingDelegate
     func errorResponseForImpulseSavingDelegateAPI(_ error: String) {
         objAnimView.removeFromSuperview()
-        if error == "No network found" {
-            let alert = UIAlertView(title: "Connection problem", message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         
     }

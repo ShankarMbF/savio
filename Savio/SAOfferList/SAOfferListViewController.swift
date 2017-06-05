@@ -191,8 +191,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             }
             else {
                 //If network not found
-                let alert = UIAlertView(title: "Warning", message: "Network not available on your device.", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Warning", UIMessage: "Network not available on your device.")
             }
         }
         //customization of plan button as per the psd
@@ -232,13 +231,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAWishListViewController")
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")            }
             else {
-               let alert = UIAlertView(title: "Wish list empty", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
             }
         }
         else {
-            let alert = UIAlertView(title: "Wish list empty", message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -507,8 +504,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             let newDict = addedOfferArr[i]
           
             if offerDict["offId"] as! NSNumber == newDict["offId"] as! NSNumber {
-                let alert = UIAlertView(title: "Offer already added", message: "You have already added this offer to your savings plan", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: "Offer already added", UIMessage: "You have already added this offer to your savings plan")
                 return
             }
         }
@@ -551,11 +547,9 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
     func errorResponseForGetOfferlistAPI(_ error:String){
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
     

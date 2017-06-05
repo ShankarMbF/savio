@@ -566,8 +566,8 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
             NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAWishListViewController")
         }
         else {
-            let alert = UIAlertView(title: kWishlistempty, message: kEmptyWishListMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            
+            AlertContoller(UITitle: kWishlistempty, UIMessage: kEmptyWishListMessage)
         }
     }
     
@@ -1110,8 +1110,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
         })
         alertController.addAction(UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.default)
@@ -1125,8 +1124,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
             else {
-                let alert = UIAlertView(title: "Warning", message: "No camera available", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                self.AlertContoller(UITitle: "Warning", UIMessage: "No camera available")
             }
             
         })
@@ -1202,6 +1200,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
             if (self.isInfoUpdated == true || flagForUpdat == true){
                 
                 let uiAlert = UIAlertController(title: "Alert", message: "Would you like to save the changes to your personal settings?", preferredStyle: UIAlertControllerStyle.alert)
+                uiAlert.title = nil
                 self.present(uiAlert, animated: true, completion: nil)
                 
                 uiAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
@@ -1231,8 +1230,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
             }
             
         }else {
-            let alert = UIAlertView(title: "Alert", message: "Please create saving plan first", delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            self.AlertContoller(UITitle: nil, UIMessage: "Please create saving plan first")
         }
         
     }
@@ -1352,8 +1350,7 @@ extension SAEditUserInfoViewController: GetUserInfoDelegate {
                 
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: message)
             }
         }
         objAnimView!.removeFromSuperview()
@@ -1361,11 +1358,9 @@ extension SAEditUserInfoViewController: GetUserInfoDelegate {
     
     func errorResponseForGetUserInfoAPI(_ error: String) {
         if error == kNonetworkfound {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView!.removeFromSuperview()
     }
@@ -1800,8 +1795,6 @@ extension SAEditUserInfoViewController :  UpdateUserInfoDelegate {
         {
             if(message == "UserData Updated Successfully")
             {
-                //                let alert = UIAlertView(title: "Updated", message: "Personal details updated", delegate: nil, cancelButtonTitle: "Ok")
-                //                alert.show()
                 self.changeMainDict()
                 self.createCells()
                 
@@ -1818,28 +1811,23 @@ extension SAEditUserInfoViewController :  UpdateUserInfoDelegate {
                 
             }
             else {
-                let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                AlertContoller(UITitle: nil, UIMessage: message)
             }
         }
         else if let message = objResponse["message"] as? String {
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
         }
         else if let message = objResponse["internalMessage"] as? String {
-            let alert = UIAlertView(title: "Alert", message: message, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: nil, UIMessage: message)
         }
     }
     
     func errorResponseForUpdateUserInfoAPI(_ error: String) {
         objAnimView?.removeFromSuperview()
-        if error == "Network not available" {
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kNoNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
-            let alert = UIAlertView(title: kConnectionProblemTitle, message: kTimeOutNetworkMessage, delegate: nil, cancelButtonTitle: "Ok")
-            alert.show()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
 

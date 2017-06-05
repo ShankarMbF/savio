@@ -204,8 +204,7 @@ class ContactViewController: UIViewController {
             //checking is contact alredy selected
             if(mobileArray.contains(text) || nameArray.contains(name))
             {
-                let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")
-                alert.show()
+                alertContoll(UITitle: nil, UIMessage: "You have already invited this contact")
             }
             else if(emailArray.contains(text) || nameArray.contains(name)) {
                 let alert = UIAlertView(title: "Alert", message: "You have already invited this contact", delegate: nil, cancelButtonTitle: "Ok")

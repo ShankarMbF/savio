@@ -612,6 +612,7 @@
 		D4B893B51E9377A10046E243 /* Stripe.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D4B893B41E9377A10046E243 /* Stripe.bundle */; };
 		D4D5957F1E9BB7FA0063805F /* utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D5957E1E9BB7FA0063805F /* utility.swift */; };
 		D4D595811E9BB8410063805F /* SharePresistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D595801E9BB8410063805F /* SharePresistance.swift */; };
+		D4F798A11EE536BD0066A984 /* UIViewController+StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1249,6 +1250,7 @@
 		D4B893B41E9377A10046E243 /* Stripe.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Stripe.bundle; path = Stripe.framework/Stripe.bundle; sourceTree = "<group>"; };
 		D4D5957E1E9BB7FA0063805F /* utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = utility.swift; sourceTree = "<group>"; };
 		D4D595801E9BB8410063805F /* SharePresistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePresistance.swift; sourceTree = "<group>"; };
+		D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2232,6 +2234,7 @@
 			children = (
 				D4D5957E1E9BB7FA0063805F /* utility.swift */,
 				D4D595801E9BB8410063805F /* SharePresistance.swift */,
+				D4F798A01EE536BD0066A984 /* UIViewController+StoryBoard.swift */,
 				A8095C731CEDC6A3006366F7 /* Webservices */,
 				A8ABA8251D76C6CC00C58E7F /* BannerView */,
 				C9FB59231D1A727A00C9B6AE /* ContactList */,
@@ -3233,6 +3236,7 @@
 				C9905FA21CED9EF700E63471 /* linkButtonTableViewCell.swift in Sources */,
 				C94CB98A1D213F040040E150 /* SAStatViewController.swift in Sources */,
 				A89F77F01D8BBC5400EA932B /* CardTableViewCell.swift in Sources */,
+				D4F798A11EE536BD0066A984 /* UIViewController+StoryBoard.swift in Sources */,
 				A87016191D1BB17900E58A6A /* SACreateGroupSavingPlanViewController.swift in Sources */,
 				A8900C221D2FB27F00D8CD0F /* Math.swift in Sources */,
 				C9FB59261D1A727A00C9B6AE /* ContactViewController.swift in Sources */,

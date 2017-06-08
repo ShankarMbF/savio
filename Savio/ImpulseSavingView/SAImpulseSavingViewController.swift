@@ -19,6 +19,7 @@ extension String {
 import UIKit
 
 class SAImpulseSavingViewController: UIViewController {
+    
     @IBOutlet weak var addFundsButton: UIButton!
     @IBOutlet weak var deductMoneyLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -103,18 +104,19 @@ class SAImpulseSavingViewController: UIViewController {
             addFundsButton.backgroundColor = UIColor(red : 244/255,
                                                      green : 172/255,
                                                      blue : 58/255, alpha: 1)
+            
             deductMoneyLabel.text = String(format:"Your payment of £%@ has been added to your saving plan.",(userDefaults.value(forKey: "ImpulseAmount") as? String)!)
             isFromPayment = false
-            
-  
             circularViewTopSpace.constant = 10
+            
         }
         else {
           
             circularViewTopSpace.constant = 70
             deductMoneyLabel.text = ""
-            }
+        }
     }
+    
     //customization of circle slider
     fileprivate func buildCircleSlider() {
         self.circleSlider = CircleSlider(frame: CGRect(x: 0, y: 0, width: circularView.frame.size.width, height: circularView.frame.size.height), options: self.sliderOptions)
@@ -243,6 +245,7 @@ class SAImpulseSavingViewController: UIViewController {
             }
             btnName.setTitle(String(format:"%d",wishListArray.count), for: UIControlState())
         }
+        
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = btnName
         self.navigationItem.rightBarButtonItem = rightBarButton
@@ -405,6 +408,9 @@ class SAImpulseSavingViewController: UIViewController {
         }
         else
         {
+            userDefaults.setValue(1, forKey: "ContinueHit")
+            userDefaults.synchronize()
+
             if let plan = userDefaults.value(forKey: "usersPlan") as? String
             { //Individual plan
                 if(plan == kIndividualPlan)

@@ -464,7 +464,7 @@ class SASavingSummaryViewController: UIViewController {
                 lblDate.text = itemDataDict[kPLANENDDATE] as? String
             }
 //            lblDate.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
-            print(itemDataDict[kPLANENDDATE])
+            print(itemDataDict[kPLANENDDATE] ?? "Kplan")
            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd-MM-yyyy"

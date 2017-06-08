@@ -18,7 +18,7 @@ struct Device {
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
     var objSANav: UINavigationController?
     var objSAWelcomViewController: SAWelcomeViewController?

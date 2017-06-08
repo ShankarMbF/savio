@@ -33,7 +33,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, SavingPlanCostTableViewCellDelegate, SavingPlanDatePickerCellDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PartySavingPlanDelegate, SAOfferListViewDelegate, SavingPlanTitleTableViewCellDelegate, SegmentBarChangeDelegate, GetUsersPlanDelegate, UpdateSavingPlanDelegate, STPAddCardViewControllerDelegate, AddSavingCardDelegate {
+class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, SavingPlanCostTableViewCellDelegate, SavingPlanDatePickerCellDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, PartySavingPlanDelegate, SAOfferListViewDelegate, SavingPlanTitleTableViewCellDelegate, SegmentBarChangeDelegate, GetUsersPlanDelegate,  STPAddCardViewControllerDelegate {
     
     @IBOutlet weak var topBackgroundImageView   : UIImageView!
     @IBOutlet weak var cameraButton             : UIButton!
@@ -42,7 +42,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tblViewHt                : NSLayoutConstraint!
     @IBOutlet weak var scrlView                 : UIScrollView!
     @IBOutlet weak var upperView                : UIView!
-    @IBOutlet weak var segmentBar       : CustomSegmentBar!
+    @IBOutlet weak var segmentBar               : CustomSegmentBar!
     
     var segmentDelegate : SegmentBarChangeDelegate?
     
@@ -651,9 +651,26 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 }
                 else {
                     //                    cell1.dayDateTextField.text = ""
-                    var str = "1"
+                    let str = "1"
                     cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
                 }
+                
+            }
+            if(isClearPressed){
+                if(popOverSelectedStr != "") {
+                    if(dateString == kDay) {
+                        cell1.dayDateTextField.text = self.popOverSelectedStr
+                    }
+                    else {
+                        cell1.dayDateTextField.attributedText = self.createXLabelText(Int(self.popOverSelectedStr)!, text: self.popOverSelectedStr)
+                    }
+                }
+                else {
+                    //                    cell1.dayDateTextField.text = ""
+                    let str = "1"
+                    cell1.dayDateTextField.attributedText =  self.createXLabelText(1, text: str)
+                }
+            
             }
             //            if(isClearPressed)  {
             //                if(isUpdatePlan) {
@@ -1978,7 +1995,88 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    //MARK: update saving plan methods
+   
+    
+    //MARK: Offer delegate methods
+    func addedOffers(_ offerForSaveArr:Dictionary<String,AnyObject>) {
+        print(offerForSaveArr)
+        offerArr.append(offerForSaveArr)
+        if(isUpdatePlan) {
+            //            tblViewHt.constant = tblView.frame.size.height + 50
+            tblViewHt.constant = tblViewHt.constant + 80
+            isOfferShow = false
+            isComingGallary = false
+            //            let ht = upperView.frame.size.height + tblViewHt.constant + 100// tblView.frame.size.height + 100
+            //            self.scrlView.contentSize = CGSizeMake(0, ht )
+        }
+        else {
+            tblViewHt.constant = tblView.frame.size.height + 80
+            isOfferShow = false
+            isComingGallary = false
+            let ht = upperView.frame.size.height + tblView.frame.size.height + 100
+            self.scrlView.contentSize = CGSize(width: 0, height: ht )
+        }
+        tblView.reloadData()
+        
+    }
+    
+    func skipOffers(){
+        isOfferShow = false
+        
+    }
+    
+}
+
+// MARK:- API Response AddSavingCardDelegate
+
+extension SASavingPlanViewController : AddSavingCardDelegate{
+
+    //Success response of AddSavingCardDelegate
+    func successResponseForAddSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
+        objAnimView.removeFromSuperview()
+        if let message = objResponse["message"] as? String{
+            if(message == "Successful")
+            {
+                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
+                {
+                    userDefaults.set(1, forKey: "saveCardArray")
+                    userDefaults.synchronize()
+                    objAnimView.removeFromSuperview()
+                    if(self.isFromGroupMemberPlan == true)
+                    {
+                        //Navigate to SAThankYouViewController
+                        self.isFromGroupMemberPlan = false
+                        userDefaults.setValue(1, forKey: kGroupMemberPlan)
+                        userDefaults.synchronize()
+                        let objThankyYouView = SAThankYouViewController()
+                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
+                    }
+                    else {
+                        objAnimView.removeFromSuperview()
+                        let objSummaryView = SASavingSummaryViewController()
+                        self.navigationController?.pushViewController(objSummaryView, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    //Error response of AddSavingCardDelegate
+    func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
+        objAnimView.removeFromSuperview()
+        if error == kNonetworkfound {
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
+        }else{
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
+        }
+    }
+
+}
+
+//  MARK:- Delegate Method UpdateSavingPlanDelegate
+
+extension SASavingPlanViewController : UpdateSavingPlanDelegate {
+
     func successResponseForUpdateSavingPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         if (objResponse["message"] as? String) != nil
@@ -2048,77 +2146,5 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
-    
-    //MARK: Offer delegate methods
-    func addedOffers(_ offerForSaveArr:Dictionary<String,AnyObject>) {
-        print(offerForSaveArr)
-        offerArr.append(offerForSaveArr)
-        if(isUpdatePlan) {
-            //            tblViewHt.constant = tblView.frame.size.height + 50
-            tblViewHt.constant = tblViewHt.constant + 80
-            isOfferShow = false
-            isComingGallary = false
-            //            let ht = upperView.frame.size.height + tblViewHt.constant + 100// tblView.frame.size.height + 100
-            //            self.scrlView.contentSize = CGSizeMake(0, ht )
-        }
-        else {
-            tblViewHt.constant = tblView.frame.size.height + 80
-            isOfferShow = false
-            isComingGallary = false
-            let ht = upperView.frame.size.height + tblView.frame.size.height + 100
-            self.scrlView.contentSize = CGSize(width: 0, height: ht )
-        }
-        tblView.reloadData()
-        
-    }
-    
-    func skipOffers(){
-        isOfferShow = false
-        
-    }
-    
-    
-    // MARK: - API Response
-    //Success response of AddSavingCardDelegate
-    func successResponseForAddSavingCardDelegateAPI(_ objResponse: Dictionary<String, AnyObject>) {
-        objAnimView.removeFromSuperview()
-        if let message = objResponse["message"] as? String{
-            if(message == "Successful")
-            {
-                if(objResponse["stripeCustomerStatusMessage"] as? String == "Customer Card detail Added Succeesfully")
-                {
-                    userDefaults.set(1, forKey: "saveCardArray")
-                    userDefaults.synchronize()
-                    objAnimView.removeFromSuperview()
-                    if(self.isFromGroupMemberPlan == true)
-                    {
-                        //Navigate to SAThankYouViewController
-                        self.isFromGroupMemberPlan = false
-                        userDefaults.setValue(1, forKey: kGroupMemberPlan)
-                        userDefaults.synchronize()
-                        let objThankyYouView = SAThankYouViewController()
-                        self.navigationController?.pushViewController(objThankyYouView, animated: true)
-                    }
-                    else {
-                        objAnimView.removeFromSuperview()
-                        let objSummaryView = SASavingSummaryViewController()
-                        self.navigationController?.pushViewController(objSummaryView, animated: true)
-                    }
-                }
-            }
-        }
-    }
-    
-    //Error response of AddSavingCardDelegate
-    func errorResponseForAddSavingCardDelegateAPI(_ error: String) {
-        objAnimView.removeFromSuperview()
-        if error == kNonetworkfound {
-            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
-        }else{
-            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
-        }
-    }
-    
-    
-    
+
 }

@@ -10,20 +10,24 @@ import UIKit
 
 class GroupProgressTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var remainingAmountLabel: UILabel!
-    @IBOutlet weak var savedAmountLabel: UILabel!
-    @IBOutlet weak var cellTotalAmountLabel: UILabel!
-    @IBOutlet weak var remainingProgress: KDCircularProgress!
-    @IBOutlet weak var saveProgress: KDCircularProgress!
-    @IBOutlet weak var planView: UIView!
-    @IBOutlet weak var topVw: UIView!
-    @IBOutlet weak var userProfile: UIImageView!
-    @IBOutlet weak var topVwHt: NSLayoutConstraint!
-    @IBOutlet weak var makeImpulseSavingButton: UIButton!
+    @IBOutlet weak var planView     : UIView!
+    @IBOutlet weak var topVw        : UIView!
     @IBOutlet weak var topShadowView: UIView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var payTypeLabel: UILabel!
-    @IBOutlet weak var topSpaceProfilePic: NSLayoutConstraint!
+    
+    @IBOutlet weak var userProfile  : UIImageView!
+    @IBOutlet weak var topVwHt      : NSLayoutConstraint!
+    
+    @IBOutlet weak var remainingAmountLabel : UILabel!
+    @IBOutlet weak var savedAmountLabel     : UILabel!
+    @IBOutlet weak var cellTotalAmountLabel : UILabel!
+    @IBOutlet weak var nameLabel            : UILabel!
+    @IBOutlet weak var payTypeLabel         : UILabel!
+    
+    @IBOutlet weak var remainingProgress    : KDCircularProgress!
+    @IBOutlet weak var saveProgress         : KDCircularProgress!
+
+    @IBOutlet weak var makeImpulseSavingButton  : UIButton!
+    @IBOutlet weak var topSpaceProfilePic       : NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

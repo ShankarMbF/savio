@@ -32,40 +32,52 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersPlanDelegate,GetWishlistDelegate {
+class SAGroupProgressViewController: UIViewController {
     
-    @IBOutlet weak var groupMembersLabel: UILabel!
+
     @IBOutlet weak var topButtonView: UIView!
-    @IBOutlet weak var toolBarView: UIView!
-    @IBOutlet weak var contentVwHt: NSLayoutConstraint!
-    @IBOutlet weak var tblHt: NSLayoutConstraint!
-    @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var horizontalScrollView: UIScrollView!
-    @IBOutlet weak var spendButton: UIButton!
-    @IBOutlet weak var planButton: UIButton!
-    @IBOutlet weak var savingPlanTitleLabel: UILabel!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var pagecontrol: UIPageControl!
-    @IBOutlet weak var offersButton: UIButton!
-    @IBOutlet weak var statsButton: UIButton!
+    @IBOutlet weak var toolBarView  : UIView!
+    @IBOutlet weak var tblView      : UITableView!
+    @IBOutlet weak var contentVwHt  : NSLayoutConstraint!
+    @IBOutlet weak var tblHt        : NSLayoutConstraint!
+
+    @IBOutlet weak var offersButton : UIButton!
+    @IBOutlet weak var statsButton  : UIButton!
+    @IBOutlet weak var spendButton  : UIButton!
+    @IBOutlet weak var planButton   : UIButton!
+
+    @IBOutlet weak var groupMembersLabel    : UILabel!
+    @IBOutlet weak var savingPlanTitleLabel : UILabel!
+    @IBOutlet weak var horizontalScrollView : UIScrollView!
+    @IBOutlet weak var pageControl          : UIPageControl!
+    @IBOutlet weak var pagecontrol          : UIPageControl!
     
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
-    var participantsArr : Array<Dictionary<String,AnyObject>> = []
-    var  pieChartSliceArray: Array<Piechart.Slice> = []
-    var chartValues : Array<Dictionary<String,AnyObject>> = [];
-    var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
-    var statViewDetailsDict : Dictionary<String,AnyObject> =  [:]
-    var piechart : Piechart?
-    var planTitle = ""
-    var totalAmount : Int = 0
-    var paidAmount : Float = 0.0
-    var ht:CGFloat = 0.0
-    var timeSince = [0]
-    var dateDiff = 0
-    let spinner =  UIActivityIndicatorView()
-    var objAnimView = ImageViewAnimation()
+
+    
+    var wishListArray           : Array<Dictionary<String,AnyObject>> = []
+    var participantsArr         : Array<Dictionary<String,AnyObject>> = []
+    var pieChartSliceArray      : Array<Piechart.Slice> = []
+    var chartValues             : Array<Dictionary<String,AnyObject>> = [];
+    var savingPlanDetailsDict   : Dictionary<String,AnyObject> =  [:]
+    var statViewDetailsDict     : Dictionary<String,AnyObject> =  [:]
+    
+    var piechart    : Piechart?
+    var totalAmount : Int   = 0
+    var paidAmount  : Float = 0.0
+
+    
+    var planTitle   = ""
+    var dateDiff    = 0
+    var callAPI     = 0
+    var ht:CGFloat  = 0.0
+    var timeSince   = [0]
+
     var planEnddate = Date()
-    let btnName = UIButton()
+    let btnName     = UIButton()
+    var objAnimView = ImageViewAnimation()
+    let spinner     = UIActivityIndicatorView()
+
+    
     let chartColors = [
         UIColor(red:237/255,green:182/255,blue:242/255,alpha:1),
         UIColor(red:181/255,green:235/255,blue:157/255,alpha:1),
@@ -93,7 +105,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     //MARK: ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), for: UIControlState())
@@ -103,18 +115,33 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         self.setUPNavigation()
         //Register UIApplication Will Enter Foreground Notification
         NotificationCenter.default.addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        
         //Create obj of ImageViewAnimation to show user while  uploading/downloading something
         objAnimView = (Bundle.main.loadNibNamed("ImageViewAnimation", owner: self, options: nil)![0] as! ImageViewAnimation)
         objAnimView.frame = self.view.frame
         objAnimView.animate()
         self.view.addSubview(objAnimView)
         
+    }
+ 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        callGetSavingPlan()
+    }
+    
+//    FIXME:  Need to check the GETSavingPlanDelegate and Progress Circul
+    
+    func callGetSavingPlan(){
+    
         //Create object of API class to call the GETSavingPlanDelegate methods.
         let objAPI = API()
         
-        let groupFlag = userDefaults.value(forKey: kGroupPlan) as! NSNumber
-        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan) as! NSNumber
-        if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
+        let groupFlag       = userDefaults.value(forKey: kGroupPlan)        as! NSNumber
+        let groupMemberFlag = userDefaults.value(forKey: kGroupMemberPlan)  as! NSNumber
+        
+        if let usersPlan   = userDefaults.value(forKey: kUsersPlan) as? String
         {
             if(groupFlag == 1 && usersPlan == "G")
             {
@@ -126,23 +153,23 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 objAPI.getSavingPlanDelegate = self
                 objAPI.getUsersSavingPlan("gm")
             }
-
         }
         else {
-        if(groupFlag == 1 )
-        {
-            objAPI.getSavingPlanDelegate = self
-            objAPI.getUsersSavingPlan("g")
-        }
-        else if(groupMemberFlag == 1)
-        {
-            objAPI.getSavingPlanDelegate = self
-            objAPI.getUsersSavingPlan("gm")
-        }
+            if(groupFlag == 1 )
+            {
+                objAPI.getSavingPlanDelegate = self
+                objAPI.getUsersSavingPlan("g")
+            }
+            else if(groupMemberFlag == 1)
+            {
+                objAPI.getSavingPlanDelegate = self
+                objAPI.getUsersSavingPlan("gm")
+            }
         }
         self.view.bringSubview(toFront: topButtonView)
+        
     }
- 
+    
     func setUPNavigation()
     {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
@@ -226,7 +253,6 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         {
             paidAmount = totalPaidAmount.floatValue
         }
-        
         
         _ = participantsArr[0]
         
@@ -573,6 +599,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         obj.savingPlanDict = statViewDetailsDict
         self.navigationController?.pushViewController(obj, animated: false)
     }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.main.bounds.size.width);
@@ -640,10 +667,49 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
     }
     
-    //MARK: TableView Delegate and Datasource methods
+    
+    
+    func impulseSavingButtonPressed(_ sender:UIButton)
+    {
+        let objImpulseSave = SAImpulseSavingViewController()
+        objImpulseSave.maxPrice = Float(totalAmount) / Float(participantsArr.count)
+        self.navigationController?.pushViewController(objImpulseSave, animated: true)
+    }
+    
+    //Check if dictionary contains NULL values
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for key:String in Array(dict.keys) {
+            let ob = dict[key]! as AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank as AnyObject
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr as AnyObject
+            }
+        }
+        return replaceDict
+    }
+    
+}
+
+//  MARK:- TableView Delegate and Datasource methods
+
+extension SAGroupProgressViewController : UITableViewDelegate, UITableViewDataSource{
+
     
     //This is UITableViewDataSource method used to return the number of sections in table view.
-    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int  {
+    @objc func numberOfSections(in tableView: UITableView) -> Int  {
         return 1;
     }
     
@@ -653,7 +719,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     //This is UITableViewDataSource method used to create custom cell from GroupProgressTableViewCell.
-    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cellId = "CellId"
         var cell: GroupProgressTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellId) as? GroupProgressTableViewCell
         
@@ -708,17 +774,17 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 let str = String(format: "£%.0f",paidAmount)
                 cell?.savedAmountLabel.text = str//String(format: "£%d",paidAmount)
                 cell?.saveProgress.angle = Double((paidAmount * 360)/Float(totalAmount))
-
+                
                 cell?.remainingAmountLabel.text = String(format: "£%.0f",(Float(totalAmount)/Float(participantsArr.count) ) - Float(paidAmount))
                 cell?.remainingProgress.angle = Double(((totalAmount - Int(paidAmount)) * 360)/Int(totalAmount))
-               
+                
             }
         }
             
         else  {
             cell?.savedAmountLabel.text = "£0"
             cell?.saveProgress.angle = 0
-        
+            
             if(savingPlanDetailsDict["payType"] as! String == kMonth)
             {
                 diff = (CGFloat(dateDiff)/168)/4
@@ -726,7 +792,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             }
             else
             {
-                 diff = (CGFloat(dateDiff)/168)
+                diff = (CGFloat(dateDiff)/168)
                 cell?.remainingAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
             }
             cell?.remainingProgress.angle = 360
@@ -745,14 +811,14 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             userDefaults.synchronize()
         }
         
- 
+        
         cell?.payTypeLabel.text = String(format: "per %@",savingPlanDetailsDict["payType"] as! String).lowercased()
         if(savingPlanDetailsDict["payType"] as! String == kMonth)
         {
-                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round((Float(totalAmount)/Float(participantsArr.count))))
+            cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round((Float(totalAmount)/Float(participantsArr.count))))
         }
         else {
-                   cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
+            cell?.cellTotalAmountLabel.text = String(format: "£%0.0f",round(CGFloat(totalAmount/participantsArr.count)/diff * diff))
         }
         
         let spinner =  UIActivityIndicatorView()
@@ -801,7 +867,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     //Used to expand the individual progress  of selected user
-    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ht = 0
         DispatchQueue.main.async{
             let selectedCell:GroupProgressTableViewCell? = tableView.cellForRow(at: indexPath)as? GroupProgressTableViewCell
@@ -835,13 +901,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     }
     
     //Used to collapse the individual progress  of selected user
-    func tableView(_ tableView: UITableView, didDeselectRowAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let selectedCell:GroupProgressTableViewCell? = tableView.cellForRow(at: indexPath)as? GroupProgressTableViewCell
         selectedCell?.topVwHt.constant = 50.0
         selectedCell?.topSpaceProfilePic.constant = -3
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if prevIndxArr.count > 0 {
             for i in 0 ..< prevIndxArr.count {
                 if prevIndxArr[i] == indexPath.row {
@@ -856,16 +922,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         return 50.0
     }
-    
-    func impulseSavingButtonPressed(_ sender:UIButton)
-    {
-        let objImpulseSave = SAImpulseSavingViewController()
-        objImpulseSave.maxPrice = Float(totalAmount) / Float(participantsArr.count)
-        self.navigationController?.pushViewController(objImpulseSave, animated: true)
-    }
-    
 
-    //PiechartDelegate methods
+}
+
+
+
+//MARK:-  PiechartDelegate methods
+
+extension SAGroupProgressViewController : PiechartDelegate {
+
     func setSubtitle(_ total: CGFloat, slice: Piechart.Slice) -> String {
         return "\(Int(slice.value / total * 100))% \(slice.text)"
     }
@@ -873,33 +938,13 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
     func setInfo(_ total: CGFloat, slice: Piechart.Slice) -> String {
         return "\(Int(slice.value))/\(Int(total))"
     }
-    
-    //Check if dictionary contains NULL values
-    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
-        var replaceDict: Dictionary<String,AnyObject> = dict
-        let blank = ""
-        //check each key's value
-        for key:String in Array(dict.keys) {
-            let ob = dict[key]! as AnyObject
-            //if value is Null or nil replace its value with blank
-            if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank as AnyObject
-            }
-            else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
-            }
-            else if (ob is Array<Dictionary<String,AnyObject>>) {
-                var newArr: Array<Dictionary<String,AnyObject>> = []
-                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
-                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
-                }
-                replaceDict[key] = newArr as AnyObject
-            }
-        }
-        return replaceDict
-    }
-    
-     //get users plan delegate methods
+
+}
+
+//  MARK:-  Delegate methods for GetUsersPlan
+
+extension SAGroupProgressViewController : GetUsersPlanDelegate{
+
     func successResponseForGetUsersPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         var memberTypeArray : Array<String> = []
         if let message = objResponse["message"] as? String
@@ -910,17 +955,16 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 savingPlanDetailsDict = self.checkNullDataFromDict(objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>)
                 print(objResponse)
                 userDefaults.removeObject(forKey: kSAVSITEURL)
-
-//                  newDict["PTY_SAVINGPLAN_ID"] = NSuserDefaultsUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
                 
-                 var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
+                //                  newDict["PTY_SAVINGPLAN_ID"] = NSuserDefaultsUserDefaults().valueForKey("PTY_SAVINGPLAN_ID") as! NSNumber
+                
+                var ptyDict = objResponse["partySavingPlan"] as! Dictionary<String,AnyObject>
                 userDefaults.set(ptyDict["partySavingPlanID"], forKey: kPTYSAVINGPLANID)
                 userDefaults.synchronize()
                 if objResponse["partySavingPlanMembers"] is NSNull
                 {
                     print(".................... Party savings plan null .....................")
-                }
-                else
+                }else
                 {
                     participantsArr = objResponse["partySavingPlanMembers"] as! Array<Dictionary<String,AnyObject>>
                 }
@@ -937,14 +981,15 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
                 if memberTypeArray.contains("Owner")
                 {
                     userDict["memberType"] = "Member" as AnyObject
-                }
-                else {
+                }else
+                {
                     userDict["memberType"] = "Owner" as AnyObject
                 }
+                
                 participantsArr.append(userDict)
                 participantsArr = participantsArr.reversed()
                 self.setUpView()
-
+                
                 self.tblView.reloadData()
             }
             else
@@ -970,14 +1015,19 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         }
         objAnimView.removeFromSuperview()
     }
-    
-    //MARK: GetWishlist Delegate method
+}
+
+//  MARK:- Delegate method for GetWishlist
+
+
+extension SAGroupProgressViewController : GetWishlistDelegate {
+
     func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
         let error = objResponse["error"] as? String
         if error != nil
         {
-//            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
-//            alert.show()
+            //            let alert = UIAlertView(title: "Alert", message: error, delegate: nil, cancelButtonTitle: "Ok")
+            //            alert.show()
         }
         else
         {
@@ -997,7 +1047,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             let dataSave = NSKeyedArchiver.archivedData(withRootObject: wishListArray)
             userDefaults.set(dataSave, forKey: "wishlistArray")
             userDefaults.synchronize()
-
+            
         }
         //        if let arr =  NSuserDefaultsUserDefaults().valueForKey("offerList") as? Array<Dictionary<String,AnyObject>>{
         //            if arr.count > 0{
@@ -1005,6 +1055,7 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
         //            }
         //        }
     }
+    
     //function invoke when GetWishlist API request fail
     func errorResponseForGetWishlistAPI(_ error: String) {
         objAnimView.removeFromSuperview()
@@ -1014,5 +1065,5 @@ class SAGroupProgressViewController: UIViewController,PiechartDelegate,GetUsersP
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
     }
-    
+
 }

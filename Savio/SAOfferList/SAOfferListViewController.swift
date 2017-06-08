@@ -269,9 +269,11 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
         var usersPlanFlag = ""
         if let usersPlan = userDefaults.value(forKey: kUsersPlan) as? String
         {
+            
+            
             usersPlanFlag = usersPlan
             //As per flag show the progress view of plan
-             vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+            vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
             if individualFlag == 1 && usersPlanFlag == "I"{
                 for var obj in (self.navigationController?.viewControllers)!{
                     if obj.isKind(of: SAProgressViewController.self) {
@@ -298,7 +300,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             //As per flag show the progress view of plan
             
             if individualFlag == 1{
-                 vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
+                vw = SAProgressViewController(nibName: "SAProgressViewController", bundle: nil)
                 for var obj in (self.navigationController?.viewControllers)!{
                     if obj.isKind(of: SAProgressViewController.self) {
                         isAvailble = true
@@ -309,7 +311,7 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
             }
             else
             {
-                 vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
+                vw = SAGroupProgressViewController(nibName: "SAGroupProgressViewController", bundle: nil)
                 for var obj in (self.navigationController?.viewControllers)!{
                     if obj.isKind(of: SAGroupProgressViewController.self) {
                         isAvailble = true
@@ -318,13 +320,12 @@ class SAOfferListViewController: UIViewController,GetOfferlistDelegate{
                     }
                 }
             }
+            
         }
-       
         if isAvailble {
             self.navigationController?.popToViewController(vw, animated: false)
         }
         else{
-            
             self.navigationController?.pushViewController(vw, animated: false)
         }
     }

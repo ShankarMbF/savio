@@ -37,7 +37,7 @@ protocol RegistrationViewErrorDelegate {
     
 }
 
-class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDelegate,PostCodeVerificationDelegate,ImportantInformationViewDelegate,OTPSentDelegate,URLSessionDelegate {
+class SARegistrationScreenSecondViewController: UIViewController, UITextFieldDelegate,PostCodeVerificationDelegate, ImportantInformationViewDelegate,URLSessionDelegate {
     
     @IBOutlet weak var registerScrollViewSecond: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -371,7 +371,7 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
                                 }
                                 else {
                                     let respoDict = self.checkNullDataFromDict(dict["content"]! as! Dictionary<String,AnyObject>)
-                                     self.termAndConditionText = respoDict["content"] as! String
+                                     self.termAndConditionText = respoDict["content"] as? String
                                     self.objAnimView.removeFromSuperview()
                                     self.objimpInfo = Bundle.main.loadNibNamed("ImportantInformationView", owner: self, options: nil)![0] as! ImportantInformationView
                                     self.objimpInfo.lblHeader.text = "Terms and Conditions"
@@ -402,6 +402,8 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
             dataTask.resume()
         }
         else {
+            objAnimView.removeFromSuperview()
+            AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }
     }
     
@@ -623,21 +625,6 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         }
     }
     
-    //OTP Verification Delegate Method
-    func successResponseForOTPSentAPI(_ objResponse:Dictionary<String,AnyObject>)
-    {
-        objAnimView.removeFromSuperview()
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-        fiveDigitVerificationViewController.isComingFromRegistration = true
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-    }
-    func errorResponseForOTPSentAPI(_ error:String){
-        objAnimView.removeFromSuperview()
-        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
-        fiveDigitVerificationViewController.isComingFromRegistration = true
-        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         let arr = self.view.subviews
@@ -675,10 +662,27 @@ class SARegistrationScreenSecondViewController: UIViewController,UITextFieldDele
         return replaceDict
     }
 
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-
-    }
 }
+
+//  MARK:- Delegate Method for OTP Verification
+
+
+extension SARegistrationScreenSecondViewController : OTPSentDelegate {
+
+    func successResponseForOTPSentAPI(_ objResponse:Dictionary<String,AnyObject>)
+    {
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+    }
+    
+    func errorResponseForOTPSentAPI(_ error:String){
+        objAnimView.removeFromSuperview()
+        let fiveDigitVerificationViewController = FiveDigitVerificationViewController(nibName:"FiveDigitVerificationViewController",bundle: nil)
+        fiveDigitVerificationViewController.isComingFromRegistration = true
+        self.navigationController?.pushViewController(fiveDigitVerificationViewController, animated: true)
+    }
+
+}
+

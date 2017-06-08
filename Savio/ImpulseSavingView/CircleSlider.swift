@@ -63,6 +63,7 @@ open class CircleSlider: UIControl {
             }
         }
     }
+    
     // Options
     fileprivate var startAngle: Double = -90
     fileprivate var barColor           = UIColor.lightGray

@@ -32,8 +32,8 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlistDelegate {
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+class SAProgressViewController: UIViewController {
+    
     
     @IBOutlet weak var calculationLabel     : UILabel!
     @IBOutlet weak var percentageLabel      : UILabel!
@@ -50,11 +50,13 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     @IBOutlet weak var spendButton              : UIButton!
     
     var planTitle   = ""
-    let spinner     = UIActivityIndicatorView()
-    var objAnimView = ImageViewAnimation()
     let btnName     = UIButton()
+    var objAnimView = ImageViewAnimation()
+    let spinner     = UIActivityIndicatorView()
 
-    var savingPlanDetailsDict : Dictionary<String,AnyObject> =  [:]
+    var wishListArray           : Array<Dictionary<String,AnyObject>>   = []
+    var savingPlanDetailsDict   : Dictionary<String,AnyObject>          = [:]
+
     var totalAmount     : Float = 0.0
     var paidAmount      : Float = 0.0
     
@@ -69,13 +71,17 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         ProSetupView()
     }
     
+    
     func ProSetupView() {
+        
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
         planButton.backgroundColor = UIColor(red: 244/255,green:176/255,blue:58/255,alpha:1)
         spendButton.setImage(UIImage(named: "stats-spend-tab.png"), for: UIControlState())
         planButton.setImage(UIImage(named: "stats-plan-tab-active.png"), for: UIControlState())
         offersButton.setImage(UIImage(named: "stats-offers-tab.png"), for: UIControlState())
+        
         self.setUPNavigation()
+        
         //Register UIApplication Will Enter Foreground Notification
         NotificationCenter.default.addObserver(self, selector:#selector(SACreateSavingPlanViewController.callWishListAPI), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
@@ -308,13 +314,15 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
                 labelTwo.isHidden = false
                 labelTwo.numberOfLines = 0
                 labelTwo.lineBreakMode = .byWordWrapping
-                labelTwo.attributedText = self.createXLabelText(0, text: String(format: "%0.f added",paidAmount))//String(format: "£%0.f added",paidAmount)
+                labelTwo.attributedText = self.createXLabelText(0, text: String(format: "%0.f added",paidAmount))
+                //String(format: "£%0.f added",paidAmount)
                 imgView.isHidden = true
                 activityIndicator.isHidden = true
             }
             else {
                 labelOne.isHidden = false
-                labelOne.attributedText = self.createXLabelTextForLast(i, text: String(format: "%0.f",totalAmount - paidAmount))//String(format: "£%0.f",totalAmount - paidAmount)
+                labelOne.attributedText = self.createXLabelTextForLast(i, text: String(format: "%0.f",totalAmount - paidAmount))
+                //String(format: "£%0.f",totalAmount - paidAmount)
                 labelTwo.isHidden = false
                 
                 let dateFormatter = DateFormatter()
@@ -530,7 +538,39 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         self.navigationController?.pushViewController(objImpulseSave, animated: true)
     }
     
-    //get users plan delegate methods
+    
+    //function checking any key is null and return not null values in dictionary
+    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
+        var replaceDict: Dictionary<String,AnyObject> = dict
+        let blank = ""
+        //check each key's value
+        for key:String in Array(dict.keys) {
+            let ob = dict[key]! as? AnyObject
+            //if value is Null or nil replace its value with blank
+            if (ob is NSNull)  || ob == nil {
+                replaceDict[key] = blank as AnyObject
+            }
+            else if (ob is Dictionary<String,AnyObject>) {
+                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
+            }
+            else if (ob is Array<Dictionary<String,AnyObject>>) {
+                var newArr: Array<Dictionary<String,AnyObject>> = []
+                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
+                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
+                }
+                replaceDict[key] = newArr as AnyObject
+            }
+        }
+        return replaceDict
+    }
+    
+    
+}
+
+
+// MARK:-   Delegate methods for GetUsersPlanDelegate
+extension SAProgressViewController : GetUsersPlanDelegate {
+
     func successResponseForGetUsersPlanAPI(_ objResponse: Dictionary<String, AnyObject>) {
         print(objResponse)
         if let message = objResponse["message"] as? String
@@ -557,11 +597,16 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
     func errorResponseForGetUsersPlanAPI(_ error: String) {
         if error == kNonetworkfound {
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
-        }else{
+        }
+        else {
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
         objAnimView.removeFromSuperview()
     }
+    
+}
+
+extension SAProgressViewController : GetWishlistDelegate {
     
     //MARK: GetWishlist Delegate method
     func successResponseForGetWishlistAPI(_ objResponse: Dictionary<String, AnyObject>) {
@@ -605,31 +650,5 @@ class SAProgressViewController: UIViewController,GetUsersPlanDelegate,GetWishlis
         }
         
     }
-    
-    //function checking any key is null and return not null values in dictionary
-    func checkNullDataFromDict(_ dict:Dictionary<String,AnyObject>) -> Dictionary<String,AnyObject> {
-        var replaceDict: Dictionary<String,AnyObject> = dict
-        let blank = ""
-        //check each key's value
-        for key:String in Array(dict.keys) {
-            let ob = dict[key]! as? AnyObject
-            //if value is Null or nil replace its value with blank
-            if (ob is NSNull)  || ob == nil {
-                replaceDict[key] = blank as AnyObject
-            }
-            else if (ob is Dictionary<String,AnyObject>) {
-                replaceDict[key] = self.checkNullDataFromDict(ob as! Dictionary<String,AnyObject>) as AnyObject
-            }
-            else if (ob is Array<Dictionary<String,AnyObject>>) {
-                var newArr: Array<Dictionary<String,AnyObject>> = []
-                for arrObj:Dictionary<String,AnyObject> in ob as! Array {
-                    newArr.append(self.checkNullDataFromDict(arrObj as Dictionary<String,AnyObject>))
-                }
-                replaceDict[key] = newArr as AnyObject
-            }
-        }
-        return replaceDict
-    }
-    
     
 }

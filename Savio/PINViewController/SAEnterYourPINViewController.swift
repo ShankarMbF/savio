@@ -7,36 +7,12 @@
 //
 
 import UIKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelegate,UIScrollViewDelegate {
+    
     @IBOutlet weak var btnVwBg: UIView!
     @IBOutlet weak var pinTextFieldsContainerView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet var toolBar: UIToolbar!
     @IBOutlet weak var passcodeDoesNotMatchLabel: UILabel!
     @IBOutlet weak var btnForgottPasscode: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
@@ -52,6 +28,8 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
     @IBOutlet weak var enterYourPasscodeLabel: UILabel!
     @IBOutlet weak var registerButtonBackgroundView: UIView!
     @IBOutlet weak var scrlView: UIScrollView!
+    @IBOutlet var toolBar: UIToolbar!
+
     
     var lastOffset: CGPoint = CGPoint.zero
     var activeTextField = UITextField()
@@ -101,6 +79,8 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        textFieldOne.isUserInteractionEnabled = true
         textFieldOne.text = ""
         textFieldTwo.text = ""
         textFieldThree.text = ""
@@ -471,7 +451,7 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
                 tag -= 1
                 if tag >= 0 {
                     let tfPre = arrayTextFields[tag]
-                    if tfPre.text?.characters.count > 0 {
+                    if (tfPre.text?.characters.count)! > 0 {
                         tfPre.becomeFirstResponder()
                         break
                     }
@@ -482,6 +462,7 @@ class SAEnterYourPINViewController: UIViewController,OTPSentDelegate,LogInDelega
     }
     
     @IBAction func bgViewTapped(_ sender: AnyObject) {
+        
         textFieldOne.resignFirstResponder()
         textFieldTwo.resignFirstResponder()
         textFieldThree.resignFirstResponder()

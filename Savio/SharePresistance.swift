@@ -23,4 +23,5 @@ class SharePresistance: NSObject {
 //    button single Action 
 //            let button = UIButton()
 //            button.exclusiveTouch = true
+
 }

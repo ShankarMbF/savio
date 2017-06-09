@@ -350,8 +350,7 @@ class SACreateSavingPlanViewController: UIViewController {
                     if(objDict[kAmount] is String)
                     {
                         lblCost.text = objDict[kAmount] as? String
-                    }
-                    else
+                    } else
                     {
                         lblCost.text = String(format: "%d", (objDict[kAmount] as! NSNumber).int32Value)
                     }
@@ -404,9 +403,7 @@ class SACreateSavingPlanViewController: UIViewController {
                     // Add the test view as a subview to the scrollview.
                     scrlView!.addSubview(testView)
                 }
-                
             }
-            
         }
         else {
             
@@ -416,6 +413,7 @@ class SACreateSavingPlanViewController: UIViewController {
             
             scrlView!.contentSize = CGSize(width: UIScreen.main.bounds.size.width , height: 0)
             let testView = Bundle.main.loadNibNamed("SavingPageView", owner: self, options: nil)![0] as! UIView
+            
             // Set its frame and data to pageview
             testView.frame = CGRect(x: scrlView!.bounds.origin.x, y: 0, width: scrlView!.frame.size.width, height: scrlView!.frame.size.height)
             let vw = testView.viewWithTag(2)! as UIView
@@ -444,8 +442,6 @@ class SACreateSavingPlanViewController: UIViewController {
             scrlView!.addSubview(testView)
             //---------------------------------------------------------------------------------------
         }
-        
-        
     }
     
     
@@ -680,10 +676,9 @@ extension SACreateSavingPlanViewController : GetWishlistDelegate {
         objAnimView.removeFromSuperview()
         if error == kNonetworkfound {
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
-        }else{
+        } else {
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kTimeOutNetworkMessage)
         }
-        
     }
 
 }
@@ -694,12 +689,15 @@ extension SACreateSavingPlanViewController : GetWishlistDelegate {
 extension SACreateSavingPlanViewController : GetOfferlistDelegate {
 
     func successResponseForGetOfferlistAPI(_ objResponse:Dictionary<String,AnyObject>){
-        var offerArr:Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
-        var arr: Array<Dictionary<String,AnyObject>> = []
+        
+        var offerArr : Array<Dictionary<String,AnyObject>> = objResponse["offerList"] as! Array<Dictionary<String,AnyObject>>
+        var arr : Array<Dictionary<String,AnyObject>> = []
+        
         for i in 0 ..< offerArr.count {
             let dict = self.checkNullDataFromDict(offerArr[i] as Dictionary<String,AnyObject>)
             arr.append(dict)
         }
+        
         userDefaults.set(arr, forKey: "offerList")
         userDefaults.synchronize()
         objAnimView.removeFromSuperview()

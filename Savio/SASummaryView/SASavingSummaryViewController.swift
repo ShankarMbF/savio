@@ -34,35 +34,35 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class SASavingSummaryViewController: UIViewController {
     //Set up IBoutlets
-    // BackgroundView of Continue button
-    @IBOutlet weak var continueButtonBackgroundView: UIView!
-    // Set up top space dynamicaly
-    @IBOutlet weak var topSpaceContonueView: NSLayoutConstraint!
-    @IBOutlet weak var vwUpper : UIView?  // View to show Plan's image and description
-    @IBOutlet weak var vwCongrats : UIView?
-    @IBOutlet weak var vwScrContent : UIView?
-    @IBOutlet weak var vwSummary : UIView?     // View for showing summary of plan
-    @IBOutlet weak var vwOffer : UIView?       // View for showing offer's list
-    @IBOutlet weak var vwOfferSubView : UIView?
-    @IBOutlet weak var scrlVw : UIScrollView?    //IBOutlet for scrollview
-    @IBOutlet weak var lblOffer : UILabel?       // IBOutlet for Lable on offer list
-    @IBOutlet weak var btnContinue : UIButton?    //IBOutlet for continue button
     
-    @IBOutlet weak var lblNextDebit: UILabel!
-    @IBOutlet weak var htOfferView: NSLayoutConstraint!    // IBOutlet to assign height of offerView
-    @IBOutlet weak var htContentView: NSLayoutConstraint!  // IBoutlet to assign height for contentview as per present subViews
-    @IBOutlet weak var topSpaceForContinue: NSLayoutConstraint! // IBOutlet for assigning top space of continue button
+
+    @IBOutlet weak var topSpaceContonueView : NSLayoutConstraint!       // Set up top space dynamicaly
+    @IBOutlet weak var htOfferView          : NSLayoutConstraint!       // IBOutlet to assign height of offerView
+    @IBOutlet weak var htContentView        : NSLayoutConstraint!       // assign height for contentview as per present subViews
+    @IBOutlet weak var topSpaceForContinue  : NSLayoutConstraint!       // IBOutlet for assigning top space of continue button
     
-    @IBOutlet weak var topBgImageView: UIImageView!    //IBOutlet for showing Plan image
+    @IBOutlet weak var topBgImageView       : UIImageView!              // IBOutlet for showing Plan image
     
-    @IBOutlet weak var lblTitle: UILabel!               //IBOutlet for seeting plan titel
+    @IBOutlet weak var lblMonth             : UILabel!
+    @IBOutlet weak var lblDate              : UILabel!
+    @IBOutlet weak var lblPrice             : UILabel!
+    @IBOutlet weak var lblNextDebit         : UILabel!
+    @IBOutlet weak var lblOffer             : UILabel?                  // IBOutlet for Lable on offer list
+    @IBOutlet weak var lblTitle             : UILabel!                  // IBOutlet for seeting plan titel
+    @IBOutlet weak var paymentLastDate      : UILabel!                  // IBOutlet for showing Last EMI date
+
+    @IBOutlet weak var scrlVw                   : UIScrollView?         // IBOutlet for scrollview
+    @IBOutlet weak var btnContinue              : UIButton?             // IBOutlet for continue button
     
-    @IBOutlet weak var paymentLastDate: UILabel!        //IBOutlet for showing Last EMI date
-    
-    @IBOutlet weak var superContainerView: UIView!
-    @IBOutlet weak var lblMonth: UILabel!
-    @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var continueButtonBackgroundView : UIView!           // BackgroundView of Continue button
+    @IBOutlet weak var vwUpper                      : UIView?           // View to show Plan's image and description
+    @IBOutlet weak var vwCongrats                   : UIView?
+    @IBOutlet weak var vwScrContent                 : UIView?
+    @IBOutlet weak var vwSummary                    : UIView?           // View for showing summary of plan
+    @IBOutlet weak var vwOffer                      : UIView?           // View for showing offer's list
+    @IBOutlet weak var vwOfferSubView               : UIView?
+    @IBOutlet weak var superContainerView           : UIView!
+
     
     
     //-----------Setup IBOutlet to showing Invite user Name and contacts--------
@@ -91,14 +91,12 @@ class SASavingSummaryViewController: UIViewController {
     
     @IBOutlet weak var htDescriptionContentView: NSLayoutConstraint! // Set up hieght of plan's summary as per present subview
     
-    var indexId : Int = 0  // Variable for showing wishlist count
-    var colorDataDict : Dictionary<String,AnyObject> = [:]
+    var indexId         : Int = 0  // Variable for showing wishlist count
+    var colorDataDict   : Dictionary<String,AnyObject> = [:]
+    var itemDataDict    : Dictionary<String,AnyObject> = [:]
     
-    var itemDataDict : Dictionary<String,AnyObject> = [:]
-    
-    var offersArray : Array<Dictionary<String,AnyObject>> = []
-    
-    var wishListArray : Array<Dictionary<String,AnyObject>> = []
+    var offersArray     : Array<Dictionary<String,AnyObject>> = []
+    var wishListArray   : Array<Dictionary<String,AnyObject>> = []
     
     @IBOutlet weak var summaryViewHt: NSLayoutConstraint!  // Setup height of summary as per count of invited user
     var isUpdatePlan = false
@@ -108,32 +106,31 @@ class SASavingSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView() // Setup summary UI
+/*
+        Customize View's titel
+        self.navigationController?.viewControllers = [self];
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.translucent = true
+*/
         
-        //Customize View's titel
-//        self.navigationController?.viewControllers = [self];
         self.navigationController?.isNavigationBarHidden = true
-//        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
-//        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-//        self.navigationController?.navigationBar.translucent = true
         self.navigationController!.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kMediumFont, size: 16)!]
-    }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+
     
     // Function invoke on tapping continue button
     @IBAction func btnContinueClicked(_ sender: AnyObject) {
-        // Navigate app as per plan type
+        //  Navigate app as per plan type
         print("click event")
-        //Navigate to showing individual/group progress screen
+        //  Navigate to showing individual/group progress screen
         NotificationCenter.default.post(name: Notification.Name(rawValue: kSelectRowIdentifier), object: "SAProgressViewController")
         NotificationCenter.default.post(name: Notification.Name(rawValue: kNotificationAddCentreView), object: "SAProgressViewController")
         
     }
     
-    //Function invoking for set up UI as per the individual or group plan
+    //  Function invoking for set up UI as per the individual or group plan
     func setUpView(){
         userDefaults.removeObject(forKey: "offerList")
         userDefaults.synchronize()

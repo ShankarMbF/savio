@@ -1012,72 +1012,13 @@ class API: UIView,URLSessionDelegate {
         }
         
     }
-    
-    //    func termAndCondition()
-    //    {
-    //
-    //        let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
-    //        let partyID = "956"
-    //
-    //        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-    //        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-    //
-    //        //Check if network is present
-    //        if(self.isConnectedToNetwork())
-    //        {
-    ////            urlconfig.timeoutIntervalForRequest = 30
-    ////            urlconfig.timeoutIntervalForResource = 30
-    //            self.setTimeOutRequest(30)
-    //
-    //            let session = NSURLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-    //
-    //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/Content/9",baseURL))!)
-    //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
-    //
-    //            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-    //                if let data = data
-    //                {
-    //                    print(response?.description)
-    //                    let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
-    //                    if let dict = json as? Dictionary<String,AnyObject>
-    //                    {
-    //                        print(dict)
-    //                        dispatch_async(dispatch_get_main_queue())
-    //                        {
-    //                        }
-    //                    }
-    //                    else {
-    //                        dispatch_async(dispatch_get_main_queue()){
-    //                        }
-    //                    }
-    //                }
-    //                else  if let error = error  {
-    //                    dispatch_async(dispatch_get_main_queue()){
-    //                    }
-    //
-    //                }
-    //
-    //            }
-    //            dataTask.resume()
-    //        }
-    //        else {
-    //            self.getofferlistDelegate?.errorResponseForGetOfferlistAPI(kNonetworkfound)
-    //        }
-    //
-    //    }
-    //MARK: Offer list
+
+//    MARK:- Offer list - getOfferListForSavingId
     
     func getOfferListForSavingId()
     {
         let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
-        //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
-        
-        //        let cookie = userInfoDict["cookie"] as! String
-        //        let partyID = userInfoDict["partyId"] as! NSNumber
-        //
-        //        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        //        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        
+
         //Check if network is present
         if(self.isConnectedToNetwork())
         {
@@ -1086,8 +1027,6 @@ class API: UIView,URLSessionDelegate {
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/referencedata/offers",baseURL))!)
-            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             let request = createRequest(URL(string: String(format:"%@/referencedata/offers",baseURL))!, method: "GET", paramDict: [:], userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
@@ -1185,6 +1124,7 @@ class API: UIView,URLSessionDelegate {
     func updateSavingPlan(_ dict:Dictionary<String,AnyObject>)
     {
         let userInfoDict = UserDefaults.standard.object(forKey: kUserInfo) as! Dictionary<String,AnyObject>
+        
         //        let userInfoDict = self.getValueFromKeychainOfKey("userInfo") as! Dictionary<String,AnyObject>
         
         //        let cookie = userInfoDict["cookie"] as! String
@@ -1668,6 +1608,7 @@ class API: UIView,URLSessionDelegate {
         let defaults: UserDefaults = UserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.value(forKey: kUserInfo) as! Data
         let userInfoDict = NSKeyedUnarchiver.unarchiveObject(with: data) as! Dictionary<String,AnyObject>
+        
         //        let cookie = userInfoDict["cookie"] as! String
         //        let partyID = userInfoDict["partyId"] as! NSNumber
         //
@@ -1682,13 +1623,6 @@ class API: UIView,URLSessionDelegate {
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
             
-            //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
-            //            request.HTTPMethod = "POST"
-            //
-            //            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dictParam, options: [])
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             let request = createRequest(URL(string: String(format:"%@/card",baseURL))!, method: "POST", paramDict: dictParam, userInforDict: userInfoDict, isAuth: true)
             
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
@@ -1877,7 +1811,7 @@ class API: UIView,URLSessionDelegate {
         }
     }
     
-    //MARK : ImpulseSaving
+    //MARK :- ImpulseSaving
     func impulseSaving(_ dictParam:Dictionary<String,AnyObject>)
     {
         print(dictParam)
@@ -1924,17 +1858,12 @@ class API: UIView,URLSessionDelegate {
     }
     
     
-    //MARK: Delete item from wishlist
+    //MARK:- Delete item from wishlist
     func removeCarde(_ dict:Dictionary<String,AnyObject>)
     {
         let defaults: UserDefaults = UserDefaults(suiteName: "group.savio.web.share.extention")!
         let data = defaults.value(forKey: kUserInfo) as! Data
         let userInfoDict = NSKeyedUnarchiver.unarchiveObject(with: data) as! Dictionary<String,AnyObject>
-        //        let cookie = userInfoDict["cookie"] as! String
-        //        let partyID = userInfoDict["partyId"] as! NSNumber
-        //
-        //        let utf8str = String(format: "%@:%@",partyID,cookie).dataUsingEncoding(NSUTF8StringEncoding)
-        //        let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         
         //Check if network is present
         if(self.isConnectedToNetwork())
@@ -1943,13 +1872,6 @@ class API: UIView,URLSessionDelegate {
             self.setTimeOutRequest(30)
             
             let session = URLSession(configuration: urlconfig, delegate: self, delegateQueue: nil)
-            
-            //            let request = NSMutableURLRequest(URL: NSURL(string: String(format:"%@/card",baseURL))!)
-            //            request.HTTPMethod = "DELETE"
-            //            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(dict, options: [])
-            //            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            //            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            //            request.addValue(String(format: "Basic %@",base64Encoded!), forHTTPHeaderField: "Authorization")
             
             let request = createRequest(URL(string: String(format:"%@/card",baseURL))!, method: "DELETE", paramDict: dict, userInforDict: userInfoDict, isAuth: true)
             
@@ -1982,6 +1904,7 @@ class API: UIView,URLSessionDelegate {
             self.removeCardDelegate?.errorResponseForRemoveCardAPI(kNonetworkfound)
         }
     }
+    
     
     func getAffiliateID(_ dict : Dictionary<String,AnyObject>) {
         print(dict)
@@ -2018,7 +1941,6 @@ class API: UIView,URLSessionDelegate {
                     }
                 }
             })
-            
             dataTask.resume()
         }
     }
@@ -2038,7 +1960,7 @@ class API: UIView,URLSessionDelegate {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
         }
-        if isAuth{
+        if isAuth {
             let cookie = userInforDict["cookie"] as! String
             let partyID = userInforDict["partyId"] as! NSNumber
             print("Cookies === \(cookie) and party ID is \(partyID)")

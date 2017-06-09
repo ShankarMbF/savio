@@ -1206,8 +1206,6 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
 
                 self.isChangeSegment = false
 
-                
-                
             /*
                 let Identifire = self.tblView.dequeueReusableCellWithIdentifier("SavingPlanSetDateIdentifier") as! SetDayTableViewCell
                 let button = UIButton()
@@ -1947,12 +1945,12 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                     dict["payType"] = "Monthly" as AnyObject
                 }
                 
-                if offerArr.count>0{
+                if (offerArr.count > 0){
                     dict["offers"] = offerArr as AnyObject
                 }
                 dict["planType"] = "individual" as AnyObject
+                
                 let objAPI = API()
-                //                NSUserDefaults().setObject(self.checkNullDataFromDict(dict), forKey: "savingPlanDict")
                 objAPI.storeValueInKeychainForKey("savingPlanDict", value: self.checkNullDataFromDict(dict) as AnyObject)
                 
                 userDefaults.setValue(objResponse["partySavingPlanID"] as? NSNumber, forKey: kPTYSAVINGPLANID)
@@ -1961,18 +1959,16 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
                 
                 //                if let saveCardArray = objAPI.getValueFromKeychainOfKey("saveCardArray") as? Array<Dictionary<String,AnyObject>>
                 
-                if let saveCardArray = userDefaults.object(forKey: "saveCardArray")
-                {
-                    let objSavedCardView = SASaveCardViewController()
-                    objSavedCardView.isFromSavingPlan = true
-                    self.navigationController?.pushViewController(objSavedCardView, animated: true)
-                    
-                }else {
-                    //                    let objPaymentView = SAPaymentFlowViewController()
-                    //                    self.navigationController?.pushViewController(objPaymentView, animated: true)
+                guard let _ = userDefaults.object(forKey: "saveCardArray") else {
+                    print("-------------- Stripe SDK Call --------------")
                     self.StripeSDK()
-                    print("----------------------------")
+                    return
                 }
+                
+                let objSavedCardView = SASaveCardViewController()
+                objSavedCardView.isFromSavingPlan = true
+                self.navigationController?.pushViewController(objSavedCardView, animated: true)
+                
             }
             else {
                 AlertContoller(UITitle: nil, UIMessage: message)
@@ -1988,6 +1984,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     
     func errorResponseForPartySavingPlanAPI(_ error: String) {
         objAnimView.removeFromSuperview()
+        
         if error == kNonetworkfound {
             AlertContoller(UITitle: kConnectionProblemTitle, UIMessage: kNoNetworkMessage)
         }else{
@@ -1999,6 +1996,7 @@ class SASavingPlanViewController: UIViewController, UITableViewDelegate, UITable
     
     //MARK: Offer delegate methods
     func addedOffers(_ offerForSaveArr:Dictionary<String,AnyObject>) {
+        
         print(offerForSaveArr)
         offerArr.append(offerForSaveArr)
         if(isUpdatePlan) {

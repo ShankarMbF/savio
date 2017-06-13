@@ -87,9 +87,9 @@ class SAImpulseSavingViewController: UIViewController {
             circularView.layer.cornerRadius = circularView.frame.height / 2
             priceTextField.isHidden = true
             
-            if let _ = userDefaults.value(forKey: "ImpulseAmount") as? String
+            if let ImpulseAmount = userDefaults.value(forKey: "ImpulseAmount") as? String
             {
-               priceLabel.text = String(format:"£%@",(userDefaults.value(forKey: "ImpulseAmount") as? String)!)
+               priceLabel.text = String(format:"£%@",ImpulseAmount)
             }else {
                 priceLabel.text = "£0"
             }

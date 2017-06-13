@@ -43,7 +43,6 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     var isPressAlertYes         : Bool = false
     //    var isPressAlertYes: Bool = false
     
-    
     let kFirstName  : String = "first_name"
     let kSecondName : String = "second_name"
     let kAddress1   : String = "address_1"
@@ -57,8 +56,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     
     //    let kTitleAndNameMissingError : String = "We need to know your title and name"
     
-    
-    //MARK:- ViewController lifeCycle method.
+//    MARK:- ViewController lifeCycle method.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +85,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         
     }
     
-    //MARK:- User Defined Methods
+//    MARK:- User Defined Methods
     
     func setUPNavigation()
     {
@@ -324,7 +322,10 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                     }
                     else if(cell.tf?.placeholder == "Town")
                     {
+                        print("Before Value **** \(String(describing: userInfoDict[kTown]))")
                         cell.tf?.text = userInfoDict[kTown] as? String
+                        print(" After Value **** \(String(describing: userInfoDict[kTown]))")
+
                     }
                     else if(cell.tf?.placeholder == "County")
                     {
@@ -752,6 +753,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                         dictForTextFieldValue.removeValue(forKey: "errorTown")
                     }
                     dict = arrRegistration[14]as Dictionary<String,AnyObject>
+                    print(dict)
                     idx = 14
                 }
                 
@@ -962,6 +964,9 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         let lName = userInfoDict[kSecondName] as! String
         
         var param = userInfoDict as Dictionary<String,AnyObject>
+        
+        print("user Info Dict of Town \(userInfoDict[kTown])")
+        
         param[kTown] = userInfoDict[kTown]
         param[kFirstName] = fName.capitalized as AnyObject
         param[kSecondName] = lName.capitalized as AnyObject
@@ -992,6 +997,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         if (param[kCounty] as? String) != nil {
             param.removeValue(forKey: kCounty)
         }
+        
         if (param["stripeStatusCode"] as? String) != nil {
             param.removeValue(forKey: "stripeStatusCode")
         }
@@ -1004,6 +1010,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         param.removeValue(forKey: "partyStatus")
         param.removeValue(forKey: "partyGender")
         objAPI.updateUserInfoDelegate = self as? UpdateUserInfoDelegate
+        
         print(param)
         objAPI.updateUserInfo(param)
     }
@@ -1020,8 +1027,13 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                 
             }
             
+            
             if arrRegistrationFields[i].isKind(of: TxtFieldTableViewCell.self){
                 let cell = arrRegistrationFields[i] as! TxtFieldTableViewCell
+                
+                print("Cell === \(cell.tf?.text as AnyObject)")
+                print("Cell PlaseHolder === \(cell.tf?.placeholder as AnyObject)")
+
                 if cell.tf?.placeholder == kSurname{
                     dict[kSecondName] = cell.tf?.text as AnyObject
                 }
@@ -1034,14 +1046,17 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
                 if cell.tf?.placeholder == kThirdAddressLine{
                     dict[kAddress3] = cell.tf?.text as AnyObject
                 }
-                if cell.tf?.placeholder == kTown{
+                if cell.tf?.placeholder == "Town"{
                     dict[kTown] = cell.tf?.text as AnyObject
+                    print(cell.tf?.text as AnyObject)
+                    print(dict[kTown]!)
                 }
                 if cell.tf?.placeholder == kMobileNumber{
                     dict[kPhoneNumber] = cell.tf?.text as AnyObject
                 }
-                if cell.tf?.placeholder == kCounty{
+                if cell.tf?.placeholder == "County"{
                     dict[kCounty] = cell.tf?.text as AnyObject
+                    print(dict[kCounty]!)
                 }
                 if cell.tf?.placeholder == kEmail{
                     dict[kEmail] = cell.tf?.text as AnyObject
@@ -1081,6 +1096,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
     //Go to Payment screen
     
     /*
+     
      ["partyRole": 4, kTitle: Mr, "date_of_birth": 23/11/1998, kCounty:  London, kTown: <null>, "house_number": <null>, kSecondName: Labale, "partyStatus": ENABLE, kEmail: pavan@vsplc.com, "confirm_pin": <null>, "partyGender": <null>, kPostCode: se16at, kAddress2:  26 Arch Street, kFirstName: Pavan, "imageURL": <null>, "deviceRegistration": <__NSSingleObjectArrayI 0x60800020f8a0>(
      {
      COOKIE = "4ec3414a-19c1-439e-8136-90c852e613bc";
@@ -1091,7 +1107,9 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
      STATUS = ENABLE;
      }
      )
-     , kAddress3:  , "pass_code": 81dc9bdb52d04dc20036dbd8313ed055, kAddress1: Flat 11, "partyId": 1025, "phone_number": +441591591591, "stripeCustomerId": cus_9c8sDkhTRTzuPS, "stripeStatusCode": 01, "pin": 81dc9bdb52d04dc20036dbd8313ed055]*/
+     , kAddress3:  , "pass_code": 81dc9bdb52d04dc20036dbd8313ed055, kAddress1: Flat 11, "partyId": 1025, "phone_number": +441591591591, "stripeCustomerId": cus_9c8sDkhTRTzuPS, "stripeStatusCode": 01, "pin": 81dc9bdb52d04dc20036dbd8313ed055]
+     
+     */
     
     @IBAction func addProfilePictureButtonPressed(_ sender: AnyObject) {
         
@@ -1171,6 +1189,8 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         userBeforeEditInfoDict[kTown]       = userInfoDict[kTown] as! String as AnyObject
         userBeforeEditInfoDict[kCounty]     = userInfoDict[kCounty] as! String as AnyObject
         self.isInfoUpdated = false
+        
+        print("Actual value Before Edit \(String(describing: userBeforeEditInfoDict[kTown]))")
     }
     
     func navigateToPayment() {
@@ -1251,6 +1271,7 @@ class SAEditUserInfoViewController: UIViewController, UINavigationControllerDele
         let town = userBeforeEditInfoDict[kTown] as! String
         let country = userBeforeEditInfoDict[kCounty] as! String
         
+        print("Town value == \(town)")
         
         if titleSTr != (userInfoDict[kTitle] as! String){
             updateFlag = true
@@ -1416,7 +1437,13 @@ extension SAEditUserInfoViewController: TxtFieldTableViewCellDelegate {
             }
             else if(txtFldCell.tf?.placeholder == kTown)
             {
+                print("the Updated Value \(String(describing: txtFldCell.tf?.text))")
+                print("Before Value **** \(String(describing: userInfoDict[kTown]))")
+                
                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kTown)
+                
+                print("After Value **** \(String(describing: userInfoDict[kTown]))")
+
             }
             else if(txtFldCell.tf?.placeholder == kCounty)
             {
@@ -1430,6 +1457,7 @@ extension SAEditUserInfoViewController: TxtFieldTableViewCellDelegate {
             {
                 userInfoDict.updateValue((txtFldCell.tf?.text)! as AnyObject, forKey: kAddress3)
             }
+            print("After Value of Town **** \(String(describing: userInfoDict[kTown]))")
         }
         else {
             dictForTextFieldValue.removeValue(forKey: (txtFldCell.tf?.placeholder)!)
@@ -1452,7 +1480,11 @@ extension SAEditUserInfoViewController: TxtFieldTableViewCellDelegate {
             }
             else if(txtFldCell.tf?.placeholder == kTown)
             {
+                print("Before Value **** \(String(describing: userInfoDict[kTown]))")
+                print("the text value ----- \(text)")
                 userInfoDict.updateValue(text as AnyObject, forKey: kTown)
+                print("Before Value **** \(String(describing: userInfoDict[kTown]))")
+
             }
             else if(txtFldCell.tf?.placeholder == kCounty)
             {

@@ -337,13 +337,15 @@ class SARegistrationScreenSecondViewController: UIViewController, UITextFieldDel
     }
     
     func callTermAndConditionAPI(_ flag:Bool) {
+        
         let objAPI = API()
         let cookie = "e4913375-0c5e-4839-97eb-e9dde4a5c7ff"
         let partyID = "956"
         
         let utf8str = String(format: "%@:%@",partyID,cookie).data(using: String.Encoding.utf8)
-        let base64Encoded = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        _ = utf8str?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         let urlconfig = URLSessionConfiguration.default
+        
         //Check if network is present
         if(objAPI.isConnectedToNetwork())
         {
@@ -393,7 +395,7 @@ class SARegistrationScreenSecondViewController: UIViewController, UITextFieldDel
                         }
                     }
                 }
-                else  if let error = error  {
+                else  if let _ = error  {
                     DispatchQueue.main.async{
                     }
                     

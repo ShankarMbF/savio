@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-Savio.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SavioWishList.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Stripe-Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>6B903158A8A3D0790EB589BD06BD82D0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85375C87FF46A77470FF8C490156A66C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>964D846BDB45D9B5B8705135B2424925</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BE838FFC0E62273FAEF5C1A11047F1EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

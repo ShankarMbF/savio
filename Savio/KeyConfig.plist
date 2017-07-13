@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AUTHY_API_KEY_LIVE</key>
+	<string>Ppia3IHl0frDIgr711SlZWUBlpWdNfDs</string>
+	<key>AUTHY_API_KEY_SANDBOX</key>
+	<string>bcdfb7ce5e6854dcfe65ce5dd0d568c7</string>
+	<key>STRIPE_PUBLISHABLE_KEY</key>
+	<string>pk_test_dfQyZuLy5OiRc24IspyuEhdD</string>
+</dict>
+</plist>

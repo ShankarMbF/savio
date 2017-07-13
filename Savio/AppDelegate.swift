@@ -35,8 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Stripe.setDefaultPublishableKey(objApi.valueForAPIKey(named: kSTRIPEPUBLISHABLEKEY))
         Fabric.with([Crashlytics.self])
         Fabric.with([STPAPIClient.self])
-        
-        STPPaymentConfiguration.shared().smsAutofillDisabled = true
+       
+//        STPPaymentConfiguration.shared().smsAutofillDisabled = true
         
         let notificationTypes: UIUserNotificationType = [.badge, .sound, .alert]
         let pushNotificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
